@@ -1,0 +1,166 @@
+//
+//  XPNodeSetValue.m
+//  Exedore
+//
+//  Created by Todd Ditchendorf on 7/14/09.
+//  Copyright 2009 Todd Ditchendorf. All rights reserved.
+//
+
+#import "XPNodeSetValue.h"
+#import <Exedore/XPBooleanValue.h>
+#import <Exedore/XPNumericValue.h>
+#import <Exedore/XPStringValue.h>
+#import <Exedore/XPObjectValue.h>
+#import <Exedore/XPNodeEnumerator.h>
+#import <Exedore/XPSingletonNodeSet.h>
+
+@interface XPNodeSetValue ()
+@property (nonatomic, retain) NSDictionary *stringValues;
+@end
+
+@implementation XPNodeSetValue
+
+- (void)dealloc {
+    self.stringValues = nil;
+    [super dealloc];
+}
+
+
+- (NSInteger)dataType {
+    return XPDataTypeNodeSet;
+}
+
+
+- (XPValue *)evaluateInContext:(XPContext *)ctx {
+    [self sort];
+    return self;
+}
+
+
+- (XPNodeSetValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
+    [self sort];
+    return self;
+}
+
+
+- (XPNodeEnumerator *)enumerate {
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return nil;
+}
+
+
+- (XPNodeEnumerator *)enumerateInContext:(XPContext *)ctx sorted:(BOOL)yn {
+    if (yn) [self sort];
+    return [self enumerate];
+}
+
+
+- (BOOL)isSorted {
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return NO;
+}
+
+
+- (void)setSorted:(BOOL)yn {
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+}
+
+
+- (NSString *)asString {
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return nil;
+}
+
+
+- (double)asNumber {
+    return [[XPStringValue stringValueWithString:[self asString]] asNumber];
+}
+
+
+- (BOOL)asBoolean {
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return NO;
+}
+
+
+- (NSUInteger)count {
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return 0;
+}
+
+
+- (XPNodeSetValue *)sort {
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return nil;
+}
+
+
+- (id)firstNode {
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return nil;
+}
+
+
+- (NSDictionary *)stringValues {
+    if (!stringValues) {
+        NSMutableDictionary *d = [NSMutableDictionary dictionary];
+        for (id node in [self enumerate]) {
+            [d setObject:[NSNull null] forKey:[node stringValue]];
+        }
+
+        self.stringValues = [[d copy] autorelease];
+    }
+    return stringValues;
+}
+
+
+- (BOOL)isEqualToValue:(XPValue *)other {
+
+    if ([other isKindOfClass:[XPObjectValue class]]) {
+        return NO;
+
+    } else if ([other isKindOfClass:[XPSingletonNodeSet class]]) {
+        if ([other asBoolean]) {
+            return [self isEqualToValue:[XPStringValue stringValueWithString:[other asString]]];
+        } else {
+            return NO;
+        }
+    
+    } else if ([other isNodeSetValue]) {
+        
+        NSDictionary *table = [self stringValues];
+        
+        XPNodeEnumerator *e2 = [(XPNodeSetValue *)other enumerate];
+        for (id node in e2) {
+            if ([table objectForKey:[node stringValue]]) return YES;
+        }
+        return NO;
+
+    } else if ([other isNumericValue]) {
+        for (id node in [self enumerate]) {
+            if (XPNumberFromString([node stringValue]) == [other asNumber]) return YES;
+        }
+        return NO;
+
+    } else if ([other isStringValue]) {
+        if (!stringValues) {
+            for (id node in [self enumerate]) {
+                if ([[node stringValue] isEqualToString:[other asString]]) return YES;
+            }
+            return NO;
+        } else {
+            return nil != [stringValues objectForKey:[other asString]];
+        }
+
+    } else if ([other isBooleanValue]) {
+        return [self asBoolean] == [other asBoolean];
+
+    } else {
+        [NSException raise:@"InternalXPathError" format:@"Unknown data type in a relational expression"];
+    }
+    
+    return NO;
+}
+
+@synthesize stringValues;
+@end
