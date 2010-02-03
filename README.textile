@@ -1,0 +1,30 @@
+An (incomplete) implementation of XPath 1.0 in Objective-C/Cocoa. 
+
+This is a port of Saxon 6.5 (Java) by Michael Kay.
+
+The XPath 1.0 parser is based on ParseKit - www.github.com/itod/parsekit
+
+What's done?
+
+- The XPath 1.0 parser is complete and functional. 
+
+- Much of the XPath 1.0 language is implemented. There are unit tests for all completed language features. 
+
+- So currently this is basically an ObjC implementation of a simple XPath-like expression language. Includes support for strings, booleans, floating point numbers and functions (including a small standard function library).
+
+What's missing?
+
+- Path expresssions. Yeah, the most interesting part of XPath.
+
+
+Some example expressions that currently work (i.e. they are parsed, execute, and return a result):
+
+<pre>
+boolean(false() != true())
+
+not(string-length('foo') = 1)
+
+substring('12345', 2, 3)
+
+substring-before('1999/04/01', '/')
+</pre>
