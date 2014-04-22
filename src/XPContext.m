@@ -1,17 +1,16 @@
 //
 //  XPContext.m
-//  Exedore
+//  XPath
 //
 //  Created by Todd Ditchendorf on 7/20/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <Exedore/XPContext.h>
-#import <Exedore/XPController.h>
-#import <Exedore/XPStaticContext.h>
+#import <XPath/XPContext.h>
+#import <XPath/XPController.h>
+#import <XPath/XPStaticContext.h>
 
 @implementation XPContext
-
 
 - (void)dealloc {
     self.staticContext = nil;
@@ -39,7 +38,6 @@
 - (XPController *)controller {
     return nil;
 }
-
 
 @synthesize staticContext;
 @end

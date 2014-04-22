@@ -1,6 +1,6 @@
 //
 //  FNSubstringTest.m
-//  Exedore
+//  XPath
 //
 //  Created by Todd Ditchendorf on 7/21/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
@@ -29,17 +29,20 @@
 
 
 - (void)testStrings {
-    expr = [XPExpression expressionFromString:@"substring('12345', 2, 3)" inContext:nil error:nil];
-    res = [expr evaluateAsStringInContext:nil];
+    self.expr = [XPExpression expressionFromString:@"substring('12345', 2, 3)" inContext:nil error:nil];
+    self.res = [expr evaluateAsStringInContext:nil];
     TDEqualObjects(res, @"234");
     
-    expr = [XPExpression expressionFromString:@"substring('foo', 1)" inContext:nil error:nil];
-    res = [expr evaluateAsStringInContext:nil];
+    self.expr = [XPExpression expressionFromString:@"substring('foo', 1)" inContext:nil error:nil];
+    self.res = [expr evaluateAsStringInContext:nil];
     TDEqualObjects(res, @"foo");
 
-    expr = [XPExpression expressionFromString:@"substring('12345', 2)" inContext:nil error:nil];
-    res = [expr evaluateAsStringInContext:nil];
+    self.expr = [XPExpression expressionFromString:@"substring('12345', 2)" inContext:nil error:nil];
+    self.res = [expr evaluateAsStringInContext:nil];
     TDEqualObjects(res, @"2345");
 }
 
+@synthesize expr;
+@synthesize fn;
+@synthesize res;
 @end

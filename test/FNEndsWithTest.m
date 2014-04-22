@@ -1,6 +1,6 @@
 //
 //  FNEndsWithTest.m
-//  Exedore
+//  XPath
 //
 //  Created by Todd Ditchendorf on 7/20/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
@@ -29,17 +29,20 @@
 
 
 - (void)testFoo {
-    expr = [XPExpression expressionFromString:@"ends-with('foo', 'bar')" inContext:nil error:nil];
-    res = [expr evaluateAsBooleanInContext:nil];
+    self.expr = [XPExpression expressionFromString:@"ends-with('foo', 'bar')" inContext:nil error:nil];
+    self.res = [expr evaluateAsBooleanInContext:nil];
     TDFalse(res);
 
-    expr = [XPExpression expressionFromString:@"ends-with('bar', 'foobar')" inContext:nil error:nil];
-    res = [expr evaluateAsBooleanInContext:nil];
+    self.expr = [XPExpression expressionFromString:@"ends-with('bar', 'foobar')" inContext:nil error:nil];
+    self.res = [expr evaluateAsBooleanInContext:nil];
     TDFalse(res);
 
-    expr = [XPExpression expressionFromString:@"ends-with('foobar', 'bar')" inContext:nil error:nil];
-    res = [expr evaluateAsBooleanInContext:nil];
+    self.expr = [XPExpression expressionFromString:@"ends-with('foobar', 'bar')" inContext:nil error:nil];
+    self.res = [expr evaluateAsBooleanInContext:nil];
     TDTrue(res);
 }
 
+@synthesize expr;
+@synthesize fn;
+@synthesize res;
 @end

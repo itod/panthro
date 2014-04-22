@@ -1,17 +1,18 @@
 //
 //  FNRound.m
-//  Exedore
+//  XPath
 //
 //  Created by Todd Ditchendorf on 7/20/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <Exedore/FNRound.h>
-#import <Exedore/XPValue.h>
-#import <Exedore/XPNumericValue.h>
+#import <XPath/FNRound.h>
+#import <XPath/XPValue.h>
+#import <XPath/XPNumericValue.h>
 
 @interface XPExpression ()
 @property (nonatomic, readwrite, retain) id <XPStaticContext>staticContext;
+@property (nonatomic, retain) NSMutableArray *args;
 @end
 
 @interface XPFunction ()
@@ -33,8 +34,8 @@
 - (XPExpression *)simplify {
     [self checkArgumentCountForMin:1 max:1];
     
-    id arg0 = [[args objectAtIndex:0] simplify];
-    [args replaceObjectAtIndex:0 withObject:arg0];
+    id arg0 = [self.args[0] simplify];
+    self.args[0] = arg0;
     
     if ([arg0 isValue]) {
         return [self evaluateInContext:nil];
@@ -45,7 +46,7 @@
 
 
 - (double)evaluateAsNumberInContext:(XPContext *)ctx {
-    return round([[args objectAtIndex:0] evaluateAsNumberInContext:ctx]);
+    return round([self.args[0] evaluateAsNumberInContext:ctx]);
 }
 
 
@@ -55,13 +56,13 @@
 
 
 - (NSUInteger)dependencies {
-    return [(XPExpression *)[args objectAtIndex:0] dependencies];
+    return [(XPExpression *)self.args[0] dependencies];
 }
 
 
 - (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
     FNRound *f = [[[FNRound alloc] init] autorelease];
-    [f addArgument:[[args objectAtIndex:0] reduceDependencies:dep inContext:ctx]];
+    [f addArgument:[self.args[0] reduceDependencies:dep inContext:ctx]];
     [f setStaticContext:[self staticContext]];
     return [f simplify];
 }

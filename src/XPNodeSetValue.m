@@ -1,18 +1,18 @@
 //
 //  XPNodeSetValue.m
-//  Exedore
+//  XPath
 //
 //  Created by Todd Ditchendorf on 7/14/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
 #import "XPNodeSetValue.h"
-#import <Exedore/XPBooleanValue.h>
-#import <Exedore/XPNumericValue.h>
-#import <Exedore/XPStringValue.h>
-#import <Exedore/XPObjectValue.h>
-#import <Exedore/XPNodeEnumerator.h>
-#import <Exedore/XPSingletonNodeSet.h>
+#import <XPath/XPBooleanValue.h>
+#import <XPath/XPNumericValue.h>
+#import <XPath/XPStringValue.h>
+#import <XPath/XPObjectValue.h>
+#import <XPath/XPNodeEnumerator.h>
+#import <XPath/XPSingletonNodeSet.h>
 
 @interface XPNodeSetValue ()
 @property (nonatomic, retain) NSDictionary *stringValues;
@@ -102,7 +102,7 @@
 
 
 - (NSDictionary *)stringValues {
-    if (!stringValues) {
+    if (!_stringValues) {
         NSMutableDictionary *d = [NSMutableDictionary dictionary];
         for (id node in [self enumerate]) {
             [d setObject:[NSNull null] forKey:[node stringValue]];
@@ -110,7 +110,7 @@
 
         self.stringValues = [[d copy] autorelease];
     }
-    return stringValues;
+    return _stringValues;
 }
 
 
@@ -143,13 +143,13 @@
         return NO;
 
     } else if ([other isStringValue]) {
-        if (!stringValues) {
+        if (!_stringValues) {
             for (id node in [self enumerate]) {
                 if ([[node stringValue] isEqualToString:[other asString]]) return YES;
             }
             return NO;
         } else {
-            return nil != [stringValues objectForKey:[other asString]];
+            return nil != _stringValues[[other asString]];
         }
 
     } else if ([other isBooleanValue]) {
@@ -162,5 +162,4 @@
     return NO;
 }
 
-@synthesize stringValues;
 @end

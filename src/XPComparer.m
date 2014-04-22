@@ -1,13 +1,13 @@
 //
 //  XPComparer.m
-//  Exedore
+//  XPath
 //
 //  Created by Todd Ditchendorf on 8/17/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <Exedore/XPComparer.h>
-#import <Exedore/XPDescendingComparer.h>
+#import <XPath/XPComparer.h>
+#import <XPath/XPDescendingComparer.h>
 
 @implementation XPComparer
 

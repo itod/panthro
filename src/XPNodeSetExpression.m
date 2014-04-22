@@ -1,16 +1,16 @@
 //
 //  XPNodeSetExpression.m
-//  Exedore
+//  XPath
 //
 //  Created by Todd Ditchendorf on 7/25/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <Exedore/XPNodeSetExpression.h>
-#import <Exedore/XPContext.h>
-#import <Exedore/XPNodeEnumerator.h>
-#import <Exedore/XPNodeSetValue.h>
-#import <Exedore/XPNodeSetIntent.h>
+#import <XPath/XPNodeSetExpression.h>
+#import <XPath/XPContext.h>
+#import <XPath/XPNodeEnumerator.h>
+#import <XPath/XPNodeSetValue.h>
+#import <XPath/XPNodeSetIntent.h>
 
 @implementation XPNodeSetExpression
 

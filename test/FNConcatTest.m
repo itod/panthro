@@ -1,6 +1,6 @@
 //
 //  FNConcatTest.m
-//  Exedore
+//  XPath
 //
 //  Created by Todd Ditchendorf on 7/19/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
@@ -26,9 +26,12 @@
 
 
 - (void)testStrings {
-    expr = [XPExpression expressionFromString:@"concat('foo', 'bar')" inContext:nil error:nil];
-    res = [expr evaluateAsStringInContext:nil];
+    self.expr = [XPExpression expressionFromString:@"concat('foo', 'bar')" inContext:nil error:nil];
+    self.res = [expr evaluateAsStringInContext:nil];
     TDEqualObjects(res, @"foobar");
 }
 
+@synthesize expr;
+@synthesize fn;
+@synthesize res;
 @end

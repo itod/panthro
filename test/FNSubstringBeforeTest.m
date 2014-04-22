@@ -1,6 +1,6 @@
 //
 //  FNSubstringBeforeTest.m
-//  Exedore
+//  XPath
 //
 //  Created by Todd Ditchendorf on 7/21/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
@@ -29,28 +29,31 @@
 
 
 - (void)testStrings {
-    expr = [XPExpression expressionFromString:@"substring-before('12345', '2')" inContext:nil error:nil];
-    res = [expr evaluateAsStringInContext:nil];
+    self.expr = [XPExpression expressionFromString:@"substring-before('12345', '2')" inContext:nil error:nil];
+    self.res = [expr evaluateAsStringInContext:nil];
     TDEqualObjects(res, @"1");
     
-    expr = [XPExpression expressionFromString:@"substring-before('12345', '6')" inContext:nil error:nil];
-    res = [expr evaluateAsStringInContext:nil];
+    self.expr = [XPExpression expressionFromString:@"substring-before('12345', '6')" inContext:nil error:nil];
+    self.res = [expr evaluateAsStringInContext:nil];
     TDEqualObjects(res, @"");
     
-    expr = [XPExpression expressionFromString:@"substring-before('1999/04/01', '/')" inContext:nil error:nil];
-    res = [expr evaluateAsStringInContext:nil];
+    self.expr = [XPExpression expressionFromString:@"substring-before('1999/04/01', '/')" inContext:nil error:nil];
+    self.res = [expr evaluateAsStringInContext:nil];
     TDEqualObjects(res, @"1999");
     
-    expr = [XPExpression expressionFromString:@"substring-before('1999/04/01', '19')" inContext:nil error:nil];
-    res = [expr evaluateAsStringInContext:nil];
+    self.expr = [XPExpression expressionFromString:@"substring-before('1999/04/01', '19')" inContext:nil error:nil];
+    self.res = [expr evaluateAsStringInContext:nil];
     TDEqualObjects(res, @"");
 }
 
 
 - (void)testNumbers {
-    expr = [XPExpression expressionFromString:@"substring-before('12345', 2)" inContext:nil error:nil];
-    res = [expr evaluateAsStringInContext:nil];
+    self.expr = [XPExpression expressionFromString:@"substring-before('12345', 2)" inContext:nil error:nil];
+    self.res = [expr evaluateAsStringInContext:nil];
     TDEqualObjects(res, @"1");
 }
 
+@synthesize expr;
+@synthesize fn;
+@synthesize res;
 @end

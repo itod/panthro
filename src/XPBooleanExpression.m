@@ -1,36 +1,37 @@
 //
 //  XPBooleanExpression.m
-//  Exedore
+//  XPath
 //
 //  Created by Todd Ditchendorf on 7/19/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <Exedore/XPBooleanExpression.h>
-#import <Exedore/XPValue.h>
-#import <Exedore/XPBooleanValue.h>
+#import <XPath/XPBooleanExpression.h>
+#import <XPath/XPValue.h>
+#import <XPath/XPBooleanValue.h>
 
 @interface XPBinaryExpression ()
 @property (nonatomic, retain) XPExpression *p1;
 @property (nonatomic, retain) XPExpression *p2;
+@property (nonatomic, assign) NSInteger operator;
 @end
 
 @implementation XPBooleanExpression
 
-+ (id)booleanExpression {
++ (XPBooleanExpression *)booleanExpression {
     return [[[self alloc] init] autorelease];
 }
 
 
-+ (id)booleanExpressionWithOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs {
++ (XPBooleanExpression *)booleanExpressionWithOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs {
     return [[[self alloc] initWithOperand:lhs operator:op operand:rhs] autorelease];
 }
 
 
 - (XPExpression *)simplify {
-    self.p1 = [p1 simplify];
-    self.p2 = [p2 simplify];
-    if ([p2 isValue] && [p2 isValue]) {
+    self.p1 = [self.p1 simplify];
+    self.p2 = [self.p2 simplify];
+    if ([self.p2 isValue] && [self.p2 isValue]) {
         return [self evaluateInContext:nil];
     }
     
@@ -47,11 +48,11 @@
 
 
 - (BOOL)evaluateAsBooleanInContext:(XPContext *)ctx {
-    BOOL b1 = [p1 evaluateAsBooleanInContext:ctx];
-    BOOL b2 = [p2 evaluateAsBooleanInContext:ctx];
+    BOOL b1 = [self.p1 evaluateAsBooleanInContext:ctx];
+    BOOL b2 = [self.p2 evaluateAsBooleanInContext:ctx];
     
     BOOL result = NO;
-    switch (operator) {
+    switch (self.operator) {
         case XPTokenTypeAnd:
             result = b1 && b2;
             break;
@@ -59,7 +60,7 @@
             result = b1 || b2;
             break;
         default:
-            NSAssert(0, @"should not reach here");
+            XPAssert(0);
             break;
     }
 

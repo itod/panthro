@@ -1,13 +1,13 @@
 //
 //  XPBinaryExpression.m
-//  Exedore
+//  XPath
 //
 //  Created by Todd Ditchendorf on 7/17/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <Exedore/XPBinaryExpression.h>
-#import <Exedore/XPValue.h>
+#import <XPath/XPBinaryExpression.h>
+#import <XPath/XPValue.h>
 
 @interface XPExpression ()
 @property (nonatomic, readwrite, retain) id <XPStaticContext>staticContext;
@@ -16,17 +16,17 @@
 @interface XPBinaryExpression ()
 @property (nonatomic, retain) XPExpression *p1;
 @property (nonatomic, retain) XPExpression *p2;
-@property (nonatomic) NSInteger operator;
+@property (nonatomic, assign) NSInteger operator;
 @end
 
 @implementation XPBinaryExpression
 
-+ (id)binaryExpression {
++ (XPBinaryExpression *)binaryExpression {
     return [[[self alloc] init] autorelease];
 }
 
 
-+ (id)binaryExpressionWithOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs {
++ (XPBinaryExpression *)binaryExpressionWithOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs {
     return [[[self alloc] initWithOperand:lhs operator:op operand:rhs] autorelease];
 }
 
@@ -61,10 +61,10 @@
 
 
 - (XPExpression *)simplify {
-    self.p1 = [p1 simplify];
-    self.p2 = [p2 simplify];
+    self.p1 = [_p1 simplify];
+    self.p2 = [_p2 simplify];
     
-    if ([p1 isValue] && [p2 isValue]) {
+    if ([_p1 isValue] && [_p2 isValue]) {
         return [self evaluateInContext:nil];
     }
     
@@ -73,15 +73,15 @@
 
 
 - (NSUInteger)dependencies {
-    return [p1 dependencies] | [p2 dependencies];
+    return [_p1 dependencies] | [_p2 dependencies];
 }
 
 
 - (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
     if (([self dependencies] & dep) != 0) {
-        XPExpression *expr = [[[[self class] alloc] initWithOperand:[p1 reduceDependencies:dep inContext:ctx]
-                                                           operator:operator
-                                                            operand:[p2 reduceDependencies:dep inContext:ctx]] autorelease];
+        XPExpression *expr = [[[[self class] alloc] initWithOperand:[_p1 reduceDependencies:dep inContext:ctx]
+                                                           operator:_operator
+                                                            operand:[_p2 reduceDependencies:dep inContext:ctx]] autorelease];
         [expr setStaticContext:[self staticContext]];
         return [expr simplify];
     } else {
@@ -89,7 +89,4 @@
     }
 }
 
-@synthesize p1;
-@synthesize p2;
-@synthesize operator;
 @end

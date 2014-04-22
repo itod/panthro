@@ -1,21 +1,25 @@
 //
 //  XPExpression.m
-//  Exedore
+//  XPath
 //
 //  Created by Todd Ditchendorf on 3/5/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <Exedore/XPExpression.h>
-#import <Exedore/XPContext.h>
-#import <Exedore/XPStaticContext.h>
-#import <Exedore/XPValue.h>
-#import <Exedore/XPNodeSetValue.h>
-#import <Exedore/XPNodeEnumerator.h>
+#import <XPath/XPExpression.h>
+#import <XPath/XPContext.h>
+#import <XPath/XPStaticContext.h>
+#import <XPath/XPValue.h>
+#import <XPath/XPNodeSetValue.h>
+#import <XPath/XPNodeEnumerator.h>
 #import "NSError+XPAdditions.h"
-#import "XPParser.h"
+//#import "XPParser.h"
+#import "XPEGParser.h"
+#import "XPAssembler.h"
+#import <PEGKit/PKAssembly.h>
 
-static XPParser *sParser = nil;
+static XPEGParser *sParser = nil;
+static XPAssembler *sAssembler = nil;
 
 @interface XPExpression ()
 @property (nonatomic, readwrite, retain) id <XPStaticContext>staticContext;
@@ -23,16 +27,25 @@ static XPParser *sParser = nil;
 
 @implementation XPExpression
 
-+ (void)load {
++ (void)initialize {
     if ([XPExpression class] == self) {
-        sParser = [[XPParser alloc] init];
+        sAssembler = [[XPAssembler alloc] init];
+        sParser = [[XPEGParser alloc] initWithDelegate:sAssembler];
+        XPAssert(sParser);
     }
 }
 
 
 + (XPExpression *)expressionFromString:(NSString *)exprStr inContext:(id <XPStaticContext>)env error:(NSError **)outErr {
+    XPAssert(sParser);
     @try {
-        XPExpression *expr = [[sParser parseExpression:exprStr inContext:env] simplify];
+//        XPExpression *expr = [sParser parseExpression:exprStr inContext:env];
+        PKAssembly *a = [sParser parseString:exprStr error:outErr];
+
+        XPExpression *expr = [a pop];
+        XPAssert([expr isKindOfClass:[XPExpression class]]);
+        
+        expr = [expr simplify];
         [expr setStaticContext:env];
         return expr;
     }
@@ -73,7 +86,7 @@ static XPParser *sParser = nil;
 - (XPNodeSetValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
     XPValue *v = [self evaluateInContext:ctx];
     
-    if ([v isKindOfClass:[XPNodeSetValue class]]) {
+    if ([v isNodeSetValue]) {
         return (XPNodeSetValue *)v;
     } else {
         [NSException raise:@"XPathException" format:@"The value %@ is not a node-set", v];
@@ -84,7 +97,8 @@ static XPParser *sParser = nil;
 
 - (XPNodeEnumerator *)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
     XPValue *v = [self evaluateInContext:ctx];
-    if ([v isValue]) {
+
+    if ([v isNodeSetValue]) {
         if (sorted) {
             [(XPNodeSetValue *)v sort];
         }
@@ -143,5 +157,4 @@ static XPParser *sParser = nil;
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
 }
 
-@synthesize staticContext;
 @end

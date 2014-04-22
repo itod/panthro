@@ -1,12 +1,13 @@
 //
 //  XPFunction.m
-//  Exedore
+//  XPath
 //
 //  Created by Todd Ditchendorf on 7/19/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <Exedore/XPFunction.h>
+#import <XPath/XPFunction.h>
+#import <XPath/XPValue.h>
 #import "NSError+XPAdditions.h"
 
 @interface XPFunction ()
@@ -21,16 +22,32 @@
 }
 
 
+- (NSString *)description {
+    id str = [NSMutableString stringWithFormat:@"`%@(", self.name];
+    NSUInteger i = 0;
+    NSUInteger c = [self numberOfArguments];
+    for (id arg in _args) {
+        NSString *fmt = i++ == c - 1 ? @"%@" : @"%@, ";
+        [str appendFormat:fmt, arg];
+    }
+    [str appendString:@")`"];
+    return [NSString stringWithFormat:@"<%@ %p %@>", [self class], self, str];
+}
+
+
 - (void)addArgument:(XPExpression *)expr {
-    if (!args) {
+    NSParameterAssert(expr);
+    if (!expr) return; // remove?
+    
+    if (!_args) {
         self.args = [NSMutableArray arrayWithCapacity:6];
     }
-    [args addObject:expr];
+    [_args addObject:expr];
 }
 
 
 - (NSUInteger)numberOfArguments {
-    return [args count];
+    return [_args count];
 }
 
 
@@ -46,13 +63,13 @@
 - (NSUInteger)checkArgumentCountForMin:(NSUInteger)min max:(NSUInteger)max {
     NSUInteger num = [self numberOfArguments];
     if (min == max && num != min) {
-        [NSException raise:@"XPathException" format:@"Invalid numer of args supplied to %@() function. %d expected. %d given", [self name], min, num];
+        [NSException raise:@"XPathException" format:@"Invalid numer of args supplied to %@() function. %lu expected. %lu given", [self name], min, num];
     }
     if (num < min) {
-        [NSException raise:@"XPathException" format:@"Invalid numer of args supplied to %@() function. at least %d expected. %d given", [self name], min, num];
+        [NSException raise:@"XPathException" format:@"Invalid numer of args supplied to %@() function. at least %lu expected. %lu given", [self name], min, num];
     }
     if (num > max) {
-        [NSException raise:@"XPathException" format:@"Invalid numer of args supplied to %@() function. only %d accepted. %d given", [self name], min, num];
+        [NSException raise:@"XPathException" format:@"Invalid numer of args supplied to %@() function. only %lu accepted. %lu given", [self name], max, num];
     }
     return num;
 }
@@ -62,5 +79,4 @@
     //NSLog(@"%@boolean (%@)", [self indent:level], [self asString]);
 }
 
-@synthesize args;
 @end

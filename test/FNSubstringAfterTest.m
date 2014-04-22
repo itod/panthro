@@ -1,6 +1,6 @@
 //
 //  FNSubstringAfterTest.m
-//  Exedore
+//  XPath
 //
 //  Created by Todd Ditchendorf on 7/21/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
@@ -29,28 +29,31 @@
 
 
 - (void)testStrings {
-    expr = [XPExpression expressionFromString:@"substring-after('12345', '2')" inContext:nil error:nil];
-    res = [expr evaluateAsStringInContext:nil];
+    self.expr = [XPExpression expressionFromString:@"substring-after('12345', '2')" inContext:nil error:nil];
+    self.res = [expr evaluateAsStringInContext:nil];
     TDEqualObjects(res, @"345");
     
-    expr = [XPExpression expressionFromString:@"substring-after('12345', '6')" inContext:nil error:nil];
-    res = [expr evaluateAsStringInContext:nil];
+    self.expr = [XPExpression expressionFromString:@"substring-after('12345', '6')" inContext:nil error:nil];
+    self.res = [expr evaluateAsStringInContext:nil];
     TDEqualObjects(res, @"");
     
-    expr = [XPExpression expressionFromString:@"substring-after('1999/04/01', '/')" inContext:nil error:nil];
-    res = [expr evaluateAsStringInContext:nil];
+    self.expr = [XPExpression expressionFromString:@"substring-after('1999/04/01', '/')" inContext:nil error:nil];
+    self.res = [expr evaluateAsStringInContext:nil];
     TDEqualObjects(res, @"04/01");
     
-    expr = [XPExpression expressionFromString:@"substring-after('1999/04/01', '19')" inContext:nil error:nil];
-    res = [expr evaluateAsStringInContext:nil];
+    self.expr = [XPExpression expressionFromString:@"substring-after('1999/04/01', '19')" inContext:nil error:nil];
+    self.res = [expr evaluateAsStringInContext:nil];
     TDEqualObjects(res, @"99/04/01");
 }
 
 
 - (void)testNumbers {
-    expr = [XPExpression expressionFromString:@"substring-after('12345', 2)" inContext:nil error:nil];
-    res = [expr evaluateAsStringInContext:nil];
+    self.expr = [XPExpression expressionFromString:@"substring-after('12345', 2)" inContext:nil error:nil];
+    self.res = [expr evaluateAsStringInContext:nil];
     TDEqualObjects(res, @"345");
 }
 
+@synthesize expr;
+@synthesize fn;
+@synthesize res;
 @end

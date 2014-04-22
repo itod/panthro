@@ -1,6 +1,6 @@
 //
 //  XPBooleanValueTest.m
-//  Exedore
+//  XPath
 //
 //  Created by Todd Ditchendorf on 7/14/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
@@ -10,11 +10,21 @@
 
 @implementation XPBooleanValueTest
 
+- (void)dealloc {
+    self.b1 = nil;
+    self.b2 = nil;
+    self.b3 = nil;
+    self.b4 = nil;
+    self.expr = nil;
+    [super dealloc];
+}
+
+
 - (void)setUp {
-    b1 = [XPBooleanValue booleanValueWithBoolean:YES];
-    b2 = [XPBooleanValue booleanValueWithBoolean:YES];
-    b3 = [XPBooleanValue booleanValueWithBoolean:NO];
-    b4 = [XPBooleanValue booleanValueWithBoolean:NO];
+    self.b1 = [XPBooleanValue booleanValueWithBoolean:YES];
+    self.b2 = [XPBooleanValue booleanValueWithBoolean:YES];
+    self.b3 = [XPBooleanValue booleanValueWithBoolean:NO];
+    self.b4 = [XPBooleanValue booleanValueWithBoolean:NO];
 }
 
 
@@ -108,21 +118,27 @@
 
 
 - (void)testEqualsExpr {
-    expr = [XPExpression expressionFromString:@"true() != false()" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"true() != false()" inContext:nil error:nil];
     res = [expr evaluateAsBooleanInContext:nil];
     TDTrue(res);
 
-    expr = [XPExpression expressionFromString:@"false() != true()" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"false() != true()" inContext:nil error:nil];
     [expr evaluateAsBooleanInContext:nil];
     TDTrue(res);
 
-    expr = [XPExpression expressionFromString:@"true() = true()" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"true() = true()" inContext:nil error:nil];
     [expr evaluateAsBooleanInContext:nil];
     TDTrue(res);
 
-    expr = [XPExpression expressionFromString:@"false() = false()" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"false() = false()" inContext:nil error:nil];
     [expr evaluateAsBooleanInContext:nil];
     TDTrue(res);
 }
 
+@synthesize b1;
+@synthesize b2;
+@synthesize b3;
+@synthesize b4;
+@synthesize expr;
+@synthesize res;
 @end

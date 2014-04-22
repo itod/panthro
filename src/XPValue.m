@@ -1,15 +1,16 @@
 //
 //  XPValue.m
-//  Exedore
+//  XPath
 //
 //  Created by Todd Ditchendorf on 7/12/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <Exedore/XPValue.h>
-#import <Exedore/XPBooleanValue.h>
-#import <Exedore/XPNumericValue.h>
-#import <Exedore/XPNodeSetValue.h>
+#import <XPath/XPValue.h>
+#import <XPath/XPBooleanValue.h>
+#import <XPath/XPNumericValue.h>
+#import <XPath/XPStringValue.h>
+#import <XPath/XPNodeSetValue.h>
 
 double XPNumberFromString(NSString *s) {
     if ([s rangeOfString:@"+"].length ||
@@ -100,8 +101,8 @@ double XPNumberFromString(NSString *s) {
 
 - (BOOL)compareToValue:(XPValue *)other usingOperator:(NSInteger)op {
 
-    if (op == XPTokenTypeEquals) return [other isEqualToValue:self];
-    if (op == XPTokenTypeNE) return [other isNotEqualToValue:self];
+    if (op == XPTokenTypeEquals) return [self isEqualToValue:other];
+    if (op == XPTokenTypeNE) return [self isNotEqualToValue:other];
     
     if ([other isNodeSetValue]) {
         return [other compareToValue:self usingOperator:[self inverseOperator:op]];
@@ -149,22 +150,26 @@ double XPNumberFromString(NSString *s) {
 
 
 - (BOOL)isBooleanValue {
-    return XPDataTypeBoolean == [self dataType];
+    return [self isKindOfClass:[XPBooleanValue class]];
+    //return XPDataTypeBoolean == [self dataType];
 }
 
 
 - (BOOL)isNumericValue {
-    return XPDataTypeNumber == [self dataType];
+    return [self isKindOfClass:[XPNumericValue class]];
+    //return XPDataTypeNumber == [self dataType];
 }
 
 
 - (BOOL)isStringValue {
-    return XPDataTypeString == [self dataType];
+    return [self isKindOfClass:[XPStringValue class]];
+    //return XPDataTypeString == [self dataType];
 }
 
 
 - (BOOL)isNodeSetValue {
-    return XPDataTypeNodeSet == [self dataType];
+    return [self isKindOfClass:[XPNodeSetValue class]];
+    //return XPDataTypeNodeSet == [self dataType];
 }
 
 @end

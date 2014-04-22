@@ -1,18 +1,19 @@
 //
 //  FNNumber.m
-//  Exedore
+//  XPath
 //
 //  Created by Todd Ditchendorf on 7/21/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <Exedore/FNNumber.h>
-#import <Exedore/XPContext.h>
-#import <Exedore/XPValue.h>
-#import <Exedore/XPNumericValue.h>
+#import <XPath/FNNumber.h>
+#import <XPath/XPContext.h>
+#import <XPath/XPValue.h>
+#import <XPath/XPNumericValue.h>
 
 @interface XPExpression ()
 @property (nonatomic, readwrite, retain) id <XPStaticContext>staticContext;
+@property (nonatomic, retain) NSMutableArray *args;
 @end
 
 @interface XPFunction ()
@@ -34,8 +35,8 @@
 - (XPExpression *)simplify {
     NSUInteger numArgs = [self checkArgumentCountForMin:0 max:1];
     if (1 == numArgs) {
-        id arg0 = [[args objectAtIndex:0] simplify];
-        [args replaceObjectAtIndex:0 withObject:arg0];
+        id arg0 = [self.args[0] simplify];
+        self.args[0] = arg0;
         
         if (XPDataTypeNumber == [arg0 dataType]) {
             return arg0;
@@ -52,7 +53,7 @@
 
 - (double)evaluateAsNumberInContext:(XPContext *)ctx {
     if (1 == [self numberOfArguments]) {
-        return [[args objectAtIndex:0] evaluateAsNumberInContext:ctx];
+        return [self.args[0] evaluateAsNumberInContext:ctx];
     } else {
         return XPNumberFromString([[ctx contextNodeInfo] stringValue]);
     }
@@ -65,14 +66,14 @@
 
 
 - (NSUInteger)dependencies {
-    return [(XPExpression *)[args objectAtIndex:0] dependencies];
+    return [(XPExpression *)self.args[0] dependencies];
 }
 
 
 - (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
     if (1 == [self numberOfArguments]) {
         FNNumber *f = [[[FNNumber alloc] init] autorelease];
-        [f addArgument:[[args objectAtIndex:0] reduceDependencies:dep inContext:ctx]];
+        [f addArgument:[self.args[0] reduceDependencies:dep inContext:ctx]];
         [f setStaticContext:[self staticContext]];
         return [f simplify];
     } else {

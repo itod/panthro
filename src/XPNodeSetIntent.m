@@ -1,17 +1,17 @@
 //
 //  XPNodeSetIntent.m
-//  Exedore
+//  XPath
 //
 //  Created by Todd Ditchendorf on 7/25/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <Exedore/XPNodeSetIntent.h>
-#import <Exedore/XPNodeSetExtent.h>
-#import <Exedore/XPNodeSetExpression.h>
-#import <Exedore/XPController.h>
-#import <Exedore/XPContext.h>
-#import <Exedore/XPLastPositionFinder.h>
+#import <XPath/XPNodeSetIntent.h>
+#import <XPath/XPNodeSetExtent.h>
+#import <XPath/XPNodeSetExpression.h>
+#import <XPath/XPController.h>
+#import <XPath/XPContext.h>
+#import <XPath/XPLastPositionFinder.h>
 
 @interface XPNodeSetIntent ()
 - (void)fix;
@@ -20,9 +20,11 @@
 @property (nonatomic, retain) XPNodeSetExtent *extent;
 @end
 
-@implementation XPNodeSetIntent
+@implementation XPNodeSetIntent {
+    NSInteger _useCount;
+}
 
-+ (id)intentWithNodeSetExpression:(XPNodeSetExpression *)expr controller:(XPController *)c {
++ (XPNodeSetIntent *)intentWithNodeSetExpression:(XPNodeSetExpression *)expr controller:(XPController *)c {
     return [[[self alloc] initWithNodeSetExpression:expr controller:c] autorelease];
 }
 
@@ -32,9 +34,9 @@
         self.nodeSetExpression = expr;
         self.controller = c;
 
-        if ([nodeSetExpression dependencies]) {
-            [nodeSetExpression display:10];
-            NSAssert2(0, @"Cannot create intentional node-set with context dependencies: %@:%@", [expr class], [expr dependencies]);
+        if ([_nodeSetExpression dependencies]) {
+            [_nodeSetExpression display:10];
+            NSAssert2(0, @"Cannot create intentional node-set with context dependencies: %@:%lu", [expr class], [expr dependencies]);
         }
     }
     return self;
@@ -50,18 +52,18 @@
 
 - (XPContext *)makeContext {
     XPContext *ctx = [[[XPContext alloc] init] autorelease];
-    [ctx setStaticContext:[nodeSetExpression staticContext]];
+    [ctx setStaticContext:[_nodeSetExpression staticContext]];
     return ctx;
 }
 
 
 - (BOOL)isSorted {
-    return sorted || [[nodeSetExpression enumerateInContext:[self makeContext] sorted:NO] isSorted];
+    return _sorted || [[_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO] isSorted];
 }
 
 
 - (BOOL)isContextDocumentNodeSet {
-    return [nodeSetExpression isContextDocumentNodeSet];
+    return [_nodeSetExpression isContextDocumentNodeSet];
 }
 
 
@@ -77,44 +79,44 @@
 
 
 - (NSUInteger)count {
-    if (!extent) {
-        XPNodeEnumerator *e = [nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
+    if (!_extent) {
+        XPNodeEnumerator *e = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
         if ([e conformsToProtocol:@protocol(XPLastPositionFinder)] && [e isSorted]) {
             return [(id <XPLastPositionFinder>)e lastPosition];
         }
-        self.extent = [XPNodeSetExtent extentWithNodeEnumerator:e controller:controller];
+        self.extent = [XPNodeSetExtent extentWithNodeEnumerator:e controller:_controller];
     }
-    return [extent count];
+    return [_extent count];
 }
 
 
 - (void)fix {
-    if (!extent) {
-        XPNodeEnumerator *e = [nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
-        self.extent = [XPNodeSetExtent extentWithNodeEnumerator:e controller:controller];
+    if (!_extent) {
+        XPNodeEnumerator *e = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
+        self.extent = [XPNodeSetExtent extentWithNodeEnumerator:e controller:_controller];
     }
 }
 
 
 - (XPNodeSetValue *)sort {
-    if (sorted) return self;
+    if (_sorted) return self;
     [self fix];
-    return [extent sort];
+    return [_extent sort];
 }
 
 
 - (id)firstNode {
-    if (extent) return [extent firstNode];
+    if (_extent) return [_extent firstNode];
     
-    XPNodeEnumerator *e = [nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
-    if (sorted || [e isSorted]) {
-        sorted = YES;
+    XPNodeEnumerator *e = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
+    if (_sorted || [e isSorted]) {
+        self.sorted = YES;
         return [e nextObject];
     } else {
         id first = nil;
         id node = nil;
         while (nil != (node = [e nextObject])) {
-            if (!first || NSOrderedDescending == [controller compare:node to:first]) {
+            if (!first || NSOrderedDescending == [_controller compare:node to:first]) {
                 first = node;
             }
         }
@@ -129,23 +131,20 @@
 
 
 - (XPNodeEnumerator *)enumerate {
-    if (extent) {
-        return [extent enumerate];
+    if (_extent) {
+        return [_extent enumerate];
     } else {
-        useCount++;
+        _useCount++;
         // arbitrarily, we decide that the third time the expression is used,
         // we will allocate it some memory for faster access on future occasions.
-        if (useCount < 3) {
-            return [nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
+        if (_useCount < 3) {
+            return [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
         } else {
             [self fix];
-            return [extent enumerate];
+            return [_extent enumerate];
         }
     }
 }
 
-@synthesize nodeSetExpression;
-@synthesize controller;
-@synthesize extent;
-@synthesize sorted;
+@synthesize sorted = _sorted;
 @end

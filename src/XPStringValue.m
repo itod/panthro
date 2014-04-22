@@ -1,6 +1,6 @@
 //
 //  XPStringValue.m
-//  Exedore
+//  XPath
 //
 //  Created by Todd Ditchendorf on 7/14/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
@@ -14,7 +14,7 @@
 
 @implementation XPStringValue
 
-+ (id)stringValueWithString:(NSString *)s {
++ (XPStringValue *)stringValueWithString:(NSString *)s {
     return [[[self alloc] initWithString:s] autorelease];
 }
 
@@ -34,17 +34,17 @@
 
 
 - (NSString *)asString {
-    return value;
+    return _value;
 }
 
 
 - (double)asNumber {
-    return XPNumberFromString(value);
+    return XPNumberFromString(_value);
 }
 
 
 - (BOOL)asBoolean {
-    return [value length] > 0;
+    return [_value length] > 0;
 }
 
 
@@ -54,8 +54,7 @@
 
 
 - (BOOL)isEqualToStringValue:(XPStringValue *)v {
-    return [value isEqualToString:v->value];
+    return [_value isEqualToString:v->_value];
 }
 
-@synthesize value;
 @end

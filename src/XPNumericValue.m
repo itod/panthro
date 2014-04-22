@@ -1,6 +1,6 @@
 //
 //  XPNumericValue.m
-//  Exedore
+//  XPath
 //
 //  Created by Todd Ditchendorf on 7/14/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
@@ -8,14 +8,16 @@
 
 #import "XPNumericValue.h"
 
-@implementation XPNumericValue
+@implementation XPNumericValue{
+    double _value;
+}
 
-+ (id)numericValueWithString:(NSString *)s {
++ (XPNumericValue *)numericValueWithString:(NSString *)s {
     return [[[self alloc] initWithString:s] autorelease];
 }
 
 
-+ (id)numericValueWithNumber:(double)n {
++ (XPNumericValue *)numericValueWithNumber:(double)n {
     return [[[self alloc] initWithNumber:n] autorelease];
 }
 
@@ -27,7 +29,7 @@
 
 - (id)initWithNumber:(double)n {
     if (self = [super init]) {
-        value = n;
+        _value = n;
     }
     return self;
 }
@@ -35,17 +37,17 @@
 
 - (NSString *)asString {
     // TODO
-    return [[NSNumber numberWithDouble:value] stringValue];
+    return [[NSNumber numberWithDouble:_value] stringValue];
 }
 
 
 - (double)asNumber {
-    return value;
+    return _value;
 }
 
 
 - (BOOL)asBoolean {
-    return (value != 0.0 && !isnan(value));
+    return (_value != 0.0 && !isnan(_value));
 }
 
 

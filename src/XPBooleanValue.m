@@ -1,6 +1,6 @@
 //
 //  XPBooleanValue.m
-//  Exedore
+//  XPath
 //
 //  Created by Todd Ditchendorf on 7/12/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
@@ -8,33 +8,35 @@
 
 #import "XPBooleanValue.h"
 
-@implementation XPBooleanValue
+@implementation XPBooleanValue {
+    BOOL _value;
+}
 
-+ (id)booleanValueWithBoolean:(BOOL)b {
++ (XPBooleanValue *)booleanValueWithBoolean:(BOOL)b {
     return [[[self alloc] initWithBoolean:b] autorelease];
 }
 
 
 - (id)initWithBoolean:(BOOL)b {
     if (self = [super init]) {
-        value = b;
+        _value = b;
     }
     return self;
 }
 
 
 - (NSString *)asString {
-    return value ? @"true" : @"false";
+    return _value ? @"true" : @"false";
 }
 
 
 - (double)asNumber {
-    return value ? 1 : 0;
+    return _value ? 1.0 : 0.0;
 }
 
 
 - (BOOL)asBoolean {
-    return value;
+    return _value;
 }
 
 

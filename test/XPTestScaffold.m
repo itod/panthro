@@ -9,7 +9,10 @@
 #import "XPTestScaffold.h"
 
 #define RUN_ALL_TEST_CASES 1
-#define SOLO_TEST_CASE @"FNSubstringBeforeTest"
+#define SOLO_TEST_CASE @"XPEGParserStepAxisTest"
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation"
 
 @interface SenTestSuite (XPAdditions)
 - (void)addSuitesForClassNames:(NSArray *)classNames;
@@ -38,7 +41,7 @@ SenTestSuite *XPathTestSuite() {
 
 @implementation SenTestSuite (XPAdditions)
 
-+ (id)testSuiteForBundlePath:(NSString *) bundlePath {
++ (id)testSuiteForBundlePath:(NSString *)bundlePath {
     SenTestSuite *suite = nil;
     
 #if RUN_ALL_TEST_CASES
@@ -46,7 +49,7 @@ SenTestSuite *XPathTestSuite() {
 #else
     suite = [SenTestSuite testSuiteWithName:@"My Tests"]; 
 //    [suite addTest:[self XPathTestSuite]];
-    [suite addTest:[self soloTestSuite]];
+    [suite addTest:TDSoloTestSuite()];
 #endif
     
     return suite;
@@ -59,5 +62,7 @@ SenTestSuite *XPathTestSuite() {
         [self addTest:suite];
     }
 }
+
+#pragma clang diagnostic pop
 
 @end

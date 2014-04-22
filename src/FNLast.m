@@ -1,15 +1,15 @@
 //
 //  FNLast.m
-//  Exedore
+//  XPath
 //
 //  Created by Todd Ditchendorf on 7/20/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <Exedore/FNLast.h>
-#import <Exedore/XPContext.h>
-#import <Exedore/XPValue.h>
-#import <Exedore/XPNumericValue.h>
+#import <XPath/FNLast.h>
+#import <XPath/XPContext.h>
+#import <XPath/XPValue.h>
+#import <XPath/XPNumericValue.h>
 
 @interface XPFunction ()
 - (NSUInteger)checkArgumentCountForMin:(NSUInteger)min max:(NSUInteger)max;

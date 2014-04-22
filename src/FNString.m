@@ -1,18 +1,19 @@
 //
 //  FNString.m
-//  Exedore
+//  XPath
 //
 //  Created by Todd Ditchendorf on 7/20/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <Exedore/FNString.h>
-#import <Exedore/XPContext.h>
-#import <Exedore/XPValue.h>
-#import <Exedore/XPStringValue.h>
+#import <XPath/FNString.h>
+#import <XPath/XPContext.h>
+#import <XPath/XPValue.h>
+#import <XPath/XPStringValue.h>
 
 @interface XPExpression ()
 @property (nonatomic, readwrite, retain) id <XPStaticContext>staticContext;
+@property (nonatomic, retain) NSMutableArray *args;
 @end
 
 @interface XPFunction ()
@@ -35,8 +36,8 @@
     NSUInteger num = [self checkArgumentCountForMin:0 max:1];
     
     if (1 == num) {
-        id arg0 = [[args objectAtIndex:0] simplify];
-        [args replaceObjectAtIndex:0 withObject:arg0];
+        id arg0 = [self.args[0] simplify];
+        self.args[0] = arg0;
         
         if (XPDataTypeString == [arg0 dataType]) {
             return arg0;
@@ -52,7 +53,7 @@
 
 - (NSString *)evaluateAsStringInContext:(XPContext *)ctx {
     if (1 == [self numberOfArguments]) {
-        return [[args objectAtIndex:0] evaluateAsStringInContext:ctx];
+        return [self.args[0] evaluateAsStringInContext:ctx];
     } else {
         return [[ctx contextNodeInfo] stringValue];
     }
@@ -66,7 +67,7 @@
 
 - (NSUInteger)dependencies {
     if (1 == [self numberOfArguments]) {
-        return [(XPExpression *)[args objectAtIndex:0] dependencies];
+        return [(XPExpression *)self.args[0] dependencies];
     } else {
         return XPDependenciesContextNode;
     }
@@ -76,7 +77,7 @@
 - (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
     if (1 == [self numberOfArguments]) {
         FNString *f = [[[FNString alloc] init] autorelease];
-        [f addArgument:[[args objectAtIndex:0] reduceDependencies:dep inContext:ctx]];
+        [f addArgument:[self.args[0] reduceDependencies:dep inContext:ctx]];
         [f setStaticContext:[self staticContext]];
         return [f simplify];
     } else {

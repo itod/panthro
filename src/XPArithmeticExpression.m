@@ -1,23 +1,29 @@
 //
 //  XPArithmeticExpression.m
-//  Exedore
+//  XPath
 //
 //  Created by Todd Ditchendorf on 7/17/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <Exedore/XPArithmeticExpression.h>
-#import <Exedore/XPValue.h>
-#import <Exedore/XPNumericValue.h>
+#import <XPath/XPArithmeticExpression.h>
+#import <XPath/XPValue.h>
+#import <XPath/XPNumericValue.h>
+
+@interface XPBinaryExpression ()
+@property (nonatomic, retain) XPExpression *p1;
+@property (nonatomic, retain) XPExpression *p2;
+@property (nonatomic, assign) NSInteger operator;
+@end
 
 @implementation XPArithmeticExpression
 
-+ (id)arithmeticExpression {
++ (XPArithmeticExpression *)arithmeticExpression {
     return [[[self alloc] init] autorelease];
 }
 
 
-+ (id)arithmeticExpressionWithOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs {
++ (XPArithmeticExpression *)arithmeticExpressionWithOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs {
     return [[[self alloc] initWithOperand:lhs operator:op operand:rhs] autorelease];
 }
 
@@ -29,10 +35,10 @@
 
 
 - (double)evaluateAsNumberInContext:(XPContext *)ctx {
-    double n1 = [p1 evaluateAsNumberInContext:ctx];
-    double n2 = [p2 evaluateAsNumberInContext:ctx];
+    double n1 = [self.p1 evaluateAsNumberInContext:ctx];
+    double n2 = [self.p2 evaluateAsNumberInContext:ctx];
 
-    switch (operator) {
+    switch (self.operator) {
         case XPTokenTypePlus:
             return n1 + n2;
         case XPTokenTypeMinus:

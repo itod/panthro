@@ -1,18 +1,19 @@
 //
 //  FNStringLength.m
-//  Exedore
+//  XPath
 //
 //  Created by Todd Ditchendorf on 7/20/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <Exedore/FNStringLength.h>
-#import <Exedore/XPContext.h>
-#import <Exedore/XPValue.h>
-#import <Exedore/XPNumericValue.h>
+#import <XPath/FNStringLength.h>
+#import <XPath/XPContext.h>
+#import <XPath/XPValue.h>
+#import <XPath/XPNumericValue.h>
 
 @interface XPExpression ()
 @property (nonatomic, readwrite, retain) id <XPStaticContext>staticContext;
+@property (nonatomic, retain) NSMutableArray *args;
 @end
 
 @interface XPFunction ()
@@ -35,8 +36,8 @@
     NSUInteger numArgs = [self checkArgumentCountForMin:0 max:1];
     
     if (1 == numArgs) {
-        id arg0 = [[args objectAtIndex:0] simplify];
-        [args replaceObjectAtIndex:0 withObject:arg0];
+        id arg0 = [self.args[0] simplify];
+        self.args[0] = arg0;
         
         if ([arg0 isValue]) {
             return [self evaluateInContext:nil];
@@ -49,7 +50,7 @@
 
 - (double)evaluateAsNumberInContext:(XPContext *)ctx {
     if (1 == [self numberOfArguments]) {
-        return [[[args objectAtIndex:0] evaluateAsStringInContext:ctx] length];
+        return [[self.args[0] evaluateAsStringInContext:ctx] length];
     } else {
         return [[[ctx contextNodeInfo] stringValue] length];
     }
@@ -63,7 +64,7 @@
 
 - (NSUInteger)dependencies {
     if (1 == [self numberOfArguments]) {
-        return [(XPExpression *)[args objectAtIndex:0] dependencies];
+        return [(XPExpression *)self.args[0] dependencies];
     } else {
         return XPDependenciesContextNode;
     }
@@ -73,7 +74,7 @@
 - (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
     if (1 == [self numberOfArguments]) {
         FNStringLength *f = [[[FNStringLength alloc] init] autorelease];
-        [f addArgument:[[args objectAtIndex:0] reduceDependencies:dep inContext:ctx]];
+        [f addArgument:[self.args[0] reduceDependencies:dep inContext:ctx]];
         [f setStaticContext:[self staticContext]];
         return [f simplify];
     } else {

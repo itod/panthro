@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <SenTestingKit/SenTestingKit.h>
-#import <Exedore/Exedore.h>
+#import <XPath/XPath.h>
+
+#import "XPEGParser.h"
 
 #define TDTrue(e) STAssertTrue((e), @"")
 #define TDFalse(e) STAssertFalse((e), @"")

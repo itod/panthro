@@ -1,39 +1,40 @@
 //
 //  XPRelationalExpression.m
-//  Exedore
+//  XPath
 //
 //  Created by Todd Ditchendorf on 7/17/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <Exedore/XPRelationalExpression.h>
-#import <Exedore/XPValue.h>
-#import <Exedore/XPBooleanValue.h>
+#import <XPath/XPRelationalExpression.h>
+#import <XPath/XPValue.h>
+#import <XPath/XPBooleanValue.h>
 
 @interface XPBinaryExpression ()
 @property (nonatomic, retain) XPExpression *p1;
 @property (nonatomic, retain) XPExpression *p2;
+@property (nonatomic, assign) NSInteger operator;
 @end
 
 @implementation XPRelationalExpression
 
-+ (id)relationalExpression {
++ (XPRelationalExpression *)relationalExpression {
     return [[[self alloc] init] autorelease];
 }
 
 
-+ (id)relationalExpressionWithOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs {
++ (XPRelationalExpression *)relationalExpressionWithOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs {
     return [[[self alloc] initWithOperand:lhs operator:op operand:rhs] autorelease];
 }
 
 
 - (XPExpression *)simplify {
-    self.p1 = [p1 simplify];
-    self.p2 = [p2 simplify];
+    self.p1 = [self.p1 simplify];
+    self.p2 = [self.p2 simplify];
     
     // TODO
     
-    if ([p1 isValue] && [p2 isValue]) {
+    if ([self.p1 isValue] && [self.p2 isValue]) {
         return [self evaluateInContext:nil];
     }
     
@@ -49,10 +50,10 @@
 
 
 - (BOOL)evaluateAsBooleanInContext:(XPContext *)ctx {
-    XPValue *s1 = [p1 evaluateInContext:ctx];
-    XPValue *s2 = [p2 evaluateInContext:ctx];
+    XPValue *s1 = [self.p1 evaluateInContext:ctx];
+    XPValue *s2 = [self.p2 evaluateInContext:ctx];
     
-    return [s1 compareToValue:s2 usingOperator:operator];
+    return [s1 compareToValue:s2 usingOperator:self.operator];
 }
 
 

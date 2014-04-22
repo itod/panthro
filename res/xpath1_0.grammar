@@ -37,21 +37,21 @@
  
 expr = orExpr;
     orExpr = andExpr orAndExpr*;
-        orAndExpr(didMatchAnyBooleanExpr:) = ('or' andExpr);
+        orAndExpr(parser:didMatchAnyBooleanExpr:) = ('or' andExpr);
         andExpr = equalityExpr andEqualityExpr*;
-            andEqualityExpr(didMatchAnyBooleanExpr:) = ('and' equalityExpr);
+            andEqualityExpr(parser:didMatchAnyBooleanExpr:) = ('and' equalityExpr);
 
             equalityExpr = relationalExpr eqRelationalExpr*;
-                eqRelationalExpr(didMatchAnyRelationalExpr:) = ('=' | '!=') relationalExpr;
+                eqRelationalExpr(parser:didMatchAnyRelationalExpr:) = ('=' | '!=') relationalExpr;
 
                 relationalExpr = additiveExpr compareAdditiveExpr*;
-                    compareAdditiveExpr(didMatchAnyRelationalExpr:) = ('<' | '>' | '<=' | '>=') additiveExpr;
+                    compareAdditiveExpr(parser:didMatchAnyRelationalExpr:) = ('<' | '>' | '<=' | '>=') additiveExpr;
                     
                     additiveExpr = multiplicativeExpr plusOrMinuseMultiExpr*;
-                        plusOrMinuseMultiExpr(didMatchAnyArithmeticExpr:)  = (('+' | '-') multiplicativeExpr);
+                        plusOrMinuseMultiExpr(parser:didMatchAnyArithmeticExpr:)  = (('+' | '-') multiplicativeExpr);
                     
                         multiplicativeExpr = unaryExpr multDivOrModUnaryExpr*;
-                            multDivOrModUnaryExpr(didMatchAnyArithmeticExpr:) = ((multiplyOperator | 'div' | 'mod') unaryExpr);
+                            multDivOrModUnaryExpr(parser:didMatchAnyArithmeticExpr:) = ((multiplyOperator | 'div' | 'mod') unaryExpr);
                             
                             multiplyOperator = '*';
                             unaryExpr = minusUnionExpr | unionExpr;

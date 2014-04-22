@@ -1,6 +1,6 @@
 //
 //  FNContainsTest.m
-//  Exedore
+//  XPath
 //
 //  Created by Todd Ditchendorf on 7/20/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
@@ -29,9 +29,12 @@
 
 
 - (void)testFoo {
-    expr = [XPExpression expressionFromString:@"contains('foo', 'bar')" inContext:nil error:nil];
-    res = [expr evaluateAsBooleanInContext:nil];
+    self.expr = [XPExpression expressionFromString:@"contains('foo', 'bar')" inContext:nil error:nil];
+    self.res = [expr evaluateAsBooleanInContext:nil];
     TDFalse(res);
 }
 
+@synthesize expr;
+@synthesize fn;
+@synthesize res;
 @end
