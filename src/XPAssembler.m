@@ -140,12 +140,12 @@
 
 
 - (void)parser:(PKParser *)p didMatchActualFunctionCall:(PKAssembly *)a {
-    NSArray *args = [a objectsAbove:paren];
+    NSArray *args = [a objectsAbove:_paren];
     [a pop]; // '('
     
     NSString *name = [[a pop] stringValue];
 
-    Class cls = [funcTable objectForKey:name];
+    Class cls = [_funcTable objectForKey:name];
     NSAssert1(cls, @"unknown function %@", name);
     
     XPFunction *fn = [[[cls alloc] init] autorelease];
@@ -196,9 +196,9 @@
     
     if ([s length]) {
         unichar c = [s characterAtIndex:0];
-        NSCharacterSet *set = singleQuoteCharacterSet;
+        NSCharacterSet *set = _singleQuoteCharacterSet;
         if ('"' == c) {
-            set = doubleQuoteCharacterSet;
+            set = _doubleQuoteCharacterSet;
         }
         s = [s stringByTrimmingCharactersInSet:set];
     }
@@ -206,8 +206,4 @@
     [a push:[XPStringValue stringValueWithString:s]];
 }
 
-@synthesize paren;
-@synthesize singleQuoteCharacterSet;
-@synthesize doubleQuoteCharacterSet;
-@synthesize funcTable;
 @end

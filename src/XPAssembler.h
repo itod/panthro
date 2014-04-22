@@ -14,11 +14,6 @@
 @class XPExpression;
 @protocol XPStaticContext;
 
-@interface XPAssembler : NSObject {
-    PKToken *paren;
-    NSCharacterSet *singleQuoteCharacterSet;
-    NSCharacterSet *doubleQuoteCharacterSet;
-    NSDictionary *funcTable;
-}
+@interface XPAssembler : NSObject
 
 @end
