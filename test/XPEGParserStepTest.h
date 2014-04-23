@@ -8,6 +8,6 @@
 
 #import "XPTestScaffold.h"
 
-@interface XPEGParserStepTest : SenTestCase
+@interface XPEGParserStepTest : XCTestCase
 @property (nonatomic, retain) XPEGParser *parser;
 @end

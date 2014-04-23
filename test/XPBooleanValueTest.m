@@ -6,7 +6,16 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "XPBooleanValueTest.h"
+#import "XPTestScaffold.h"
+
+@interface XPBooleanValueTest : XCTestCase
+@property (nonatomic, retain) XPBooleanValue *b1;
+@property (nonatomic, retain) XPBooleanValue *b2;
+@property (nonatomic, retain) XPBooleanValue *b3;
+@property (nonatomic, retain) XPBooleanValue *b4;
+@property (nonatomic, retain) XPExpression *expr;
+@property (nonatomic, assign) BOOL res;
+@end
 
 @implementation XPBooleanValueTest
 

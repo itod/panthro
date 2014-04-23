@@ -8,7 +8,7 @@
 
 #import "XPTestScaffold.h"
 
-@interface FNNumberTest : SenTestCase
+@interface FNNumberTest : XCTestCase
 @property (nonatomic, retain) XPExpression *expr;
 @property (nonatomic, retain) XPFunction *fn;
 @property (nonatomic, assign) double res;

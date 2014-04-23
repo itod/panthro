@@ -8,7 +8,7 @@
 
 #import "XPTestScaffold.h"
 
-@interface FNBooleanTest : SenTestCase
+@interface FNBooleanTest : XCTestCase
 @property (nonatomic, retain) XPExpression *expr;
 @property (nonatomic, retain) XPFunction *fn;
 @property (nonatomic, assign) BOOL res;

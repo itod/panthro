@@ -6,7 +6,11 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "XPValueTest.h"
+#import "XPTestScaffold.h"
+
+@interface XPValueTest : XCTestCase
+
+@end
 
 @implementation XPValueTest
 
@@ -15,9 +19,9 @@
     TDEquals(2.0, XPNumberFromString(@"2.00"));
     TDEquals(2.0, XPNumberFromString(@"02.00"));
 
-    TDEquals((double)NAN, XPNumberFromString(@"2.0e12"));
-    TDEquals((double)NAN, XPNumberFromString(@"1.0E12"));
-    TDEquals((double)NAN, XPNumberFromString(@"+1.0"));
+    TDTrue(isnan(XPNumberFromString(@"2.0e12")));
+    TDTrue(isnan(XPNumberFromString(@"1.0E12")));
+    TDTrue(isnan(XPNumberFromString(@"+1.0")));
 }
 
 @end

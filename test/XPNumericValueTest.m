@@ -6,7 +6,14 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "XPNumericValueTest.h"
+#import "XPTestScaffold.h"
+
+@interface XPNumericValueTest : XCTestCase
+@property (nonatomic, retain) XPNumericValue *n1;
+@property (nonatomic, retain) XPNumericValue *n2;
+@property (nonatomic, retain) XPExpression *expr;
+@property (nonatomic, assign) double res;
+@end
 
 @implementation XPNumericValueTest
 

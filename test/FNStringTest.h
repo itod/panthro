@@ -8,7 +8,7 @@
 
 #import "XPTestScaffold.h"
 
-@interface FNStringTest : SenTestCase
+@interface FNStringTest : XCTestCase
 @property (nonatomic, retain) XPExpression *expr;
 @property (nonatomic, retain) XPFunction *fn;
 @property (nonatomic, retain) NSString *res;

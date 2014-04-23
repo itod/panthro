@@ -29,7 +29,7 @@
     
     self.expr = [XPExpression expressionFromString:@"number()" inContext:nil error:nil];
     self.res = [expr evaluateAsNumberInContext:nil];
-    TDEquals((double)NAN, res);
+    TDTrue(isnan(res));
     
     self.expr = [XPExpression expressionFromString:@"number(0)" inContext:nil error:nil];
     self.res = [expr evaluateAsNumberInContext:nil];

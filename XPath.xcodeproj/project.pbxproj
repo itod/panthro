@@ -130,6 +130,8 @@
 		D3A5DBEB141E7DCF0081FBB4 /* XPSingletonExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DBEA141E7DCF0081FBB4 /* XPSingletonExpression.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A6C2E11907355500F3EFF3 /* XPAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A6C2DF1907355500F3EFF3 /* XPAxis.h */; };
 		D3A6C2E41907391200F3EFF3 /* XPAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A6C2E31907391200F3EFF3 /* XPAxis.m */; };
+		D3A6C2EA19073B4700F3EFF3 /* XPStepTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A6C2E919073B4700F3EFF3 /* XPStepTest.m */; };
+		D3A6C2EC19073D4900F3EFF3 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A6C2EB19073D4900F3EFF3 /* XCTest.framework */; };
 		D3AC84560F60C7EC00392CB4 /* XPExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AC84540F60C7EC00392CB4 /* XPExpression.m */; };
 		D3AC85B80F60D13200392CB4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AC85B70F60D13200392CB4 /* Foundation.framework */; };
 		D3C177F71880EE2E00F90600 /* XPEGParserFilterExprTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C177F61880EE2E00F90600 /* XPEGParserFilterExprTest.m */; };
@@ -213,13 +215,11 @@
 		D3363907100D7B8300AC4B51 /* XPNodeEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNodeEnumerator.m; path = src/XPNodeEnumerator.m; sourceTree = "<group>"; };
 		D336393F100D7EB400AC4B51 /* XPSingletonNodeSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPSingletonNodeSet.m; path = src/XPSingletonNodeSet.m; sourceTree = "<group>"; };
 		D3363954100D813500AC4B51 /* XPObjectValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPObjectValue.m; path = src/XPObjectValue.m; sourceTree = "<group>"; };
-		D33639D1100DAA9400AC4B51 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D33639D1100DAA9400AC4B51 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D33639D2100DAA9400AC4B51 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
-		D33639D7100DAB5700AC4B51 /* XPBooleanValueTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPBooleanValueTest.h; path = test/XPBooleanValueTest.h; sourceTree = "<group>"; };
 		D33639D8100DAB5700AC4B51 /* XPBooleanValueTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBooleanValueTest.m; path = test/XPBooleanValueTest.m; sourceTree = "<group>"; };
 		D33639DA100DAB8C00AC4B51 /* XPTestScaffold.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPTestScaffold.m; path = test/XPTestScaffold.m; sourceTree = "<group>"; };
 		D33639DB100DAB8C00AC4B51 /* XPTestScaffold.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPTestScaffold.h; path = test/XPTestScaffold.h; sourceTree = "<group>"; };
-		D33639F4100DB15700AC4B51 /* XPValueTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPValueTest.h; path = test/XPValueTest.h; sourceTree = "<group>"; };
 		D33639F5100DB15700AC4B51 /* XPValueTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPValueTest.m; path = test/XPValueTest.m; sourceTree = "<group>"; };
 		D3366B02188051D6008C4144 /* XPEGParserStepTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPEGParserStepTest.h; path = test/XPEGParserStepTest.h; sourceTree = "<group>"; };
 		D3366B03188051D6008C4144 /* XPEGParserStepTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPEGParserStepTest.m; path = test/XPEGParserStepTest.m; sourceTree = "<group>"; };
@@ -231,15 +231,12 @@
 		D36BC030101BF52F00D1A6C7 /* XPParentNodeExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPParentNodeExpression.m; path = src/XPParentNodeExpression.m; sourceTree = "<group>"; };
 		D36BC031101BF52F00D1A6C7 /* XPSingletonExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPSingletonExpression.m; path = src/XPSingletonExpression.m; sourceTree = "<group>"; };
 		D36BC059101BF5B100D1A6C7 /* XPController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPController.m; path = src/XPController.m; sourceTree = "<group>"; };
-		D36C676F101059CE000361A0 /* XPNumericValueTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPNumericValueTest.h; path = test/XPNumericValueTest.h; sourceTree = "<group>"; };
 		D36C6770101059CE000361A0 /* XPNumericValueTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNumericValueTest.m; path = test/XPNumericValueTest.m; sourceTree = "<group>"; };
-		D36C678110105EBE000361A0 /* XPStringValueTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPStringValueTest.h; path = test/XPStringValueTest.h; sourceTree = "<group>"; };
 		D36C678210105EBE000361A0 /* XPStringValueTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPStringValueTest.m; path = test/XPStringValueTest.m; sourceTree = "<group>"; };
 		D36C679810106874000361A0 /* XPRelationalExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPRelationalExpression.m; path = src/XPRelationalExpression.m; sourceTree = "<group>"; };
 		D36C679C1010689A000361A0 /* XPBinaryExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBinaryExpression.m; path = src/XPBinaryExpression.m; sourceTree = "<group>"; };
 		D36C68111010E0FE000361A0 /* XPArithmeticExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPArithmeticExpression.m; path = src/XPArithmeticExpression.m; sourceTree = "<group>"; };
 		D37A27E31012FFA600E936B7 /* XPBooleanExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBooleanExpression.m; path = src/XPBooleanExpression.m; sourceTree = "<group>"; };
-		D37A27F3101304EF00E936B7 /* XPBooleanExprTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPBooleanExprTest.h; path = test/XPBooleanExprTest.h; sourceTree = "<group>"; };
 		D37A27F4101304EF00E936B7 /* XPBooleanExprTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBooleanExprTest.m; path = test/XPBooleanExprTest.m; sourceTree = "<group>"; };
 		D37A29681013F39400E936B7 /* XPFunction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPFunction.m; path = src/XPFunction.m; sourceTree = "<group>"; };
 		D37A296C1013F57D00E936B7 /* NSError+XPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSError+XPAdditions.m"; path = "src/NSError+XPAdditions.m"; sourceTree = "<group>"; };
@@ -349,6 +346,8 @@
 		D3A5DBEA141E7DCF0081FBB4 /* XPSingletonExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPSingletonExpression.h; path = include/XPath/XPSingletonExpression.h; sourceTree = "<group>"; };
 		D3A6C2DF1907355500F3EFF3 /* XPAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPAxis.h; path = src/XPAxis.h; sourceTree = "<group>"; };
 		D3A6C2E31907391200F3EFF3 /* XPAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPAxis.m; path = src/XPAxis.m; sourceTree = "<group>"; };
+		D3A6C2E919073B4700F3EFF3 /* XPStepTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPStepTest.m; path = test/XPStepTest.m; sourceTree = "<group>"; };
+		D3A6C2EB19073D4900F3EFF3 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		D3AC84540F60C7EC00392CB4 /* XPExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPExpression.m; path = src/XPExpression.m; sourceTree = "<group>"; };
 		D3AC85B70F60D13200392CB4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		D3C177F51880EE2E00F90600 /* XPEGParserFilterExprTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPEGParserFilterExprTest.h; path = test/XPEGParserFilterExprTest.h; sourceTree = "<group>"; };
@@ -382,6 +381,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3A6C2EC19073D4900F3EFF3 /* XCTest.framework in Frameworks */,
 				D33639E4100DACDF00AC4B51 /* XPath.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -393,7 +393,7 @@
 			isa = PBXGroup;
 			children = (
 				8DC2EF5B0486A6940098B216 /* XPath.framework */,
-				D33639D1100DAA9400AC4B51 /* Tests.octest */,
+				D33639D1100DAA9400AC4B51 /* Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -401,6 +401,7 @@
 		0867D691FE84028FC02AAC07 /* Exedore */ = {
 			isa = PBXGroup;
 			children = (
+				D3A6C2EB19073D4900F3EFF3 /* XCTest.framework */,
 				D3C7983719060D0800EC8CB2 /* PEGKit.xcodeproj */,
 				D33639CB100DAA6B00AC4B51 /* XPath Tests */,
 				08FB77AEFE84172EC02AAC07 /* XPath Framework */,
@@ -582,16 +583,12 @@
 		D37A2A16101400A500E936B7 /* Expr */ = {
 			isa = PBXGroup;
 			children = (
-				D33639F4100DB15700AC4B51 /* XPValueTest.h */,
 				D33639F5100DB15700AC4B51 /* XPValueTest.m */,
-				D33639D7100DAB5700AC4B51 /* XPBooleanValueTest.h */,
 				D33639D8100DAB5700AC4B51 /* XPBooleanValueTest.m */,
-				D36C676F101059CE000361A0 /* XPNumericValueTest.h */,
 				D36C6770101059CE000361A0 /* XPNumericValueTest.m */,
-				D36C678110105EBE000361A0 /* XPStringValueTest.h */,
 				D36C678210105EBE000361A0 /* XPStringValueTest.m */,
-				D37A27F3101304EF00E936B7 /* XPBooleanExprTest.h */,
 				D37A27F4101304EF00E936B7 /* XPBooleanExprTest.m */,
+				D3A6C2E919073B4700F3EFF3 /* XPStepTest.m */,
 			);
 			name = Expr;
 			sourceTree = "<group>";
@@ -832,7 +829,7 @@
 			);
 			name = Tests;
 			productName = Tests;
-			productReference = D33639D1100DAA9400AC4B51 /* Tests.octest */;
+			productReference = D33639D1100DAA9400AC4B51 /* Tests.xctest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -1027,6 +1024,7 @@
 				D37A3078101595FD00E936B7 /* FNStartsWithTest.m in Sources */,
 				D37A30C610159A5400E936B7 /* FNStringTest.m in Sources */,
 				D37A31201015A74D00E936B7 /* FNNumberTest.m in Sources */,
+				D3A6C2EA19073B4700F3EFF3 /* XPStepTest.m in Sources */,
 				D37A31851016A34C00E936B7 /* FNStringLengthTest.m in Sources */,
 				D37A31BF1016A7B000E936B7 /* FNSubstringTest.m in Sources */,
 				D37A320C1016C37400E936B7 /* FNSubstringAfterTest.m in Sources */,
@@ -1140,7 +1138,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_ENABLE_OBJC_GC = unsupported;
@@ -1148,20 +1149,10 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Tests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Cocoa,
-					"-framework",
-					SenTestingKit,
-				);
 				PRODUCT_NAME = Tests;
-				SDKROOT = macosx;
-				VALID_ARCHS = "x86_64 ppc970 ppc7400 ppc64 ppc i386";
-				WRAPPER_EXTENSION = octest;
+				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
 		};
@@ -1171,25 +1162,19 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Tests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Cocoa,
-					"-framework",
-					SenTestingKit,
-				);
 				PRODUCT_NAME = Tests;
-				SDKROOT = macosx;
-				WRAPPER_EXTENSION = octest;
+				WRAPPER_EXTENSION = xctest;
 				ZERO_LINK = NO;
 			};
 			name = Release;

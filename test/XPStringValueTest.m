@@ -6,7 +6,14 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "XPStringValueTest.h"
+#import "XPTestScaffold.h"
+
+@interface XPStringValueTest : XCTestCase
+@property (nonatomic, retain) XPStringValue *s1;
+@property (nonatomic, retain) XPStringValue *s2;
+@property (nonatomic, retain) XPExpression *expr;
+@property (nonatomic, assign) BOOL res;
+@end
 
 @implementation XPStringValueTest
 
