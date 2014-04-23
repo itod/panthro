@@ -181,8 +181,9 @@
     XPNodeTest *nodeTest = [a pop];
     XPAssert([nodeTest isKindOfClass:[XPNodeTest class]]);
     
-    XPAssert(![a isStackEmpty]);
-    XPAxis axis = [[a pop] unsignedIntegerValue];
+    NSNumber *axisNum = [a pop];
+    XPAssert([axisNum isKindOfClass:[NSNumber class]]);
+    XPAxis axis = [axisNum unsignedIntegerValue];
     
     XPStep *step = [[[XPStep alloc] initWithAxis:axis nodeTest:nodeTest] autorelease];
     
@@ -195,6 +196,13 @@
     
     // TODO
     [a push:[XPBooleanValue booleanValueWithBoolean:tok.doubleValue]]; // this is a place holder. add a node later when ready
+}
+
+
+- (void)parser:(PKParser *)p didMatchImplicitAxisStep:(PKAssembly *)a {
+    id obj = [a pop];
+    [a push:@(XPAxisChild)];
+    [a push:obj];
 }
 
 

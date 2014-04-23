@@ -97,15 +97,15 @@ pathExpr = filterExpr (('/'| '//') relativeLocationPath)? | locationPath;
             predicateExpr = expr;
                 
 
-    step = axisPlusStepBody | stepBody | abbreviatedStep;
-        axisPlusStepBody = axisSpecifier stepBody;
-        stepBody = nodeTest predicate*;
-        axisSpecifier = axisName '::' | abbreviatedAxisSpecifier;
+    step = axis stepBody | implicitAxisStep;
+        axis = axisName '::' | abbreviatedAxis;
             axisName = 'ancestor' | 'ancestor-or-self' | 'attribute' | 'child' | 'descendant' | 'descendant-or-self' | 'following' | 'following-sibling' | 'namespace' | 'parent' | 'preceding' | 'preceding-sibling' | 'self';
-            abbreviatedAxisSpecifier = '@';
+            abbreviatedAxis = '@';
+        stepBody = nodeTest predicate*;
         nodeTest = nameTest | typeTest | 'processing-instruction' '(' literal ')';
             nameTest = '*' | ncName ':' '*' | qName; // note whitespace should not be allowed in second alt here
             typeTest = nodeType '('! ')'!;
             nodeType = 'comment' | 'text' | 'processing-instruction' | 'node';
         abbreviatedStep = '.' | '..';
+        implicitAxisStep = abbreviatedStep | stepBody;
             
