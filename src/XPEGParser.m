@@ -150,6 +150,8 @@
 
 - (void)stmt_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchStmt:)];
+
     [self expr_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchStmt:)];
@@ -157,6 +159,8 @@
 
 - (void)expr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchExpr:)];
+
     [self orExpr_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchExpr:)];
@@ -164,6 +168,8 @@
 
 - (void)orExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchOrExpr:)];
+
     [self andExpr_]; 
     while ([self speculate:^{ [self orAndExpr_]; }]) {
         [self orAndExpr_]; 
@@ -174,6 +180,8 @@
 
 - (void)orAndExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchOrAndExpr:)];
+
     [self match:XPEGPARSER_TOKEN_KIND_OR discard:NO]; 
     [self andExpr_]; 
 
@@ -182,6 +190,8 @@
 
 - (void)andExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchAndExpr:)];
+
     [self equalityExpr_]; 
     while ([self speculate:^{ [self andEqualityExpr_]; }]) {
         [self andEqualityExpr_]; 
@@ -192,6 +202,8 @@
 
 - (void)andEqualityExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchAndEqualityExpr:)];
+
     [self match:XPEGPARSER_TOKEN_KIND_AND discard:NO]; 
     [self equalityExpr_]; 
 
@@ -200,6 +212,8 @@
 
 - (void)equalityExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchEqualityExpr:)];
+
     [self relationalExpr_]; 
     while ([self speculate:^{ [self eqRelationalExpr_]; }]) {
         [self eqRelationalExpr_]; 
@@ -210,6 +224,8 @@
 
 - (void)eqRelationalExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchEqRelationalExpr:)];
+
     if ([self predicts:XPEGPARSER_TOKEN_KIND_EQUALS, 0]) {
         [self match:XPEGPARSER_TOKEN_KIND_EQUALS discard:NO]; 
     } else if ([self predicts:XPEGPARSER_TOKEN_KIND_NOT_EQUAL, 0]) {
@@ -224,6 +240,8 @@
 
 - (void)relationalExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchRelationalExpr:)];
+
     [self additiveExpr_]; 
     while ([self speculate:^{ [self compareAdditiveExpr_]; }]) {
         [self compareAdditiveExpr_]; 
@@ -234,6 +252,8 @@
 
 - (void)compareAdditiveExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchCompareAdditiveExpr:)];
+
     if ([self predicts:XPEGPARSER_TOKEN_KIND_LT_SYM, 0]) {
         [self match:XPEGPARSER_TOKEN_KIND_LT_SYM discard:NO]; 
     } else if ([self predicts:XPEGPARSER_TOKEN_KIND_GT_SYM, 0]) {
@@ -252,6 +272,8 @@
 
 - (void)additiveExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchAdditiveExpr:)];
+
     [self multiplicativeExpr_]; 
     while ([self speculate:^{ [self plusOrMinusMultiExpr_]; }]) {
         [self plusOrMinusMultiExpr_]; 
@@ -262,6 +284,8 @@
 
 - (void)plusOrMinusMultiExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchPlusOrMinusMultiExpr:)];
+
     if ([self predicts:XPEGPARSER_TOKEN_KIND_PLUS, 0]) {
         [self match:XPEGPARSER_TOKEN_KIND_PLUS discard:NO]; 
     } else if ([self predicts:XPEGPARSER_TOKEN_KIND_MINUS, 0]) {
@@ -276,6 +300,8 @@
 
 - (void)multiplicativeExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchMultiplicativeExpr:)];
+
     [self unaryExpr_]; 
     while ([self speculate:^{ [self multDivOrModUnaryExpr_]; }]) {
         [self multDivOrModUnaryExpr_]; 
@@ -286,6 +312,8 @@
 
 - (void)multDivOrModUnaryExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchMultDivOrModUnaryExpr:)];
+
     if ([self predicts:XPEGPARSER_TOKEN_KIND_MULTIPLYOPERATOR, 0]) {
         [self multiplyOperator_]; 
     } else if ([self predicts:XPEGPARSER_TOKEN_KIND_DIV, 0]) {
@@ -302,6 +330,8 @@
 
 - (void)multiplyOperator_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchMultiplyOperator:)];
+
     [self match:XPEGPARSER_TOKEN_KIND_MULTIPLYOPERATOR discard:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchMultiplyOperator:)];
@@ -309,6 +339,8 @@
 
 - (void)unaryExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchUnaryExpr:)];
+
     if ([self predicts:XPEGPARSER_TOKEN_KIND_MINUS, 0]) {
         [self minusUnionExpr_]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, XPEGPARSER_TOKEN_KIND_ABBREVIATEDAXISSPECIFIER, XPEGPARSER_TOKEN_KIND_ANCESTOR, XPEGPARSER_TOKEN_KIND_ANCESTOR_OR_SELF, XPEGPARSER_TOKEN_KIND_ATTRIBUTE, XPEGPARSER_TOKEN_KIND_CHILD, XPEGPARSER_TOKEN_KIND_COMMENT, XPEGPARSER_TOKEN_KIND_DESCENDANT, XPEGPARSER_TOKEN_KIND_DESCENDANT_OR_SELF, XPEGPARSER_TOKEN_KIND_DOLLAR, XPEGPARSER_TOKEN_KIND_DOT, XPEGPARSER_TOKEN_KIND_DOT_DOT, XPEGPARSER_TOKEN_KIND_DOUBLE_SLASH, XPEGPARSER_TOKEN_KIND_FALSE, XPEGPARSER_TOKEN_KIND_FOLLOWING, XPEGPARSER_TOKEN_KIND_FOLLOWING_SIBLING, XPEGPARSER_TOKEN_KIND_FORWARD_SLASH, XPEGPARSER_TOKEN_KIND_MULTIPLYOPERATOR, XPEGPARSER_TOKEN_KIND_NAMESPACE, XPEGPARSER_TOKEN_KIND_NODE, XPEGPARSER_TOKEN_KIND_OPEN_PAREN, XPEGPARSER_TOKEN_KIND_PARENT, XPEGPARSER_TOKEN_KIND_PRECEDING, XPEGPARSER_TOKEN_KIND_PRECEDING_SIBLING, XPEGPARSER_TOKEN_KIND_PROCESSING_INSTRUCTION, XPEGPARSER_TOKEN_KIND_SELF, XPEGPARSER_TOKEN_KIND_TEXT, XPEGPARSER_TOKEN_KIND_TRUE, 0]) {
@@ -322,6 +354,8 @@
 
 - (void)minusUnionExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchMinusUnionExpr:)];
+
     do {
         [self match:XPEGPARSER_TOKEN_KIND_MINUS discard:NO]; 
     } while ([self predicts:XPEGPARSER_TOKEN_KIND_MINUS, 0]);
@@ -332,6 +366,8 @@
 
 - (void)unionExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchUnionExpr:)];
+
     [self pathExpr_]; 
     while ([self speculate:^{ [self match:XPEGPARSER_TOKEN_KIND_PIPE discard:NO]; [self pathExpr_]; }]) {
         [self match:XPEGPARSER_TOKEN_KIND_PIPE discard:NO]; 
@@ -343,6 +379,8 @@
 
 - (void)pathExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchPathExpr:)];
+
     if ([self speculate:^{ [self filterExpr_]; if ([self speculate:^{ if ([self predicts:XPEGPARSER_TOKEN_KIND_FORWARD_SLASH, 0]) {[self match:XPEGPARSER_TOKEN_KIND_FORWARD_SLASH discard:NO]; } else if ([self predicts:XPEGPARSER_TOKEN_KIND_DOUBLE_SLASH, 0]) {[self match:XPEGPARSER_TOKEN_KIND_DOUBLE_SLASH discard:NO]; } else {[self raise:@"No viable alternative found in rule 'pathExpr'."];}[self relativeLocationPath_]; }]) {if ([self predicts:XPEGPARSER_TOKEN_KIND_FORWARD_SLASH, 0]) {[self match:XPEGPARSER_TOKEN_KIND_FORWARD_SLASH discard:NO]; } else if ([self predicts:XPEGPARSER_TOKEN_KIND_DOUBLE_SLASH, 0]) {[self match:XPEGPARSER_TOKEN_KIND_DOUBLE_SLASH discard:NO]; } else {[self raise:@"No viable alternative found in rule 'pathExpr'."];}[self relativeLocationPath_]; }}]) {
         [self filterExpr_]; 
         if ([self speculate:^{ if ([self predicts:XPEGPARSER_TOKEN_KIND_FORWARD_SLASH, 0]) {[self match:XPEGPARSER_TOKEN_KIND_FORWARD_SLASH discard:NO]; } else if ([self predicts:XPEGPARSER_TOKEN_KIND_DOUBLE_SLASH, 0]) {[self match:XPEGPARSER_TOKEN_KIND_DOUBLE_SLASH discard:NO]; } else {[self raise:@"No viable alternative found in rule 'pathExpr'."];}[self relativeLocationPath_]; }]) {
@@ -366,6 +404,8 @@
 
 - (void)locationPath_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchLocationPath:)];
+
     if ([self predicts:TOKEN_KIND_BUILTIN_WORD, XPEGPARSER_TOKEN_KIND_ABBREVIATEDAXISSPECIFIER, XPEGPARSER_TOKEN_KIND_ANCESTOR, XPEGPARSER_TOKEN_KIND_ANCESTOR_OR_SELF, XPEGPARSER_TOKEN_KIND_ATTRIBUTE, XPEGPARSER_TOKEN_KIND_CHILD, XPEGPARSER_TOKEN_KIND_COMMENT, XPEGPARSER_TOKEN_KIND_DESCENDANT, XPEGPARSER_TOKEN_KIND_DESCENDANT_OR_SELF, XPEGPARSER_TOKEN_KIND_DOT, XPEGPARSER_TOKEN_KIND_DOT_DOT, XPEGPARSER_TOKEN_KIND_FOLLOWING, XPEGPARSER_TOKEN_KIND_FOLLOWING_SIBLING, XPEGPARSER_TOKEN_KIND_MULTIPLYOPERATOR, XPEGPARSER_TOKEN_KIND_NAMESPACE, XPEGPARSER_TOKEN_KIND_NODE, XPEGPARSER_TOKEN_KIND_PARENT, XPEGPARSER_TOKEN_KIND_PRECEDING, XPEGPARSER_TOKEN_KIND_PRECEDING_SIBLING, XPEGPARSER_TOKEN_KIND_PROCESSING_INSTRUCTION, XPEGPARSER_TOKEN_KIND_SELF, XPEGPARSER_TOKEN_KIND_TEXT, 0]) {
         [self relativeLocationPath_]; 
     } else if ([self predicts:XPEGPARSER_TOKEN_KIND_DOUBLE_SLASH, XPEGPARSER_TOKEN_KIND_FORWARD_SLASH, 0]) {
@@ -379,6 +419,8 @@
 
 - (void)relativeLocationPath_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchRelativeLocationPath:)];
+
     [self step_]; 
     while ([self speculate:^{ if ([self predicts:XPEGPARSER_TOKEN_KIND_FORWARD_SLASH, 0]) {[self match:XPEGPARSER_TOKEN_KIND_FORWARD_SLASH discard:NO]; } else if ([self predicts:XPEGPARSER_TOKEN_KIND_DOUBLE_SLASH, 0]) {[self match:XPEGPARSER_TOKEN_KIND_DOUBLE_SLASH discard:NO]; } else {[self raise:@"No viable alternative found in rule 'relativeLocationPath'."];}[self step_]; }]) {
         if ([self predicts:XPEGPARSER_TOKEN_KIND_FORWARD_SLASH, 0]) {
@@ -396,6 +438,8 @@
 
 - (void)absoluteLocationPath_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchAbsoluteLocationPath:)];
+
     if ([self predicts:XPEGPARSER_TOKEN_KIND_FORWARD_SLASH, 0]) {
         [self match:XPEGPARSER_TOKEN_KIND_FORWARD_SLASH discard:NO]; 
         if ([self speculate:^{ [self relativeLocationPath_]; }]) {
@@ -412,6 +456,8 @@
 
 - (void)abbreviatedAbsoluteLocationPath_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchAbbreviatedAbsoluteLocationPath:)];
+
     [self match:XPEGPARSER_TOKEN_KIND_DOUBLE_SLASH discard:NO]; 
     [self relativeLocationPath_]; 
 
@@ -420,6 +466,8 @@
 
 - (void)filterExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchFilterExpr:)];
+
     [self primaryExpr_]; 
     while ([self speculate:^{ [self predicate_]; }]) {
         [self predicate_]; 
@@ -430,6 +478,8 @@
 
 - (void)primaryExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchPrimaryExpr:)];
+
     if ([self predicts:XPEGPARSER_TOKEN_KIND_DOLLAR, 0]) {
         [self variableReference_]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
@@ -451,6 +501,8 @@
 
 - (void)variableReference_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchVariableReference:)];
+
     [self match:XPEGPARSER_TOKEN_KIND_DOLLAR discard:NO]; 
     [self qName_]; 
 
@@ -459,6 +511,8 @@
 
 - (void)literal_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchLiteral:)];
+
     [self matchQuotedString:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchLiteral:)];
@@ -466,6 +520,8 @@
 
 - (void)number_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchNumber:)];
+
     [self matchNumber:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchNumber:)];
@@ -473,6 +529,8 @@
 
 - (void)functionCall_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchFunctionCall:)];
+
     if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self actualFunctionCall_]; 
     } else if ([self predicts:XPEGPARSER_TOKEN_KIND_FALSE, XPEGPARSER_TOKEN_KIND_TRUE, 0]) {
@@ -486,6 +544,8 @@
 
 - (void)actualFunctionCall_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchActualFunctionCall:)];
+
     [self functionName_]; 
     [self match:XPEGPARSER_TOKEN_KIND_OPEN_PAREN discard:NO]; 
     if ([self speculate:^{ [self argument_]; while ([self speculate:^{ [self match:XPEGPARSER_TOKEN_KIND_COMMA discard:YES]; [self argument_]; }]) {[self match:XPEGPARSER_TOKEN_KIND_COMMA discard:YES]; [self argument_]; }}]) {
@@ -502,6 +562,8 @@
 
 - (void)booleanLiteralFunctionCall_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchBooleanLiteralFunctionCall:)];
+
     [self booleanLiteral_]; 
     [self match:XPEGPARSER_TOKEN_KIND_OPEN_PAREN discard:YES]; 
     [self match:XPEGPARSER_TOKEN_KIND_CLOSE_PAREN discard:YES]; 
@@ -511,6 +573,8 @@
 
 - (void)functionName_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchFunctionName:)];
+
     [self testAndThrow:(id)^{ return NE(LS(1), @"true") && NE(LS(1), @"false") && NE(LS(1), @"comment") && NE(LS(1), @"text") && NE(LS(1), @"processing-instruction") && NE(LS(1), @"node"); }]; 
     [self qName_]; 
 
@@ -519,6 +583,8 @@
 
 - (void)booleanLiteral_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchBooleanLiteral:)];
+
     if ([self predicts:XPEGPARSER_TOKEN_KIND_TRUE, 0]) {
         [self match:XPEGPARSER_TOKEN_KIND_TRUE discard:NO]; 
     } else if ([self predicts:XPEGPARSER_TOKEN_KIND_FALSE, 0]) {
@@ -532,6 +598,8 @@
 
 - (void)qName_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchQName:)];
+
     if ([self speculate:^{ [self prefix_]; [self match:XPEGPARSER_TOKEN_KIND_COLON discard:NO]; }]) {
         [self prefix_]; 
         [self match:XPEGPARSER_TOKEN_KIND_COLON discard:NO]; 
@@ -543,6 +611,8 @@
 
 - (void)prefix_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchPrefix:)];
+
     [self ncName_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchPrefix:)];
@@ -550,6 +620,8 @@
 
 - (void)localPart_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchLocalPart:)];
+
     [self ncName_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchLocalPart:)];
@@ -557,6 +629,8 @@
 
 - (void)ncName_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchNcName:)];
+
     [self matchWord:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchNcName:)];
@@ -564,6 +638,8 @@
 
 - (void)argument_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchArgument:)];
+
     [self expr_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchArgument:)];
@@ -571,6 +647,8 @@
 
 - (void)predicate_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchPredicate:)];
+
     [self match:XPEGPARSER_TOKEN_KIND_OPEN_BRACKET discard:NO]; 
     [self predicateExpr_]; 
     [self match:XPEGPARSER_TOKEN_KIND_CLOSE_BRACKET discard:NO]; 
@@ -580,6 +658,8 @@
 
 - (void)predicateExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchPredicateExpr:)];
+
     [self expr_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchPredicateExpr:)];
@@ -587,6 +667,8 @@
 
 - (void)step_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchStep:)];
+
     if ([self predicts:XPEGPARSER_TOKEN_KIND_ABBREVIATEDAXISSPECIFIER, XPEGPARSER_TOKEN_KIND_ANCESTOR, XPEGPARSER_TOKEN_KIND_ANCESTOR_OR_SELF, XPEGPARSER_TOKEN_KIND_ATTRIBUTE, XPEGPARSER_TOKEN_KIND_CHILD, XPEGPARSER_TOKEN_KIND_DESCENDANT, XPEGPARSER_TOKEN_KIND_DESCENDANT_OR_SELF, XPEGPARSER_TOKEN_KIND_FOLLOWING, XPEGPARSER_TOKEN_KIND_FOLLOWING_SIBLING, XPEGPARSER_TOKEN_KIND_NAMESPACE, XPEGPARSER_TOKEN_KIND_PARENT, XPEGPARSER_TOKEN_KIND_PRECEDING, XPEGPARSER_TOKEN_KIND_PRECEDING_SIBLING, XPEGPARSER_TOKEN_KIND_SELF, 0]) {
         [self axisPlusStepBody_]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, XPEGPARSER_TOKEN_KIND_COMMENT, XPEGPARSER_TOKEN_KIND_MULTIPLYOPERATOR, XPEGPARSER_TOKEN_KIND_NODE, XPEGPARSER_TOKEN_KIND_PROCESSING_INSTRUCTION, XPEGPARSER_TOKEN_KIND_TEXT, 0]) {
@@ -602,6 +684,8 @@
 
 - (void)axisPlusStepBody_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchAxisPlusStepBody:)];
+
     [self axisSpecifier_]; 
     [self stepBody_]; 
 
@@ -610,6 +694,8 @@
 
 - (void)stepBody_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchStepBody:)];
+
     [self nodeTest_]; 
     while ([self speculate:^{ [self predicate_]; }]) {
         [self predicate_]; 
@@ -620,6 +706,8 @@
 
 - (void)axisSpecifier_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchAxisSpecifier:)];
+
     if ([self predicts:XPEGPARSER_TOKEN_KIND_ANCESTOR, XPEGPARSER_TOKEN_KIND_ANCESTOR_OR_SELF, XPEGPARSER_TOKEN_KIND_ATTRIBUTE, XPEGPARSER_TOKEN_KIND_CHILD, XPEGPARSER_TOKEN_KIND_DESCENDANT, XPEGPARSER_TOKEN_KIND_DESCENDANT_OR_SELF, XPEGPARSER_TOKEN_KIND_FOLLOWING, XPEGPARSER_TOKEN_KIND_FOLLOWING_SIBLING, XPEGPARSER_TOKEN_KIND_NAMESPACE, XPEGPARSER_TOKEN_KIND_PARENT, XPEGPARSER_TOKEN_KIND_PRECEDING, XPEGPARSER_TOKEN_KIND_PRECEDING_SIBLING, XPEGPARSER_TOKEN_KIND_SELF, 0]) {
         [self axisName_]; 
         [self match:XPEGPARSER_TOKEN_KIND_DOUBLE_COLON discard:NO]; 
@@ -634,6 +722,8 @@
 
 - (void)axisName_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchAxisName:)];
+
     if ([self predicts:XPEGPARSER_TOKEN_KIND_ANCESTOR, 0]) {
         [self match:XPEGPARSER_TOKEN_KIND_ANCESTOR discard:NO]; 
     } else if ([self predicts:XPEGPARSER_TOKEN_KIND_ANCESTOR_OR_SELF, 0]) {
@@ -669,6 +759,8 @@
 
 - (void)abbreviatedAxisSpecifier_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchAbbreviatedAxisSpecifier:)];
+
     [self match:XPEGPARSER_TOKEN_KIND_ABBREVIATEDAXISSPECIFIER discard:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchAbbreviatedAxisSpecifier:)];
@@ -676,12 +768,12 @@
 
 - (void)nodeTest_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchNodeTest:)];
+
     if ([self speculate:^{ [self nameTest_]; }]) {
         [self nameTest_]; 
-    } else if ([self speculate:^{ [self nodeType_]; [self match:XPEGPARSER_TOKEN_KIND_OPEN_PAREN discard:NO]; [self match:XPEGPARSER_TOKEN_KIND_CLOSE_PAREN discard:NO]; }]) {
-        [self nodeType_]; 
-        [self match:XPEGPARSER_TOKEN_KIND_OPEN_PAREN discard:NO]; 
-        [self match:XPEGPARSER_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+    } else if ([self speculate:^{ [self typeTest_]; }]) {
+        [self typeTest_]; 
     } else if ([self speculate:^{ [self match:XPEGPARSER_TOKEN_KIND_PROCESSING_INSTRUCTION discard:NO]; [self match:XPEGPARSER_TOKEN_KIND_OPEN_PAREN discard:NO]; [self literal_]; [self match:XPEGPARSER_TOKEN_KIND_CLOSE_PAREN discard:NO]; }]) {
         [self match:XPEGPARSER_TOKEN_KIND_PROCESSING_INSTRUCTION discard:NO]; 
         [self match:XPEGPARSER_TOKEN_KIND_OPEN_PAREN discard:NO]; 
@@ -696,6 +788,8 @@
 
 - (void)nameTest_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchNameTest:)];
+
     if ([self speculate:^{ [self match:XPEGPARSER_TOKEN_KIND_MULTIPLYOPERATOR discard:NO]; }]) {
         [self match:XPEGPARSER_TOKEN_KIND_MULTIPLYOPERATOR discard:NO]; 
     } else if ([self speculate:^{ [self ncName_]; [self match:XPEGPARSER_TOKEN_KIND_COLON discard:NO]; [self match:XPEGPARSER_TOKEN_KIND_MULTIPLYOPERATOR discard:NO]; }]) {
@@ -711,8 +805,21 @@
     [self fireDelegateSelector:@selector(parser:didMatchNameTest:)];
 }
 
+- (void)typeTest_ {
+    
+    [self fireDelegateSelector:@selector(parser:willMatchTypeTest:)];
+
+    [self nodeType_]; 
+    [self match:XPEGPARSER_TOKEN_KIND_OPEN_PAREN discard:YES]; 
+    [self match:XPEGPARSER_TOKEN_KIND_CLOSE_PAREN discard:YES]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchTypeTest:)];
+}
+
 - (void)nodeType_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchNodeType:)];
+
     if ([self predicts:XPEGPARSER_TOKEN_KIND_COMMENT, 0]) {
         [self match:XPEGPARSER_TOKEN_KIND_COMMENT discard:NO]; 
     } else if ([self predicts:XPEGPARSER_TOKEN_KIND_TEXT, 0]) {
@@ -730,6 +837,8 @@
 
 - (void)abbreviatedStep_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchAbbreviatedStep:)];
+
     if ([self predicts:XPEGPARSER_TOKEN_KIND_DOT, 0]) {
         [self match:XPEGPARSER_TOKEN_KIND_DOT discard:NO]; 
     } else if ([self predicts:XPEGPARSER_TOKEN_KIND_DOT_DOT, 0]) {

@@ -244,7 +244,6 @@
 		D37A299C1013F87900E936B7 /* FNNotTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNNotTest.m; path = test/FNNotTest.m; sourceTree = "<group>"; };
 		D37A29A21013F95100E936B7 /* FNNot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNNot.m; path = src/FNNot.m; sourceTree = "<group>"; };
 		D37A2A191014015E00E936B7 /* FNBoolean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNBoolean.m; path = src/FNBoolean.m; sourceTree = "<group>"; };
-		D37A2B96101418EC00E936B7 /* FNBooleanTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNBooleanTest.h; path = test/FNBooleanTest.h; sourceTree = "<group>"; };
 		D37A2B97101418EC00E936B7 /* FNBooleanTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNBooleanTest.m; path = test/FNBooleanTest.m; sourceTree = "<group>"; };
 		D37A2BDB10141E7C00E936B7 /* NSError+XPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSError+XPAdditions.h"; path = "src/NSError+XPAdditions.h"; sourceTree = "<group>"; };
 		D37A2CAA10142D8E00E936B7 /* FNCeiling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNCeiling.m; path = src/FNCeiling.m; sourceTree = "<group>"; };
@@ -580,7 +579,6 @@
 		D37A2A17101400AD00E936B7 /* Fn */ = {
 			isa = PBXGroup;
 			children = (
-				D37A2B96101418EC00E936B7 /* FNBooleanTest.h */,
 				D37A2B97101418EC00E936B7 /* FNBooleanTest.m */,
 				D37A2CD810142EC100E936B7 /* FNCeilingTest.h */,
 				D37A2CD910142EC100E936B7 /* FNCeilingTest.m */,

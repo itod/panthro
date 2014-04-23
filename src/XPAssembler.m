@@ -161,17 +161,23 @@
     PKToken *tok = [a pop];
     
     // TODO
-    [a push:[XPBooleanValue booleanValueWithBoolean:YES]]; // this is a place holder. add a node later when ready
+    [a push:[XPBooleanValue booleanValueWithBoolean:tok.doubleValue]]; // this is a place holder. add a node later when ready
 }
 
 
 
+- (void)parser:(PKParser *)p didMatchTypeTest:(PKAssembly *)a {
+    PKToken *tok = [a pop];
+    
+    [a push:[XPBooleanValue booleanValueWithBoolean:tok.doubleValue]]; // this is a place holder. add a node later when ready
+}
+
+
 - (void)parser:(PKParser *)p didMatchNameTest:(PKAssembly *)a {
-    //PKToken *tok = 
-    [a pop];
+    PKToken *tok = [a pop];
     
     // TODO
-    [a push:[XPBooleanValue booleanValueWithBoolean:YES]]; // this is a place holder. add a node later when ready
+    [a push:[XPBooleanValue booleanValueWithBoolean:tok.doubleValue]]; // this is a place holder. add a node later when ready
 }
 
 

@@ -9,7 +9,8 @@
 #import "XPTestScaffold.h"
 
 @interface XPStepTest : XCTestCase
-
+@property (nonatomic, retain) XPExpression *expr;
+@property (nonatomic, retain) id res;
 @end
 
 @implementation XPStepTest
@@ -25,7 +26,10 @@
 }
 
 - (void)testExample {
-
+    self.expr = [XPExpression expressionFromString:@"node()" inContext:nil error:nil];
+    self.res = [_expr evaluateInContext:nil];
+    TDNotNil(_res);
+    
 }
 
 @end
