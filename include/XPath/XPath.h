@@ -9,6 +9,7 @@
 
 #import <Foundation/Foundation.h>
 
+#import <XPath/XPNodeType.h>
 #import <XPath/XPNodeInfo.h>
 #import <XPath/XPContext.h>
 #import <XPath/XPController.h>

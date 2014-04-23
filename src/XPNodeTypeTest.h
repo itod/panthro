@@ -7,7 +7,8 @@
 //
 
 #import <XPath/XPNodeTest.h>
-#import <XPath/XPNodeInfo.h>
+
+@protocol XPNodeInfo;
 
 @interface XPNodeTypeTest : XPNodeTest
 

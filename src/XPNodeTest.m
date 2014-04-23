@@ -7,6 +7,7 @@
 //
 
 #import "XPNodeTest.h"
+#import <XPath/XPNodeInfo.h>
 
 @implementation XPNodeTest
 

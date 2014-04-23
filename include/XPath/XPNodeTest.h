@@ -7,8 +7,10 @@
 //
 
 #import <XPath/XPPattern.h>
-#import <XPath/XPNodeInfo.h>
 #import <XPath/XPContext.h>
+#import <XPath/XPNodeType.h>
+
+@protocol XPNodeInfo;
 
 /**
  * A NodeTest is a simple kind of pattern that enables a context-free test of whether

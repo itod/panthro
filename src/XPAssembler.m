@@ -10,7 +10,10 @@
 #import <XPath/XPath.h>
 #import <PEGKit/PEGKit.h>
 
+#import "XPStep.h"
+#import "XPAxis.h"
 #import "XPNodeTypeTest.h"
+#import "XPNameTest.h"
 
 @interface XPAssembler ()
 @property (nonatomic, retain) NSDictionary *funcTab;
@@ -171,6 +174,19 @@
         [fn addArgument:arg];
     }
     [a push:fn];
+}
+
+
+- (void)parser:(PKParser *)p didMatchStep:(PKAssembly *)a {
+    XPNodeTest *nodeTest = [a pop];
+    XPAssert([nodeTest isKindOfClass:[XPNodeTest class]]);
+    
+    XPAssert(![a isStackEmpty]);
+    XPAxis axis = [[a pop] unsignedIntegerValue];
+    
+    XPStep *step = [[[XPStep alloc] initWithAxis:axis nodeTest:nodeTest] autorelease];
+    
+    [a push:step];
 }
 
 
