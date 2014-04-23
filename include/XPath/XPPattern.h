@@ -10,4 +10,7 @@
 
 @interface XPPattern : NSObject
 
+- (double)defaultPriority;
+
+@property (nonatomic, copy) NSString *originalText;
 @end

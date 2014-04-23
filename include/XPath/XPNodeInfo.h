@@ -29,4 +29,11 @@ typedef NS_ENUM(uint16_t, XPNodeType) {
 
 - (NSComparisonResult)compareOrderTo:(id <XPNodeInfo>)other;
 
+/**
+ * Return the type of node.
+ * @return one of the values Node.ELEMENT, Node.TEXT, Node.ATTRIBUTE, etc.
+ */
+
+@property (nonatomic, assign, readonly) XPNodeType nodeType;
+
 @end

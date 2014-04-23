@@ -10,4 +10,14 @@
 
 @implementation XPPattern
 
+- (void)dealloc {
+    self.originalText = nil;
+    [super dealloc];
+}
+
+
+- (double)defaultPriority {
+    return 0.5;
+}
+
 @end
