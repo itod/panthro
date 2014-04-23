@@ -8,7 +8,7 @@
 
 #import <XPath/XPAxis.h>
 
-extern uint8_t XPAxisGetAxisNumber(NSString *name) {
+extern NSUInteger XPAxisGetAxisNumber(NSString *name) {
     if ([name isEqualToString:@"ancestor"])                return XPAxisAncestor;
     if ([name isEqualToString:@"ancestor-or-self"])        return XPAxisAncestorOrSelf;
     if ([name isEqualToString:@"attribute"])               return XPAxisAttribute;

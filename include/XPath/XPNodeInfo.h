@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(uint16_t, XPNodeType) {
+typedef NS_ENUM(NSUInteger, XPNodeType) {
     
     // Node types. "NODE" means any type.
     // These node numbers should be kept aligned with those defined in the DOM.
@@ -25,6 +25,22 @@ typedef NS_ENUM(uint16_t, XPNodeType) {
     XPNodeTypeNone = 9999,    // a test for this node type will never be satisfied
 };
 
+
+//const NSString *XPNodetypeName[] =
+//{
+//    @"node",
+//    @"element",
+//    @"attribute",
+//    @"text",
+//    @"processing-instruction",
+//    @"comment",
+//    @"root",
+//    @"namespace",
+//    @"number-of-types",
+//    @"none",
+//};
+//
+//
 @protocol XPNodeInfo <NSObject>
 
 - (NSComparisonResult)compareOrderTo:(id <XPNodeInfo>)other;

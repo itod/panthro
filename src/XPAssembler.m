@@ -10,8 +10,11 @@
 #import <XPath/XPath.h>
 #import <PEGKit/PEGKit.h>
 
+#import "XPNodeTypeTest.h"
+
 @interface XPAssembler ()
-@property (nonatomic, retain) NSDictionary *funcTable;
+@property (nonatomic, retain) NSDictionary *funcTab;
+@property (nonatomic, retain) NSDictionary *nodeTypeTab;
 @property (nonatomic, retain) PKToken *paren;
 @property (nonatomic, retain) NSCharacterSet *singleQuoteCharacterSet;
 @property (nonatomic, retain) NSCharacterSet *doubleQuoteCharacterSet;
@@ -25,25 +28,38 @@
         self.singleQuoteCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"'"];
         self.doubleQuoteCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"\""];
         
-        self.funcTable = [NSDictionary dictionaryWithObjectsAndKeys:
-                          [FNBoolean class], @"boolean",
-                          [FNCeiling class], @"ceiling",
-                          [FNConcat class], @"concat",
-                          [FNContains class], @"contains",
-                          [FNCount class], @"count",
-                          [FNEndsWith class], @"ends-with",
-                          [FNFloor class], @"floor",
-                          [FNNot class], @"not",
-                          [FNNumber class], @"number",
-                          [FNRound class], @"round",
-                          [FNStartsWith class], @"starts-with",
-                          [FNString class], @"string",
-                          [FNStringLength class], @"string-length",
-                          [FNSubstring class], @"substring",
-                          [FNSubstringAfter class], @"substring-after",
-                          [FNSubstringBefore class], @"substring-before",
-                          [FNSum class], @"sum",
-                          nil];
+        self.funcTab = @{
+             @"boolean": [FNBoolean class],
+             @"ceiling": [FNCeiling class],
+             @"concat": [FNConcat class],
+             @"contains": [FNContains class],
+             @"count": [FNCount class],
+             @"ends-with": [FNEndsWith class],
+             @"floor": [FNFloor class],
+             @"not": [FNNot class],
+             @"number": [FNNumber class],
+             @"round": [FNRound class],
+             @"starts-with": [FNStartsWith class],
+             @"string": [FNString class],
+             @"string-length": [FNStringLength class],
+             @"substring": [FNSubstring class],
+             @"substring-after": [FNSubstringAfter class],
+             @"substring-before": [FNSubstringBefore class],
+             @"sum": [FNSum class],
+             };
+
+        self.nodeTypeTab = @{
+           @"node": @(XPNodeTypeNode),
+           @"element": @(XPNodeTypeElement),
+           @"attribute": @(XPNodeTypeAttribute),
+           @"text": @(XPNodeTypeText),
+           @"processing-instruction": @(XPNodeTypePI),
+           @"comment": @(XPNodeTypeComment),
+           @"root": @(XPNodeTypeRoot),
+           @"namespace": @(XPNodeTypeNamespace),
+           @"number-of-types": @(XPNodeTypeNumberOfTypes),
+           @"none": @(XPNodeTypeNone),
+           };
 }
     return self;
 }
@@ -53,7 +69,8 @@
     self.paren = nil;
     self.singleQuoteCharacterSet = nil;
     self.doubleQuoteCharacterSet = nil;
-    self.funcTable = nil;
+    self.funcTab = nil;
+    self.nodeTypeTab = nil;
     [super dealloc];
 }
 
@@ -145,7 +162,7 @@
     
     NSString *name = [[a pop] stringValue];
 
-    Class cls = [_funcTable objectForKey:name];
+    Class cls = [_funcTab objectForKey:name];
     NSAssert1(cls, @"unknown function %@", name);
     
     XPFunction *fn = [[[cls alloc] init] autorelease];
@@ -165,11 +182,14 @@
 }
 
 
-
 - (void)parser:(PKParser *)p didMatchTypeTest:(PKAssembly *)a {
     PKToken *tok = [a pop];
+    XPAssert(_nodeTypeTab);
+    XPNodeType type = [_nodeTypeTab[tok.stringValue] unsignedIntegerValue];
+    XPAssert(XPNodeTypeNone != type);
+    XPNodeTypeTest *typeTest = [[[XPNodeTypeTest alloc] initWithNodeType:type] autorelease];
     
-    [a push:[XPBooleanValue booleanValueWithBoolean:tok.doubleValue]]; // this is a place holder. add a node later when ready
+    [a push:typeTest];
 }
 
 

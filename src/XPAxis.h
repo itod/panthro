@@ -16,7 +16,7 @@
 /**
 * Constants representing the axes
 */
-typedef NS_ENUM(uint8_t, XPAxis) {
+typedef NS_ENUM(NSUInteger, XPAxis) {
     XPAxisAncestor           = 0,
     XPAxisAncestorOrSelf     = 1,
     XPAxisAttribute          = 2,
@@ -43,7 +43,7 @@ typedef NS_ENUM(uint8_t, XPAxis) {
  * Table indicating the principal node type of each axis
  */
 
-const uint8_t XPAxisPrincipalNodeType[] =
+const NSUInteger XPAxisPrincipalNodeType[] =
 {
     XPNodeTypeElement,       // ANCESTOR
     XPNodeTypeElement,       // ANCESTOR_OR_SELF;
@@ -178,7 +178,7 @@ const NSString *XPAxisName[] =
 * Resolve an axis name into a symbolic constant representing the axis
 */
 
-extern uint8_t XPAxisGetAxisNumber(NSString *name);
+extern NSUInteger XPAxisGetAxisNumber(NSString *name);
 
 /*
     // a list for any future cut-and-pasting...

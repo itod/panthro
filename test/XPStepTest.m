@@ -8,6 +8,8 @@
 
 #import "XPTestScaffold.h"
 
+#import "XPNodeTypeTest.h"
+
 @interface XPStepTest : XCTestCase
 @property (nonatomic, retain) XPExpression *expr;
 @property (nonatomic, retain) id res;
