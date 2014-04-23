@@ -157,6 +157,15 @@
 }
 
 
+- (void)parser:(PKParser *)p didMatchAxisName:(PKAssembly *)a {
+    PKToken *tok = [a pop];
+    
+    // TODO
+    [a push:[XPBooleanValue booleanValueWithBoolean:YES]]; // this is a place holder. add a node later when ready
+}
+
+
+
 - (void)parser:(PKParser *)p didMatchNameTest:(PKAssembly *)a {
     //PKToken *tok = 
     [a pop];
