@@ -401,7 +401,6 @@
 		0867D691FE84028FC02AAC07 /* Exedore */ = {
 			isa = PBXGroup;
 			children = (
-				D3A6C2EB19073D4900F3EFF3 /* XCTest.framework */,
 				D3C7983719060D0800EC8CB2 /* PEGKit.xcodeproj */,
 				D33639CB100DAA6B00AC4B51 /* XPath Tests */,
 				08FB77AEFE84172EC02AAC07 /* XPath Framework */,
@@ -416,8 +415,8 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */,
-				1058C7B2FEA5585E11CA2CBB /* Other Frameworks */,
+				D3A6C2EB19073D4900F3EFF3 /* XCTest.framework */,
+				D3AC85B70F60D13200392CB4 /* Foundation.framework */,
 			);
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
@@ -453,21 +452,6 @@
 				D37A295E1013F34C00E936B7 /* Expr */,
 			);
 			name = "XPath Framework";
-			sourceTree = "<group>";
-		};
-		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D3AC85B70F60D13200392CB4 /* Foundation.framework */,
-			);
-			name = "Linked Frameworks";
-			sourceTree = "<group>";
-		};
-		1058C7B2FEA5585E11CA2CBB /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
 		32C88DFF0371C24200C91783 /* Other Sources */ = {
