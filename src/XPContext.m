@@ -18,19 +18,19 @@
 }
 
 
-- (id)contextNodeInfo {
+- (id <XPNodeInfo>)contextNodeInfo {
     return nil;
 }
 
 
-- (NSInteger)last {
+- (NSUInteger)last {
     return 1;
 //    if (!lastPositionFinder) return 1;
 //    return [lastPositionFinder lastPosition];
 }
 
 
-- (NSInteger)contextPosition {
+- (NSUInteger)contextPosition {
     return 1;
 }
 

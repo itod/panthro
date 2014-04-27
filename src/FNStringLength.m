@@ -7,6 +7,7 @@
 //
 
 #import <XPath/FNStringLength.h>
+#import <XPath/XPNodeInfo.h>
 #import <XPath/XPContext.h>
 #import <XPath/XPValue.h>
 #import <XPath/XPNumericValue.h>

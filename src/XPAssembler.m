@@ -19,8 +19,8 @@
 @property (nonatomic, retain) NSDictionary *funcTab;
 @property (nonatomic, retain) NSDictionary *nodeTypeTab;
 @property (nonatomic, retain) PKToken *paren;
-@property (nonatomic, retain) NSCharacterSet *singleQuoteCharacterSet;
-@property (nonatomic, retain) NSCharacterSet *doubleQuoteCharacterSet;
+@property (nonatomic, retain) NSCharacterSet *singleQuoteCharSet;
+@property (nonatomic, retain) NSCharacterSet *doubleQuoteCharSet;
 @end
 
 @implementation XPAssembler
@@ -28,8 +28,8 @@
 - (id)init {
     if (self = [super init]) {
         self.paren = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
-        self.singleQuoteCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"'"];
-        self.doubleQuoteCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"\""];
+        self.singleQuoteCharSet = [NSCharacterSet characterSetWithCharactersInString:@"'"];
+        self.doubleQuoteCharSet = [NSCharacterSet characterSetWithCharactersInString:@"\""];
         
         self.funcTab = @{
              @"boolean": [FNBoolean class],
@@ -52,17 +52,17 @@
              };
 
         self.nodeTypeTab = @{
-           @"node": @(XPNodeTypeNode),
-           @"element": @(XPNodeTypeElement),
-           @"attribute": @(XPNodeTypeAttribute),
-           @"text": @(XPNodeTypeText),
-           @"processing-instruction": @(XPNodeTypePI),
-           @"comment": @(XPNodeTypeComment),
-           @"root": @(XPNodeTypeRoot),
-           @"namespace": @(XPNodeTypeNamespace),
-           @"number-of-types": @(XPNodeTypeNumberOfTypes),
-           @"none": @(XPNodeTypeNone),
-           };
+            @"node": @(XPNodeTypeNode),
+            @"element": @(XPNodeTypeElement),
+            @"attribute": @(XPNodeTypeAttribute),
+            @"text": @(XPNodeTypeText),
+            @"processing-instruction": @(XPNodeTypePI),
+            @"comment": @(XPNodeTypeComment),
+            @"root": @(XPNodeTypeRoot),
+            @"namespace": @(XPNodeTypeNamespace),
+            @"number-of-types": @(XPNodeTypeNumberOfTypes),
+            @"none": @(XPNodeTypeNone),
+            };
 }
     return self;
 }
@@ -70,8 +70,8 @@
 
 - (void)dealloc {
     self.paren = nil;
-    self.singleQuoteCharacterSet = nil;
-    self.doubleQuoteCharacterSet = nil;
+    self.singleQuoteCharSet = nil;
+    self.doubleQuoteCharSet = nil;
     self.funcTab = nil;
     self.nodeTypeTab = nil;
     [super dealloc];
@@ -255,9 +255,9 @@
     
     if ([s length]) {
         unichar c = [s characterAtIndex:0];
-        NSCharacterSet *set = _singleQuoteCharacterSet;
+        NSCharacterSet *set = _singleQuoteCharSet;
         if ('"' == c) {
-            set = _doubleQuoteCharacterSet;
+            set = _doubleQuoteCharSet;
         }
         s = [s stringByTrimmingCharactersInSet:set];
     }

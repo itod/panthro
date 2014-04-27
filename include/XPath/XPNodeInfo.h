@@ -24,6 +24,16 @@
 
 
 /**
+ * Return the string value of the node. The interpretation of this depends on the type
+ * of node. For an element it is the accumulated character content of the element,
+ * including descendant elements.
+ * @return the string value of the node
+ */
+
+- (NSString *)stringValue;
+
+
+/**
  * Return an enumeration over the nodes reached by the given axis from this node
  * @param axisNumber the axis to be followed (a constant in class {@link Axis})
  * @param nodeTest A pattern to be matched by the returned nodes

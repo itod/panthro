@@ -10,6 +10,7 @@
 
 @class XPController;
 @protocol XPStaticContext;
+@protocol XPNodeInfo;
 
 typedef enum {
     XPDependenciesVariables = 1,
@@ -27,9 +28,9 @@ typedef enum {
 
 @interface XPContext : NSObject
 
-- (id)contextNodeInfo;
-- (NSInteger)last;
-- (NSInteger)contextPosition;
+- (id <XPNodeInfo>)contextNodeInfo;
+- (NSUInteger)last;
+- (NSUInteger)contextPosition;
 
 - (XPController *)controller;
 
