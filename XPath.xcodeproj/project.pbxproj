@@ -12,6 +12,7 @@
 		D3010D72141F2E5E0034B801 /* XPDoubleComparer.h in Headers */ = {isa = PBXBuildFile; fileRef = D3010D71141F2E5E0034B801 /* XPDoubleComparer.h */; };
 		D312AE7A103A6A290098934C /* XPComparer.m in Sources */ = {isa = PBXBuildFile; fileRef = D312AE78103A6A290098934C /* XPComparer.m */; };
 		D312AE7F103A6C700098934C /* XPDescendingComparer.m in Sources */ = {isa = PBXBuildFile; fileRef = D312AE7D103A6C700098934C /* XPDescendingComparer.m */; };
+		D3172237190D8FE6005C633B /* XPEqualityExprTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3172236190D8FE6005C633B /* XPEqualityExprTest.m */; };
 		D3363817100C6E0400AC4B51 /* XPNodeSetValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D3363815100C6E0400AC4B51 /* XPNodeSetValue.m */; };
 		D336381C100C6E2800AC4B51 /* XPNumericValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D336381A100C6E2800AC4B51 /* XPNumericValue.m */; };
 		D3363820100C6E4400AC4B51 /* XPStringValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D336381E100C6E4400AC4B51 /* XPStringValue.m */; };
@@ -214,6 +215,7 @@
 		D3010D71141F2E5E0034B801 /* XPDoubleComparer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPDoubleComparer.h; path = include/XPath/XPDoubleComparer.h; sourceTree = "<group>"; };
 		D312AE78103A6A290098934C /* XPComparer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPComparer.m; path = src/XPComparer.m; sourceTree = "<group>"; };
 		D312AE7D103A6C700098934C /* XPDescendingComparer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPDescendingComparer.m; path = src/XPDescendingComparer.m; sourceTree = "<group>"; };
+		D3172236190D8FE6005C633B /* XPEqualityExprTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPEqualityExprTest.m; path = test/XPEqualityExprTest.m; sourceTree = "<group>"; };
 		D3363815100C6E0400AC4B51 /* XPNodeSetValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNodeSetValue.m; path = src/XPNodeSetValue.m; sourceTree = "<group>"; };
 		D336381A100C6E2800AC4B51 /* XPNumericValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNumericValue.m; path = src/XPNumericValue.m; sourceTree = "<group>"; };
 		D336381E100C6E4400AC4B51 /* XPStringValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPStringValue.m; path = src/XPStringValue.m; sourceTree = "<group>"; };
@@ -581,6 +583,7 @@
 				D36C6770101059CE000361A0 /* XPNumericValueTest.m */,
 				D36C678210105EBE000361A0 /* XPStringValueTest.m */,
 				D37A27F4101304EF00E936B7 /* XPBooleanExprTest.m */,
+				D3172236190D8FE6005C633B /* XPEqualityExprTest.m */,
 				D3A6C2E919073B4700F3EFF3 /* XPStepTest.m */,
 			);
 			name = Expr;
@@ -1020,6 +1023,7 @@
 				D37A2CDA10142EC100E936B7 /* FNCeilingTest.m in Sources */,
 				D37A2D25101436CE00E936B7 /* FNConcatTest.m in Sources */,
 				D37A2EAC10156F5700E936B7 /* FNContainsTest.m in Sources */,
+				D3172237190D8FE6005C633B /* XPEqualityExprTest.m in Sources */,
 				D37A2ED71015724700E936B7 /* FNFloorTest.m in Sources */,
 				D37A2FDE10158BE200E936B7 /* FNRoundTest.m in Sources */,
 				D37A3075101595F400E936B7 /* FNEndsWithTest.m in Sources */,

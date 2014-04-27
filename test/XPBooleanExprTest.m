@@ -16,7 +16,7 @@
 @implementation XPBooleanExprTest
 
 - (void)dealloc {
-    self.self.expr = nil;
+    self.expr = nil;
     [super dealloc];
 }
 
@@ -27,30 +27,28 @@
 
 - (void)testBooleans {
     self.expr = [XPExpression expressionFromString:@"true() and true()" inContext:nil error:nil];
-    self.res = [expr evaluateAsBooleanInContext:nil];
-    TDTrue(res);
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
     
     self.expr = [XPExpression expressionFromString:@"true() and false()" inContext:nil error:nil];
-    self.res = [expr evaluateAsBooleanInContext:nil];
-    TDFalse(res);
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDFalse(_res);
     
     self.expr = [XPExpression expressionFromString:@"false() and true()" inContext:nil error:nil];
-    self.res = [expr evaluateAsBooleanInContext:nil];
-    TDFalse(res);
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDFalse(_res);
     
     self.expr = [XPExpression expressionFromString:@"false() and false()" inContext:nil error:nil];
-    self.res = [expr evaluateAsBooleanInContext:nil];
-    TDFalse(res);
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDFalse(_res);
     
     self.expr = [XPExpression expressionFromString:@"true() and true() and false()" inContext:nil error:nil];
-    self.res = [expr evaluateAsBooleanInContext:nil];
-    TDFalse(res);
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDFalse(_res);
     
     self.expr = [XPExpression expressionFromString:@"true() and false() and true()" inContext:nil error:nil];
-    self.res = [expr evaluateAsBooleanInContext:nil];
-    TDFalse(res);
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDFalse(_res);
 }
 
-@synthesize expr;
-@synthesize res;
 @end
