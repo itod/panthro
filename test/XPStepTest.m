@@ -36,6 +36,9 @@
     XPContext *ctx = [[[XPContext alloc] init] autorelease];
     ctx.contextNodeInfo = nodeInfo;
     
+    id <XPStaticContext>staticCtx = nil;
+    staticCtx.context = ctx;
+    
     self.expr = [XPExpression expressionFromString:@"node()" inContext:nil error:nil];
     self.res = [_expr evaluateInContext:nil];
     TDNotNil(_res);
