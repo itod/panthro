@@ -7,8 +7,8 @@
 //
 
 #import "XPTestScaffold.h"
-
 #import "XPNodeTypeTest.h"
+#import "XPNSXMLNodeImpl.h"
 
 @interface XPStepTest : XCTestCase
 @property (nonatomic, retain) XPExpression *expr;
@@ -28,6 +28,14 @@
 }
 
 - (void)testExample {
+    NSXMLNode *node = [[NSXMLDocument alloc] initWithXMLString:@"<doc><p/></doc>" options:0 error:nil];
+    TDNotNil(node);
+    id <XPNodeInfo>nodeInfo = [[[XPNSXMLNodeImpl alloc] initWithNode:node] autorelease];
+    TDNotNil(nodeInfo);
+    
+    XPContext *ctx = [[[XPContext alloc] init] autorelease];
+    ctx.contextNodeInfo = nodeInfo;
+    
     self.expr = [XPExpression expressionFromString:@"node()" inContext:nil error:nil];
     self.res = [_expr evaluateInContext:nil];
     TDNotNil(_res);

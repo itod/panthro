@@ -13,31 +13,16 @@
 @implementation XPContext
 
 - (void)dealloc {
+    self.contextNodeInfo = nil;
+    self.controller = nil;
     self.staticContext = nil;
     [super dealloc];
 }
 
 
-- (id <XPNodeInfo>)contextNodeInfo {
-    return nil;
-}
-
-
-- (NSUInteger)last {
-    return 1;
+//- (NSUInteger)last {
 //    if (!lastPositionFinder) return 1;
 //    return [lastPositionFinder lastPosition];
-}
+//}
 
-
-- (NSUInteger)contextPosition {
-    return 1;
-}
-
-
-- (XPController *)controller {
-    return nil;
-}
-
-@synthesize staticContext;
 @end

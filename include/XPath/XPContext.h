@@ -28,11 +28,10 @@ typedef enum {
 
 @interface XPContext : NSObject
 
-- (id <XPNodeInfo>)contextNodeInfo;
-- (NSUInteger)last;
-- (NSUInteger)contextPosition;
+@property (nonatomic, retain) id <XPNodeInfo>contextNodeInfo;
+@property (nonatomic, assign) NSUInteger last;
+@property (nonatomic, assign) NSUInteger contextPosition;
 
-- (XPController *)controller;
-
+@property (nonatomic, retain) XPController *controller;
 @property (nonatomic, retain) id <XPStaticContext>staticContext;
 @end
