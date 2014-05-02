@@ -26,7 +26,7 @@
 @before {
         // TODO `$`
 
-		PKTokenizer *t = self.tokenizer;
+        PKTokenizer *t = self.tokenizer;
         [t.symbolState add:@"//"];
         [t.symbolState add:@".."];
         [t.symbolState add:@"!="];
@@ -34,16 +34,16 @@
         [t.symbolState add:@"<="];
         [t.symbolState add:@"=>"];
 
-		[t setTokenizerState:t.wordState from:'_' to:'_'];
+        [t setTokenizerState:t.wordState from:'_' to:'_'];
         [t.wordState setWordChars:YES from:'-' to:'-'];
         [t.wordState setWordChars:YES from:'_' to:'_'];
 
-		[t setTokenizerState:t.numberState from:'.' to:'.'];
+        [t setTokenizerState:t.numberState from:'.' to:'.'];
 
-		[t setTokenizerState:t.numberState from:'#' to:'#'];
-		t.numberState.allowsScientificNotation = NO;
+        [t setTokenizerState:t.numberState from:'#' to:'#'];
+        t.numberState.allowsScientificNotation = NO;
 
-		[t setTokenizerState:t.symbolState from:'/' to:'/'];
+        [t setTokenizerState:t.symbolState from:'/' to:'/'];
 }
 
 stmt = expr;
