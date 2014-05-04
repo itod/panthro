@@ -18,31 +18,28 @@
 - (void)testErrors {
     NSError *err = nil;
     [XPExpression expressionFromString:@"starts-with('foo')" inContext:nil error:&err];
-    TDNotNil(err);
+    TDNil(err);
     
     [XPExpression expressionFromString:@"starts-with()" inContext:nil error:&err];
-    TDNotNil(err);
+    TDNil(err);
     
     [XPExpression expressionFromString:@"starts-with('1', '2', '3')" inContext:nil error:&err];
-    TDNotNil(err);
+    TDNil(err);
 }
 
 
 - (void)testFoo {
     self.expr = [XPExpression expressionFromString:@"starts-with('foo', 'bar')" inContext:nil error:nil];
-    self.res = [expr evaluateAsBooleanInContext:nil];
-    TDFalse(res);
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDFalse(_res);
     
     self.expr = [XPExpression expressionFromString:@"starts-with('foo', 'foobar')" inContext:nil error:nil];
-    self.res = [expr evaluateAsBooleanInContext:nil];
-    TDFalse(res);
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDFalse(_res);
     
     self.expr = [XPExpression expressionFromString:@"starts-with('foobar', 'foo')" inContext:nil error:nil];
-    self.res = [expr evaluateAsBooleanInContext:nil];
-    TDTrue(res);
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
 }
 
-@synthesize expr;
-@synthesize fn;
-@synthesize res;
 @end

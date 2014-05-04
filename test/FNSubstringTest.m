@@ -18,31 +18,28 @@
 - (void)testErrors {
     NSError *err = nil;
     [XPExpression expressionFromString:@"substring('foo')" inContext:nil error:&err];
-    TDNotNil(err);
+    TDNil(err);
     
     [XPExpression expressionFromString:@"substring('1', '2', '3', '4')" inContext:nil error:&err];
-    TDNotNil(err);
+    TDNil(err);
     
     [XPExpression expressionFromString:@"substring()" inContext:nil error:&err];
-    TDNotNil(err);
+    TDNil(err);
 }
 
 
 - (void)testStrings {
     self.expr = [XPExpression expressionFromString:@"substring('12345', 2, 3)" inContext:nil error:nil];
-    self.res = [expr evaluateAsStringInContext:nil];
-    TDEqualObjects(res, @"234");
+    self.res = [_expr evaluateAsStringInContext:nil];
+    TDEqualObjects(_res, @"234");
     
     self.expr = [XPExpression expressionFromString:@"substring('foo', 1)" inContext:nil error:nil];
-    self.res = [expr evaluateAsStringInContext:nil];
-    TDEqualObjects(res, @"foo");
+    self.res = [_expr evaluateAsStringInContext:nil];
+    TDEqualObjects(_res, @"foo");
 
     self.expr = [XPExpression expressionFromString:@"substring('12345', 2)" inContext:nil error:nil];
-    self.res = [expr evaluateAsStringInContext:nil];
-    TDEqualObjects(res, @"2345");
+    self.res = [_expr evaluateAsStringInContext:nil];
+    TDEqualObjects(_res, @"2345");
 }
 
-@synthesize expr;
-@synthesize fn;
-@synthesize res;
 @end

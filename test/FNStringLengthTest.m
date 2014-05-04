@@ -18,51 +18,48 @@
 - (void)testErrors {
     NSError *err = nil;
     [XPExpression expressionFromString:@"string-length(1, 2)" inContext:nil error:&err];
-    TDNotNil(err);
+    TDNil(err);
 }
 
 
 - (void)testNumbers {
     self.expr = [XPExpression expressionFromString:@"string-length()" inContext:nil error:nil];
-    self.res = [expr evaluateAsNumberInContext:nil];
-    TDEquals(0.0, res);
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(0.0, _res);
     
     self.expr = [XPExpression expressionFromString:@"string-length(0)" inContext:nil error:nil];
-    self.res = [expr evaluateAsNumberInContext:nil];
-    TDEquals(1.0, res);
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(1.0, _res);
     
     self.expr = [XPExpression expressionFromString:@"string-length(-0)" inContext:nil error:nil];
-    self.res = [expr evaluateAsNumberInContext:nil];
-    TDEquals(2.0, res);
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(2.0, _res);
 }
 
 
 - (void)testStrings {
     self.expr = [XPExpression expressionFromString:@"string-length()" inContext:nil error:nil];
-    self.res = [expr evaluateAsNumberInContext:nil];
-    TDEquals(0.0, res);
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(0.0, _res);
     
     self.expr = [XPExpression expressionFromString:@"string-length('foo')" inContext:nil error:nil];
-    self.res = [expr evaluateAsNumberInContext:nil];
-    TDEquals(3.0, res);
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(3.0, _res);
     
     self.expr = [XPExpression expressionFromString:@"string-length('')" inContext:nil error:nil];
-    self.res = [expr evaluateAsNumberInContext:nil];
-    TDEquals(0.0, res);
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(0.0, _res);
 }
 
 
 - (void)testBooleans {
     self.expr = [XPExpression expressionFromString:@"string-length(true())" inContext:nil error:nil];
-    self.res = [expr evaluateAsNumberInContext:nil];
-    TDEquals(4.0, res);
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(4.0, _res);
     
     self.expr = [XPExpression expressionFromString:@"string-length(false())" inContext:nil error:nil];
-    self.res = [expr evaluateAsNumberInContext:nil];
-    TDEquals(5.0, res);
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(5.0, _res);
 }
 
-@synthesize expr;
-@synthesize fn;
-@synthesize res;
 @end

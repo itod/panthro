@@ -26,69 +26,66 @@
 
 - (void)testBoolean {
     self.expr = [XPExpression expressionFromString:@"not(false())" inContext:nil error:nil];
-    self.res = [expr evaluateAsBooleanInContext:nil];
-    TDTrue(res);
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
     
     self.expr = [XPExpression expressionFromString:@"not(true())" inContext:nil error:nil];
-    self.res = [expr evaluateAsBooleanInContext:nil];
-    TDFalse(res);
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDFalse(_res);
 }
 
 
 - (void)testRelational {
     self.expr = [XPExpression expressionFromString:@"not(1 > 2)" inContext:nil error:nil];
-    self.res = [expr evaluateAsBooleanInContext:nil];
-    TDTrue(res);
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
     
     self.expr = [XPExpression expressionFromString:@"not(1 < 2)" inContext:nil error:nil];
-    self.res = [expr evaluateAsBooleanInContext:nil];
-    TDFalse(res);
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDFalse(_res);
 }
 
 
 - (void)testEquality {
     self.expr = [XPExpression expressionFromString:@"not(true() = false())" inContext:nil error:nil];
-    self.res = [expr evaluateAsBooleanInContext:nil];
-    TDTrue(res);
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
     
     self.expr = [XPExpression expressionFromString:@"not(true() != true())" inContext:nil error:nil];
-    self.res = [expr evaluateAsBooleanInContext:nil];
-    TDTrue(res);
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
     
     self.expr = [XPExpression expressionFromString:@"not(true() = true())" inContext:nil error:nil];
-    self.res = [expr evaluateAsBooleanInContext:nil];
-    TDFalse(res);
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDFalse(_res);
     
     self.expr = [XPExpression expressionFromString:@"not(false() != true())" inContext:nil error:nil];
-    self.res = [expr evaluateAsBooleanInContext:nil];
-    TDFalse(res);
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDFalse(_res);
     
     self.expr = [XPExpression expressionFromString:@"not('foo' = 'foo')" inContext:nil error:nil];
-    self.res = [expr evaluateAsBooleanInContext:nil];
-    TDFalse(res);
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDFalse(_res);
     
     self.expr = [XPExpression expressionFromString:@"not(1 = '1')" inContext:nil error:nil];
-    self.res = [expr evaluateAsBooleanInContext:nil];
-    TDFalse(res);
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDFalse(_res);
     
     self.expr = [XPExpression expressionFromString:@"not(1 = --1)" inContext:nil error:nil];
-    self.res = [expr evaluateAsBooleanInContext:nil];
-    TDFalse(res);
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDFalse(_res);
     
     self.expr = [XPExpression expressionFromString:@"not(1 = ---1)" inContext:nil error:nil];
-    self.res = [expr evaluateAsBooleanInContext:nil];
-    TDTrue(res);
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
     
     self.expr = [XPExpression expressionFromString:@"not(-1)" inContext:nil error:nil];
-    self.res = [expr evaluateAsBooleanInContext:nil];
-    TDFalse(res);
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDFalse(_res);
     
     self.expr = [XPExpression expressionFromString:@"not(---1)" inContext:nil error:nil];
-    self.res = [expr evaluateAsBooleanInContext:nil];
-    TDFalse(res);
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDFalse(_res);
 }
 
-@synthesize expr;
-@synthesize fn;
-@synthesize res;
 @end

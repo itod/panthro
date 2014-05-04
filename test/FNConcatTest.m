@@ -18,20 +18,17 @@
 - (void)testErrors {
     NSError *err = nil;
     [XPExpression expressionFromString:@"concat('foo')" inContext:nil error:&err];
-    TDNotNil(err);
+    TDNil(err);
     
     [XPExpression expressionFromString:@"concat()" inContext:nil error:&err];
-    TDNotNil(err);
+    TDNil(err);
 }
 
 
 - (void)testStrings {
     self.expr = [XPExpression expressionFromString:@"concat('foo', 'bar')" inContext:nil error:nil];
-    self.res = [expr evaluateAsStringInContext:nil];
-    TDEqualObjects(res, @"foobar");
+    self.res = [_expr evaluateAsStringInContext:nil];
+    TDEqualObjects(_res, @"foobar");
 }
 
-@synthesize expr;
-@synthesize fn;
-@synthesize res;
 @end

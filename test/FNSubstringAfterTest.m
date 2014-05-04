@@ -18,42 +18,39 @@
 - (void)testErrors {
     NSError *err = nil;
     [XPExpression expressionFromString:@"substring-after('foo')" inContext:nil error:&err];
-    TDNotNil(err);
+    TDNil(err);
     
     [XPExpression expressionFromString:@"substring-after('1', '2', '3', '4')" inContext:nil error:&err];
-    TDNotNil(err);
+    TDNil(err);
     
     [XPExpression expressionFromString:@"substring-after()" inContext:nil error:&err];
-    TDNotNil(err);
+    TDNil(err);
 }
 
 
 - (void)testStrings {
     self.expr = [XPExpression expressionFromString:@"substring-after('12345', '2')" inContext:nil error:nil];
-    self.res = [expr evaluateAsStringInContext:nil];
-    TDEqualObjects(res, @"345");
+    self.res = [_expr evaluateAsStringInContext:nil];
+    TDEqualObjects(_res, @"345");
     
     self.expr = [XPExpression expressionFromString:@"substring-after('12345', '6')" inContext:nil error:nil];
-    self.res = [expr evaluateAsStringInContext:nil];
-    TDEqualObjects(res, @"");
+    self.res = [_expr evaluateAsStringInContext:nil];
+    TDEqualObjects(_res, @"");
     
     self.expr = [XPExpression expressionFromString:@"substring-after('1999/04/01', '/')" inContext:nil error:nil];
-    self.res = [expr evaluateAsStringInContext:nil];
-    TDEqualObjects(res, @"04/01");
+    self.res = [_expr evaluateAsStringInContext:nil];
+    TDEqualObjects(_res, @"04/01");
     
     self.expr = [XPExpression expressionFromString:@"substring-after('1999/04/01', '19')" inContext:nil error:nil];
-    self.res = [expr evaluateAsStringInContext:nil];
-    TDEqualObjects(res, @"99/04/01");
+    self.res = [_expr evaluateAsStringInContext:nil];
+    TDEqualObjects(_res, @"99/04/01");
 }
 
 
 - (void)testNumbers {
     self.expr = [XPExpression expressionFromString:@"substring-after('12345', 2)" inContext:nil error:nil];
-    self.res = [expr evaluateAsStringInContext:nil];
-    TDEqualObjects(res, @"345");
+    self.res = [_expr evaluateAsStringInContext:nil];
+    TDEqualObjects(_res, @"345");
 }
 
-@synthesize expr;
-@synthesize fn;
-@synthesize res;
 @end
