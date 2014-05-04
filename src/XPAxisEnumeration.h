@@ -1,14 +1,14 @@
 //
-//  XPAxisEnumerator.h
+//  XPAxisEnumeration.h
 //  XPath
 //
 //  Created by Todd Ditchendorf on 4/22/14.
 //
 //
 
-#import <XPath/XPNodeEnumerator.h>
+#import <XPath/XPNodeEnumeration.h>
 
-@protocol XPAxisEnumerator <XPNodeEnumerator/*, XPLastPositionFinder*/>
+@protocol XPAxisEnumeration <XPNodeEnumeration/*, XPLastPositionFinder*/>
 
 /**
  * Determine whether there are more nodes to come. <BR>

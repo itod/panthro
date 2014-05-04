@@ -8,13 +8,13 @@
 
 #import <XPath/XPNodeSetExpression.h>
 #import <XPath/XPContext.h>
-#import <XPath/XPNodeEnumerator.h>
+#import <XPath/XPNodeEnumeration.h>
 #import <XPath/XPNodeSetValue.h>
 #import <XPath/XPNodeSetIntent.h>
 
 @implementation XPNodeSetExpression
 
-- (XPNodeEnumerator *)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
+- (XPNodeEnumeration *)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return nil;
 }

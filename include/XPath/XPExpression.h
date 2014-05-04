@@ -12,7 +12,8 @@
 @class XPContext;
 @class XPValue;
 @class XPNodeSetValue;
-@class XPNodeEnumerator;
+@class XPNodeEnumeration;
+@class XPFunction;
 
 typedef enum {
     XPDataTypeBoolean,
@@ -27,6 +28,7 @@ typedef enum {
 @interface XPExpression : NSObject
 
 + (XPExpression *)expressionFromString:(NSString *)exprStr inContext:(id <XPStaticContext>)env error:(NSError **)outErr;
++ (XPFunction *)makeSystemFunction:(NSString *)name;
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx;
 - (BOOL)evaluateAsBooleanInContext:(XPContext *)ctx;
@@ -34,7 +36,7 @@ typedef enum {
 - (NSString *)evaluateAsStringInContext:(XPContext *)ctx;
 - (XPNodeSetValue *)evaluateAsNodeSetInContext:(XPContext *)ctx;
 
-- (XPNodeEnumerator *)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted;
+- (XPNodeEnumeration *)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted;
 
 - (BOOL)isValue;
 - (BOOL)isContextDocumentNodeSet;

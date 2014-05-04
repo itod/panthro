@@ -28,16 +28,15 @@
 }
 
 - (void)testExample {
-    NSXMLNode *node = [[NSXMLDocument alloc] initWithXMLString:@"<doc><p/></doc>" options:0 error:nil];
+    NSXMLNode *node = [[[NSXMLDocument alloc] initWithXMLString:@"<doc><p/></doc>" options:0 error:nil] autorelease];
     TDNotNil(node);
     id <XPNodeInfo>nodeInfo = [[[XPNSXMLNodeImpl alloc] initWithNode:node] autorelease];
     TDNotNil(nodeInfo);
     
     XPContext *ctx = [[[XPContext alloc] init] autorelease];
     ctx.contextNodeInfo = nodeInfo;
-    
     id <XPStaticContext>staticCtx = nil;
-    staticCtx.context = ctx;
+    ctx.staticContext = staticCtx;
     
     self.expr = [XPExpression expressionFromString:@"node()" inContext:nil error:nil];
     self.res = [_expr evaluateInContext:nil];

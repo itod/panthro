@@ -8,7 +8,7 @@
 
 #import <XPath/XPPattern.h>
 #import <XPath/XPContext.h>
-#import <XPath/XPNodeType.h>
+#import <XPath/XPUtils.h>
 
 @protocol XPNodeInfo;
 

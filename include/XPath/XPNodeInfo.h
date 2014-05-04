@@ -6,9 +6,9 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <XPath/XPNodeType.h>
+#import <XPath/XPUtils.h>
 
-@protocol XPAxisEnumerator;
+@protocol XPAxisEnumeration;
 @class XPNodeTest;
 
 @protocol XPNodeInfo <NSObject>
@@ -40,6 +40,6 @@
  * @return a NodeEnumeration that scans the nodes reached by the axis in turn.
  */
 
-- (id <XPAxisEnumerator>)enumeratorForAxis:(NSUInteger)axis nodeTest:(XPNodeTest *)nodeTest;
+- (id <XPAxisEnumeration>)EnumerationForAxis:(NSUInteger)axis nodeTest:(XPNodeTest *)nodeTest;
 
 @end

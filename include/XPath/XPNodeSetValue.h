@@ -8,13 +8,13 @@
 
 #import <XPath/XPValue.h>
 
-@class XPNodeEnumerator;
+@class XPNodeEnumeration;
 
 @interface XPNodeSetValue : XPValue
 
-- (XPNodeEnumerator *)enumerate;
+- (XPNodeEnumeration *)enumerate;
 
-- (XPNodeEnumerator *)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted;
+- (XPNodeEnumeration *)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted;
 
 - (NSString *)asString;
 - (double)asNumber;

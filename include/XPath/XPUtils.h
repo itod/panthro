@@ -1,9 +1,9 @@
 //
-//  XPNodeInfo.h
+//  XPUtils.h
 //  XPath
 //
-//  Created by Todd Ditchendorf on 7/25/09.
-//  Copyright 2009 Todd Ditchendorf. All rights reserved.
+//  Created by Todd Ditchendorf on 5/4/14.
+//
 //
 
 #import <Foundation/Foundation.h>
@@ -41,3 +41,9 @@ typedef NS_ENUM(NSUInteger, XPNodeType) {
 //};
 //
 //
+
+
+extern BOOL XPNameIsNCName(NSString *name);
+extern BOOL XPNameIsQName(NSString *name);
+extern BOOL XPNameGetPrefix(NSString *qname);
+extern BOOL XPNameGetLocalName(NSString *qname);

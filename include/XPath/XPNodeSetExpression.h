@@ -8,10 +8,10 @@
 
 #import <XPath/XPExpression.h>
 
-@class XPNodeEnumerator;
+@class XPNodeEnumeration;
 
 @interface XPNodeSetExpression : XPExpression
 
-- (XPNodeEnumerator *)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted;
+- (XPNodeEnumeration *)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted;
 
 @end

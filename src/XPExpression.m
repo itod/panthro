@@ -11,7 +11,7 @@
 #import <XPath/XPStaticContext.h>
 #import <XPath/XPValue.h>
 #import <XPath/XPNodeSetValue.h>
-#import <XPath/XPNodeEnumerator.h>
+#import <XPath/XPNodeEnumeration.h>
 #import "NSError+XPAdditions.h"
 //#import "XPParser.h"
 #import "XPEGParser.h"
@@ -50,9 +50,15 @@ static XPAssembler *sAssembler = nil;
         return expr;
     }
     @catch (NSException *e) {
-        if (outErr) *outErr = [NSError XPathErrorWithCode:47 format:[e reason]];
+//        if (outErr) *outErr = [NSError XPathErrorWithCode:47 format:[e reason]];
     }
     return nil;
+}
+
+
++ (XPFunction *)makeSystemFunction:(NSString *)name {
+    XPAssert(sAssembler);
+    return [sAssembler makeSystemFunction:name];
 }
 
 
@@ -95,14 +101,14 @@ static XPAssembler *sAssembler = nil;
 }
 
 
-- (XPNodeEnumerator *)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
+- (XPNodeEnumeration *)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
     XPValue *v = [self evaluateInContext:ctx];
 
     if ([v isNodeSetValue]) {
         if (sorted) {
             [(XPNodeSetValue *)v sort];
         }
-        XPNodeEnumerator *e = [(XPNodeSetValue *)v enumerate];
+        XPNodeEnumeration *e = [(XPNodeSetValue *)v enumerate];
         return e;
     }
     [NSException raise:@"XPathException" format:@"The value is not a node-set"];

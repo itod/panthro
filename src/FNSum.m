@@ -10,7 +10,7 @@
 #import <XPath/XPValue.h>
 #import <XPath/XPNumericValue.h>
 #import <XPath/XPNodeSetValue.h>
-#import <XPath/XPNodeEnumerator.h>
+#import <XPath/XPNodeEnumeration.h>
 
 @interface XPExpression ()
 @property (nonatomic, readwrite, retain) id <XPStaticContext>staticContext;
@@ -22,7 +22,7 @@
 @end
 
 @interface FNSum ()
-- (double)total:(XPNodeEnumerator *)e;
+- (double)total:(XPNodeEnumeration *)e;
 @end
 
 @implementation FNSum
@@ -52,7 +52,7 @@
 
 
 - (double)evaluateAsNumberInContext:(XPContext *)ctx {
-    XPNodeEnumerator *e = [self.args[0] enumerateInContext:ctx sorted:NO];
+    XPNodeEnumeration *e = [self.args[0] enumerateInContext:ctx sorted:NO];
     return [self total:e];
 }
 
@@ -76,7 +76,7 @@
 }
 
 
-- (double)total:(XPNodeEnumerator *)e {
+- (double)total:(XPNodeEnumeration *)e {
     double sum = 0.0;
     for (id node in e) {
         sum += XPNumberFromString([node stringValue]);

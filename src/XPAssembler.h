@@ -12,8 +12,11 @@
 @class PKToken;
 
 @class XPExpression;
+@class XPFunction;
 @protocol XPStaticContext;
 
 @interface XPAssembler : NSObject
+
+- (XPFunction *)makeSystemFunction:(NSString *)name;
 
 @end

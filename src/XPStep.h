@@ -13,7 +13,7 @@
 @class XPNodeTest;
 @class XPContext;
 
-@protocol XPNodeEnumerator;
+@protocol XPNodeEnumeration;
 @protocol XPNodeInfo;
 
 @interface XPStep : NSObject
@@ -22,7 +22,7 @@
 
 - (XPStep *)addFilter:(XPExpression *)expr;
 - (XPStep *)simplify;
-- (id <XPNodeEnumerator>)enumerate:(id <XPNodeInfo>)node inContext:(XPContext *)ctx;
+- (id <XPNodeEnumeration>)enumerate:(id <XPNodeInfo>)node inContext:(XPContext *)ctx;
 
 @property (nonatomic, retain) NSMutableArray *filters;
 @end

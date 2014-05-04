@@ -66,7 +66,7 @@
 }
 
 
-//- (XPNodeEnumerator *)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
+//- (XPNodeEnumeration *)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
 //    id <XPNodeInfo>start = nil;
 //    if (!_contextNode) {
 //        start = [ctx contextNodeInfo];
@@ -76,7 +76,7 @@
 //
 //    XPAxisEnumeration enm = [start enumerationWithAxis:_axis nodeTest:_test];
 //    if (sorted && ![enm isSorted]) {
-//        XPNodeSetExtent *ns = [[[XPNodeSetExtent alloc] initWithNodeEnumerator:enm controller:[XPLocalOrderComparer instance]]];
+//        XPNodeSetExtent *ns = [[[XPNodeSetExtent alloc] initWithNodeEnumeration:enm controller:[XPLocalOrderComparer instance]]];
 //        [ns sort];
 //        return [ns enumerate];
 //    }

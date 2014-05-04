@@ -11,7 +11,7 @@
 #import <XPath/XPNumericValue.h>
 #import <XPath/XPStringValue.h>
 #import <XPath/XPObjectValue.h>
-#import <XPath/XPNodeEnumerator.h>
+#import <XPath/XPNodeEnumeration.h>
 #import <XPath/XPSingletonNodeSet.h>
 
 @interface XPNodeSetValue ()
@@ -43,13 +43,13 @@
 }
 
 
-- (XPNodeEnumerator *)enumerate {
+- (XPNodeEnumeration *)enumerate {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return nil;
 }
 
 
-- (XPNodeEnumerator *)enumerateInContext:(XPContext *)ctx sorted:(BOOL)yn {
+- (XPNodeEnumeration *)enumerateInContext:(XPContext *)ctx sorted:(BOOL)yn {
     if (yn) [self sort];
     return [self enumerate];
 }
@@ -130,7 +130,7 @@
         
         NSDictionary *table = [self stringValues];
         
-        XPNodeEnumerator *e2 = [(XPNodeSetValue *)other enumerate];
+        XPNodeEnumeration *e2 = [(XPNodeSetValue *)other enumerate];
         for (id node in e2) {
             if ([table objectForKey:[node stringValue]]) return YES;
         }

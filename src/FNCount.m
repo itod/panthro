@@ -9,7 +9,7 @@
 #import <XPath/FNCount.h>
 #import <XPath/XPValue.h>
 #import <XPath/XPNumericValue.h>
-#import <XPath/XPNodeEnumerator.h>
+#import <XPath/XPNodeEnumeration.h>
 #import <XPath/XPNodeSetValue.h>
 
 @interface XPExpression ()
@@ -48,7 +48,7 @@
 
 
 - (double)evaluateAsNumberInContext:(XPContext *)ctx {
-    XPNodeEnumerator *e = [(XPNodeSetValue *)self.args[0] enumerateInContext:ctx sorted:YES];
+    XPNodeEnumeration *e = [(XPNodeSetValue *)self.args[0] enumerateInContext:ctx sorted:YES];
     return (double)[[e allObjects] count];
 }
 

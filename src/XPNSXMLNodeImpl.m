@@ -77,7 +77,7 @@
 }
 
 
-- (id <XPAxisEnumerator>)enumeratorForAxis:(NSUInteger)axis nodeTest:(XPNodeTest *)nodeTest {
+- (id <XPAxisEnumeration>)EnumerationForAxis:(NSUInteger)axis nodeTest:(XPNodeTest *)nodeTest {
     return nil;
 }
 

@@ -8,14 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@class XPNamePool;
+//@class XPNamePool;
 @class XPNameTest;
 @class XPNamespaceTest;
 @class XPBinding;
 
 @protocol XPStaticContext <NSObject>
 
-- (id <XPStaticContext>)copyRuntimeContextWithNamePool:(XPNamePool *)pool;
+//- (id <XPStaticContext>)copyRuntimeContextWithNamePool:(XPNamePool *)pool;
 
 - (NSString *)systemId;
 
@@ -23,17 +23,17 @@
 
 - (NSString *)baseURI;
 
-- (NSString *)URIForPrefix:(NSString *)prefix error:(NSError **)err;
+- (NSString *)namespaceURIForPrefix:(NSString *)prefix error:(NSError **)err;
 
 - (NSInteger)makeNameCode:(NSString *)qname useDefault:(BOOL)useDefault error:(NSError **)err;
-
-- (NSInteger)fingerprintForElementNamed:(NSString *)qname useDefault:(BOOL)useDefault error:(NSError **)err;
-
+//
+//- (NSInteger)fingerprintForElementNamed:(NSString *)qname useDefault:(BOOL)useDefault error:(NSError **)err;
+//
 - (XPNameTest *)makeNameTestForNodeType:(short)nodeType qname:(NSString *)qname useDefault:(BOOL)useDefault error:(NSError **)err;
 
 - (XPNamespaceTest *)makeNamespaceTestForNodeType:(short)nodeType prefix:(NSString *)prefix error:(NSError **)err;
-
-- (XPBinding *)bindVariable:(NSInteger)fingerprint error:(NSError **)err;
+//
+//- (XPBinding *)bindVariable:(NSInteger)fingerprint error:(NSError **)err;
 
 - (BOOL)isExtensionNamespace:(short)uriCode error:(NSError **)err;
 

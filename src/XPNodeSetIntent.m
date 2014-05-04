@@ -80,11 +80,11 @@
 
 - (NSUInteger)count {
     if (!_extent) {
-        XPNodeEnumerator *e = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
+        XPNodeEnumeration *e = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
         if ([e conformsToProtocol:@protocol(XPLastPositionFinder)] && [e isSorted]) {
             return [(id <XPLastPositionFinder>)e lastPosition];
         }
-        self.extent = [XPNodeSetExtent extentWithNodeEnumerator:e controller:_controller];
+        self.extent = [XPNodeSetExtent extentWithNodeEnumeration:e controller:_controller];
     }
     return [_extent count];
 }
@@ -92,8 +92,8 @@
 
 - (void)fix {
     if (!_extent) {
-        XPNodeEnumerator *e = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
-        self.extent = [XPNodeSetExtent extentWithNodeEnumerator:e controller:_controller];
+        XPNodeEnumeration *e = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
+        self.extent = [XPNodeSetExtent extentWithNodeEnumeration:e controller:_controller];
     }
 }
 
@@ -108,7 +108,7 @@
 - (id)firstNode {
     if (_extent) return [_extent firstNode];
     
-    XPNodeEnumerator *e = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
+    XPNodeEnumeration *e = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
     if (_sorted || [e isSorted]) {
         self.sorted = YES;
         return [e nextObject];
@@ -130,7 +130,7 @@
 }
 
 
-- (XPNodeEnumerator *)enumerate {
+- (XPNodeEnumeration *)enumerate {
     if (_extent) {
         return [_extent enumerate];
     } else {

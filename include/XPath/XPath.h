@@ -9,13 +9,13 @@
 
 #import <Foundation/Foundation.h>
 
-#import <XPath/XPNodeType.h>
+#import <XPath/XPUtils.h>
 #import <XPath/XPNodeInfo.h>
 #import <XPath/XPContext.h>
 #import <XPath/XPController.h>
 
 // Expr
-#import <XPath/XPNodeEnumerator.h>
+#import <XPath/XPNodeEnumeration.h>
 #import <XPath/XPStaticContext.h>
 #import <XPath/XPLastPositionFinder.h>
 

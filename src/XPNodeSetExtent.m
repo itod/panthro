@@ -7,17 +7,17 @@
 //
 
 #import <XPath/XPNodeSetExtent.h>
-#import <XPath/XPNodeEnumerator.h>
+#import <XPath/XPNodeEnumeration.h>
 #import <XPath/XPController.h>
 
 @implementation XPNodeSetExtent
 
-+ (XPNodeSetExtent *)extentWithNodeEnumerator:(XPNodeEnumerator *)e controller:(XPController *)c {
-    return [[[self alloc] initWithNodeEnumerator:e controller:c] autorelease];
++ (XPNodeSetExtent *)extentWithNodeEnumeration:(XPNodeEnumeration *)e controller:(XPController *)c {
+    return [[[self alloc] initWithNodeEnumeration:e controller:c] autorelease];
 }
 
 
-- (id)initWithNodeEnumerator:(XPNodeEnumerator *)e controller:(XPController *)c {
+- (id)initWithNodeEnumeration:(XPNodeEnumeration *)e controller:(XPController *)c {
     if (self = [super init]) {
         
     }

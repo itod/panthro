@@ -11,7 +11,7 @@
 #import <XPath/XPExpression.h>
 #import <XPath/XPValue.h>
 #import <XPath/XPNodeInfo.h>
-#import "XPAxisEnumerator.h"
+#import "XPAxisEnumeration.h"
 
 @interface XPStep ()
 @property (nonatomic, assign) XPAxis axis;
@@ -98,13 +98,13 @@
  * @return: an enumeration of nodes that result from applying this step
  */
 
-- (id <XPNodeEnumerator>)enumerate:(id <XPNodeInfo>)node inContext:(XPContext *)ctx {
-    id <XPAxisEnumerator>enm = [node enumeratorForAxis:_axis nodeTest:_nodeTest];
+- (id <XPNodeEnumeration>)enumerate:(id <XPNodeInfo>)node inContext:(XPContext *)ctx {
+    id <XPAxisEnumeration>enm = [node EnumerationForAxis:_axis nodeTest:_nodeTest];
     if ([enm hasMoreElements]) {       // if there are no nodes, there's nothing to filter
 
         //TODO
 //        for (XPExpression *filter in _filters) {
-//            enm = [[[XPFilterEnumerator enumeratorWithEnumerator:enm filter:filter context:ctx bool:NO] autorelease];
+//            enm = [[[XPFilterEnumeration EnumerationWithEnumeration:enm filter:filter context:ctx bool:NO] autorelease];
 //        }
     }
     return enm;

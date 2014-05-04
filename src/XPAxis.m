@@ -7,7 +7,7 @@
 //
 
 #import <XPath/XPAxis.h>
-#import <XPath/XPNodeType.h>
+#import <XPath/XPUtils.h>
 
 /**
  * Table indicating the principal node type of each axis

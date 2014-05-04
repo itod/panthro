@@ -78,6 +78,19 @@
 }
 
 
+- (XPFunction *)makeSystemFunction:(NSString *)name {
+    XPAssert(_funcTab);
+
+    Class cls = [_funcTab objectForKey:name];
+    NSAssert1(cls, @"unknown function %@", name);
+    
+    XPFunction *fn = [[[cls alloc] init] autorelease];
+    XPAssert(fn);
+    
+    return fn;
+}
+
+
 - (void)parser:(PKParser *)p didMatchOrAndExpr:(PKAssembly *)a { [self parser:p didMatchAnyBooleanExpr:a]; }
 - (void)parser:(PKParser *)p didMatchAndEqualityExpr:(PKAssembly *)a { [self parser:p didMatchAnyBooleanExpr:a]; }
 
@@ -165,10 +178,7 @@
     
     NSString *name = [[a pop] stringValue];
 
-    Class cls = [_funcTab objectForKey:name];
-    NSAssert1(cls, @"unknown function %@", name);
-    
-    XPFunction *fn = [[[cls alloc] init] autorelease];
+    XPFunction *fn = [self makeSystemFunction:name];
     
     for (id arg in [args reverseObjectEnumerator]) {
         [fn addArgument:arg];
