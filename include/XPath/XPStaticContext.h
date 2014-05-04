@@ -19,19 +19,19 @@
 
 - (NSString *)systemId;
 
-- (NSInteger)lineNumber;
+- (NSUInteger)lineNumber;
 
 - (NSString *)baseURI;
 
 - (NSString *)namespaceURIForPrefix:(NSString *)prefix error:(NSError **)err;
 
-- (NSInteger)makeNameCode:(NSString *)qname useDefault:(BOOL)useDefault error:(NSError **)err;
+//- (NSInteger)makeNameCode:(NSString *)qname useDefault:(BOOL)useDefault error:(NSError **)err;
 //
 //- (NSInteger)fingerprintForElementNamed:(NSString *)qname useDefault:(BOOL)useDefault error:(NSError **)err;
 //
-- (XPNameTest *)makeNameTestForNodeType:(short)nodeType qname:(NSString *)qname useDefault:(BOOL)useDefault error:(NSError **)err;
-
-- (XPNamespaceTest *)makeNamespaceTestForNodeType:(short)nodeType prefix:(NSString *)prefix error:(NSError **)err;
+//- (XPNameTest *)makeNameTestForNodeType:(short)nodeType qname:(NSString *)qname useDefault:(BOOL)useDefault error:(NSError **)err;
+//
+//- (XPNamespaceTest *)makeNamespaceTestForNodeType:(short)nodeType prefix:(NSString *)prefix error:(NSError **)err;
 //
 //- (XPBinding *)bindVariable:(NSInteger)fingerprint error:(NSError **)err;
 

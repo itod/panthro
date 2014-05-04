@@ -8,7 +8,7 @@
 
 #import "XPStandaloneContext.h"
 #import <XPath/XPUtils.h>
-#import <XPath/XPAssembler.h>
+#import <XPath/XPExpression.h>
 #import "NSError+XPAdditions.h"
 
 NSString *XPNamespaceXML = @"http://www.w3.org/XML/1998/namespace";
@@ -72,7 +72,7 @@ NSString *XPNamespaceAquaPath = @"http://celestialteapot.com/ns/aquapath";
      * @return -1 always
      */
     
-- (NSUInteger)ineNumber {
+- (NSUInteger)lineNumber {
     return -1;
 }
     
