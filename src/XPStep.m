@@ -14,6 +14,7 @@
 #import "XPAxisEnumeration.h"
 
 @interface XPStep ()
+@property (nonatomic, retain, readwrite) NSMutableArray *filters;
 @end
 
 @implementation XPStep
@@ -38,8 +39,10 @@
 
 - (XPStep *)addFilter:(XPExpression *)expr {
     XPAssert(expr);
+    if (!_filters) {
+        self.filters = [NSMutableArray arrayWithCapacity:2];
+    }
     XPAssert(_filters);
-    
     [_filters addObject:expr];
     return self;
 }

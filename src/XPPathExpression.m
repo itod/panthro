@@ -17,6 +17,10 @@
 //#import "XPAttributeReference.h"
 //#import "XPAnyNodeTest.h"
 
+@interface XPExpression ()
+@property (nonatomic, retain, readwrite) id <XPStaticContext>staticContext;
+@end
+
 @interface XPPathExpression ()
 @property (nonatomic, retain) XPExpression *start;
 @property (nonatomic, retain) XPStep *step;
@@ -164,59 +168,60 @@
     return [_start isContextDocumentNodeSet];
 }
 
-///**
-// * Perform a partial evaluation of the expression, by eliminating specified dependencies
-// * on the context.
-// * @param dep The dependencies to be removed
-// * @param context The context to be used for the partial evaluation
-// * @return a new expression that does not have any of the specified
-// * dependencies
-// */
-//
-//public Expression reduce(int dep, Context context) throws XPathException {
-//    Expression path = this;
-//    if ((dep & getDependencies()) != 0) {
-//        Expression newstart = start.reduce(dep, context);
-//        Step newstep = new Step(step.getAxis(), step.getNodeTest());
-//        Expression[] filters = step.getFilters();
-//        
-//        int removedep = dep & Context.XSLT_CONTEXT;
-//        if (start.isContextDocumentNodeSet() &&
-//            ((dep & Context.CONTEXT_DOCUMENT)!=0)) {
-//            removedep |= Context.CONTEXT_DOCUMENT;
-//        }
-//        
-//        for (int f=0; f<step.getNumberOfFilters(); f++) {
-//            Expression exp = filters[f];
-//            // Not all dependencies in the filter matter, because the context node, etc,
-//            // are not dependent on the outer context of the PathExpression
-//            Expression newfilter = exp.reduce(removedep, context);
-//            newstep.addFilter(newfilter);
-//        }
-//        path = new PathExpression(newstart, newstep);
-//        path.setStaticContext(getStaticContext());
-//        path =  path.simplify();
-//    }
-//    
-//    // Pre-evaluate an expression if the start is now a constant node-set
-//    // (this will evaluate to a NodeSetIntent, which will be replaced by
-//    // the corresponding node-set extent if it is used more than thrice).
-//    
-//    if ((path instanceof PathExpression) &&
-//        ((PathExpression)path).start instanceof NodeSetValue) {
-//        return new NodeSetIntent((PathExpression)path, context.getController());
-//    }
-//    
-//    return path;
-//}
-//
+/**
+ * Perform a partial evaluation of the expression, by eliminating specified dependencies
+ * on the context.
+ * @param dep The dependencies to be removed
+ * @param context The context to be used for the partial evaluation
+ * @return a new expression that does not have any of the specified
+ * dependencies
+ */
+
+- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)context {
+    XPAssert(_start);
+    XPAssert(_step);
+    
+    XPExpression *path = self;
+    if ((dep & _dependencies) != 0) {
+        XPExpression *newstart = [_start reduceDependencies:dep inContext:context];
+        XPStep *newstep = [[[XPStep alloc] initWithAxis:_step.axis nodeTest:_step.nodeTest] autorelease];
+        
+        NSUInteger removedep = dep & XPDependenciesXSLTContext;
+        if (_start.isContextDocumentNodeSet &&
+            ((dep & XPDependenciesContextDocument) != 0)) {
+            removedep |= XPDependenciesContextDocument;
+        }
+        
+        for (XPExpression *expr in _step.filters) {
+            // Not all dependencies in the filter matter, because the context node, etc,
+            // are not dependent on the outer context of the PathExpression
+            XPExpression *newfilter = [expr reduceDependencies:removedep inContext:context];
+            [newstep addFilter:newfilter];
+        }
+        
+        path = [[[XPPathExpression alloc] initWithStart:newstart step:newstep] autorelease];
+        path.staticContext = self.staticContext;
+        path =  [path simplify];
+    }
+    
+    // Pre-evaluate an expression if the start is now a constant node-set
+    // (this will evaluate to a NodeSetIntent, which will be replaced by
+    // the corresponding node-set extent if it is used more than thrice).
+    
+    if (([path isKindOfClass:[XPPathExpression class]]) && [((XPPathExpression *)path).start isKindOfClass:[XPNodeSetValue class]]) {
+        return [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPPathExpression *)path controller:context.controller] autorelease];
+    }
+    
+    return path;
+}
+
 //
 ///**
 // * Evaluate the path-expression in a given context to return a NodeSet
 // * @param context the evaluation context
 // * @param sort true if the returned nodes must be in document order
 // */
-//
+//- (XPNodeEnumeration *)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted
 //public NodeEnumeration enumerate(Context context, boolean sort) throws XPathException {
 //    // if the expression references variables, or depends on other aspects of
 //    // the XSLT context, then resolve these dependencies now. Also, if the nodes
