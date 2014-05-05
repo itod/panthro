@@ -26,18 +26,6 @@
 }
 
 
-- (XPNodeEnumeration *)enumerate {
-    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
-    return nil;
-}
-
-
-- (XPNodeEnumeration *)enumerateInContext:(XPContext *)ctx sorted:(BOOL)yn {
-    if (yn) [self sort];
-    return [self enumerate];
-}
-
-
 - (BOOL)isSorted {
     return YES;
 }
@@ -109,7 +97,7 @@
  * Return an enumeration of this nodeset value.
  */
 
-- (id <NodeEnumeration>)enumerate {
+- (id <XPNodeEnumeration>)enumerate {
     return [XPEmptyEnumeration instance];
 }
 
