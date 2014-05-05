@@ -11,7 +11,7 @@
 
 @implementation XPEmptyNodeSet
 
-- (NSInteger)dataType {
+- (XPDataType)dataType {
     return XPDataTypeNodeSet;
 }
 

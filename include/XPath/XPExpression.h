@@ -47,7 +47,7 @@ typedef enum {
 - (NSUInteger)dependencies;
 - (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx;
 
-- (NSInteger)dataType;
+- (XPDataType)dataType;
 
 - (void)display:(NSInteger)level;
 

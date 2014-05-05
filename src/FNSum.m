@@ -32,7 +32,7 @@
 }
 
 
-- (NSInteger)dataType {
+- (XPDataType)dataType {
     return XPDataTypeNumber;
 }
 

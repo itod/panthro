@@ -20,7 +20,7 @@
 @interface XPPathExpression ()
 @property (nonatomic, retain) XPExpression *start;
 @property (nonatomic, retain) XPStep *step;
-@property (nonatomic, assign) NSInteger dependencies;
+@property (nonatomic, assign) NSUInteger dependencies;
 @end
 
 @implementation XPPathExpression
@@ -35,7 +35,7 @@
 - (instancetype)initWithStart:(XPExpression *)start step:(XPStep *)step {
     self = [super init];
     if (self) {
-        self.dependencies = -1;
+        self.dependencies = NSNotFound;
         self.start = start;
         self.step = step;
     }
@@ -48,18 +48,18 @@
     self.step = nil;
     [super dealloc];
 }
+
+
+/**
+ * Simplify an expression
+ * @return the simplified expression
+ */
+
+- (XPExpression *)simplify {
+    
+    self.start = [_start simplify];
+    self.step = [_step simplify];
 //
-//
-///**
-// * Simplify an expression
-// * @return the simplified expression
-// */
-//
-//- (XPExpression *)simplify {
-//    
-//    self.start = [_start simplify];
-//    self.step = [_step simplify];
-//    
 //    // if the start expression is an empty node-set, then the whole PathExpression is empty
 //    if ([_start isKindOfClass:[XPEmptyNodeSet class]]) {
 //        return _start;
@@ -124,41 +124,46 @@
 //        return [[[XPPathExpression alloc] initWithStart:((XPPathExpression *)_start).start step:newStep] autorelease];
 //        //}
 //    }
-//    
-//    return self;
-//}
-//
-///**
-// * Determine which aspects of the context the expression depends on. The result is
-// * a bitwise-or'ed value composed from constants such as Context.VARIABLES and
-// * Context.CURRENT_NODE
-// */
-//
-//public int getDependencies() {
-//    if (dependencies==-1) {
-//        dependencies = start.getDependencies();
-//        Expression[] filters = step.getFilters();
-//        for (int f=0; f<step.getNumberOfFilters(); f++) {
-//            Expression exp = filters[f];
-//            // Not all dependencies in the filter matter, because the context node, etc,
-//            // are not dependent on the outer context of the PathExpression
-//            dependencies |= (exp.getDependencies() & Context.XSLT_CONTEXT);
-//            //(Context.XSLT_CONTEXT | Context.CONTEXT_DOCUMENT));
-//        }
-//    }
-//    return dependencies;
-//}
-//
-///**
-// * Determine, in the case of an expression whose data type is Value.NODESET,
-// * whether all the nodes in the node-set are guaranteed to come from the same
-// * document as the context node. Used for optimization.
-// */
-//
-//- (BOOL)isContextDocumentNodeSet {
-//    return [_start isContextDocumentNodeSet];
-//}
-//
+    
+    return self;
+}
+
+/**
+ * Determine which aspects of the context the expression depends on. The result is
+ * a bitwise-or'ed value composed from constants such as Context.VARIABLES and
+ * Context.CURRENT_NODE
+ */
+
+- (NSUInteger)dependencies {
+    XPAssert(_start);
+    XPAssert(_step);
+    
+    if (NSNotFound == _dependencies) {
+        NSUInteger dep = _start.dependencies;
+        
+        for (XPExpression *expr in _step.filters) {
+            // Not all dependencies in the filter matter, because the context node, etc,
+            // are not dependent on the outer context of the PathExpression
+            dep |= (expr.dependencies & XPDependenciesXSLTContext);
+            //(Context.XSLT_CONTEXT | Context.CONTEXT_DOCUMENT));
+        }
+        
+        self.dependencies = dep;
+    }
+    return _dependencies;
+}
+
+/**
+ * Determine, in the case of an expression whose data type is Value.NODESET,
+ * whether all the nodes in the node-set are guaranteed to come from the same
+ * document as the context node. Used for optimization.
+ */
+
+- (BOOL)isContextDocumentNodeSet {
+    XPAssert(_start);
+    return [_start isContextDocumentNodeSet];
+}
+
 ///**
 // * Perform a partial evaluation of the expression, by eliminating specified dependencies
 // * on the context.
