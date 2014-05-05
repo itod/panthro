@@ -16,9 +16,6 @@
 
 - (XPNodeEnumeration *)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted;
 
-- (NSString *)asString;
-- (double)asNumber;
-- (BOOL)asBoolean;
 - (NSUInteger)count;
 - (XPNodeSetValue *)sort;
 - (id)firstNode;

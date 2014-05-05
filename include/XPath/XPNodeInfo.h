@@ -9,6 +9,7 @@
 #import <XPath/XPUtils.h>
 
 @protocol XPAxisEnumeration;
+@protocol XPDocumentInfo;
 @class XPNodeTest;
 
 @protocol XPNodeInfo <NSObject>
@@ -24,6 +25,16 @@
 
 
 /**
+ * Determine whether this is the same node as another node. <br />
+ * Note: a.isSameNodeInfo(b) if and only if generateId(a)==generateId(b)
+ * @return true if this Node object and the supplied Node object represent the
+ * same node in the tree.
+ */
+
+- (BOOL)isSameNodeInfo:(id <XPNodeInfo>)other;
+
+
+/**
  * Return the string value of the node. The interpretation of this depends on the type
  * of node. For an element it is the accumulated character content of the element,
  * including descendant elements.
@@ -31,6 +42,14 @@
  */
 
 - (NSString *)stringValue;
+
+
+/**
+ * Get the root (document) node
+ * @return the DocumentInfo representing the containing document
+ */
+
+- (id <XPDocumentInfo>)documentRoot;
 
 
 /**

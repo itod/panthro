@@ -8,6 +8,8 @@
 
 #import <XPath/XPNodeEnumeration.h>
 
+@protocol XPNodeInfo;
+
 @protocol XPAxisEnumeration <XPNodeEnumeration/*, XPLastPositionFinder*/>
 
 /**

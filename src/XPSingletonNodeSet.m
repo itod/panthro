@@ -7,7 +7,26 @@
 //
 
 #import "XPSingletonNodeSet.h"
+#import <XPath/XPNodeInfo.h>
+
+@interface XPSingletonNodeSet ()
+@property (nonatomic, retain) id <XPNodeInfo>node;
+@end
 
 @implementation XPSingletonNodeSet
+
+- (instancetype)initWithNode:(id <XPNodeInfo>)node {
+    self = [super init];
+    if (self) {
+        self.node = node;
+    }
+    return self;
+}
+
+
+- (void)dealloc {
+    self.node = nil;
+    [super dealloc];
+}
 
 @end

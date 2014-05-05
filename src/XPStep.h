@@ -25,4 +25,7 @@
 - (id <XPNodeEnumeration>)enumerate:(id <XPNodeInfo>)node inContext:(XPContext *)ctx;
 
 @property (nonatomic, retain) NSMutableArray *filters;
+@property (nonatomic, assign, readonly) NSUInteger numberOfFilters;
+@property (nonatomic, assign) XPAxis axis;
+@property (nonatomic, retain) XPNodeTest *nodeTest;
 @end

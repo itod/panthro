@@ -14,8 +14,6 @@
 #import "XPAxisEnumeration.h"
 
 @interface XPStep ()
-@property (nonatomic, assign) XPAxis axis;
-@property (nonatomic, retain) XPNodeTest *nodeTest;
 @end
 
 @implementation XPStep
@@ -110,6 +108,12 @@
     return enm;
     
 }
+
+
+- (NSUInteger)numberOfFilters {
+    return [self.filters count];
+}
+
 
 /**
  * Diagnostic print of expression structure

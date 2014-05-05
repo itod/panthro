@@ -7,6 +7,7 @@
 //
 
 #import "XPNSXMLNodeImpl.h"
+#import "XPNSXMLDocumentImpl.h"
 
 @implementation XPNSXMLNodeImpl
 
@@ -74,6 +75,17 @@
 - (NSString *)stringValue {
     XPAssert(_node);
     return [_node stringValue];
+}
+
+
+- (BOOL)isSameNodeInfo:(id <XPNodeInfo>)other {
+    return other == self; // ??
+}
+
+
+- (id <XPDocumentInfo>)documentRoot {
+    XPAssert(_node);
+    return [[[XPNSXMLDocumentImpl alloc] initWithNode:[_node rootDocument]] autorelease];
 }
 
 

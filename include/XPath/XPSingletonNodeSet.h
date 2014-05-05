@@ -8,6 +8,9 @@
 
 #import <XPath/XPNodeSetValue.h>
 
+@protocol XPNodeInfo;
+
 @interface XPSingletonNodeSet : XPNodeSetValue
 
+- (instancetype)initWithNode:(id <XPNodeInfo>)node;
 @end

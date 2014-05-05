@@ -11,15 +11,11 @@
 #import <XPath/XPNodeTest.h>
 
 @interface XPAxisExpression ()
-@property (nonatomic, assign) uint8_t axis;
-@property (nonatomic, retain) XPNodeTest *test;
-@property (nonatomic, retain) id <XPNodeInfo>contextNode;
-
 @end
 
 @implementation XPAxisExpression
 
-- (id)initWithAxis:(uint8_t)axis nodeTest:(XPNodeTest *)nodeTest {
+- (instancetype)initWithAxis:(XPAxis)axis nodeTest:(XPNodeTest *)nodeTest {
     self = [super init];
     if (self) {
         self.axis = axis;
