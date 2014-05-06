@@ -39,6 +39,31 @@
 }
 
 
+- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id *)stackbuf count:(NSUInteger)len {
+    NSUInteger count = 0;
+    
+    id <XPNodeInfo>node = nil;
+    
+    if (0 == state->state) {
+        node = [self nextObject];
+    } else {
+        node = (id <XPNodeInfo>)state->state;
+    }
+    
+    while ([self hasMoreObjects] && count < len) {
+        stackbuf[count] = node;
+        node = [self nextObject];
+        count++;
+    }
+    
+    state->state = (unsigned long)node;
+    state->itemsPtr = stackbuf;
+    state->mutationsPtr = (unsigned long *)self;
+    
+    return count;
+}
+
+
 //
 //    private Expression thisStart;
 //    private NodeEnumeration base=null;

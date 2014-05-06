@@ -35,28 +35,18 @@
 }
 
 
-- (BOOL)hasMoreElements {
+- (BOOL)hasMoreObjects {
     return NO;
 }
 
 
-- (id <XPNodeInfo>)nextElement {
+- (id <XPNodeInfo>)nextObject {
     return nil;
 }
 
 
 - (NSUInteger)lastPosition {
     return 0;
-}
-
-
-- (id)nextObject {
-    return [self nextElement];
-}
-
-
-- (NSArray *)allObjects {
-    return nil;
 }
 
 

@@ -48,8 +48,13 @@
 
 
 - (double)evaluateAsNumberInContext:(XPContext *)ctx {
-    id <XPNodeEnumeration>e = [(XPNodeSetValue *)self.args[0] enumerateInContext:ctx sorted:YES];
-    return (double)[[e allObjects] count];
+    NSInteger n = 0;
+    id <XPNodeEnumeration>enm = [(XPNodeSetValue *)self.args[0] enumerateInContext:ctx sorted:YES];
+    while ([enm hasMoreObjects]) {
+        [enm nextObject];
+        n++;
+    }
+    return (double)n;
 }
 
 
