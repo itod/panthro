@@ -22,7 +22,7 @@
 @end
 
 @interface FNSum ()
-- (double)total:(XPNodeEnumeration *)e;
+- (double)total:(id <XPNodeEnumeration>)e;
 @end
 
 @implementation FNSum
@@ -52,7 +52,7 @@
 
 
 - (double)evaluateAsNumberInContext:(XPContext *)ctx {
-    XPNodeEnumeration *e = [self.args[0] enumerateInContext:ctx sorted:NO];
+    id <XPNodeEnumeration>e = [self.args[0] enumerateInContext:ctx sorted:NO];
     return [self total:e];
 }
 
@@ -76,7 +76,7 @@
 }
 
 
-- (double)total:(XPNodeEnumeration *)e {
+- (double)total:(id <XPNodeEnumeration>)e {
     double sum = 0.0;
     for (id node in e) {
         sum += XPNumberFromString([node stringValue]);

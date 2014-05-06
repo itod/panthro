@@ -8,12 +8,12 @@
 
 #import <XPath/XPNodeSetValue.h>
 
-@class XPNodeEnumeration;
+@protocol XPNodeEnumeration;
 @class XPController;
 
 @interface XPNodeSetExtent : XPNodeSetValue
 
-+ (XPNodeSetExtent *)extentWithNodeEnumeration:(XPNodeEnumeration *)e controller:(XPController *)c;
++ (XPNodeSetExtent *)extentWithNodeEnumeration:(id <XPNodeEnumeration>)e controller:(XPController *)c;
 
-- (id)initWithNodeEnumeration:(XPNodeEnumeration *)e controller:(XPController *)c;
+- (id)initWithNodeEnumeration:(id <XPNodeEnumeration>)e controller:(XPController *)c;
 @end

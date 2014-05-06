@@ -62,7 +62,7 @@
 }
 
 
-//- (XPNodeEnumeration *)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
+//- (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
 //    id <XPNodeInfo>start = nil;
 //    if (!_contextNode) {
 //        start = [ctx contextNodeInfo];

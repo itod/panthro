@@ -8,8 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol XPNodeEnumeration <NSObject>
+@protocol XPNodeEnumeration <NSFastEnumeration, NSObject>
 - (BOOL)isSorted;
 - (BOOL)isReverseSorted;
 - (BOOL)isPeer;
+
+- (id)nextObject;
+- (NSArray *)allObjects;
 @end

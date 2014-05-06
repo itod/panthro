@@ -9,10 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @protocol XPStaticContext;
+@protocol XPNodeEnumeration;
+
 @class XPContext;
 @class XPValue;
 @class XPNodeSetValue;
-@class XPNodeEnumeration;
 @class XPFunction;
 
 typedef enum {
@@ -36,7 +37,7 @@ typedef enum {
 - (NSString *)evaluateAsStringInContext:(XPContext *)ctx;
 - (XPNodeSetValue *)evaluateAsNodeSetInContext:(XPContext *)ctx;
 
-- (XPNodeEnumeration *)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted;
+- (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted;
 
 - (BOOL)isValue;
 - (BOOL)isContextDocumentNodeSet;

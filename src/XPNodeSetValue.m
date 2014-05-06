@@ -43,13 +43,13 @@
 }
 
 
-- (XPNodeEnumeration *)enumerate {
+- (id <XPNodeEnumeration>)enumerate {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return nil;
 }
 
 
-- (XPNodeEnumeration *)enumerateInContext:(XPContext *)ctx sorted:(BOOL)yn {
+- (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)yn {
     if (yn) [self sort];
     return [self enumerate];
 }
@@ -130,7 +130,7 @@
         
         NSDictionary *table = [self stringValues];
         
-        XPNodeEnumeration *e2 = [(XPNodeSetValue *)other enumerate];
+        id <XPNodeEnumeration>e2 = [(XPNodeSetValue *)other enumerate];
         for (id node in e2) {
             if ([table objectForKey:[node stringValue]]) return YES;
         }

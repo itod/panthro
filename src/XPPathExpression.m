@@ -215,14 +215,14 @@
     return path;
 }
 
-//
-///**
-// * Evaluate the path-expression in a given context to return a NodeSet
-// * @param context the evaluation context
-// * @param sort true if the returned nodes must be in document order
-// */
-//- (XPNodeEnumeration *)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted
-//public NodeEnumeration enumerate(Context context, boolean sort) throws XPathException {
+
+/**
+ * Evaluate the path-expression in a given context to return a NodeSet
+ * @param context the evaluation context
+ * @param sort true if the returned nodes must be in document order
+ */
+- (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
+    return nil;
 //    // if the expression references variables, or depends on other aspects of
 //    // the XSLT context, then resolve these dependencies now. Also, if the nodes
 //    // are all known to be in the context document, then any dependency on the
@@ -260,7 +260,7 @@
 //        return ns.enumerate();
 //    }
 //    return enm;
-//}
+}
 //
 ///**
 // * Diagnostic print of expression structure

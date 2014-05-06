@@ -12,12 +12,12 @@
 
 @implementation XPNodeSetExtent
 
-+ (XPNodeSetExtent *)extentWithNodeEnumeration:(XPNodeEnumeration *)e controller:(XPController *)c {
++ (XPNodeSetExtent *)extentWithNodeEnumeration:(id <XPNodeEnumeration>)e controller:(XPController *)c {
     return [[[self alloc] initWithNodeEnumeration:e controller:c] autorelease];
 }
 
 
-- (id)initWithNodeEnumeration:(XPNodeEnumeration *)e controller:(XPController *)c {
+- (id)initWithNodeEnumeration:(id <XPNodeEnumeration>)e controller:(XPController *)c {
     if (self = [super init]) {
         
     }

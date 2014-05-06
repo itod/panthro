@@ -48,7 +48,7 @@
 
 
 - (double)evaluateAsNumberInContext:(XPContext *)ctx {
-    XPNodeEnumeration *e = [(XPNodeSetValue *)self.args[0] enumerateInContext:ctx sorted:YES];
+    id <XPNodeEnumeration>e = [(XPNodeSetValue *)self.args[0] enumerateInContext:ctx sorted:YES];
     return (double)[[e allObjects] count];
 }
 

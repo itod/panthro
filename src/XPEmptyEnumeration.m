@@ -49,4 +49,19 @@
     return 0;
 }
 
+
+- (id)nextObject {
+    return [self nextElement];
+}
+
+
+- (NSArray *)allObjects {
+    return nil;
+}
+
+
+- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id *)stackbuf count:(NSUInteger)len {
+    return 0;
+}
+
 @end

@@ -101,14 +101,14 @@ static XPAssembler *sAssembler = nil;
 }
 
 
-- (XPNodeEnumeration *)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
+- (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
     XPValue *v = [self evaluateInContext:ctx];
 
     if ([v isNodeSetValue]) {
         if (sorted) {
             [(XPNodeSetValue *)v sort];
         }
-        XPNodeEnumeration *e = [(XPNodeSetValue *)v enumerate];
+        id <XPNodeEnumeration>e = [(XPNodeSetValue *)v enumerate];
         return e;
     }
     [NSException raise:@"XPathException" format:@"The value is not a node-set"];

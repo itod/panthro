@@ -7,6 +7,7 @@
 //
 
 #import <XPath/XPNodeSetIntent.h>
+#import <XPath/XPNodeEnumeration.h>
 #import <XPath/XPNodeSetExtent.h>
 #import <XPath/XPNodeSetExpression.h>
 #import <XPath/XPController.h>
@@ -80,7 +81,7 @@
 
 - (NSUInteger)count {
     if (!_extent) {
-        XPNodeEnumeration *e = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
+        id <XPNodeEnumeration>e = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
         if ([e conformsToProtocol:@protocol(XPLastPositionFinder)] && [e isSorted]) {
             return [(id <XPLastPositionFinder>)e lastPosition];
         }
@@ -92,7 +93,7 @@
 
 - (void)fix {
     if (!_extent) {
-        XPNodeEnumeration *e = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
+        id <XPNodeEnumeration>e = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
         self.extent = [XPNodeSetExtent extentWithNodeEnumeration:e controller:_controller];
     }
 }
@@ -108,7 +109,7 @@
 - (id)firstNode {
     if (_extent) return [_extent firstNode];
     
-    XPNodeEnumeration *e = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
+    id <XPNodeEnumeration>e = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
     if (_sorted || [e isSorted]) {
         self.sorted = YES;
         return [e nextObject];
@@ -130,7 +131,7 @@
 }
 
 
-- (XPNodeEnumeration *)enumerate {
+- (id <XPNodeEnumeration>)enumerate {
     if (_extent) {
         return [_extent enumerate];
     } else {
