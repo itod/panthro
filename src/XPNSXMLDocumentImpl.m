@@ -9,23 +9,18 @@
 #import "XPNSXMLDocumentImpl.h"
 
 @interface XPNSXMLDocumentImpl ()
-@property (nonatomic, retain) NSXMLDocument *node;
 @end
 
 @implementation XPNSXMLDocumentImpl
 
-- (instancetype)initWithNode:(NSXMLDocument *)doc {
-    self = [super init];
-    if (self) {
-        self.node = doc;
-    }
-    return self;
+
+- (XPNodeType)nodeType {
+    return XPNodeTypeRoot;
 }
 
 
-- (void)dealloc {
-    self.node = nil;
-    [super dealloc];
+- (id <XPDocumentInfo>)documentRoot {
+    return self;
 }
 
 @end

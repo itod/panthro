@@ -17,6 +17,122 @@
 //#import "XPAttributeReference.h"
 //#import "XPAnyNodeTest.h"
 
+#import "XPNodeOrderComparer.h"
+#import "XPLocalOrderComparer.h"
+
+
+/**
+ * Inner class PathEnumeration
+ */
+@interface XPPathEnumeration : NSObject <XPNodeEnumeration>
+- (instancetype)initWithStart:(XPExpression *)start context:(XPContext *)ctx;
+@end
+
+@implementation XPPathEnumeration
+
+- (instancetype)initWithStart:(XPExpression *)start context:(XPContext *)ctx {
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
+}
+
+
+//
+//    private Expression thisStart;
+//    private NodeEnumeration base=null;
+//    private NodeEnumeration thisStep=null;
+//    private NodeInfo next=null;
+//    private Context context;
+//
+//    public PathEnumeration(Expression start, Context context) throws XPathException {
+//        if (start instanceof SingletonNodeSet) {
+//            if (!((SingletonNodeSet)start).isGeneralUseAllowed()) {
+//                throw new XPathException("To use a result tree fragment in a path expression, either use exsl:node-set() or specify version='1.1'");
+//            }
+//        }
+//        thisStart = start;
+//        this.context = context.newContext();
+//        base = start.enumerate(this.context, false);
+//        next = getNextNode();
+//    }
+//
+//    public boolean hasMoreElements() {
+//        return next!=null;
+//    }
+//
+//    public NodeInfo nextElement() throws XPathException {
+//        NodeInfo curr = next;
+//        next = getNextNode();
+//        return curr;
+//    }
+//
+//    private NodeInfo getNextNode() throws XPathException {
+//
+//        // if we are currently processing a step, we continue with it. Otherwise,
+//        // we get the next base element, and apply the step to that.
+//
+//        if (thisStep!=null && thisStep.hasMoreElements()) {
+//            return thisStep.nextElement();
+//            //NodeInfo n = thisStep.nextElement();
+//            //System.err.println("Continuing Step.nextElement() = " + n);
+//            //return n;
+//        }
+//
+//        while (base.hasMoreElements()) {
+//            NodeInfo node = base.nextElement();
+//            //System.err.println("Base.nextElement = " + node);
+//            thisStep = step.enumerate(node, context);
+//            if (thisStep.hasMoreElements()) {
+//                return thisStep.nextElement();
+//                //NodeInfo n2 = thisStep.nextElement();
+//                //System.err.println("Starting Step.nextElement() = " + n2);
+//                //return n2;
+//            }
+//        }
+//
+//        return null;
+//
+//    }
+//
+//    /**
+//     * Determine if we can guarantee that the nodes are in document order. This is true if the
+//     * start nodes are sorted peer nodes and the step is within the subtree rooted at each node.
+//     * It is also true if the start is a singleton node and the axis is sorted.
+//     */
+//
+//    public boolean isSorted() {
+//        byte axis = step.getAxis();
+//        return Axis.isForwards[axis] && (
+//                                         ( (thisStart instanceof SingletonExpression) ||
+//                                          (base.isSorted() && base.isPeer() && Axis.isSubtreeAxis[axis]) ||
+//                                          (base.isSorted() && (axis==Axis.ATTRIBUTE || axis==Axis.NAMESPACE))
+//                                          ));
+//    }
+//
+//    /**
+//     * Determine if the nodes are guaranteed to be in reverse document order. This is true if the
+//     * base is singular (e.g. the root node or the current node) and the axis is a reverse axis
+//     */
+//
+//    public boolean isReverseSorted() {
+//        return thisStart instanceof SingletonExpression && Axis.isReverse[step.getAxis()];
+//    }
+//
+//    /**
+//     * Determine if the resulting nodes are peer nodes, that is, if no node is a descendant of any
+//     * other. This is the case if the start nodes are peer nodes and the axis is a peer axis.
+//     */
+//
+//    public boolean isPeer() {
+//        return (base.isPeer() && Axis.isPeerAxis[step.getAxis()]);
+//    }
+//
+//}   // end of inner class PathEnumeration
+@end
+
+
 @interface XPExpression ()
 @property (nonatomic, retain, readwrite) id <XPStaticContext>staticContext;
 @end
@@ -149,7 +265,7 @@
             // Not all dependencies in the filter matter, because the context node, etc,
             // are not dependent on the outer context of the PathExpression
             dep |= (expr.dependencies & XPDependenciesXSLTContext);
-            //(Context.XSLT_CONTEXT | Context.CONTEXT_DOCUMENT));
+            //(Context.XSLT_CONTEXT | XPDependenciesContextDocument));
         }
         
         self.dependencies = dep;
@@ -177,13 +293,13 @@
  * dependencies
  */
 
-- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)context {
+- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
     XPAssert(_start);
     XPAssert(_step);
     
     XPExpression *path = self;
     if ((dep & _dependencies) != 0) {
-        XPExpression *newstart = [_start reduceDependencies:dep inContext:context];
+        XPExpression *newstart = [_start reduceDependencies:dep inContext:ctx];
         XPStep *newstep = [[[XPStep alloc] initWithAxis:_step.axis nodeTest:_step.nodeTest] autorelease];
         
         NSUInteger removedep = dep & XPDependenciesXSLTContext;
@@ -195,7 +311,7 @@
         for (XPExpression *expr in _step.filters) {
             // Not all dependencies in the filter matter, because the context node, etc,
             // are not dependent on the outer context of the PathExpression
-            XPExpression *newfilter = [expr reduceDependencies:removedep inContext:context];
+            XPExpression *newfilter = [expr reduceDependencies:removedep inContext:ctx];
             [newstep addFilter:newfilter];
         }
         
@@ -209,7 +325,7 @@
     // the corresponding node-set extent if it is used more than thrice).
     
     if (([path isKindOfClass:[XPPathExpression class]]) && [((XPPathExpression *)path).start isKindOfClass:[XPNodeSetValue class]]) {
-        return [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPPathExpression *)path controller:context.controller] autorelease];
+        return [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPPathExpression *)path controller:ctx.controller] autorelease];
     }
     
     return path;
@@ -222,152 +338,51 @@
  * @param sort true if the returned nodes must be in document order
  */
 - (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
-    return nil;
-//    // if the expression references variables, or depends on other aspects of
-//    // the XSLT context, then resolve these dependencies now. Also, if the nodes
-//    // are all known to be in the context document, then any dependency on the
-//    // context document (e.g. an absolute path expression in a predicate) can also
-//    // be removed now.
-//    
-//    int actualdep = getDependencies();
-//    int removedep = 0;
-//    
-//    if ((actualdep & Context.XSLT_CONTEXT) != 0) {
-//        removedep |= Context.XSLT_CONTEXT;
-//    }
-//    
-//    if (start.isContextDocumentNodeSet() &&
-//        ((actualdep & Context.CONTEXT_DOCUMENT) != 0)) {
-//        removedep |= Context.CONTEXT_DOCUMENT;
-//    }
-//    
-//    if (( removedep & (Context.XSLT_CONTEXT | Context.CONTEXT_DOCUMENT)) != 0) {
-//        Expression temp = reduce(removedep, context);
-//        return temp.enumerate(context, sort);
-//    }
-//    
-//    NodeEnumeration enm = new PathEnumeration(start, context);
-//    if (sort && !enm.isSorted()) {
-//        NodeOrderComparer comparer;
-//        if (start instanceof SingletonNodeSet || start.isContextDocumentNodeSet()) {
-//            // nodes are all in the same document
-//            comparer = LocalOrderComparer.getInstance();
-//        } else {
-//            comparer = context.getController();
-//        }
-//        NodeSetExtent ns = new NodeSetExtent(enm, comparer);
-//        ns.sort();
-//        return ns.enumerate();
-//    }
-//    return enm;
+    // if the expression references variables, or depends on other aspects of
+    // the XSLT context, then resolve these dependencies now. Also, if the nodes
+    // are all known to be in the context document, then any dependency on the
+    // context document (e.g. an absolute path expression in a predicate) can also
+    // be removed now.
+    
+    NSUInteger actualdep = self.dependencies;
+    NSUInteger removedep = 0;
+    
+    if ((actualdep & XPDependenciesXSLTContext) != 0) {
+        removedep |= XPDependenciesXSLTContext;
+    }
+    
+    if (_start.isContextDocumentNodeSet &&
+        ((actualdep & XPDependenciesContextDocument) != 0)) {
+        removedep |= XPDependenciesContextDocument;
+    }
+    
+    if ((removedep & (XPDependenciesXSLTContext | XPDependenciesContextDocument)) != 0) {
+        XPExpression *temp = [self reduceDependencies:removedep inContext:ctx];
+        return [temp enumerateInContext:ctx sorted:sorted];
+    }
+    
+    id <XPNodeEnumeration>enm = [[[XPPathEnumeration alloc] initWithStart:_start context:ctx] autorelease];
+    if (sorted && !enm.isSorted) {
+
+        id <XPNodeOrderComparer>comparer = nil;
+        
+        if ([_start isKindOfClass:[XPSingletonNodeSet class]] || _start.isContextDocumentNodeSet) {
+            // nodes are all in the same document
+            comparer = [XPLocalOrderComparer instance];
+        } else {
+            comparer = ctx.controller;
+        }
+        XPNodeSetExtent *ns = [[[XPNodeSetExtent alloc] initWithNodeEnumeration:enm controller:comparer] autorelease];
+        [ns sort];
+        return [ns enumerate];
+    }
+    return enm;
 }
-//
-///**
-// * Diagnostic print of expression structure
-// */
-//
+
 //public void display(int level) {
 //    System.err.println(indent(level) + "path");
 //    start.display(level+1);
 //    step.display(level+1);
 //}
-//
-//
-///**
-// * Inner class PathEnumeration
-// */
-//
-//private class PathEnumeration implements NodeEnumeration {
-//    
-//    private Expression thisStart;
-//    private NodeEnumeration base=null;
-//    private NodeEnumeration thisStep=null;
-//    private NodeInfo next=null;
-//    private Context context;
-//    
-//    public PathEnumeration(Expression start, Context context) throws XPathException {
-//        if (start instanceof SingletonNodeSet) {
-//            if (!((SingletonNodeSet)start).isGeneralUseAllowed()) {
-//                throw new XPathException("To use a result tree fragment in a path expression, either use exsl:node-set() or specify version='1.1'");
-//            }
-//        }
-//        thisStart = start;
-//        this.context = context.newContext();
-//        base = start.enumerate(this.context, false);
-//        next = getNextNode();
-//    }
-//    
-//    public boolean hasMoreElements() {
-//        return next!=null;
-//    }
-//    
-//    public NodeInfo nextElement() throws XPathException {
-//        NodeInfo curr = next;
-//        next = getNextNode();
-//        return curr;
-//    }
-//    
-//    private NodeInfo getNextNode() throws XPathException {
-//        
-//        // if we are currently processing a step, we continue with it. Otherwise,
-//        // we get the next base element, and apply the step to that.
-//        
-//        if (thisStep!=null && thisStep.hasMoreElements()) {
-//            return thisStep.nextElement();
-//            //NodeInfo n = thisStep.nextElement();
-//            //System.err.println("Continuing Step.nextElement() = " + n);
-//            //return n;
-//        }
-//        
-//        while (base.hasMoreElements()) {
-//            NodeInfo node = base.nextElement();
-//            //System.err.println("Base.nextElement = " + node);
-//            thisStep = step.enumerate(node, context);
-//            if (thisStep.hasMoreElements()) {
-//                return thisStep.nextElement();
-//                //NodeInfo n2 = thisStep.nextElement();
-//                //System.err.println("Starting Step.nextElement() = " + n2);
-//                //return n2;
-//            }
-//        }
-//        
-//        return null;
-//        
-//    }
-//    
-//    /**
-//     * Determine if we can guarantee that the nodes are in document order. This is true if the
-//     * start nodes are sorted peer nodes and the step is within the subtree rooted at each node.
-//     * It is also true if the start is a singleton node and the axis is sorted.
-//     */
-//    
-//    public boolean isSorted() {
-//        byte axis = step.getAxis();
-//        return Axis.isForwards[axis] && (
-//                                         ( (thisStart instanceof SingletonExpression) ||
-//                                          (base.isSorted() && base.isPeer() && Axis.isSubtreeAxis[axis]) ||
-//                                          (base.isSorted() && (axis==Axis.ATTRIBUTE || axis==Axis.NAMESPACE))
-//                                          ));
-//    }
-//    
-//    /**
-//     * Determine if the nodes are guaranteed to be in reverse document order. This is true if the
-//     * base is singular (e.g. the root node or the current node) and the axis is a reverse axis
-//     */
-//    
-//    public boolean isReverseSorted() {
-//        return thisStart instanceof SingletonExpression && Axis.isReverse[step.getAxis()];
-//    }
-//    
-//    /**
-//     * Determine if the resulting nodes are peer nodes, that is, if no node is a descendant of any
-//     * other. This is the case if the start nodes are peer nodes and the axis is a peer axis.
-//     */
-//    
-//    public boolean isPeer() {
-//        return (base.isPeer() && Axis.isPeerAxis[step.getAxis()]);
-//    }
-//    
-//}   // end of inner class PathEnumeration
 
 @end

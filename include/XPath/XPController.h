@@ -6,8 +6,7 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <XPath/XPNodeOrderComparer.h>
 
-@interface XPController : NSObject
-- (NSComparisonResult)compare:(id)nodeA to:(id)nodeB;
+@interface XPController : NSObject <XPNodeOrderComparer>
 @end

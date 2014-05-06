@@ -59,6 +59,6 @@
  * @return a NodeEnumeration that scans the nodes reached by the axis in turn.
  */
 
-- (id <XPAxisEnumeration>)EnumerationForAxis:(NSUInteger)axis nodeTest:(XPNodeTest *)nodeTest;
+- (id <XPAxisEnumeration>)enumerationForAxis:(NSUInteger)axis nodeTest:(XPNodeTest *)nodeTest;
 
 @end

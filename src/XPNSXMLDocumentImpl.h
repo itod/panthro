@@ -7,8 +7,8 @@
 //
 
 #import <XPath/XPDocumentInfo.h>
+#import "XPNSXMLNodeImpl.h"
 
-@interface XPNSXMLDocumentImpl : NSObject <XPDocumentInfo>
+@interface XPNSXMLDocumentImpl : XPNSXMLNodeImpl <XPDocumentInfo>
 
-- (instancetype)initWithNode:(NSXMLDocument *)doc;
 @end

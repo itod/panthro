@@ -100,7 +100,7 @@
  */
 
 - (id <XPNodeEnumeration>)enumerate:(id <XPNodeInfo>)node inContext:(XPContext *)ctx {
-    id <XPAxisEnumeration>enm = [node EnumerationForAxis:_axis nodeTest:_nodeTest];
+    id <XPAxisEnumeration>enm = [node enumerationForAxis:_axis nodeTest:_nodeTest];
     if ([enm hasMoreElements]) {       // if there are no nodes, there's nothing to filter
 
         //TODO

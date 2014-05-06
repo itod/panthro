@@ -11,8 +11,8 @@
 
 @implementation XPController
 
-- (NSComparisonResult)compare:(id)nodeA to:(id)nodeB {
-    return [nodeA compareOrderTo:nodeB];
+- (NSComparisonResult)compare:(id <XPNodeInfo>)a to:(id <XPNodeInfo>)b {
+    return [a compareOrderTo:b];
 }
 
 @end
