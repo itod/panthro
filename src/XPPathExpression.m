@@ -64,6 +64,36 @@
 }
 
 
+- (BOOL)isSorted {
+    return YES;
+}
+
+
+- (BOOL)isReverseSorted {
+    return YES;
+}
+
+
+- (BOOL)isPeer {
+    return YES;
+}
+
+
+- (BOOL)hasMoreObjects {
+    return NO;
+}
+
+
+- (id <XPNodeInfo>)nextObject {
+    return nil;
+}
+
+
+- (NSUInteger)lastPosition {
+    return 0;
+}
+
+
 //
 //    private Expression thisStart;
 //    private NodeEnumeration base=null;
