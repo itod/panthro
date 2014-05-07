@@ -37,6 +37,11 @@
 }
 
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%@ %p «%@::%@»", [self class], self, XPAxisName[_axis], _nodeTest];
+}
+
+
 - (XPStep *)addFilter:(XPExpression *)expr {
     XPAssert(expr);
     if (!_allFilters) {

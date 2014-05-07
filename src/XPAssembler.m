@@ -187,6 +187,11 @@
 }
 
 
+- (void)parser:(PKParser *)p didMatchPathExpr:(PKAssembly *)a {
+    
+}
+
+
 - (void)parser:(PKParser *)p didMatchStep:(PKAssembly *)a {
     XPNodeTest *nodeTest = [a pop];
     XPAssert([nodeTest isKindOfClass:[XPNodeTest class]]);
@@ -203,8 +208,8 @@
 
 - (void)parser:(PKParser *)p didMatchAxisName:(PKAssembly *)a {
     PKToken *tok = [a pop];
-    
-    // TODO
+    XPAssertToken(tok);
+
     XPAxis axis = @(XPAxisForName(tok.stringValue));
     [a push:@(axis)];
 }
@@ -219,6 +224,7 @@
 
 - (void)parser:(PKParser *)p didMatchTypeTest:(PKAssembly *)a {
     PKToken *tok = [a pop];
+    XPAssertToken(tok);
     XPAssert(_nodeTypeTab);
     XPNodeType type = [_nodeTypeTab[tok.stringValue] unsignedIntegerValue];
     XPAssert(XPNodeTypeNone != type);

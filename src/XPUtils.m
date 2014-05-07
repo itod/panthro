@@ -8,6 +8,20 @@
 
 #import "XPUtils.h"
 
+const NSString *XPNodeTypeName[] = {
+    @"node",
+    @"element",
+    @"attribute",
+    @"text",
+    @"processing-instruction",
+    @"comment",
+    @"root",
+    @"namespace",
+    @"number-of-types",
+    @"none",
+};
+
+
 static BOOL XPCharIsNCNameStart(unichar ch) {
     static NSMutableCharacterSet *set = nil;
     if (!set) {

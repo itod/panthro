@@ -36,6 +36,9 @@
             case XPNodeTypeNamespace:
                 self.originalText = @"namespace()";
                 break;
+            case XPNodeTypeNode:
+                self.originalText = @"node()";
+                break;
             default:
                 self.originalText = nil;
                 break;
@@ -49,6 +52,11 @@
 - (void)dealloc {
     
     [super dealloc];
+}
+
+
+- (NSString *)description {
+    return self.originalText;
 }
 
 
