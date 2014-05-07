@@ -29,7 +29,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[ancestor, ::, title]ancestor/::/title^", [a description]);
+    TDEqualObjects(@"[ancestor, title]ancestor/::/title^", [a description]);
 }
 
 
@@ -41,7 +41,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[ancestor-or-self, ::, title]ancestor-or-self/::/title^", [a description]);
+    TDEqualObjects(@"[ancestor-or-self, title]ancestor-or-self/::/title^", [a description]);
 }
 
 
@@ -65,7 +65,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[attribute, ::, title]attribute/::/title^", [a description]);
+    TDEqualObjects(@"[attribute, title]attribute/::/title^", [a description]);
 }
 
 
@@ -77,7 +77,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[child, ::, title]child/::/title^", [a description]);
+    TDEqualObjects(@"[child, title]child/::/title^", [a description]);
 }
 
 
@@ -89,7 +89,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[descendant, ::, title]descendant/::/title^", [a description]);
+    TDEqualObjects(@"[descendant, title]descendant/::/title^", [a description]);
 }
 
 
@@ -101,7 +101,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[descendant-or-self, ::, title]descendant-or-self/::/title^", [a description]);
+    TDEqualObjects(@"[descendant-or-self, title]descendant-or-self/::/title^", [a description]);
 }
 
 
@@ -113,7 +113,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[following, ::, title]following/::/title^", [a description]);
+    TDEqualObjects(@"[following, title]following/::/title^", [a description]);
 }
 
 
@@ -125,7 +125,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[following-sibling, ::, title]following-sibling/::/title^", [a description]);
+    TDEqualObjects(@"[following-sibling, title]following-sibling/::/title^", [a description]);
 }
 
 
@@ -137,7 +137,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[namespace, ::, title]namespace/::/title^", [a description]);
+    TDEqualObjects(@"[namespace, title]namespace/::/title^", [a description]);
 }
 
 
@@ -149,7 +149,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[parent, ::, title]parent/::/title^", [a description]);
+    TDEqualObjects(@"[parent, title]parent/::/title^", [a description]);
 }
 
 
@@ -161,7 +161,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[preceding, ::, title]preceding/::/title^", [a description]);
+    TDEqualObjects(@"[preceding, title]preceding/::/title^", [a description]);
 }
 
 
@@ -173,7 +173,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[preceding-sibling, ::, title]preceding-sibling/::/title^", [a description]);
+    TDEqualObjects(@"[preceding-sibling, title]preceding-sibling/::/title^", [a description]);
 }
 
 
@@ -185,7 +185,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[self, ::, title]self/::/title^", [a description]);
+    TDEqualObjects(@"[self, title]self/::/title^", [a description]);
 }
 
 

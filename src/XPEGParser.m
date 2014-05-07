@@ -133,6 +133,8 @@
         [t setTokenizerState:t.wordState from:'_' to:'_'];
         [t.wordState setWordChars:YES from:'-' to:'-'];
         [t.wordState setWordChars:YES from:'_' to:'_'];
+        [t.wordState setWordChars:YES from:'.' to:'.'];
+        [t.wordState setWordChars:NO from:'\'' to:'\''];
 
         [t setTokenizerState:t.numberState from:'.' to:'.'];
 
@@ -623,7 +625,7 @@
     
     if ([self predicts:XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTOR_OR_SELF, XPEG_TOKEN_KIND_ATTRIBUTE, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANT_OR_SELF, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWING_SIBLING, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDING_SIBLING, XPEG_TOKEN_KIND_SELF, 0]) {
         [self axisName_]; 
-        [self match:XPEG_TOKEN_KIND_DOUBLE_COLON discard:NO]; 
+        [self match:XPEG_TOKEN_KIND_DOUBLE_COLON discard:YES]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_ABBREVIATEDAXIS, 0]) {
         [self abbreviatedAxis_]; 
     } else {
