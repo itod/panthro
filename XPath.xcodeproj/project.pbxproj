@@ -36,6 +36,28 @@
 		D3411B59191A87960082A196 /* XPContextNodeExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3411B57191A87960082A196 /* XPContextNodeExpression.h */; };
 		D3411B5A191A87960082A196 /* XPContextNodeExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411B58191A87960082A196 /* XPContextNodeExpression.m */; };
 		D3411B5C191A8C470082A196 /* XPEGParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411B5B191A8C470082A196 /* XPEGParserTest.m */; };
+		D3411BD1191A8E140082A196 /* PGBaseVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411BBE191A8E140082A196 /* PGBaseVisitor.m */; };
+		D3411BD2191A8E140082A196 /* PGDefinitionPhaseVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411BBF191A8E140082A196 /* PGDefinitionPhaseVisitor.m */; };
+		D3411BD3191A8E140082A196 /* PGParserGenVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411BC0191A8E140082A196 /* PGParserGenVisitor.m */; };
+		D3411BD4191A8E140082A196 /* PGTokenKindDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411BC1191A8E140082A196 /* PGTokenKindDescriptor.m */; };
+		D3411BD5191A8E140082A196 /* PGBaseNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411BC2191A8E140082A196 /* PGBaseNode.m */; };
+		D3411BD6191A8E140082A196 /* PGRootNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411BC3191A8E140082A196 /* PGRootNode.m */; };
+		D3411BD7191A8E140082A196 /* PGActionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411BC4191A8E140082A196 /* PGActionNode.m */; };
+		D3411BD8191A8E140082A196 /* PGAlternationNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411BC5191A8E140082A196 /* PGAlternationNode.m */; };
+		D3411BD9191A8E140082A196 /* PGCollectionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411BC6191A8E140082A196 /* PGCollectionNode.m */; };
+		D3411BDA191A8E140082A196 /* PGCompositeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411BC7191A8E140082A196 /* PGCompositeNode.m */; };
+		D3411BDB191A8E140082A196 /* PGConstantNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411BC8191A8E140082A196 /* PGConstantNode.m */; };
+		D3411BDC191A8E140082A196 /* PGDefinitionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411BC9191A8E140082A196 /* PGDefinitionNode.m */; };
+		D3411BDD191A8E140082A196 /* PGDelimitedNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411BCA191A8E140082A196 /* PGDelimitedNode.m */; };
+		D3411BDE191A8E140082A196 /* PGLiteralNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411BCB191A8E140082A196 /* PGLiteralNode.m */; };
+		D3411BDF191A8E140082A196 /* PGMultipleNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411BCC191A8E140082A196 /* PGMultipleNode.m */; };
+		D3411BE0191A8E140082A196 /* PGOptionalNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411BCD191A8E140082A196 /* PGOptionalNode.m */; };
+		D3411BE1191A8E140082A196 /* PGPatternNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411BCE191A8E140082A196 /* PGPatternNode.m */; };
+		D3411BE2191A8E140082A196 /* PGReferenceNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411BCF191A8E140082A196 /* PGReferenceNode.m */; };
+		D3411BE3191A8E140082A196 /* PGParserFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411BD0191A8E140082A196 /* PGParserFactory.m */; };
+		D3411BF0191A905D0082A196 /* TDTemplateEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3411BEB191A90430082A196 /* TDTemplateEngine.framework */; };
+		D3411BF1191A90620082A196 /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C7984019060D0900EC8CB2 /* PEGKit.framework */; };
+		D3411BF3191A90800082A196 /* PEGKitParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411BF2191A90800082A196 /* PEGKitParser.m */; };
 		D34BADF5100ABA7C00996341 /* XPBooleanValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BADF3100ABA7C00996341 /* XPBooleanValue.m */; };
 		D34BADF9100ABA9300996341 /* XPValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BADF7100ABA9300996341 /* XPValue.m */; };
 		D36BC032101BF52F00D1A6C7 /* XPNodeSetExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D36BC02E101BF52F00D1A6C7 /* XPNodeSetExpression.m */; };
@@ -162,6 +184,34 @@
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = Exedore;
 		};
+		D3411BEA191A90430082A196 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3411BE5191A90430082A196 /* TDTemplateEngine.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D367DFB018E5EF6900F97BCC;
+			remoteInfo = TDTemplateEngine;
+		};
+		D3411BEC191A90430082A196 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3411BE5191A90430082A196 /* TDTemplateEngine.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D367DFC718E5EF6900F97BCC;
+			remoteInfo = TDTemplateEngineTests;
+		};
+		D3411BEE191A904B0082A196 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3411BE5191A90430082A196 /* TDTemplateEngine.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D367DFAF18E5EF6900F97BCC;
+			remoteInfo = TDTemplateEngine;
+		};
+		D3411BF4191A90F80082A196 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3C7983719060D0800EC8CB2 /* PEGKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D3F8A3DA175817DF00056188;
+			remoteInfo = PEGKit;
+		};
 		D3C7983F19060D0900EC8CB2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D3C7983719060D0800EC8CB2 /* PEGKit.xcodeproj */;
@@ -251,6 +301,27 @@
 		D3411B57191A87960082A196 /* XPContextNodeExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPContextNodeExpression.h; path = src/XPContextNodeExpression.h; sourceTree = "<group>"; };
 		D3411B58191A87960082A196 /* XPContextNodeExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPContextNodeExpression.m; path = src/XPContextNodeExpression.m; sourceTree = "<group>"; };
 		D3411B5B191A8C470082A196 /* XPEGParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPEGParserTest.m; path = test/XPEGParserTest.m; sourceTree = "<group>"; };
+		D3411BBE191A8E140082A196 /* PGBaseVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGBaseVisitor.m; path = lib/pegkit/ParserGenApp/PGBaseVisitor.m; sourceTree = "<group>"; };
+		D3411BBF191A8E140082A196 /* PGDefinitionPhaseVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGDefinitionPhaseVisitor.m; path = lib/pegkit/ParserGenApp/PGDefinitionPhaseVisitor.m; sourceTree = "<group>"; };
+		D3411BC0191A8E140082A196 /* PGParserGenVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGParserGenVisitor.m; path = lib/pegkit/ParserGenApp/PGParserGenVisitor.m; sourceTree = "<group>"; };
+		D3411BC1191A8E140082A196 /* PGTokenKindDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGTokenKindDescriptor.m; path = lib/pegkit/ParserGenApp/PGTokenKindDescriptor.m; sourceTree = "<group>"; };
+		D3411BC2191A8E140082A196 /* PGBaseNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGBaseNode.m; path = lib/pegkit/ParserGenApp/nodes/PGBaseNode.m; sourceTree = "<group>"; };
+		D3411BC3191A8E140082A196 /* PGRootNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGRootNode.m; path = lib/pegkit/ParserGenApp/nodes/PGRootNode.m; sourceTree = "<group>"; };
+		D3411BC4191A8E140082A196 /* PGActionNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGActionNode.m; path = lib/pegkit/ParserGenApp/nodes/PGActionNode.m; sourceTree = "<group>"; };
+		D3411BC5191A8E140082A196 /* PGAlternationNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGAlternationNode.m; path = lib/pegkit/ParserGenApp/nodes/PGAlternationNode.m; sourceTree = "<group>"; };
+		D3411BC6191A8E140082A196 /* PGCollectionNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGCollectionNode.m; path = lib/pegkit/ParserGenApp/nodes/PGCollectionNode.m; sourceTree = "<group>"; };
+		D3411BC7191A8E140082A196 /* PGCompositeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGCompositeNode.m; path = lib/pegkit/ParserGenApp/nodes/PGCompositeNode.m; sourceTree = "<group>"; };
+		D3411BC8191A8E140082A196 /* PGConstantNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGConstantNode.m; path = lib/pegkit/ParserGenApp/nodes/PGConstantNode.m; sourceTree = "<group>"; };
+		D3411BC9191A8E140082A196 /* PGDefinitionNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGDefinitionNode.m; path = lib/pegkit/ParserGenApp/nodes/PGDefinitionNode.m; sourceTree = "<group>"; };
+		D3411BCA191A8E140082A196 /* PGDelimitedNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGDelimitedNode.m; path = lib/pegkit/ParserGenApp/nodes/PGDelimitedNode.m; sourceTree = "<group>"; };
+		D3411BCB191A8E140082A196 /* PGLiteralNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGLiteralNode.m; path = lib/pegkit/ParserGenApp/nodes/PGLiteralNode.m; sourceTree = "<group>"; };
+		D3411BCC191A8E140082A196 /* PGMultipleNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGMultipleNode.m; path = lib/pegkit/ParserGenApp/nodes/PGMultipleNode.m; sourceTree = "<group>"; };
+		D3411BCD191A8E140082A196 /* PGOptionalNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGOptionalNode.m; path = lib/pegkit/ParserGenApp/nodes/PGOptionalNode.m; sourceTree = "<group>"; };
+		D3411BCE191A8E140082A196 /* PGPatternNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGPatternNode.m; path = lib/pegkit/ParserGenApp/nodes/PGPatternNode.m; sourceTree = "<group>"; };
+		D3411BCF191A8E140082A196 /* PGReferenceNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGReferenceNode.m; path = lib/pegkit/ParserGenApp/nodes/PGReferenceNode.m; sourceTree = "<group>"; };
+		D3411BD0191A8E140082A196 /* PGParserFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGParserFactory.m; path = lib/pegkit/ParserGenApp/PGParserFactory.m; sourceTree = "<group>"; };
+		D3411BE5191A90430082A196 /* TDTemplateEngine.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TDTemplateEngine.xcodeproj; path = lib/tdtemplateengine/TDTemplateEngine.xcodeproj; sourceTree = "<group>"; };
+		D3411BF2191A90800082A196 /* PEGKitParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PEGKitParser.m; path = lib/pegkit/ParserGenApp/PEGKitParser.m; sourceTree = "<group>"; };
 		D34BADF3100ABA7C00996341 /* XPBooleanValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBooleanValue.m; path = src/XPBooleanValue.m; sourceTree = "<group>"; };
 		D34BADF7100ABA9300996341 /* XPValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPValue.m; path = src/XPValue.m; sourceTree = "<group>"; };
 		D36BC02A101BF50C00D1A6C7 /* XPNodeSetIntent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNodeSetIntent.m; path = src/XPNodeSetIntent.m; sourceTree = "<group>"; };
@@ -410,6 +481,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3411BF1191A90620082A196 /* PEGKit.framework in Frameworks */,
+				D3411BF0191A905D0082A196 /* TDTemplateEngine.framework in Frameworks */,
 				D3A6C2EC19073D4900F3EFF3 /* XCTest.framework in Frameworks */,
 				D33639E4100DACDF00AC4B51 /* XPath.framework in Frameworks */,
 			);
@@ -430,6 +503,7 @@
 		0867D691FE84028FC02AAC07 /* Exedore */ = {
 			isa = PBXGroup;
 			children = (
+				D3411BE5191A90430082A196 /* TDTemplateEngine.xcodeproj */,
 				D3C7983719060D0800EC8CB2 /* PEGKit.xcodeproj */,
 				D33639CB100DAA6B00AC4B51 /* XPath Tests */,
 				08FB77AEFE84172EC02AAC07 /* XPath Framework */,
@@ -522,6 +596,7 @@
 		D33639CB100DAA6B00AC4B51 /* XPath Tests */ = {
 			isa = PBXGroup;
 			children = (
+				D3411BE4191A8E290082A196 /* PG */,
 				D33639DB100DAB8C00AC4B51 /* XPTestScaffold.h */,
 				D33639DA100DAB8C00AC4B51 /* XPTestScaffold.m */,
 				D3366B0C188051D9008C4144 /* Parser */,
@@ -580,6 +655,42 @@
 				D30D9698191862E300627D41 /* XPLocalOrderComparer.m */,
 			);
 			name = Path;
+			sourceTree = "<group>";
+		};
+		D3411BE4191A8E290082A196 /* PG */ = {
+			isa = PBXGroup;
+			children = (
+				D3411BF2191A90800082A196 /* PEGKitParser.m */,
+				D3411BBE191A8E140082A196 /* PGBaseVisitor.m */,
+				D3411BBF191A8E140082A196 /* PGDefinitionPhaseVisitor.m */,
+				D3411BC0191A8E140082A196 /* PGParserGenVisitor.m */,
+				D3411BC1191A8E140082A196 /* PGTokenKindDescriptor.m */,
+				D3411BC2191A8E140082A196 /* PGBaseNode.m */,
+				D3411BC3191A8E140082A196 /* PGRootNode.m */,
+				D3411BC4191A8E140082A196 /* PGActionNode.m */,
+				D3411BC5191A8E140082A196 /* PGAlternationNode.m */,
+				D3411BC6191A8E140082A196 /* PGCollectionNode.m */,
+				D3411BC7191A8E140082A196 /* PGCompositeNode.m */,
+				D3411BC8191A8E140082A196 /* PGConstantNode.m */,
+				D3411BC9191A8E140082A196 /* PGDefinitionNode.m */,
+				D3411BCA191A8E140082A196 /* PGDelimitedNode.m */,
+				D3411BCB191A8E140082A196 /* PGLiteralNode.m */,
+				D3411BCC191A8E140082A196 /* PGMultipleNode.m */,
+				D3411BCD191A8E140082A196 /* PGOptionalNode.m */,
+				D3411BCE191A8E140082A196 /* PGPatternNode.m */,
+				D3411BCF191A8E140082A196 /* PGReferenceNode.m */,
+				D3411BD0191A8E140082A196 /* PGParserFactory.m */,
+			);
+			name = PG;
+			sourceTree = "<group>";
+		};
+		D3411BE6191A90430082A196 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D3411BEB191A90430082A196 /* TDTemplateEngine.framework */,
+				D3411BED191A90430082A196 /* TDTemplateEngineTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		D37A295E1013F34C00E936B7 /* Expr */ = {
@@ -896,6 +1007,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				D3411BF5191A90F80082A196 /* PBXTargetDependency */,
+				D3411BEF191A904B0082A196 /* PBXTargetDependency */,
 				D33639E3100DACD900AC4B51 /* PBXTargetDependency */,
 			);
 			name = Tests;
@@ -929,6 +1042,10 @@
 					ProductGroup = D3C7983819060D0800EC8CB2 /* Products */;
 					ProjectRef = D3C7983719060D0800EC8CB2 /* PEGKit.xcodeproj */;
 				},
+				{
+					ProductGroup = D3411BE6191A90430082A196 /* Products */;
+					ProjectRef = D3411BE5191A90430082A196 /* TDTemplateEngine.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -939,6 +1056,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		D3411BEB191A90430082A196 /* TDTemplateEngine.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = TDTemplateEngine.framework;
+			remoteRef = D3411BEA191A90430082A196 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D3411BED191A90430082A196 /* TDTemplateEngineTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = TDTemplateEngineTests.xctest;
+			remoteRef = D3411BEC191A90430082A196 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		D3C7984019060D0900EC8CB2 /* PEGKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -1076,6 +1207,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3411BF3191A90800082A196 /* PEGKitParser.m in Sources */,
+				D3411BD1191A8E140082A196 /* PGBaseVisitor.m in Sources */,
+				D3411BD2191A8E140082A196 /* PGDefinitionPhaseVisitor.m in Sources */,
+				D3411BD3191A8E140082A196 /* PGParserGenVisitor.m in Sources */,
+				D3411BD4191A8E140082A196 /* PGTokenKindDescriptor.m in Sources */,
+				D3411BD5191A8E140082A196 /* PGBaseNode.m in Sources */,
+				D3411BD6191A8E140082A196 /* PGRootNode.m in Sources */,
+				D3411BD7191A8E140082A196 /* PGActionNode.m in Sources */,
+				D3411BD8191A8E140082A196 /* PGAlternationNode.m in Sources */,
+				D3411BD9191A8E140082A196 /* PGCollectionNode.m in Sources */,
+				D3411BDA191A8E140082A196 /* PGCompositeNode.m in Sources */,
+				D3411BDB191A8E140082A196 /* PGConstantNode.m in Sources */,
+				D3411BDC191A8E140082A196 /* PGDefinitionNode.m in Sources */,
+				D3411BDD191A8E140082A196 /* PGDelimitedNode.m in Sources */,
+				D3411BDE191A8E140082A196 /* PGLiteralNode.m in Sources */,
+				D3411BDF191A8E140082A196 /* PGMultipleNode.m in Sources */,
+				D3411BE0191A8E140082A196 /* PGOptionalNode.m in Sources */,
+				D3411BE1191A8E140082A196 /* PGPatternNode.m in Sources */,
+				D3411BE2191A8E140082A196 /* PGReferenceNode.m in Sources */,
+				D3411BE3191A8E140082A196 /* PGParserFactory.m in Sources */,
 				D33639D9100DAB5700AC4B51 /* XPBooleanValueTest.m in Sources */,
 				D33639F6100DB15700AC4B51 /* XPValueTest.m in Sources */,
 				D3366B04188051D6008C4144 /* XPEGParserStepTest.m in Sources */,
@@ -1113,6 +1264,16 @@
 			isa = PBXTargetDependency;
 			target = 8DC2EF4F0486A6940098B216 /* XPath */;
 			targetProxy = D33639E2100DACD900AC4B51 /* PBXContainerItemProxy */;
+		};
+		D3411BEF191A904B0082A196 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TDTemplateEngine;
+			targetProxy = D3411BEE191A904B0082A196 /* PBXContainerItemProxy */;
+		};
+		D3411BF5191A90F80082A196 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PEGKit;
+			targetProxy = D3411BF4191A90F80082A196 /* PBXContainerItemProxy */;
 		};
 		D3C7984A19060EC200EC8CB2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1209,7 +1370,6 @@
 		D33639D3100DAA9500AC4B51 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1223,6 +1383,12 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"lib/pegkit/ParserGenApp/**",
+					"lib/pegkit/src/**",
+				);
 				INFOPLIST_FILE = "Tests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				PRODUCT_NAME = Tests;
@@ -1233,7 +1399,6 @@
 		D33639D4100DAA9500AC4B51 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1245,6 +1410,12 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"lib/pegkit/ParserGenApp/**",
+					"lib/pegkit/src/**",
+				);
 				INFOPLIST_FILE = "Tests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				PRODUCT_NAME = Tests;
