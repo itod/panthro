@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
-		D30D9699191862E300627D41 /* XPLocalOrderComparer.h in Headers */ = {isa = PBXBuildFile; fileRef = D30D9697191862E300627D41 /* XPLocalOrderComparer.h */; };
-		D30D969A191862E300627D41 /* XPLocalOrderComparer.m in Sources */ = {isa = PBXBuildFile; fileRef = D30D9698191862E300627D41 /* XPLocalOrderComparer.m */; };
 		D30D969C1918645B00627D41 /* XPNodeOrderComparer.h in Headers */ = {isa = PBXBuildFile; fileRef = D30D969B1918645B00627D41 /* XPNodeOrderComparer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3172237190D8FE6005C633B /* XPEqualityExprTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3172236190D8FE6005C633B /* XPEqualityExprTest.m */; };
 		D317223F190DAAD9005C633B /* XPNSXMLNodeImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = D317223D190DAAD9005C633B /* XPNSXMLNodeImpl.h */; };
@@ -39,7 +37,6 @@
 		D34BADF9100ABA9300996341 /* XPValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BADF7100ABA9300996341 /* XPValue.m */; };
 		D36BC032101BF52F00D1A6C7 /* XPNodeSetExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D36BC02E101BF52F00D1A6C7 /* XPNodeSetExpression.m */; };
 		D36BC034101BF52F00D1A6C7 /* XPParentNodeExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D36BC030101BF52F00D1A6C7 /* XPParentNodeExpression.m */; };
-		D36BC035101BF52F00D1A6C7 /* XPSingletonExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D36BC031101BF52F00D1A6C7 /* XPSingletonExpression.m */; };
 		D36C6771101059CE000361A0 /* XPNumericValueTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D36C6770101059CE000361A0 /* XPNumericValueTest.m */; };
 		D36C678310105EBE000361A0 /* XPStringValueTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D36C678210105EBE000361A0 /* XPStringValueTest.m */; };
 		D36C679A10106874000361A0 /* XPRelationalExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D36C679810106874000361A0 /* XPRelationalExpression.m */; };
@@ -129,7 +126,6 @@
 		D3A5DBE5141E7DBC0081FBB4 /* XPFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DBE4141E7DBC0081FBB4 /* XPFunction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A5DBE7141E7DC40081FBB4 /* XPNodeSetExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DBE6141E7DC40081FBB4 /* XPNodeSetExpression.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A5DBE9141E7DCB0081FBB4 /* XPParentNodeExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DBE8141E7DCB0081FBB4 /* XPParentNodeExpression.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3A5DBEB141E7DCF0081FBB4 /* XPSingletonExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DBEA141E7DCF0081FBB4 /* XPSingletonExpression.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A6C2E41907391200F3EFF3 /* XPAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A6C2E31907391200F3EFF3 /* XPAxis.m */; };
 		D3A6C2EA19073B4700F3EFF3 /* XPStepTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A6C2E919073B4700F3EFF3 /* XPStepTest.m */; };
 		D3A6C2EC19073D4900F3EFF3 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A6C2EB19073D4900F3EFF3 /* XCTest.framework */; };
@@ -463,6 +459,7 @@
 		08FB77AEFE84172EC02AAC07 /* XPath Framework */ = {
 			isa = PBXGroup;
 			children = (
+				D3411B53191A7B670082A196 /* Unused */,
 				D317223C190DAAB1005C633B /* NSXML */,
 				D3BA9B29101C233B003C0040 /* Parser */,
 				D3A5DB59141E7C270081FBB4 /* XPath.h */,
@@ -477,9 +474,8 @@
 				D37A2F741015812800E936B7 /* XPContext.m */,
 				D30D969B1918645B00627D41 /* XPNodeOrderComparer.h */,
 				D3A5DB65141E7C6B0081FBB4 /* XPNodeEnumeration.h */,
-				D3C1782718844C5F00F90600 /* Pattern */,
 				D37A29661013F36300E936B7 /* Functions */,
-				D312AE72103A699C0098934C /* Sort - Unused */,
+				D3C1782718844C5F00F90600 /* Pattern */,
 				D37A295E1013F34C00E936B7 /* Expr */,
 			);
 			name = "XPath Framework";
@@ -493,7 +489,7 @@
 			name = "Other Sources";
 			sourceTree = "<group>";
 		};
-		D312AE72103A699C0098934C /* Sort - Unused */ = {
+		D312AE72103A699C0098934C /* Sort */ = {
 			isa = PBXGroup;
 			children = (
 				D3A5DB98141E7D1A0081FBB4 /* XPSortable.h */,
@@ -504,7 +500,7 @@
 				D3010D71141F2E5E0034B801 /* XPDoubleComparer.h */,
 				D3010D6F141F2E4B0034B801 /* XPDoubleComparer.m */,
 			);
-			name = "Sort - Unused";
+			name = Sort;
 			sourceTree = "<group>";
 		};
 		D317223C190DAAB1005C633B /* NSXML */ = {
@@ -546,6 +542,16 @@
 		D3411B53191A7B670082A196 /* Unused */ = {
 			isa = PBXGroup;
 			children = (
+				D3411B55191A7E7D0082A196 /* Path */,
+				D312AE72103A699C0098934C /* Sort */,
+				D3411B54191A7E030082A196 /* NodeSet */,
+			);
+			name = Unused;
+			sourceTree = "<group>";
+		};
+		D3411B54191A7E030082A196 /* NodeSet */ = {
+			isa = PBXGroup;
+			children = (
 				D3A5DBD4141E7D7C0081FBB4 /* XPNodeSetIntent.h */,
 				D36BC02A101BF50C00D1A6C7 /* XPNodeSetIntent.m */,
 				D3A5DBD6141E7D800081FBB4 /* XPNodeSetExtent.h */,
@@ -555,7 +561,18 @@
 				D3A5DBD8141E7D860081FBB4 /* XPSingletonNodeSet.h */,
 				D336393F100D7EB400AC4B51 /* XPSingletonNodeSet.m */,
 			);
-			name = Unused;
+			name = NodeSet;
+			sourceTree = "<group>";
+		};
+		D3411B55191A7E7D0082A196 /* Path */ = {
+			isa = PBXGroup;
+			children = (
+				D3A5DBEA141E7DCF0081FBB4 /* XPSingletonExpression.h */,
+				D36BC031101BF52F00D1A6C7 /* XPSingletonExpression.m */,
+				D30D9697191862E300627D41 /* XPLocalOrderComparer.h */,
+				D30D9698191862E300627D41 /* XPLocalOrderComparer.m */,
+			);
+			name = Path;
 			sourceTree = "<group>";
 		};
 		D37A295E1013F34C00E936B7 /* Expr */ = {
@@ -566,14 +583,6 @@
 				D3C178171884468500F90600 /* Value */,
 				D3C1781F1884469600F90600 /* Binary Expr */,
 				D3C17820188446E100F90600 /* Location Path */,
-				D3A5DBE4141E7DBC0081FBB4 /* XPFunction.h */,
-				D37A29681013F39400E936B7 /* XPFunction.m */,
-				D3A5DBEA141E7DCF0081FBB4 /* XPSingletonExpression.h */,
-				D36BC031101BF52F00D1A6C7 /* XPSingletonExpression.m */,
-				D33E9FA119170BB900BB7DFE /* XPRootExpression.h */,
-				D33E9FA219170BB900BB7DFE /* XPRootExpression.m */,
-				D3A5DBE8141E7DCB0081FBB4 /* XPParentNodeExpression.h */,
-				D36BC030101BF52F00D1A6C7 /* XPParentNodeExpression.m */,
 			);
 			name = Expr;
 			sourceTree = "<group>";
@@ -581,6 +590,8 @@
 		D37A29661013F36300E936B7 /* Functions */ = {
 			isa = PBXGroup;
 			children = (
+				D3A5DBE4141E7DBC0081FBB4 /* XPFunction.h */,
+				D37A29681013F39400E936B7 /* XPFunction.m */,
 				D3A5DB67141E7C860081FBB4 /* FNBoolean.h */,
 				D37A2A191014015E00E936B7 /* FNBoolean.m */,
 				D3A5DB68141E7C860081FBB4 /* FNCeiling.h */,
@@ -699,7 +710,6 @@
 				D336381E100C6E4400AC4B51 /* XPStringValue.m */,
 				D3A5DBD2141E7D770081FBB4 /* XPNodeSetValue.h */,
 				D3363815100C6E0400AC4B51 /* XPNodeSetValue.m */,
-				D3411B53191A7B670082A196 /* Unused */,
 				D3A5DBDA141E7D910081FBB4 /* XPObjectValue.h */,
 				D3363954100D813500AC4B51 /* XPObjectValue.m */,
 			);
@@ -726,8 +736,6 @@
 			children = (
 				D33E9F911917040D00BB7DFE /* XPPathExpression.h */,
 				D33E9F921917040D00BB7DFE /* XPPathExpression.m */,
-				D30D9697191862E300627D41 /* XPLocalOrderComparer.h */,
-				D30D9698191862E300627D41 /* XPLocalOrderComparer.m */,
 				D3A6C2F51907568100F3EFF3 /* XPAxis.h */,
 				D3A6C2E31907391200F3EFF3 /* XPAxis.m */,
 				D3A6C2F7190756FC00F3EFF3 /* XPAxisEnumeration.h */,
@@ -739,6 +747,10 @@
 				D3C178221884472800F90600 /* XPAxisExpression.m */,
 				D3A6C2ED1907413800F3EFF3 /* XPStep.h */,
 				D3A6C2EE1907413800F3EFF3 /* XPStep.m */,
+				D33E9FA119170BB900BB7DFE /* XPRootExpression.h */,
+				D33E9FA219170BB900BB7DFE /* XPRootExpression.m */,
+				D3A5DBE8141E7DCB0081FBB4 /* XPParentNodeExpression.h */,
+				D36BC030101BF52F00D1A6C7 /* XPParentNodeExpression.m */,
 			);
 			name = "Location Path";
 			sourceTree = "<group>";
@@ -822,7 +834,6 @@
 				D3A5DBCF141E7D680081FBB4 /* XPNumericValue.h in Headers */,
 				D3A5DBD1141E7D6F0081FBB4 /* XPStringValue.h in Headers */,
 				D33E9FA319170BB900BB7DFE /* XPRootExpression.h in Headers */,
-				D30D9699191862E300627D41 /* XPLocalOrderComparer.h in Headers */,
 				D3A5DBD3141E7D770081FBB4 /* XPNodeSetValue.h in Headers */,
 				D3A5DBDB141E7D910081FBB4 /* XPObjectValue.h in Headers */,
 				D3A5DBDD141E7D980081FBB4 /* XPBinaryExpression.h in Headers */,
@@ -839,7 +850,6 @@
 				D3A6C2F8190756FE00F3EFF3 /* XPAxisEnumeration.h in Headers */,
 				D3A5DBE9141E7DCB0081FBB4 /* XPParentNodeExpression.h in Headers */,
 				D3C178261884473B00F90600 /* XPAxisExpression.h in Headers */,
-				D3A5DBEB141E7DCF0081FBB4 /* XPSingletonExpression.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1049,8 +1059,6 @@
 				D36BC032101BF52F00D1A6C7 /* XPNodeSetExpression.m in Sources */,
 				D36BC034101BF52F00D1A6C7 /* XPParentNodeExpression.m in Sources */,
 				D3A6C2F41907457500F3EFF3 /* XPNodeTypeTest.m in Sources */,
-				D36BC035101BF52F00D1A6C7 /* XPSingletonExpression.m in Sources */,
-				D30D969A191862E300627D41 /* XPLocalOrderComparer.m in Sources */,
 				D3C1782F18844C9200F90600 /* XPNodeTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

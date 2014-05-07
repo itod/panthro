@@ -25,7 +25,7 @@
 
 #import <XPath/XPNodeSetExpression.h>
 #import <XPath/XPAxisExpression.h>
-#import <XPath/XPSingletonExpression.h>
+#import <XPath/XPRootExpression.h>
 #import <XPath/XPParentNodeExpression.h>
 
 #import <XPath/XPValue.h>

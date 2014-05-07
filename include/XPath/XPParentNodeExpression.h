@@ -6,8 +6,8 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <XPath/XPSingletonExpression.h>
+#import <XPath/XPNodeSetExpression.h>
 
-@interface XPParentNodeExpression : XPSingletonExpression
+@interface XPParentNodeExpression : XPNodeSetExpression
 
 @end
