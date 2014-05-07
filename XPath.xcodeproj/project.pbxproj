@@ -33,6 +33,8 @@
 		D33E9FA719170D1A00BB7DFE /* XPNSXMLDocumentImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = D33E9FA519170D1A00BB7DFE /* XPNSXMLDocumentImpl.h */; };
 		D33E9FA819170D1A00BB7DFE /* XPNSXMLDocumentImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E9FA619170D1A00BB7DFE /* XPNSXMLDocumentImpl.m */; };
 		D33E9FAC19170E1800BB7DFE /* XPDocumentInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = D33E9FAB19170E1800BB7DFE /* XPDocumentInfo.h */; };
+		D3411B59191A87960082A196 /* XPContextNodeExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3411B57191A87960082A196 /* XPContextNodeExpression.h */; };
+		D3411B5A191A87960082A196 /* XPContextNodeExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411B58191A87960082A196 /* XPContextNodeExpression.m */; };
 		D34BADF5100ABA7C00996341 /* XPBooleanValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BADF3100ABA7C00996341 /* XPBooleanValue.m */; };
 		D34BADF9100ABA9300996341 /* XPValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BADF7100ABA9300996341 /* XPValue.m */; };
 		D36BC032101BF52F00D1A6C7 /* XPNodeSetExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D36BC02E101BF52F00D1A6C7 /* XPNodeSetExpression.m */; };
@@ -246,6 +248,8 @@
 		D33E9FA519170D1A00BB7DFE /* XPNSXMLDocumentImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPNSXMLDocumentImpl.h; path = src/XPNSXMLDocumentImpl.h; sourceTree = "<group>"; };
 		D33E9FA619170D1A00BB7DFE /* XPNSXMLDocumentImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNSXMLDocumentImpl.m; path = src/XPNSXMLDocumentImpl.m; sourceTree = "<group>"; };
 		D33E9FAB19170E1800BB7DFE /* XPDocumentInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPDocumentInfo.h; path = include/XPath/XPDocumentInfo.h; sourceTree = "<group>"; };
+		D3411B57191A87960082A196 /* XPContextNodeExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPContextNodeExpression.h; path = src/XPContextNodeExpression.h; sourceTree = "<group>"; };
+		D3411B58191A87960082A196 /* XPContextNodeExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPContextNodeExpression.m; path = src/XPContextNodeExpression.m; sourceTree = "<group>"; };
 		D34BADF3100ABA7C00996341 /* XPBooleanValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBooleanValue.m; path = src/XPBooleanValue.m; sourceTree = "<group>"; };
 		D34BADF7100ABA9300996341 /* XPValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPValue.m; path = src/XPValue.m; sourceTree = "<group>"; };
 		D36BC02A101BF50C00D1A6C7 /* XPNodeSetIntent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNodeSetIntent.m; path = src/XPNodeSetIntent.m; sourceTree = "<group>"; };
@@ -747,6 +751,8 @@
 				D3C178221884472800F90600 /* XPAxisExpression.m */,
 				D3A6C2ED1907413800F3EFF3 /* XPStep.h */,
 				D3A6C2EE1907413800F3EFF3 /* XPStep.m */,
+				D3411B57191A87960082A196 /* XPContextNodeExpression.h */,
+				D3411B58191A87960082A196 /* XPContextNodeExpression.m */,
 				D33E9FA119170BB900BB7DFE /* XPRootExpression.h */,
 				D33E9FA219170BB900BB7DFE /* XPRootExpression.m */,
 				D3A5DBE8141E7DCB0081FBB4 /* XPParentNodeExpression.h */,
@@ -821,6 +827,7 @@
 				D3A6C2F31907457500F3EFF3 /* XPNodeTypeTest.h in Headers */,
 				D3A5DB87141E7C870081FBB4 /* FNString.h in Headers */,
 				D3A5DB88141E7C870081FBB4 /* FNStringLength.h in Headers */,
+				D3411B59191A87960082A196 /* XPContextNodeExpression.h in Headers */,
 				D3A5DB89141E7C870081FBB4 /* FNSubstring.h in Headers */,
 				D3C1783D18844D0300F90600 /* XPNameTest.h in Headers */,
 				D3A5DB8A141E7C870081FBB4 /* FNSubstringAfter.h in Headers */,
@@ -1008,6 +1015,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3411B5A191A87960082A196 /* XPContextNodeExpression.m in Sources */,
 				D3AC84560F60C7EC00392CB4 /* XPExpression.m in Sources */,
 				D34BADF5100ABA7C00996341 /* XPBooleanValue.m in Sources */,
 				D3C1783718844CC500F90600 /* XPNamespaceTest.m in Sources */,

@@ -14,7 +14,7 @@
 #import "XPAxisEnumeration.h"
 
 @interface XPStep ()
-@property (nonatomic, retain, readwrite) NSMutableArray *filters;
+@property (nonatomic, retain) NSMutableArray *allFilters;
 @end
 
 @implementation XPStep
@@ -31,7 +31,7 @@
 
 - (void)dealloc {
     self.nodeTest = nil;
-    self.filters = nil;
+    self.allFilters = nil;
     
     [super dealloc];
 }
@@ -39,11 +39,11 @@
 
 - (XPStep *)addFilter:(XPExpression *)expr {
     XPAssert(expr);
-    if (!_filters) {
-        self.filters = [NSMutableArray arrayWithCapacity:2];
+    if (!_allFilters) {
+        self.allFilters = [NSMutableArray arrayWithCapacity:2];
     }
-    XPAssert(_filters);
-    [_filters addObject:expr];
+    XPAssert(_allFilters);
+    [_allFilters addObject:expr];
     return self;
 }
 
@@ -54,13 +54,13 @@
  */
 
 - (XPStep *)simplify {
-    XPAssert(_filters);
+    XPAssert(_allFilters);
     
-    NSUInteger c = [_filters count];
+    NSUInteger c = [_allFilters count];
     NSUInteger i = c - 1;
-    for (XPExpression *exp in [[[_filters copy] autorelease] reverseObjectEnumerator]) {
+    for (XPExpression *exp in [[[_allFilters copy] autorelease] reverseObjectEnumerator]) {
         exp = [exp simplify];
-        _filters[i] = exp;
+        _allFilters[i] = exp;
         
         // look for a filter that is constant true or false (which can arise after
         // an expression is reduced).
@@ -70,7 +70,7 @@
                 // filter is constant true
                 // only bother removing it if it's the last
                 if (i == c-1) {
-                    [_filters removeObjectAtIndex:i];
+                    [_allFilters removeObjectAtIndex:i];
                 }
             } else {
                 // filter is constant false,
@@ -104,7 +104,7 @@
     if ([enm hasMoreObjects]) {       // if there are no nodes, there's nothing to filter
 
         //TODO
-//        for (XPExpression *filter in _filters) {
+//        for (XPExpression *filter in _allFilters) {
 //            enm = [[[XPFilterEnumeration EnumerationWithEnumeration:enm filter:filter context:ctx bool:NO] autorelease];
 //        }
     }
@@ -113,8 +113,13 @@
 }
 
 
+- (NSArray *)filters {
+    return [[_allFilters copy] autorelease];
+}
+
+
 - (NSUInteger)numberOfFilters {
-    return [self.filters count];
+    return [_allFilters count];
 }
 
 
