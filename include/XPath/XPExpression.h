@@ -16,15 +16,14 @@
 @class XPNodeSetValue;
 @class XPFunction;
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, XPDataType) {
     XPDataTypeBoolean,
     XPDataTypeNumber,
     XPDataTypeString,
     XPDataTypeNodeSet,
-//    XPDataTypeFragment,
     XPDataTypeObject,
     XPDataTypeAny
-} XPDataType;
+};
 
 @interface XPExpression : NSObject
 
