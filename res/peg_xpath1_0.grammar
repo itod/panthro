@@ -97,11 +97,8 @@ pathExpr = filterExpr (('/'| '//') relativeLocationPath)? | locationPath;
             predicateExpr = expr;
                 
 
-    step = explicitAxisStep | implicitAxisStep;
-        explicitAxisStep = axis stepBody;
-        implicitAxisStep = abbreviatedStep | stepBody;
-        
-        axis = axisName '::'! | abbreviatedAxis;
+    step = axis stepBody | implicitAxisStep;
+        axis = axisName '::' | abbreviatedAxis;
             axisName = 'ancestor' | 'ancestor-or-self' | 'attribute' | 'child' | 'descendant' | 'descendant-or-self' | 'following' | 'following-sibling' | 'namespace' | 'parent' | 'preceding' | 'preceding-sibling' | 'self';
             abbreviatedAxis = '@';
         stepBody = nodeTest predicate*;
@@ -110,4 +107,5 @@ pathExpr = filterExpr (('/'| '//') relativeLocationPath)? | locationPath;
             typeTest = nodeType '('! ')'!;
             nodeType = 'comment' | 'text' | 'processing-instruction' | 'node';
         abbreviatedStep = '.' | '..';
+        implicitAxisStep = abbreviatedStep | stepBody;
             
