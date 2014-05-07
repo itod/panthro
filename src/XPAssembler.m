@@ -10,6 +10,8 @@
 #import <XPath/XPath.h>
 #import <PEGKit/PEGKit.h>
 
+#import "XPPathExpression.h"
+#import "XPContextNodeExpression.h"
 #import "XPStep.h"
 #import "XPAxis.h"
 #import "XPNodeTypeTest.h"
@@ -192,7 +194,17 @@
 }
 
 
-- (void)parser:(PKParser *)p didMatchStep:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchRelativeLocationPath:(PKAssembly *)a {
+    XPExpression *start = [[[XPContextNodeExpression alloc] init] autorelease];
+    XPStep *step = [a pop];
+    XPAssert([step isKindOfClass:[XPStep class]]);
+    
+    XPPathExpression *pathExpr = [[[XPPathExpression alloc] initWithStart:start step:step] autorelease];
+    [a push:pathExpr];
+}
+
+
+- (void)parser:(PKParser *)p didMatchExplicitStep:(PKAssembly *)a {
     XPNodeTest *nodeTest = [a pop];
     XPAssert([nodeTest isKindOfClass:[XPNodeTest class]]);
     
@@ -202,6 +214,23 @@
     
     XPStep *step = [[[XPStep alloc] initWithAxis:axis nodeTest:nodeTest] autorelease];
     
+    [a push:step];
+}
+
+
+- (void)parser:(PKParser *)p didMatchAbbreviatedStep:(PKAssembly *)a {
+    PKToken *tok = [a pop];
+    
+    XPAxis axis;
+    if ([tok.stringValue isEqualToString:@"."]) {
+        axis = XPAxisSelf;
+    } else {
+        XPAssert([tok.stringValue isEqualToString:@".."])
+        axis = XPAxisParent;
+    }
+    
+    XPNodeTest *nodeTest = [[[XPNodeTypeTest alloc] initWithNodeType:XPNodeTypeNode] autorelease];
+    XPStep *step = [[[XPStep alloc] initWithAxis:axis nodeTest:nodeTest] autorelease];
     [a push:step];
 }
 

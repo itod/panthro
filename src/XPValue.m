@@ -46,7 +46,7 @@ double XPNumberFromString(NSString *s) {
 }
 
 
-- (NSUInteger)dependencies {
+- (XPDependencies)dependencies {
     return 0;
 }
 

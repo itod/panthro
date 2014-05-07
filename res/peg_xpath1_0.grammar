@@ -99,9 +99,9 @@ pathExpr = filterExpr (('/' | '//') relativeLocationPath)? | locationPath;
             predicateExpr = expr;
                 
 
-    step = explicitAxisStep | implicitAxisStep;
+    step = explicitAxisStep | abbreviatedStep | implicitAxisStep;
         explicitAxisStep = axis stepBody;
-        implicitAxisStep = abbreviatedStep | stepBody;
+        implicitAxisStep = stepBody;
         
         axis = axisName '::'! | abbreviatedAxis;
             axisName = 'ancestor' | 'ancestor-or-self' | 'attribute' | 'child' | 'descendant' | 'descendant-or-self' | 'following' | 'following-sibling' | 'namespace' | 'parent' | 'preceding' | 'preceding-sibling' | 'self';

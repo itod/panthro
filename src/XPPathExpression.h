@@ -16,5 +16,5 @@
 
 @property (nonatomic, retain) XPExpression *start;
 @property (nonatomic, retain) XPStep *step;
-@property (nonatomic, assign) NSUInteger dependencies;
+@property (nonatomic, assign) XPDependencies dependencies;
 @end

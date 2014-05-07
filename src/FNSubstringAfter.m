@@ -64,7 +64,7 @@
 }
 
 
-- (NSUInteger)dependencies {
+- (XPDependencies)dependencies {
     NSUInteger dep = 0;
     for (XPExpression *arg in self.args) {
         dep |= [arg dependencies];

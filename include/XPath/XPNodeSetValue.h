@@ -12,6 +12,9 @@
 
 @interface XPNodeSetValue : XPValue
 
+- (instancetype)initWithNodes:(NSArray *)nodes;
+- (instancetype)initWithEnumeration:(id <XPNodeEnumeration>)enm;
+
 - (id <XPNodeEnumeration>)enumerate;
 
 - (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted;

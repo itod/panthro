@@ -7,6 +7,7 @@
 //
 
 #import "XPPathExpression.h"
+#import "XPContext.h"
 #import "XPStep.h"
 #import "XPAxis.h"
 #import "XPEmptyNodeSet.h"
@@ -207,7 +208,7 @@
 - (instancetype)initWithStart:(XPExpression *)start step:(XPStep *)step {
     self = [super init];
     if (self) {
-        self.dependencies = NSNotFound;
+        self.dependencies = XPDependenciesInvalid;
         self.start = start;
         self.step = step;
     }
@@ -219,6 +220,11 @@
     self.start = nil;
     self.step = nil;
     [super dealloc];
+}
+
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"%@/%@", _start, _step];
 }
 
 
@@ -241,11 +247,11 @@
  * Context.CURRENT_NODE
  */
 
-- (NSUInteger)dependencies {
+- (XPDependencies)dependencies {
     XPAssert(_start);
     XPAssert(_step);
     
-    if (NSNotFound == _dependencies) {
+    if (XPDependenciesInvalid == _dependencies) {
         NSUInteger dep = _start.dependencies;
         
         for (XPExpression *expr in _step.filters) {
@@ -284,7 +290,38 @@
     XPAssert(_start);
     XPAssert(_step);
     
-    return self;
+    XPExpression *path = self;
+    if ((dep & self.dependencies) != 0) {
+        XPExpression *newstart = [_start reduceDependencies:dep inContext:ctx];
+        XPStep *newstep = [[[XPStep alloc] initWithAxis:_step.axis nodeTest:_step.nodeTest] autorelease];
+//
+//        NSUInteger removedep = dep & XPDependenciesXSLTContext;
+//        if (_start.isContextDocumentNodeSet &&
+//            ((dep & XPDependenciesContextDocument) != 0)) {
+//            removedep |= XPDependenciesContextDocument;
+//        }
+//        
+//        for (XPExpression *expr in _step.filters) {
+//            // Not all dependencies in the filter matter, because the context node, etc,
+//            // are not dependent on the outer context of the PathExpression
+//            XPExpression *newfilter = [expr reduceDependencies:removedep inContext:ctx];
+//            [newstep addFilter:newfilter];
+//        }
+        
+        path = [[[XPPathExpression alloc] initWithStart:newstart step:newstep] autorelease];
+        path.staticContext = self.staticContext;
+        path = [path simplify];
+    }
+//
+//    // Pre-evaluate an expression if the start is now a constant node-set
+//    // (this will evaluate to a NodeSetIntent, which will be replaced by
+//    // the corresponding node-set extent if it is used more than thrice).
+//    
+//    if (([path isKindOfClass:[XPPathExpression class]]) && [((XPPathExpression *)path).start isKindOfClass:[XPNodeSetValue class]]) {
+//        return [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPPathExpression *)path controller:ctx.controller] autorelease];
+//    }
+    
+    return path;
 }
 
 

@@ -8,6 +8,7 @@
 
 #import "XPNSXMLNodeImpl.h"
 #import "XPNSXMLDocumentImpl.h"
+#import "XPAxis.h"
 
 @implementation XPNSXMLNodeImpl
 
@@ -89,8 +90,53 @@
 }
 
 
-- (id <XPAxisEnumeration>)enumerationForAxis:(NSUInteger)axis nodeTest:(XPNodeTest *)nodeTest {
-    return nil;
+- (id <XPNodeEnumeration>)enumerationForAxis:(NSUInteger)axis nodeTest:(XPNodeTest *)nodeTest {
+    switch (axis) {
+        case XPAxisAncestor:
+            
+            break;
+        case XPAxisAncestorOrSelf:
+            
+            break;
+        case XPAxisAttribute:
+            
+            break;
+        case XPAxisChild:
+            
+            break;
+        case XPAxisDescendant:
+            
+            break;
+        case XPAxisDescendantOrSelf:
+            
+            break;
+        case XPAxisFollowing:
+            
+            break;
+        case XPAxisFollowingSibling:
+            
+            break;
+        case XPAxisNamespace:
+            
+            break;
+        case XPAxisParent:
+            
+            break;
+        case XPAxisPreceding:
+            
+            break;
+        case XPAxisPrecedingSibling:
+            
+            break;
+        case XPAxisSelf:
+            
+            break;
+        default:
+            XPAssert(0);
+            break;
+    }
+    
+    
 }
 
 @end

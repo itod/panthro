@@ -63,7 +63,7 @@
 }
 
 
-- (NSUInteger)dependencies {
+- (XPDependencies)dependencies {
     if (1 == [self numberOfArguments]) {
         return [(XPExpression *)self.args[0] dependencies];
     } else {

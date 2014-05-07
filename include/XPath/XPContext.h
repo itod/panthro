@@ -12,20 +12,6 @@
 @protocol XPLastPositionFinder;
 @protocol XPNodeInfo;
 
-typedef enum {
-    XPDependenciesVariables = 1,
-    XPDependenciesCurrentNode = 4,
-    XPDependenciesContextNode = 8,
-    XPDependenciesContextPosition = 16,
-    XPDependenciesLast = 32,
-    XPDependenciesController = 64,
-    XPDependenciesContextDocument = 128,
-    //  containing the context node
-    XPDependenciesNone = 0,
-    XPDependenciesAll = 255,
-    XPDependenciesXSLTContext = 64 | 1 | 4
-} XPDependencies;
-
 @interface XPContext : NSObject <NSCopying>
 
 - (instancetype)initWithStaticContext:(id <XPStaticContext>)staticContext;

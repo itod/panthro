@@ -25,6 +25,21 @@ typedef NS_ENUM(NSUInteger, XPDataType) {
     XPDataTypeAny
 };
 
+typedef NS_ENUM(NSUInteger, XPDependencies) {
+    XPDependenciesInvalid = NSNotFound,
+    XPDependenciesVariables = 1,
+    XPDependenciesCurrentNode = 4,
+    XPDependenciesContextNode = 8,
+    XPDependenciesContextPosition = 16,
+    XPDependenciesLast = 32,
+    XPDependenciesController = 64,
+    XPDependenciesContextDocument = 128,
+    //  containing the context node
+    XPDependenciesNone = 0,
+    XPDependenciesAll = 255,
+    XPDependenciesXSLTContext = 64 | 1 | 4
+};
+
 @interface XPExpression : NSObject
 
 + (XPExpression *)expressionFromString:(NSString *)exprStr inContext:(id <XPStaticContext>)env error:(NSError **)outErr;
@@ -44,7 +59,7 @@ typedef NS_ENUM(NSUInteger, XPDataType) {
 - (BOOL)containsReferences;
 
 - (XPExpression *)simplify;
-- (NSUInteger)dependencies;
+- (XPDependencies)dependencies;
 - (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx;
 
 - (XPDataType)dataType;

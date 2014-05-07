@@ -591,7 +591,9 @@
     
     if ([self predicts:XPEG_TOKEN_KIND_ABBREVIATEDAXIS, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTOR_OR_SELF, XPEG_TOKEN_KIND_ATTRIBUTE, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANT_OR_SELF, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWING_SIBLING, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDING_SIBLING, XPEG_TOKEN_KIND_SELF, 0]) {
         [self explicitAxisStep_]; 
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DOT, XPEG_TOKEN_KIND_DOT_DOT, XPEG_TOKEN_KIND_MULTIPLYOPERATOR, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_PROCESSING_INSTRUCTION, XPEG_TOKEN_KIND_TEXT, 0]) {
+    } else if ([self predicts:XPEG_TOKEN_KIND_DOT, XPEG_TOKEN_KIND_DOT_DOT, 0]) {
+        [self abbreviatedStep_]; 
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_MULTIPLYOPERATOR, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_PROCESSING_INSTRUCTION, XPEG_TOKEN_KIND_TEXT, 0]) {
         [self implicitAxisStep_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'step'."];
@@ -610,13 +612,7 @@
 
 - (void)implicitAxisStep_ {
     
-    if ([self predicts:XPEG_TOKEN_KIND_DOT, XPEG_TOKEN_KIND_DOT_DOT, 0]) {
-        [self abbreviatedStep_]; 
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_MULTIPLYOPERATOR, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_PROCESSING_INSTRUCTION, XPEG_TOKEN_KIND_TEXT, 0]) {
-        [self stepBody_]; 
-    } else {
-        [self raise:@"No viable alternative found in rule 'implicitAxisStep'."];
-    }
+    [self stepBody_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchImplicitAxisStep:)];
 }

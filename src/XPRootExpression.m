@@ -53,7 +53,7 @@
  * Context.CURRENT_NODE
  */
 
-- (NSUInteger)dependencies {
+- (XPDependencies)dependencies {
     return XPDependenciesContextNode | XPDependenciesContextDocument;
 }
 

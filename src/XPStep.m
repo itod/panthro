@@ -38,7 +38,7 @@
 
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<%@ %p «%@::%@»", [self class], self, XPAxisName[_axis], _nodeTest];
+    return [NSString stringWithFormat:@"%@::%@", XPAxisName[_axis], _nodeTest];
 }
 
 
@@ -59,11 +59,10 @@
  */
 
 - (XPStep *)simplify {
-    XPAssert(_allFilters);
     
     NSUInteger c = [_allFilters count];
     NSUInteger i = c - 1;
-    for (XPExpression *exp in [[[_allFilters copy] autorelease] reverseObjectEnumerator]) {
+    for (XPExpression *exp in [self.filters reverseObjectEnumerator]) {
         exp = [exp simplify];
         _allFilters[i] = exp;
         
@@ -105,7 +104,7 @@
  */
 
 - (id <XPNodeEnumeration>)enumerate:(id <XPNodeInfo>)node inContext:(XPContext *)ctx {
-    id <XPAxisEnumeration>enm = [node enumerationForAxis:_axis nodeTest:_nodeTest];
+    id <XPNodeEnumeration>enm = [node enumerationForAxis:_axis nodeTest:_nodeTest];
     if ([enm hasMoreObjects]) {       // if there are no nodes, there's nothing to filter
 
         //TODO

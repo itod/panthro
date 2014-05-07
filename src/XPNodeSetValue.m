@@ -14,10 +14,37 @@
 #import <XPath/XPNodeEnumeration.h>
 
 @interface XPNodeSetValue ()
+@property (nonatomic, copy) NSArray *value; // TODO
 @property (nonatomic, retain) NSDictionary *stringValues;
 @end
 
 @implementation XPNodeSetValue
+
+- (instancetype)initWithNodes:(NSArray *)nodes {
+    self = [super init];
+    if (self) {
+        self.value = nodes;
+    }
+    return self;
+}
+
+
+- (instancetype)initWithEnumeration:(id <XPNodeEnumeration>)enm {
+    self = [super init];
+    if (self) {
+        NSMutableArray *nodes = [NSMutableArray array];
+        
+        id <XPNodeInfo>node = nil;
+        while ([enm hasMoreObjects]) {
+            node = [enm nextObject];
+            [nodes addObject:node];
+        }
+        
+        self.value = nodes;
+    }
+    return self;
+}
+
 
 - (void)dealloc {
     self.stringValues = nil;
