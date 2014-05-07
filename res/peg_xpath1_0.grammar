@@ -101,7 +101,7 @@ pathExpr = filterExpr (('/'| '//') relativeLocationPath)? | locationPath;
         explicitAxisStep = axis stepBody;
         implicitAxisStep = abbreviatedStep | stepBody;
         
-        axis = axisName '::'! | abbreviatedAxis;
+        axis = axisName '::' | abbreviatedAxis;
             axisName = 'ancestor' | 'ancestor-or-self' | 'attribute' | 'child' | 'descendant' | 'descendant-or-self' | 'following' | 'following-sibling' | 'namespace' | 'parent' | 'preceding' | 'preceding-sibling' | 'self';
             abbreviatedAxis = '@';
         stepBody = nodeTest predicate*;

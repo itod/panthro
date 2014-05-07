@@ -161,6 +161,48 @@
 		D3A6C2F61907568200F3EFF3 /* XPAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A6C2F51907568100F3EFF3 /* XPAxis.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3AC84560F60C7EC00392CB4 /* XPExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AC84540F60C7EC00392CB4 /* XPExpression.m */; };
 		D3AC85B80F60D13200392CB4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AC85B70F60D13200392CB4 /* Foundation.framework */; };
+		D3BE13B7191A951600005C81 /* peg_xpath1_0.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D383A315187F4E97006AE701 /* peg_xpath1_0.grammar */; };
+		D3BE13E1191A958A00005C81 /* PGClassInterfaceTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13B8191A958900005C81 /* PGClassInterfaceTemplate.txt */; };
+		D3BE13E2191A958A00005C81 /* PGClassImplementationTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13B9191A958900005C81 /* PGClassImplementationTemplate.txt */; };
+		D3BE13E3191A958A00005C81 /* PGGrammarActionTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13BA191A958900005C81 /* PGGrammarActionTemplate.txt */; };
+		D3BE13E4191A958A00005C81 /* PGActionTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13BB191A958900005C81 /* PGActionTemplate.txt */; };
+		D3BE13E5191A958A00005C81 /* PGMethodTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13BC191A958900005C81 /* PGMethodTemplate.txt */; };
+		D3BE13E6191A958A00005C81 /* PGMethodMemoizationTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13BD191A958900005C81 /* PGMethodMemoizationTemplate.txt */; };
+		D3BE13E7191A958A00005C81 /* PGPreCallbackTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13BE191A958900005C81 /* PGPreCallbackTemplate.txt */; };
+		D3BE13E8191A958A00005C81 /* PGPostCallbackTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13BF191A958900005C81 /* PGPostCallbackTemplate.txt */; };
+		D3BE13E9191A958A00005C81 /* PGPreCallbackSyntaxInteriorTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13C0191A958900005C81 /* PGPreCallbackSyntaxInteriorTemplate.txt */; };
+		D3BE13EA191A958A00005C81 /* PGPostCallbackSyntaxInteriorTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13C1191A958900005C81 /* PGPostCallbackSyntaxInteriorTemplate.txt */; };
+		D3BE13EB191A958A00005C81 /* PGPreCallbackSyntaxLeafTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13C2191A958900005C81 /* PGPreCallbackSyntaxLeafTemplate.txt */; };
+		D3BE13EC191A958A00005C81 /* PGPostCallbackSyntaxLeafTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13C3191A958900005C81 /* PGPostCallbackSyntaxLeafTemplate.txt */; };
+		D3BE13ED191A958A00005C81 /* PGTryAndRecoverTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13C4191A958900005C81 /* PGTryAndRecoverTemplate.txt */; };
+		D3BE13EE191A958A00005C81 /* PGTryAndRecoverEOFTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13C5191A958900005C81 /* PGTryAndRecoverEOFTemplate.txt */; };
+		D3BE13EF191A958A00005C81 /* PGMethodCallTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13C6191A958900005C81 /* PGMethodCallTemplate.txt */; };
+		D3BE13F0191A958A00005C81 /* PGEOFCallTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13C7191A958900005C81 /* PGEOFCallTemplate.txt */; };
+		D3BE13F1191A958A00005C81 /* PGConstantMethodCallTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13C8191A958900005C81 /* PGConstantMethodCallTemplate.txt */; };
+		D3BE13F2191A958A00005C81 /* PGMethodSpeculateTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13C9191A958900005C81 /* PGMethodSpeculateTemplate.txt */; };
+		D3BE13F3191A958A00005C81 /* PGMatchCallTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13CA191A958900005C81 /* PGMatchCallTemplate.txt */; };
+		D3BE13F4191A958A00005C81 /* PGMatchDelimitedStringTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13CB191A958900005C81 /* PGMatchDelimitedStringTemplate.txt */; };
+		D3BE13F5191A958A00005C81 /* PGPatternPrefixTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13CC191A958900005C81 /* PGPatternPrefixTemplate.txt */; };
+		D3BE13F6191A958A00005C81 /* PGMatchPatternTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13CD191A958900005C81 /* PGMatchPatternTemplate.txt */; };
+		D3BE13F7191A958A00005C81 /* PGSemanticPredicateTestExprTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13CE191A958900005C81 /* PGSemanticPredicateTestExprTemplate.txt */; };
+		D3BE13F8191A958A00005C81 /* PGSemanticPredicateTestStatTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13CF191A958900005C81 /* PGSemanticPredicateTestStatTemplate.txt */; };
+		D3BE13F9191A958A00005C81 /* PGSemanticPredicateTestAndThrowExprTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13D0191A958900005C81 /* PGSemanticPredicateTestAndThrowExprTemplate.txt */; };
+		D3BE13FA191A958A00005C81 /* PGSemanticPredicateTestAndThrowStatTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13D1191A958900005C81 /* PGSemanticPredicateTestAndThrowStatTemplate.txt */; };
+		D3BE13FB191A958A00005C81 /* PGPredictIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13D2191A958900005C81 /* PGPredictIfTemplate.txt */; };
+		D3BE13FC191A958A00005C81 /* PGSpeculateIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13D3191A958900005C81 /* PGSpeculateIfTemplate.txt */; };
+		D3BE13FD191A958A00005C81 /* PGPredictElseIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13D4191A958900005C81 /* PGPredictElseIfTemplate.txt */; };
+		D3BE13FE191A958A00005C81 /* PGSpeculateElseIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13D5191A958A00005C81 /* PGSpeculateElseIfTemplate.txt */; };
+		D3BE13FF191A958A00005C81 /* PGPredictElseTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13D6191A958A00005C81 /* PGPredictElseTemplate.txt */; };
+		D3BE1400191A958A00005C81 /* PGElseEmptyTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13D7191A958A00005C81 /* PGElseEmptyTemplate.txt */; };
+		D3BE1401191A958A00005C81 /* PGPredictEndIfTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13D8191A958A00005C81 /* PGPredictEndIfTemplate.txt */; };
+		D3BE1402191A958A00005C81 /* PGOptionalSpeculateTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13D9191A958A00005C81 /* PGOptionalSpeculateTemplate.txt */; };
+		D3BE1403191A958A00005C81 /* PGOptionalPredictTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13DA191A958A00005C81 /* PGOptionalPredictTemplate.txt */; };
+		D3BE1404191A958A00005C81 /* PGMultipleSpeculateTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13DB191A958A00005C81 /* PGMultipleSpeculateTemplate.txt */; };
+		D3BE1405191A958A00005C81 /* PGMultiplePredictTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13DC191A958A00005C81 /* PGMultiplePredictTemplate.txt */; };
+		D3BE1406191A958A00005C81 /* PGRepetitionSpeculateTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13DD191A958A00005C81 /* PGRepetitionSpeculateTemplate.txt */; };
+		D3BE1407191A958A00005C81 /* PGRepetitionPredictTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13DE191A958A00005C81 /* PGRepetitionPredictTemplate.txt */; };
+		D3BE1408191A958A00005C81 /* PGNegationSpeculateTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13DF191A958A00005C81 /* PGNegationSpeculateTemplate.txt */; };
+		D3BE1409191A958A00005C81 /* PGNegationPredictTemplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3BE13E0191A958A00005C81 /* PGNegationPredictTemplate.txt */; };
 		D3C177F71880EE2E00F90600 /* XPEGParserFilterExprTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C177F61880EE2E00F90600 /* XPEGParserFilterExprTest.m */; };
 		D3C178011880EF4900F90600 /* XPEGParserLocationPathTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C178001880EF4900F90600 /* XPEGParserLocationPathTest.m */; };
 		D3C178241884472800F90600 /* XPAxisExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C178221884472800F90600 /* XPAxisExpression.m */; };
@@ -450,6 +492,47 @@
 		D3A6C2F7190756FC00F3EFF3 /* XPAxisEnumeration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = XPAxisEnumeration.h; path = src/XPAxisEnumeration.h; sourceTree = "<group>"; };
 		D3AC84540F60C7EC00392CB4 /* XPExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPExpression.m; path = src/XPExpression.m; sourceTree = "<group>"; };
 		D3AC85B70F60D13200392CB4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		D3BE13B8191A958900005C81 /* PGClassInterfaceTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGClassInterfaceTemplate.txt; path = lib/pegkit/res/PGClassInterfaceTemplate.txt; sourceTree = "<group>"; };
+		D3BE13B9191A958900005C81 /* PGClassImplementationTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGClassImplementationTemplate.txt; path = lib/pegkit/res/PGClassImplementationTemplate.txt; sourceTree = "<group>"; };
+		D3BE13BA191A958900005C81 /* PGGrammarActionTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGGrammarActionTemplate.txt; path = lib/pegkit/res/PGGrammarActionTemplate.txt; sourceTree = "<group>"; };
+		D3BE13BB191A958900005C81 /* PGActionTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGActionTemplate.txt; path = lib/pegkit/res/PGActionTemplate.txt; sourceTree = "<group>"; };
+		D3BE13BC191A958900005C81 /* PGMethodTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGMethodTemplate.txt; path = lib/pegkit/res/PGMethodTemplate.txt; sourceTree = "<group>"; };
+		D3BE13BD191A958900005C81 /* PGMethodMemoizationTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGMethodMemoizationTemplate.txt; path = lib/pegkit/res/PGMethodMemoizationTemplate.txt; sourceTree = "<group>"; };
+		D3BE13BE191A958900005C81 /* PGPreCallbackTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGPreCallbackTemplate.txt; path = lib/pegkit/res/PGPreCallbackTemplate.txt; sourceTree = "<group>"; };
+		D3BE13BF191A958900005C81 /* PGPostCallbackTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGPostCallbackTemplate.txt; path = lib/pegkit/res/PGPostCallbackTemplate.txt; sourceTree = "<group>"; };
+		D3BE13C0191A958900005C81 /* PGPreCallbackSyntaxInteriorTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGPreCallbackSyntaxInteriorTemplate.txt; path = lib/pegkit/res/PGPreCallbackSyntaxInteriorTemplate.txt; sourceTree = "<group>"; };
+		D3BE13C1191A958900005C81 /* PGPostCallbackSyntaxInteriorTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGPostCallbackSyntaxInteriorTemplate.txt; path = lib/pegkit/res/PGPostCallbackSyntaxInteriorTemplate.txt; sourceTree = "<group>"; };
+		D3BE13C2191A958900005C81 /* PGPreCallbackSyntaxLeafTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGPreCallbackSyntaxLeafTemplate.txt; path = lib/pegkit/res/PGPreCallbackSyntaxLeafTemplate.txt; sourceTree = "<group>"; };
+		D3BE13C3191A958900005C81 /* PGPostCallbackSyntaxLeafTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGPostCallbackSyntaxLeafTemplate.txt; path = lib/pegkit/res/PGPostCallbackSyntaxLeafTemplate.txt; sourceTree = "<group>"; };
+		D3BE13C4191A958900005C81 /* PGTryAndRecoverTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGTryAndRecoverTemplate.txt; path = lib/pegkit/res/PGTryAndRecoverTemplate.txt; sourceTree = "<group>"; };
+		D3BE13C5191A958900005C81 /* PGTryAndRecoverEOFTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGTryAndRecoverEOFTemplate.txt; path = lib/pegkit/res/PGTryAndRecoverEOFTemplate.txt; sourceTree = "<group>"; };
+		D3BE13C6191A958900005C81 /* PGMethodCallTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGMethodCallTemplate.txt; path = lib/pegkit/res/PGMethodCallTemplate.txt; sourceTree = "<group>"; };
+		D3BE13C7191A958900005C81 /* PGEOFCallTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGEOFCallTemplate.txt; path = lib/pegkit/res/PGEOFCallTemplate.txt; sourceTree = "<group>"; };
+		D3BE13C8191A958900005C81 /* PGConstantMethodCallTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGConstantMethodCallTemplate.txt; path = lib/pegkit/res/PGConstantMethodCallTemplate.txt; sourceTree = "<group>"; };
+		D3BE13C9191A958900005C81 /* PGMethodSpeculateTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGMethodSpeculateTemplate.txt; path = lib/pegkit/res/PGMethodSpeculateTemplate.txt; sourceTree = "<group>"; };
+		D3BE13CA191A958900005C81 /* PGMatchCallTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGMatchCallTemplate.txt; path = lib/pegkit/res/PGMatchCallTemplate.txt; sourceTree = "<group>"; };
+		D3BE13CB191A958900005C81 /* PGMatchDelimitedStringTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGMatchDelimitedStringTemplate.txt; path = lib/pegkit/res/PGMatchDelimitedStringTemplate.txt; sourceTree = "<group>"; };
+		D3BE13CC191A958900005C81 /* PGPatternPrefixTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGPatternPrefixTemplate.txt; path = lib/pegkit/res/PGPatternPrefixTemplate.txt; sourceTree = "<group>"; };
+		D3BE13CD191A958900005C81 /* PGMatchPatternTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGMatchPatternTemplate.txt; path = lib/pegkit/res/PGMatchPatternTemplate.txt; sourceTree = "<group>"; };
+		D3BE13CE191A958900005C81 /* PGSemanticPredicateTestExprTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGSemanticPredicateTestExprTemplate.txt; path = lib/pegkit/res/PGSemanticPredicateTestExprTemplate.txt; sourceTree = "<group>"; };
+		D3BE13CF191A958900005C81 /* PGSemanticPredicateTestStatTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGSemanticPredicateTestStatTemplate.txt; path = lib/pegkit/res/PGSemanticPredicateTestStatTemplate.txt; sourceTree = "<group>"; };
+		D3BE13D0191A958900005C81 /* PGSemanticPredicateTestAndThrowExprTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGSemanticPredicateTestAndThrowExprTemplate.txt; path = lib/pegkit/res/PGSemanticPredicateTestAndThrowExprTemplate.txt; sourceTree = "<group>"; };
+		D3BE13D1191A958900005C81 /* PGSemanticPredicateTestAndThrowStatTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGSemanticPredicateTestAndThrowStatTemplate.txt; path = lib/pegkit/res/PGSemanticPredicateTestAndThrowStatTemplate.txt; sourceTree = "<group>"; };
+		D3BE13D2191A958900005C81 /* PGPredictIfTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGPredictIfTemplate.txt; path = lib/pegkit/res/PGPredictIfTemplate.txt; sourceTree = "<group>"; };
+		D3BE13D3191A958900005C81 /* PGSpeculateIfTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGSpeculateIfTemplate.txt; path = lib/pegkit/res/PGSpeculateIfTemplate.txt; sourceTree = "<group>"; };
+		D3BE13D4191A958900005C81 /* PGPredictElseIfTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGPredictElseIfTemplate.txt; path = lib/pegkit/res/PGPredictElseIfTemplate.txt; sourceTree = "<group>"; };
+		D3BE13D5191A958A00005C81 /* PGSpeculateElseIfTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGSpeculateElseIfTemplate.txt; path = lib/pegkit/res/PGSpeculateElseIfTemplate.txt; sourceTree = "<group>"; };
+		D3BE13D6191A958A00005C81 /* PGPredictElseTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGPredictElseTemplate.txt; path = lib/pegkit/res/PGPredictElseTemplate.txt; sourceTree = "<group>"; };
+		D3BE13D7191A958A00005C81 /* PGElseEmptyTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGElseEmptyTemplate.txt; path = lib/pegkit/res/PGElseEmptyTemplate.txt; sourceTree = "<group>"; };
+		D3BE13D8191A958A00005C81 /* PGPredictEndIfTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGPredictEndIfTemplate.txt; path = lib/pegkit/res/PGPredictEndIfTemplate.txt; sourceTree = "<group>"; };
+		D3BE13D9191A958A00005C81 /* PGOptionalSpeculateTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGOptionalSpeculateTemplate.txt; path = lib/pegkit/res/PGOptionalSpeculateTemplate.txt; sourceTree = "<group>"; };
+		D3BE13DA191A958A00005C81 /* PGOptionalPredictTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGOptionalPredictTemplate.txt; path = lib/pegkit/res/PGOptionalPredictTemplate.txt; sourceTree = "<group>"; };
+		D3BE13DB191A958A00005C81 /* PGMultipleSpeculateTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGMultipleSpeculateTemplate.txt; path = lib/pegkit/res/PGMultipleSpeculateTemplate.txt; sourceTree = "<group>"; };
+		D3BE13DC191A958A00005C81 /* PGMultiplePredictTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGMultiplePredictTemplate.txt; path = lib/pegkit/res/PGMultiplePredictTemplate.txt; sourceTree = "<group>"; };
+		D3BE13DD191A958A00005C81 /* PGRepetitionSpeculateTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGRepetitionSpeculateTemplate.txt; path = lib/pegkit/res/PGRepetitionSpeculateTemplate.txt; sourceTree = "<group>"; };
+		D3BE13DE191A958A00005C81 /* PGRepetitionPredictTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGRepetitionPredictTemplate.txt; path = lib/pegkit/res/PGRepetitionPredictTemplate.txt; sourceTree = "<group>"; };
+		D3BE13DF191A958A00005C81 /* PGNegationSpeculateTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGNegationSpeculateTemplate.txt; path = lib/pegkit/res/PGNegationSpeculateTemplate.txt; sourceTree = "<group>"; };
+		D3BE13E0191A958A00005C81 /* PGNegationPredictTemplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PGNegationPredictTemplate.txt; path = lib/pegkit/res/PGNegationPredictTemplate.txt; sourceTree = "<group>"; };
 		D3C177F51880EE2E00F90600 /* XPEGParserFilterExprTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPEGParserFilterExprTest.h; path = test/XPEGParserFilterExprTest.h; sourceTree = "<group>"; };
 		D3C177F61880EE2E00F90600 /* XPEGParserFilterExprTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPEGParserFilterExprTest.m; path = test/XPEGParserFilterExprTest.m; sourceTree = "<group>"; };
 		D3C177FF1880EF4900F90600 /* XPEGParserLocationPathTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPEGParserLocationPathTest.h; path = test/XPEGParserLocationPathTest.h; sourceTree = "<group>"; };
@@ -527,7 +610,6 @@
 		089C1665FE841158C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D383A315187F4E97006AE701 /* peg_xpath1_0.grammar */,
 				8DC2EF5A0486A6940098B216 /* Info.plist */,
 				D33639D2100DAA9400AC4B51 /* Tests-Info.plist */,
 				089C1666FE841158C02AAC07 /* InfoPlist.strings */,
@@ -660,6 +742,47 @@
 		D3411BE4191A8E290082A196 /* PG */ = {
 			isa = PBXGroup;
 			children = (
+				D3BE13B8191A958900005C81 /* PGClassInterfaceTemplate.txt */,
+				D3BE13B9191A958900005C81 /* PGClassImplementationTemplate.txt */,
+				D3BE13BA191A958900005C81 /* PGGrammarActionTemplate.txt */,
+				D3BE13BB191A958900005C81 /* PGActionTemplate.txt */,
+				D3BE13BC191A958900005C81 /* PGMethodTemplate.txt */,
+				D3BE13BD191A958900005C81 /* PGMethodMemoizationTemplate.txt */,
+				D3BE13BE191A958900005C81 /* PGPreCallbackTemplate.txt */,
+				D3BE13BF191A958900005C81 /* PGPostCallbackTemplate.txt */,
+				D3BE13C0191A958900005C81 /* PGPreCallbackSyntaxInteriorTemplate.txt */,
+				D3BE13C1191A958900005C81 /* PGPostCallbackSyntaxInteriorTemplate.txt */,
+				D3BE13C2191A958900005C81 /* PGPreCallbackSyntaxLeafTemplate.txt */,
+				D3BE13C3191A958900005C81 /* PGPostCallbackSyntaxLeafTemplate.txt */,
+				D3BE13C4191A958900005C81 /* PGTryAndRecoverTemplate.txt */,
+				D3BE13C5191A958900005C81 /* PGTryAndRecoverEOFTemplate.txt */,
+				D3BE13C6191A958900005C81 /* PGMethodCallTemplate.txt */,
+				D3BE13C7191A958900005C81 /* PGEOFCallTemplate.txt */,
+				D3BE13C8191A958900005C81 /* PGConstantMethodCallTemplate.txt */,
+				D3BE13C9191A958900005C81 /* PGMethodSpeculateTemplate.txt */,
+				D3BE13CA191A958900005C81 /* PGMatchCallTemplate.txt */,
+				D3BE13CB191A958900005C81 /* PGMatchDelimitedStringTemplate.txt */,
+				D3BE13CC191A958900005C81 /* PGPatternPrefixTemplate.txt */,
+				D3BE13CD191A958900005C81 /* PGMatchPatternTemplate.txt */,
+				D3BE13CE191A958900005C81 /* PGSemanticPredicateTestExprTemplate.txt */,
+				D3BE13CF191A958900005C81 /* PGSemanticPredicateTestStatTemplate.txt */,
+				D3BE13D0191A958900005C81 /* PGSemanticPredicateTestAndThrowExprTemplate.txt */,
+				D3BE13D1191A958900005C81 /* PGSemanticPredicateTestAndThrowStatTemplate.txt */,
+				D3BE13D2191A958900005C81 /* PGPredictIfTemplate.txt */,
+				D3BE13D3191A958900005C81 /* PGSpeculateIfTemplate.txt */,
+				D3BE13D4191A958900005C81 /* PGPredictElseIfTemplate.txt */,
+				D3BE13D5191A958A00005C81 /* PGSpeculateElseIfTemplate.txt */,
+				D3BE13D6191A958A00005C81 /* PGPredictElseTemplate.txt */,
+				D3BE13D7191A958A00005C81 /* PGElseEmptyTemplate.txt */,
+				D3BE13D8191A958A00005C81 /* PGPredictEndIfTemplate.txt */,
+				D3BE13D9191A958A00005C81 /* PGOptionalSpeculateTemplate.txt */,
+				D3BE13DA191A958A00005C81 /* PGOptionalPredictTemplate.txt */,
+				D3BE13DB191A958A00005C81 /* PGMultipleSpeculateTemplate.txt */,
+				D3BE13DC191A958A00005C81 /* PGMultiplePredictTemplate.txt */,
+				D3BE13DD191A958A00005C81 /* PGRepetitionSpeculateTemplate.txt */,
+				D3BE13DE191A958A00005C81 /* PGRepetitionPredictTemplate.txt */,
+				D3BE13DF191A958A00005C81 /* PGNegationSpeculateTemplate.txt */,
+				D3BE13E0191A958A00005C81 /* PGNegationPredictTemplate.txt */,
 				D3411BF2191A90800082A196 /* PEGKitParser.m */,
 				D3411BBE191A8E140082A196 /* PGBaseVisitor.m */,
 				D3411BBF191A8E140082A196 /* PGDefinitionPhaseVisitor.m */,
@@ -805,6 +928,7 @@
 		D3BA9B29101C233B003C0040 /* Parser */ = {
 			isa = PBXGroup;
 			children = (
+				D383A315187F4E97006AE701 /* peg_xpath1_0.grammar */,
 				D383A31D187F748E006AE701 /* XPEGParser.h */,
 				D383A31E187F748E006AE701 /* XPEGParser.m */,
 				D383A31B187F6ECB006AE701 /* XPAssembler.h */,
@@ -1121,6 +1245,48 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3BE13B7191A951600005C81 /* peg_xpath1_0.grammar in Resources */,
+				D3BE13E1191A958A00005C81 /* PGClassInterfaceTemplate.txt in Resources */,
+				D3BE13E2191A958A00005C81 /* PGClassImplementationTemplate.txt in Resources */,
+				D3BE13E3191A958A00005C81 /* PGGrammarActionTemplate.txt in Resources */,
+				D3BE13E4191A958A00005C81 /* PGActionTemplate.txt in Resources */,
+				D3BE13E5191A958A00005C81 /* PGMethodTemplate.txt in Resources */,
+				D3BE13E6191A958A00005C81 /* PGMethodMemoizationTemplate.txt in Resources */,
+				D3BE13E7191A958A00005C81 /* PGPreCallbackTemplate.txt in Resources */,
+				D3BE13E8191A958A00005C81 /* PGPostCallbackTemplate.txt in Resources */,
+				D3BE13E9191A958A00005C81 /* PGPreCallbackSyntaxInteriorTemplate.txt in Resources */,
+				D3BE13EA191A958A00005C81 /* PGPostCallbackSyntaxInteriorTemplate.txt in Resources */,
+				D3BE13EB191A958A00005C81 /* PGPreCallbackSyntaxLeafTemplate.txt in Resources */,
+				D3BE13EC191A958A00005C81 /* PGPostCallbackSyntaxLeafTemplate.txt in Resources */,
+				D3BE13ED191A958A00005C81 /* PGTryAndRecoverTemplate.txt in Resources */,
+				D3BE13EE191A958A00005C81 /* PGTryAndRecoverEOFTemplate.txt in Resources */,
+				D3BE13EF191A958A00005C81 /* PGMethodCallTemplate.txt in Resources */,
+				D3BE13F0191A958A00005C81 /* PGEOFCallTemplate.txt in Resources */,
+				D3BE13F1191A958A00005C81 /* PGConstantMethodCallTemplate.txt in Resources */,
+				D3BE13F2191A958A00005C81 /* PGMethodSpeculateTemplate.txt in Resources */,
+				D3BE13F3191A958A00005C81 /* PGMatchCallTemplate.txt in Resources */,
+				D3BE13F4191A958A00005C81 /* PGMatchDelimitedStringTemplate.txt in Resources */,
+				D3BE13F5191A958A00005C81 /* PGPatternPrefixTemplate.txt in Resources */,
+				D3BE13F6191A958A00005C81 /* PGMatchPatternTemplate.txt in Resources */,
+				D3BE13F7191A958A00005C81 /* PGSemanticPredicateTestExprTemplate.txt in Resources */,
+				D3BE13F8191A958A00005C81 /* PGSemanticPredicateTestStatTemplate.txt in Resources */,
+				D3BE13F9191A958A00005C81 /* PGSemanticPredicateTestAndThrowExprTemplate.txt in Resources */,
+				D3BE13FA191A958A00005C81 /* PGSemanticPredicateTestAndThrowStatTemplate.txt in Resources */,
+				D3BE13FB191A958A00005C81 /* PGPredictIfTemplate.txt in Resources */,
+				D3BE13FC191A958A00005C81 /* PGSpeculateIfTemplate.txt in Resources */,
+				D3BE13FD191A958A00005C81 /* PGPredictElseIfTemplate.txt in Resources */,
+				D3BE13FE191A958A00005C81 /* PGSpeculateElseIfTemplate.txt in Resources */,
+				D3BE13FF191A958A00005C81 /* PGPredictElseTemplate.txt in Resources */,
+				D3BE1400191A958A00005C81 /* PGElseEmptyTemplate.txt in Resources */,
+				D3BE1401191A958A00005C81 /* PGPredictEndIfTemplate.txt in Resources */,
+				D3BE1402191A958A00005C81 /* PGOptionalSpeculateTemplate.txt in Resources */,
+				D3BE1403191A958A00005C81 /* PGOptionalPredictTemplate.txt in Resources */,
+				D3BE1404191A958A00005C81 /* PGMultipleSpeculateTemplate.txt in Resources */,
+				D3BE1405191A958A00005C81 /* PGMultiplePredictTemplate.txt in Resources */,
+				D3BE1406191A958A00005C81 /* PGRepetitionSpeculateTemplate.txt in Resources */,
+				D3BE1407191A958A00005C81 /* PGRepetitionPredictTemplate.txt in Resources */,
+				D3BE1408191A958A00005C81 /* PGNegationSpeculateTemplate.txt in Resources */,
+				D3BE1409191A958A00005C81 /* PGNegationPredictTemplate.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
