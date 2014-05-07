@@ -7,9 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <XPath/XPLastPositionFinder.h>
 
-@class XPController;
 @protocol XPStaticContext;
 @protocol XPLastPositionFinder;
 @protocol XPNodeInfo;
@@ -28,15 +26,11 @@ typedef enum {
     XPDependenciesXSLTContext = 64 | 1 | 4
 } XPDependencies;
 
-@interface XPContext : NSObject <XPLastPositionFinder>
+@interface XPContext : NSObject <NSCopying>
 
-- (instancetype)initWithController:(XPController *)c;
+- (instancetype)initWithStaticContext:(id <XPStaticContext>)staticContext;
 
-- (XPContext *)newContext; // +1
-
-@property (nonatomic, retain) XPController *controller;
-@property (nonatomic, retain) id <XPLastPositionFinder>lastPositionFinder; // ????????????????? assign
-@property (nonatomic, retain) id <XPStaticContext>staticContext;
+@property (nonatomic, retain, readonly) id <XPStaticContext>staticContext;
 
 // focus
 @property (nonatomic, retain) id <XPNodeInfo>contextNode;

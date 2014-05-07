@@ -12,7 +12,6 @@
 #import <XPath/XPStringValue.h>
 #import <XPath/XPObjectValue.h>
 #import <XPath/XPNodeEnumeration.h>
-#import <XPath/XPSingletonNodeSet.h>
 
 @interface XPNodeSetValue ()
 @property (nonatomic, retain) NSDictionary *stringValues;
@@ -118,23 +117,25 @@
 
     if ([other isKindOfClass:[XPObjectValue class]]) {
         return NO;
-
-    } else if ([other isKindOfClass:[XPSingletonNodeSet class]]) {
-        if ([other asBoolean]) {
-            return [self isEqualToValue:[XPStringValue stringValueWithString:[other asString]]];
-        } else {
-            return NO;
-        }
     
     } else if ([other isNodeSetValue]) {
         
-        NSDictionary *table = [self stringValues];
-        
-        id <XPNodeEnumeration>e2 = [(XPNodeSetValue *)other enumerate];
-        for (id node in e2) {
-            if ([table objectForKey:[node stringValue]]) return YES;
+        // singleton node-set
+        if (1 == [(XPNodeSetValue *)other count]) {
+            if ([other asBoolean]) {
+                return [self isEqualToValue:[XPStringValue stringValueWithString:[other asString]]];
+            } else {
+                return NO;
+            }
+        } else {
+            NSDictionary *table = [self stringValues];
+            
+            id <XPNodeEnumeration>e2 = [(XPNodeSetValue *)other enumerate];
+            for (id node in e2) {
+                if ([table objectForKey:[node stringValue]]) return YES;
+            }
+            return NO;
         }
-        return NO;
 
     } else if ([other isNumericValue]) {
         for (id node in [self enumerate]) {

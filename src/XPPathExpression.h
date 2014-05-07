@@ -14,4 +14,7 @@
 
 - (instancetype)initWithStart:(XPExpression *)start step:(XPStep *)step;
 
+@property (nonatomic, retain) XPExpression *start;
+@property (nonatomic, retain) XPStep *step;
+@property (nonatomic, assign) NSUInteger dependencies;
 @end

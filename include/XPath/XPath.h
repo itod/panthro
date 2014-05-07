@@ -12,12 +12,10 @@
 #import <XPath/XPUtils.h>
 #import <XPath/XPNodeInfo.h>
 #import <XPath/XPContext.h>
-#import <XPath/XPController.h>
 
 // Expr
 #import <XPath/XPNodeEnumeration.h>
 #import <XPath/XPStaticContext.h>
-#import <XPath/XPLastPositionFinder.h>
 
 #import <XPath/XPExpression.h>
 #import <XPath/XPBinaryExpression.h>
@@ -37,13 +35,9 @@
 #import <XPath/XPObjectValue.h>
 
 #import <XPath/XPNodeSetValue.h>
-#import <XPath/XPNodeSetIntent.h>
-#import <XPath/XPNodeSetExtent.h>
-#import <XPath/XPSingletonNodeSet.h>
-
-#import <XPath/XPFunction.h>
 
 // Fn
+#import <XPath/XPFunction.h>
 #import <XPath/FNBoolean.h>
 #import <XPath/FNCeiling.h>
 #import <XPath/FNConcat.h>

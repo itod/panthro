@@ -13,7 +13,6 @@
 @protocol XPNodeEnumeration <NSFastEnumeration, NSObject>
 - (BOOL)isSorted;
 - (BOOL)isReverseSorted;
-- (BOOL)isPeer;
 
 /**
  * Determine whether there are more nodes to come. <BR>

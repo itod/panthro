@@ -33,10 +33,8 @@
     id <XPNodeInfo>nodeInfo = [[[XPNSXMLNodeImpl alloc] initWithNode:node] autorelease];
     TDNotNil(nodeInfo);
     
-    XPContext *ctx = [[[XPContext alloc] init] autorelease];
+    XPContext *ctx = [[[XPContext alloc] initWithStaticContext:nil] autorelease];
     ctx.contextNode = nodeInfo;
-    id <XPStaticContext>staticCtx = nil;
-    ctx.staticContext = staticCtx;
     
     self.expr = [XPExpression expressionFromString:@"node()" inContext:nil error:nil];
     self.res = [_expr evaluateInContext:nil];

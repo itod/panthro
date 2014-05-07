@@ -10,7 +10,6 @@
 #import <XPath/XPDocumentInfo.h>
 #import <XPath/XPNodeInfo.h>
 #import <XPath/XPContext.h>
-#import "XPSingletonNodeSet.h"
 
 @implementation XPRootExpression
 
@@ -69,11 +68,12 @@
  */
 
 - (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
-    if (([self dependencies] & (XPDependenciesContextNode | XPDependenciesContextDocument)) != 0 ) {
-        return [[[XPSingletonNodeSet alloc] initWithNode:ctx.contextNode.documentRoot] autorelease];
-    } else {
-        return self;
-    }
+    return self;
+//    if (([self dependencies] & (XPDependenciesContextNode | XPDependenciesContextDocument)) != 0 ) {
+//        return [[[XPSingletonNodeSet alloc] initWithNode:ctx.contextNode.documentRoot] autorelease];
+//    } else {
+//        return self;
+//    }
 }
 
 

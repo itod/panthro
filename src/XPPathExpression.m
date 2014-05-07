@@ -12,23 +12,8 @@
 #import "XPEmptyNodeSet.h"
 #import "XPAxisExpression.h"
 
-#import "XPRootExpression.h"
-#import "XPSingletonNodeSet.h"
-//#import "XPContextNodeExpression.h"
-//#import "XPAttributeReference.h"
-//#import "XPAnyNodeTest.h"
-
-#import "XPNodeOrderComparer.h"
-#import "XPLocalOrderComparer.h"
-
 @interface XPExpression ()
 @property (nonatomic, retain, readwrite) id <XPStaticContext>staticContext;
-@end
-
-@interface XPPathExpression ()
-@property (nonatomic, retain) XPExpression *start;
-@property (nonatomic, retain) XPStep *step;
-@property (nonatomic, assign) NSUInteger dependencies;
 @end
 
 /**
@@ -56,14 +41,9 @@
 - (instancetype)initWithPathExpression:(XPPathExpression *)pathExpr start:(XPExpression *)start context:(XPContext *)ctx {
     self = [super init];
     if (self) {
-        if ([start isKindOfClass:[XPSingletonNodeSet class]]) {
-            if (!((XPSingletonNodeSet *)start).isGeneralUseAllowed) {
-                [NSException raise:@"XPathException" format:@"To use a result tree fragment in a path expression, either use exsl:node-set() or specify version='1.1'"];
-            }
-        }
         self.pathExpr = pathExpr;
         self.thisStart = start;
-        self.context = [[ctx newContext] autorelease];
+        self.context = [[ctx copy] autorelease];
         self.base = [start enumerateInContext:self.context sorted:NO];
         self.next = [self nextNode];
     }
@@ -251,71 +231,6 @@
     
     self.start = [_start simplify];
     self.step = [_step simplify];
-//
-//    // if the start expression is an empty node-set, then the whole PathExpression is empty
-//    if ([_start isKindOfClass:[XPEmptyNodeSet class]]) {
-//        return _start;
-//    }
-//    
-//    // if the simplified Step is null, then by convention the whole PathExpression is empty
-//    if (!_step) {
-//        return [[[XPEmptyNodeSet alloc] init] autorelease];
-//    }
-//    
-//    XPAxis axis = [_step axis];
-//    
-//    // the expression /.. is sometimes used to represent the empty node-set
-//    
-//    if ([_start isKindOfClass:[XPRootExpression class]] && axis == XPAxisParent) {
-//        return [[[XPEmptyNodeSet alloc] init] autorelease];
-//    }
-//    
-//    // simplify a straightforward attribute reference such as "@name"
-//    
-//    if ([_start isKindOfClass:[XPContextNodeExpression class]] &&
-//        axis == XPAxisAttribute &&
-//        [[_step nodeTest] isKindOfClass:[XPNameTest class]] &&
-//        0 == _step.numberOfFilters) {
-//        
-//        return new AttributeReference(step.getNodeTest().getFingerprint());
-//    }
-//    
-//    // Simplify a path expression that starts at the context node and uses no
-//    // filters.
-//    
-//    if ([_start isKindOfClass:[XPContextNodeExpression class]] && 0 == _step.numberOfFilters) {
-//        return [[[XPAxisExpression alloc] initWithAxis:axis nodeTest:[_step nodeTest]] autorelease];
-//    }
-//    
-//    // Simplify an expression of the form a//b, where b has no filters.
-//    // This comes out of the parser as a/descendent-or-self::node()/child::b,
-//    // but it is equivalent to a/descendant::b; and the latter is better as it
-//    // doesn't require sorting
-//    
-//    if (XPAxisChild == axis &&
-//        0 == _step.numberOfFilters &&
-//        [_start isKindOfClass:[XPPathExpression class]] &&
-//        ((XPPathExpression *)_start).step.axis == XPAxisDescendantOrSelf &&
-//        ((XPPathExpression *)_start).step.numberOfFilters == 0 &&
-//        [((XPPathExpression *)_start).step.nodeTest isKindOfClass:[XPAnyNodeTest class]])
-//    {
-//        // detect a simple "//name" expression
-//        
-//        // this optimisation is now done at run time by NodeImpl.getEnumeration()
-//        // and TinyNodeImpl.getEnumeration()
-//        
-//        //Expression newstart = ((PathExpression)start).start;
-//        //if ((newstart instanceof RootExpression) &&
-//        //        (step.getNodeTest().getNodeType() == NodeInfo.ELEMENT) &&
-//        //        (step.getNodeTest() instanceof NameTest)) {
-//        //    return new AllElementsExpression(((NameTest)step.getNodeTest()).getFingerprint());
-//        //
-//        //} else {
-//        
-//        XPStep *newStep = [[[XPStep alloc] initWithAxis:XPAxisDescendant nodeTest:_step.nodeTest] autorelease];
-//        return [[[XPPathExpression alloc] initWithStart:((XPPathExpression *)_start).start step:newStep] autorelease];
-//        //}
-//    }
     
     return self;
 }
@@ -369,38 +284,7 @@
     XPAssert(_start);
     XPAssert(_step);
     
-    XPExpression *path = self;
-    if ((dep & _dependencies) != 0) {
-        XPExpression *newstart = [_start reduceDependencies:dep inContext:ctx];
-        XPStep *newstep = [[[XPStep alloc] initWithAxis:_step.axis nodeTest:_step.nodeTest] autorelease];
-        
-        NSUInteger removedep = dep & XPDependenciesXSLTContext;
-        if (_start.isContextDocumentNodeSet &&
-            ((dep & XPDependenciesContextDocument) != 0)) {
-            removedep |= XPDependenciesContextDocument;
-        }
-        
-        for (XPExpression *expr in _step.filters) {
-            // Not all dependencies in the filter matter, because the context node, etc,
-            // are not dependent on the outer context of the PathExpression
-            XPExpression *newfilter = [expr reduceDependencies:removedep inContext:ctx];
-            [newstep addFilter:newfilter];
-        }
-        
-        path = [[[XPPathExpression alloc] initWithStart:newstart step:newstep] autorelease];
-        path.staticContext = self.staticContext;
-        path =  [path simplify];
-    }
-    
-    // Pre-evaluate an expression if the start is now a constant node-set
-    // (this will evaluate to a NodeSetIntent, which will be replaced by
-    // the corresponding node-set extent if it is used more than thrice).
-    
-    if (([path isKindOfClass:[XPPathExpression class]]) && [((XPPathExpression *)path).start isKindOfClass:[XPNodeSetValue class]]) {
-        return [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPPathExpression *)path controller:ctx.controller] autorelease];
-    }
-    
-    return path;
+    return self;
 }
 
 
@@ -416,45 +300,39 @@
     // context document (e.g. an absolute path expression in a predicate) can also
     // be removed now.
     
-    NSUInteger actualdep = self.dependencies;
-    NSUInteger removedep = 0;
-    
-    if ((actualdep & XPDependenciesXSLTContext) != 0) {
-        removedep |= XPDependenciesXSLTContext;
-    }
-    
-    if (_start.isContextDocumentNodeSet &&
-        ((actualdep & XPDependenciesContextDocument) != 0)) {
-        removedep |= XPDependenciesContextDocument;
-    }
-    
-    if ((removedep & (XPDependenciesXSLTContext | XPDependenciesContextDocument)) != 0) {
-        XPExpression *temp = [self reduceDependencies:removedep inContext:ctx];
-        return [temp enumerateInContext:ctx sorted:sorted];
-    }
+//    NSUInteger actualdep = self.dependencies;
+//    NSUInteger removedep = 0;
+//    
+//    if ((actualdep & XPDependenciesXSLTContext) != 0) {
+//        removedep |= XPDependenciesXSLTContext;
+//    }
+//    
+//    if (_start.isContextDocumentNodeSet &&
+//        ((actualdep & XPDependenciesContextDocument) != 0)) {
+//        removedep |= XPDependenciesContextDocument;
+//    }
+//    
+//    if ((removedep & (XPDependenciesXSLTContext | XPDependenciesContextDocument)) != 0) {
+//        XPExpression *temp = [self reduceDependencies:removedep inContext:ctx];
+//        return [temp enumerateInContext:ctx sorted:sorted];
+//    }
     
     id <XPNodeEnumeration>enm = [[[XPPathEnumeration alloc] initWithPathExpression:self start:_start context:ctx] autorelease];
-    if (sorted && !enm.isSorted) {
-
-        id <XPNodeOrderComparer>comparer = nil;
-        
-        if ([_start isKindOfClass:[XPSingletonNodeSet class]] || _start.isContextDocumentNodeSet) {
-            // nodes are all in the same document
-            comparer = [XPLocalOrderComparer instance];
-        } else {
-            comparer = ctx.controller;
-        }
-        XPNodeSetExtent *ns = [[[XPNodeSetExtent alloc] initWithNodeEnumeration:enm controller:comparer] autorelease];
-        [ns sort];
-        return [ns enumerate];
-    }
+//    if (sorted && !enm.isSorted) {
+//
+//        id <XPNodeOrderComparer>comparer = nil;
+//        
+//        if ([_start isKindOfClass:[XPSingletonNodeSet class]] || _start.isContextDocumentNodeSet) {
+//            // nodes are all in the same document
+//            comparer = [XPLocalOrderComparer instance];
+//        } else {
+//            comparer = ctx.controller;
+//        }
+//        XPNodeSetExtent *ns = [[[XPNodeSetExtent alloc] initWithNodeEnumeration:enm controller:comparer] autorelease];
+//        [ns sort];
+//        return [ns enumerate];
+//    }
     return enm;
 }
-
-//public void display(int level) {
-//    System.err.println(indent(level) + "path");
-//    start.display(level+1);
-//    step.display(level+1);
-//}
 
 @end
