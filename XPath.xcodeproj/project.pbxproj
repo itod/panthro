@@ -35,6 +35,7 @@
 		D33E9FAC19170E1800BB7DFE /* XPDocumentInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = D33E9FAB19170E1800BB7DFE /* XPDocumentInfo.h */; };
 		D3411B59191A87960082A196 /* XPContextNodeExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3411B57191A87960082A196 /* XPContextNodeExpression.h */; };
 		D3411B5A191A87960082A196 /* XPContextNodeExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411B58191A87960082A196 /* XPContextNodeExpression.m */; };
+		D3411B5C191A8C470082A196 /* XPEGParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411B5B191A8C470082A196 /* XPEGParserTest.m */; };
 		D34BADF5100ABA7C00996341 /* XPBooleanValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BADF3100ABA7C00996341 /* XPBooleanValue.m */; };
 		D34BADF9100ABA9300996341 /* XPValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BADF7100ABA9300996341 /* XPValue.m */; };
 		D36BC032101BF52F00D1A6C7 /* XPNodeSetExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D36BC02E101BF52F00D1A6C7 /* XPNodeSetExpression.m */; };
@@ -136,7 +137,6 @@
 		D3A6C2F31907457500F3EFF3 /* XPNodeTypeTest.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A6C2F11907457500F3EFF3 /* XPNodeTypeTest.h */; };
 		D3A6C2F41907457500F3EFF3 /* XPNodeTypeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A6C2F21907457500F3EFF3 /* XPNodeTypeTest.m */; };
 		D3A6C2F61907568200F3EFF3 /* XPAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A6C2F51907568100F3EFF3 /* XPAxis.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3A6C2F8190756FE00F3EFF3 /* XPAxisEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A6C2F7190756FC00F3EFF3 /* XPAxisEnumeration.h */; };
 		D3AC84560F60C7EC00392CB4 /* XPExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AC84540F60C7EC00392CB4 /* XPExpression.m */; };
 		D3AC85B80F60D13200392CB4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AC85B70F60D13200392CB4 /* Foundation.framework */; };
 		D3C177F71880EE2E00F90600 /* XPEGParserFilterExprTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C177F61880EE2E00F90600 /* XPEGParserFilterExprTest.m */; };
@@ -250,6 +250,7 @@
 		D33E9FAB19170E1800BB7DFE /* XPDocumentInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPDocumentInfo.h; path = include/XPath/XPDocumentInfo.h; sourceTree = "<group>"; };
 		D3411B57191A87960082A196 /* XPContextNodeExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPContextNodeExpression.h; path = src/XPContextNodeExpression.h; sourceTree = "<group>"; };
 		D3411B58191A87960082A196 /* XPContextNodeExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPContextNodeExpression.m; path = src/XPContextNodeExpression.m; sourceTree = "<group>"; };
+		D3411B5B191A8C470082A196 /* XPEGParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPEGParserTest.m; path = test/XPEGParserTest.m; sourceTree = "<group>"; };
 		D34BADF3100ABA7C00996341 /* XPBooleanValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBooleanValue.m; path = src/XPBooleanValue.m; sourceTree = "<group>"; };
 		D34BADF7100ABA9300996341 /* XPValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPValue.m; path = src/XPValue.m; sourceTree = "<group>"; };
 		D36BC02A101BF50C00D1A6C7 /* XPNodeSetIntent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNodeSetIntent.m; path = src/XPNodeSetIntent.m; sourceTree = "<group>"; };
@@ -533,6 +534,7 @@
 		D3366B0C188051D9008C4144 /* Parser */ = {
 			isa = PBXGroup;
 			children = (
+				D3411B5B191A8C470082A196 /* XPEGParserTest.m */,
 				D3C177F51880EE2E00F90600 /* XPEGParserFilterExprTest.h */,
 				D3C177F61880EE2E00F90600 /* XPEGParserFilterExprTest.m */,
 				D3366B02188051D6008C4144 /* XPEGParserStepTest.h */,
@@ -571,6 +573,7 @@
 		D3411B55191A7E7D0082A196 /* Path */ = {
 			isa = PBXGroup;
 			children = (
+				D3A6C2F7190756FC00F3EFF3 /* XPAxisEnumeration.h */,
 				D3A5DBEA141E7DCF0081FBB4 /* XPSingletonExpression.h */,
 				D36BC031101BF52F00D1A6C7 /* XPSingletonExpression.m */,
 				D30D9697191862E300627D41 /* XPLocalOrderComparer.h */,
@@ -742,7 +745,6 @@
 				D33E9F921917040D00BB7DFE /* XPPathExpression.m */,
 				D3A6C2F51907568100F3EFF3 /* XPAxis.h */,
 				D3A6C2E31907391200F3EFF3 /* XPAxis.m */,
-				D3A6C2F7190756FC00F3EFF3 /* XPAxisEnumeration.h */,
 				D33E9F9D191706E100BB7DFE /* XPEmptyEnumeration.h */,
 				D33E9F9E191706E100BB7DFE /* XPEmptyEnumeration.m */,
 				D3A5DBE6141E7DC40081FBB4 /* XPNodeSetExpression.h */,
@@ -751,10 +753,10 @@
 				D3C178221884472800F90600 /* XPAxisExpression.m */,
 				D3A6C2ED1907413800F3EFF3 /* XPStep.h */,
 				D3A6C2EE1907413800F3EFF3 /* XPStep.m */,
-				D3411B57191A87960082A196 /* XPContextNodeExpression.h */,
-				D3411B58191A87960082A196 /* XPContextNodeExpression.m */,
 				D33E9FA119170BB900BB7DFE /* XPRootExpression.h */,
 				D33E9FA219170BB900BB7DFE /* XPRootExpression.m */,
+				D3411B57191A87960082A196 /* XPContextNodeExpression.h */,
+				D3411B58191A87960082A196 /* XPContextNodeExpression.m */,
 				D3A5DBE8141E7DCB0081FBB4 /* XPParentNodeExpression.h */,
 				D36BC030101BF52F00D1A6C7 /* XPParentNodeExpression.m */,
 			);
@@ -854,7 +856,6 @@
 				D33E9F9F191706E100BB7DFE /* XPEmptyEnumeration.h in Headers */,
 				D3A5DBE5141E7DBC0081FBB4 /* XPFunction.h in Headers */,
 				D3A5DBE7141E7DC40081FBB4 /* XPNodeSetExpression.h in Headers */,
-				D3A6C2F8190756FE00F3EFF3 /* XPAxisEnumeration.h in Headers */,
 				D3A5DBE9141E7DCB0081FBB4 /* XPParentNodeExpression.h in Headers */,
 				D3C178261884473B00F90600 /* XPAxisExpression.h in Headers */,
 			);
@@ -1097,6 +1098,7 @@
 				D37A30C610159A5400E936B7 /* FNStringTest.m in Sources */,
 				D37A31201015A74D00E936B7 /* FNNumberTest.m in Sources */,
 				D3A6C2EA19073B4700F3EFF3 /* XPStepTest.m in Sources */,
+				D3411B5C191A8C470082A196 /* XPEGParserTest.m in Sources */,
 				D37A31851016A34C00E936B7 /* FNStringLengthTest.m in Sources */,
 				D37A31BF1016A7B000E936B7 /* FNSubstringTest.m in Sources */,
 				D37A320C1016C37400E936B7 /* FNSubstringAfterTest.m in Sources */,

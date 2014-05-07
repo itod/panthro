@@ -205,7 +205,8 @@
     PKToken *tok = [a pop];
     
     // TODO
-    [a push:[XPBooleanValue booleanValueWithBoolean:tok.doubleValue]]; // this is a place holder. add a node later when ready
+    XPAxis axis = @(XPAxisForName(tok.stringValue));
+    [a push:@(axis)];
 }
 
 
