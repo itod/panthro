@@ -34,7 +34,7 @@
 
 
 - (double)evaluateAsNumberInContext:(XPContext *)ctx {
-    return (double)[ctx contextPosition];
+    return (double)[ctx position];
 }
 
 
@@ -50,7 +50,7 @@
 
 - (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
     if (dep & XPDependenciesContextPosition) {
-        return [XPNumericValue numericValueWithNumber:[ctx contextPosition]];
+        return [XPNumericValue numericValueWithNumber:[ctx position]];
     } else {
         return self;
     }

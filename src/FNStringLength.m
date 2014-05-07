@@ -53,7 +53,7 @@
     if (1 == [self numberOfArguments]) {
         return [[self.args[0] evaluateAsStringInContext:ctx] length];
     } else {
-        return [[[ctx contextNodeInfo] stringValue] length];
+        return [[ctx.contextNode stringValue] length];
     }
 }
 

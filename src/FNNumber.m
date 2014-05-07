@@ -56,7 +56,7 @@
     if (1 == [self numberOfArguments]) {
         return [self.args[0] evaluateAsNumberInContext:ctx];
     } else {
-        return XPNumberFromString([[ctx contextNodeInfo] stringValue]);
+        return XPNumberFromString([ctx.contextNode stringValue]);
     }
 }
 

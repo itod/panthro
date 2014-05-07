@@ -54,7 +54,7 @@
 - (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
     if (!_contextNode && (dep & XPDependenciesContextNode) != 0) {
         XPAxisExpression *exp2 = [[[XPAxisExpression alloc] initWithAxis:_axis nodeTest:_test] autorelease];
-        exp2.contextNode = [ctx contextNodeInfo];
+        exp2.contextNode = ctx.contextNode;
         return exp2;
     } else {
         return self;
@@ -65,7 +65,7 @@
 //- (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
 //    id <XPNodeInfo>start = nil;
 //    if (!_contextNode) {
-//        start = [ctx contextNodeInfo];
+//        start = ctx.contextNode;
 //    } else {
 //        start = _contextNode;
 //    }

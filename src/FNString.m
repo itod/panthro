@@ -56,7 +56,7 @@
     if (1 == [self numberOfArguments]) {
         return [self.args[0] evaluateAsStringInContext:ctx];
     } else {
-        return [[ctx contextNodeInfo] stringValue];
+        return [ctx.contextNode stringValue];
     }
 }
 

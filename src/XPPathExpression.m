@@ -13,6 +13,7 @@
 #import "XPAxisExpression.h"
 
 #import "XPRootExpression.h"
+#import "XPSingletonNodeSet.h"
 //#import "XPContextNodeExpression.h"
 //#import "XPAttributeReference.h"
 //#import "XPAnyNodeTest.h"
@@ -20,22 +21,63 @@
 #import "XPNodeOrderComparer.h"
 #import "XPLocalOrderComparer.h"
 
+@interface XPExpression ()
+@property (nonatomic, retain, readwrite) id <XPStaticContext>staticContext;
+@end
+
+@interface XPPathExpression ()
+@property (nonatomic, retain) XPExpression *start;
+@property (nonatomic, retain) XPStep *step;
+@property (nonatomic, assign) NSUInteger dependencies;
+@end
 
 /**
  * Inner class PathEnumeration
  */
 @interface XPPathEnumeration : NSObject <XPNodeEnumeration>
-- (instancetype)initWithStart:(XPExpression *)start context:(XPContext *)ctx;
+- (instancetype)initWithPathExpression:(XPPathExpression *)pathExpr start:(XPExpression *)start context:(XPContext *)ctx;
+
+//
+//    private Expression thisStart;
+//    private NodeEnumeration base=null;
+//    private NodeEnumeration thisStep=null;
+//    private NodeInfo next=null;
+//    private Context context;
+@property (nonatomic, assign) XPPathExpression *pathExpr; // weakref
+@property (nonatomic, retain) XPExpression *thisStart;
+@property (nonatomic, retain) id <XPNodeEnumeration>base;
+@property (nonatomic, retain) id <XPNodeEnumeration>thisStep;
+@property (nonatomic, retain) id <XPNodeInfo>next;
+@property (nonatomic, retain) XPContext *context;
 @end
 
 @implementation XPPathEnumeration
 
-- (instancetype)initWithStart:(XPExpression *)start context:(XPContext *)ctx {
+- (instancetype)initWithPathExpression:(XPPathExpression *)pathExpr start:(XPExpression *)start context:(XPContext *)ctx {
     self = [super init];
     if (self) {
-        
+        if ([start isKindOfClass:[XPSingletonNodeSet class]]) {
+            if (!((XPSingletonNodeSet *)start).isGeneralUseAllowed) {
+                [NSException raise:@"XPathException" format:@"To use a result tree fragment in a path expression, either use exsl:node-set() or specify version='1.1'"];
+            }
+        }
+        self.pathExpr = pathExpr;
+        self.thisStart = start;
+        self.context = [[ctx newContext] autorelease];
+        self.base = [start enumerateInContext:self.context sorted:NO];
+        self.next = [self nextNode];
     }
     return self;
+}
+
+
+- (void)dealloc {
+    self.thisStart = nil;
+    self.base = nil;
+    self.thisStep = nil;
+    self.next = nil;
+    self.context = nil;
+    [super dealloc];
 }
 
 
@@ -95,22 +137,7 @@
 
 
 //
-//    private Expression thisStart;
-//    private NodeEnumeration base=null;
-//    private NodeEnumeration thisStep=null;
-//    private NodeInfo next=null;
-//    private Context context;
-//
 //    public PathEnumeration(Expression start, Context context) throws XPathException {
-//        if (start instanceof SingletonNodeSet) {
-//            if (!((SingletonNodeSet)start).isGeneralUseAllowed()) {
-//                throw new XPathException("To use a result tree fragment in a path expression, either use exsl:node-set() or specify version='1.1'");
-//            }
-//        }
-//        thisStart = start;
-//        this.context = context.newContext();
-//        base = start.enumerate(this.context, false);
-//        next = getNextNode();
 //    }
 //
 //    public boolean hasMoreElements() {
@@ -123,33 +150,34 @@
 //        return curr;
 //    }
 //
-//    private NodeInfo getNextNode() throws XPathException {
-//
-//        // if we are currently processing a step, we continue with it. Otherwise,
-//        // we get the next base element, and apply the step to that.
-//
-//        if (thisStep!=null && thisStep.hasMoreElements()) {
-//            return thisStep.nextElement();
-//            //NodeInfo n = thisStep.nextElement();
-//            //System.err.println("Continuing Step.nextElement() = " + n);
-//            //return n;
-//        }
-//
-//        while (base.hasMoreElements()) {
-//            NodeInfo node = base.nextElement();
-//            //System.err.println("Base.nextElement = " + node);
-//            thisStep = step.enumerate(node, context);
-//            if (thisStep.hasMoreElements()) {
-//                return thisStep.nextElement();
-//                //NodeInfo n2 = thisStep.nextElement();
-//                //System.err.println("Starting Step.nextElement() = " + n2);
-//                //return n2;
-//            }
-//        }
-//
-//        return null;
-//
-//    }
+- (id <XPNodeInfo>)nextNode {
+
+    // if we are currently processing a step, we continue with it. Otherwise,
+    // we get the next base element, and apply the step to that.
+
+    if (_thisStep && [_thisStep hasMoreObjects]) {
+        return [_thisStep nextObject];
+        //NodeInfo n = thisStep.nextElement();
+        //System.err.println("Continuing Step.nextElement() = " + n);
+        //return n;
+    }
+
+    while ([_base hasMoreObjects]) {
+        id <XPNodeInfo>node = [_base nextObject];
+        //System.err.println("Base.nextElement = " + node);
+        
+        XPAssert(_pathExpr.step);
+        self.thisStep = [_pathExpr.step enumerate:node inContext:_context];
+        if ([_thisStep hasMoreObjects]) {
+            return [_thisStep nextObject];
+            //NodeInfo n2 = thisStep.nextElement();
+            //System.err.println("Starting Step.nextElement() = " + n2);
+            //return n2;
+        }
+    }
+
+    return nil;
+}
 //
 //    /**
 //     * Determine if we can guarantee that the nodes are in document order. This is true if the
@@ -185,17 +213,6 @@
 //    }
 //
 //}   // end of inner class PathEnumeration
-@end
-
-
-@interface XPExpression ()
-@property (nonatomic, retain, readwrite) id <XPStaticContext>staticContext;
-@end
-
-@interface XPPathExpression ()
-@property (nonatomic, retain) XPExpression *start;
-@property (nonatomic, retain) XPStep *step;
-@property (nonatomic, assign) NSUInteger dependencies;
 @end
 
 @implementation XPPathExpression
@@ -416,7 +433,7 @@
         return [temp enumerateInContext:ctx sorted:sorted];
     }
     
-    id <XPNodeEnumeration>enm = [[[XPPathEnumeration alloc] initWithStart:_start context:ctx] autorelease];
+    id <XPNodeEnumeration>enm = [[[XPPathEnumeration alloc] initWithPathExpression:self start:_start context:ctx] autorelease];
     if (sorted && !enm.isSorted) {
 
         id <XPNodeOrderComparer>comparer = nil;

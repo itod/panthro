@@ -34,7 +34,7 @@
     TDNotNil(nodeInfo);
     
     XPContext *ctx = [[[XPContext alloc] init] autorelease];
-    ctx.contextNodeInfo = nodeInfo;
+    ctx.contextNode = nodeInfo;
     id <XPStaticContext>staticCtx = nil;
     ctx.staticContext = staticCtx;
     

@@ -19,6 +19,7 @@
     self = [super init];
     if (self) {
         self.node = node;
+        self.generalUseAllowed = YES;
     }
     return self;
 }

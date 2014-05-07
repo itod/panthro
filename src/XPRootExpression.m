@@ -22,7 +22,7 @@
  */
 
 - (id <XPNodeInfo>)nodeInContext:(XPContext *)ctx {
-    return ctx.contextNodeInfo.documentRoot;
+    return ctx.contextNode.documentRoot;
 }
 
 
@@ -44,7 +44,7 @@
  */
 
 - (NSString *)evaluateAsStringInContext:(XPContext *)ctx {
-    return [ctx.contextNodeInfo.documentRoot stringValue];
+    return [ctx.contextNode.documentRoot stringValue];
 }
 
 
@@ -70,7 +70,7 @@
 
 - (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
     if (([self dependencies] & (XPDependenciesContextNode | XPDependenciesContextDocument)) != 0 ) {
-        return [[[XPSingletonNodeSet alloc] initWithNode:ctx.contextNodeInfo.documentRoot] autorelease];
+        return [[[XPSingletonNodeSet alloc] initWithNode:ctx.contextNode.documentRoot] autorelease];
     } else {
         return self;
     }
