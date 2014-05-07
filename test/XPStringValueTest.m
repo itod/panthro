@@ -31,6 +31,37 @@
 }
 
 
+- (void)testXPath1Quirks {
+    self.expr = [XPExpression expressionFromString:@"'4' = '4'" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"'4' = '4.0'" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDFalse(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"number('4') = '4.0'" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"'4' = number('4.0')" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"number('4') = number('4.0')" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"'4' >= '4.0'" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"'4' <= '4.0'" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+}
+
+
 - (void)testEqualsExpr {
     self.expr = [XPExpression expressionFromString:@"'a' != 'b'" inContext:nil error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
