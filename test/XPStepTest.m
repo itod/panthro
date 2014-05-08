@@ -8,11 +8,14 @@
 
 #import "XPTestScaffold.h"
 #import "XPNodeTypeTest.h"
+#import "XPNSXMLDocumentImpl.h"
 #import "XPNSXMLNodeImpl.h"
 #import "XPPathExpression.h"
+#import "XPNodeInfo.h"
 
 @interface XPStepTest : XCTestCase
 @property (nonatomic, retain) XPExpression *expr;
+@property (nonatomic, retain) XPContext *ctx;
 @property (nonatomic, retain) id res;
 @end
 
@@ -21,47 +24,60 @@
 - (void)setUp {
     [super setUp];
 
+    NSXMLDocument *doc = [[[NSXMLDocument alloc] initWithXMLString:@"<doc><p/></doc>" options:0 error:nil] autorelease];
+    TDNotNil(doc);
+    id <XPNodeInfo>docNode = [[[XPNSXMLDocumentImpl alloc] initWithNode:doc] autorelease];
+    TDNotNil(docNode);
+    
+    NSXMLNode *docEl = [doc rootElement];
+    id <XPNodeInfo>docElNode = [[[XPNSXMLNodeImpl alloc] initWithNode:docEl] autorelease];
+    
+    self.ctx = [[[XPContext alloc] initWithStaticContext:nil] autorelease];
+    _ctx.contextNode = docElNode;
 }
+
 
 - (void)tearDown {
 
     [super tearDown];
 }
 
+
 - (void)testDot {
-    NSXMLNode *node = [[[NSXMLDocument alloc] initWithXMLString:@"<doc><p/></doc>" options:0 error:nil] autorelease];
-    TDNotNil(node);
-    id <XPNodeInfo>nodeInfo = [[[XPNSXMLNodeImpl alloc] initWithNode:node] autorelease];
-    TDNotNil(nodeInfo);
-    
-    XPContext *ctx = [[[XPContext alloc] initWithStaticContext:nil] autorelease];
-    ctx.contextNode = nodeInfo;
-    
     self.expr = [XPExpression expressionFromString:@"." inContext:nil error:nil];
     TDNotNil(_expr);
     TDTrue([_expr isKindOfClass:[XPPathExpression class]]);
     
-    self.res = [_expr evaluateInContext:nil];
+    self.res = [_expr evaluateInContext:_ctx];
     TDNotNil(_res);
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
     
+    XPNodeSetValue *nodeSet = (id)_res;
+    id <XPNodeEnumeration>enm = [nodeSet enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(@"doc", node.nodeName);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    
+    TDFalse([enm hasMoreObjects]);
 }
 
 - (void)testExample {
-    NSXMLNode *node = [[[NSXMLDocument alloc] initWithXMLString:@"<doc><p/></doc>" options:0 error:nil] autorelease];
-    TDNotNil(node);
-    id <XPNodeInfo>nodeInfo = [[[XPNSXMLNodeImpl alloc] initWithNode:node] autorelease];
-    TDNotNil(nodeInfo);
-    
-    XPContext *ctx = [[[XPContext alloc] initWithStaticContext:nil] autorelease];
-    ctx.contextNode = nodeInfo;
-    
-    self.expr = [XPExpression expressionFromString:@"node()" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@".." inContext:nil error:nil];
     TDNotNil(_expr);
     TDTrue([_expr isKindOfClass:[XPPathExpression class]]);
     
-    self.res = [_expr evaluateInContext:nil];
+    self.res = [_expr evaluateInContext:_ctx];
     TDNotNil(_res);
     
+    XPNodeSetValue *nodeSet = (id)_res;
+    id <XPNodeEnumeration>enm = [nodeSet enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(@"#document", node.nodeName);
+    TDEquals(XPNodeTypeRoot, node.nodeType);
+    
+    TDFalse([enm hasMoreObjects]);
 }
 
 @end

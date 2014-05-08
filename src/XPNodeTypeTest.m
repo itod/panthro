@@ -9,6 +9,10 @@
 #import "XPNodeTypeTest.h"
 #import <XPath/XPNodeInfo.h>
 
+@interface XPNodeTypeTest ()
+
+@end
+
 @implementation XPNodeTypeTest
 
 - (instancetype)initWithNodeType:(XPNodeType)type {
@@ -65,7 +69,11 @@
  */
 
 - (BOOL)matches:(id <XPNodeInfo>)node {
-    return _type == node.nodeType;
+    BOOL matches = NO;
+    if (XPNodeTypeNode == _type || _type == node.nodeType) {
+        matches = YES;
+    }
+    return matches;
 }
 
 

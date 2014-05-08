@@ -317,9 +317,10 @@
 //    // (this will evaluate to a NodeSetIntent, which will be replaced by
 //    // the corresponding node-set extent if it is used more than thrice).
 //    
-//    if (([path isKindOfClass:[XPPathExpression class]]) && [((XPPathExpression *)path).start isKindOfClass:[XPNodeSetValue class]]) {
-//        return [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPPathExpression *)path controller:ctx.controller] autorelease];
-//    }
+    if (([path isKindOfClass:[XPPathExpression class]]) && [((XPPathExpression *)path).start isKindOfClass:[XPNodeSetValue class]]) {
+        return ((XPPathExpression *)path).start;
+        //return [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPPathExpression *)path controller:ctx.controller] autorelease];
+    }
     
     return path;
 }

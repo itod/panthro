@@ -12,9 +12,11 @@
 #import <XPath/XPStringValue.h>
 #import <XPath/XPObjectValue.h>
 #import <XPath/XPNodeEnumeration.h>
+#import <XPath/XPEnumeration.h>
 
 @interface XPNodeSetValue ()
 @property (nonatomic, copy) NSArray *value; // TODO
+@property (nonatomic, assign) BOOL isSorted;
 @property (nonatomic, retain) NSDictionary *stringValues;
 @end
 
@@ -41,6 +43,7 @@
         }
         
         self.value = nodes;
+        self.isSorted = enm.isSorted;
     }
     return self;
 }
@@ -70,8 +73,9 @@
 
 
 - (id <XPNodeEnumeration>)enumerate {
-    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
-    return nil;
+    XPAssert(_value);
+    id <XPNodeEnumeration>enm = [[[XPEnumeration alloc] initWithNodes:_value isSorted:_isSorted] autorelease];
+    return enm;
 }
 
 
@@ -81,20 +85,8 @@
 }
 
 
-- (BOOL)isSorted {
-    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
-    return NO;
-}
-
-
-- (void)setSorted:(BOOL)yn {
-    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
-}
-
-
 - (NSString *)asString {
-    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
-    return nil;
+    return [[self firstNode] stringValue];
 }
 
 
@@ -104,26 +96,36 @@
 
 
 - (BOOL)asBoolean {
-    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
-    return NO;
+    return [self count] > 0;
 }
 
 
 - (NSUInteger)count {
-    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
-    return 0;
+    XPAssert(_value);
+    return [_value count];
 }
 
 
 - (XPNodeSetValue *)sort {
-    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
-    return nil;
+    XPNodeSetValue *result = self;
+    
+    if (!_sorted) {
+        XPAssert(_value);
+        NSMutableArray *nodes = [NSMutableArray arrayWithCapacity:[_value count]];
+        for (id obj in [_value reverseObjectEnumerator]) {
+            [nodes addObject:obj];
+        }
+        result = [[[XPNodeSetValue alloc] initWithNodes:nodes] autorelease];
+        result.isSorted = NO;
+    }
+    
+    return result;
 }
 
 
 - (id)firstNode {
-    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
-    return nil;
+    XPAssert(_value);
+    return [_value firstObject];
 }
 
 

@@ -41,7 +41,8 @@
  * @return the string value of the node
  */
 
-- (NSString *)stringValue;
+@property (nonatomic, copy, readonly) NSString *stringValue;
+@property (nonatomic, copy, readonly) NSString *nodeName;
 
 
 /**

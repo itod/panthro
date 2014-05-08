@@ -9,6 +9,8 @@
 #import "XPNSXMLNodeImpl.h"
 #import "XPNSXMLDocumentImpl.h"
 #import "XPAxis.h"
+#import "XPEnumeration.h"
+#import "XPNodeTest.h"
 
 @implementation XPNSXMLNodeImpl
 
@@ -79,6 +81,12 @@
 }
 
 
+- (NSString *)nodeName {
+    XPAssert(_node);
+    return [_node name];
+}
+
+
 - (BOOL)isSameNodeInfo:(id <XPNodeInfo>)other {
     return other == self; // ??
 }
@@ -91,52 +99,85 @@
 
 
 - (id <XPNodeEnumeration>)enumerationForAxis:(NSUInteger)axis nodeTest:(XPNodeTest *)nodeTest {
+    NSArray *nodes = nil;
+    BOOL sorted = NO;
+    
     switch (axis) {
         case XPAxisAncestor:
-            
+            sorted = NO;
             break;
         case XPAxisAncestorOrSelf:
-            
+            sorted = NO;
             break;
         case XPAxisAttribute:
-            
+        sorted = YES;
             break;
         case XPAxisChild:
-            
+            sorted = YES;
             break;
         case XPAxisDescendant:
-            
+            sorted = YES;
             break;
         case XPAxisDescendantOrSelf:
-            
+            sorted = YES;
             break;
         case XPAxisFollowing:
-            
+            sorted = YES;
             break;
         case XPAxisFollowingSibling:
-            
+            sorted = YES;
             break;
         case XPAxisNamespace:
-            
+            sorted = YES;
             break;
         case XPAxisParent:
-            
+            sorted = YES;
+            nodes = [self nodesForParentAxis:nodeTest];
             break;
         case XPAxisPreceding:
-            
+            sorted = NO;
             break;
         case XPAxisPrecedingSibling:
-            
+            sorted = NO;
             break;
         case XPAxisSelf:
-            
+            sorted = YES;
+            nodes = [self nodesForSelfAxis:nodeTest];
             break;
         default:
             XPAssert(0);
             break;
     }
     
+    id <XPNodeEnumeration>enm = [[[XPEnumeration alloc] initWithNodes:nodes isSorted:sorted] autorelease];
+    return enm;
+}
+
+
+- (NSArray *)nodesForSelfAxis:(XPNodeTest *)nodeTest {
+    NSArray *nodes = nil;
     
+    if ([nodeTest matches:self]) {
+        nodes = @[self];
+    }
+
+    return nodes;
+}
+
+
+- (NSArray *)nodesForParentAxis:(XPNodeTest *)nodeTest {
+    NSXMLNode *parent = [self.node parent];
+    Class cls = (NSXMLDocumentKind == [parent kind]) ? [XPNSXMLDocumentImpl class] : [XPNSXMLNodeImpl class];
+
+    id <XPNodeInfo>node = [[[cls alloc] initWithNode:parent] autorelease];
+    
+    NSArray *nodes = nil;
+    
+    if ([nodeTest matches:node]) {
+        nodes = @[node];
+    }
+    
+    return nodes;
 }
 
 @end

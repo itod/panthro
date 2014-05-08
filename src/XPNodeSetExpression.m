@@ -25,6 +25,7 @@
     if ([expr isKindOfClass:[XPNodeSetValue class]]) {
         return (XPValue *)expr;
     } else if ([expr isKindOfClass:[XPNodeSetExpression class]]) {
+        XPAssert(0);
         return nil; // TODO [XPNodeSetIntent intentWithNodeSetExpression:(XPNodeSetExpression *)expr controller:[ctx controller]];
     } else {
         XPValue *value = [expr evaluateInContext:ctx];
