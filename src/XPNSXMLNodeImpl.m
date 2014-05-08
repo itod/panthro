@@ -121,6 +121,13 @@
 }
 
 
+- (NSString *)attributeValueForURI:(NSString *)uri localName:(NSString *)localName {
+    XPAssert([_node isKindOfClass:[NSXMLElement class]]);
+    NSXMLNode *attrNode = [(NSXMLElement *)_node attributeForLocalName:localName URI:uri];
+    return [attrNode stringValue];
+}
+
+
 - (BOOL)isSameNodeInfo:(id <XPNodeInfo>)other {
     return other == self; // ??
 }

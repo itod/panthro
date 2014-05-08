@@ -47,6 +47,17 @@
 @property (nonatomic, copy, readonly) NSString *localName;
 @property (nonatomic, copy, readonly) NSString *prefix;
 
+/**
+ * Find the value of a given attribute of this node. <BR>
+ * This method is defined on all nodes to meet XSL requirements, but for nodes
+ * other than elements it will always return null.
+ * @param uri the namespace uri of an attribute ("" if no namespace)
+ * @param localName the local name of the attribute
+ * @return the value of the attribute, if it exists, otherwise null
+ */
+
+- (NSString *)attributeValueForURI:(NSString *)uri localName:(NSString *)localName;
+
 
 /**
  * Get the root (document) node
