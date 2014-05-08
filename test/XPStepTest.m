@@ -103,6 +103,26 @@
 }
 
 
+- (void)testExplicitChildAxisNameTestDotSlashPSlashA {
+    self.expr = [XPExpression expressionFromString:@"./child::p/child::a" inContext:nil error:nil];
+    TDNotNil(_expr);
+    TDTrue([_expr isKindOfClass:[XPPathExpression class]]);
+    
+    self.res = [_expr evaluateInContext:_ctx];
+    TDNotNil(_res);
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    XPNodeSetValue *nodeSet = (id)_res;
+    id <XPNodeEnumeration>enm = [nodeSet enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(@"a", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
 - (void)testImplicitChildAxisNameTestStar {
     self.expr = [XPExpression expressionFromString:@"*" inContext:nil error:nil];
     TDNotNil(_expr);

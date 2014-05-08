@@ -332,7 +332,6 @@
 		D33639DA100DAB8C00AC4B51 /* XPTestScaffold.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPTestScaffold.m; path = test/XPTestScaffold.m; sourceTree = "<group>"; };
 		D33639DB100DAB8C00AC4B51 /* XPTestScaffold.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPTestScaffold.h; path = test/XPTestScaffold.h; sourceTree = "<group>"; };
 		D33639F5100DB15700AC4B51 /* XPValueTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPValueTest.m; path = test/XPValueTest.m; sourceTree = "<group>"; };
-		D3366B02188051D6008C4144 /* XPEGParserStepTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPEGParserStepTest.h; path = test/XPEGParserStepTest.h; sourceTree = "<group>"; };
 		D3366B03188051D6008C4144 /* XPEGParserStepTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPEGParserStepTest.m; path = test/XPEGParserStepTest.m; sourceTree = "<group>"; };
 		D33E9F811916E0E000BB7DFE /* XPStandaloneContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPStandaloneContext.h; path = src/XPStandaloneContext.h; sourceTree = "<group>"; };
 		D33E9F821916E0E000BB7DFE /* XPStandaloneContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPStandaloneContext.m; path = src/XPStandaloneContext.m; sourceTree = "<group>"; };
@@ -549,9 +548,7 @@
 		D3BE1414191AFC7200005C81 /* XPNodeSetValueEnumeration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPNodeSetValueEnumeration.h; path = src/XPNodeSetValueEnumeration.h; sourceTree = "<group>"; };
 		D3BE1415191AFC7200005C81 /* XPNodeSetValueEnumeration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNodeSetValueEnumeration.m; path = src/XPNodeSetValueEnumeration.m; sourceTree = "<group>"; };
 		D3BE1419191BC8C800005C81 /* XPLastPositionFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPLastPositionFinder.h; path = src/XPLastPositionFinder.h; sourceTree = "<group>"; };
-		D3C177F51880EE2E00F90600 /* XPEGParserFilterExprTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPEGParserFilterExprTest.h; path = test/XPEGParserFilterExprTest.h; sourceTree = "<group>"; };
 		D3C177F61880EE2E00F90600 /* XPEGParserFilterExprTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPEGParserFilterExprTest.m; path = test/XPEGParserFilterExprTest.m; sourceTree = "<group>"; };
-		D3C177FF1880EF4900F90600 /* XPEGParserLocationPathTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPEGParserLocationPathTest.h; path = test/XPEGParserLocationPathTest.h; sourceTree = "<group>"; };
 		D3C178001880EF4900F90600 /* XPEGParserLocationPathTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPEGParserLocationPathTest.m; path = test/XPEGParserLocationPathTest.m; sourceTree = "<group>"; };
 		D3C178221884472800F90600 /* XPAxisExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPAxisExpression.m; path = src/XPAxisExpression.m; sourceTree = "<group>"; };
 		D3C178251884473B00F90600 /* XPAxisExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPAxisExpression.h; path = include/XPath/XPAxisExpression.h; sourceTree = "<group>"; };
@@ -712,11 +709,8 @@
 			isa = PBXGroup;
 			children = (
 				D3411B5B191A8C470082A196 /* XPEGParserTest.m */,
-				D3C177F51880EE2E00F90600 /* XPEGParserFilterExprTest.h */,
 				D3C177F61880EE2E00F90600 /* XPEGParserFilterExprTest.m */,
-				D3366B02188051D6008C4144 /* XPEGParserStepTest.h */,
 				D3366B03188051D6008C4144 /* XPEGParserStepTest.m */,
-				D3C177FF1880EF4900F90600 /* XPEGParserLocationPathTest.h */,
 				D3C178001880EF4900F90600 /* XPEGParserLocationPathTest.m */,
 			);
 			name = Parser;

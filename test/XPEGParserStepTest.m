@@ -6,7 +6,11 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "XPEGParserStepTest.h"
+#import "XPTestScaffold.h"
+
+@interface XPEGParserStepTest : XCTestCase
+@property (nonatomic, retain) XPEGParser *parser;
+@end
 
 @implementation XPEGParserStepTest
 

@@ -6,7 +6,11 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "XPEGParserLocationPathTest.h"
+#import "XPTestScaffold.h"
+
+@interface XPEGParserLocationPathTest : XCTestCase
+@property (nonatomic, retain) XPEGParser *parser;
+@end
 
 @implementation XPEGParserLocationPathTest
 
