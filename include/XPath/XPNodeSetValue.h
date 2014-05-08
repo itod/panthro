@@ -7,11 +7,12 @@
 //
 
 #import <XPath/XPValue.h>
+#import "XPSortable.h"
 
 @protocol XPNodeOrderComparer;
 @protocol XPNodeEnumeration;
 
-@interface XPNodeSetValue : XPValue
+@interface XPNodeSetValue : XPValue <XPSortable>
 
 - (instancetype)initWithNodes:(NSArray *)nodes comparer:(id <XPNodeOrderComparer>)comparer;
 - (instancetype)initWithEnumeration:(id <XPNodeEnumeration>)enm comparer:(id <XPNodeOrderComparer>)comparer;

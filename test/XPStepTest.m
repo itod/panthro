@@ -43,6 +43,26 @@
 }
 
 
+- (void)testImplicitChildAxis {
+    self.expr = [XPExpression expressionFromString:@"p" inContext:nil error:nil];
+    TDNotNil(_expr);
+    TDTrue([_expr isKindOfClass:[XPPathExpression class]]);
+    
+    self.res = [_expr evaluateInContext:_ctx];
+    TDNotNil(_res);
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    XPNodeSetValue *nodeSet = (id)_res;
+    id <XPNodeEnumeration>enm = [nodeSet enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(@"p", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
 - (void)testDot {
     self.expr = [XPExpression expressionFromString:@"." inContext:nil error:nil];
     TDNotNil(_expr);

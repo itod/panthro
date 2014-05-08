@@ -123,7 +123,7 @@
         // sort the array
         
 #warning QuickSort
-        //QuickSort.sort(self, 0, _count-1);
+        XPQuickSort(self, 0, _count-1);
         
         // need to eliminate duplicate nodes. Note that we cannot compare the node
         // objects directly, because with attributes and namespaces there might be
@@ -211,6 +211,30 @@
     }
     
     return NO;
+}
+
+
+#pragma mark -
+#pragma mark XPSortable
+
+/**
+ * Compare two nodes in document sequence
+ * (needed to implement the Sortable interface)
+ */
+
+- (NSComparisonResult)compare:(NSInteger)a to:(NSInteger)b {
+    XPAssert(_comparer);
+    return [_comparer compare:_value[a] to:_value[b]];
+}
+
+/**
+ * Swap two nodes (needed to implement the Sortable interface)
+ */
+
+- (void)swap:(NSInteger)a with:(NSInteger)b {
+    id <XPNodeInfo>temp = _value[a];
+    _value[a] = _value[b];
+    _value[b] = temp;
 }
 
 @end
