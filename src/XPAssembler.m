@@ -228,6 +228,10 @@
     XPAssert([axisNum isKindOfClass:[NSNumber class]]);
     XPAxis axis = [axisNum unsignedIntegerValue];
     
+    if ([nodeTest isKindOfClass:[XPNameTest class]]) {
+        nodeTest.nodeType = XPAxisPrincipalNodeType[axis];
+    }
+    
     XPStep *step = [[[XPStep alloc] initWithAxis:axis nodeTest:nodeTest] autorelease];
     
     [a push:step];
@@ -238,7 +242,13 @@
     XPNodeTest *nodeTest = [a pop];
     XPAssert([nodeTest isKindOfClass:[XPNodeTest class]]);
 
-    XPStep *step = [[[XPStep alloc] initWithAxis:XPAxisChild nodeTest:nodeTest] autorelease];
+    XPAxis axis = XPAxisChild;
+    
+    if ([nodeTest isKindOfClass:[XPNameTest class]]) {
+        nodeTest.nodeType = XPAxisPrincipalNodeType[axis];
+    }
+
+    XPStep *step = [[[XPStep alloc] initWithAxis:axis nodeTest:nodeTest] autorelease];
     [a push:step];
 }
 

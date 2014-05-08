@@ -21,6 +21,7 @@
     if (self) {
         self.name = name;
         self.isWildcard = [name isEqualToString:@"*"];
+        self.nodeType = XPNodeTypeNode;
     }
     return self;
 }
@@ -37,18 +38,12 @@
 }
 
 
-- (BOOL)matches:(id <XPNodeInfo>)node {
+- (BOOL)matches:(XPNodeType)nodeType name:(NSString *)name {
     BOOL matches = NO;
-    if (_isWildcard || [_name isEqualToString:node.name]) {
+    if ((XPNodeTypeNode == nodeType || self.nodeType == nodeType) && (_isWildcard || [_name isEqualToString:name])) {
         matches = YES;
     }
     return matches;
-}
-
-
-- (BOOL)matches:(XPNodeType)nodeType name:(NSString *)nodeName {
-    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
-    return NO;
 }
 
 @end

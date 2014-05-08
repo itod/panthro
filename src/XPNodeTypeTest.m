@@ -18,9 +18,9 @@
 - (instancetype)initWithNodeType:(XPNodeType)type {
     self = [super init];
     if (self) {
-        self.type = type;
+        self.nodeType = type;
         
-        switch (_type) {
+        switch (type) {
             case XPNodeTypeRoot:
                 self.originalText = @"/";
                 break;
@@ -64,27 +64,12 @@
 }
 
 
-/**
- * Test whether this node test is satisfied by a given node
- */
-
-- (BOOL)matches:(id <XPNodeInfo>)node {
+- (BOOL)matches:(XPNodeType)nodeType name:(NSString *)name {
     BOOL matches = NO;
-    if (XPNodeTypeNode == _type || _type == node.nodeType) {
+    if (XPNodeTypeNode == self.nodeType || nodeType == self.nodeType) {
         matches = YES;
     }
     return matches;
-}
-
-
-/**
- * Test whether this node test is satisfied by a given node
- * @param nodeType The type of node to be matched
- * @param fingerprint identifies the expanded name of the node to be matched
- */
-
-- (BOOL)matches:(XPNodeType)nodeType name:(NSString *)nodeName {
-    return (_type == nodeType);
 }
 
 
