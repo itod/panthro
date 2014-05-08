@@ -296,19 +296,19 @@
     if ((dep & self.dependencies) != 0) {
         XPExpression *newstart = [_start reduceDependencies:dep inContext:ctx];
         XPStep *newstep = [[[XPStep alloc] initWithAxis:_step.axis nodeTest:_step.nodeTest] autorelease];
-//
-//        NSUInteger removedep = dep & XPDependenciesXSLTContext;
+
+        NSUInteger removedep = dep & XPDependenciesXSLTContext;
 //        if (_start.isContextDocumentNodeSet &&
 //            ((dep & XPDependenciesContextDocument) != 0)) {
 //            removedep |= XPDependenciesContextDocument;
 //        }
 //        
-//        for (XPExpression *expr in _step.filters) {
-//            // Not all dependencies in the filter matter, because the context node, etc,
-//            // are not dependent on the outer context of the PathExpression
-//            XPExpression *newfilter = [expr reduceDependencies:removedep inContext:ctx];
-//            [newstep addFilter:newfilter];
-//        }
+        for (XPExpression *expr in _step.filters) {
+            // Not all dependencies in the filter matter, because the context node, etc,
+            // are not dependent on the outer context of the PathExpression
+            XPExpression *newfilter = [expr reduceDependencies:removedep inContext:ctx];
+            [newstep addFilter:newfilter];
+        }
         
         path = [[[XPPathExpression alloc] initWithStart:newstart step:newstep] autorelease];
         path.staticContext = self.staticContext;

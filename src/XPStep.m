@@ -66,7 +66,7 @@
     
     NSUInteger c = [_allFilters count];
     NSUInteger i = c - 1;
-    for (XPExpression *exp in [self.filters reverseObjectEnumerator]) {
+    for (XPExpression *exp in [_allFilters reverseObjectEnumerator]) {
         exp = [exp simplify];
         _allFilters[i] = exp;
         
@@ -109,15 +109,15 @@
 
 - (id <XPNodeEnumeration>)enumerate:(id <XPNodeInfo>)node inContext:(XPContext *)ctx {
     id <XPNodeEnumeration>enm = [node enumerationForAxis:_axis nodeTest:_nodeTest];
-//    if ([enm hasMoreObjects]) {       // if there are no nodes, there's nothing to filter
 
-        //TODO
-//        for (XPExpression *filter in _allFilters) {
-//            enm = [[[XPFilterEnumeration EnumerationWithEnumeration:enm filter:filter context:ctx bool:NO] autorelease];
-//        }
-//    }
+    if ([enm hasMoreObjects]) {       // if there are no nodes, there's nothing to filter
+        for (XPExpression *filter in _allFilters) {
+            
+            //enm = [[[XPFilterEnumeration EnumerationWithEnumeration:enm filter:filter context:ctx bool:NO] autorelease];
+        }
+    }
+
     return enm;
-    
 }
 
 
