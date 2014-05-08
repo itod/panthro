@@ -16,12 +16,12 @@
 
 @interface XPNSXMLNodeImpl ()
 @property (nonatomic, retain, readwrite) NSXMLNode *node;
-@property (nonatomic, assign, readwrite) NSUInteger sortIndex;
+@property (nonatomic, assign, readwrite) NSInteger sortIndex;
 @end
 
 @implementation XPNSXMLNodeImpl
 
-- (instancetype)initWithNode:(NSXMLNode *)node sortIndex:(NSUInteger)idx {
+- (instancetype)initWithNode:(NSXMLNode *)node sortIndex:(NSInteger)idx {
     self = [super init];
     if (self) {
         self.node = node;
@@ -222,7 +222,7 @@
     
     NSMutableArray *nodes = [NSMutableArray array];
     
-    NSUInteger sortIndex = self.sortIndex;
+    NSInteger sortIndex = self.sortIndex;
     
     for (NSXMLNode *child in children) {
         id <XPNodeInfo>node = [[[XPNSXMLNodeImpl alloc] initWithNode:child sortIndex:++sortIndex] autorelease];
