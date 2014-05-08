@@ -26,10 +26,11 @@
 /**
  * Constructor should only be called by the Controller, which acts as a Context factory.
  */
-- (instancetype)initWithStaticContext:(id<XPStaticContext>)staticContext {
+- (instancetype)initWithStaticContext:(id<XPStaticContext>)env {
+    NSParameterAssert(env);
     self = [super init];
     if (self) {
-        self.staticContext = staticContext;
+        self.staticContext = env;
         self.lastPositionFinder = self;
     }
     return self;

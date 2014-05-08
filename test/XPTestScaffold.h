@@ -19,8 +19,4 @@
 #define TDEquals(e1, e2) XCTAssertEqual((e1), (e2), @"")
 #define TDEqualObjects(e1, e2) XCTAssertEqualObjects((e1), (e2), @"")
 
-@interface XPTestScaffold : XCTestCase {
-
-}
-
-@end
+extern NSString *XPContentsOfFile(NSString *relFilePath);

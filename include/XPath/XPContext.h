@@ -15,7 +15,7 @@
 
 @interface XPContext : NSObject <NSCopying, XPLastPositionFinder>
 
-- (instancetype)initWithStaticContext:(id <XPStaticContext>)staticContext;
+- (instancetype)initWithStaticContext:(id <XPStaticContext>)env;
 
 @property (nonatomic, retain, readonly) id <XPStaticContext>staticContext;
 

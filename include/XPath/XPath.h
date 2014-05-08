@@ -26,7 +26,6 @@
 #import <XPath/XPNodeSetExpression.h>
 #import <XPath/XPAxisExpression.h>
 #import <XPath/XPRootExpression.h>
-#import <XPath/XPParentNodeExpression.h>
 
 #import <XPath/XPValue.h>
 #import <XPath/XPBooleanValue.h>

@@ -12,6 +12,7 @@
 #import "XPNSXMLNodeImpl.h"
 #import "XPPathExpression.h"
 #import "XPNodeInfo.h"
+#import "XPStandaloneContext.h"
 
 @interface XPStepTest : XCTestCase
 @property (nonatomic, retain) XPExpression *expr;
@@ -32,7 +33,8 @@
     NSXMLNode *docEl = [doc rootElement];
     id <XPNodeInfo>docElNode = [[[XPNSXMLNodeImpl alloc] initWithNode:docEl sortIndex:1] autorelease];
     
-    self.ctx = [[[XPContext alloc] initWithStaticContext:nil] autorelease];
+    id <XPStaticContext>env = [[[XPStandaloneContext alloc] init] autorelease];
+    self.ctx = [[[XPContext alloc] initWithStaticContext:env] autorelease];
     _ctx.contextNode = docElNode;
 }
 

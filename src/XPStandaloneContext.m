@@ -20,6 +20,7 @@ NSString *XPNamespaceAquaPath = @"http://celestialteapot.com/ns/aquapath";
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.namespaces = [NSMutableDictionary dictionary];
 		[self declareNamespaceURI:XPNamespaceXML forPrefix:@"xml"];
 		[self declareNamespaceURI:XPNamespaceXSLT forPrefix:@"xsl"];
 		[self declareNamespaceURI:XPNamespaceAquaPath forPrefix:@"ap"];
