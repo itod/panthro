@@ -299,6 +299,15 @@
 }
 
 
+- (void)parser:(PKParser *)p didMatchPredicate:(PKAssembly *)a {
+    XPExpression *expr = [a pop];
+    XPAssert([expr isKindOfClass:[XPExpression class]]);
+    
+    
+    [a push:expr];
+}
+
+
 - (void)parser:(PKParser *)p didMatchMinusUnionExpr:(PKAssembly *)a {
     XPValue *val = [a pop];
     PKToken *tok = [a pop];

@@ -573,9 +573,9 @@
 
 - (void)predicate_ {
     
-    [self match:XPEG_TOKEN_KIND_OPEN_BRACKET discard:NO]; 
+    [self match:XPEG_TOKEN_KIND_OPEN_BRACKET discard:YES]; 
     [self predicateExpr_]; 
-    [self match:XPEG_TOKEN_KIND_CLOSE_BRACKET discard:NO]; 
+    [self match:XPEG_TOKEN_KIND_CLOSE_BRACKET discard:YES]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchPredicate:)];
 }

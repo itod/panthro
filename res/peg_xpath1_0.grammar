@@ -95,7 +95,7 @@ pathExpr = filterExpr (('/' | '//') relativeLocationPath)? | locationPath;
                         localPart = ncName;
                             ncName = Word;
                 argument = expr;
-        predicate = '[' predicateExpr ']';
+        predicate = '['! predicateExpr ']'!;
             predicateExpr = expr;
                 
 

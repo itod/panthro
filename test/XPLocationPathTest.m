@@ -134,8 +134,8 @@
 }
 
 
-- (void)testImplicitChildAxisNameTestChapterPredicateAtIdEqStrLit {
-    self.expr = [XPExpression expressionFromString:@"chapter[@id='ch2']" inContext:nil error:nil];
+- (void)testImplicitChildAxisNameTestChapterPredicateAttributeIdEqStrLit {
+    self.expr = [XPExpression expressionFromString:@"chapter[attribute::id='ch2']" inContext:nil error:nil];
     
     self.res = (id)[_expr evaluateInContext:_ctx];
     TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
