@@ -62,6 +62,7 @@
     TDFalse([enm hasMoreObjects]);
 }
 
+
 - (void)testExample {
     self.expr = [XPExpression expressionFromString:@".." inContext:nil error:nil];
     TDNotNil(_expr);
@@ -74,7 +75,7 @@
     id <XPNodeEnumeration>enm = [nodeSet enumerate];
     
     id <XPNodeInfo>node = [enm nextObject];
-    TDEqualObjects(@"#document", node.nodeName);
+    TDEqualObjects(nil, node.nodeName);
     TDEquals(XPNodeTypeRoot, node.nodeType);
     
     TDFalse([enm hasMoreObjects]);
