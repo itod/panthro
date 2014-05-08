@@ -24,7 +24,7 @@
 - (void)setUp {
     [super setUp];
 
-    NSXMLDocument *doc = [[[NSXMLDocument alloc] initWithXMLString:@"<doc><p/><!-- foo --></doc>" options:0 error:nil] autorelease];
+    NSXMLDocument *doc = [[[NSXMLDocument alloc] initWithXMLString:@"<doc><p><a/></p><!-- foo --></doc>" options:0 error:nil] autorelease];
     TDNotNil(doc);
     id <XPNodeInfo>docNode = [[[XPNSXMLDocumentImpl alloc] initWithNode:doc sortIndex:0] autorelease];
     TDNotNil(docNode);
@@ -57,6 +57,46 @@
     
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(@"p", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testImplicitChildAxisNameTestPSlashA {
+    self.expr = [XPExpression expressionFromString:@"p/a" inContext:nil error:nil];
+    TDNotNil(_expr);
+    TDTrue([_expr isKindOfClass:[XPPathExpression class]]);
+    
+    self.res = [_expr evaluateInContext:_ctx];
+    TDNotNil(_res);
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    XPNodeSetValue *nodeSet = (id)_res;
+    id <XPNodeEnumeration>enm = [nodeSet enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(@"a", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testExplicitChildAxisNameTestPSlashA {
+    self.expr = [XPExpression expressionFromString:@"child::p/child::a" inContext:nil error:nil];
+    TDNotNil(_expr);
+    TDTrue([_expr isKindOfClass:[XPPathExpression class]]);
+    
+    self.res = [_expr evaluateInContext:_ctx];
+    TDNotNil(_res);
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    XPNodeSetValue *nodeSet = (id)_res;
+    id <XPNodeEnumeration>enm = [nodeSet enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(@"a", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     
     TDFalse([enm hasMoreObjects]);

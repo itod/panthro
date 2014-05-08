@@ -220,7 +220,7 @@
 }
 
 
-- (void)parser:(PKParser *)p didMatchExplicitStep:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchExplicitAxisStep:(PKAssembly *)a {
     XPNodeTest *nodeTest = [a pop];
     XPAssert([nodeTest isKindOfClass:[XPNodeTest class]]);
     
@@ -274,7 +274,7 @@
     PKToken *tok = [a pop];
     XPAssertToken(tok);
 
-    XPAxis axis = @(XPAxisForName(tok.stringValue));
+    XPAxis axis = XPAxisForName(tok.stringValue);
     [a push:@(axis)];
 }
 
