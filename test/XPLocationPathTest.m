@@ -28,7 +28,7 @@
 - (void)setUp {
     [super setUp];
 
-    self.ids = @[@"ch1", @"ch2", @"ch3"];
+    self.ids = @[@"c1", @"c2", @"c3"];
     self.titles = @[@"Chapter 1", @"Chapter 2", @"Chapter 3"];
     self.paras = @[@"Chapter 1 content.", @"Chapter 2 content.", @"Chapter 3 content."];
 
@@ -134,8 +134,25 @@
 }
 
 
-- (void)testImplicitChildAxisNameTestChapterPredicateAttributeIdEqStrLit {
-    self.expr = [XPExpression expressionFromString:@"chapter[attribute::id='ch2']" inContext:nil error:nil];
+- (void)testImplicitChildAxisNameTestChapterPredicateAttributeIdEqC1 {
+    self.expr = [XPExpression expressionFromString:@"chapter[attribute::id='c1']" inContext:nil error:nil];
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(@"chapter", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDEqualObjects(_ids[0], [node attributeValueForURI:nil localName:@"id"]);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testImplicitChildAxisNameTestChapterPredicateAttributeIdEqC2 {
+    self.expr = [XPExpression expressionFromString:@"chapter[attribute::id='c2']" inContext:nil error:nil];
     
     self.res = (id)[_expr evaluateInContext:_ctx];
     TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
@@ -146,6 +163,23 @@
     TDEqualObjects(@"chapter", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_ids[1], [node attributeValueForURI:nil localName:@"id"]);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testImplicitChildAxisNameTestChapterPredicateAttributeIdEqC3 {
+    self.expr = [XPExpression expressionFromString:@"chapter[attribute::id='c3']" inContext:nil error:nil];
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(@"chapter", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDEqualObjects(_ids[2], [node attributeValueForURI:nil localName:@"id"]);
     
     TDFalse([enm hasMoreObjects]);
 }
