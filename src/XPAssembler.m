@@ -234,6 +234,15 @@
 }
 
 
+- (void)parser:(PKParser *)p didMatchImplicitAxisStep:(PKAssembly *)a {
+    XPNodeTest *nodeTest = [a pop];
+    XPAssert([nodeTest isKindOfClass:[XPNodeTest class]]);
+
+    XPStep *step = [[[XPStep alloc] initWithAxis:XPAxisChild nodeTest:nodeTest] autorelease];
+    [a push:step];
+}
+
+
 - (void)parser:(PKParser *)p didMatchAbbreviatedStep:(PKAssembly *)a {
     PKToken *tok = [a pop];
     
@@ -260,13 +269,6 @@
 }
 
 
-- (void)parser:(PKParser *)p didMatchImplicitAxisStep:(PKAssembly *)a {
-    id obj = [a pop];
-    [a push:@(XPAxisChild)];
-    [a push:obj];
-}
-
-
 - (void)parser:(PKParser *)p didMatchTypeTest:(PKAssembly *)a {
     PKToken *tok = [a pop];
     XPAssertToken(tok);
@@ -281,9 +283,9 @@
 
 - (void)parser:(PKParser *)p didMatchNameTest:(PKAssembly *)a {
     PKToken *tok = [a pop];
-    
-    // TODO
-    [a push:[XPBooleanValue booleanValueWithBoolean:tok.doubleValue]]; // this is a place holder. add a node later when ready
+    XPAssertToken(tok);
+    XPNameTest *nameTest = [[[XPNameTest alloc] initWithName:tok.stringValue] autorelease];
+    [a push:nameTest];
 }
 
 

@@ -148,6 +148,7 @@
             break;
         case XPAxisChild:
             sorted = YES;
+            nodes = [self nodesForChildAxis:nodeTest];
             break;
         case XPAxisDescendant:
             sorted = YES;
@@ -212,6 +213,23 @@
         nodes = @[node];
     }
     
+    return nodes;
+}
+
+
+- (NSArray *)nodesForChildAxis:(XPNodeTest *)nodeTest {
+    NSArray *children = [self.node children];
+    
+    NSMutableArray *nodes = [NSMutableArray array];
+    
+    for (NSXMLNode *child in children) {
+        id <XPNodeInfo>node = [[[XPNSXMLNodeImpl alloc] initWithNode:child sortIndex:self.sortIndex-1] autorelease];
+        
+        if ([nodeTest matches:node]) {
+            [nodes addObject:node];
+        }
+    }
+
     return nodes;
 }
 
