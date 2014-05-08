@@ -340,7 +340,7 @@
     // context document (e.g. an absolute path expression in a predicate) can also
     // be removed now.
     
-    id <XPNodeEnumeration>contextNodeEnm = [_start enumerateInContext:ctx sorted:YES];
+    id <XPNodeEnumeration>contextNodeEnm = [_start enumerateInContext:ctx sorted:sorted];
     
     id <XPNodeInfo>contextNode = nil;
     NSUInteger contextSize = 0;
