@@ -344,11 +344,12 @@
     
     id <XPNodeInfo>contextNode = nil;
     NSUInteger contextSize = 0;
+    NSUInteger contextPosition = 0;
     
     if ([contextNodeEnm conformsToProtocol:@protocol(XPLastPositionFinder)]) {
         contextSize = [(id <XPLastPositionFinder>)contextNodeEnm lastPosition];
     } else {
-        XPAssert(0); // TODO
+        XPAssert(0); // TODO determine last position finder
     }
     
     ctx.last = contextSize;
@@ -358,8 +359,10 @@
     
     while ([contextNodeEnm hasMoreObjects]) {
         contextNode = [contextNodeEnm nextObject];
-        ++ctx.position;
+        ++contextPosition;
+
         ctx.contextNode = contextNode;
+        ctx.position = contextPosition;
 
         id <XPNodeEnumeration>enm = [_step enumerate:contextNode inContext:ctx];
         
@@ -369,10 +372,7 @@
     }
 
     XPNodeSetValue *nodeSet = [[[XPNodeSetValue alloc] initWithNodes:resultUnion comparer:[XPLocalOrderComparer instance]] autorelease];
-    if (sorted) {
-        [nodeSet sort];
-    }
-    id <XPAxisEnumeration>enm = (id <XPAxisEnumeration>)[nodeSet enumerate];
+    id <XPNodeEnumeration>enm = [nodeSet enumerateInContext:ctx sorted:sorted];
     
     
     

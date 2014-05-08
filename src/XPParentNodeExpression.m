@@ -12,6 +12,7 @@
 #import "XPNodeInfo.h"
 #import "XPNodeSetValue.h"
 #import "XPNodeTypeTest.h"
+#import "XPAxisEnumeration.h"
 
 @implementation XPParentNodeExpression
 
@@ -36,7 +37,7 @@
 
 - (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
     XPNodeTest *nodeTest = [[[XPNodeTypeTest alloc] initWithNodeType:XPNodeTypeNode] autorelease];
-    id <XPNodeEnumeration>enm = [ctx.contextNode enumerationForAxis:XPAxisParent nodeTest:nodeTest];
+    id <XPAxisEnumeration>enm = [ctx.contextNode enumerationForAxis:XPAxisParent nodeTest:nodeTest];
     XPAssert(enm);
     return enm;
 }
