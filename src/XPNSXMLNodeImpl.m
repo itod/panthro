@@ -222,8 +222,10 @@
     
     NSMutableArray *nodes = [NSMutableArray array];
     
+    NSUInteger sortIndex = self.sortIndex;
+    
     for (NSXMLNode *child in children) {
-        id <XPNodeInfo>node = [[[XPNSXMLNodeImpl alloc] initWithNode:child sortIndex:self.sortIndex-1] autorelease];
+        id <XPNodeInfo>node = [[[XPNSXMLNodeImpl alloc] initWithNode:child sortIndex:++sortIndex] autorelease];
         
         if ([nodeTest matches:node]) {
             [nodes addObject:node];

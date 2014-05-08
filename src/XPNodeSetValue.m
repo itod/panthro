@@ -19,8 +19,9 @@
 @interface XPNodeSetValue ()
 @property (nonatomic, retain) NSMutableArray *value; // TODO
 @property (nonatomic, assign) NSUInteger count;
-@property (nonatomic, assign) BOOL isSorted;
 @property (nonatomic, retain) NSDictionary *stringValues;
+@property (nonatomic, assign, readwrite, getter=isSorted) BOOL sorted;
+@property (nonatomic, assign, readwrite, getter=isReverseSorted) BOOL reverseSorted;
 @end
 
 @implementation XPNodeSetValue
@@ -31,7 +32,8 @@
         self.value = [[nodes mutableCopy] autorelease];
         self.count = [_value count];
         self.comparer = comparer;
-        self.isSorted = _count < 2;
+        self.sorted = _count < 2;
+        self.reverseSorted = _count < 2;
     }
     return self;
 }
@@ -42,14 +44,17 @@
     if (self) {
         NSMutableArray *nodes = [NSMutableArray array];
         
+        NSUInteger c = 0;
         for (id <XPNodeInfo>node in enm) {
             [nodes addObject:node];
+            ++c;
         }
         
         self.value = nodes;
-        self.count = [nodes count];
+        self.count = c;
         self.comparer = comparer;
-        self.isSorted = enm.isSorted;
+        self.sorted = enm.isSorted || c < 2;
+        self.sorted = enm.isReverseSorted || c < 2;
     }
     return self;
 }
@@ -80,7 +85,7 @@
 
 - (id <XPNodeEnumeration>)enumerate {
     XPAssert(_value);
-    id <XPNodeEnumeration>enm = [[[XPNodeSetValueEnumeration alloc] initWithNodes:_value isSorted:_isSorted] autorelease];
+    id <XPNodeEnumeration>enm = [[[XPNodeSetValueEnumeration alloc] initWithNodes:_value isSorted:_sorted] autorelease];
     return enm;
 }
 
@@ -110,7 +115,7 @@
     if (_count < 2) self.sorted = YES;
     if (_sorted) return self;
     
-    if (!_sorted) {
+    if (_reverseSorted) {
         
         NSMutableArray *nodes = [NSMutableArray arrayWithCapacity:[_value count]];
         for (id obj in [_value reverseObjectEnumerator]) {
@@ -118,11 +123,11 @@
         }
         self.value = nodes;
         self.sorted = YES;
+        self.reverseSorted = NO;
         
     } else {
         // sort the array
         
-#warning QuickSort
         XPQuickSort(self, 0, _count-1);
         
         // need to eliminate duplicate nodes. Note that we cannot compare the node
@@ -135,9 +140,14 @@
                 _value[j++] = _value[i];
             }
         }
-        self.count = j;
         
+        if (_count - j > 1) {
+            [_value removeObjectsInRange:NSMakeRange(j, _count-j)];
+        }
+        
+        self.count = j;
         self.sorted = YES;
+        self.reverseSorted = NO;
     }
     
     return self;

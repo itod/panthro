@@ -26,5 +26,6 @@
 - (id)firstNode;
 
 @property (nonatomic, retain) id <XPNodeOrderComparer>comparer;
-@property (nonatomic, getter=isSorted) BOOL sorted;
+@property (nonatomic, assign, readonly, getter=isSorted) BOOL sorted;
+@property (nonatomic, assign, readonly, getter=isReverseSorted) BOOL reverseSorted;
 @end
