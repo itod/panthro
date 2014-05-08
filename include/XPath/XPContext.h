@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "XPLastPositionFinder.h"
 
 @protocol XPStaticContext;
 @protocol XPLastPositionFinder;
 @protocol XPNodeInfo;
 
-@interface XPContext : NSObject <NSCopying>
+@interface XPContext : NSObject <NSCopying, XPLastPositionFinder>
 
 - (instancetype)initWithStaticContext:(id <XPStaticContext>)staticContext;
 
@@ -24,4 +25,5 @@
 @property (nonatomic, assign) NSUInteger position;
 
 @property (nonatomic, retain) id <XPNodeInfo>currentNode;
+@property (nonatomic, assign) id <XPLastPositionFinder>lastPositionFinder; // weakref
 @end

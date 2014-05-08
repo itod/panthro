@@ -13,6 +13,7 @@
 #import "XPEmptyNodeSet.h"
 #import "XPAxisExpression.h"
 #import "XPNodeSetValueEnumeration.h"
+#import "XPLocalOrderComparer.h"
 
 @interface XPExpression ()
 @property (nonatomic, retain, readwrite) id <XPStaticContext>staticContext;
@@ -339,26 +340,39 @@
     // context document (e.g. an absolute path expression in a predicate) can also
     // be removed now.
     
-    id <XPNodeEnumeration>startNodes = [_start enumerateInContext:ctx sorted:YES];
-    ctx.last = [startNodes lastPosition];
-    ctx.position = 0;
+    id <XPNodeEnumeration>contextNodeEnm = [_start enumerateInContext:ctx sorted:YES];
     
-    NSMutableArray *nodes = [NSMutableArray array];
+    id <XPNodeInfo>contextNode = nil;
+    NSUInteger contextSize = 0;
     
-    id <XPNodeInfo>ctxNode = nil;
-    while ([startNodes hasMoreObjects]) {
-        ctxNode = [startNodes nextObject];
-        ++ctx.position;
-        ctx.contextNode = ctxNode;
-
-        id <XPNodeEnumeration>enm = [_step enumerate:ctxNode inContext:ctx];
-        
-        for (id <XPNodeInfo>node in enm) {
-            [nodes addObject:node];
-        }
+    if ([contextNodeEnm conformsToProtocol:@protocol(XPLastPositionFinder)]) {
+        contextSize = [(id <XPLastPositionFinder>)contextNodeEnm lastPosition];
+    } else {
+        XPAssert(0); // TODO
     }
     
-    id <XPNodeEnumeration>enm = [[[XPNodeSetValueEnumeration alloc] initWithNodes:nodes isSorted:sorted] autorelease];
+    ctx.last = contextSize;
+    ctx.position = 0;
+    
+    NSMutableArray *resultUnion = [NSMutableArray array];
+    
+    while ([contextNodeEnm hasMoreObjects]) {
+        contextNode = [contextNodeEnm nextObject];
+        ++ctx.position;
+        ctx.contextNode = contextNode;
+
+        id <XPNodeEnumeration>enm = [_step enumerate:contextNode inContext:ctx];
+        
+        for (id <XPNodeInfo>node in enm) {
+            [resultUnion addObject:node];
+        }
+    }
+
+    XPNodeSetValue *nodeSet = [[[XPNodeSetValue alloc] initWithNodes:resultUnion comparer:[XPLocalOrderComparer instance]] autorelease];
+    if (sorted) {
+        [nodeSet sort];
+    }
+    id <XPAxisEnumeration>enm = (id <XPAxisEnumeration>)[nodeSet enumerate];
     
     
     

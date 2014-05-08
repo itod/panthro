@@ -13,7 +13,7 @@
 
 @interface XPNodeSetValue : XPValue
 
-- (instancetype)initWithNodes:(NSArray *)nodes comparer:(id <XPNodeOrderComparer>)comparer sorted:(BOOL)sorted;
+- (instancetype)initWithNodes:(NSArray *)nodes comparer:(id <XPNodeOrderComparer>)comparer;
 - (instancetype)initWithEnumeration:(id <XPNodeEnumeration>)enm comparer:(id <XPNodeOrderComparer>)comparer;
 
 - (id <XPNodeEnumeration>)enumerate;

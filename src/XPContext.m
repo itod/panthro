@@ -13,7 +13,9 @@
 @property (nonatomic, retain) id <XPStaticContext>staticContext;
 @end
 
-@implementation XPContext
+@implementation XPContext {
+    NSUInteger _last;
+}
 
 - (instancetype)init {
     self = [self initWithStaticContext:nil];
@@ -28,6 +30,7 @@
     self = [super init];
     if (self) {
         self.staticContext = staticContext;
+        self.lastPositionFinder = self;
     }
     return self;
 }
@@ -37,6 +40,7 @@
     self.staticContext = nil;
     self.contextNode = nil;
     self.currentNode = nil;
+    self.lastPositionFinder = nil;
     [super dealloc];
 }
 
@@ -47,11 +51,10 @@
 
 - (id)copyWithZone:(NSZone *)zone {
     XPContext *c = [[XPContext alloc] initWithStaticContext:_staticContext];
-    c.currentNode = _currentNode;
     c.contextNode = _contextNode;
     c.position = _position;
     c.last = _last;
-//    c.currentMode = _currentMode;
+    c.currentNode = _currentNode;
 //    c.currentTemplate = _currentTemplate;
 //    //c.bindery = bindery;
 //    c.groupActivationStack = _groupActivationStack;
@@ -59,6 +62,26 @@
 //    c.lastRememberedNumber = _lastRememberedNumber;
 //    c.returnValue = nil;
     return c;
+}
+
+
+- (void)setLast:(NSUInteger)last {
+    _last = last;
+    self.lastPositionFinder = self;
+}
+
+
+- (NSUInteger)last {
+    XPAssert(_lastPositionFinder);
+    return [_lastPositionFinder lastPosition];
+}
+
+
+#pragma mark -
+#pragma mark XPLastPositionFinder
+
+- (NSUInteger)lastPosition {
+    return _last;
 }
 
 @end

@@ -11,6 +11,8 @@
 #import "XPAxis.h"
 #import "XPNodeSetValueEnumeration.h"
 #import "XPNodeTest.h"
+#import "XPNodeSetValue.h"
+#import "XPLocalOrderComparer.h"
 
 @interface XPNSXMLNodeImpl ()
 @property (nonatomic, retain, readwrite) NSXMLNode *node;
@@ -130,7 +132,7 @@
 }
 
 
-- (id <XPNodeEnumeration>)enumerationForAxis:(NSUInteger)axis nodeTest:(XPNodeTest *)nodeTest {
+- (id <XPAxisEnumeration>)enumerationForAxis:(NSUInteger)axis nodeTest:(XPNodeTest *)nodeTest {
     NSArray *nodes = nil;
     BOOL sorted = NO;
     
@@ -181,7 +183,8 @@
             break;
     }
     
-    id <XPNodeEnumeration>enm = [[[XPNodeSetValueEnumeration alloc] initWithNodes:nodes isSorted:sorted] autorelease];
+    XPNodeSetValue *nodeSet = [[[XPNodeSetValue alloc] initWithNodes:nodes comparer:[XPLocalOrderComparer instance]] autorelease];
+    id <XPAxisEnumeration>enm = (id <XPAxisEnumeration>)[nodeSet enumerate];
     return enm;
 }
 

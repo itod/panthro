@@ -25,13 +25,13 @@
 
 @implementation XPNodeSetValue
 
-- (instancetype)initWithNodes:(NSArray *)nodes comparer:(id <XPNodeOrderComparer>)comparer sorted:(BOOL)sorted {
+- (instancetype)initWithNodes:(NSArray *)nodes comparer:(id <XPNodeOrderComparer>)comparer {
     self = [super init];
     if (self) {
         self.value = [[nodes mutableCopy] autorelease];
         self.count = [_value count];
         self.comparer = comparer;
-        self.isSorted = sorted;
+        self.isSorted = _count < 2;
     }
     return self;
 }
@@ -42,9 +42,7 @@
     if (self) {
         NSMutableArray *nodes = [NSMutableArray array];
         
-        id <XPNodeInfo>node = nil;
-        while ([enm hasMoreObjects]) {
-            node = [enm nextObject];
+        for (id <XPNodeInfo>node in enm) {
             [nodes addObject:node];
         }
         

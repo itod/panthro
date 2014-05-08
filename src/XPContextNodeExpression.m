@@ -8,10 +8,11 @@
 
 #import "XPContextNodeExpression.h"
 #import "XPContext.h"
-#import "XPAxis.h"
-#import "XPNodeTypeTest.h"
-#import "XPNodeInfo.h"
 #import "XPNodeSetValue.h"
+#import "XPNodeInfo.h"
+#import "XPNodeTypeTest.h"
+#import "XPAxis.h"
+#import "XPAxisEnumeration.h"
 
 @implementation XPContextNodeExpression
 
