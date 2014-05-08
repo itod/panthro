@@ -151,7 +151,8 @@
             sorted = NO;
             break;
         case XPAxisAttribute:
-        sorted = YES;
+            sorted = YES;
+            nodes = [self nodesForAttributeAxis:nodeTest];
             break;
         case XPAxisChild:
             sorted = YES;
@@ -191,6 +192,7 @@
             break;
     }
     
+    XPAssert(nodes);
     XPNodeSetValue *nodeSet = [[[XPNodeSetValue alloc] initWithNodes:nodes comparer:[XPLocalOrderComparer instance]] autorelease];
     id <XPAxisEnumeration>enm = (id <XPAxisEnumeration>)[nodeSet enumerate];
     return enm;
@@ -238,7 +240,28 @@
             [nodes addObject:node];
         }
     }
+    
+    return nodes;
+}
 
+
+- (NSArray *)nodesForAttributeAxis:(XPNodeTest *)nodeTest {
+    XPAssert(XPNodeTypeElement == self.nodeType);
+    
+    NSArray *attrs = [(NSXMLElement *)self.node attributes];
+    
+    NSMutableArray *nodes = [NSMutableArray array];
+    
+    NSInteger sortIndex = self.sortIndex;
+    
+    for (NSXMLNode *attr in attrs) {
+        id <XPNodeInfo>node = [[[XPNSXMLNodeImpl alloc] initWithNode:attr sortIndex:++sortIndex] autorelease];
+        
+        if ([nodeTest matches:node]) {
+            [nodes addObject:node];
+        }
+    }
+    
     return nodes;
 }
 

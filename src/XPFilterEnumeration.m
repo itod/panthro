@@ -109,7 +109,7 @@
  */
 
 - (id <XPNodeInfo>)nextObject {
-    XPAssert(_current);
+    //XPAssert(_current);
     id <XPNodeInfo>node = _current;
     self.current = [self nextMatchingObject];
     return node;

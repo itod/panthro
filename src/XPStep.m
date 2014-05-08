@@ -12,6 +12,7 @@
 #import <XPath/XPValue.h>
 #import <XPath/XPNodeInfo.h>
 #import "XPAxisEnumeration.h"
+#import "XPFilterEnumeration.h"
 
 @interface XPStep ()
 @property (nonatomic, retain) NSMutableArray *allFilters;
@@ -113,7 +114,7 @@
     if ([enm hasMoreObjects]) {       // if there are no nodes, there's nothing to filter
         for (XPExpression *filter in _allFilters) {
             
-            //enm = [[[XPFilterEnumeration EnumerationWithEnumeration:enm filter:filter context:ctx bool:NO] autorelease];
+            enm = [[[XPFilterEnumeration alloc] initWithBase:enm filter:filter context:ctx finishAfterReject:NO] autorelease];
         }
     }
 
@@ -128,20 +129,6 @@
 
 - (NSUInteger)numberOfFilters {
     return [_allFilters count];
-}
-
-
-/**
- * Diagnostic print of expression structure
- */
-
-- (void)display:(NSInteger)level {
-    XPAssert(0);
-//    System.err.println(Expression.indent(level) + "Step " + Axis.axisName[axis] + "::" + test.toString() +
-//                       (numberOfFilters > 0 ? " [" : ""));
-//    for (int f=0; f<numberOfFilters; f++) {
-//        filters[f].display(level+1);
-//    }
 }
 
 @end
