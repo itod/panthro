@@ -6,9 +6,10 @@
 //
 //
 
+#import "XPBaseFastEnumeration.h"
 #import "XPAxisEnumeration.h"
 
-@interface XPNodeSetValueEnumeration : NSObject <XPAxisEnumeration>
+@interface XPNodeSetValueEnumeration : XPBaseFastEnumeration <XPAxisEnumeration>
 
 - (instancetype)initWithNodes:(NSArray *)nodes isSorted:(BOOL)sorted;
 

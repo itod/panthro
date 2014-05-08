@@ -6,9 +6,13 @@
 //
 //
 
-#import <Foundation/Foundation.h>
-#import "XPAxisEnumeration.h"
+#import "XPBaseFastEnumeration.h"
+#import "XPNodeEnumeration.h"
 
-@interface XPFilterEnumeration : NSObject <XPAxisEnumeration>
+@class XPExpression;
+@class XPContext;
 
+@interface XPFilterEnumeration : XPBaseFastEnumeration <XPNodeEnumeration>
+
+- (instancetype)initWithBase:(id <XPNodeEnumeration>)base filter:(XPExpression *)filter context:(XPContext *)ctx finishAfterReject:(BOOL)finishAfterReject;
 @end

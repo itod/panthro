@@ -78,6 +78,22 @@
 }
 
 
+- (NSUInteger)contextPosition {
+    return _position;
+}
+
+
+- (NSUInteger)contextSize {
+    @try {
+        return self.last;
+    } @catch (NSException *err) {
+        // The XSLTContext interfaces doesn't allow us to throw any exceptions.
+        // We'll pick it up on return from the extension function.
+        //setException(err);
+        return [self contextPosition];    // for want of anything better
+    }
+}
+
 #pragma mark -
 #pragma mark XPLastPositionFinder
 

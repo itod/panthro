@@ -26,4 +26,7 @@
 
 @property (nonatomic, retain) id <XPNodeInfo>currentNode;
 @property (nonatomic, assign) id <XPLastPositionFinder>lastPositionFinder; // weakref
+
+- (NSUInteger)contextPosition;
+- (NSUInteger)contextSize;
 @end

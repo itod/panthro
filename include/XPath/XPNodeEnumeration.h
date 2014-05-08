@@ -40,4 +40,14 @@
  */
 
 - (id <XPNodeInfo>)nextObject;
+
+/**
+ * Determine whether the nodes returned by this enumeration are known to be peers, that is,
+ * no node is a descendant or ancestor of another node. This significance of this property is
+ * that if a peer enumeration is applied to each node in a set derived from another peer
+ * enumeration, and if both enumerations are sorted, then the result is also sorted.
+ */
+
+- (BOOL)isPeer;
+
 @end

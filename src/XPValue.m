@@ -53,13 +53,13 @@ double XPNumberFromString(NSString *s) {
 
 - (NSString *)asString {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
-    return NO;
+    return nil;
 }
 
 
 - (double)asNumber {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
-    return NO;
+    return 0.0;
 }
 
 
