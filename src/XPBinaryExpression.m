@@ -72,7 +72,7 @@
 }
 
 
-- (NSUInteger)dependencies {
+- (XPDependencies)dependencies {
     return [_p1 dependencies] | [_p2 dependencies];
 }
 

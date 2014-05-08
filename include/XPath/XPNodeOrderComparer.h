@@ -10,7 +10,13 @@
 
 @protocol XPNodeInfo;
 
+/**
+ * A Comparer used for comparing nodes in document order
+ *
+ */
+
 @protocol XPNodeOrderComparer <NSObject>
+
 /**
  * Compare two objects.
  * @return <0 if a<b, 0 if a=b, >0 if a>b

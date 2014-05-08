@@ -64,7 +64,7 @@
 }
 
 
-- (NSUInteger)dependencies {
+- (XPDependencies)dependencies {
     return [(XPExpression *)self.args[0] dependencies];
 }
 

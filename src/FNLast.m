@@ -44,7 +44,7 @@
 }
 
 
-- (NSUInteger)dependencies {
+- (XPDependencies)dependencies {
     return XPDependenciesLast;
 }
 

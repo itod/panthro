@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<book>
+    <chapter id="c1">
+      <title>Chapter 1</title>
+      <para>Chapter 1 content.</para>
+    </chapter>
+
+    <chapter id="c2">
+        <title>Chapter 2</title>
+        <para>Content 2 content.</para>
+    </chapter>
+
+    <chapter id="c3">
+      <title>Chapter 3</title>
+      <para>Chapter 3 content.</para>
+    </chapter>
+</book>

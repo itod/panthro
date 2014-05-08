@@ -148,7 +148,7 @@ const NSString *XPAxisName[] =
 /**
  * Resolve an axis name into a symbolic constant representing the axis
  */
-NSUInteger XPAxisGetAxisNumber(NSString *name) {
+NSUInteger XPAxisForName(NSString *name) {
     if ([name isEqualToString:@"ancestor"])                return XPAxisAncestor;
     if ([name isEqualToString:@"ancestor-or-self"])        return XPAxisAncestorOrSelf;
     if ([name isEqualToString:@"attribute"])               return XPAxisAttribute;

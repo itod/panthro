@@ -9,14 +9,18 @@
 #import "XPNodeTypeTest.h"
 #import <XPath/XPNodeInfo.h>
 
+@interface XPNodeTypeTest ()
+
+@end
+
 @implementation XPNodeTypeTest
 
 - (instancetype)initWithNodeType:(XPNodeType)type {
     self = [super init];
     if (self) {
-        self.type = type;
+        self.nodeType = type;
         
-        switch (_type) {
+        switch (type) {
             case XPNodeTypeRoot:
                 self.originalText = @"/";
                 break;
@@ -36,6 +40,9 @@
             case XPNodeTypeNamespace:
                 self.originalText = @"namespace()";
                 break;
+            case XPNodeTypeNode:
+                self.originalText = @"node()";
+                break;
             default:
                 self.originalText = nil;
                 break;
@@ -52,23 +59,17 @@
 }
 
 
-/**
- * Test whether this node test is satisfied by a given node
- */
-
-- (BOOL)matches:(id <XPNodeInfo>)node {
-    return _type == node.nodeType;
+- (NSString *)description {
+    return self.originalText;
 }
 
 
-/**
- * Test whether this node test is satisfied by a given node
- * @param nodeType The type of node to be matched
- * @param fingerprint identifies the expanded name of the node to be matched
- */
-
-- (BOOL)matches:(XPNodeType)nodeType name:(NSString *)nodeName {
-    return (_type == nodeType);
+- (BOOL)matches:(XPNodeType)nodeType name:(NSString *)name {
+    BOOL matches = NO;
+    if (XPNodeTypeNode == self.nodeType || nodeType == self.nodeType) {
+        matches = YES;
+    }
+    return matches;
 }
 
 

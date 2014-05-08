@@ -11,14 +11,24 @@
 @protocol XPNodeInfo;
 
 @protocol XPNodeEnumeration <NSFastEnumeration, NSObject>
+
+/**
+ * Determine whether the nodes returned by this enumeration are known to be in document order
+ * @return true if the nodes are guaranteed to be in document order.
+ */
+
 - (BOOL)isSorted;
+
+/**
+ * Determine whether the nodes returned by this enumeration are known to be in
+ * reverse document order.
+ * @return true if the nodes are guaranteed to be in document order.
+ */
+
 - (BOOL)isReverseSorted;
-- (BOOL)isPeer;
 
 /**
  * Determine whether there are more nodes to come. <BR>
- * (Note the term "Element" is used here in the sense of the standard Java Enumeration class,
- * it has nothing to do with XML elements).
  * @return true if there are more nodes
  */
 
@@ -26,10 +36,18 @@
 
 /**
  * Get the next node in sequence. <BR>
- * (Note the term "Element" is used here in the sense of the standard Java Enumeration class,
- * it has nothing to do with XML elements).
  * @return the next NodeInfo
  */
 
 - (id <XPNodeInfo>)nextObject;
+
+/**
+ * Determine whether the nodes returned by this enumeration are known to be peers, that is,
+ * no node is a descendant or ancestor of another node. This significance of this property is
+ * that if a peer enumeration is applied to each node in a set derived from another peer
+ * enumeration, and if both enumerations are sorted, then the result is also sorted.
+ */
+
+- (BOOL)isPeer;
+
 @end

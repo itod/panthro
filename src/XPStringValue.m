@@ -33,6 +33,11 @@
 }
 
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"'%@'", [self asString]];
+}
+
+
 - (NSString *)asString {
     return _value;
 }

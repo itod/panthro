@@ -10,6 +10,8 @@
 #import <XPath/XPath.h>
 #import <PEGKit/PEGKit.h>
 
+#import "XPPathExpression.h"
+#import "XPContextNodeExpression.h"
 #import "XPStep.h"
 #import "XPAxis.h"
 #import "XPNodeTypeTest.h"
@@ -19,6 +21,8 @@
 @property (nonatomic, retain) NSDictionary *funcTab;
 @property (nonatomic, retain) NSDictionary *nodeTypeTab;
 @property (nonatomic, retain) PKToken *paren;
+@property (nonatomic, retain) PKToken *fwdSlash;
+@property (nonatomic, retain) PKToken *closeBracket;
 @property (nonatomic, retain) NSCharacterSet *singleQuoteCharSet;
 @property (nonatomic, retain) NSCharacterSet *doubleQuoteCharSet;
 @end
@@ -28,6 +32,8 @@
 - (id)init {
     if (self = [super init]) {
         self.paren = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
+        self.fwdSlash = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"/" doubleValue:0.0];
+        self.closeBracket = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"]" doubleValue:0.0];
         self.singleQuoteCharSet = [NSCharacterSet characterSetWithCharactersInString:@"'"];
         self.doubleQuoteCharSet = [NSCharacterSet characterSetWithCharactersInString:@"\""];
         
@@ -70,6 +76,8 @@
 
 - (void)dealloc {
     self.paren = nil;
+    self.fwdSlash = nil;
+    self.closeBracket = nil;
     self.singleQuoteCharSet = nil;
     self.doubleQuoteCharSet = nil;
     self.funcTab = nil;
@@ -113,25 +121,29 @@
 - (void)parser:(PKParser *)p didMatchEqRelationalExpr:(PKAssembly *)a { [self parser:p didMatchAnyRelationalExpr:a]; }
 
 - (void)parser:(PKParser *)p didMatchAnyRelationalExpr:(PKAssembly *)a {
-    XPValue *v2 = [a pop];
+    XPExpression *p2 = [a pop];
+    XPAssertExpr(p2);
     PKToken *opTok = [a pop];
-    XPValue *v1 = [a pop];
+    XPAssertToken(opTok);
+    XPExpression *p1 = [a pop];
+    XPAssertExpr(p1);
     
     NSInteger op = XPTokenTypeEquals;
+    NSString *opStr = opTok.stringValue;
 
-    if ([@"!=" isEqualToString:opTok.stringValue]) {
+    if ([@"!=" isEqualToString:opStr]) {
         op = XPTokenTypeNE;
-    } else if ([@"<" isEqualToString:opTok.stringValue]) {
+    } else if ([@"<" isEqualToString:opStr]) {
         op = XPTokenTypeLT;
-    } else if ([@">" isEqualToString:opTok.stringValue]) {
+    } else if ([@">" isEqualToString:opStr]) {
         op = XPTokenTypeGT;
-    } else if ([@"<=" isEqualToString:opTok.stringValue]) {
+    } else if ([@"<=" isEqualToString:opStr]) {
         op = XPTokenTypeLE;
-    } else if ([@">=" isEqualToString:opTok.stringValue]) {
+    } else if ([@">=" isEqualToString:opStr]) {
         op = XPTokenTypeGE;
     }
     
-    [a push:[XPRelationalExpression relationalExpressionWithOperand:v1 operator:op operand:v2]];
+    [a push:[XPRelationalExpression relationalExpressionWithOperand:p1 operator:op operand:p2]];
 }
 
 
@@ -187,7 +199,35 @@
 }
 
 
-- (void)parser:(PKParser *)p didMatchStep:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchPathExpr:(PKAssembly *)a {
+    
+}
+
+
+- (void)parser:(PKParser *)p didMatchRelativeLocationPath:(PKAssembly *)a {
+    id peek = nil;
+    
+    NSMutableArray *steps = [NSMutableArray array];
+    do {
+        XPStep *step = [a pop];
+        XPAssert([step isKindOfClass:[XPStep class]]);
+        [steps insertObject:step atIndex:0];
+        peek = [a pop];
+    } while ([peek isEqualTo:_fwdSlash]);
+    [a push:peek];
+    
+    XPExpression *start = [[[XPContextNodeExpression alloc] init] autorelease];
+    XPPathExpression *pathExpr = nil;
+    for (XPStep *step in steps) {
+        pathExpr = [[[XPPathExpression alloc] initWithStart:start step:step] autorelease];
+        start = pathExpr;
+    }
+    
+    [a push:pathExpr];
+}
+
+
+- (void)parser:(PKParser *)p didMatchExplicitAxisStep:(PKAssembly *)a {
     XPNodeTest *nodeTest = [a pop];
     XPAssert([nodeTest isKindOfClass:[XPNodeTest class]]);
     
@@ -195,29 +235,78 @@
     XPAssert([axisNum isKindOfClass:[NSNumber class]]);
     XPAxis axis = [axisNum unsignedIntegerValue];
     
+    if ([nodeTest isKindOfClass:[XPNameTest class]]) {
+        nodeTest.nodeType = XPAxisPrincipalNodeType[axis];
+    }
+    
     XPStep *step = [[[XPStep alloc] initWithAxis:axis nodeTest:nodeTest] autorelease];
     
     [a push:step];
 }
 
 
-- (void)parser:(PKParser *)p didMatchAxisName:(PKAssembly *)a {
-    PKToken *tok = [a pop];
+- (void)parser:(PKParser *)p didMatchImplicitAxisStep:(PKAssembly *)a {
+
+    NSMutableArray *preds = nil;
+    id peek = [a pop];
+    while (peek == _closeBracket) {
+        XPExpression *pred = [a pop];
+        XPAssertExpr(pred);
+        
+        if (!preds) {
+            preds = [NSMutableArray arrayWithCapacity:2];
+        }
+        [preds insertObject:pred atIndex:0];
+        
+        peek = [a pop];
+    }
     
-    // TODO
-    [a push:[XPBooleanValue booleanValueWithBoolean:tok.doubleValue]]; // this is a place holder. add a node later when ready
+    XPNodeTest *nodeTest = peek;
+    XPAssert([nodeTest isKindOfClass:[XPNodeTest class]]);
+
+    XPAxis axis = XPAxisChild;
+    
+    if ([nodeTest isKindOfClass:[XPNameTest class]]) {
+        nodeTest.nodeType = XPAxisPrincipalNodeType[axis];
+    }
+
+    XPStep *step = [[[XPStep alloc] initWithAxis:axis nodeTest:nodeTest] autorelease];
+    for (XPExpression *pred in preds) {
+        [step addFilter:pred];
+    }
+    [a push:step];
 }
 
 
-- (void)parser:(PKParser *)p didMatchImplicitAxisStep:(PKAssembly *)a {
-    id obj = [a pop];
-    [a push:@(XPAxisChild)];
-    [a push:obj];
+- (void)parser:(PKParser *)p didMatchAbbreviatedStep:(PKAssembly *)a {
+    PKToken *tok = [a pop];
+    
+    XPAxis axis;
+    if ([tok.stringValue isEqualToString:@"."]) {
+        axis = XPAxisSelf;
+    } else {
+        XPAssert([tok.stringValue isEqualToString:@".."])
+        axis = XPAxisParent;
+    }
+    
+    XPNodeTest *nodeTest = [[[XPNodeTypeTest alloc] initWithNodeType:XPNodeTypeNode] autorelease];
+    XPStep *step = [[[XPStep alloc] initWithAxis:axis nodeTest:nodeTest] autorelease];
+    [a push:step];
+}
+
+
+- (void)parser:(PKParser *)p didMatchAxisName:(PKAssembly *)a {
+    PKToken *tok = [a pop];
+    XPAssertToken(tok);
+
+    XPAxis axis = XPAxisForName(tok.stringValue);
+    [a push:@(axis)];
 }
 
 
 - (void)parser:(PKParser *)p didMatchTypeTest:(PKAssembly *)a {
     PKToken *tok = [a pop];
+    XPAssertToken(tok);
     XPAssert(_nodeTypeTab);
     XPNodeType type = [_nodeTypeTab[tok.stringValue] unsignedIntegerValue];
     XPAssert(XPNodeTypeNone != type);
@@ -229,9 +318,17 @@
 
 - (void)parser:(PKParser *)p didMatchNameTest:(PKAssembly *)a {
     PKToken *tok = [a pop];
-    
-    // TODO
-    [a push:[XPBooleanValue booleanValueWithBoolean:tok.doubleValue]]; // this is a place holder. add a node later when ready
+    XPAssertToken(tok);
+    XPNameTest *nameTest = [[[XPNameTest alloc] initWithName:tok.stringValue] autorelease];
+    [a push:nameTest];
+}
+
+
+- (void)parser:(PKParser *)p didMatchPredicate:(PKAssembly *)a {
+    XPExpression *expr = [a pop];
+    XPAssertExpr(expr);
+    [a push:expr];
+    [a push:_closeBracket];
 }
 
 

@@ -12,9 +12,10 @@
 #import <XPath/XPValue.h>
 #import <XPath/XPNodeInfo.h>
 #import "XPAxisEnumeration.h"
+#import "XPFilterEnumeration.h"
 
 @interface XPStep ()
-@property (nonatomic, retain, readwrite) NSMutableArray *filters;
+@property (nonatomic, retain) NSMutableArray *allFilters;
 @end
 
 @implementation XPStep
@@ -31,19 +32,28 @@
 
 - (void)dealloc {
     self.nodeTest = nil;
-    self.filters = nil;
+    self.allFilters = nil;
     
     [super dealloc];
 }
 
 
+- (NSString *)description {
+    NSMutableString *str = [NSMutableString stringWithFormat:@"%@::%@", XPAxisName[_axis], _nodeTest];
+    for (XPExpression *f in _allFilters) {
+        [str appendFormat:@"[%@]", f];
+    }
+    return [[str copy] autorelease];
+}
+
+
 - (XPStep *)addFilter:(XPExpression *)expr {
     XPAssert(expr);
-    if (!_filters) {
-        self.filters = [NSMutableArray arrayWithCapacity:2];
+    if (!_allFilters) {
+        self.allFilters = [NSMutableArray arrayWithCapacity:2];
     }
-    XPAssert(_filters);
-    [_filters addObject:expr];
+    XPAssert(_allFilters);
+    [_allFilters addObject:expr];
     return self;
 }
 
@@ -54,13 +64,12 @@
  */
 
 - (XPStep *)simplify {
-    XPAssert(_filters);
     
-    NSUInteger c = [_filters count];
+    NSUInteger c = [_allFilters count];
     NSUInteger i = c - 1;
-    for (XPExpression *exp in [[[_filters copy] autorelease] reverseObjectEnumerator]) {
+    for (XPExpression *exp in [_allFilters reverseObjectEnumerator]) {
         exp = [exp simplify];
-        _filters[i] = exp;
+        _allFilters[i] = exp;
         
         // look for a filter that is constant true or false (which can arise after
         // an expression is reduced).
@@ -70,7 +79,7 @@
                 // filter is constant true
                 // only bother removing it if it's the last
                 if (i == c-1) {
-                    [_filters removeObjectAtIndex:i];
+                    [_allFilters removeObjectAtIndex:i];
                 }
             } else {
                 // filter is constant false,
@@ -100,35 +109,26 @@
  */
 
 - (id <XPNodeEnumeration>)enumerate:(id <XPNodeInfo>)node inContext:(XPContext *)ctx {
-    id <XPAxisEnumeration>enm = [node enumerationForAxis:_axis nodeTest:_nodeTest];
-    if ([enm hasMoreObjects]) {       // if there are no nodes, there's nothing to filter
+    id <XPNodeEnumeration>enm = [node enumerationForAxis:_axis nodeTest:_nodeTest];
 
-        //TODO
-//        for (XPExpression *filter in _filters) {
-//            enm = [[[XPFilterEnumeration EnumerationWithEnumeration:enm filter:filter context:ctx bool:NO] autorelease];
-//        }
+    if ([enm hasMoreObjects]) {       // if there are no nodes, there's nothing to filter
+        for (XPExpression *filter in _allFilters) {
+            
+            enm = [[[XPFilterEnumeration alloc] initWithBase:enm filter:filter context:ctx finishAfterReject:NO] autorelease];
+        }
     }
+
     return enm;
-    
+}
+
+
+- (NSArray *)filters {
+    return [[_allFilters copy] autorelease];
 }
 
 
 - (NSUInteger)numberOfFilters {
-    return [self.filters count];
-}
-
-
-/**
- * Diagnostic print of expression structure
- */
-
-- (void)display:(NSInteger)level {
-    XPAssert(0);
-//    System.err.println(Expression.indent(level) + "Step " + Axis.axisName[axis] + "::" + test.toString() +
-//                       (numberOfFilters > 0 ? " [" : ""));
-//    for (int f=0; f<numberOfFilters; f++) {
-//        filters[f].display(level+1);
-//    }
+    return [_allFilters count];
 }
 
 @end

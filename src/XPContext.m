@@ -7,22 +7,18 @@
 //
 
 #import <XPath/XPContext.h>
-#import <XPath/XPController.h>
 #import <XPath/XPStaticContext.h>
-#import "XPLastPositionFinder.h"
 
-@implementation XPContext
+@interface XPContext ()
+@property (nonatomic, retain) id <XPStaticContext>staticContext;
+@end
 
-/**
- * The default constructor is not used within Saxon itself, but is available to
- * applications (and is used in some samples). Because some expressions (for example
- * union expressions) cannot execute without a Controller, a system default Controller
- * is created. This is a quick fix, but is not entirely satisfactory, because it's
- * not thread-safe. Applications are encouraged to create a Controller explicitly and
- * use it only within a single thread.
- */
+@implementation XPContext {
+    NSUInteger _last;
+}
+
 - (instancetype)init {
-    self = [self initWithController:[[[XPController alloc] init] autorelease]];
+    self = [self initWithStaticContext:nil];
     return self;
 }
 
@@ -30,36 +26,23 @@
 /**
  * Constructor should only be called by the Controller, which acts as a Context factory.
  */
-- (instancetype)initWithController:(XPController *)c {
+- (instancetype)initWithStaticContext:(id<XPStaticContext>)env {
+    NSParameterAssert(env);
     self = [super init];
     if (self) {
-        self.controller = c;
-        _lastPositionFinder = self;
+        self.staticContext = env;
+        self.lastPositionFinder = self;
     }
     return self;
 }
 
 
 - (void)dealloc {
-    self.controller = nil;
-    if (_lastPositionFinder != self) {
-        self.lastPositionFinder = nil;
-    }
     self.staticContext = nil;
     self.contextNode = nil;
     self.currentNode = nil;
+    self.lastPositionFinder = nil;
     [super dealloc];
-}
-
-
-- (NSUInteger)last {
-    if (!_lastPositionFinder) return 1;
-    return [_lastPositionFinder lastPosition];
-}
-
-
-- (NSUInteger)lastPosition {
-    return [self last];
 }
 
 
@@ -67,15 +50,12 @@
  * Construct a new context as a copy of another
  */
 
-- (XPContext *)newContext {
-    XPContext *c = [[[XPContext alloc] initWithController:self.controller] autorelease];
-    c.staticContext = _staticContext;
-    c.currentNode = _currentNode;
+- (id)copyWithZone:(NSZone *)zone {
+    XPContext *c = [[XPContext alloc] initWithStaticContext:_staticContext];
     c.contextNode = _contextNode;
     c.position = _position;
     c.last = _last;
-    c.lastPositionFinder = _lastPositionFinder;
-//    c.currentMode = _currentMode;
+    c.currentNode = _currentNode;
 //    c.currentTemplate = _currentTemplate;
 //    //c.bindery = bindery;
 //    c.groupActivationStack = _groupActivationStack;
@@ -83,6 +63,42 @@
 //    c.lastRememberedNumber = _lastRememberedNumber;
 //    c.returnValue = nil;
     return c;
+}
+
+
+- (void)setLast:(NSUInteger)last {
+    _last = last;
+    self.lastPositionFinder = self;
+}
+
+
+- (NSUInteger)last {
+    XPAssert(_lastPositionFinder);
+    return [_lastPositionFinder lastPosition];
+}
+
+
+- (NSUInteger)contextPosition {
+    return _position;
+}
+
+
+- (NSUInteger)contextSize {
+    @try {
+        return self.last;
+    } @catch (NSException *err) {
+        // The XSLTContext interfaces doesn't allow us to throw any exceptions.
+        // We'll pick it up on return from the extension function.
+        //setException(err);
+        return [self contextPosition];    // for want of anything better
+    }
+}
+
+#pragma mark -
+#pragma mark XPLastPositionFinder
+
+- (NSUInteger)lastPosition {
+    return _last;
 }
 
 @end

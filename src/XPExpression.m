@@ -141,7 +141,7 @@ static XPAssembler *sAssembler = nil;
 }
 
 
-- (NSUInteger)dependencies {
+- (XPDependencies)dependencies {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return 0;
 }

@@ -6,7 +6,11 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "XPEGParserLocationPathTest.h"
+#import "XPTestScaffold.h"
+
+@interface XPEGParserLocationPathTest : XCTestCase
+@property (nonatomic, retain) XPEGParser *parser;
+@end
 
 @implementation XPEGParserLocationPathTest
 
@@ -113,7 +117,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[book, [, 2, ], /, title]book/[/2/]///title^", [a description]);
+    TDEqualObjects(@"[book, 2, /, title]book/[/2/]///title^", [a description]);
 }
 
 
@@ -125,7 +129,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[book, [, not, (, preceding-sibling, ::, book, /, @, author, =, @, author, ], /, title]book/[/not/(/preceding-sibling/::/book///@/author/=/@/author/)/]///title^", [a description]);
+    TDEqualObjects(@"[book, not, (, preceding-sibling, book, /, @, author, =, @, author, /, title]book/[/not/(/preceding-sibling/::/book///@/author/=/@/author/)/]///title^", [a description]);
 }
 
 

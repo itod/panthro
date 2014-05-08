@@ -6,8 +6,8 @@
 //
 //
 
-#import <XPath/XPath.h>
+#import <XPath/XPNodeSetExpression.h>
 
-@interface XPRootExpression : XPSingletonExpression
+@interface XPRootExpression : XPNodeSetExpression
 
 @end

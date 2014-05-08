@@ -7,10 +7,15 @@
 //
 
 #import <XPath/XPValue.h>
+#import "XPSortable.h"
 
+@protocol XPNodeOrderComparer;
 @protocol XPNodeEnumeration;
 
-@interface XPNodeSetValue : XPValue
+@interface XPNodeSetValue : XPValue <XPSortable>
+
+- (instancetype)initWithNodes:(NSArray *)nodes comparer:(id <XPNodeOrderComparer>)comparer;
+- (instancetype)initWithEnumeration:(id <XPNodeEnumeration>)enm comparer:(id <XPNodeOrderComparer>)comparer;
 
 - (id <XPNodeEnumeration>)enumerate;
 
@@ -20,5 +25,7 @@
 - (XPNodeSetValue *)sort;
 - (id)firstNode;
 
-@property (nonatomic, getter=isSorted) BOOL sorted;
+@property (nonatomic, retain) id <XPNodeOrderComparer>comparer;
+@property (nonatomic, assign, readonly, getter=isSorted) BOOL sorted;
+@property (nonatomic, assign, readonly, getter=isReverseSorted) BOOL reverseSorted;
 @end

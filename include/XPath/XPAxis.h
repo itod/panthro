@@ -81,7 +81,7 @@ extern const NSString *XPAxisName[];
 * Resolve an axis name into a symbolic constant representing the axis
 */
 
-extern NSUInteger XPAxisGetAxisNumber(NSString *name);
+extern NSUInteger XPAxisForName(NSString *name);
 
 /*
     // a list for any future cut-and-pasting...

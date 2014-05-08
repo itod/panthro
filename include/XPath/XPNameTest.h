@@ -10,4 +10,7 @@
 
 @interface XPNameTest : XPNodeTest
 
+- (instancetype)initWithName:(NSString *)name;
+
+@property (nonatomic, copy, readonly) NSString *name;
 @end

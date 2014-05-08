@@ -37,7 +37,7 @@
 }
 
 
-- (NSUInteger)dependencies {
+- (XPDependencies)dependencies {
     if (!_contextNode) {
         return XPDependenciesContextNode;
     } else {

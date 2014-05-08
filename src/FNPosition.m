@@ -43,7 +43,7 @@
 }
 
 
-- (NSUInteger)dependencies {
+- (XPDependencies)dependencies {
     return XPDependenciesContextPosition;
 }
 

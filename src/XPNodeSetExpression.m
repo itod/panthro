@@ -10,7 +10,7 @@
 #import <XPath/XPContext.h>
 #import <XPath/XPNodeEnumeration.h>
 #import <XPath/XPNodeSetValue.h>
-#import <XPath/XPNodeSetIntent.h>
+#import "XPLocalOrderComparer.h"
 
 @implementation XPNodeSetExpression
 
@@ -26,7 +26,9 @@
     if ([expr isKindOfClass:[XPNodeSetValue class]]) {
         return (XPValue *)expr;
     } else if ([expr isKindOfClass:[XPNodeSetExpression class]]) {
-        return [XPNodeSetIntent intentWithNodeSetExpression:(XPNodeSetExpression *)expr controller:[ctx controller]];
+        id <XPNodeEnumeration>enm = [(XPNodeSetExpression *)expr enumerateInContext:ctx sorted:YES];
+        XPNodeSetValue *nodeSet = [[[XPNodeSetValue alloc] initWithEnumeration:enm comparer:[XPLocalOrderComparer instance]] autorelease];
+        return nodeSet; // TODO [XPNodeSetIntent intentWithNodeSetExpression:(XPNodeSetExpression *)expr controller:[ctx controller]];
     } else {
         XPValue *value = [expr evaluateInContext:ctx];
         if ([value isKindOfClass:[XPNodeSetValue class]]) {

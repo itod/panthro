@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol XPSortable;
+
 typedef NS_ENUM(NSUInteger, XPNodeType) {
     
     // Node types. "NODE" means any type.
@@ -25,25 +27,11 @@ typedef NS_ENUM(NSUInteger, XPNodeType) {
     XPNodeTypeNone = 9999,    // a test for this node type will never be satisfied
 };
 
-
-//const NSString *XPNodetypeName[] =
-//{
-//    @"node",
-//    @"element",
-//    @"attribute",
-//    @"text",
-//    @"processing-instruction",
-//    @"comment",
-//    @"root",
-//    @"namespace",
-//    @"number-of-types",
-//    @"none",
-//};
-//
-//
-
+extern const NSString *XPNodeTypeName[];
 
 extern BOOL XPNameIsNCName(NSString *name);
 extern BOOL XPNameIsQName(NSString *name);
 extern BOOL XPNameGetPrefix(NSString *qname);
 extern BOOL XPNameGetLocalName(NSString *qname);
+
+extern void XPQuickSort(id <XPSortable>a, NSInteger lo0, NSInteger hi0);

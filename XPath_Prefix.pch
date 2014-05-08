@@ -9,3 +9,5 @@
 #define XPAssertMainThread() NSAssert1([NSThread isMainThread], @"%s should be called on the main thread only.", __PRETTY_FUNCTION__);
 #define XPAssertNotMainThread() NSAssert1(![NSThread isMainThread], @"%s should never be called on the main thread.", __PRETTY_FUNCTION__);
 #define XPAssert(expr) NSAssert((expr), @"assertion failed in %s", __PRETTY_FUNCTION__);
+#define XPAssertToken(obj) NSAssert([(obj) isKindOfClass:[PKToken class]], @"assertion failed in %s", __PRETTY_FUNCTION__);
+#define XPAssertExpr(obj) NSAssert([(obj) isKindOfClass:[XPExpression class]], @"assertion failed in %s", __PRETTY_FUNCTION__);

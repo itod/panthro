@@ -37,7 +37,7 @@
  * The value should be -1 for a node with no name.
  */
 
-- (BOOL)matches:(XPNodeType)nodeType name:(NSString *)nodeName;
+- (BOOL)matches:(XPNodeType)nodeType name:(NSString *)name;
 
 /**
  * Test whether this node test is satisfied by a given node, in a given Context
@@ -45,4 +45,10 @@
 
 - (BOOL)matches:(id <XPNodeInfo>)node inContext:(XPContext *)ctx;
 
+/**
+ * Determine the types of nodes to which this pattern applies. Used for optimisation.
+ * @return the type of node matched by this pattern. e.g. NodeInfo.ELEMENT or NodeInfo.TEXT
+ */
+
+@property (nonatomic, assign) XPNodeType nodeType;
 @end
