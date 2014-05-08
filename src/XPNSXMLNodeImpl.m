@@ -30,7 +30,7 @@
 
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<%@ %p %@ %@>", [self class], self, XPNodeTypeName[self.nodeType], self.nodeName];
+    return [NSString stringWithFormat:@"<%@ %p %@ %@>", [self class], self, XPNodeTypeName[self.nodeType], self.name];
 }
 
 
@@ -86,9 +86,21 @@
 }
 
 
-- (NSString *)nodeName {
+- (NSString *)name {
     XPAssert(_node);
     return [_node name];
+}
+
+
+- (NSString *)localName {
+    XPAssert(_node);
+    return [_node localName];
+}
+
+
+- (NSString *)prefix {
+    XPAssert(_node);
+    return [_node prefix];
 }
 
 

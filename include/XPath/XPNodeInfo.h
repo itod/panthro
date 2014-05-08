@@ -42,7 +42,10 @@
  */
 
 @property (nonatomic, copy, readonly) NSString *stringValue;
-@property (nonatomic, copy, readonly) NSString *nodeName;
+
+@property (nonatomic, copy, readonly) NSString *name;
+@property (nonatomic, copy, readonly) NSString *localName;
+@property (nonatomic, copy, readonly) NSString *prefix;
 
 
 /**

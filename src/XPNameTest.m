@@ -39,7 +39,7 @@
 
 - (BOOL)matches:(id <XPNodeInfo>)node {
     BOOL matches = NO;
-    if (_isWildcard || [_name isEqualToString:node.nodeName]) {
+    if (_isWildcard || [_name isEqualToString:node.name]) {
         matches = YES;
     }
     return matches;
