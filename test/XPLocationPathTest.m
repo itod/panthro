@@ -17,13 +17,20 @@
 @interface XPLocationPathTest : XCTestCase
 @property (nonatomic, retain) XPExpression *expr;
 @property (nonatomic, retain) XPContext *ctx;
-@property (nonatomic, retain) id res;
+@property (nonatomic, retain) XPNodeSetValue *res;
+@property (nonatomic, retain) NSArray *ids;
+@property (nonatomic, retain) NSArray *titles;
+@property (nonatomic, retain) NSArray *paras;
 @end
 
 @implementation XPLocationPathTest
 
 - (void)setUp {
     [super setUp];
+
+    self.ids = @[@"ch1", @"ch2", @"ch3"];
+    self.titles = @[@"Chapter 1", @"Chapter 2", @"Chapter 3"];
+    self.paras = @[@"Chapter 1 content.", @"Chapter 2 content.", @"Chapter 3 content."];
 
     NSString *str = XPContentsOfFile(@"book.xml");
     NSError *err = nil;
@@ -53,22 +60,78 @@
 }
 
 
-//- (void)testImplicitChildAxisNameTestP {
-//    self.expr = [XPExpression expressionFromString:@"p" inContext:nil error:nil];
-//    TDNotNil(_expr);
-//    TDTrue([_expr isKindOfClass:[XPPathExpression class]]);
-//    
-//    self.res = [_expr evaluateInContext:_ctx];
-//    TDNotNil(_res);
-//    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
-//    
-//    XPNodeSetValue *nodeSet = (id)_res;
-//    id <XPNodeEnumeration>enm = [nodeSet enumerate];
-//    
-//    id <XPNodeInfo>node = [enm nextObject];
-//    TDEqualObjects(@"p", node.name);
-//    TDEquals(XPNodeTypeElement, node.nodeType);
-//    
-//    TDFalse([enm hasMoreObjects]);
-//}
+- (void)testImplicitChildAxisNameTestChapter {
+    self.expr = [XPExpression expressionFromString:@"chapter" inContext:nil error:nil];
+   
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+
+    for (NSUInteger i = 0; i < 3; ++i) {
+        id <XPNodeInfo>node = [enm nextObject];
+        TDEqualObjects(@"chapter", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testExplicitChildAxisNameTestChapter {
+    self.expr = [XPExpression expressionFromString:@"child::chapter" inContext:nil error:nil];
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    for (NSUInteger i = 0; i < 3; ++i) {
+        id <XPNodeInfo>node = [enm nextObject];
+        TDEqualObjects(@"chapter", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testImplicitChildAxisNameTestChapterSlashTitle {
+    self.expr = [XPExpression expressionFromString:@"chapter/title" inContext:nil error:nil];
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    for (NSUInteger i = 0; i < 3; ++i) {
+        id <XPNodeInfo>node = [enm nextObject];
+        TDEqualObjects(@"title", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+        TDEqualObjects(_titles[i], node.stringValue);
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testExplicitChildAxisNameTestChapterSlashTitle {
+    self.expr = [XPExpression expressionFromString:@"child::chapter/child::title" inContext:nil error:nil];
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    for (NSUInteger i = 0; i < 3; ++i) {
+        id <XPNodeInfo>node = [enm nextObject];
+        TDEqualObjects(@"title", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+        TDEqualObjects(_titles[i], node.stringValue);
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
 @end

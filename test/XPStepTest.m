@@ -18,7 +18,7 @@
 @property (nonatomic, retain) XPExpression *expr;
 @property (nonatomic, retain) id <XPStaticContext>env;
 @property (nonatomic, retain) XPContext *ctx;
-@property (nonatomic, retain) id res;
+@property (nonatomic, retain) XPNodeSetValue *res;
 @end
 
 @implementation XPStepTest
@@ -49,12 +49,10 @@
 - (void)testImplicitChildAxisNameTestP {
     self.expr = [XPExpression expressionFromString:@"p" inContext:_env error:nil];
     
-    self.res = [_expr evaluateInContext:_ctx];
-    TDNotNil(_res);
+    self.res = (id)[_expr evaluateInContext:_ctx];
     TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
     
-    XPNodeSetValue *nodeSet = (id)_res;
-    id <XPNodeEnumeration>enm = [nodeSet enumerate];
+    id <XPNodeEnumeration>enm = [_res enumerate];
     
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(@"p", node.name);
@@ -67,12 +65,10 @@
 - (void)testImplicitChildAxisNameTestPSlashA {
     self.expr = [XPExpression expressionFromString:@"p/a" inContext:_env error:nil];
     
-    self.res = [_expr evaluateInContext:_ctx];
-    TDNotNil(_res);
+    self.res = (id)[_expr evaluateInContext:_ctx];
     TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
     
-    XPNodeSetValue *nodeSet = (id)_res;
-    id <XPNodeEnumeration>enm = [nodeSet enumerate];
+    id <XPNodeEnumeration>enm = [_res enumerate];
     
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(@"a", node.name);
@@ -85,12 +81,10 @@
 - (void)testExplicitChildAxisNameTestPSlashA {
     self.expr = [XPExpression expressionFromString:@"child::p/child::a" inContext:_env error:nil];
     
-    self.res = [_expr evaluateInContext:_ctx];
-    TDNotNil(_res);
+    self.res = (id)[_expr evaluateInContext:_ctx];
     TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
     
-    XPNodeSetValue *nodeSet = (id)_res;
-    id <XPNodeEnumeration>enm = [nodeSet enumerate];
+    id <XPNodeEnumeration>enm = [_res enumerate];
     
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(@"a", node.name);
@@ -103,12 +97,10 @@
 - (void)testExplicitChildAxisNameTestDotSlashPSlashA {
     self.expr = [XPExpression expressionFromString:@"./child::p/child::a" inContext:_env error:nil];
     
-    self.res = [_expr evaluateInContext:_ctx];
-    TDNotNil(_res);
+    self.res = (id)[_expr evaluateInContext:_ctx];
     TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
     
-    XPNodeSetValue *nodeSet = (id)_res;
-    id <XPNodeEnumeration>enm = [nodeSet enumerate];
+    id <XPNodeEnumeration>enm = [_res enumerate];
     
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(@"a", node.name);
@@ -121,12 +113,10 @@
 - (void)testImplicitChildAxisNameTestStar {
     self.expr = [XPExpression expressionFromString:@"*" inContext:_env error:nil];
     
-    self.res = [_expr evaluateInContext:_ctx];
-    TDNotNil(_res);
+    self.res = (id)[_expr evaluateInContext:_ctx];
     TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
     
-    XPNodeSetValue *nodeSet = (id)_res;
-    id <XPNodeEnumeration>enm = [nodeSet enumerate];
+    id <XPNodeEnumeration>enm = [_res enumerate];
     
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(@"p", node.name);
@@ -139,12 +129,10 @@
 - (void)testDot {
     self.expr = [XPExpression expressionFromString:@"." inContext:_env error:nil];
     
-    self.res = [_expr evaluateInContext:_ctx];
-    TDNotNil(_res);
+    self.res = (id)[_expr evaluateInContext:_ctx];
     TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
     
-    XPNodeSetValue *nodeSet = (id)_res;
-    id <XPNodeEnumeration>enm = [nodeSet enumerate];
+    id <XPNodeEnumeration>enm = [_res enumerate];
     
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(@"doc", node.name);
@@ -157,11 +145,9 @@
 - (void)testDotDot {
     self.expr = [XPExpression expressionFromString:@".." inContext:_env error:nil];
     
-    self.res = [_expr evaluateInContext:_ctx];
-    TDNotNil(_res);
+    self.res = (id)[_expr evaluateInContext:_ctx];
     
-    XPNodeSetValue *nodeSet = (id)_res;
-    id <XPNodeEnumeration>enm = [nodeSet enumerate];
+    id <XPNodeEnumeration>enm = [_res enumerate];
     
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(nil, node.name);
@@ -174,11 +160,9 @@
 - (void)testDotSlashDotDot {
     self.expr = [XPExpression expressionFromString:@"./.." inContext:_env error:nil];
     
-    self.res = [_expr evaluateInContext:_ctx];
-    TDNotNil(_res);
+    self.res = (id)[_expr evaluateInContext:_ctx];
     
-    XPNodeSetValue *nodeSet = (id)_res;
-    id <XPNodeEnumeration>enm = [nodeSet enumerate];
+    id <XPNodeEnumeration>enm = [_res enumerate];
     
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(nil, node.name);
@@ -191,11 +175,9 @@
 - (void)testDotDotSlashDot {
     self.expr = [XPExpression expressionFromString:@"../." inContext:_env error:nil];
     
-    self.res = [_expr evaluateInContext:_ctx];
-    TDNotNil(_res);
+    self.res = (id)[_expr evaluateInContext:_ctx];
     
-    XPNodeSetValue *nodeSet = (id)_res;
-    id <XPNodeEnumeration>enm = [nodeSet enumerate];
+    id <XPNodeEnumeration>enm = [_res enumerate];
     
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(nil, node.name);
