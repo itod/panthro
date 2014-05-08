@@ -25,8 +25,9 @@
     if ([expr isKindOfClass:[XPNodeSetValue class]]) {
         return (XPValue *)expr;
     } else if ([expr isKindOfClass:[XPNodeSetExpression class]]) {
-        XPAssert(0);
-        return nil; // TODO [XPNodeSetIntent intentWithNodeSetExpression:(XPNodeSetExpression *)expr controller:[ctx controller]];
+        id <XPNodeEnumeration>enm = [(XPNodeSetExpression *)expr enumerateInContext:ctx sorted:YES];
+        XPNodeSetValue *nodeSet = [[[XPNodeSetValue alloc] initWithEnumeration:enm] autorelease];
+        return nodeSet; // TODO [XPNodeSetIntent intentWithNodeSetExpression:(XPNodeSetExpression *)expr controller:[ctx controller]];
     } else {
         XPValue *value = [expr evaluateInContext:ctx];
         if ([value isKindOfClass:[XPNodeSetValue class]]) {

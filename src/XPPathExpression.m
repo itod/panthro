@@ -12,189 +12,190 @@
 #import "XPAxis.h"
 #import "XPEmptyNodeSet.h"
 #import "XPAxisExpression.h"
+#import "XPEnumeration.h"
 
 @interface XPExpression ()
 @property (nonatomic, retain, readwrite) id <XPStaticContext>staticContext;
 @end
 
-/**
- * Inner class PathEnumeration
- */
-@interface XPPathEnumeration : NSObject <XPNodeEnumeration>
-- (instancetype)initWithPathExpression:(XPPathExpression *)pathExpr start:(XPExpression *)start context:(XPContext *)ctx;
-
+///**
+// * Inner class PathEnumeration
+// */
+//@interface XPPathEnumeration : NSObject <XPNodeEnumeration>
+//- (instancetype)initWithPathExpression:(XPPathExpression *)pathExpr start:(XPExpression *)start context:(XPContext *)ctx;
 //
-//    private Expression thisStart;
-//    private NodeEnumeration base=null;
-//    private NodeEnumeration thisStep=null;
-//    private NodeInfo next=null;
-//    private Context context;
-@property (nonatomic, assign) XPPathExpression *pathExpr; // weakref
-@property (nonatomic, retain) XPExpression *thisStart;
-@property (nonatomic, retain) id <XPNodeEnumeration>base;
-@property (nonatomic, retain) id <XPNodeEnumeration>thisStep;
-@property (nonatomic, retain) id <XPNodeInfo>next;
-@property (nonatomic, retain) XPContext *context;
-@end
-
-@implementation XPPathEnumeration
-
-- (instancetype)initWithPathExpression:(XPPathExpression *)pathExpr start:(XPExpression *)start context:(XPContext *)ctx {
-    self = [super init];
-    if (self) {
-        self.pathExpr = pathExpr;
-        self.thisStart = start;
-        self.context = [[ctx copy] autorelease];
-        self.base = [start enumerateInContext:self.context sorted:NO];
-        self.next = [self nextNode];
-    }
-    return self;
-}
-
-
-- (void)dealloc {
-    self.thisStart = nil;
-    self.base = nil;
-    self.thisStep = nil;
-    self.next = nil;
-    self.context = nil;
-    [super dealloc];
-}
-
-
-- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id *)stackbuf count:(NSUInteger)len {
-    NSUInteger count = 0;
-    
-    id <XPNodeInfo>node = nil;
-    
-    if (0 == state->state) {
-        node = [self nextObject];
-    } else {
-        node = (id <XPNodeInfo>)state->state;
-    }
-    
-    while ([self hasMoreObjects] && count < len) {
-        stackbuf[count] = node;
-        node = [self nextObject];
-        count++;
-    }
-    
-    state->state = (unsigned long)node;
-    state->itemsPtr = stackbuf;
-    state->mutationsPtr = (unsigned long *)self;
-    
-    return count;
-}
-
-
-- (BOOL)isSorted {
-    return YES;
-}
-
-
-- (BOOL)isReverseSorted {
-    return YES;
-}
-
-
-- (BOOL)isPeer {
-    return YES;
-}
-
-
-- (BOOL)hasMoreObjects {
-    return NO;
-}
-
-
-- (id <XPNodeInfo>)nextObject {
-    return nil;
-}
-
-
-- (NSUInteger)lastPosition {
-    return 0;
-}
-
-
+////
+////    private Expression thisStart;
+////    private NodeEnumeration base=null;
+////    private NodeEnumeration thisStep=null;
+////    private NodeInfo next=null;
+////    private Context context;
+//@property (nonatomic, assign) XPPathExpression *pathExpr; // weakref
+//@property (nonatomic, retain) XPExpression *thisStart;
+//@property (nonatomic, retain) id <XPNodeEnumeration>base;
+//@property (nonatomic, retain) id <XPNodeEnumeration>thisStep;
+//@property (nonatomic, retain) id <XPNodeInfo>next;
+//@property (nonatomic, retain) XPContext *context;
+//@end
 //
-//    public PathEnumeration(Expression start, Context context) throws XPathException {
+//@implementation XPPathEnumeration
+//
+//- (instancetype)initWithPathExpression:(XPPathExpression *)pathExpr start:(XPExpression *)start context:(XPContext *)ctx {
+//    self = [super init];
+//    if (self) {
+//        self.pathExpr = pathExpr;
+//        self.thisStart = start;
+//        self.context = [[ctx copy] autorelease];
+//        self.base = [start enumerateInContext:self.context sorted:NO];
+//        self.next = [self nextNode];
+//    }
+//    return self;
+//}
+//
+//
+//- (void)dealloc {
+//    self.thisStart = nil;
+//    self.base = nil;
+//    self.thisStep = nil;
+//    self.next = nil;
+//    self.context = nil;
+//    [super dealloc];
+//}
+//
+//
+//- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id *)stackbuf count:(NSUInteger)len {
+//    NSUInteger count = 0;
+//    
+//    id <XPNodeInfo>node = nil;
+//    
+//    if (0 == state->state) {
+//        node = [self nextObject];
+//    } else {
+//        node = (id <XPNodeInfo>)state->state;
+//    }
+//    
+//    while ([self hasMoreObjects] && count < len) {
+//        stackbuf[count] = node;
+//        node = [self nextObject];
+//        count++;
+//    }
+//    
+//    state->state = (unsigned long)node;
+//    state->itemsPtr = stackbuf;
+//    state->mutationsPtr = (unsigned long *)self;
+//    
+//    return count;
+//}
+//
+//
+//- (BOOL)isSorted {
+//    return YES;
+//}
+//
+//
+//- (BOOL)isReverseSorted {
+//    return YES;
+//}
+//
+//
+//- (BOOL)isPeer {
+//    return YES;
+//}
+//
+//
+//- (BOOL)hasMoreObjects {
+//    return NO;
+//}
+//
+//
+//- (id <XPNodeInfo>)nextObject {
+//    return nil;
+//}
+//
+//
+//- (NSUInteger)lastPosition {
+//    return 0;
+//}
+//
+//
+////
+////    public PathEnumeration(Expression start, Context context) throws XPathException {
+////    }
+////
+////    public boolean hasMoreElements() {
+////        return next!=null;
+////    }
+////
+////    public NodeInfo nextElement() throws XPathException {
+////        NodeInfo curr = next;
+////        next = getNextNode();
+////        return curr;
+////    }
+////
+//- (id <XPNodeInfo>)nextNode {
+//
+//    // if we are currently processing a step, we continue with it. Otherwise,
+//    // we get the next base element, and apply the step to that.
+//
+//    if (_thisStep && [_thisStep hasMoreObjects]) {
+//        return [_thisStep nextObject];
+//        //NodeInfo n = thisStep.nextElement();
+//        //System.err.println("Continuing Step.nextElement() = " + n);
+//        //return n;
 //    }
 //
-//    public boolean hasMoreElements() {
-//        return next!=null;
+//    while ([_base hasMoreObjects]) {
+//        id <XPNodeInfo>node = [_base nextObject];
+//        //System.err.println("Base.nextElement = " + node);
+//        
+//        XPAssert(_pathExpr.step);
+//        self.thisStep = [_pathExpr.step enumerate:node inContext:_context];
+//        if ([_thisStep hasMoreObjects]) {
+//            return [_thisStep nextObject];
+//            //NodeInfo n2 = thisStep.nextElement();
+//            //System.err.println("Starting Step.nextElement() = " + n2);
+//            //return n2;
+//        }
 //    }
 //
-//    public NodeInfo nextElement() throws XPathException {
-//        NodeInfo curr = next;
-//        next = getNextNode();
-//        return curr;
-//    }
-//
-- (id <XPNodeInfo>)nextNode {
-
-    // if we are currently processing a step, we continue with it. Otherwise,
-    // we get the next base element, and apply the step to that.
-
-    if (_thisStep && [_thisStep hasMoreObjects]) {
-        return [_thisStep nextObject];
-        //NodeInfo n = thisStep.nextElement();
-        //System.err.println("Continuing Step.nextElement() = " + n);
-        //return n;
-    }
-
-    while ([_base hasMoreObjects]) {
-        id <XPNodeInfo>node = [_base nextObject];
-        //System.err.println("Base.nextElement = " + node);
-        
-        XPAssert(_pathExpr.step);
-        self.thisStep = [_pathExpr.step enumerate:node inContext:_context];
-        if ([_thisStep hasMoreObjects]) {
-            return [_thisStep nextObject];
-            //NodeInfo n2 = thisStep.nextElement();
-            //System.err.println("Starting Step.nextElement() = " + n2);
-            //return n2;
-        }
-    }
-
-    return nil;
-}
-//
-//    /**
-//     * Determine if we can guarantee that the nodes are in document order. This is true if the
-//     * start nodes are sorted peer nodes and the step is within the subtree rooted at each node.
-//     * It is also true if the start is a singleton node and the axis is sorted.
-//     */
-//
-//    public boolean isSorted() {
-//        byte axis = step.getAxis();
-//        return Axis.isForwards[axis] && (
-//                                         ( (thisStart instanceof SingletonExpression) ||
-//                                          (base.isSorted() && base.isPeer() && Axis.isSubtreeAxis[axis]) ||
-//                                          (base.isSorted() && (axis==Axis.ATTRIBUTE || axis==Axis.NAMESPACE))
-//                                          ));
-//    }
-//
-//    /**
-//     * Determine if the nodes are guaranteed to be in reverse document order. This is true if the
-//     * base is singular (e.g. the root node or the current node) and the axis is a reverse axis
-//     */
-//
-//    public boolean isReverseSorted() {
-//        return thisStart instanceof SingletonExpression && Axis.isReverse[step.getAxis()];
-//    }
-//
-//    /**
-//     * Determine if the resulting nodes are peer nodes, that is, if no node is a descendant of any
-//     * other. This is the case if the start nodes are peer nodes and the axis is a peer axis.
-//     */
-//
-//    public boolean isPeer() {
-//        return (base.isPeer() && Axis.isPeerAxis[step.getAxis()]);
-//    }
-//
-//}   // end of inner class PathEnumeration
-@end
+//    return nil;
+//}
+////
+////    /**
+////     * Determine if we can guarantee that the nodes are in document order. This is true if the
+////     * start nodes are sorted peer nodes and the step is within the subtree rooted at each node.
+////     * It is also true if the start is a singleton node and the axis is sorted.
+////     */
+////
+////    public boolean isSorted() {
+////        byte axis = step.getAxis();
+////        return Axis.isForwards[axis] && (
+////                                         ( (thisStart instanceof SingletonExpression) ||
+////                                          (base.isSorted() && base.isPeer() && Axis.isSubtreeAxis[axis]) ||
+////                                          (base.isSorted() && (axis==Axis.ATTRIBUTE || axis==Axis.NAMESPACE))
+////                                          ));
+////    }
+////
+////    /**
+////     * Determine if the nodes are guaranteed to be in reverse document order. This is true if the
+////     * base is singular (e.g. the root node or the current node) and the axis is a reverse axis
+////     */
+////
+////    public boolean isReverseSorted() {
+////        return thisStart instanceof SingletonExpression && Axis.isReverse[step.getAxis()];
+////    }
+////
+////    /**
+////     * Determine if the resulting nodes are peer nodes, that is, if no node is a descendant of any
+////     * other. This is the case if the start nodes are peer nodes and the axis is a peer axis.
+////     */
+////
+////    public boolean isPeer() {
+////        return (base.isPeer() && Axis.isPeerAxis[step.getAxis()]);
+////    }
+////
+////}   // end of inner class PathEnumeration
+//@end
 
 @implementation XPPathExpression
 
@@ -317,10 +318,10 @@
 //    // (this will evaluate to a NodeSetIntent, which will be replaced by
 //    // the corresponding node-set extent if it is used more than thrice).
 //    
-    if (([path isKindOfClass:[XPPathExpression class]]) && [((XPPathExpression *)path).start isKindOfClass:[XPNodeSetValue class]]) {
-        return ((XPPathExpression *)path).start;
+//    if (([path isKindOfClass:[XPPathExpression class]]) && [((XPPathExpression *)path).start isKindOfClass:[XPNodeSetValue class]]) {
+        //return ((XPPathExpression *)path).start;
         //return [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPPathExpression *)path controller:ctx.controller] autorelease];
-    }
+//    }
     
     return path;
 }
@@ -337,6 +338,26 @@
     // are all known to be in the context document, then any dependency on the
     // context document (e.g. an absolute path expression in a predicate) can also
     // be removed now.
+    
+    id <XPNodeEnumeration>startNodes = [_start enumerateInContext:ctx sorted:YES];
+    ctx.last = [startNodes lastPosition];
+    ctx.position = 0;
+    
+    NSMutableArray *nodes = [NSMutableArray array];
+    
+    id <XPNodeInfo>ctxNode = nil;
+    while ([startNodes hasMoreObjects]) {
+        ctxNode = [startNodes nextObject];
+        ++ctx.position;
+        ctx.contextNode = ctxNode;
+
+        id <XPNodeEnumeration>enm = [_step enumerate:ctxNode inContext:ctx];
+        [nodes addObjectsFromArray:[enm allObjects]];
+    }
+    
+    id <XPNodeEnumeration>enm = [[[XPEnumeration alloc] initWithNodes:nodes isSorted:sorted] autorelease];
+    
+    
     
 //    NSUInteger actualdep = self.dependencies;
 //    NSUInteger removedep = 0;
@@ -355,7 +376,7 @@
 //        return [temp enumerateInContext:ctx sorted:sorted];
 //    }
     
-    id <XPNodeEnumeration>enm = [[[XPPathEnumeration alloc] initWithPathExpression:self start:_start context:ctx] autorelease];
+//    id <XPNodeEnumeration>enm = [[[XPPathEnumeration alloc] initWithPathExpression:self start:_start context:ctx] autorelease];
 //    if (sorted && !enm.isSorted) {
 //
 //        id <XPNodeOrderComparer>comparer = nil;

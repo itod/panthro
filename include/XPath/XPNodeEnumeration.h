@@ -31,4 +31,7 @@
  */
 
 - (id <XPNodeInfo>)nextObject;
+
+- (NSUInteger)lastPosition;
+- (NSArray *)allObjects;
 @end

@@ -115,8 +115,9 @@
         for (id obj in [_value reverseObjectEnumerator]) {
             [nodes addObject:obj];
         }
-        result = [[[XPNodeSetValue alloc] initWithNodes:nodes] autorelease];
-        result.isSorted = NO;
+        //result = [[[XPNodeSetValue alloc] initWithNodes:nodes] autorelease];
+        result.value = nodes;
+        result.isSorted = YES;
     }
     
     return result;

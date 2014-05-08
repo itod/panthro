@@ -29,6 +29,11 @@
 }
 
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%@ %p %@ %@>", [self class], self, XPNodeTypeName[self.nodeType], self.nodeName];
+}
+
+
 - (NSComparisonResult)compareOrderTo:(id <XPNodeInfo>)other {
     return NSOrderedSame;
 }

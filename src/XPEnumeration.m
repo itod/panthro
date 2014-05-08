@@ -12,7 +12,7 @@
 @property (nonatomic, copy) NSArray *nodes;
 @property (nonatomic, assign) BOOL isSorted;
 @property (nonatomic, assign) NSUInteger idx;
-@property (nonatomic, assign) NSUInteger last;
+@property (nonatomic, assign) NSUInteger lastPosition;
 @end
 
 @implementation XPEnumeration
@@ -21,7 +21,7 @@
     self = [super init];
     if (self) {
         self.nodes = nodes;
-        self.last = [_nodes count];
+        self.lastPosition = [_nodes count];
         self.idx = 0;
     }
     return self;
@@ -49,7 +49,7 @@
     XPAssert(NSNotFound != _idx);
     XPAssert(_nodes);
     
-    return _idx < _last;
+    return _idx < _lastPosition;
 }
 
 /**
@@ -67,6 +67,12 @@
     }
     
     return node;
+}
+
+
+- (NSArray *)allObjects {
+    XPAssert(_nodes);
+    return [[_nodes copy] autorelease];
 }
 
 
