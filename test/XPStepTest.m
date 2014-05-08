@@ -16,6 +16,7 @@
 
 @interface XPStepTest : XCTestCase
 @property (nonatomic, retain) XPExpression *expr;
+@property (nonatomic, retain) id <XPStaticContext>env;
 @property (nonatomic, retain) XPContext *ctx;
 @property (nonatomic, retain) id res;
 @end
@@ -33,8 +34,8 @@
     NSXMLNode *docEl = [doc rootElement];
     id <XPNodeInfo>docElNode = [[[XPNSXMLNodeImpl alloc] initWithNode:docEl sortIndex:1] autorelease];
     
-    id <XPStaticContext>env = [[[XPStandaloneContext alloc] init] autorelease];
-    self.ctx = [[[XPContext alloc] initWithStaticContext:env] autorelease];
+    self.env = [[[XPStandaloneContext alloc] init] autorelease];
+    self.ctx = [[[XPContext alloc] initWithStaticContext:_env] autorelease];
     _ctx.contextNode = docElNode;
 }
 
@@ -46,9 +47,7 @@
 
 
 - (void)testImplicitChildAxisNameTestP {
-    self.expr = [XPExpression expressionFromString:@"p" inContext:nil error:nil];
-    TDNotNil(_expr);
-    TDTrue([_expr isKindOfClass:[XPPathExpression class]]);
+    self.expr = [XPExpression expressionFromString:@"p" inContext:_env error:nil];
     
     self.res = [_expr evaluateInContext:_ctx];
     TDNotNil(_res);
@@ -66,9 +65,7 @@
 
 
 - (void)testImplicitChildAxisNameTestPSlashA {
-    self.expr = [XPExpression expressionFromString:@"p/a" inContext:nil error:nil];
-    TDNotNil(_expr);
-    TDTrue([_expr isKindOfClass:[XPPathExpression class]]);
+    self.expr = [XPExpression expressionFromString:@"p/a" inContext:_env error:nil];
     
     self.res = [_expr evaluateInContext:_ctx];
     TDNotNil(_res);
@@ -86,9 +83,7 @@
 
 
 - (void)testExplicitChildAxisNameTestPSlashA {
-    self.expr = [XPExpression expressionFromString:@"child::p/child::a" inContext:nil error:nil];
-    TDNotNil(_expr);
-    TDTrue([_expr isKindOfClass:[XPPathExpression class]]);
+    self.expr = [XPExpression expressionFromString:@"child::p/child::a" inContext:_env error:nil];
     
     self.res = [_expr evaluateInContext:_ctx];
     TDNotNil(_res);
@@ -106,9 +101,7 @@
 
 
 - (void)testExplicitChildAxisNameTestDotSlashPSlashA {
-    self.expr = [XPExpression expressionFromString:@"./child::p/child::a" inContext:nil error:nil];
-    TDNotNil(_expr);
-    TDTrue([_expr isKindOfClass:[XPPathExpression class]]);
+    self.expr = [XPExpression expressionFromString:@"./child::p/child::a" inContext:_env error:nil];
     
     self.res = [_expr evaluateInContext:_ctx];
     TDNotNil(_res);
@@ -126,9 +119,7 @@
 
 
 - (void)testImplicitChildAxisNameTestStar {
-    self.expr = [XPExpression expressionFromString:@"*" inContext:nil error:nil];
-    TDNotNil(_expr);
-    TDTrue([_expr isKindOfClass:[XPPathExpression class]]);
+    self.expr = [XPExpression expressionFromString:@"*" inContext:_env error:nil];
     
     self.res = [_expr evaluateInContext:_ctx];
     TDNotNil(_res);
@@ -146,9 +137,7 @@
 
 
 - (void)testDot {
-    self.expr = [XPExpression expressionFromString:@"." inContext:nil error:nil];
-    TDNotNil(_expr);
-    TDTrue([_expr isKindOfClass:[XPPathExpression class]]);
+    self.expr = [XPExpression expressionFromString:@"." inContext:_env error:nil];
     
     self.res = [_expr evaluateInContext:_ctx];
     TDNotNil(_res);
@@ -166,9 +155,7 @@
 
 
 - (void)testDotDot {
-    self.expr = [XPExpression expressionFromString:@".." inContext:nil error:nil];
-    TDNotNil(_expr);
-    TDTrue([_expr isKindOfClass:[XPPathExpression class]]);
+    self.expr = [XPExpression expressionFromString:@".." inContext:_env error:nil];
     
     self.res = [_expr evaluateInContext:_ctx];
     TDNotNil(_res);
@@ -185,9 +172,7 @@
 
 
 - (void)testDotSlashDotDot {
-    self.expr = [XPExpression expressionFromString:@"./.." inContext:nil error:nil];
-    TDNotNil(_expr);
-    TDTrue([_expr isKindOfClass:[XPPathExpression class]]);
+    self.expr = [XPExpression expressionFromString:@"./.." inContext:_env error:nil];
     
     self.res = [_expr evaluateInContext:_ctx];
     TDNotNil(_res);
@@ -204,9 +189,7 @@
 
 
 - (void)testDotDotSlashDot {
-    self.expr = [XPExpression expressionFromString:@"../." inContext:nil error:nil];
-    TDNotNil(_expr);
-    TDTrue([_expr isKindOfClass:[XPPathExpression class]]);
+    self.expr = [XPExpression expressionFromString:@"../." inContext:_env error:nil];
     
     self.res = [_expr evaluateInContext:_ctx];
     TDNotNil(_res);
