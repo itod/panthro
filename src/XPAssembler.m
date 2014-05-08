@@ -22,6 +22,7 @@
 @property (nonatomic, retain) NSDictionary *nodeTypeTab;
 @property (nonatomic, retain) PKToken *paren;
 @property (nonatomic, retain) PKToken *fwdSlash;
+@property (nonatomic, retain) PKToken *closeBracket;
 @property (nonatomic, retain) NSCharacterSet *singleQuoteCharSet;
 @property (nonatomic, retain) NSCharacterSet *doubleQuoteCharSet;
 @end
@@ -32,6 +33,7 @@
     if (self = [super init]) {
         self.paren = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
         self.fwdSlash = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"/" doubleValue:0.0];
+        self.closeBracket = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"]" doubleValue:0.0];
         self.singleQuoteCharSet = [NSCharacterSet characterSetWithCharactersInString:@"'"];
         self.doubleQuoteCharSet = [NSCharacterSet characterSetWithCharactersInString:@"\""];
         
@@ -75,6 +77,7 @@
 - (void)dealloc {
     self.paren = nil;
     self.fwdSlash = nil;
+    self.closeBracket = nil;
     self.singleQuoteCharSet = nil;
     self.doubleQuoteCharSet = nil;
     self.funcTab = nil;
@@ -118,25 +121,29 @@
 - (void)parser:(PKParser *)p didMatchEqRelationalExpr:(PKAssembly *)a { [self parser:p didMatchAnyRelationalExpr:a]; }
 
 - (void)parser:(PKParser *)p didMatchAnyRelationalExpr:(PKAssembly *)a {
-    XPValue *v2 = [a pop];
+    XPExpression *p2 = [a pop];
+    XPAssertExpr(p2);
     PKToken *opTok = [a pop];
-    XPValue *v1 = [a pop];
+    XPAssertToken(opTok);
+    XPExpression *p1 = [a pop];
+    XPAssertExpr(p1);
     
     NSInteger op = XPTokenTypeEquals;
+    NSString *opStr = opTok.stringValue;
 
-    if ([@"!=" isEqualToString:opTok.stringValue]) {
+    if ([@"!=" isEqualToString:opStr]) {
         op = XPTokenTypeNE;
-    } else if ([@"<" isEqualToString:opTok.stringValue]) {
+    } else if ([@"<" isEqualToString:opStr]) {
         op = XPTokenTypeLT;
-    } else if ([@">" isEqualToString:opTok.stringValue]) {
+    } else if ([@">" isEqualToString:opStr]) {
         op = XPTokenTypeGT;
-    } else if ([@"<=" isEqualToString:opTok.stringValue]) {
+    } else if ([@"<=" isEqualToString:opStr]) {
         op = XPTokenTypeLE;
-    } else if ([@">=" isEqualToString:opTok.stringValue]) {
+    } else if ([@">=" isEqualToString:opStr]) {
         op = XPTokenTypeGE;
     }
     
-    [a push:[XPRelationalExpression relationalExpressionWithOperand:v1 operator:op operand:v2]];
+    [a push:[XPRelationalExpression relationalExpressionWithOperand:p1 operator:op operand:p2]];
 }
 
 
@@ -207,6 +214,7 @@
         [steps insertObject:step atIndex:0];
         peek = [a pop];
     } while ([peek isEqualTo:_fwdSlash]);
+    [a push:peek];
     
     XPExpression *start = [[[XPContextNodeExpression alloc] init] autorelease];
     XPPathExpression *pathExpr = nil;
@@ -216,7 +224,6 @@
     }
     
     [a push:pathExpr];
-    [a push:peek];
 }
 
 
@@ -239,7 +246,16 @@
 
 
 - (void)parser:(PKParser *)p didMatchImplicitAxisStep:(PKAssembly *)a {
-    XPNodeTest *nodeTest = [a pop];
+
+    id peek = [a pop];
+    while (peek == _closeBracket) {
+        XPExpression *pred = [a pop];
+        XPAssertExpr(pred);
+        
+        peek = [a pop];
+    }
+    
+    XPNodeTest *nodeTest = peek;
     XPAssert([nodeTest isKindOfClass:[XPNodeTest class]]);
 
     XPAxis axis = XPAxisChild;
@@ -301,10 +317,9 @@
 
 - (void)parser:(PKParser *)p didMatchPredicate:(PKAssembly *)a {
     XPExpression *expr = [a pop];
-    XPAssert([expr isKindOfClass:[XPExpression class]]);
-    
-    
+    XPAssertExpr(expr);
     [a push:expr];
+    [a push:_closeBracket];
 }
 
 
