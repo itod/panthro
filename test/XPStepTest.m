@@ -63,7 +63,7 @@
 }
 
 
-- (void)testExample {
+- (void)testDotDot {
     self.expr = [XPExpression expressionFromString:@".." inContext:nil error:nil];
     TDNotNil(_expr);
     TDTrue([_expr isKindOfClass:[XPPathExpression class]]);
