@@ -1,21 +1,21 @@
 //
-//  XPEnumeration.m
+//  XPNodeSetValueEnumeration.m
 //  XPath
 //
 //  Created by Todd Ditchendorf on 5/7/14.
 //
 //
 
-#import "XPEnumeration.h"
+#import "XPNodeSetValueEnumeration.h"
 
-@interface XPEnumeration ()
+@interface XPNodeSetValueEnumeration ()
 @property (nonatomic, copy) NSArray *nodes;
 @property (nonatomic, assign) BOOL isSorted;
 @property (nonatomic, assign) NSUInteger idx;
 @property (nonatomic, assign) NSUInteger lastPosition;
 @end
 
-@implementation XPEnumeration
+@implementation XPNodeSetValueEnumeration
 
 - (instancetype)initWithNodes:(NSArray *)nodes isSorted:(BOOL)sorted {
     self = [super init];
@@ -31,6 +31,11 @@
 - (void)dealloc {
     self.nodes = nil;
     [super dealloc];
+}
+
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%@ %p %lu>", [self class], self, [self.nodes count]];
 }
 
 
@@ -70,12 +75,6 @@
 }
 
 
-- (NSArray *)allObjects {
-    XPAssert(_nodes);
-    return [[_nodes copy] autorelease];
-}
-
-
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id *)stackbuf count:(NSUInteger)len {
     NSUInteger count = 0;
     
@@ -87,7 +86,7 @@
         node = (id <XPNodeInfo>)state->state;
     }
     
-    while ([self hasMoreObjects] && count < len) {
+    while (node && count < len) {
         stackbuf[count] = node;
         node = [self nextObject];
         count++;

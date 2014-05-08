@@ -7,31 +7,37 @@
 //
 
 #import "XPNodeSetValue.h"
+#import "XPNodeOrderComparer.h"
+#import <XPath/XPNodeInfo.h>
 #import <XPath/XPBooleanValue.h>
 #import <XPath/XPNumericValue.h>
 #import <XPath/XPStringValue.h>
 #import <XPath/XPObjectValue.h>
 #import <XPath/XPNodeEnumeration.h>
-#import <XPath/XPEnumeration.h>
+#import "XPNodeSetValueEnumeration.h"
 
 @interface XPNodeSetValue ()
-@property (nonatomic, copy) NSArray *value; // TODO
+@property (nonatomic, retain) NSMutableArray *value; // TODO
+@property (nonatomic, assign) NSUInteger count;
 @property (nonatomic, assign) BOOL isSorted;
 @property (nonatomic, retain) NSDictionary *stringValues;
 @end
 
 @implementation XPNodeSetValue
 
-- (instancetype)initWithNodes:(NSArray *)nodes {
+- (instancetype)initWithNodes:(NSArray *)nodes comparer:(id <XPNodeOrderComparer>)comparer sorted:(BOOL)sorted {
     self = [super init];
     if (self) {
-        self.value = nodes;
+        self.value = [[nodes mutableCopy] autorelease];
+        self.count = [_value count];
+        self.comparer = comparer;
+        self.isSorted = sorted;
     }
     return self;
 }
 
 
-- (instancetype)initWithEnumeration:(id <XPNodeEnumeration>)enm {
+- (instancetype)initWithEnumeration:(id <XPNodeEnumeration>)enm comparer:(id <XPNodeOrderComparer>)comparer {
     self = [super init];
     if (self) {
         NSMutableArray *nodes = [NSMutableArray array];
@@ -43,6 +49,8 @@
         }
         
         self.value = nodes;
+        self.count = [nodes count];
+        self.comparer = comparer;
         self.isSorted = enm.isSorted;
     }
     return self;
@@ -74,7 +82,7 @@
 
 - (id <XPNodeEnumeration>)enumerate {
     XPAssert(_value);
-    id <XPNodeEnumeration>enm = [[[XPEnumeration alloc] initWithNodes:_value isSorted:_isSorted] autorelease];
+    id <XPNodeEnumeration>enm = [[[XPNodeSetValueEnumeration alloc] initWithNodes:_value isSorted:_isSorted] autorelease];
     return enm;
 }
 
@@ -100,27 +108,41 @@
 }
 
 
-- (NSUInteger)count {
-    XPAssert(_value);
-    return [_value count];
-}
-
-
 - (XPNodeSetValue *)sort {
-    XPNodeSetValue *result = self;
+    if (_count < 2) self.sorted = YES;
+    if (_sorted) return self;
     
     if (!_sorted) {
-        XPAssert(_value);
+        
         NSMutableArray *nodes = [NSMutableArray arrayWithCapacity:[_value count]];
         for (id obj in [_value reverseObjectEnumerator]) {
             [nodes addObject:obj];
         }
-        //result = [[[XPNodeSetValue alloc] initWithNodes:nodes] autorelease];
-        result.value = nodes;
-        result.isSorted = YES;
+        self.value = nodes;
+        self.sorted = YES;
+        
+    } else {
+        // sort the array
+        
+#warning QuickSort
+        //QuickSort.sort(self, 0, _count-1);
+        
+        // need to eliminate duplicate nodes. Note that we cannot compare the node
+        // objects directly, because with attributes and namespaces there might be
+        // two objects representing the same node.
+        
+        NSUInteger j = 1;
+        for (NSUInteger i = 1; i < _count; i++) {
+            if (![_value[i] isSameNodeInfo:_value[i-1]]) {
+                _value[j++] = _value[i];
+            }
+        }
+        self.count = j;
+        
+        self.sorted = YES;
     }
     
-    return result;
+    return self;
 }
 
 

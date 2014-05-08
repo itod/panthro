@@ -1,14 +1,14 @@
 //
-//  XPEnumeration.h
+//  XPNodeSetValueEnumeration.h
 //  XPath
 //
 //  Created by Todd Ditchendorf on 5/7/14.
 //
 //
 
-#import <XPath/XPNodeEnumeration.h>
+#import "XPAxisEnumeration.h"
 
-@interface XPEnumeration : NSObject <XPNodeEnumeration>
+@interface XPNodeSetValueEnumeration : NSObject <XPAxisEnumeration>
 
 - (instancetype)initWithNodes:(NSArray *)nodes isSorted:(BOOL)sorted;
 

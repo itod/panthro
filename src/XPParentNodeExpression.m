@@ -28,14 +28,17 @@
 - (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
     XPExpression *expr = self;
     
-    if (0 != (XPDependenciesContextNode & dep)) {
-        XPAssert(0);
-        XPNodeTest *nodeTest = [[[XPNodeTypeTest alloc] initWithNodeType:XPNodeTypeNode] autorelease];
-        id <XPNodeEnumeration>enm = [ctx.contextNode enumerationForAxis:XPAxisParent nodeTest:nodeTest];
-        
-        expr = [[[XPNodeSetValue alloc] initWithEnumeration:enm] autorelease];
-    }
+//    if (0 != (XPDependenciesContextNode & dep)) {
+//    }
     
     return expr;
 }
+
+- (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
+    XPNodeTest *nodeTest = [[[XPNodeTypeTest alloc] initWithNodeType:XPNodeTypeNode] autorelease];
+    id <XPNodeEnumeration>enm = [ctx.contextNode enumerationForAxis:XPAxisParent nodeTest:nodeTest];
+    XPAssert(enm);
+    return enm;
+}
+
 @end

@@ -9,15 +9,21 @@
 #import "XPNSXMLNodeImpl.h"
 #import "XPNSXMLDocumentImpl.h"
 #import "XPAxis.h"
-#import "XPEnumeration.h"
+#import "XPNodeSetValueEnumeration.h"
 #import "XPNodeTest.h"
+
+@interface XPNSXMLNodeImpl ()
+@property (nonatomic, retain, readwrite) NSXMLNode *node;
+@property (nonatomic, assign, readwrite) NSUInteger sortIndex;
+@end
 
 @implementation XPNSXMLNodeImpl
 
-- (instancetype)initWithNode:(NSXMLNode *)node {
+- (instancetype)initWithNode:(NSXMLNode *)node sortIndex:(NSUInteger)idx {
     self = [super init];
     if (self) {
         self.node = node;
+        self.sortIndex = idx;
     }
     return self;
 }
@@ -35,7 +41,16 @@
 
 
 - (NSComparisonResult)compareOrderTo:(id <XPNodeInfo>)other {
-    return NSOrderedSame;
+    XPAssert([other isKindOfClass:[XPNSXMLNodeImpl class]]);
+    XPNSXMLNodeImpl *node = (id)other;
+    
+    NSComparisonResult result = NSOrderedSame;
+    if (_sortIndex < node->_sortIndex) {
+        result = NSOrderedAscending;
+    } else if (_sortIndex > node->_sortIndex) {
+        result = NSOrderedDescending;
+    }
+    return result;
 }
 
 
@@ -111,7 +126,7 @@
 
 - (id <XPDocumentInfo>)documentRoot {
     XPAssert(_node);
-    return [[[XPNSXMLDocumentImpl alloc] initWithNode:[_node rootDocument]] autorelease];
+    return [[[XPNSXMLDocumentImpl alloc] initWithNode:[_node rootDocument] sortIndex:0] autorelease];
 }
 
 
@@ -166,7 +181,7 @@
             break;
     }
     
-    id <XPNodeEnumeration>enm = [[[XPEnumeration alloc] initWithNodes:nodes isSorted:sorted] autorelease];
+    id <XPNodeEnumeration>enm = [[[XPNodeSetValueEnumeration alloc] initWithNodes:nodes isSorted:sorted] autorelease];
     return enm;
 }
 
@@ -186,7 +201,7 @@
     NSXMLNode *parent = [self.node parent];
     Class cls = (NSXMLDocumentKind == [parent kind]) ? [XPNSXMLDocumentImpl class] : [XPNSXMLNodeImpl class];
 
-    id <XPNodeInfo>node = [[[cls alloc] initWithNode:parent] autorelease];
+    id <XPNodeInfo>node = [[[cls alloc] initWithNode:parent sortIndex:self.sortIndex-1] autorelease];
     
     NSArray *nodes = nil;
     

@@ -12,7 +12,7 @@
 #import "XPAxis.h"
 #import "XPEmptyNodeSet.h"
 #import "XPAxisExpression.h"
-#import "XPEnumeration.h"
+#import "XPNodeSetValueEnumeration.h"
 
 @interface XPExpression ()
 @property (nonatomic, retain, readwrite) id <XPStaticContext>staticContext;
@@ -352,10 +352,13 @@
         ctx.contextNode = ctxNode;
 
         id <XPNodeEnumeration>enm = [_step enumerate:ctxNode inContext:ctx];
-        [nodes addObjectsFromArray:[enm allObjects]];
+        
+        for (id <XPNodeInfo>node in enm) {
+            [nodes addObject:node];
+        }
     }
     
-    id <XPNodeEnumeration>enm = [[[XPEnumeration alloc] initWithNodes:nodes isSorted:sorted] autorelease];
+    id <XPNodeEnumeration>enm = [[[XPNodeSetValueEnumeration alloc] initWithNodes:nodes isSorted:sorted] autorelease];
     
     
     

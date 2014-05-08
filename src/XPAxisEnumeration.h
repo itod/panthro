@@ -7,15 +7,20 @@
 //
 
 #import <XPath/XPNodeEnumeration.h>
+#import "XPLastPositionFinder.h"
 
 @protocol XPNodeInfo;
 
-@protocol XPAxisEnumeration <XPNodeEnumeration/*, XPLastPositionFinder*/>
+/**
+ * A NodeEnumeration is used to iterate over a list of nodes. An AxisEnumeration
+ * is a NodeEnumeration that throws no exceptions; it also supports the ability
+ * to find the last() position, again with no exceptions.
+ */
+@protocol XPAxisEnumeration <XPNodeEnumeration, XPLastPositionFinder>
 
 /**
  * Get the last position
  */
 
 - (NSUInteger)lastPosition;
-
 @end

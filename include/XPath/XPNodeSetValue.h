@@ -8,12 +8,13 @@
 
 #import <XPath/XPValue.h>
 
+@protocol XPNodeOrderComparer;
 @protocol XPNodeEnumeration;
 
 @interface XPNodeSetValue : XPValue
 
-- (instancetype)initWithNodes:(NSArray *)nodes;
-- (instancetype)initWithEnumeration:(id <XPNodeEnumeration>)enm;
+- (instancetype)initWithNodes:(NSArray *)nodes comparer:(id <XPNodeOrderComparer>)comparer sorted:(BOOL)sorted;
+- (instancetype)initWithEnumeration:(id <XPNodeEnumeration>)enm comparer:(id <XPNodeOrderComparer>)comparer;
 
 - (id <XPNodeEnumeration>)enumerate;
 
@@ -23,5 +24,6 @@
 - (XPNodeSetValue *)sort;
 - (id)firstNode;
 
+@property (nonatomic, retain) id <XPNodeOrderComparer>comparer;
 @property (nonatomic, getter=isSorted) BOOL sorted;
 @end

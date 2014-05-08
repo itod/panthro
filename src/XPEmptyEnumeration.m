@@ -45,11 +45,6 @@
 }
 
 
-- (NSArray *)allObjects {
-    return nil;
-}
-
-
 - (NSUInteger)lastPosition {
     return 0;
 }
