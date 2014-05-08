@@ -21,6 +21,7 @@
 @property (nonatomic, retain) NSDictionary *funcTab;
 @property (nonatomic, retain) NSDictionary *nodeTypeTab;
 @property (nonatomic, retain) PKToken *paren;
+@property (nonatomic, retain) PKToken *fwdSlash;
 @property (nonatomic, retain) NSCharacterSet *singleQuoteCharSet;
 @property (nonatomic, retain) NSCharacterSet *doubleQuoteCharSet;
 @end
@@ -30,6 +31,7 @@
 - (id)init {
     if (self = [super init]) {
         self.paren = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
+        self.fwdSlash = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"/" doubleValue:0.0];
         self.singleQuoteCharSet = [NSCharacterSet characterSetWithCharactersInString:@"'"];
         self.doubleQuoteCharSet = [NSCharacterSet characterSetWithCharactersInString:@"\""];
         
@@ -72,6 +74,7 @@
 
 - (void)dealloc {
     self.paren = nil;
+    self.fwdSlash = nil;
     self.singleQuoteCharSet = nil;
     self.doubleQuoteCharSet = nil;
     self.funcTab = nil;
@@ -195,12 +198,25 @@
 
 
 - (void)parser:(PKParser *)p didMatchRelativeLocationPath:(PKAssembly *)a {
-    XPExpression *start = [[[XPContextNodeExpression alloc] init] autorelease];
-    XPStep *step = [a pop];
-    XPAssert([step isKindOfClass:[XPStep class]]);
+    id peek = nil;
     
-    XPPathExpression *pathExpr = [[[XPPathExpression alloc] initWithStart:start step:step] autorelease];
+    NSMutableArray *steps = [NSMutableArray array];
+    do {
+        XPStep *step = [a pop];
+        XPAssert([step isKindOfClass:[XPStep class]]);
+        [steps insertObject:step atIndex:0];
+        peek = [a pop];
+    } while ([peek isEqualTo:_fwdSlash]);
+    
+    XPExpression *start = [[[XPContextNodeExpression alloc] init] autorelease];
+    XPPathExpression *pathExpr = nil;
+    for (XPStep *step in steps) {
+        pathExpr = [[[XPPathExpression alloc] initWithStart:start step:step] autorelease];
+        start = pathExpr;
+    }
+    
     [a push:pathExpr];
+    [a push:peek];
 }
 
 

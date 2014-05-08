@@ -81,4 +81,42 @@
     TDFalse([enm hasMoreObjects]);
 }
 
+
+- (void)testDotSlashDotDot {
+    self.expr = [XPExpression expressionFromString:@"./.." inContext:nil error:nil];
+    TDNotNil(_expr);
+    TDTrue([_expr isKindOfClass:[XPPathExpression class]]);
+    
+    self.res = [_expr evaluateInContext:_ctx];
+    TDNotNil(_res);
+    
+    XPNodeSetValue *nodeSet = (id)_res;
+    id <XPNodeEnumeration>enm = [nodeSet enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(nil, node.name);
+    TDEquals(XPNodeTypeRoot, node.nodeType);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testDotDotSlashDot {
+    self.expr = [XPExpression expressionFromString:@"../." inContext:nil error:nil];
+    TDNotNil(_expr);
+    TDTrue([_expr isKindOfClass:[XPPathExpression class]]);
+    
+    self.res = [_expr evaluateInContext:_ctx];
+    TDNotNil(_res);
+    
+    XPNodeSetValue *nodeSet = (id)_res;
+    id <XPNodeEnumeration>enm = [nodeSet enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(nil, node.name);
+    TDEquals(XPNodeTypeRoot, node.nodeType);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
 @end
