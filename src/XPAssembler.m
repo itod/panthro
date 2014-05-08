@@ -247,10 +247,16 @@
 
 - (void)parser:(PKParser *)p didMatchImplicitAxisStep:(PKAssembly *)a {
 
+    NSMutableArray *preds = nil;
     id peek = [a pop];
     while (peek == _closeBracket) {
         XPExpression *pred = [a pop];
         XPAssertExpr(pred);
+        
+        if (!preds) {
+            preds = [NSMutableArray arrayWithCapacity:2];
+        }
+        [preds insertObject:pred atIndex:0];
         
         peek = [a pop];
     }
@@ -265,6 +271,9 @@
     }
 
     XPStep *step = [[[XPStep alloc] initWithAxis:axis nodeTest:nodeTest] autorelease];
+    for (XPExpression *pred in preds) {
+        [step addFilter:pred];
+    }
     [a push:step];
 }
 

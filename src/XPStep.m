@@ -38,7 +38,11 @@
 
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@::%@", XPAxisName[_axis], _nodeTest];
+    NSMutableString *str = [NSMutableString stringWithFormat:@"%@::%@", XPAxisName[_axis], _nodeTest];
+    for (XPExpression *f in _allFilters) {
+        [str appendFormat:@"[%@]", f];
+    }
+    return [[str copy] autorelease];
 }
 
 

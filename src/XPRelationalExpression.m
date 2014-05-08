@@ -28,6 +28,35 @@
 }
 
 
+- (NSString *)description {
+    NSString *opStr = nil;
+    switch (self.operator) {
+        case XPTokenTypeEquals:
+            opStr = @"=";
+            break;
+        case XPTokenTypeNE:
+            opStr = @"!=";
+            break;
+        case XPTokenTypeLT:
+            opStr = @"<";
+            break;
+        case XPTokenTypeGT:
+            opStr = @">";
+            break;
+        case XPTokenTypeLE:
+            opStr = @"<=";
+            break;
+        case XPTokenTypeGE:
+            opStr = @">=";
+            break;
+        default:
+            XPAssert(0);
+            break;
+    }
+    return [NSString stringWithFormat:@"%@ %@ %@", self.p1, opStr, self.p2];
+}
+
+
 - (XPExpression *)simplify {
     self.p1 = [self.p1 simplify];
     self.p2 = [self.p2 simplify];
