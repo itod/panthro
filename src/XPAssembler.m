@@ -298,9 +298,14 @@
 - (void)parser:(PKParser *)p didMatchAxisName:(PKAssembly *)a {
     PKToken *tok = [a pop];
     XPAssertToken(tok);
-
+    
     XPAxis axis = XPAxisForName(tok.stringValue);
     [a push:@(axis)];
+}
+
+
+- (void)parser:(PKParser *)p didMatchAbbreviatedAxis:(PKAssembly *)a {
+    [a push:@(XPAxisAttribute)];
 }
 
 

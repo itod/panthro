@@ -57,7 +57,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[@, title]@/title^", [a description]);
+    TDEqualObjects(@"[title]@/title^", [a description]);
 }
 
 
@@ -213,7 +213,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[title, @, author]title/[/@/author/]^", [a description]);
+    TDEqualObjects(@"[title, author]title/[/@/author/]^", [a description]);
 }
 
 
@@ -225,7 +225,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[title, @, author, =, 'JK Rowling']title/[/@/author/=/'JK Rowling'/]^", [a description]);
+    TDEqualObjects(@"[title, author, =, 'JK Rowling']title/[/@/author/=/'JK Rowling'/]^", [a description]);
 }
 
 
@@ -261,7 +261,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[title, 2, @, author]title/[/2/]/[/@/author/]^", [a description]);
+    TDEqualObjects(@"[title, 2, author]title/[/2/]/[/@/author/]^", [a description]);
 }
 
 @synthesize parser;
