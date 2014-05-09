@@ -701,13 +701,30 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
     
     id <XPNodeEnumeration>enm = [_res enumerate];
-
+    
     for (NSUInteger i = 0; i < 3; ++i) {
         id <XPNodeInfo>node = [enm nextObject];
         TDEqualObjects(@"para", node.name);
         TDEquals(XPNodeTypeElement, node.nodeType);
         TDEqualObjects(_paras[i], node.stringValue);
     }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testOpenSlashSlashParaPredicate1ClosePredicate2 {
+    self.expr = [XPExpression expressionFromString:@"(//para[1])[2]" inContext:nil error:nil];
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(@"para", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDEqualObjects(_paras[1], [node stringValue]);
     
     TDFalse([enm hasMoreObjects]);
 }
