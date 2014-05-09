@@ -11,6 +11,11 @@
 
 @implementation XPEmptyNodeSet
 
++ (instancetype)emptyNodeSet {
+    return [[[XPEmptyNodeSet alloc] init] autorelease];
+}
+
+
 - (XPDataType)dataType {
     return XPDataTypeNodeSet;
 }

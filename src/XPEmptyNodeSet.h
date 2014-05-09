@@ -10,4 +10,5 @@
 
 @interface XPEmptyNodeSet : XPNodeSetValue
 
++ (instancetype)emptyNodeSet;
 @end

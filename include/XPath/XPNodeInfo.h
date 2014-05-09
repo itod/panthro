@@ -7,6 +7,7 @@
 //
 
 #import <XPath/XPUtils.h>
+#import <XPath/XPAxis.h>
 
 @protocol XPAxisEnumeration;
 @protocol XPDocumentInfo;
@@ -74,6 +75,6 @@
  * @return a NodeEnumeration that scans the nodes reached by the axis in turn.
  */
 
-- (id <XPAxisEnumeration>)enumerationForAxis:(NSUInteger)axis nodeTest:(XPNodeTest *)nodeTest;
+- (id <XPAxisEnumeration>)enumerationForAxis:(XPAxis)axis nodeTest:(XPNodeTest *)nodeTest;
 
 @end
