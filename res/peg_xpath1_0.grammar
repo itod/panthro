@@ -73,10 +73,11 @@ expr = orExpr;
                                 unionExpr = pathExpr ('|' pathExpr)*;
     
 
-pathExpr = filterExpr (('/' | '//') pathBody)? | locationPath;
+pathExpr = filterExpr pathTail | locationPath;
     locationPath = relativeLocationPath | absoluteLocationPath;
-        relativeLocationPath = firstRelativeStep (('/' | '//') step)*;
-        pathBody = step (('/' | '//') step)*;
+        relativeLocationPath = firstRelativeStep pathTail;
+        pathBody = step pathTail;
+        pathTail = (('/' | '//') step)*;
         absoluteLocationPath = rootSlash pathBody | abbreviatedAbsoluteLocationPath;
             abbreviatedAbsoluteLocationPath = rootDoubleSlash pathBody;
             rootSlash = '/'!;

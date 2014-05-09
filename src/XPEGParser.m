@@ -345,18 +345,9 @@
 
 - (void)pathExpr_ {
     
-    if ([self speculate:^{ [self filterExpr_]; if ([self speculate:^{ if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:NO]; } else if ([self predicts:XPEG_TOKEN_KIND_DOUBLE_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_DOUBLE_SLASH discard:NO]; } else {[self raise:@"No viable alternative found in rule 'pathExpr'."];}[self pathBody_]; }]) {if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:NO]; } else if ([self predicts:XPEG_TOKEN_KIND_DOUBLE_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_DOUBLE_SLASH discard:NO]; } else {[self raise:@"No viable alternative found in rule 'pathExpr'."];}[self pathBody_]; }}]) {
+    if ([self speculate:^{ [self filterExpr_]; [self pathTail_]; }]) {
         [self filterExpr_]; 
-        if ([self speculate:^{ if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:NO]; } else if ([self predicts:XPEG_TOKEN_KIND_DOUBLE_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_DOUBLE_SLASH discard:NO]; } else {[self raise:@"No viable alternative found in rule 'pathExpr'."];}[self pathBody_]; }]) {
-            if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {
-                [self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:NO]; 
-            } else if ([self predicts:XPEG_TOKEN_KIND_DOUBLE_SLASH, 0]) {
-                [self match:XPEG_TOKEN_KIND_DOUBLE_SLASH discard:NO]; 
-            } else {
-                [self raise:@"No viable alternative found in rule 'pathExpr'."];
-            }
-            [self pathBody_]; 
-        }
+        [self pathTail_]; 
     } else if ([self speculate:^{ [self locationPath_]; }]) {
         [self locationPath_]; 
     } else {
@@ -382,16 +373,7 @@
 - (void)relativeLocationPath_ {
     
     [self firstRelativeStep_]; 
-    while ([self speculate:^{ if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:NO]; } else if ([self predicts:XPEG_TOKEN_KIND_DOUBLE_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_DOUBLE_SLASH discard:NO]; } else {[self raise:@"No viable alternative found in rule 'relativeLocationPath'."];}[self step_]; }]) {
-        if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {
-            [self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:NO]; 
-        } else if ([self predicts:XPEG_TOKEN_KIND_DOUBLE_SLASH, 0]) {
-            [self match:XPEG_TOKEN_KIND_DOUBLE_SLASH discard:NO]; 
-        } else {
-            [self raise:@"No viable alternative found in rule 'relativeLocationPath'."];
-        }
-        [self step_]; 
-    }
+    [self pathTail_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchRelativeLocationPath:)];
 }
@@ -399,18 +381,25 @@
 - (void)pathBody_ {
     
     [self step_]; 
-    while ([self speculate:^{ if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:NO]; } else if ([self predicts:XPEG_TOKEN_KIND_DOUBLE_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_DOUBLE_SLASH discard:NO]; } else {[self raise:@"No viable alternative found in rule 'pathBody'."];}[self step_]; }]) {
+    [self pathTail_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchPathBody:)];
+}
+
+- (void)pathTail_ {
+    
+    while ([self speculate:^{ if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:NO]; } else if ([self predicts:XPEG_TOKEN_KIND_DOUBLE_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_DOUBLE_SLASH discard:NO]; } else {[self raise:@"No viable alternative found in rule 'pathTail'."];}[self step_]; }]) {
         if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {
             [self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:NO]; 
         } else if ([self predicts:XPEG_TOKEN_KIND_DOUBLE_SLASH, 0]) {
             [self match:XPEG_TOKEN_KIND_DOUBLE_SLASH discard:NO]; 
         } else {
-            [self raise:@"No viable alternative found in rule 'pathBody'."];
+            [self raise:@"No viable alternative found in rule 'pathTail'."];
         }
         [self step_]; 
     }
 
-    [self fireDelegateSelector:@selector(parser:didMatchPathBody:)];
+    [self fireDelegateSelector:@selector(parser:didMatchPathTail:)];
 }
 
 - (void)absoluteLocationPath_ {

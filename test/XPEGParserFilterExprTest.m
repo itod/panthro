@@ -28,7 +28,7 @@
 - (void)testBooleanFunction {
     NSString *str = @"boolean(1)";
     NSError *err = nil;
-    id a = [parser parseString:str error:&err];
+    id a = [_parser parseString:str error:&err];
     
     TDNil(err);
     TDNotNil(a);
@@ -40,7 +40,7 @@
 - (void)testTrueLiteral {
     NSString *str = @"true()";
     NSError *err = nil;
-    id a = [parser parseString:str error:&err];
+    id a = [_parser parseString:str error:&err];
     
     TDNil(err);
     TDNotNil(a);
@@ -52,7 +52,7 @@
 - (void)testVariable {
     NSString *str = @"$foo";
     NSError *err = nil;
-    id a = [parser parseString:str error:&err];
+    id a = [_parser parseString:str error:&err];
     
     TDNil(err);
     TDNotNil(a);
@@ -64,7 +64,7 @@
 - (void)testVariable1StepRelativePath {
     NSString *str = @"$foo/price";
     NSError *err = nil;
-    id a = [parser parseString:str error:&err];
+    id a = [_parser parseString:str error:&err];
     
     TDNil(err);
     TDNotNil(a);
@@ -76,7 +76,7 @@
 - (void)testVariable1StepAbsoluteAbbreviatedPath {
     NSString *str = @"$foo//price";
     NSError *err = nil;
-    id a = [parser parseString:str error:&err];
+    id a = [_parser parseString:str error:&err];
     
     TDNil(err);
     TDNotNil(a);
@@ -84,5 +84,28 @@
     TDEqualObjects(@"[$, foo, //, price]$/foo////price^", [a description]);
 }
 
-@synthesize parser;
+
+- (void)testFunc1StepAbsoluteAbbreviatedPath {
+    NSString *str = @"foo()//price";
+    NSError *err = nil;
+    id a = [_parser parseString:str error:&err];
+    
+    TDNil(err);
+    TDNotNil(a);
+    
+    TDEqualObjects(@"[foo, (, //, price]foo/(/)////price^", [a description]);
+}
+
+
+- (void)testFunc1StepAbsolutePath {
+    NSString *str = @"foo()/price";
+    NSError *err = nil;
+    id a = [_parser parseString:str error:&err];
+    
+    TDNil(err);
+    TDNotNil(a);
+    
+    TDEqualObjects(@"[foo, (, /, price]foo/(/)///price^", [a description]);
+}
+
 @end

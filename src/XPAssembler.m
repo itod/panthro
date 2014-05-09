@@ -218,7 +218,7 @@
         if ([_slash isEqualTo:part]) {
             continue;
         } else if ([_doubleSlash isEqualTo:part]) {
-            
+            XPAssert(0);
         } else {
             XPAssert([part isKindOfClass:[XPStep class]]);
             XPStep *step = (id)part;
