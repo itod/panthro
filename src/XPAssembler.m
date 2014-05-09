@@ -227,7 +227,40 @@
 }
 
 
+- (NSArray *)filtersFrom:(PKAssembly *)a {
+    NSMutableArray *filters = nil;
+    
+    id peek = [a pop];
+    while (peek == _closeBracket) {
+        XPExpression *f = [a pop];
+        XPAssertExpr(f);
+        
+        if (!filters) {
+            filters = [NSMutableArray arrayWithCapacity:2];
+        }
+        [filters insertObject:f atIndex:0];
+        
+        peek = [a pop];
+    }
+    [a push:peek];
+    
+    return filters;
+}
+
+
+- (XPStep *)stepWithAxis:(XPAxis)axis nodeTest:(XPNodeTest *)nodeTest filters:(NSArray *)filters {
+    XPStep *step = [[[XPStep alloc] initWithAxis:axis nodeTest:nodeTest] autorelease];
+    for (XPExpression *f in filters) {
+        [step addFilter:f];
+    }
+    return step;
+}
+
+
 - (void)parser:(PKParser *)p didMatchExplicitAxisStep:(PKAssembly *)a {
+    
+    NSArray *filters = [self filtersFrom:a];
+
     XPNodeTest *nodeTest = [a pop];
     XPAssert([nodeTest isKindOfClass:[XPNodeTest class]]);
     
@@ -239,29 +272,16 @@
         nodeTest.nodeType = XPAxisPrincipalNodeType[axis];
     }
     
-    XPStep *step = [[[XPStep alloc] initWithAxis:axis nodeTest:nodeTest] autorelease];
-    
+    XPStep *step = [self stepWithAxis:axis nodeTest:nodeTest filters:filters];
     [a push:step];
 }
 
 
 - (void)parser:(PKParser *)p didMatchImplicitAxisStep:(PKAssembly *)a {
 
-    NSMutableArray *preds = nil;
-    id peek = [a pop];
-    while (peek == _closeBracket) {
-        XPExpression *pred = [a pop];
-        XPAssertExpr(pred);
-        
-        if (!preds) {
-            preds = [NSMutableArray arrayWithCapacity:2];
-        }
-        [preds insertObject:pred atIndex:0];
-        
-        peek = [a pop];
-    }
+    NSArray *filters = [self filtersFrom:a];
     
-    XPNodeTest *nodeTest = peek;
+    XPNodeTest *nodeTest = [a pop];
     XPAssert([nodeTest isKindOfClass:[XPNodeTest class]]);
 
     XPAxis axis = XPAxisChild;
@@ -270,10 +290,7 @@
         nodeTest.nodeType = XPAxisPrincipalNodeType[axis];
     }
 
-    XPStep *step = [[[XPStep alloc] initWithAxis:axis nodeTest:nodeTest] autorelease];
-    for (XPExpression *pred in preds) {
-        [step addFilter:pred];
-    }
+    XPStep *step = [self stepWithAxis:axis nodeTest:nodeTest filters:filters];
     [a push:step];
 }
 
