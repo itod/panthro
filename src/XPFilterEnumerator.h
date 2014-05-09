@@ -18,7 +18,7 @@
  * which requires a lookahead.
  */
 
-@interface XPFilterEnumeration : XPBaseFastEnumeration <XPNodeEnumeration>
+@interface XPFilterEnumerator : XPBaseFastEnumeration <XPNodeEnumeration>
 
 - (instancetype)initWithBase:(id <XPNodeEnumeration>)base filter:(XPExpression *)filter context:(XPContext *)ctx finishAfterReject:(BOOL)finishAfterReject;
 @end

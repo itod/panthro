@@ -12,7 +12,7 @@
 #import <XPath/XPValue.h>
 #import <XPath/XPNodeInfo.h>
 #import "XPAxisEnumeration.h"
-#import "XPFilterEnumeration.h"
+#import "XPFilterEnumerator.h"
 
 @interface XPStep ()
 @property (nonatomic, retain) NSMutableArray *allFilters;
@@ -114,7 +114,7 @@
     if ([enm hasMoreObjects]) {       // if there are no nodes, there's nothing to filter
         for (XPExpression *filter in _allFilters) {
             
-            enm = [[[XPFilterEnumeration alloc] initWithBase:enm filter:filter context:ctx finishAfterReject:NO] autorelease];
+            enm = [[[XPFilterEnumerator alloc] initWithBase:enm filter:filter context:ctx finishAfterReject:NO] autorelease];
         }
     }
 

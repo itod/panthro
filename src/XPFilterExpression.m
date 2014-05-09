@@ -9,7 +9,7 @@
 #import "XPFilterExpression.h"
 #import "XPEmptyNodeSet.h"
 #import "XPNumericValue.h"
-#import "XPFilterEnumeration.h"
+#import "XPFilterEnumerator.h"
 
 @interface XPExpression ()
 @property (nonatomic, readwrite, retain) id <XPStaticContext>staticContext;
@@ -158,7 +158,7 @@
         return base;        // quick exit for an empty node set
     }
     
-    return [[[XPFilterEnumeration alloc] initWithBase:base filter:_filter context:ctx finishAfterReject:NO] autorelease];
+    return [[[XPFilterEnumerator alloc] initWithBase:base filter:_filter context:ctx finishAfterReject:NO] autorelease];
 }
 
 /**

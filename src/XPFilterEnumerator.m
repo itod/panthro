@@ -6,7 +6,7 @@
 //
 //
 
-#import "XPFilterEnumeration.h"
+#import "XPFilterEnumerator.h"
 #import "XPNodeEnumeration.h"
 #import "XPExpression.h"
 #import "XPNodeInfo.h"
@@ -15,7 +15,7 @@
 #import "XPPositionRange.h"
 #import "XPLastPositionFinder.h"
 
-@interface XPFilterEnumeration ()
+@interface XPFilterEnumerator ()
 @property (nonatomic, retain) id <XPNodeEnumeration>base;
 @property (nonatomic, retain) XPExpression *filter;
 
@@ -34,7 +34,7 @@
 @property (nonatomic, assign) BOOL finishAfterReject; // causes enumeration to terminate the first time the predicate is false
 @end
 
-@implementation XPFilterEnumeration
+@implementation XPFilterEnumerator
 
 /**
  * Constructor
