@@ -134,6 +134,74 @@
 }
 
 
+- (void)testImplicitChildAxisNameTestChapterPredicate1 {
+    self.expr = [XPExpression expressionFromString:@"chapter[1]" inContext:nil error:nil];
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(@"chapter", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDEqualObjects(_ids[0], [node attributeValueForURI:nil localName:@"id"]);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testImplicitChildAxisNameTestChapterPredicate2 {
+    self.expr = [XPExpression expressionFromString:@"chapter[2]" inContext:nil error:nil];
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(@"chapter", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDEqualObjects(_ids[1], [node attributeValueForURI:nil localName:@"id"]);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testImplicitChildAxisNameTestChapterPredicate3 {
+    self.expr = [XPExpression expressionFromString:@"chapter[3]" inContext:nil error:nil];
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(@"chapter", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDEqualObjects(_ids[2], [node attributeValueForURI:nil localName:@"id"]);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testImplicitChildAxisNameTestChapterPredicateLast {
+    self.expr = [XPExpression expressionFromString:@"chapter[last()]" inContext:nil error:nil];
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(@"chapter", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDEqualObjects(_ids[2], [node attributeValueForURI:nil localName:@"id"]);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
 - (void)testImplicitChildAxisNameTestChapterPredicateAttributeIdEqC1 {
     self.expr = [XPExpression expressionFromString:@"chapter[attribute::id='c1']" inContext:nil error:nil];
     
@@ -425,6 +493,34 @@
     
     TDFalse([enm hasMoreObjects]);
 }
+
+
+
+
+
+/*
+NOTE: The location path //para[1] does not mean the same as the location path /descendant::para[1]. 
+ The latter selects the first descendant para element; 
+ the former selects all descendant para elements that are the first para children of their parents.
+*/
+
+//- (void)testDotSlashSlashPara {
+//    self.expr = [XPExpression expressionFromString:@".//para" inContext:nil error:nil];
+//    
+//    self.res = (id)[_expr evaluateInContext:_ctx];
+//    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+//    
+//    id <XPNodeEnumeration>enm = [_res enumerate];
+//    
+//    for (NSUInteger i = 0; i < 3; ++i) {
+//        id <XPNodeInfo>node = [enm nextObject];
+//        TDEqualObjects(@"para", node.name);
+//        TDEquals(XPNodeTypeElement, node.nodeType);
+//        TDEqualObjects(_paras[i], node.stringValue);
+//    }
+//    
+//    TDFalse([enm hasMoreObjects]);
+//}
 
 
 @end
