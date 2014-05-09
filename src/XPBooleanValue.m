@@ -25,6 +25,11 @@
 }
 
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"%@()", [self asString]];
+}
+
+
 - (NSString *)asString {
     return _value ? @"true" : @"false";
 }
@@ -42,16 +47,6 @@
 
 - (XPDataType)dataType {
     return XPDataTypeBoolean;
-}
-
-
-- (void)display:(NSInteger)level {
-    //NSLog(@"%@boolean (%@)", [self indent:level], [self asString]);
-}
-
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"<XPBooleanValue %@>", [self asString]];
 }
 
 @end

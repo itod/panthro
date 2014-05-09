@@ -35,6 +35,11 @@
 }
 
 
+- (NSString *)description {
+    return [self asString];
+}
+
+
 - (NSString *)asString {
     // TODO
     return [[NSNumber numberWithDouble:_value] stringValue];
@@ -58,11 +63,6 @@
 
 - (void)display:(NSInteger)level {
     //NSLog(@"%@number (%@)", [self indent:level], [self asString]);
-}
-
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"<XPNumericValue %p %@>", self, [self asString]];
 }
 
 @end

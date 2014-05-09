@@ -73,7 +73,8 @@ expr = orExpr;
                                 unionExpr = pathExpr ('|' pathExpr)*;
     
 
-pathExpr = filterExpr pathTail | locationPath;
+pathExpr = filterPath | locationPath;
+    filterPath = filterExpr pathTail;
     locationPath = relativeLocationPath | absoluteLocationPath;
         relativeLocationPath = firstRelativeStep pathTail;
         pathBody = step pathTail;
@@ -85,7 +86,7 @@ pathExpr = filterExpr pathTail | locationPath;
             firstRelativeStep = step;
 
     filterExpr = primaryExpr predicate*;
-        primaryExpr = variableReference | literal | number | functionCall | '(' expr ')';
+        primaryExpr = variableReference | literal | number | functionCall | '('! expr ')'!;
             variableReference = '$' qName; // note whitespace is not allowed here. also qName is optional
             literal = QuotedString;
             number = Number;

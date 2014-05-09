@@ -17,6 +17,7 @@
 #import "XPAxis.h"
 #import "XPNodeTypeTest.h"
 #import "XPNameTest.h"
+#import "XPFilterExpression.h"
 
 @interface XPAssembler ()
 @property (nonatomic, retain) NSDictionary *funcTab;
@@ -205,6 +206,20 @@
         [fn addArgument:arg];
     }
     [a push:fn];
+}
+
+
+- (void)parser:(PKParser *)p didMatchFilterPath:(PKAssembly *)a {
+    NSArray *filters = [self filtersFrom:a];
+    
+    if ([filters count]) {
+        XPFilterExpression *filterExpr = [a pop];
+        for (XPExpression *f in filters) {
+            filterExpr = [[[XPFilterExpression alloc] initWithStart:filterExpr filter:f] autorelease];
+        }
+        
+        [a push:filterExpr];
+    }
 }
 
 

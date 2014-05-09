@@ -660,6 +660,23 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
+- (void)testOpenSlashSlashParaClosePredicatePos1OrPos3Predicate2 {
+    self.expr = [XPExpression expressionFromString:@"(//para)[position()=1 or position()=3][2]" inContext:nil error:nil];
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(@"para", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDEqualObjects(_paras[2], [node stringValue]);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
 - (void)testSlashSlashParaPredicate1 {
     self.expr = [XPExpression expressionFromString:@"//para[1]" inContext:nil error:nil];
     

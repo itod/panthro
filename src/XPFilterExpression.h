@@ -10,4 +10,9 @@
 
 @interface XPFilterExpression : XPNodeSetExpression
 
+- (instancetype)initWithStart:(XPExpression *)start filter:(XPExpression *)filter;
+
+@property (nonatomic, retain) XPExpression *start;
+@property (nonatomic, retain) XPExpression *filter;
+@property (nonatomic, assign) XPDependencies dependencies;
 @end

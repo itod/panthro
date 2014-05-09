@@ -345,9 +345,8 @@
 
 - (void)pathExpr_ {
     
-    if ([self speculate:^{ [self filterExpr_]; [self pathTail_]; }]) {
-        [self filterExpr_]; 
-        [self pathTail_]; 
+    if ([self speculate:^{ [self filterPath_]; }]) {
+        [self filterPath_]; 
     } else if ([self speculate:^{ [self locationPath_]; }]) {
         [self locationPath_]; 
     } else {
@@ -355,6 +354,14 @@
     }
 
     [self fireDelegateSelector:@selector(parser:didMatchPathExpr:)];
+}
+
+- (void)filterPath_ {
+    
+    [self filterExpr_]; 
+    [self pathTail_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchFilterPath:)];
 }
 
 - (void)locationPath_ {
@@ -466,9 +473,9 @@
     } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_TRUE, 0]) {
         [self functionCall_]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_OPEN_PAREN, 0]) {
-        [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:NO]; 
+        [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:YES]; 
         [self expr_]; 
-        [self match:XPEG_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+        [self match:XPEG_TOKEN_KIND_CLOSE_PAREN discard:YES]; 
     } else {
         [self raise:@"No viable alternative found in rule 'primaryExpr'."];
     }
