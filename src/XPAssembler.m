@@ -11,6 +11,7 @@
 #import <PEGKit/PEGKit.h>
 
 #import "XPPathExpression.h"
+#import "XPRootExpression.h"
 #import "XPContextNodeExpression.h"
 #import "XPStep.h"
 #import "XPAxis.h"
@@ -21,7 +22,8 @@
 @property (nonatomic, retain) NSDictionary *funcTab;
 @property (nonatomic, retain) NSDictionary *nodeTypeTab;
 @property (nonatomic, retain) PKToken *paren;
-@property (nonatomic, retain) PKToken *fwdSlash;
+@property (nonatomic, retain) PKToken *slash;
+@property (nonatomic, retain) PKToken *doubleSlash;
 @property (nonatomic, retain) PKToken *closeBracket;
 @property (nonatomic, retain) NSCharacterSet *singleQuoteCharSet;
 @property (nonatomic, retain) NSCharacterSet *doubleQuoteCharSet;
@@ -32,7 +34,8 @@
 - (id)init {
     if (self = [super init]) {
         self.paren = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
-        self.fwdSlash = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"/" doubleValue:0.0];
+        self.slash = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"/" doubleValue:0.0];
+        self.doubleSlash = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"//" doubleValue:0.0];
         self.closeBracket = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"]" doubleValue:0.0];
         self.singleQuoteCharSet = [NSCharacterSet characterSetWithCharactersInString:@"'"];
         self.doubleQuoteCharSet = [NSCharacterSet characterSetWithCharactersInString:@"\""];
@@ -76,7 +79,8 @@
 
 - (void)dealloc {
     self.paren = nil;
-    self.fwdSlash = nil;
+    self.slash = nil;
+    self.doubleSlash = nil;
     self.closeBracket = nil;
     self.singleQuoteCharSet = nil;
     self.doubleQuoteCharSet = nil;
@@ -204,25 +208,59 @@
 }
 
 
+- (void)parser:(PKParser *)p didMatchAbsoluteLocationPath:(PKAssembly *)a {
+    
+}
+
+
 - (void)parser:(PKParser *)p didMatchRelativeLocationPath:(PKAssembly *)a {
+    
+}
+
+
+- (void)parser:(PKParser *)p didMatchRootSlash:(PKAssembly *)a {
+    XPExpression *rootExpr = [[[XPRootExpression alloc] init] autorelease];
+    [a push:rootExpr];
+    [a push:_slash];
+}
+
+
+- (void)parser:(PKParser *)p didMatchRootDoubleSlash:(PKAssembly *)a {
+    XPNodeTest *nodeTest = [[[XPNodeTypeTest alloc] initWithNodeType:XPNodeTypeNode] autorelease];
+    XPStep *step = [[[XPStep alloc] initWithAxis:XPAxisDescendantOrSelf nodeTest:nodeTest] autorelease];
+    XPExpression *start = [[[XPRootExpression alloc] init] autorelease];
+    XPPathExpression *pathExpr = [[[XPPathExpression alloc] initWithStart:start step:step] autorelease];
+    [a push:pathExpr];
+    [a push:_slash];
+}
+
+
+- (void)parser:(PKParser *)p didMatchStep:(PKAssembly *)a {
     id peek = nil;
     
-    NSMutableArray *steps = [NSMutableArray array];
-    do {
-        XPStep *step = [a pop];
-        XPAssert([step isKindOfClass:[XPStep class]]);
-        [steps insertObject:step atIndex:0];
-        peek = [a pop];
-    } while ([peek isEqualTo:_fwdSlash]);
-    [a push:peek];
+    XPStep *step = [a pop];
+    XPAssert([step isKindOfClass:[XPStep class]]);
+
+    XPExpression *start = nil;
     
-    XPExpression *start = [[[XPContextNodeExpression alloc] init] autorelease];
-    XPPathExpression *pathExpr = nil;
-    for (XPStep *step in steps) {
-        pathExpr = [[[XPPathExpression alloc] initWithStart:start step:step] autorelease];
-        start = pathExpr;
+    peek = [a pop];
+    if ([peek isEqualTo:_slash]) {
+        peek = [a pop];
+        if ([peek isKindOfClass:[XPPathExpression class]]) {
+            start = peek;
+        } else {
+            [a push:peek];
+        }
+    } else if ([peek isEqualTo:_doubleSlash]) {
+        XPAssert(0);
+        
+        
+    } else {
+        [a push:peek];
+        start = [[[XPContextNodeExpression alloc] init] autorelease];
     }
     
+    XPPathExpression *pathExpr = [[[XPPathExpression alloc] initWithStart:start step:step] autorelease];
     [a push:pathExpr];
 }
 

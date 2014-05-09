@@ -399,7 +399,7 @@
 - (void)absoluteLocationPath_ {
     
     if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {
-        [self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:NO]; 
+        [self rootSlash_]; 
         if ([self speculate:^{ [self relativeLocationPath_]; }]) {
             [self relativeLocationPath_]; 
         }
@@ -414,10 +414,24 @@
 
 - (void)abbreviatedAbsoluteLocationPath_ {
     
-    [self match:XPEG_TOKEN_KIND_DOUBLE_SLASH discard:NO]; 
+    [self rootDoubleSlash_]; 
     [self relativeLocationPath_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchAbbreviatedAbsoluteLocationPath:)];
+}
+
+- (void)rootSlash_ {
+    
+    [self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:YES]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchRootSlash:)];
+}
+
+- (void)rootDoubleSlash_ {
+    
+    [self match:XPEG_TOKEN_KIND_DOUBLE_SLASH discard:YES]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchRootDoubleSlash:)];
 }
 
 - (void)filterExpr_ {

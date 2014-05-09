@@ -287,6 +287,23 @@
 }
 
 
+- (void)testChapterPredicateAtIdEqC3SlashPara {
+    self.expr = [XPExpression expressionFromString:@"chapter[@id='c3']/para" inContext:nil error:nil];
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(@"para", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDEqualObjects(_paras[2], [node stringValue]);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
 - (void)testImplicitChildAxisNameTestChapterPredicateAtIdEqC1OrIdEqC3 {
     self.expr = [XPExpression expressionFromString:@"chapter[@id='c1' or @id='c3']" inContext:nil error:nil];
     
@@ -367,6 +384,25 @@
     TDEqualObjects(@"chapter", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_ids[0], [node attributeValueForURI:nil localName:@"id"]);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testSlashSlashPara {
+    self.expr = [XPExpression expressionFromString:@"//para" inContext:nil error:nil];
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    for (NSUInteger i = 0; i < 3; ++i) {
+        id <XPNodeInfo>node = [enm nextObject];
+        TDEqualObjects(@"para", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+        TDEqualObjects(_paras[i], node.stringValue);
+    }
     
     TDFalse([enm hasMoreObjects]);
 }

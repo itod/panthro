@@ -160,9 +160,11 @@
             nodes = [self nodesForChildAxis:nodeTest];
             break;
         case XPAxisDescendant:
+            nodes = [self nodesForDescendantAxis:nodeTest];
             sorted = YES;
             break;
         case XPAxisDescendantOrSelf:
+            nodes = [self nodesForDescendantOrSelfAxis:nodeTest];
             sorted = YES;
             break;
         case XPAxisFollowing:
@@ -212,7 +214,58 @@
     if ([nodeTest matches:self]) {
         nodes = @[self];
     }
+    
+    return nodes;
+}
 
+
+- (NSArray *)descendantNodesFromParent:(NSXMLNode *)parent nodeTest:(XPNodeTest *)nodeTest sortIndex:(NSInteger)sortIndex {
+    NSMutableArray *result = [NSMutableArray array];
+    
+    for (NSXMLNode *child in [parent children]) {
+        ++sortIndex;
+        
+        [result addObjectsFromArray:[self descendantNodesFromParent:child nodeTest:nodeTest sortIndex:sortIndex]];
+        
+        id <XPNodeInfo>node = [[[XPNSXMLNodeImpl alloc] initWithNode:child sortIndex:sortIndex] autorelease];
+        
+        if ([nodeTest matches:node]) {
+            [result addObject:node];
+        }
+    }
+    
+    return result;
+}
+
+
+- (NSArray *)nodesForDescendantOrSelfAxis:(XPNodeTest *)nodeTest {
+    NSMutableArray *nodes = [NSMutableArray array];
+    
+    if ([nodeTest matches:self]) {
+        [nodes addObject:self];
+    }
+    
+    NSInteger sortIndex = self.sortIndex;
+    [nodes addObjectsFromArray:[self descendantNodesFromParent:self.node nodeTest:nodeTest sortIndex:sortIndex]];
+    
+    if (![nodes count]) {
+        nodes = nil;
+    }
+    
+    return nodes;
+}
+
+
+- (NSArray *)nodesForDescendantAxis:(XPNodeTest *)nodeTest {
+    NSMutableArray *nodes = [NSMutableArray array];
+    
+    NSInteger sortIndex = self.sortIndex;
+    [nodes addObjectsFromArray:[self descendantNodesFromParent:self.node nodeTest:nodeTest sortIndex:sortIndex]];
+    
+    if (![nodes count]) {
+        nodes = nil;
+    }
+    
     return nodes;
 }
 
@@ -236,7 +289,7 @@
 - (NSArray *)nodesForChildAxis:(XPNodeTest *)nodeTest {
     NSArray *children = [self.node children];
     
-    NSMutableArray *nodes = [NSMutableArray array];
+    NSMutableArray *nodes = nil;
     
     NSInteger sortIndex = self.sortIndex;
     
@@ -244,6 +297,9 @@
         id <XPNodeInfo>node = [[[XPNSXMLNodeImpl alloc] initWithNode:child sortIndex:++sortIndex] autorelease];
         
         if ([nodeTest matches:node]) {
+            if (!nodes) {
+                nodes = [NSMutableArray array];
+            }
             [nodes addObject:node];
         }
     }

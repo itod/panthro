@@ -10,8 +10,18 @@
 #import <XPath/XPDocumentInfo.h>
 #import <XPath/XPNodeInfo.h>
 #import <XPath/XPContext.h>
+#import <XPath/XPNodeSetValue.h>
+#import "XPLocalOrderComparer.h"
+#import "XPNodeTypeTest.h"
+#import "XPAxis.h"
+#import "XPAxisEnumeration.h"
 
 @implementation XPRootExpression
+
+- (NSString *)description {
+    return @"root()";
+}
+
 
 /**
  * Return the first element selected by this Expression
@@ -68,7 +78,11 @@
  */
 
 - (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
-    return self;
+    if (([self dependencies] & (XPDependenciesContextNode | XPDependenciesContextDocument)) != 0 ) {
+        return [[[XPNodeSetValue alloc] initWithNodes:@[ctx.contextNode.documentRoot] comparer:[XPLocalOrderComparer instance]] autorelease];
+    } else {
+        return self;
+    }
 //    if (([self dependencies] & (XPDependenciesContextNode | XPDependenciesContextDocument)) != 0 ) {
 //        return [[[XPSingletonNodeSet alloc] initWithNode:ctx.contextNode.documentRoot] autorelease];
 //    } else {
@@ -77,8 +91,11 @@
 }
 
 
-- (void)display:(NSInteger)level {
-    NSLog(@"root()");
+- (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
+    XPNodeTest *nodeTest = [[[XPNodeTypeTest alloc] initWithNodeType:XPNodeTypeNode] autorelease];
+    id <XPNodeEnumeration>enm = [ctx.contextNode enumerationForAxis:XPAxisSelf nodeTest:nodeTest];
+    XPAssert(enm);
+    return enm;
 }
 
 @end
