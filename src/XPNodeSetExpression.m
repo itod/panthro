@@ -26,7 +26,7 @@
     if ([expr isKindOfClass:[XPNodeSetValue class]]) {
         return (XPValue *)expr;
     } else if ([expr isKindOfClass:[XPNodeSetExpression class]]) {
-        id <XPNodeEnumeration>enm = [(XPNodeSetExpression *)expr enumerateInContext:ctx sorted:YES];
+        id <XPNodeEnumeration>enm = [(XPNodeSetExpression *)expr enumerateInContext:ctx sorted:NO];
         XPNodeSetValue *nodeSet = [[[XPNodeSetValue alloc] initWithEnumeration:enm comparer:[XPLocalOrderComparer instance]] autorelease];
         return nodeSet; // TODO [XPNodeSetIntent intentWithNodeSetExpression:(XPNodeSetExpression *)expr controller:[ctx controller]];
     } else {

@@ -147,9 +147,11 @@
     switch (axis) {
         case XPAxisAncestor:
             sorted = NO;
+            nodes = [self nodesForAncestorAxis:nodeTest];
             break;
         case XPAxisAncestorOrSelf:
             sorted = NO;
+            nodes = [self nodesForAncestorOrSelfAxis:nodeTest];
             break;
         case XPAxisAttribute:
             sorted = YES;
@@ -257,6 +259,43 @@
     
     NSInteger sortIndex = self.sortIndex;
     [nodes addObjectsFromArray:[self descendantNodesFromParent:self.node nodeTest:nodeTest sortIndex:sortIndex]];
+    
+    return nodes;
+}
+
+
+- (NSArray *)nodesForAncestorOrSelfAxis:(XPNodeTest *)nodeTest {
+    NSMutableArray *nodes = [NSMutableArray array];
+    
+    if ([nodeTest matches:self]) {
+        [nodes addObject:self];
+    }
+    
+    [nodes addObjectsFromArray:[self nodesForAncestorAxis:nodeTest]];
+    
+    return nodes;
+}
+
+
+- (NSArray *)nodesForAncestorAxis:(XPNodeTest *)nodeTest {
+    NSMutableArray *nodes = nil;
+    
+    NSInteger sortIndex = self.sortIndex;
+    
+    NSXMLNode *parent = [self.node parent];
+    while (parent) {
+        Class cls = (NSXMLDocumentKind == [parent kind]) ? [XPNSXMLDocumentImpl class] : [XPNSXMLNodeImpl class];
+        id <XPNodeInfo>node = [[[cls alloc] initWithNode:parent sortIndex:--sortIndex] autorelease];
+        
+        if ([nodeTest matches:node]) {
+            if (!nodes) {
+                nodes = [NSMutableArray array];
+            }
+            [nodes addObject:node];
+        }
+        
+        parent = [parent parent];
+    }
     
     return nodes;
 }

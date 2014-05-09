@@ -729,4 +729,93 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDFalse([enm hasMoreObjects]);
 }
 
+
+- (void)testOpenChapterSlashSlashParaPredicate1ClosePredicate2 {
+    self.expr = [XPExpression expressionFromString:@"(chapter//para[1])[2]" inContext:nil error:nil];
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(@"para", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDEqualObjects(_paras[1], [node stringValue]);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testAncestorNode {
+    self.expr = [XPExpression expressionFromString:@"ancestor::node()" inContext:nil error:nil];
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects([XPNSXMLDocumentImpl class], [node class]);
+    TDEquals(XPNodeTypeRoot, node.nodeType);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testAncestorOrSelfNode {
+    self.expr = [XPExpression expressionFromString:@"ancestor-or-self::node()" inContext:nil error:nil];
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = nil;
+    
+    node = [enm nextObject];
+    TDEqualObjects(@"book", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    
+    node = [enm nextObject];
+    TDEqualObjects([XPNSXMLDocumentImpl class], [node class]);
+    TDEquals(XPNodeTypeRoot, node.nodeType);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testAncestorOrSelfNodePredicate1 {
+    self.expr = [XPExpression expressionFromString:@"ancestor-or-self::node()[1]" inContext:nil error:nil];
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = nil;
+    
+    node = [enm nextObject];
+    TDEqualObjects(@"book", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testOpenAncestorOrSelfNodeSlashDotClosePredicate1 {
+    self.expr = [XPExpression expressionFromString:@"(ancestor-or-self::node()/.)[1]" inContext:nil error:nil];
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects([XPNSXMLDocumentImpl class], [node class]);
+    TDEquals(XPNodeTypeRoot, node.nodeType);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
 @end
