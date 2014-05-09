@@ -24,6 +24,7 @@
 @property (nonatomic, retain) PKToken *paren;
 @property (nonatomic, retain) PKToken *slash;
 @property (nonatomic, retain) PKToken *doubleSlash;
+@property (nonatomic, retain) PKToken *dotDotDot;
 @property (nonatomic, retain) PKToken *closeBracket;
 @property (nonatomic, retain) NSCharacterSet *singleQuoteCharSet;
 @property (nonatomic, retain) NSCharacterSet *doubleQuoteCharSet;
@@ -36,6 +37,7 @@
         self.paren = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
         self.slash = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"/" doubleValue:0.0];
         self.doubleSlash = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"//" doubleValue:0.0];
+        self.dotDotDot = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"…" doubleValue:0.0];
         self.closeBracket = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"]" doubleValue:0.0];
         self.singleQuoteCharSet = [NSCharacterSet characterSetWithCharactersInString:@"'"];
         self.doubleQuoteCharSet = [NSCharacterSet characterSetWithCharactersInString:@"\""];
@@ -81,6 +83,7 @@
     self.paren = nil;
     self.slash = nil;
     self.doubleSlash = nil;
+    self.dotDotDot = nil;
     self.closeBracket = nil;
     self.singleQuoteCharSet = nil;
     self.doubleQuoteCharSet = nil;
@@ -203,8 +206,27 @@
 }
 
 
-- (void)parser:(PKParser *)p didMatchPathExpr:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchLocationPath:(PKAssembly *)a {
     
+    NSArray *pathParts = [a objectsAbove:_dotDotDot];
+    [a pop]; // pop …
+    
+    XPExpression *pathExpr = [a pop]; // either context-node() or root() expr
+    XPAssertExpr(pathExpr);
+    
+    for (id part in [pathParts reverseObjectEnumerator]) {
+        if ([_slash isEqualTo:part]) {
+            continue;
+        } else if ([_doubleSlash isEqualTo:part]) {
+            
+        } else {
+            XPAssert([part isKindOfClass:[XPStep class]]);
+            XPStep *step = (id)part;
+            pathExpr = [[[XPPathExpression alloc] initWithStart:pathExpr step:step] autorelease];
+        }
+    }
+    
+    [a push:pathExpr];
 }
 
 
@@ -218,50 +240,33 @@
 }
 
 
+- (void)parser:(PKParser *)p didMatchFirstRelativeStep:(PKAssembly *)a {
+    XPStep *step = [a pop];
+    XPAssert([step isKindOfClass:[XPStep class]]);
+    
+    XPExpression *cxtNodeExpr = [[[XPContextNodeExpression alloc] init] autorelease];
+    [a push:cxtNodeExpr];
+    [a push:_dotDotDot];
+    [a push:step];
+}
+
+
 - (void)parser:(PKParser *)p didMatchRootSlash:(PKAssembly *)a {
     XPExpression *rootExpr = [[[XPRootExpression alloc] init] autorelease];
     [a push:rootExpr];
-    [a push:_slash];
+    [a push:_dotDotDot];
 }
 
 
 - (void)parser:(PKParser *)p didMatchRootDoubleSlash:(PKAssembly *)a {
+    XPExpression *rootExpr = [[[XPRootExpression alloc] init] autorelease];
+    [a push:rootExpr];
+    [a push:_dotDotDot];
+
     XPNodeTest *nodeTest = [[[XPNodeTypeTest alloc] initWithNodeType:XPNodeTypeNode] autorelease];
     XPStep *step = [[[XPStep alloc] initWithAxis:XPAxisDescendantOrSelf nodeTest:nodeTest] autorelease];
-    XPExpression *start = [[[XPRootExpression alloc] init] autorelease];
-    XPPathExpression *pathExpr = [[[XPPathExpression alloc] initWithStart:start step:step] autorelease];
-    [a push:pathExpr];
+    [a push:step];
     [a push:_slash];
-}
-
-
-- (void)parser:(PKParser *)p didMatchStep:(PKAssembly *)a {
-    id peek = nil;
-    
-    XPStep *step = [a pop];
-    XPAssert([step isKindOfClass:[XPStep class]]);
-
-    XPExpression *start = nil;
-    
-    peek = [a pop];
-    if ([peek isEqualTo:_slash]) {
-        peek = [a pop];
-        if ([peek isKindOfClass:[XPPathExpression class]]) {
-            start = peek;
-        } else {
-            [a push:peek];
-        }
-    } else if ([peek isEqualTo:_doubleSlash]) {
-        XPAssert(0);
-        
-        
-    } else {
-        [a push:peek];
-        start = [[[XPContextNodeExpression alloc] init] autorelease];
-    }
-    
-    XPPathExpression *pathExpr = [[[XPPathExpression alloc] initWithStart:start step:step] autorelease];
-    [a push:pathExpr];
 }
 
 

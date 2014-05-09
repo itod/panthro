@@ -248,10 +248,6 @@
     NSInteger sortIndex = self.sortIndex;
     [nodes addObjectsFromArray:[self descendantNodesFromParent:self.node nodeTest:nodeTest sortIndex:sortIndex]];
     
-    if (![nodes count]) {
-        nodes = nil;
-    }
-    
     return nodes;
 }
 
@@ -261,10 +257,6 @@
     
     NSInteger sortIndex = self.sortIndex;
     [nodes addObjectsFromArray:[self descendantNodesFromParent:self.node nodeTest:nodeTest sortIndex:sortIndex]];
-    
-    if (![nodes count]) {
-        nodes = nil;
-    }
     
     return nodes;
 }
@@ -313,7 +305,7 @@
     
     NSArray *attrs = [(NSXMLElement *)self.node attributes];
     
-    NSMutableArray *nodes = [NSMutableArray array];
+    NSMutableArray *nodes = nil;
     
     NSInteger sortIndex = self.sortIndex;
     
@@ -321,6 +313,9 @@
         id <XPNodeInfo>node = [[[XPNSXMLNodeImpl alloc] initWithNode:attr sortIndex:++sortIndex] autorelease];
         
         if ([nodeTest matches:node]) {
+            if (!nodes) {
+                nodes = [NSMutableArray array];
+            }
             [nodes addObject:node];
         }
     }

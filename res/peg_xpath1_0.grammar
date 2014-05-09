@@ -73,13 +73,15 @@ expr = orExpr;
                                 unionExpr = pathExpr ('|' pathExpr)*;
     
 
-pathExpr = filterExpr (('/' | '//') relativeLocationPath)? | locationPath;
+pathExpr = filterExpr (('/' | '//') pathBody)? | locationPath;
     locationPath = relativeLocationPath | absoluteLocationPath;
-        relativeLocationPath = step (('/' | '//') step)*;
-        absoluteLocationPath = rootSlash relativeLocationPath? | abbreviatedAbsoluteLocationPath;
-            abbreviatedAbsoluteLocationPath = rootDoubleSlash relativeLocationPath;
+        relativeLocationPath = firstRelativeStep (('/' | '//') step)*;
+        pathBody = step (('/' | '//') step)*;
+        absoluteLocationPath = rootSlash pathBody | abbreviatedAbsoluteLocationPath;
+            abbreviatedAbsoluteLocationPath = rootDoubleSlash pathBody;
             rootSlash = '/'!;
             rootDoubleSlash = '//'!;
+            firstRelativeStep = step;
 
     filterExpr = primaryExpr predicate*;
         primaryExpr = variableReference | literal | number | functionCall | '(' expr ')';

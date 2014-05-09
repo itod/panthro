@@ -345,9 +345,9 @@
 
 - (void)pathExpr_ {
     
-    if ([self speculate:^{ [self filterExpr_]; if ([self speculate:^{ if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:NO]; } else if ([self predicts:XPEG_TOKEN_KIND_DOUBLE_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_DOUBLE_SLASH discard:NO]; } else {[self raise:@"No viable alternative found in rule 'pathExpr'."];}[self relativeLocationPath_]; }]) {if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:NO]; } else if ([self predicts:XPEG_TOKEN_KIND_DOUBLE_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_DOUBLE_SLASH discard:NO]; } else {[self raise:@"No viable alternative found in rule 'pathExpr'."];}[self relativeLocationPath_]; }}]) {
+    if ([self speculate:^{ [self filterExpr_]; if ([self speculate:^{ if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:NO]; } else if ([self predicts:XPEG_TOKEN_KIND_DOUBLE_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_DOUBLE_SLASH discard:NO]; } else {[self raise:@"No viable alternative found in rule 'pathExpr'."];}[self pathBody_]; }]) {if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:NO]; } else if ([self predicts:XPEG_TOKEN_KIND_DOUBLE_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_DOUBLE_SLASH discard:NO]; } else {[self raise:@"No viable alternative found in rule 'pathExpr'."];}[self pathBody_]; }}]) {
         [self filterExpr_]; 
-        if ([self speculate:^{ if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:NO]; } else if ([self predicts:XPEG_TOKEN_KIND_DOUBLE_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_DOUBLE_SLASH discard:NO]; } else {[self raise:@"No viable alternative found in rule 'pathExpr'."];}[self relativeLocationPath_]; }]) {
+        if ([self speculate:^{ if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:NO]; } else if ([self predicts:XPEG_TOKEN_KIND_DOUBLE_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_DOUBLE_SLASH discard:NO]; } else {[self raise:@"No viable alternative found in rule 'pathExpr'."];}[self pathBody_]; }]) {
             if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {
                 [self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:NO]; 
             } else if ([self predicts:XPEG_TOKEN_KIND_DOUBLE_SLASH, 0]) {
@@ -355,7 +355,7 @@
             } else {
                 [self raise:@"No viable alternative found in rule 'pathExpr'."];
             }
-            [self relativeLocationPath_]; 
+            [self pathBody_]; 
         }
     } else if ([self speculate:^{ [self locationPath_]; }]) {
         [self locationPath_]; 
@@ -381,7 +381,7 @@
 
 - (void)relativeLocationPath_ {
     
-    [self step_]; 
+    [self firstRelativeStep_]; 
     while ([self speculate:^{ if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:NO]; } else if ([self predicts:XPEG_TOKEN_KIND_DOUBLE_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_DOUBLE_SLASH discard:NO]; } else {[self raise:@"No viable alternative found in rule 'relativeLocationPath'."];}[self step_]; }]) {
         if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {
             [self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:NO]; 
@@ -396,13 +396,28 @@
     [self fireDelegateSelector:@selector(parser:didMatchRelativeLocationPath:)];
 }
 
+- (void)pathBody_ {
+    
+    [self step_]; 
+    while ([self speculate:^{ if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:NO]; } else if ([self predicts:XPEG_TOKEN_KIND_DOUBLE_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_DOUBLE_SLASH discard:NO]; } else {[self raise:@"No viable alternative found in rule 'pathBody'."];}[self step_]; }]) {
+        if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {
+            [self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:NO]; 
+        } else if ([self predicts:XPEG_TOKEN_KIND_DOUBLE_SLASH, 0]) {
+            [self match:XPEG_TOKEN_KIND_DOUBLE_SLASH discard:NO]; 
+        } else {
+            [self raise:@"No viable alternative found in rule 'pathBody'."];
+        }
+        [self step_]; 
+    }
+
+    [self fireDelegateSelector:@selector(parser:didMatchPathBody:)];
+}
+
 - (void)absoluteLocationPath_ {
     
     if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {
         [self rootSlash_]; 
-        if ([self speculate:^{ [self relativeLocationPath_]; }]) {
-            [self relativeLocationPath_]; 
-        }
+        [self pathBody_]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_DOUBLE_SLASH, 0]) {
         [self abbreviatedAbsoluteLocationPath_]; 
     } else {
@@ -415,7 +430,7 @@
 - (void)abbreviatedAbsoluteLocationPath_ {
     
     [self rootDoubleSlash_]; 
-    [self relativeLocationPath_]; 
+    [self pathBody_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchAbbreviatedAbsoluteLocationPath:)];
 }
@@ -432,6 +447,13 @@
     [self match:XPEG_TOKEN_KIND_DOUBLE_SLASH discard:YES]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchRootDoubleSlash:)];
+}
+
+- (void)firstRelativeStep_ {
+    
+    [self step_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchFirstRelativeStep:)];
 }
 
 - (void)filterExpr_ {
