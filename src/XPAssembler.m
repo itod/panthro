@@ -215,15 +215,17 @@
     XPAssertExpr(pathExpr);
     
     for (id part in [pathParts reverseObjectEnumerator]) {
+        XPStep *step = nil;
         if ([_slash isEqualTo:part]) {
             continue;
         } else if ([_doubleSlash isEqualTo:part]) {
-            XPAssert(0);
+            XPNodeTest *nodeTest = [[[XPNodeTypeTest alloc] initWithNodeType:XPNodeTypeNode] autorelease];
+            step = [[[XPStep alloc] initWithAxis:XPAxisDescendantOrSelf nodeTest:nodeTest] autorelease];
         } else {
             XPAssert([part isKindOfClass:[XPStep class]]);
-            XPStep *step = (id)part;
-            pathExpr = [[[XPPathExpression alloc] initWithStart:pathExpr step:step] autorelease];
+            step = (id)part;
         }
+        pathExpr = [[[XPPathExpression alloc] initWithStart:pathExpr step:step] autorelease];
     }
     
     [a push:pathExpr];
