@@ -14,6 +14,7 @@
 #import "XPNumericValue.h"
 #import "XPPositionRange.h"
 #import "XPLastPositionFinder.h"
+#import "XPLookaheadEnumerator.h"
 
 @interface XPFilterEnumerator ()
 @property (nonatomic, retain) id <XPNodeEnumeration>base;
@@ -82,8 +83,7 @@
             [_filterContext setLastPositionFinder:(id <XPLastPositionFinder>)_base];
         } else {
             // TODO: only need to do this if last() is used in the predicate
-            XPAssert(0);
-            //self.base = new LookaheadEnumerator(base);
+            self.base = [[[XPLookaheadEnumerator alloc] initWithBase:base] autorelease];
             [_filterContext setLastPositionFinder:(id <XPLastPositionFinder>)_base];
         }
         
