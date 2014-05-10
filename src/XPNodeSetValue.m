@@ -15,6 +15,7 @@
 #import <XPath/XPObjectValue.h>
 #import <XPath/XPNodeEnumeration.h>
 #import "XPNodeSetValueEnumeration.h"
+#import "XPSingletonNodeSet.h"
 
 @interface XPNodeSetValue ()
 @property (nonatomic, retain) NSMutableArray *value; // TODO
@@ -185,7 +186,8 @@
     } else if ([other isNodeSetValue]) {
         
         // singleton node-set
-        if (1 == [(XPNodeSetValue *)other count]) {
+        if ([other isKindOfClass:[XPSingletonNodeSet class]]) {
+        //if (1 == [(XPNodeSetValue *)other count]) {
             if ([other asBoolean]) {
                 return [self isEqualToValue:[XPStringValue stringValueWithString:[other asString]]];
             } else {
@@ -229,7 +231,63 @@
 
 
 - (BOOL)isNotEqualToValue:(XPValue *)other {
-    return ![self isEqualToValue:other];
+
+    
+    if ([other isObjectValue]) {
+        return NO;
+        
+    } else if ([other isNodeSetValue]) {
+        
+        // singleton node-set
+        if ([other isKindOfClass:[XPSingletonNodeSet class]]) {
+        //if (1 == [(XPNodeSetValue *)other count]) {
+            if ([other asBoolean]) {
+                return [self isNotEqualToValue:[XPStringValue stringValueWithString:[other asString]]];
+            } else {
+                return NO;
+            }
+        } else {
+            
+            // see if there is a node in A with a different string value as a node in B
+            // use a nested loop: it will usually finish very quickly!
+            
+            id <XPNodeEnumeration>e1 = [self enumerate];
+            while ([e1 hasMoreObjects]) {
+                NSString *s1 = [[e1 nextObject] stringValue];
+                id <XPNodeEnumeration>e2 = [(XPNodeSetValue *)other enumerate];
+                while ([e2 hasMoreObjects]) {
+                    NSString *s2 = [[e2 nextObject] stringValue];
+                    if (![s1 isEqualToString:s2]) return YES;
+                }
+            }
+            return NO;
+
+        }
+        
+    } else if ([other isNumericValue]) {
+        for (id node in [self enumerate]) {
+            if (XPNumberFromString([node stringValue]) != [other asNumber]) return YES;
+        }
+        return NO;
+        
+    } else if ([other isStringValue]) {
+        if (!_stringValues) {
+            for (id node in [self enumerate]) {
+                if (![[node stringValue] isEqualToString:[other asString]]) return YES;
+            }
+            return NO;
+        } else {
+            return nil != _stringValues[[other asString]];
+        }
+        
+    } else if ([other isBooleanValue]) {
+        return [self asBoolean] != [other asBoolean];
+        
+    } else {
+        [NSException raise:@"InternalXPathError" format:@"Unknown data type in a relational expression"];
+    }
+    
+    return NO;
 }
 
 
