@@ -47,6 +47,11 @@
 }
 
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"%@|%@>", _p1, _p2];
+}
+
+
 /**
  * Simplify an expression
  * @return the simplified expression
