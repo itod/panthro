@@ -48,7 +48,18 @@ Some example expressions that currently work (i.e. they are parsed, execute, and
 
     chapter/@id != chapter[2]/@id
 
-### Objective-C API
+###Objective-C API
+
+XPath needs to works on a tree-like representation of an XML document. For that, Panthro needs a tree-based XML API available (in C, C++ or Objective-C) on Apple platforms. The most commonly-used XML tree APIs are:
+
+* [NSXML](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/NSXML_Concepts/Articles/NSXMLFeatures.html) (OS X, ObjC, closed-source)
+* [WebKit's DOM](http://www.webkit.org/) (OS X, ObjC, open source)
+* [libxml](http://xmlsoft.org/) (iOS, OS X, C, open source)
+* [Iconara DOM](http://www.iconara.net/developer/products/DOM/) (OS X, ObjC, open source)
+
+Panthro is designed to work with any XML tree API, but requires a small adapter layer for each (an implementation fo the `XPNodeInfo` protocol). Panthro currently only has an adapter for Apple's NSXML API. I plan on adding a libxml adapter soon (this is relatively easy to do).
+
+To use Panthro with NSXML on OS X:
 
     NSString *str = …
     NSXMLDocument *doc = [[[NSXMLDocument alloc] initWithXMLString:str options:0 error:nil] autorelease];
