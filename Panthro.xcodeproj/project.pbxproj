@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		D30D969C1918645B00627D41 /* XPNodeOrderComparer.h in Headers */ = {isa = PBXBuildFile; fileRef = D30D969B1918645B00627D41 /* XPNodeOrderComparer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3172237190D8FE6005C633B /* XPEqualityExprTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3172236190D8FE6005C633B /* XPEqualityExprTest.m */; };
-		D317223F190DAAD9005C633B /* XPNSXMLNodeImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = D317223D190DAAD9005C633B /* XPNSXMLNodeImpl.h */; };
-		D3172240190DAAD9005C633B /* XPNSXMLNodeImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = D317223E190DAAD9005C633B /* XPNSXMLNodeImpl.m */; };
 		D3363817100C6E0400AC4B51 /* XPNodeSetValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D3363815100C6E0400AC4B51 /* XPNodeSetValue.m */; };
 		D336381C100C6E2800AC4B51 /* XPNumericValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D336381A100C6E2800AC4B51 /* XPNumericValue.m */; };
 		D3363820100C6E4400AC4B51 /* XPStringValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D336381E100C6E4400AC4B51 /* XPStringValue.m */; };
@@ -29,8 +27,6 @@
 		D33E9FA0191706E100BB7DFE /* XPEmptyEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E9F9E191706E100BB7DFE /* XPEmptyEnumeration.m */; };
 		D33E9FA319170BB900BB7DFE /* XPRootExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D33E9FA119170BB900BB7DFE /* XPRootExpression.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D33E9FA419170BB900BB7DFE /* XPRootExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E9FA219170BB900BB7DFE /* XPRootExpression.m */; };
-		D33E9FA719170D1A00BB7DFE /* XPNSXMLDocumentImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = D33E9FA519170D1A00BB7DFE /* XPNSXMLDocumentImpl.h */; };
-		D33E9FA819170D1A00BB7DFE /* XPNSXMLDocumentImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E9FA619170D1A00BB7DFE /* XPNSXMLDocumentImpl.m */; };
 		D33E9FAC19170E1800BB7DFE /* XPDocumentInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = D33E9FAB19170E1800BB7DFE /* XPDocumentInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3411B59191A87960082A196 /* XPContextNodeExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3411B57191A87960082A196 /* XPContextNodeExpression.h */; };
 		D3411B5A191A87960082A196 /* XPContextNodeExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411B58191A87960082A196 /* XPContextNodeExpression.m */; };
@@ -240,6 +236,10 @@
 		D3F0CBB7191EC2F70049EC02 /* XPNameTest.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBB3191EC2F70049EC02 /* XPNameTest.h */; };
 		D3F0CBB8191EC2F70049EC02 /* XPNodeTest.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBB4191EC2F70049EC02 /* XPNodeTest.h */; };
 		D3F0CBB9191EC2F70049EC02 /* XPPattern.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBB5191EC2F70049EC02 /* XPPattern.h */; };
+		D3F0CBBE191EC3A50049EC02 /* XPNSXMLDocumentImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBBA191EC3A50049EC02 /* XPNSXMLDocumentImpl.h */; };
+		D3F0CBBF191EC3A50049EC02 /* XPNSXMLDocumentImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0CBBB191EC3A50049EC02 /* XPNSXMLDocumentImpl.m */; };
+		D3F0CBC0191EC3A50049EC02 /* XPNSXMLNodeImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBBC191EC3A50049EC02 /* XPNSXMLNodeImpl.h */; };
+		D3F0CBC1191EC3A50049EC02 /* XPNSXMLNodeImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0CBBD191EC3A50049EC02 /* XPNSXMLNodeImpl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -333,8 +333,6 @@
 		D312AE78103A6A290098934C /* XPComparer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPComparer.m; path = src/XPComparer.m; sourceTree = "<group>"; };
 		D312AE7D103A6C700098934C /* XPDescendingComparer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPDescendingComparer.m; path = src/XPDescendingComparer.m; sourceTree = "<group>"; };
 		D3172236190D8FE6005C633B /* XPEqualityExprTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPEqualityExprTest.m; path = test/XPEqualityExprTest.m; sourceTree = "<group>"; };
-		D317223D190DAAD9005C633B /* XPNSXMLNodeImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPNSXMLNodeImpl.h; path = src/XPNSXMLNodeImpl.h; sourceTree = "<group>"; };
-		D317223E190DAAD9005C633B /* XPNSXMLNodeImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNSXMLNodeImpl.m; path = src/XPNSXMLNodeImpl.m; sourceTree = "<group>"; };
 		D3363815100C6E0400AC4B51 /* XPNodeSetValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNodeSetValue.m; path = src/XPNodeSetValue.m; sourceTree = "<group>"; };
 		D336381A100C6E2800AC4B51 /* XPNumericValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNumericValue.m; path = src/XPNumericValue.m; sourceTree = "<group>"; };
 		D336381E100C6E4400AC4B51 /* XPStringValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPStringValue.m; path = src/XPStringValue.m; sourceTree = "<group>"; };
@@ -359,8 +357,6 @@
 		D33E9F9E191706E100BB7DFE /* XPEmptyEnumeration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPEmptyEnumeration.m; path = src/XPEmptyEnumeration.m; sourceTree = "<group>"; };
 		D33E9FA119170BB900BB7DFE /* XPRootExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPRootExpression.h; path = src/XPRootExpression.h; sourceTree = "<group>"; };
 		D33E9FA219170BB900BB7DFE /* XPRootExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPRootExpression.m; path = src/XPRootExpression.m; sourceTree = "<group>"; };
-		D33E9FA519170D1A00BB7DFE /* XPNSXMLDocumentImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPNSXMLDocumentImpl.h; path = src/XPNSXMLDocumentImpl.h; sourceTree = "<group>"; };
-		D33E9FA619170D1A00BB7DFE /* XPNSXMLDocumentImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNSXMLDocumentImpl.m; path = src/XPNSXMLDocumentImpl.m; sourceTree = "<group>"; };
 		D33E9FAB19170E1800BB7DFE /* XPDocumentInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPDocumentInfo.h; path = include/XPath/XPDocumentInfo.h; sourceTree = "<group>"; };
 		D3411B57191A87960082A196 /* XPContextNodeExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPContextNodeExpression.h; path = src/XPContextNodeExpression.h; sourceTree = "<group>"; };
 		D3411B58191A87960082A196 /* XPContextNodeExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPContextNodeExpression.m; path = src/XPContextNodeExpression.m; sourceTree = "<group>"; };
@@ -587,6 +583,10 @@
 		D3F0CBB3191EC2F70049EC02 /* XPNameTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPNameTest.h; path = src/XPNameTest.h; sourceTree = "<group>"; };
 		D3F0CBB4191EC2F70049EC02 /* XPNodeTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPNodeTest.h; path = src/XPNodeTest.h; sourceTree = "<group>"; };
 		D3F0CBB5191EC2F70049EC02 /* XPPattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPPattern.h; path = src/XPPattern.h; sourceTree = "<group>"; };
+		D3F0CBBA191EC3A50049EC02 /* XPNSXMLDocumentImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPNSXMLDocumentImpl.h; path = nsxml/XPNSXMLDocumentImpl.h; sourceTree = "<group>"; };
+		D3F0CBBB191EC3A50049EC02 /* XPNSXMLDocumentImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNSXMLDocumentImpl.m; path = nsxml/XPNSXMLDocumentImpl.m; sourceTree = "<group>"; };
+		D3F0CBBC191EC3A50049EC02 /* XPNSXMLNodeImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPNSXMLNodeImpl.h; path = nsxml/XPNSXMLNodeImpl.h; sourceTree = "<group>"; };
+		D3F0CBBD191EC3A50049EC02 /* XPNSXMLNodeImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNSXMLNodeImpl.m; path = nsxml/XPNSXMLNodeImpl.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -709,10 +709,10 @@
 		D317223C190DAAB1005C633B /* NSXML */ = {
 			isa = PBXGroup;
 			children = (
-				D317223D190DAAD9005C633B /* XPNSXMLNodeImpl.h */,
-				D317223E190DAAD9005C633B /* XPNSXMLNodeImpl.m */,
-				D33E9FA519170D1A00BB7DFE /* XPNSXMLDocumentImpl.h */,
-				D33E9FA619170D1A00BB7DFE /* XPNSXMLDocumentImpl.m */,
+				D3F0CBBC191EC3A50049EC02 /* XPNSXMLNodeImpl.h */,
+				D3F0CBBD191EC3A50049EC02 /* XPNSXMLNodeImpl.m */,
+				D3F0CBBA191EC3A50049EC02 /* XPNSXMLDocumentImpl.h */,
+				D3F0CBBB191EC3A50049EC02 /* XPNSXMLDocumentImpl.m */,
 			);
 			name = NSXML;
 			sourceTree = "<group>";
@@ -1125,13 +1125,11 @@
 				D3BBAE92191DD0CF00766EB4 /* XPSingletonEnumeration.h in Headers */,
 				D3F0CBB7191EC2F70049EC02 /* XPNameTest.h in Headers */,
 				D3BE1416191AFC7200005C81 /* XPNodeSetValueEnumeration.h in Headers */,
-				D317223F190DAAD9005C633B /* XPNSXMLNodeImpl.h in Headers */,
 				D3A6C2F31907457500F3EFF3 /* XPNodeTypeTest.h in Headers */,
 				D3BE1418191BC7FE00005C81 /* XPAxisEnumeration.h in Headers */,
 				D3BBAE8A191D881200766EB4 /* XPLookaheadEnumerator.h in Headers */,
 				D3411B59191A87960082A196 /* XPContextNodeExpression.h in Headers */,
 				D3F0CBB6191EC2F70049EC02 /* XPNamespaceTest.h in Headers */,
-				D33E9FA719170D1A00BB7DFE /* XPNSXMLDocumentImpl.h in Headers */,
 				D3F0CBA4191EC23D0049EC02 /* FNLast.h in Headers */,
 				D3A5DBC9141E7D510081FBB4 /* XPExpression.h in Headers */,
 				D3A5DBCB141E7D570081FBB4 /* XPValue.h in Headers */,
@@ -1153,12 +1151,14 @@
 				D3BE142E191C40E500005C81 /* XPBaseFastEnumeration.h in Headers */,
 				D3A6C2F61907568200F3EFF3 /* XPAxis.h in Headers */,
 				D3A5DBE3141E7DB40081FBB4 /* XPArithmeticExpression.h in Headers */,
+				D3F0CBC0191EC3A50049EC02 /* XPNSXMLNodeImpl.h in Headers */,
 				D3BE1410191AC80400005C81 /* XPFilterExpression.h in Headers */,
 				D30D969C1918645B00627D41 /* XPNodeOrderComparer.h in Headers */,
 				D383A31C187F6ECB006AE701 /* XPAssembler.h in Headers */,
 				D3F0CBA7191EC23D0049EC02 /* FNPosition.h in Headers */,
 				D33E9F9F191706E100BB7DFE /* XPEmptyEnumeration.h in Headers */,
 				D3A5DBE7141E7DC40081FBB4 /* XPNodeSetExpression.h in Headers */,
+				D3F0CBBE191EC3A50049EC02 /* XPNSXMLDocumentImpl.h in Headers */,
 				D3BE1424191C193900005C81 /* XPFilterEnumerator.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1409,7 +1409,6 @@
 				D37A2A1B1014015E00E936B7 /* FNBoolean.m in Sources */,
 				D3BE1425191C193900005C81 /* XPFilterEnumerator.m in Sources */,
 				D33E9F8C1916E60C00BB7DFE /* XPUtils.m in Sources */,
-				D3172240190DAAD9005C633B /* XPNSXMLNodeImpl.m in Sources */,
 				D37A2CAC10142D8E00E936B7 /* FNCeiling.m in Sources */,
 				D3BE141B191BCB5A00005C81 /* XPLocalOrderComparer.m in Sources */,
 				D37A2D02101433C600E936B7 /* FNConcat.m in Sources */,
@@ -1425,6 +1424,7 @@
 				D37A2F761015812800E936B7 /* XPContext.m in Sources */,
 				D37A2FD810158A0600E936B7 /* FNRound.m in Sources */,
 				D37A2FFD10158DA900E936B7 /* FNStartsWith.m in Sources */,
+				D3F0CBC1191EC3A50049EC02 /* XPNSXMLNodeImpl.m in Sources */,
 				D3C1782B18844C7D00F90600 /* XPPattern.m in Sources */,
 				D37A300110158DB300E936B7 /* FNString.m in Sources */,
 				D37A300510158DC200E936B7 /* FNStringLength.m in Sources */,
@@ -1433,12 +1433,12 @@
 				D37A301110158DEF00E936B7 /* FNSubstringBefore.m in Sources */,
 				D37A301510158E0100E936B7 /* FNSum.m in Sources */,
 				D37A30701015952F00E936B7 /* FNEndsWith.m in Sources */,
-				D33E9FA819170D1A00BB7DFE /* XPNSXMLDocumentImpl.m in Sources */,
 				D3A6C2F01907413800F3EFF3 /* XPStep.m in Sources */,
 				D37A311B1015A6DA00E936B7 /* FNNumber.m in Sources */,
 				D383A31A187F6EB8006AE701 /* XPAssembler.m in Sources */,
 				D383A320187F748E006AE701 /* XPEGParser.m in Sources */,
 				D3BE1417191AFC7200005C81 /* XPNodeSetValueEnumeration.m in Sources */,
+				D3F0CBBF191EC3A50049EC02 /* XPNSXMLDocumentImpl.m in Sources */,
 				D36BC032101BF52F00D1A6C7 /* XPNodeSetExpression.m in Sources */,
 				D3BBAE93191DD0CF00766EB4 /* XPSingletonEnumeration.m in Sources */,
 				D3A6C2F41907457500F3EFF3 /* XPNodeTypeTest.m in Sources */,
