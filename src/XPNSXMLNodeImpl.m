@@ -130,7 +130,8 @@
 
 
 - (BOOL)isSameNodeInfo:(id <XPNodeInfo>)other {
-    return other == self; // ??
+    XPAssert([other isKindOfClass:[XPNSXMLNodeImpl class]]);
+    return other == self || [(id)other node] == self.node;
 }
 
 
