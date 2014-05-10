@@ -1,6 +1,6 @@
 ###Panthro - XPath 1.0 written in Cocoa, for use in Cocoa
 
-Panthro is an implementation of XPath 1.0 in Objective-C/Cocoa with decent unit test coverage.
+Panthro is an implementation of XPath 1.0 in Objective-C/Cocoa with decent unit test coverage intended for use on Apple's iOS and OS X platforms.
 
 Panthro is a mostly a port of [Saxon](http://saxonica.com) 6.5 (Java) by Michael Kay.
 
