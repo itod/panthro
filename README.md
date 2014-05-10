@@ -1,8 +1,8 @@
-##Panthro - XPath 1.0 written in Cocoa, for use in Cocoa
+###Panthro - XPath 1.0 written in Cocoa, for use in Cocoa
 
 Panthro is an implementation of XPath 1.0 in Objective-C/Cocoa with decent unit test coverage.
 
-Panthro is a mostly a port of Saxon 6.5 (Java) by Michael Kay.
+Panthro is a mostly a port of [Saxon](http://saxonica.com) 6.5 (Java) by Michael Kay.
 
 The XPath 1.0 parser is based on [PEGKit](http://www.github.com/itod/pegkit).
 
@@ -18,40 +18,37 @@ What's missing?
 
 Some example expressions that currently work (i.e. they are parsed, execute, and return a result):
 
-<pre>
-boolean(false() != true())
+    boolean(false() != true())
 
-not(string-length('foo') = 1)
+    not(string-length('foo') = 1)
 
-substring('12345', 2, 3)
+    substring('12345', 2, 3)
 
-substring-before('1999/04/01', '/')
+    substring-before('1999/04/01', '/')
 
-/
+    /
 
-.
+    .
 
-.. 
+    .. 
 
-chapter
+    chapter
 
-chapter/title
+    chapter/title
 
-//para
+    //para
 
-chapter[@id='c1' or @id='c3']
+    chapter[@id='c1' or @id='c3']
 
-.|/|(//para)[2]
+    .|/|(//para)[2]
 
-(//para)[1]|//chapter/@id[string(.)='c1']
+    (//para)[1]|//chapter/@id[string(.)='c1']
 
-ancestor-or-self::node()
+    ancestor-or-self::node()
 
-chapter/@id != chapter[2]/@id
+    chapter/@id != chapter[2]/@id
 
-</pre>
-
-## Objective-C API
+### Objective-C API
 
     NSString *str = …
     NSXMLDocument *doc = [[[NSXMLDocument alloc] initWithXMLString:str options:0 error:nil] autorelease];
