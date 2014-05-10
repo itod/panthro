@@ -60,7 +60,7 @@ XPath works on a tree-like representation of an XML document. So Panthro needs a
 * [libxml](http://xmlsoft.org/) (iOS, OS X, C, open source)
 * [Iconara DOM](http://www.iconara.net/developer/products/DOM/) (OS X, ObjC, open source)
 
-Panthro is designed to work with any XML tree API, but requires a small adapter layer for each (an implementation of the `XPNodeInfo` and `XPDocumentInfo` and protocols). Panthro currently only has an adapter for Apple's NSXML API. I plan on adding a libxml adapter soon (this is relatively easy to do).
+Panthro is designed to work with any XML tree API, but requires a small adapter layer for each (an implementation of the `XPNodeInfo` and `XPDocumentInfo` protocols). Panthro currently only has an adapter for Apple's NSXML API. I plan on adding a libxml adapter soon (this is relatively easy to do).
 
 To use Panthro with NSXML on OS X:
 
