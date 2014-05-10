@@ -6,7 +6,7 @@
 //
 //
 
-#import "Panthro.h"
+#import "XPNodeSetExpression.h"
 
 @interface XPUnionExpression : XPNodeSetExpression
 

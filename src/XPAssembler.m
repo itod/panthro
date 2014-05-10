@@ -7,18 +7,45 @@
 //
 
 #import "XPAssembler.h"
-#import "Panthro.h"
+#import <Panthro/Panthro.h>
 #import <PEGKit/PEGKit.h>
 
-#import "XPPathExpression.h"
-#import "XPRootExpression.h"
-#import "XPContextNodeExpression.h"
+#import "XPBooleanExpression.h"
+#import "XPRelationalExpression.h"
+#import "XPArithmeticExpression.h"
+
 #import "XPStep.h"
 #import "XPAxis.h"
 #import "XPNodeTypeTest.h"
 #import "XPNameTest.h"
+
+#import "XPPathExpression.h"
+
+#import "XPRootExpression.h"
+#import "XPContextNodeExpression.h"
 #import "XPFilterExpression.h"
 #import "XPUnionExpression.h"
+
+#import "XPFunction.h"
+#import "FNBoolean.h"
+#import "FNCeiling.h"
+#import "FNConcat.h"
+#import "FNContains.h"
+#import "FNCount.h"
+#import "FNEndsWith.h"
+#import "FNFloor.h"
+#import "FNLast.h"
+#import "FNNot.h"
+#import "FNNumber.h"
+#import "FNPosition.h"
+#import "FNRound.h"
+#import "FNStartsWith.h"
+#import "FNString.h"
+#import "FNStringLength.h"
+#import "FNSubstring.h"
+#import "FNSubstringAfter.h"
+#import "FNSubstringBefore.h"
+#import "FNSum.h"
 
 @interface XPAssembler ()
 @property (nonatomic, retain) NSDictionary *funcTab;

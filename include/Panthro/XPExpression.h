@@ -6,7 +6,7 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <Panthro/XPUtils.h>
 
 @protocol XPStaticContext;
 @protocol XPNodeEnumeration;

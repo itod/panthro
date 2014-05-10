@@ -6,7 +6,7 @@
 //
 //
 
-#import "Panthro.h"
+#import "XPExpression.h"
 
 /**
  * PositionRange: a boolean expression that tests whether the position() is
