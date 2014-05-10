@@ -228,6 +228,11 @@
 }
 
 
+- (BOOL)isNotEqualToValue:(XPValue *)other {
+    return ![self isEqualToValue:other];
+}
+
+
 #pragma mark -
 #pragma mark XPSortable
 
