@@ -1,6 +1,8 @@
-An implementation of XPath 1.0 in Objective-C/Cocoa with decent unit test coverage.
+##Panthro - XPath 1.0 written in Cocoa, for use in Cocoa
 
-This is a mostly a port of Saxon 6.5 (Java) by Michael Kay.
+Panthro is an implementation of XPath 1.0 in Objective-C/Cocoa with decent unit test coverage.
+
+Panthro is a mostly a port of Saxon 6.5 (Java) by Michael Kay.
 
 The XPath 1.0 parser is based on [PEGKit](http://www.github.com/itod/pegkit).
 
@@ -48,3 +50,14 @@ ancestor-or-self::node()
 chapter/@id != chapter[2]/@id
 
 </pre>
+
+## Objective-C API
+
+    NSString *str = …
+    NSXMLDocument *doc = [[[NSXMLDocument alloc] initWithXMLString:str options:0 error:nil] autorelease];
+    
+    XPStandaloneContext *env = [XPStandaloneContext standaloneContext];
+
+    NSError *err = nil;
+    NSString ch1Title = [env evalutate:@"book/chapter[@id='ch1']/title" withNSXMLContextNode:doc error:&err];
+    
