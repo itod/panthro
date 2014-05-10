@@ -56,6 +56,7 @@
     c.position = _position;
     c.last = _last;
     c.currentNode = _currentNode;
+    c.lastPositionFinder = _lastPositionFinder;
 //    c.currentTemplate = _currentTemplate;
 //    //c.bindery = bindery;
 //    c.groupActivationStack = _groupActivationStack;
