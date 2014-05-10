@@ -922,4 +922,73 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDFalse([enm hasMoreObjects]);
 }
 
+
+- (void)testOpenSlashSlashParaClosePredicate1UnionSlashSlashChapterSlashAtIdPredicateStringDotEqC1 {
+    self.expr = [XPExpression expressionFromString:@"(//para)[1]|//chapter/@id[string(.)='c1']" inContext:nil error:nil];
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
+    
+    node = [enm nextObject];
+    TDEqualObjects(@"id", node.name);
+    TDEquals(XPNodeTypeAttribute, node.nodeType);
+    TDEqualObjects(_ids[0], [node stringValue]);
+
+    node = [enm nextObject];
+    TDEqualObjects(@"para", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDEqualObjects(_paras[0], node.stringValue);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testOpenSlashSlashParaClosePredicate1UnionSlashSlashChapterSlashAtIdPredicateStringEqC2 {
+    self.expr = [XPExpression expressionFromString:@"(//para)[1]|//chapter/@id[string()='c2']" inContext:nil error:nil];
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
+    
+    node = [enm nextObject];
+    TDEqualObjects(@"para", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDEqualObjects(_paras[0], node.stringValue);
+    
+    node = [enm nextObject];
+    TDEqualObjects(@"id", node.name);
+    TDEquals(XPNodeTypeAttribute, node.nodeType);
+    TDEqualObjects(_ids[1], [node stringValue]);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testOpenSlashSlashParaClosePredicate2UnionSlashSlashChapterSlashAtIdPredicateDotEqC3 {
+    self.expr = [XPExpression expressionFromString:@"(//para)[2]|//chapter/@id[.='c3']" inContext:nil error:nil];
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
+    
+    node = [enm nextObject];
+    TDEqualObjects(@"para", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDEqualObjects(_paras[1], node.stringValue);
+    
+    node = [enm nextObject];
+    TDEqualObjects(@"id", node.name);
+    TDEquals(XPNodeTypeAttribute, node.nodeType);
+    TDEqualObjects(_ids[2], [node stringValue]);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
 @end

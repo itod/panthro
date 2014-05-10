@@ -64,7 +64,5 @@ typedef NS_ENUM(NSUInteger, XPDependencies) {
 
 - (XPDataType)dataType;
 
-- (void)display:(NSInteger)level;
-
 @property (nonatomic, readonly, retain) id <XPStaticContext>staticContext;
 @end

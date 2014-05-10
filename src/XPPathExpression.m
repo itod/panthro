@@ -411,4 +411,9 @@
     return enm;
 }
 
+
+- (XPDataType)dataType {
+    return XPDataTypeNodeSet;
+}
+
 @end

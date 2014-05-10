@@ -155,12 +155,7 @@ static XPAssembler *sAssembler = nil;
 
 - (XPDataType)dataType {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
-    return -1;
-}
-
-
-- (void)display:(NSInteger)level {
-    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return NSNotFound;
 }
 
 @end
