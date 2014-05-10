@@ -48,6 +48,7 @@
 
 - (void)testImplicitChildAxisNameTestP {
     self.expr = [XPExpression expressionFromString:@"p" inContext:_env error:nil];
+    TDNotNil(_expr);
     
     self.res = (id)[_expr evaluateInContext:_ctx];
     TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
@@ -64,6 +65,7 @@
 
 - (void)testImplicitChildAxisNameTestPSlashA {
     self.expr = [XPExpression expressionFromString:@"p/a" inContext:_env error:nil];
+    TDNotNil(_expr);
     
     self.res = (id)[_expr evaluateInContext:_ctx];
     TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
@@ -80,6 +82,7 @@
 
 - (void)testExplicitChildAxisNameTestPSlashA {
     self.expr = [XPExpression expressionFromString:@"child::p/child::a" inContext:_env error:nil];
+    TDNotNil(_expr);
     
     self.res = (id)[_expr evaluateInContext:_ctx];
     TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
@@ -96,6 +99,7 @@
 
 - (void)testExplicitChildAxisNameTestDotSlashPSlashA {
     self.expr = [XPExpression expressionFromString:@"./child::p/child::a" inContext:_env error:nil];
+    TDNotNil(_expr);
     
     self.res = (id)[_expr evaluateInContext:_ctx];
     TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
@@ -112,6 +116,7 @@
 
 - (void)testImplicitChildAxisNameTestStar {
     self.expr = [XPExpression expressionFromString:@"*" inContext:_env error:nil];
+    TDNotNil(_expr);
     
     self.res = (id)[_expr evaluateInContext:_ctx];
     TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
@@ -128,6 +133,7 @@
 
 - (void)testDot {
     self.expr = [XPExpression expressionFromString:@"." inContext:_env error:nil];
+    TDNotNil(_expr);
     
     self.res = (id)[_expr evaluateInContext:_ctx];
     TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
@@ -144,6 +150,7 @@
 
 - (void)testDotDot {
     self.expr = [XPExpression expressionFromString:@".." inContext:_env error:nil];
+    TDNotNil(_expr);
     
     self.res = (id)[_expr evaluateInContext:_ctx];
     
@@ -159,6 +166,7 @@
 
 - (void)testDotSlashDotDot {
     self.expr = [XPExpression expressionFromString:@"./.." inContext:_env error:nil];
+    TDNotNil(_expr);
     
     self.res = (id)[_expr evaluateInContext:_ctx];
     
@@ -174,6 +182,7 @@
 
 - (void)testDotDotSlashDot {
     self.expr = [XPExpression expressionFromString:@"../." inContext:_env error:nil];
+    TDNotNil(_expr);
     
     self.res = (id)[_expr evaluateInContext:_ctx];
     

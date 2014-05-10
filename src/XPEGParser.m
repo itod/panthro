@@ -413,7 +413,9 @@
     
     if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {
         [self rootSlash_]; 
-        [self pathBody_]; 
+        if ([self speculate:^{ [self pathBody_]; }]) {
+            [self pathBody_]; 
+        }
     } else if ([self predicts:XPEG_TOKEN_KIND_DOUBLE_SLASH, 0]) {
         [self abbreviatedAbsoluteLocationPath_]; 
     } else {
