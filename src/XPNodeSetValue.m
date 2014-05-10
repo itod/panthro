@@ -140,6 +140,8 @@
         for (NSUInteger i = 1; i < _count; i++) {
             if (![_value[i] isSameNodeInfo:_value[i-1]]) {
                 _value[j++] = _value[i];
+            } else {
+                XPAssert(0); // remove me. just curious when i will hit this.
             }
         }
         
