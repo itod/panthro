@@ -22,7 +22,6 @@
 
 @implementation XPUnionEnumeration
 
-
 - (instancetype)initWithLhs:(id <XPNodeEnumeration>)lhs rhs:(id <XPNodeEnumeration>)rhs comparer:(id <XPNodeOrderComparer>)comparer {
     XPAssert(lhs);
     XPAssert(rhs);
@@ -58,6 +57,7 @@
     self.p2 = nil;
     [super dealloc];
 }
+
 
 - (BOOL)isSorted {
     return YES;

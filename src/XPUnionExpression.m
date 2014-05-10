@@ -60,6 +60,7 @@
     return self;
 }
 
+
 /**
  * Evaluate the union expression. The result will always be sorted in document order,
  * with duplicates eliminated
@@ -75,6 +76,7 @@
                                            comparer:[XPLocalOrderComparer instance]] autorelease];
 }
 
+
 /**
  * Determine which aspects of the context the expression depends on. The result is
  * a bitwise-or'ed value composed from constants such as Context.VARIABLES and
@@ -84,6 +86,7 @@
 - (XPDependencies)dependencies {
     return _p1.dependencies | _p2.dependencies;
 }
+
 
 /**
  * Determine, in the case of an expression whose data type is Value.NODESET,
@@ -95,6 +98,7 @@
     return _p1.isContextDocumentNodeSet && _p2.isContextDocumentNodeSet;
 }
 
+
 /**
  * Perform a partial evaluation of the expression, by eliminating specified dependencies
  * on the context.
@@ -105,9 +109,10 @@
  */
 
 - (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
-    if (([self dependencies] & dep) != 0 ) {
+    if (([self dependencies] & dep) != 0) {
+        XPContext *ctx2 = [[ctx copy] autorelease];
         XPExpression *e = [[[XPUnionExpression alloc] initWithLhs:[_p1 reduceDependencies:dep inContext:ctx]
-                                                              rhs:[_p2 reduceDependencies:dep inContext:ctx]] autorelease];
+                                                              rhs:[_p2 reduceDependencies:dep inContext:ctx2]] autorelease];
         e.staticContext = self.staticContext;
         return e;
     } else {
