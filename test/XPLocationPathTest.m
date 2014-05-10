@@ -16,7 +16,7 @@
 
 @interface XPLocationPathTest : XCTestCase
 @property (nonatomic, retain) XPStandaloneContext *env;
-@property (nonatomic, retain) id <XPNodeInfo>contextNode;
+@property (nonatomic, retain) NSXMLNode *contextNode;
 @property (nonatomic, retain) XPNodeSetValue *res;
 @property (nonatomic, retain) NSArray *ids;
 @property (nonatomic, retain) NSArray *titles;
@@ -38,25 +38,22 @@
     TDNotNil(doc);
     TDNil(err);
     
-    id <XPNodeInfo>docNode = [[[XPNSXMLDocumentImpl alloc] initWithNode:doc sortIndex:0] autorelease];
-    TDNotNil(docNode);
-    
     //
     // NOTE: the <book> outermost element is the context node in all tests!!!
     //
     
     NSXMLNode *docEl = [doc rootElement];
-    id <XPNodeInfo>docElNode = [[[XPNSXMLNodeImpl alloc] initWithNode:docEl sortIndex:1] autorelease];
+    TDNotNil(docEl);
     
     self.env = [XPStandaloneContext standaloneContext];
-    self.contextNode = docElNode;
+    self.contextNode = docEl;
 }
 
 
 - (void)eval:(NSString *)xpathStr {
     TDNotNil(_env);
     NSError *err = nil;
-    self.res = [_env evalutate:xpathStr withContextNode:_contextNode error:&err];
+    self.res = [_env evalutate:xpathStr withNSXMLContextNode:_contextNode error:&err];
     TDNil(err);
     TDNotNil(_res);
 }
