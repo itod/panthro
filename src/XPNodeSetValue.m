@@ -61,6 +61,8 @@
 
 
 - (void)dealloc {
+    self.comparer = nil;
+    self.value = nil;
     self.stringValues = nil;
     [super dealloc];
 }
