@@ -94,6 +94,15 @@
 }
 
 
+- (void)dealloc {
+    self.base = nil;
+    self.filter = nil;
+    self.current = nil;
+    self.filterContext = nil;
+    [super dealloc];
+}
+
+
 /**
  * Test whether there are any more nodes available in the enumeration
  */

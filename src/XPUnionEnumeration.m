@@ -55,6 +55,11 @@
 - (void)dealloc {
     self.p1 = nil;
     self.p2 = nil;
+    self.e1 = nil;
+    self.e2 = nil;
+    self.nextNode1 = nil;
+    self.nextNode2 = nil;
+    self.comparer = nil;
     [super dealloc];
 }
 
