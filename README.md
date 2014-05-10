@@ -16,7 +16,7 @@ What's missing?
 
 * Variable expressions are not yet complete.
 
-Some example expressions that currently work (i.e. they are parsed, execute, and return a result):
+Some example expressions that currently work (i.e. they are parsed, execute, and return a correct result):
 
     boolean(false() != true())
 
