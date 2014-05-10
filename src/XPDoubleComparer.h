@@ -1,6 +1,6 @@
 //
 //  XPDoubleComparer.h
-//  XPath
+//  Panthro
 //
 //  Created by Todd Ditchendorf on 9/12/11.
 //  Copyright 2011 Celestial Teapot. All rights reserved.

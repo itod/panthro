@@ -1,6 +1,6 @@
 //
 //  XPBaseFastEnumeration.h
-//  XPath
+//  Panthro
 //
 //  Created by Todd Ditchendorf on 5/8/14.
 //

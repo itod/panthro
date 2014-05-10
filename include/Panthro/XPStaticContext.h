@@ -1,6 +1,6 @@
 //
 //  XPStaticContext.h
-//  XPath
+//  Panthro
 //
 //  Created by Todd Ditchendorf on 3/5/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.

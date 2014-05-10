@@ -1,6 +1,6 @@
 //
 //  XPNodeTypeTest.m
-//  XPath
+//  Panthro
 //
 //  Created by Todd Ditchendorf on 4/22/14.
 //

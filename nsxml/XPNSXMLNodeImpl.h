@@ -1,6 +1,6 @@
 //
 //  XPNSXMLNodeImpl.h
-//  XPath
+//  Panthro
 //
 //  Created by Todd Ditchendorf on 4/27/14.
 //

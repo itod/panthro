@@ -1,6 +1,6 @@
 //
 //  XPUnionEnumeration.m
-//  XPath
+//  Panthro
 //
 //  Created by Todd Ditchendorf on 5/9/14.
 //

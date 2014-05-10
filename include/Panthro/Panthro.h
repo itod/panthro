@@ -19,6 +19,8 @@
 #import <Panthro/XPContext.h>
 #import <Panthro/XPSortable.h>
 
+#import <Panthro/XPFunction.h>
+
 #import <Panthro/XPValue.h>
 #import <Panthro/XPBooleanValue.h>
 #import <Panthro/XPNumericValue.h>
