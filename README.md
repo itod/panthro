@@ -25,8 +25,6 @@ substring('12345', 2, 3)
 
 substring-before('1999/04/01', '/')
 
-chapter[1]/@id != chapter[2]/@id
-
 /
 
 .
