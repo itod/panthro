@@ -8,14 +8,23 @@
 
 #import "XPStandaloneContext.h"
 #import "XPUtils.h"
-#import "XPExpression.h"
 #import "NSError+XPAdditions.h"
+
+#import "XPContext.h"
+#import "XPExpression.h"
+
+#import "XPNSXMLNodeImpl.h"
 
 NSString *XPNamespaceXML = @"http://www.w3.org/XML/1998/namespace";
 NSString *XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
 NSString *XPNamespaceAquaPath = @"http://celestialteapot.com/ns/aquapath";
 
 @implementation XPStandaloneContext
+
++ (instancetype)standaloneContext {
+    return [[[self alloc] init] autorelease];
+}
+
 
 - (instancetype)init {
     self = [super init];
@@ -35,7 +44,43 @@ NSString *XPNamespaceAquaPath = @"http://celestialteapot.com/ns/aquapath";
     [super dealloc];
 }
 
+
+- (id)evalutate:(NSString *)xpathStr withNSXMLContextNode:(NSXMLNode *)nsxmlCtxNode error:(NSError **)outErr {
+    id <XPNodeInfo>ctxNode = [[[XPNSXMLNodeImpl alloc] initWithNode:nsxmlCtxNode sortIndex:NSNotFound] autorelease];
+    return [self evalutate:xpathStr withContextNode:ctxNode error:outErr];
+}
+
+
+- (id)evalutate:(NSString *)xpathStr withContextNode:(id <XPNodeInfo>)ctxNode error:(NSError **)outErr {
+    NSParameterAssert([xpathStr length]);
+    NSParameterAssert(ctxNode);
     
+    id result = nil;
+    
+    @autoreleasepool {
+        XPExpression *expr = [XPExpression expressionFromString:xpathStr inContext:self error:outErr];
+        
+        if (expr) {
+            XPContext *ctx = [[[XPContext alloc] initWithStaticContext:self] autorelease];
+            ctx.contextNode = ctxNode;
+            
+            @try {
+                result = [expr evaluateInContext:ctx];
+            } @catch (NSException *ex) {
+                result = nil;
+                if (outErr) {
+                    *outErr = [NSError XPathErrorWithCode:47 format:@"XPath runtime evaluation error: %@", [ex reason]];
+                }
+            }
+        }
+        
+        [result retain]; // +1 to survive autorelase pool drain
+    }
+
+    return [result autorelease]; // -1 to balance
+}
+
+
 /**
  * Declare a namespace whose prefix can be used in expressions
  */

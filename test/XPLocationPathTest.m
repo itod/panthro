@@ -15,8 +15,8 @@
 #import "XPStandaloneContext.h"
 
 @interface XPLocationPathTest : XCTestCase
-@property (nonatomic, retain) XPExpression *expr;
-@property (nonatomic, retain) XPContext *ctx;
+@property (nonatomic, retain) XPStandaloneContext *env;
+@property (nonatomic, retain) id <XPNodeInfo>contextNode;
 @property (nonatomic, retain) XPNodeSetValue *res;
 @property (nonatomic, retain) NSArray *ids;
 @property (nonatomic, retain) NSArray *titles;
@@ -48,9 +48,17 @@
     NSXMLNode *docEl = [doc rootElement];
     id <XPNodeInfo>docElNode = [[[XPNSXMLNodeImpl alloc] initWithNode:docEl sortIndex:1] autorelease];
     
-    id <XPStaticContext>env = [[[XPStandaloneContext alloc] init] autorelease];
-    self.ctx = [[[XPContext alloc] initWithStaticContext:env] autorelease];
-    _ctx.contextNode = docElNode;
+    self.env = [XPStandaloneContext standaloneContext];
+    self.contextNode = docElNode;
+}
+
+
+- (void)eval:(NSString *)xpathStr {
+    TDNotNil(_env);
+    NSError *err = nil;
+    self.res = [_env evalutate:xpathStr withContextNode:_contextNode error:&err];
+    TDNil(err);
+    TDNotNil(_res);
 }
 
 
@@ -61,10 +69,7 @@
 
 
 - (void)testImplicitChildAxisNameTestChapter {
-    self.expr = [XPExpression expressionFromString:@"chapter" inContext:nil error:nil];
-   
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"chapter"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
 
@@ -79,11 +84,7 @@
 
 
 - (void)testExplicitChildAxisNameTestChapter {
-    self.expr = [XPExpression expressionFromString:@"child::chapter" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"child::chapter"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -98,11 +99,7 @@
 
 
 - (void)testImplicitChildAxisNameTestChapterSlashTitle {
-    self.expr = [XPExpression expressionFromString:@"chapter/title" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"chapter/title"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -118,11 +115,7 @@
 
 
 - (void)testExplicitChildAxisNameTestChapterSlashTitle {
-    self.expr = [XPExpression expressionFromString:@"child::chapter/child::title" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"child::chapter/child::title"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -138,11 +131,7 @@
 
 
 - (void)testImplicitChildAxisNameTestChapterPredicate1 {
-    self.expr = [XPExpression expressionFromString:@"chapter[1]" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"chapter[1]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -156,11 +145,7 @@
 
 
 - (void)testImplicitChildAxisNameTestChapterPredicate2 {
-    self.expr = [XPExpression expressionFromString:@"chapter[2]" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"chapter[2]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -174,11 +159,7 @@
 
 
 - (void)testImplicitChildAxisNameTestChapterPredicate3 {
-    self.expr = [XPExpression expressionFromString:@"chapter[3]" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"chapter[3]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -192,11 +173,7 @@
 
 
 - (void)testImplicitChildAxisNameTestChapterPredicatePositionEq1 {
-    self.expr = [XPExpression expressionFromString:@"chapter[position()=1]" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"chapter[position()=1]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -210,11 +187,7 @@
 
 
 - (void)testImplicitChildAxisNameTestChapterPredicatePositionEq2 {
-    self.expr = [XPExpression expressionFromString:@"chapter[position()=2]" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"chapter[position()=2]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -228,11 +201,7 @@
 
 
 - (void)testImplicitChildAxisNameTestChapterPredicatePositionEq3 {
-    self.expr = [XPExpression expressionFromString:@"chapter[position()=3]" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"chapter[position()=3]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -246,11 +215,7 @@
 
 
 - (void)testImplicitChildAxisNameTestChapterPredicateLast {
-    self.expr = [XPExpression expressionFromString:@"chapter[last()]" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"chapter[last()]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -264,11 +229,7 @@
 
 
 - (void)testImplicitChildAxisNameTestChapterPredicatePositionNeLast {
-    self.expr = [XPExpression expressionFromString:@"chapter[position()!=last()]" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"chapter[position()!=last()]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -287,11 +248,7 @@
 
 
 - (void)testImplicitChildAxisNameTestChapterPredicatePositionNe3 {
-    self.expr = [XPExpression expressionFromString:@"chapter[position()!=3]" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"chapter[position()!=3]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -310,11 +267,7 @@
 
 
 - (void)testImplicitChildAxisNameTestChapterPredicatePositionNe0 {
-    self.expr = [XPExpression expressionFromString:@"chapter[position()!=0]" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"chapter[position()!=0]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -338,11 +291,7 @@
 
 
 - (void)testImplicitChildAxisNameTestChapterPredicateAttributeIdEqC1 {
-    self.expr = [XPExpression expressionFromString:@"chapter[attribute::id='c1']" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"chapter[attribute::id='c1']"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -356,11 +305,7 @@
 
 
 - (void)testImplicitChildAxisNameTestChapterPredicateAttributeIdEqC2 {
-    self.expr = [XPExpression expressionFromString:@"chapter[attribute::id='c2']" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"chapter[attribute::id='c2']"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -374,11 +319,7 @@
 
 
 - (void)testImplicitChildAxisNameTestChapterPredicateAttributeIdEqC3 {
-    self.expr = [XPExpression expressionFromString:@"chapter[attribute::id='c3']" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"chapter[attribute::id='c3']"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -392,11 +333,7 @@
 
 
 - (void)testImplicitChildAxisNameTestChapterPredicateAtIdEqC1 {
-    self.expr = [XPExpression expressionFromString:@"chapter[@id='c1']" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"chapter[@id='c1']"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -410,11 +347,7 @@
 
 
 - (void)testImplicitChildAxisNameTestChapterPredicateAtIdEqC2 {
-    self.expr = [XPExpression expressionFromString:@"chapter[@id='c2']" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"chapter[@id='c2']"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -428,11 +361,7 @@
 
 
 - (void)testImplicitChildAxisNameTestChapterPredicateAtIdEqC3 {
-    self.expr = [XPExpression expressionFromString:@"chapter[@id='c3']" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"chapter[@id='c3']"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -446,11 +375,7 @@
 
 
 - (void)testExplicitChildAxisNameTestChapterPredicateAtIdEqC1 {
-    self.expr = [XPExpression expressionFromString:@"child::chapter[@id='c1']" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"child::chapter[@id='c1']"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -464,11 +389,7 @@
 
 
 - (void)testExplicitChildAxisNameTestChapterPredicateAtIdEqC2 {
-    self.expr = [XPExpression expressionFromString:@"child::chapter[@id='c2']" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"child::chapter[@id='c2']"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -482,11 +403,7 @@
 
 
 - (void)testExplicitChildAxisNameTestChapterPredicateAtIdEqC3 {
-    self.expr = [XPExpression expressionFromString:@"child::chapter[@id='c3']" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"child::chapter[@id='c3']"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -500,11 +417,7 @@
 
 
 - (void)testChapterPredicateAtIdEqC3SlashPara {
-    self.expr = [XPExpression expressionFromString:@"chapter[@id='c3']/para" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"chapter[@id='c3']/para"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -518,11 +431,7 @@
 
 
 - (void)testImplicitChildAxisNameTestChapterPredicateAtIdEqC1OrIdEqC3 {
-    self.expr = [XPExpression expressionFromString:@"chapter[@id='c1' or @id='c3']" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"chapter[@id='c1' or @id='c3']"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -541,11 +450,7 @@
 
 
 - (void)testImplicitChildAxisNameTestChapterPredicateAtIdEqC1AndSelfNodeTypeTest {
-    self.expr = [XPExpression expressionFromString:@"chapter[@id='c1' and self::node()]" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"chapter[@id='c1' and self::node()]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -559,11 +464,7 @@
 
 
 - (void)testImplicitChildAxisNameTestChapterPredicateAtIdEqC1AndSelfStar {
-    self.expr = [XPExpression expressionFromString:@"chapter[@id='c1' and self::*]" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"chapter[@id='c1' and self::*]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -577,11 +478,7 @@
 
 
 - (void)testImplicitChildAxisNameTestChapterPredicateAtIdEqC1AndSelfAttribute {
-    self.expr = [XPExpression expressionFromString:@"chapter[@id='c1' and self::text()]" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"chapter[@id='c1' and self::text()]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -590,11 +487,7 @@
 
 
 - (void)testSlashSlashCapterPredicateAtIdEqC1 {
-    self.expr = [XPExpression expressionFromString:@"//chapter[@id='c1']" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"//chapter[@id='c1']"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -608,11 +501,7 @@
 
 
 - (void)testSlashSlashPara {
-    self.expr = [XPExpression expressionFromString:@"//para" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"//para"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -628,11 +517,7 @@
 
 
 - (void)testDotSlashSlashPara {
-    self.expr = [XPExpression expressionFromString:@".//para" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@".//para"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -657,11 +542,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 */
 
 - (void)testSlashDescendantParaPredicate1 {
-    self.expr = [XPExpression expressionFromString:@"/descendant::para[1]" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"/descendant::para[1]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -675,11 +556,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testOpenSlashSlashParaClosePredicate1 {
-    self.expr = [XPExpression expressionFromString:@"(//para)[1]" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"(//para)[1]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -693,11 +570,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testOpenSlashSlashParaClosePredicatePos1OrPos3Predicate2 {
-    self.expr = [XPExpression expressionFromString:@"(//para)[position()=1 or position()=3][2]" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"(//para)[position()=1 or position()=3][2]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -711,11 +584,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testOpenSlashSlashParaClosePredicatePos1OrPos3Predicate2Predicate1 {
-    self.expr = [XPExpression expressionFromString:@"(//para)[position()=1 or position()=3][2][1]" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"(//para)[position()=1 or position()=3][2][1]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -729,11 +598,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testSlashSlashParaPredicate1 {
-    self.expr = [XPExpression expressionFromString:@"//para[1]" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"//para[1]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -749,11 +614,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testOpenSlashSlashParaPredicate1ClosePredicate2 {
-    self.expr = [XPExpression expressionFromString:@"(//para[1])[2]" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"(//para[1])[2]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -767,11 +628,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testOpenChapterSlashSlashParaPredicate1ClosePredicate2 {
-    self.expr = [XPExpression expressionFromString:@"(chapter//para[1])[2]" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"(chapter//para[1])[2]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -785,11 +642,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testAncestorNode {
-    self.expr = [XPExpression expressionFromString:@"ancestor::node()" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"ancestor::node()"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -802,11 +655,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testAncestorOrSelfNode {
-    self.expr = [XPExpression expressionFromString:@"ancestor-or-self::node()" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"ancestor-or-self::node()"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     id <XPNodeInfo>node = nil;
@@ -825,11 +674,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 - (void)testAncestorOrSelfNodePredicate1 {
     // This should match the CONTEXT NODE according to Saxon6.5, NSXML, Saxon9.5HE
-    self.expr = [XPExpression expressionFromString:@"ancestor-or-self::node()[1]" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"ancestor-or-self::node()[1]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     id <XPNodeInfo>node = nil;
@@ -844,11 +689,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 - (void)testOpenAncestorOrSelfNodeSlashDotClosePredicate1 {
     // This should match the ROOT according to Saxon6.5, NSXML, Saxon9.5HE
-    self.expr = [XPExpression expressionFromString:@"(ancestor-or-self::node()/.)[1]" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"(ancestor-or-self::node()/.)[1]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     id <XPNodeInfo>node = nil;
@@ -864,11 +705,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 - (void)testOpenAncestorOrSelfNodeClosePredicate1 {
     // This should match the ROOT according to Saxon6.5, Saxon9.5HE
     // NSXML gets this wrong!!!!!
-    self.expr = [XPExpression expressionFromString:@"(ancestor-or-self::node())[1]" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"(ancestor-or-self::node())[1]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     id <XPNodeInfo>node = nil;
@@ -882,11 +719,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testSlashSlashChapterUnionSlashSlashPara {
-    self.expr = [XPExpression expressionFromString:@"//chapter|//para" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"//chapter|//para"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -911,11 +744,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testSlashSlashParaUnionSlashSlashChapter {
-    self.expr = [XPExpression expressionFromString:@"//para|//chapter" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"//para|//chapter"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -940,11 +769,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testSlashSlashParaUnionSlashSlashChapterSlashAtId {
-    self.expr = [XPExpression expressionFromString:@"//para|//chapter/@id" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"//para|//chapter/@id"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
@@ -969,11 +794,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testOpenSlashSlashParaClosePredicate1UnionSlashSlashChapterSlashAtIdPredicateStringDotEqC1 {
-    self.expr = [XPExpression expressionFromString:@"(//para)[1]|//chapter/@id[string(.)='c1']" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"(//para)[1]|//chapter/@id[string(.)='c1']"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     id <XPNodeInfo>node = nil;
@@ -993,11 +814,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testOpenSlashSlashParaClosePredicate1UnionSlashSlashChapterSlashAtIdPredicateStringEqC2 {
-    self.expr = [XPExpression expressionFromString:@"(//para)[1]|//chapter/@id[string()='c2']" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"(//para)[1]|//chapter/@id[string()='c2']"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     id <XPNodeInfo>node = nil;
@@ -1017,11 +834,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testOpenSlashSlashParaClosePredicate2UnionSlashSlashChapterSlashAtIdPredicateDotEqC3 {
-    self.expr = [XPExpression expressionFromString:@"(//para)[2]|//chapter/@id[.='c3']" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"(//para)[2]|//chapter/@id[.='c3']"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     id <XPNodeInfo>node = nil;
@@ -1041,11 +854,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testOpenSlashSlashParaClosePredicate2UnionDot {
-    self.expr = [XPExpression expressionFromString:@"(//para)[2]|." inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"(//para)[2]|."];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     id <XPNodeInfo>node = nil;
@@ -1064,11 +873,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testDot {
-    self.expr = [XPExpression expressionFromString:@"." inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"."];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     id <XPNodeInfo>node = nil;
@@ -1082,11 +887,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testSlash {
-    self.expr = [XPExpression expressionFromString:@"/" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"/"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     id <XPNodeInfo>node = nil;
@@ -1099,11 +900,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testDotUnionSlash {
-    self.expr = [XPExpression expressionFromString:@".|/" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@".|/"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     id <XPNodeInfo>node = nil;
@@ -1120,11 +917,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testDotUnionDot {
-    self.expr = [XPExpression expressionFromString:@".|." inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@".|."];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     id <XPNodeInfo>node = nil;
@@ -1138,11 +931,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testDotUnionOpenSlashSlashParaClose {
-    self.expr = [XPExpression expressionFromString:@".|(//para)" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@".|(//para)"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     id <XPNodeInfo>node = nil;
@@ -1163,11 +952,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testDotUnionSlashSlashPara {
-    self.expr = [XPExpression expressionFromString:@".|//para" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@".|//para"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     id <XPNodeInfo>node = nil;
@@ -1188,11 +973,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testOpenDotUnionSlashSlashParaClosePredicate2 {
-    self.expr = [XPExpression expressionFromString:@"(.|//para)[2]" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@"(.|//para)[2]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     id <XPNodeInfo>node = nil;
@@ -1207,11 +988,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testDotUnionOpenSlashSlashParaClosePredicate2 {
-    self.expr = [XPExpression expressionFromString:@".|(//para)[2]" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@".|(//para)[2]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     id <XPNodeInfo>node = nil;
@@ -1232,11 +1009,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testDotUnionOpenOpenSlashSlashParaClosePredicate2Close {
-    self.expr = [XPExpression expressionFromString:@".|((//para)[2])" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@".|((//para)[2])"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     id <XPNodeInfo>node = nil;
@@ -1257,11 +1030,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testDotUnionOpenSlashUnionParaPredicate2 {
-    self.expr = [XPExpression expressionFromString:@".|/|(//para)[2]" inContext:nil error:nil];
-    TDNotNil(_expr);
-    
-    self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    [self eval:@".|/|(//para)[2]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     id <XPNodeInfo>node = nil;
@@ -1285,40 +1054,32 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testChapterPredicate1SlashAtIdEqChapterPredicate1SlashAtId {
-    self.expr = [XPExpression expressionFromString:@"chapter[1]/@id = chapter[1]/@id" inContext:nil error:nil];
-    TDNotNil(_expr);
+    [self eval:@"chapter[1]/@id = chapter[1]/@id"];
     
-    self.res = (id)[_expr evaluateInContext:_ctx];
     TDTrue([_res isKindOfClass:[XPBooleanValue class]]);
     TDTrue([_res asBoolean]);
 }
 
 
 - (void)testChapterPredicate1SlashAtIdNeChapterPredicate1SlashAtId {
-    self.expr = [XPExpression expressionFromString:@"chapter[1]/@id != chapter[2]/@id" inContext:nil error:nil];
-    TDNotNil(_expr);
+    [self eval:@"chapter[1]/@id != chapter[2]/@id"];
     
-    self.res = (id)[_expr evaluateInContext:_ctx];
     TDTrue([_res isKindOfClass:[XPBooleanValue class]]);
     TDTrue([_res asBoolean]);
 }
 
 
 - (void)testChapterSlashAtIdEqChapterPredicate1SlashAtId {
-    self.expr = [XPExpression expressionFromString:@"chapter/@id = chapter[2]/@id" inContext:nil error:nil];
-    TDNotNil(_expr);
+    [self eval:@"chapter/@id = chapter[2]/@id"];
     
-    self.res = (id)[_expr evaluateInContext:_ctx];
     TDTrue([_res isKindOfClass:[XPBooleanValue class]]);
     TDTrue([_res asBoolean]);
 }
 
 
 - (void)testChapterSlashAtIdNeChapterPredicate1SlashAtId {
-    self.expr = [XPExpression expressionFromString:@"chapter/@id != chapter[2]/@id" inContext:nil error:nil];
-    TDNotNil(_expr);
+    [self eval:@"chapter/@id != chapter[2]/@id"];
     
-    self.res = (id)[_expr evaluateInContext:_ctx];
     TDTrue([_res isKindOfClass:[XPBooleanValue class]]);
     TDTrue([_res asBoolean]);
 }

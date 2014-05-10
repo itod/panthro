@@ -17,7 +17,7 @@
 
 - (instancetype)initWithStaticContext:(id <XPStaticContext>)env;
 
-@property (nonatomic, retain, readonly) id <XPStaticContext>staticContext;
+@property (nonatomic, assign, readonly) id <XPStaticContext>staticContext; // weakref
 
 // focus
 @property (nonatomic, retain) id <XPNodeInfo>contextNode;

@@ -10,7 +10,7 @@
 #import "XPStaticContext.h"
 
 @interface XPContext ()
-@property (nonatomic, retain) id <XPStaticContext>staticContext;
+@property (nonatomic, assign) id <XPStaticContext>staticContext;
 @end
 
 @implementation XPContext {

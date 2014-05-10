@@ -7,6 +7,9 @@
 //
 
 #import "XPStaticContext.h"
+//#import <libxml.h>
+
+@protocol XPNodeInfo;
 
 /**
  * A StandaloneContext provides a context for parsing an expression or pattern appearing
@@ -14,6 +17,13 @@
  */
 
 @interface XPStandaloneContext : NSObject <XPStaticContext>
+
++ (instancetype)standaloneContext;
+
+//- (id)evalutate:(NSString *)xpathStr withLibXMLContextNode:(xmlNodePtr)libXMLCtxNode error:(NSError **)outErr;
+- (id)evalutate:(NSString *)xpathStr withNSXMLContextNode:(NSXMLNode *)nsxmlCtxNode error:(NSError **)outErr;
+
+- (id)evalutate:(NSString *)xpathStr withContextNode:(id <XPNodeInfo>)ctxNode error:(NSError **)outErr;
 
 - (void)declareNamespaceURI:(NSString *)uri forPrefix:(NSString *)prefix;
 
