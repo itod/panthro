@@ -232,8 +232,6 @@
 		D3BE143F191D46AA00005C81 /* XPEmptyNodeSet.h in Headers */ = {isa = PBXBuildFile; fileRef = D33E9F991917054000BB7DFE /* XPEmptyNodeSet.h */; };
 		D3C177F71880EE2E00F90600 /* XPEGParserFilterExprTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C177F61880EE2E00F90600 /* XPEGParserFilterExprTest.m */; };
 		D3C178011880EF4900F90600 /* XPEGParserLocationPathTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C178001880EF4900F90600 /* XPEGParserLocationPathTest.m */; };
-		D3C178241884472800F90600 /* XPAxisExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C178221884472800F90600 /* XPAxisExpression.m */; };
-		D3C178261884473B00F90600 /* XPAxisExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C178251884473B00F90600 /* XPAxisExpression.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3C1782B18844C7D00F90600 /* XPPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C1782918844C7D00F90600 /* XPPattern.m */; };
 		D3C1782F18844C9200F90600 /* XPNodeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C1782D18844C9200F90600 /* XPNodeTest.m */; };
 		D3C1783318844C9F00F90600 /* XPNameTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C1783118844C9F00F90600 /* XPNameTest.m */; };
@@ -758,6 +756,8 @@
 		D3411B54191A7E030082A196 /* NodeSet */ = {
 			isa = PBXGroup;
 			children = (
+				D3C178251884473B00F90600 /* XPAxisExpression.h */,
+				D3C178221884472800F90600 /* XPAxisExpression.m */,
 				D3A5DBEA141E7DCF0081FBB4 /* XPSingletonExpression.h */,
 				D36BC031101BF52F00D1A6C7 /* XPSingletonExpression.m */,
 				D3A5DBD4141E7D7C0081FBB4 /* XPNodeSetIntent.h */,
@@ -979,8 +979,6 @@
 				D33E9F921917040D00BB7DFE /* XPPathExpression.m */,
 				D3A6C2F51907568100F3EFF3 /* XPAxis.h */,
 				D3A6C2E31907391200F3EFF3 /* XPAxis.m */,
-				D3C178251884473B00F90600 /* XPAxisExpression.h */,
-				D3C178221884472800F90600 /* XPAxisExpression.m */,
 				D3A6C2ED1907413800F3EFF3 /* XPStep.h */,
 				D3A6C2EE1907413800F3EFF3 /* XPStep.m */,
 				D33E9FA119170BB900BB7DFE /* XPRootExpression.h */,
@@ -1165,7 +1163,6 @@
 				D3A5DBE5141E7DBC0081FBB4 /* XPFunction.h in Headers */,
 				D3A5DBE7141E7DC40081FBB4 /* XPNodeSetExpression.h in Headers */,
 				D3BE1424191C193900005C81 /* XPFilterEnumerator.h in Headers */,
-				D3C178261884473B00F90600 /* XPAxisExpression.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1411,7 +1408,6 @@
 				D37A296A1013F39400E936B7 /* XPFunction.m in Sources */,
 				D3BBAE8F191DCBF900766EB4 /* XPSingletonNodeSet.m in Sources */,
 				D37A296E1013F57D00E936B7 /* NSError+XPAdditions.m in Sources */,
-				D3C178241884472800F90600 /* XPAxisExpression.m in Sources */,
 				D37A29A41013F95100E936B7 /* FNNot.m in Sources */,
 				D3BE1438191D46A500005C81 /* XPEmptyNodeSet.m in Sources */,
 				D37A2A1B1014015E00E936B7 /* FNBoolean.m in Sources */,

@@ -11,7 +11,6 @@
 #import "XPStep.h"
 #import "XPAxis.h"
 #import "XPEmptyNodeSet.h"
-#import "XPAxisExpression.h"
 #import "XPNodeSetValueEnumeration.h"
 #import "XPLocalOrderComparer.h"
 #import "XPSingletonNodeSet.h"

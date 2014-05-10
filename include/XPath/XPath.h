@@ -24,7 +24,6 @@
 #import <XPath/XPArithmeticExpression.h>
 
 #import <XPath/XPNodeSetExpression.h>
-#import <XPath/XPAxisExpression.h>
 #import <XPath/XPRootExpression.h>
 
 #import <XPath/XPValue.h>
