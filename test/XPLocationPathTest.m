@@ -770,7 +770,6 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
     
     id <XPNodeEnumeration>enm = [_res enumerate];
-    
     id <XPNodeInfo>node = nil;
     
     node = [enm nextObject];
@@ -786,13 +785,13 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testAncestorOrSelfNodePredicate1 {
+    // This should match the CONTEXT NODE according to Saxon6.5, NSXML, Saxon9.5HE
     self.expr = [XPExpression expressionFromString:@"ancestor-or-self::node()[1]" inContext:nil error:nil];
     
     self.res = (id)[_expr evaluateInContext:_ctx];
     TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
     
     id <XPNodeEnumeration>enm = [_res enumerate];
-    
     id <XPNodeInfo>node = nil;
     
     node = [enm nextObject];
@@ -804,14 +803,35 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testOpenAncestorOrSelfNodeSlashDotClosePredicate1 {
+    // This should match the ROOT according to Saxon6.5, NSXML, Saxon9.5HE
     self.expr = [XPExpression expressionFromString:@"(ancestor-or-self::node()/.)[1]" inContext:nil error:nil];
     
     self.res = (id)[_expr evaluateInContext:_ctx];
     TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
     
     id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
     
-    id <XPNodeInfo>node = [enm nextObject];
+    node = [enm nextObject];
+    TDEqualObjects([XPNSXMLDocumentImpl class], [node class]);
+    TDEquals(XPNodeTypeRoot, node.nodeType);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testOpenAncestorOrSelfNodeClosePredicate1 {
+    // This should match the ROOT according to Saxon6.5, Saxon9.5HE
+    // NSXML gets this wrong!!!!!
+    self.expr = [XPExpression expressionFromString:@"(ancestor-or-self::node())[1]" inContext:nil error:nil];
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
+
+    node = [enm nextObject];
     TDEqualObjects([XPNSXMLDocumentImpl class], [node class]);
     TDEquals(XPNodeTypeRoot, node.nodeType);
     
