@@ -70,9 +70,8 @@
  */
 
 - (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sort {
-    XPContext *ctx2 = [[ctx copy] autorelease];
     return [[[XPUnionEnumeration alloc] initWithLhs:[_p1 enumerateInContext:ctx sorted:YES]
-                                                rhs:[_p2 enumerateInContext:ctx2 sorted:YES]
+                                                rhs:[_p2 enumerateInContext:ctx sorted:YES]
                                            comparer:[XPLocalOrderComparer instance]] autorelease];
 }
 
@@ -110,9 +109,8 @@
 
 - (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
     if (([self dependencies] & dep) != 0) {
-        XPContext *ctx2 = [[ctx copy] autorelease];
         XPExpression *e = [[[XPUnionExpression alloc] initWithLhs:[_p1 reduceDependencies:dep inContext:ctx]
-                                                              rhs:[_p2 reduceDependencies:dep inContext:ctx2]] autorelease];
+                                                              rhs:[_p2 reduceDependencies:dep inContext:ctx]] autorelease];
         e.staticContext = self.staticContext;
         return e;
     } else {

@@ -340,6 +340,8 @@
     // context document (e.g. an absolute path expression in a predicate) can also
     // be removed now.
     
+    ctx = [[ctx copy] autorelease];
+    
     id <XPNodeEnumeration>contextNodeEnm = [_start enumerateInContext:ctx sorted:sorted];
     
     id <XPNodeInfo>contextNode = nil;

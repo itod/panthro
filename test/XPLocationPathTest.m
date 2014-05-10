@@ -1255,4 +1255,14 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDFalse([enm hasMoreObjects]);
 }
 
+
+- (void)testChapterPredicate1SlashAtIdEqChapterPredicate1SlashAtId {
+    self.expr = [XPExpression expressionFromString:@"chapter[1]/@id = chapter[1]/@id" inContext:nil error:nil];
+    TDNotNil(_expr);
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPBooleanValue class]]);
+    TDTrue([_res asBoolean]);
+}
+
 @end
