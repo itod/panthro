@@ -18,6 +18,7 @@
 #import "XPNodeTypeTest.h"
 #import "XPNameTest.h"
 #import "XPFilterExpression.h"
+#import "XPUnionExpression.h"
 
 @interface XPAssembler ()
 @property (nonatomic, retain) NSDictionary *funcTab;
@@ -26,6 +27,7 @@
 @property (nonatomic, retain) PKToken *slash;
 @property (nonatomic, retain) PKToken *doubleSlash;
 @property (nonatomic, retain) PKToken *dotDotDot;
+@property (nonatomic, retain) PKToken *pipe;
 @property (nonatomic, retain) PKToken *closeBracket;
 @property (nonatomic, retain) NSCharacterSet *singleQuoteCharSet;
 @property (nonatomic, retain) NSCharacterSet *doubleQuoteCharSet;
@@ -39,6 +41,7 @@
         self.slash = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"/" doubleValue:0.0];
         self.doubleSlash = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"//" doubleValue:0.0];
         self.dotDotDot = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"…" doubleValue:0.0];
+        self.pipe = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"|" doubleValue:0.0];
         self.closeBracket = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"]" doubleValue:0.0];
         self.singleQuoteCharSet = [NSCharacterSet characterSetWithCharactersInString:@"'"];
         self.doubleQuoteCharSet = [NSCharacterSet characterSetWithCharactersInString:@"\""];
@@ -87,6 +90,7 @@
     self.slash = nil;
     self.doubleSlash = nil;
     self.dotDotDot = nil;
+    self.pipe = nil;
     self.closeBracket = nil;
     self.singleQuoteCharSet = nil;
     self.doubleQuoteCharSet = nil;
@@ -249,13 +253,19 @@
 }
 
 
-- (void)parser:(PKParser *)p didMatchAbsoluteLocationPath:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchUnionExpr:(PKAssembly *)a {
+    XPExpression *rhs = [a pop];
+    id peek = [a pop];
     
-}
-
-
-- (void)parser:(PKParser *)p didMatchRelativeLocationPath:(PKAssembly *)a {
-    
+    if ([peek isEqualTo:_pipe]) {
+        XPExpression *lhs = [a pop];
+        
+        XPExpression *unionExpr = [[[XPUnionExpression alloc] initWithLhs:lhs rhs:rhs] autorelease];
+        [a push:unionExpr];
+    } else {
+        [a push:peek];
+        [a push:rhs];
+    }
 }
 
 

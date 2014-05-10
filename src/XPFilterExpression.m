@@ -10,6 +10,7 @@
 #import "XPEmptyNodeSet.h"
 #import "XPNumericValue.h"
 #import "XPFilterEnumerator.h"
+#import "XPSingletonNodeSet.h"
 
 @interface XPExpression ()
 @property (nonatomic, readwrite, retain) id <XPStaticContext>staticContext;
@@ -147,11 +148,11 @@
         }
     }
     
-//    if (start instanceof SingletonNodeSet) {
-//        if (!((SingletonNodeSet)start).isGeneralUseAllowed()) {
-//            throw new XPathException("To use a result tree fragment in a filter expression, either use exsl:node-set() or specify version='1.1'");
-//        }
-//    }
+    if ([_start isKindOfClass:[XPSingletonNodeSet class]]) {
+        if (![(XPSingletonNodeSet *)_start isGeneralUseAllowed]) {
+            [NSException raise:@"XPathException" format:@"To use a result tree fragment in a filter expression, either use exsl:node-set() or specify version='1.1'"];
+        }
+    }
     
     id <XPNodeEnumeration>base = [_start enumerateInContext:ctx sorted:sort];
     if (![base hasMoreObjects]) {
@@ -170,7 +171,7 @@
 - (XPDependencies)dependencies {
     // not all dependencies in the filter expression matter, because the context node,
     // position, and size are not dependent on the outer context.
-    if (_dependencies==NSNotFound) {
+    if (NSNotFound == _dependencies) {
         _dependencies = [_start dependencies] | ([_filter dependencies] & XPDependenciesXSLTContext);
     }
     // System.err.println("Filter expression getDependencies() = " + dependencies);

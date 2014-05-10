@@ -10,4 +10,5 @@
 
 @interface XPUnionExpression : XPNodeSetExpression
 
+- (instancetype)initWithLhs:(XPExpression *)lhs rhs:(XPExpression *)rhs;
 @end

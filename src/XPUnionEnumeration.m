@@ -1,0 +1,144 @@
+//
+//  XPUnionEnumeration.m
+//  XPath
+//
+//  Created by Todd Ditchendorf on 5/9/14.
+//
+//
+
+#import "XPUnionEnumeration.h"
+#import "XPNodeSetValue.h"
+#import "XPLocalOrderComparer.h"
+
+@interface XPUnionEnumeration ()
+@property (nonatomic, retain) id <XPNodeEnumeration>p1;
+@property (nonatomic, retain) id <XPNodeEnumeration>p2;
+@property (nonatomic, retain) id <XPNodeEnumeration>e1;
+@property (nonatomic, retain) id <XPNodeEnumeration>e2;
+@property (nonatomic, retain) id <XPNodeInfo>nextNode1;
+@property (nonatomic, retain) id <XPNodeInfo>nextNode2;
+@property (nonatomic, retain) id <XPNodeOrderComparer>comparer;
+@end
+
+@implementation XPUnionEnumeration
+
+
+- (instancetype)initWithLhs:(id <XPNodeEnumeration>)lhs rhs:(id <XPNodeEnumeration>)rhs comparer:(id <XPNodeOrderComparer>)comparer {
+    XPAssert(lhs);
+    XPAssert(rhs);
+    XPAssert(comparer);
+    self = [super init];
+    if (self) {
+        self.p1 = lhs;
+        self.p2 = rhs;
+        self.comparer = comparer;
+        self.e1 = _p1;
+        self.e2 = _p2;
+        
+        if (![_e1 isSorted]) {
+            self.e1 = [[[[[XPNodeSetValue alloc] initWithEnumeration:_e1 comparer:_comparer] autorelease] sort] enumerate];
+        }
+        if (![_e2 isSorted]) {
+            self.e2 = [[[[[XPNodeSetValue alloc] initWithEnumeration:_e2 comparer:_comparer] autorelease] sort] enumerate];
+        }
+        
+        if ([_e1 hasMoreObjects]) {
+            self.nextNode1 = [_e1 nextObject];
+        }
+        if ([_e2 hasMoreObjects]) {
+            self.nextNode2 = [_e2 nextObject];
+        }
+    }
+    return self;
+}
+
+
+- (void)dealloc {
+    self.p1 = nil;
+    self.p2 = nil;
+    [super dealloc];
+}
+
+- (BOOL)isSorted {
+    return YES;
+}
+
+
+- (BOOL)isReverseSorted {
+    return NO;
+}
+
+
+- (BOOL)isPeer {
+    return NO;
+}
+
+
+- (BOOL)hasMoreObjects {
+    return _nextNode1 != nil || _nextNode2 != nil;
+}
+
+
+- (id <XPNodeInfo>)nextObject {
+    // main merge loop: take a value from whichever set has the lower value
+    
+    if (_nextNode1 != nil && _nextNode2 != nil) {
+        NSComparisonResult c = [_comparer compare:_nextNode1 to:_nextNode2];
+        if (c<0) {
+            id <XPNodeInfo>next = _nextNode1;
+            if ([_e1 hasMoreObjects]) {
+                self.nextNode1 = [_e1 nextObject];
+            } else {
+                self.nextNode1 = nil;
+            }
+            return next;
+            
+        } else if (c>0) {
+            id <XPNodeInfo>next = _nextNode2;
+            if ([_e2 hasMoreObjects]) {
+                self.nextNode2 = [_e2 nextObject];
+            } else {
+                self.nextNode2 = nil;
+            }
+            return next;
+            
+        } else {
+            id <XPNodeInfo>next = _nextNode2;
+            if ([_e2 hasMoreObjects]) {
+                self.nextNode2 = [_e2 nextObject];
+            } else {
+                self.nextNode2 = nil;
+            }
+            if ([_e1 hasMoreObjects]) {
+                self.nextNode1 = [_e1 nextObject];
+            } else {
+                self.nextNode1 = nil;
+            }
+            return next;
+        }
+    }
+    
+    // collect the remaining nodes from whichever set has a residue
+    
+    if (_nextNode1!=nil) {
+        id <XPNodeInfo>next = _nextNode1;
+        if ([_e1 hasMoreObjects]) {
+            self.nextNode1 = [_e1 nextObject];
+        } else {
+            self.nextNode1 = nil;
+        }
+        return next;
+    }
+    if (_nextNode2!=nil) {
+        id <XPNodeInfo>next = _nextNode2;
+        if ([_e2 hasMoreObjects]) {
+            self.nextNode2 = [_e2 nextObject];
+        } else {
+            self.nextNode2 = nil;
+        }
+        return next;
+    }
+    return nil;
+}
+
+@end

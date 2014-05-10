@@ -838,4 +838,88 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDFalse([enm hasMoreObjects]);
 }
 
+
+- (void)testSlashSlashChapterUnionSlashSlashPara {
+    self.expr = [XPExpression expressionFromString:@"//chapter|//para" inContext:nil error:nil];
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    NSUInteger chIdx = 0;
+    NSUInteger paraIdx = 0;
+    for (NSUInteger i = 0; i < 6; ++i) {
+        if (i % 2 == 0) {
+            id <XPNodeInfo>node = [enm nextObject];
+            TDEqualObjects(@"chapter", node.name);
+            TDEquals(XPNodeTypeElement, node.nodeType);
+            TDEqualObjects(_ids[chIdx++], [node attributeValueForURI:nil localName:@"id"]);
+        } else {
+            id <XPNodeInfo>node = [enm nextObject];
+            TDEqualObjects(@"para", node.name);
+            TDEquals(XPNodeTypeElement, node.nodeType);
+            TDEqualObjects(_paras[paraIdx++], node.stringValue);
+        }
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testSlashSlashParaUnionSlashSlashChapter {
+    self.expr = [XPExpression expressionFromString:@"//para|//chapter" inContext:nil error:nil];
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    NSUInteger chIdx = 0;
+    NSUInteger paraIdx = 0;
+    for (NSUInteger i = 0; i < 6; ++i) {
+        if (i % 2 == 0) {
+            id <XPNodeInfo>node = [enm nextObject];
+            TDEqualObjects(@"chapter", node.name);
+            TDEquals(XPNodeTypeElement, node.nodeType);
+            TDEqualObjects(_ids[chIdx++], [node attributeValueForURI:nil localName:@"id"]);
+        } else {
+            id <XPNodeInfo>node = [enm nextObject];
+            TDEqualObjects(@"para", node.name);
+            TDEquals(XPNodeTypeElement, node.nodeType);
+            TDEqualObjects(_paras[paraIdx++], node.stringValue);
+        }
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testSlashSlashParaUnionSlashSlashChapterSlashAtId {
+    self.expr = [XPExpression expressionFromString:@"//para|//chapter/@id" inContext:nil error:nil];
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    NSUInteger chIdx = 0;
+    NSUInteger paraIdx = 0;
+    for (NSUInteger i = 0; i < 6; ++i) {
+        if (i % 2 == 0) {
+            id <XPNodeInfo>node = [enm nextObject];
+            TDEqualObjects(@"id", node.name);
+            TDEquals(XPNodeTypeAttribute, node.nodeType);
+            TDEqualObjects(_ids[chIdx++], [node stringValue]);
+        } else {
+            id <XPNodeInfo>node = [enm nextObject];
+            TDEqualObjects(@"para", node.name);
+            TDEquals(XPNodeTypeElement, node.nodeType);
+            TDEqualObjects(_paras[paraIdx++], node.stringValue);
+        }
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
 @end
