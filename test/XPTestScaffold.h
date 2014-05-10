@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <XCTest/XCTest.h>
-#import "XPath.h"
+#import "Panthro.h"
 
 #import "XPEGParser.h"
 

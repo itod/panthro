@@ -7,7 +7,7 @@
 //
 
 #import "XPAssembler.h"
-#import "XPath.h"
+#import "Panthro.h"
 #import <PEGKit/PEGKit.h>
 
 #import "XPPathExpression.h"

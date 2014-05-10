@@ -111,30 +111,11 @@
 		D383A320187F748E006AE701 /* XPEGParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D383A31E187F748E006AE701 /* XPEGParser.m */; };
 		D383A321187F7EA5006AE701 /* XPTestScaffold.m in Sources */ = {isa = PBXBuildFile; fileRef = D33639DA100DAB8C00AC4B51 /* XPTestScaffold.m */; };
 		D3A5DB45141E7BC30081FBB4 /* XPath_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DB44141E7BC30081FBB4 /* XPath_Prefix.pch */; };
-		D3A5DB5A141E7C270081FBB4 /* XPath.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DB59141E7C270081FBB4 /* XPath.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3A5DB5A141E7C270081FBB4 /* Panthro.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DB59141E7C270081FBB4 /* Panthro.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A5DB5F141E7C460081FBB4 /* XPContext.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DB5B141E7C460081FBB4 /* XPContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A5DB61141E7C460081FBB4 /* XPNodeInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DB5D141E7C460081FBB4 /* XPNodeInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A5DB62141E7C460081FBB4 /* XPStaticContext.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DB5E141E7C460081FBB4 /* XPStaticContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A5DB66141E7C6B0081FBB4 /* XPNodeEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DB65141E7C6B0081FBB4 /* XPNodeEnumeration.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3A5DB7A141E7C870081FBB4 /* FNBoolean.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DB67141E7C860081FBB4 /* FNBoolean.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3A5DB7B141E7C870081FBB4 /* FNCeiling.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DB68141E7C860081FBB4 /* FNCeiling.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3A5DB7C141E7C870081FBB4 /* FNConcat.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DB69141E7C860081FBB4 /* FNConcat.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3A5DB7D141E7C870081FBB4 /* FNContains.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DB6A141E7C860081FBB4 /* FNContains.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3A5DB7E141E7C870081FBB4 /* FNCount.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DB6B141E7C860081FBB4 /* FNCount.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3A5DB7F141E7C870081FBB4 /* FNEndsWith.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DB6C141E7C860081FBB4 /* FNEndsWith.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3A5DB80141E7C870081FBB4 /* FNFloor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DB6D141E7C860081FBB4 /* FNFloor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3A5DB81141E7C870081FBB4 /* FNLast.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DB6E141E7C860081FBB4 /* FNLast.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3A5DB82141E7C870081FBB4 /* FNNot.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DB6F141E7C860081FBB4 /* FNNot.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3A5DB83141E7C870081FBB4 /* FNNumber.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DB70141E7C860081FBB4 /* FNNumber.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3A5DB84141E7C870081FBB4 /* FNPosition.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DB71141E7C860081FBB4 /* FNPosition.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3A5DB85141E7C870081FBB4 /* FNRound.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DB72141E7C860081FBB4 /* FNRound.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3A5DB86141E7C870081FBB4 /* FNStartsWith.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DB73141E7C860081FBB4 /* FNStartsWith.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3A5DB87141E7C870081FBB4 /* FNString.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DB74141E7C860081FBB4 /* FNString.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3A5DB88141E7C870081FBB4 /* FNStringLength.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DB75141E7C870081FBB4 /* FNStringLength.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3A5DB89141E7C870081FBB4 /* FNSubstring.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DB76141E7C870081FBB4 /* FNSubstring.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3A5DB8A141E7C870081FBB4 /* FNSubstringAfter.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DB77141E7C870081FBB4 /* FNSubstringAfter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3A5DB8B141E7C870081FBB4 /* FNSubstringBefore.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DB78141E7C870081FBB4 /* FNSubstringBefore.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3A5DB8C141E7C870081FBB4 /* FNSum.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DB79141E7C870081FBB4 /* FNSum.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A5DBC9141E7D510081FBB4 /* XPExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DBC8141E7D510081FBB4 /* XPExpression.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A5DBCB141E7D570081FBB4 /* XPValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DBCA141E7D570081FBB4 /* XPValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A5DBCD141E7D5F0081FBB4 /* XPBooleanValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DBCC141E7D5F0081FBB4 /* XPBooleanValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -146,7 +127,6 @@
 		D3A5DBDF141E7DA20081FBB4 /* XPBooleanExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DBDE141E7DA20081FBB4 /* XPBooleanExpression.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A5DBE1141E7DA90081FBB4 /* XPRelationalExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DBE0141E7DA90081FBB4 /* XPRelationalExpression.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A5DBE3141E7DB40081FBB4 /* XPArithmeticExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DBE2141E7DB40081FBB4 /* XPArithmeticExpression.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3A5DBE5141E7DBC0081FBB4 /* XPFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DBE4141E7DBC0081FBB4 /* XPFunction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A5DBE7141E7DC40081FBB4 /* XPNodeSetExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DBE6141E7DC40081FBB4 /* XPNodeSetExpression.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A6C2E41907391200F3EFF3 /* XPAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A6C2E31907391200F3EFF3 /* XPAxis.m */; };
 		D3A6C2EA19073B4700F3EFF3 /* XPStepTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A6C2E919073B4700F3EFF3 /* XPStepTest.m */; };
@@ -240,6 +220,26 @@
 		D3C1783E18844D0300F90600 /* XPNodeTest.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C1783A18844D0300F90600 /* XPNodeTest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3C1783F18844D0300F90600 /* XPPattern.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C1783B18844D0300F90600 /* XPPattern.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3C7984B19060EC700EC8CB2 /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C7984019060D0900EC8CB2 /* PEGKit.framework */; };
+		D3F0CB9D191EC23D0049EC02 /* FNBoolean.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB8A191EC23D0049EC02 /* FNBoolean.h */; };
+		D3F0CB9E191EC23D0049EC02 /* FNCeiling.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB8B191EC23D0049EC02 /* FNCeiling.h */; };
+		D3F0CB9F191EC23D0049EC02 /* FNConcat.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB8C191EC23D0049EC02 /* FNConcat.h */; };
+		D3F0CBA0191EC23D0049EC02 /* FNContains.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB8D191EC23D0049EC02 /* FNContains.h */; };
+		D3F0CBA1191EC23D0049EC02 /* FNCount.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB8E191EC23D0049EC02 /* FNCount.h */; };
+		D3F0CBA2191EC23D0049EC02 /* FNEndsWith.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB8F191EC23D0049EC02 /* FNEndsWith.h */; };
+		D3F0CBA3191EC23D0049EC02 /* FNFloor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB90191EC23D0049EC02 /* FNFloor.h */; };
+		D3F0CBA4191EC23D0049EC02 /* FNLast.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB91191EC23D0049EC02 /* FNLast.h */; };
+		D3F0CBA5191EC23D0049EC02 /* FNNot.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB92191EC23D0049EC02 /* FNNot.h */; };
+		D3F0CBA6191EC23D0049EC02 /* FNNumber.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB93191EC23D0049EC02 /* FNNumber.h */; };
+		D3F0CBA7191EC23D0049EC02 /* FNPosition.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB94191EC23D0049EC02 /* FNPosition.h */; };
+		D3F0CBA8191EC23D0049EC02 /* FNRound.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB95191EC23D0049EC02 /* FNRound.h */; };
+		D3F0CBA9191EC23D0049EC02 /* FNStartsWith.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB96191EC23D0049EC02 /* FNStartsWith.h */; };
+		D3F0CBAA191EC23D0049EC02 /* FNString.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB97191EC23D0049EC02 /* FNString.h */; };
+		D3F0CBAB191EC23D0049EC02 /* FNStringLength.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB98191EC23D0049EC02 /* FNStringLength.h */; };
+		D3F0CBAC191EC23D0049EC02 /* FNSubstring.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB99191EC23D0049EC02 /* FNSubstring.h */; };
+		D3F0CBAD191EC23D0049EC02 /* FNSubstringAfter.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB9A191EC23D0049EC02 /* FNSubstringAfter.h */; };
+		D3F0CBAE191EC23D0049EC02 /* FNSubstringBefore.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB9B191EC23D0049EC02 /* FNSubstringBefore.h */; };
+		D3F0CBAF191EC23D0049EC02 /* FNSum.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB9C191EC23D0049EC02 /* FNSum.h */; };
+		D3F0CBB1191EC2970049EC02 /* XPFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBB0191EC2970049EC02 /* XPFunction.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -457,30 +457,11 @@
 		D383A31D187F748E006AE701 /* XPEGParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPEGParser.h; path = src/XPEGParser.h; sourceTree = "<group>"; };
 		D383A31E187F748E006AE701 /* XPEGParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPEGParser.m; path = src/XPEGParser.m; sourceTree = "<group>"; };
 		D3A5DB44141E7BC30081FBB4 /* XPath_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPath_Prefix.pch; sourceTree = "<group>"; };
-		D3A5DB59141E7C270081FBB4 /* XPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPath.h; path = include/XPath/XPath.h; sourceTree = "<group>"; };
+		D3A5DB59141E7C270081FBB4 /* Panthro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Panthro.h; path = include/XPath/Panthro.h; sourceTree = "<group>"; };
 		D3A5DB5B141E7C460081FBB4 /* XPContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPContext.h; path = include/XPath/XPContext.h; sourceTree = "<group>"; };
 		D3A5DB5D141E7C460081FBB4 /* XPNodeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPNodeInfo.h; path = include/XPath/XPNodeInfo.h; sourceTree = "<group>"; };
 		D3A5DB5E141E7C460081FBB4 /* XPStaticContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPStaticContext.h; path = include/XPath/XPStaticContext.h; sourceTree = "<group>"; };
 		D3A5DB65141E7C6B0081FBB4 /* XPNodeEnumeration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPNodeEnumeration.h; path = include/XPath/XPNodeEnumeration.h; sourceTree = "<group>"; };
-		D3A5DB67141E7C860081FBB4 /* FNBoolean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNBoolean.h; path = include/XPath/FNBoolean.h; sourceTree = "<group>"; };
-		D3A5DB68141E7C860081FBB4 /* FNCeiling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNCeiling.h; path = include/XPath/FNCeiling.h; sourceTree = "<group>"; };
-		D3A5DB69141E7C860081FBB4 /* FNConcat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNConcat.h; path = include/XPath/FNConcat.h; sourceTree = "<group>"; };
-		D3A5DB6A141E7C860081FBB4 /* FNContains.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNContains.h; path = include/XPath/FNContains.h; sourceTree = "<group>"; };
-		D3A5DB6B141E7C860081FBB4 /* FNCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNCount.h; path = include/XPath/FNCount.h; sourceTree = "<group>"; };
-		D3A5DB6C141E7C860081FBB4 /* FNEndsWith.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNEndsWith.h; path = include/XPath/FNEndsWith.h; sourceTree = "<group>"; };
-		D3A5DB6D141E7C860081FBB4 /* FNFloor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNFloor.h; path = include/XPath/FNFloor.h; sourceTree = "<group>"; };
-		D3A5DB6E141E7C860081FBB4 /* FNLast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNLast.h; path = include/XPath/FNLast.h; sourceTree = "<group>"; };
-		D3A5DB6F141E7C860081FBB4 /* FNNot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNNot.h; path = include/XPath/FNNot.h; sourceTree = "<group>"; };
-		D3A5DB70141E7C860081FBB4 /* FNNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNNumber.h; path = include/XPath/FNNumber.h; sourceTree = "<group>"; };
-		D3A5DB71141E7C860081FBB4 /* FNPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNPosition.h; path = include/XPath/FNPosition.h; sourceTree = "<group>"; };
-		D3A5DB72141E7C860081FBB4 /* FNRound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNRound.h; path = include/XPath/FNRound.h; sourceTree = "<group>"; };
-		D3A5DB73141E7C860081FBB4 /* FNStartsWith.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNStartsWith.h; path = include/XPath/FNStartsWith.h; sourceTree = "<group>"; };
-		D3A5DB74141E7C860081FBB4 /* FNString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNString.h; path = include/XPath/FNString.h; sourceTree = "<group>"; };
-		D3A5DB75141E7C870081FBB4 /* FNStringLength.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNStringLength.h; path = include/XPath/FNStringLength.h; sourceTree = "<group>"; };
-		D3A5DB76141E7C870081FBB4 /* FNSubstring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNSubstring.h; path = include/XPath/FNSubstring.h; sourceTree = "<group>"; };
-		D3A5DB77141E7C870081FBB4 /* FNSubstringAfter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNSubstringAfter.h; path = include/XPath/FNSubstringAfter.h; sourceTree = "<group>"; };
-		D3A5DB78141E7C870081FBB4 /* FNSubstringBefore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNSubstringBefore.h; path = include/XPath/FNSubstringBefore.h; sourceTree = "<group>"; };
-		D3A5DB79141E7C870081FBB4 /* FNSum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNSum.h; path = include/XPath/FNSum.h; sourceTree = "<group>"; };
 		D3A5DB98141E7D1A0081FBB4 /* XPSortable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPSortable.h; path = include/XPath/XPSortable.h; sourceTree = "<group>"; };
 		D3A5DBAD141E7D230081FBB4 /* XPComparer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPComparer.h; path = include/XPath/XPComparer.h; sourceTree = "<group>"; };
 		D3A5DBAE141E7D230081FBB4 /* XPDescendingComparer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPDescendingComparer.h; path = include/XPath/XPDescendingComparer.h; sourceTree = "<group>"; };
@@ -498,7 +479,6 @@
 		D3A5DBDE141E7DA20081FBB4 /* XPBooleanExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPBooleanExpression.h; path = include/XPath/XPBooleanExpression.h; sourceTree = "<group>"; };
 		D3A5DBE0141E7DA90081FBB4 /* XPRelationalExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPRelationalExpression.h; path = include/XPath/XPRelationalExpression.h; sourceTree = "<group>"; };
 		D3A5DBE2141E7DB40081FBB4 /* XPArithmeticExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPArithmeticExpression.h; path = include/XPath/XPArithmeticExpression.h; sourceTree = "<group>"; };
-		D3A5DBE4141E7DBC0081FBB4 /* XPFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPFunction.h; path = include/XPath/XPFunction.h; sourceTree = "<group>"; };
 		D3A5DBE6141E7DC40081FBB4 /* XPNodeSetExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPNodeSetExpression.h; path = include/XPath/XPNodeSetExpression.h; sourceTree = "<group>"; };
 		D3A5DBEA141E7DCF0081FBB4 /* XPSingletonExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPSingletonExpression.h; path = include/XPath/XPSingletonExpression.h; sourceTree = "<group>"; };
 		D3A6C2E31907391200F3EFF3 /* XPAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPAxis.m; path = src/XPAxis.m; sourceTree = "<group>"; };
@@ -587,6 +567,26 @@
 		D3C1783A18844D0300F90600 /* XPNodeTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPNodeTest.h; path = include/XPath/XPNodeTest.h; sourceTree = "<group>"; };
 		D3C1783B18844D0300F90600 /* XPPattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPPattern.h; path = include/XPath/XPPattern.h; sourceTree = "<group>"; };
 		D3C7983719060D0800EC8CB2 /* PEGKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PEGKit.xcodeproj; path = lib/pegkit/PEGKit.xcodeproj; sourceTree = "<group>"; };
+		D3F0CB8A191EC23D0049EC02 /* FNBoolean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNBoolean.h; path = src/FNBoolean.h; sourceTree = "<group>"; };
+		D3F0CB8B191EC23D0049EC02 /* FNCeiling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNCeiling.h; path = src/FNCeiling.h; sourceTree = "<group>"; };
+		D3F0CB8C191EC23D0049EC02 /* FNConcat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNConcat.h; path = src/FNConcat.h; sourceTree = "<group>"; };
+		D3F0CB8D191EC23D0049EC02 /* FNContains.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNContains.h; path = src/FNContains.h; sourceTree = "<group>"; };
+		D3F0CB8E191EC23D0049EC02 /* FNCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNCount.h; path = src/FNCount.h; sourceTree = "<group>"; };
+		D3F0CB8F191EC23D0049EC02 /* FNEndsWith.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNEndsWith.h; path = src/FNEndsWith.h; sourceTree = "<group>"; };
+		D3F0CB90191EC23D0049EC02 /* FNFloor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNFloor.h; path = src/FNFloor.h; sourceTree = "<group>"; };
+		D3F0CB91191EC23D0049EC02 /* FNLast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNLast.h; path = src/FNLast.h; sourceTree = "<group>"; };
+		D3F0CB92191EC23D0049EC02 /* FNNot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNNot.h; path = src/FNNot.h; sourceTree = "<group>"; };
+		D3F0CB93191EC23D0049EC02 /* FNNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNNumber.h; path = src/FNNumber.h; sourceTree = "<group>"; };
+		D3F0CB94191EC23D0049EC02 /* FNPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNPosition.h; path = src/FNPosition.h; sourceTree = "<group>"; };
+		D3F0CB95191EC23D0049EC02 /* FNRound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNRound.h; path = src/FNRound.h; sourceTree = "<group>"; };
+		D3F0CB96191EC23D0049EC02 /* FNStartsWith.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNStartsWith.h; path = src/FNStartsWith.h; sourceTree = "<group>"; };
+		D3F0CB97191EC23D0049EC02 /* FNString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNString.h; path = src/FNString.h; sourceTree = "<group>"; };
+		D3F0CB98191EC23D0049EC02 /* FNStringLength.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNStringLength.h; path = src/FNStringLength.h; sourceTree = "<group>"; };
+		D3F0CB99191EC23D0049EC02 /* FNSubstring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNSubstring.h; path = src/FNSubstring.h; sourceTree = "<group>"; };
+		D3F0CB9A191EC23D0049EC02 /* FNSubstringAfter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNSubstringAfter.h; path = src/FNSubstringAfter.h; sourceTree = "<group>"; };
+		D3F0CB9B191EC23D0049EC02 /* FNSubstringBefore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNSubstringBefore.h; path = src/FNSubstringBefore.h; sourceTree = "<group>"; };
+		D3F0CB9C191EC23D0049EC02 /* FNSum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNSum.h; path = src/FNSum.h; sourceTree = "<group>"; };
+		D3F0CBB0191EC2970049EC02 /* XPFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPFunction.h; path = src/XPFunction.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -661,7 +661,7 @@
 				D3411B53191A7B670082A196 /* Unused */,
 				D317223C190DAAB1005C633B /* NSXML */,
 				D3BA9B29101C233B003C0040 /* Parser */,
-				D3A5DB59141E7C270081FBB4 /* XPath.h */,
+				D3A5DB59141E7C270081FBB4 /* Panthro.h */,
 				D33E9F8D1916E61900BB7DFE /* XPUtils.h */,
 				D33E9F8A1916E60C00BB7DFE /* XPUtils.m */,
 				D3A5DB98141E7D1A0081FBB4 /* XPSortable.h */,
@@ -859,45 +859,45 @@
 		D37A29661013F36300E936B7 /* Functions */ = {
 			isa = PBXGroup;
 			children = (
-				D3A5DBE4141E7DBC0081FBB4 /* XPFunction.h */,
+				D3F0CBB0191EC2970049EC02 /* XPFunction.h */,
 				D37A29681013F39400E936B7 /* XPFunction.m */,
-				D3A5DB67141E7C860081FBB4 /* FNBoolean.h */,
+				D3F0CB8A191EC23D0049EC02 /* FNBoolean.h */,
 				D37A2A191014015E00E936B7 /* FNBoolean.m */,
-				D3A5DB68141E7C860081FBB4 /* FNCeiling.h */,
+				D3F0CB8B191EC23D0049EC02 /* FNCeiling.h */,
 				D37A2CAA10142D8E00E936B7 /* FNCeiling.m */,
-				D3A5DB69141E7C860081FBB4 /* FNConcat.h */,
+				D3F0CB8C191EC23D0049EC02 /* FNConcat.h */,
 				D37A2D00101433C600E936B7 /* FNConcat.m */,
-				D3A5DB6A141E7C860081FBB4 /* FNContains.h */,
+				D3F0CB8D191EC23D0049EC02 /* FNContains.h */,
 				D37A2E7B10156BF000E936B7 /* FNContains.m */,
-				D3A5DB6B141E7C860081FBB4 /* FNCount.h */,
+				D3F0CB8E191EC23D0049EC02 /* FNCount.h */,
 				D37A2D621014393D00E936B7 /* FNCount.m */,
-				D3A5DB6C141E7C860081FBB4 /* FNEndsWith.h */,
+				D3F0CB8F191EC23D0049EC02 /* FNEndsWith.h */,
 				D37A306E1015952F00E936B7 /* FNEndsWith.m */,
-				D3A5DB6D141E7C860081FBB4 /* FNFloor.h */,
+				D3F0CB90191EC23D0049EC02 /* FNFloor.h */,
 				D37A2F0B101574B200E936B7 /* FNFloor.m */,
-				D3A5DB6E141E7C860081FBB4 /* FNLast.h */,
+				D3F0CB91191EC23D0049EC02 /* FNLast.h */,
 				D37A2F2910157F5400E936B7 /* FNLast.m */,
-				D3A5DB6F141E7C860081FBB4 /* FNNot.h */,
+				D3F0CB92191EC23D0049EC02 /* FNNot.h */,
 				D37A29A21013F95100E936B7 /* FNNot.m */,
-				D3A5DB70141E7C860081FBB4 /* FNNumber.h */,
+				D3F0CB93191EC23D0049EC02 /* FNNumber.h */,
 				D37A31191015A6DA00E936B7 /* FNNumber.m */,
-				D3A5DB71141E7C860081FBB4 /* FNPosition.h */,
+				D3F0CB94191EC23D0049EC02 /* FNPosition.h */,
 				D37A2F3910157F9100E936B7 /* FNPosition.m */,
-				D3A5DB72141E7C860081FBB4 /* FNRound.h */,
+				D3F0CB95191EC23D0049EC02 /* FNRound.h */,
 				D37A2FD610158A0600E936B7 /* FNRound.m */,
-				D3A5DB73141E7C860081FBB4 /* FNStartsWith.h */,
+				D3F0CB96191EC23D0049EC02 /* FNStartsWith.h */,
 				D37A2FFB10158DA900E936B7 /* FNStartsWith.m */,
-				D3A5DB74141E7C860081FBB4 /* FNString.h */,
+				D3F0CB97191EC23D0049EC02 /* FNString.h */,
 				D37A2FFF10158DB300E936B7 /* FNString.m */,
-				D3A5DB75141E7C870081FBB4 /* FNStringLength.h */,
 				D37A300310158DC200E936B7 /* FNStringLength.m */,
-				D3A5DB76141E7C870081FBB4 /* FNSubstring.h */,
+				D3F0CB98191EC23D0049EC02 /* FNStringLength.h */,
+				D3F0CB99191EC23D0049EC02 /* FNSubstring.h */,
 				D37A300710158DD700E936B7 /* FNSubstring.m */,
-				D3A5DB77141E7C870081FBB4 /* FNSubstringAfter.h */,
+				D3F0CB9A191EC23D0049EC02 /* FNSubstringAfter.h */,
 				D37A300B10158DE500E936B7 /* FNSubstringAfter.m */,
-				D3A5DB78141E7C870081FBB4 /* FNSubstringBefore.h */,
 				D37A300F10158DEF00E936B7 /* FNSubstringBefore.m */,
-				D3A5DB79141E7C870081FBB4 /* FNSum.h */,
+				D3F0CB9B191EC23D0049EC02 /* FNSubstringBefore.h */,
+				D3F0CB9C191EC23D0049EC02 /* FNSum.h */,
 				D37A301310158E0100E936B7 /* FNSum.m */,
 			);
 			name = Functions;
@@ -1088,7 +1088,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3A5DB5A141E7C270081FBB4 /* XPath.h in Headers */,
+				D3A5DB5A141E7C270081FBB4 /* Panthro.h in Headers */,
 				D3A5DB45141E7BC30081FBB4 /* XPath_Prefix.pch in Headers */,
 				D33E9F831916E0E000BB7DFE /* XPStandaloneContext.h in Headers */,
 				D3C1783C18844D0300F90600 /* XPNamespaceTest.h in Headers */,
@@ -1099,48 +1099,48 @@
 				D383A31F187F748E006AE701 /* XPEGParser.h in Headers */,
 				D3BE1428191C3B8400005C81 /* XPPositionRange.h in Headers */,
 				D3A5DB66141E7C6B0081FBB4 /* XPNodeEnumeration.h in Headers */,
-				D3A5DB7A141E7C870081FBB4 /* FNBoolean.h in Headers */,
+				D3F0CBA8191EC23D0049EC02 /* FNRound.h in Headers */,
+				D3F0CBA9191EC23D0049EC02 /* FNStartsWith.h in Headers */,
+				D3F0CBA5191EC23D0049EC02 /* FNNot.h in Headers */,
+				D3F0CBAA191EC23D0049EC02 /* FNString.h in Headers */,
+				D3F0CBAC191EC23D0049EC02 /* FNSubstring.h in Headers */,
 				D3BBAE8E191DCBF900766EB4 /* XPSingletonNodeSet.h in Headers */,
 				D33E9F931917040D00BB7DFE /* XPPathExpression.h in Headers */,
-				D3A5DB7B141E7C870081FBB4 /* FNCeiling.h in Headers */,
-				D3A5DB7C141E7C870081FBB4 /* FNConcat.h in Headers */,
-				D3A5DB7D141E7C870081FBB4 /* FNContains.h in Headers */,
-				D3A5DB7E141E7C870081FBB4 /* FNCount.h in Headers */,
+				D3F0CBAB191EC23D0049EC02 /* FNStringLength.h in Headers */,
 				D3A6C2EF1907413800F3EFF3 /* XPStep.h in Headers */,
 				D33E9FAC19170E1800BB7DFE /* XPDocumentInfo.h in Headers */,
-				D3A5DB7F141E7C870081FBB4 /* FNEndsWith.h in Headers */,
+				D3F0CBA6191EC23D0049EC02 /* FNNumber.h in Headers */,
+				D3F0CB9F191EC23D0049EC02 /* FNConcat.h in Headers */,
+				D3F0CBAD191EC23D0049EC02 /* FNSubstringAfter.h in Headers */,
+				D3F0CBAE191EC23D0049EC02 /* FNSubstringBefore.h in Headers */,
+				D3F0CBA1191EC23D0049EC02 /* FNCount.h in Headers */,
 				D3BE143F191D46AA00005C81 /* XPEmptyNodeSet.h in Headers */,
-				D3A5DB80141E7C870081FBB4 /* FNFloor.h in Headers */,
-				D3A5DB81141E7C870081FBB4 /* FNLast.h in Headers */,
+				D3F0CBA2191EC23D0049EC02 /* FNEndsWith.h in Headers */,
+				D3F0CBA0191EC23D0049EC02 /* FNContains.h in Headers */,
+				D3F0CBB1191EC2970049EC02 /* XPFunction.h in Headers */,
 				D3BE141A191BC8C800005C81 /* XPLastPositionFinder.h in Headers */,
 				D3BE141D191BDCEF00005C81 /* XPSortable.h in Headers */,
-				D3A5DB82141E7C870081FBB4 /* FNNot.h in Headers */,
-				D3A5DB83141E7C870081FBB4 /* FNNumber.h in Headers */,
 				D3BE141C191BCB5C00005C81 /* XPLocalOrderComparer.h in Headers */,
-				D3A5DB84141E7C870081FBB4 /* FNPosition.h in Headers */,
-				D3A5DB85141E7C870081FBB4 /* FNRound.h in Headers */,
-				D3A5DB86141E7C870081FBB4 /* FNStartsWith.h in Headers */,
+				D3F0CBAF191EC23D0049EC02 /* FNSum.h in Headers */,
+				D3F0CBA3191EC23D0049EC02 /* FNFloor.h in Headers */,
+				D3F0CB9E191EC23D0049EC02 /* FNCeiling.h in Headers */,
 				D3BBAE92191DD0CF00766EB4 /* XPSingletonEnumeration.h in Headers */,
 				D3BE1416191AFC7200005C81 /* XPNodeSetValueEnumeration.h in Headers */,
 				D317223F190DAAD9005C633B /* XPNSXMLNodeImpl.h in Headers */,
 				D3A6C2F31907457500F3EFF3 /* XPNodeTypeTest.h in Headers */,
 				D3BE1418191BC7FE00005C81 /* XPAxisEnumeration.h in Headers */,
 				D3BBAE8A191D881200766EB4 /* XPLookaheadEnumerator.h in Headers */,
-				D3A5DB87141E7C870081FBB4 /* FNString.h in Headers */,
-				D3A5DB88141E7C870081FBB4 /* FNStringLength.h in Headers */,
 				D3411B59191A87960082A196 /* XPContextNodeExpression.h in Headers */,
-				D3A5DB89141E7C870081FBB4 /* FNSubstring.h in Headers */,
 				D3C1783D18844D0300F90600 /* XPNameTest.h in Headers */,
-				D3A5DB8A141E7C870081FBB4 /* FNSubstringAfter.h in Headers */,
-				D3A5DB8B141E7C870081FBB4 /* FNSubstringBefore.h in Headers */,
 				D3C1783E18844D0300F90600 /* XPNodeTest.h in Headers */,
-				D3A5DB8C141E7C870081FBB4 /* FNSum.h in Headers */,
 				D33E9FA719170D1A00BB7DFE /* XPNSXMLDocumentImpl.h in Headers */,
+				D3F0CBA4191EC23D0049EC02 /* FNLast.h in Headers */,
 				D3A5DBC9141E7D510081FBB4 /* XPExpression.h in Headers */,
 				D3A5DBCB141E7D570081FBB4 /* XPValue.h in Headers */,
 				D3A5DBCD141E7D5F0081FBB4 /* XPBooleanValue.h in Headers */,
 				D3A5DBCF141E7D680081FBB4 /* XPNumericValue.h in Headers */,
 				D3BE140C191AC7A200005C81 /* XPUnionExpression.h in Headers */,
+				D3F0CB9D191EC23D0049EC02 /* FNBoolean.h in Headers */,
 				D3A5DBD1141E7D6F0081FBB4 /* XPStringValue.h in Headers */,
 				D33E9FA319170BB900BB7DFE /* XPRootExpression.h in Headers */,
 				D3A5DBD3141E7D770081FBB4 /* XPNodeSetValue.h in Headers */,
@@ -1156,8 +1156,8 @@
 				D3BE1410191AC80400005C81 /* XPFilterExpression.h in Headers */,
 				D30D969C1918645B00627D41 /* XPNodeOrderComparer.h in Headers */,
 				D383A31C187F6ECB006AE701 /* XPAssembler.h in Headers */,
+				D3F0CBA7191EC23D0049EC02 /* FNPosition.h in Headers */,
 				D33E9F9F191706E100BB7DFE /* XPEmptyEnumeration.h in Headers */,
-				D3A5DBE5141E7DBC0081FBB4 /* XPFunction.h in Headers */,
 				D3A5DBE7141E7DC40081FBB4 /* XPNodeSetExpression.h in Headers */,
 				D3BE1424191C193900005C81 /* XPFilterEnumerator.h in Headers */,
 			);

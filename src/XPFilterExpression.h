@@ -6,7 +6,7 @@
 //
 //
 
-#import "XPath.h"
+#import "Panthro.h"
 
 @interface XPFilterExpression : XPNodeSetExpression
 
