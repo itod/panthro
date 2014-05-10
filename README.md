@@ -13,8 +13,9 @@ What's done?
 What's missing?
 
 * The `following`, `following-sibling`, `preceding`, `preceding-sibling`, and `namespace` axes are not yet implemented.
-
 * Variable expressions are not yet complete.
+* QName testing in `NameTest`s is currently very dodgy (but can be fixed).
+* Namepsace prefix wildcards (`*:local-name`) are NOT yet implemented. But plain-ole name wildcards (`*`) ARE.
 
 Some example expressions that currently work (i.e. they are parsed, execute, and return a correct result):
 
@@ -35,6 +36,8 @@ Some example expressions that currently work (i.e. they are parsed, execute, and
     chapter
 
     chapter/title
+
+    *[@id]
 
     //para
 

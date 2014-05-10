@@ -95,6 +95,36 @@
 }
 
 
+- (void)testImplicitChildAxisStar {
+    [self eval:@"*"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    for (NSUInteger i = 0; i < 3; ++i) {
+        id <XPNodeInfo>node = [enm nextObject];
+        TDEqualObjects(@"chapter", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testImplicitChildAxisStarPredicateAtId {
+    [self eval:@"*[@id]"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    for (NSUInteger i = 0; i < 3; ++i) {
+        id <XPNodeInfo>node = [enm nextObject];
+        TDEqualObjects(@"chapter", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
 - (void)testImplicitChildAxisNameTestChapterSlashTitle {
     [self eval:@"chapter/title"];
     
