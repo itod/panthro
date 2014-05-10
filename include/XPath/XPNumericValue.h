@@ -10,10 +10,10 @@
 
 @interface XPNumericValue : XPValue
 
-+ (XPNumericValue *)numericValueWithString:(NSString *)s;
-+ (XPNumericValue *)numericValueWithNumber:(double)n;
++ (instancetype)numericValueWithString:(NSString *)s;
++ (instancetype)numericValueWithNumber:(double)n;
 
-- (id)initWithString:(NSString *)s;
-- (id)initWithNumber:(double)n;
+- (instancetype)initWithString:(NSString *)s;
+- (instancetype)initWithNumber:(double)n;
 
 @end

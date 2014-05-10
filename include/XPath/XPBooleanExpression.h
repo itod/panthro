@@ -10,8 +10,7 @@
 
 @interface XPBooleanExpression : XPBinaryExpression
 
-+ (XPBooleanExpression *)booleanExpression;
++ (instancetype)booleanExpression;
 
-+ (XPBooleanExpression *)booleanExpressionWithOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs;
-
++ (instancetype)booleanExpressionWithOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs;
 @end

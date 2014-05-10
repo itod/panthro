@@ -10,9 +10,9 @@
 
 @interface XPStringValue : XPValue
 
-+ (XPStringValue *)stringValueWithString:(NSString *)s;
++ (instancetype)stringValueWithString:(NSString *)s;
 
-- (id)initWithString:(NSString *)s;
+- (instancetype)initWithString:(NSString *)s;
 
 - (BOOL)isEqualToStringValue:(XPStringValue *)v;
 

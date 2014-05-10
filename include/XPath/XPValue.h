@@ -56,26 +56,20 @@ double XPNumberFromString(NSString *s);
 @interface XPValue : XPExpression
 
 - (NSString *)asString;
-
 - (double)asNumber;
-
 - (BOOL)asBoolean;
 
 - (BOOL)isEqualToValue:(XPValue *)other;
-
 - (BOOL)isNotEqualToValue:(XPValue *)other;
 
 - (BOOL)compareToValue:(XPValue *)other usingOperator:(NSInteger)op;
-
 - (NSInteger)inverseOperator:(NSInteger)op;
-    
 - (BOOL)compareNumber:(double)x toNumber:(double)y usingOperator:(NSInteger)op;
-
-- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx;
 
 // convenience
 - (BOOL)isBooleanValue;
 - (BOOL)isNumericValue;
 - (BOOL)isStringValue;
 - (BOOL)isNodeSetValue;
+- (BOOL)isObjectValue;
 @end

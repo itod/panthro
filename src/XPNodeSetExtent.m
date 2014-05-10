@@ -17,7 +17,7 @@
 }
 
 
-- (id)initWithNodeEnumeration:(id <XPNodeEnumeration>)e controller:(XPController *)c {
+- (instancetype)initWithNodeEnumeration:(id <XPNodeEnumeration>)e controller:(XPController *)c {
     if (self = [super init]) {
         
     }

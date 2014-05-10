@@ -11,6 +11,7 @@
 #import <XPath/XPNumericValue.h>
 #import <XPath/XPStringValue.h>
 #import <XPath/XPNodeSetValue.h>
+#import <XPath/XPObjectValue.h>
 
 double XPNumberFromString(NSString *s) {
     if ([s rangeOfString:@"+"].length ||
@@ -169,6 +170,12 @@ double XPNumberFromString(NSString *s) {
 
 - (BOOL)isNodeSetValue {
     return [self isKindOfClass:[XPNodeSetValue class]];
+    //return XPDataTypeNodeSet == [self dataType];
+}
+
+
+- (BOOL)isObjectValue {
+    return [self isKindOfClass:[XPObjectValue class]];
     //return XPDataTypeNodeSet == [self dataType];
 }
 

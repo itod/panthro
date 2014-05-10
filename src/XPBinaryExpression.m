@@ -13,12 +13,6 @@
 @property (nonatomic, retain, readwrite) id <XPStaticContext>staticContext;
 @end
 
-@interface XPBinaryExpression ()
-@property (nonatomic, retain) XPExpression *p1;
-@property (nonatomic, retain) XPExpression *p2;
-@property (nonatomic, assign) NSInteger operator;
-@end
-
 @implementation XPBinaryExpression
 
 + (XPBinaryExpression *)binaryExpression {
@@ -31,12 +25,12 @@
 }
 
 
-- (id)init {
+- (instancetype)init {
     return [self initWithOperand:nil operator:-1 operand:nil];
 }
 
 
-- (id)initWithOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs {
+- (instancetype)initWithOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs {
     if (self = [super init]) {
         self.p1 = lhs;
         self.p2 = rhs;

@@ -22,12 +22,12 @@
 }
 
 
-- (id)initWithString:(NSString *)s {
+- (instancetype)initWithString:(NSString *)s {
     return [self initWithNumber:XPNumberFromString(s)];
 }
 
 
-- (id)initWithNumber:(double)n {
+- (instancetype)initWithNumber:(double)n {
     if (self = [super init]) {
         _value = n;
     }

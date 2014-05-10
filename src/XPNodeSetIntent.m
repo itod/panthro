@@ -30,7 +30,7 @@
 }
 
 
-- (id)initWithNodeSetExpression:(XPNodeSetExpression *)expr controller:(XPController *)c {
+- (instancetype)initWithNodeSetExpression:(XPNodeSetExpression *)expr controller:(XPController *)c {
     if (self = [super init]) {
         self.nodeSetExpression = expr;
         self.controller = c;

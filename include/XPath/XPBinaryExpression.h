@@ -10,12 +10,14 @@
 
 @interface XPBinaryExpression : XPExpression
 
-+ (XPBinaryExpression *)binaryExpression;
++ (instancetype)binaryExpression;
++ (instancetype)binaryExpressionWithOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs;
 
-+ (XPBinaryExpression *)binaryExpressionWithOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs;
-
-- (id)initWithOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs;
+- (instancetype)initWithOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs;
 
 - (void)setOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs;
 
+@property (nonatomic, retain) XPExpression *p1;
+@property (nonatomic, retain) XPExpression *p2;
+@property (nonatomic, assign) NSInteger operator;
 @end

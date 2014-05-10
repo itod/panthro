@@ -179,7 +179,7 @@
 
 - (BOOL)isEqualToValue:(XPValue *)other {
 
-    if ([other isKindOfClass:[XPObjectValue class]]) {
+    if ([other isObjectValue]) {
         return NO;
     
     } else if ([other isNodeSetValue]) {

@@ -19,7 +19,7 @@
 }
 
 
-- (id)initWithString:(NSString *)s {
+- (instancetype)initWithString:(NSString *)s {
     if (self = [super init]) {
         self.value = (!s ? @"" : s);
     }

@@ -10,8 +10,7 @@
 
 @interface XPRelationalExpression : XPBinaryExpression
 
-+ (XPRelationalExpression *)relationalExpression;
++ (instancetype)relationalExpression;
 
-+ (XPRelationalExpression *)relationalExpressionWithOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs;
-
++ (instancetype)relationalExpressionWithOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs;
 @end

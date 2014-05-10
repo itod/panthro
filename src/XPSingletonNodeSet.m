@@ -51,6 +51,7 @@
     }
 }
 
+
 /**
  * Evaluate the Node Set. This guarantees to return the result in sorted order.
  * @param context The context for evaluation (not used)
@@ -59,6 +60,7 @@
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
     return self;
 }
+
 
 /**
  * Evaluate an expression as a NodeSet.
@@ -70,6 +72,7 @@
     return self;
 }
 
+
 /**
  * Set a flag to indicate whether the nodes are sorted. Used when the creator of the
  * node-set knows that they are already in document order.
@@ -77,7 +80,9 @@
  * and do not need to be further sorted
  */
 
+
 - (void)setSorted:(BOOL)sorted {}
+
 
 /**
  * Test whether the value is known to be sorted
@@ -89,6 +94,7 @@
     return YES;
 }
 
+
 /**
  * Convert to string value
  * @return the value of the first node in the node-set if there
@@ -96,12 +102,13 @@
  */
 
 - (NSString *)asString {
-    if (!_node) {
-        return @"";
-    } else {
+    if (_node) {
         return [_node stringValue];
+    } else {
+        return @"";
     }
 }
+
 
 /**
  * Evaluate as a boolean.
@@ -112,6 +119,7 @@
     return _node != nil;
 }
 
+
 /**
  * Count the nodes in the node-set. Note this will sort the node set if necessary, to
  * make sure there are no duplicates.
@@ -120,6 +128,7 @@
 - (NSUInteger)count {
     return (_node ? 1 : 0);
 }
+
 
 /**
  * Sort the nodes into document order.
@@ -131,6 +140,7 @@
 - (XPNodeSetValue *)sort {
     return self;
 }
+
 
 /**
  * Get the first node in the nodeset (in document order)
@@ -159,7 +169,7 @@
     if ([other isStringValue] ||
 //        other instanceof FragmentValue ||
 //        other instanceof TextFragmentValue ||
-        [other isKindOfClass:[XPObjectValue class]]) {
+        [other isObjectValue]) {
         return [[_node stringValue] isEqualToString:[other asString]];
         
     } else if ([other isNodeSetValue]) {
@@ -188,6 +198,7 @@
     }
 }
 
+
 /**
  * Test whether a nodeset "not-equals" another Value
  */
@@ -205,7 +216,7 @@
     if ([other isStringValue] ||
 //        other instanceof FragmentValue ||
 //        other instanceof TextFragmentValue ||
-        [other isKindOfClass:[XPObjectValue class]]) {
+        [other isObjectValue]) {
         return ![[_node stringValue] isEqualToString:[other asString]];
         
     } else if ([other isNodeSetValue]) {
@@ -233,6 +244,7 @@
         
     }
 }
+
 
 /**
  * Return an enumeration of this nodeset value.

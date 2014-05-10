@@ -10,8 +10,7 @@
 
 @interface XPArithmeticExpression : XPBinaryExpression
 
-+ (XPArithmeticExpression *)arithmeticExpression;
++ (instancetype)arithmeticExpression;
 
-+ (XPArithmeticExpression *)arithmeticExpressionWithOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs;
-
++ (instancetype)arithmeticExpressionWithOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs;
 @end

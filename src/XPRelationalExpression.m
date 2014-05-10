@@ -10,12 +10,6 @@
 #import <XPath/XPValue.h>
 #import <XPath/XPBooleanValue.h>
 
-@interface XPBinaryExpression ()
-@property (nonatomic, retain) XPExpression *p1;
-@property (nonatomic, retain) XPExpression *p2;
-@property (nonatomic, assign) NSInteger operator;
-@end
-
 @implementation XPRelationalExpression
 
 + (XPRelationalExpression *)relationalExpression {

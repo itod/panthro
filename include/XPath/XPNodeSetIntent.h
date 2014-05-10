@@ -16,7 +16,7 @@
 
 + (XPNodeSetIntent *)intentWithNodeSetExpression:(XPNodeSetExpression *)expr controller:(XPController *)c;
 
-- (id)initWithNodeSetExpression:(XPNodeSetExpression *)expr controller:(XPController *)c;
+- (instancetype)initWithNodeSetExpression:(XPNodeSetExpression *)expr controller:(XPController *)c;
 
 - (BOOL)isContextDocumentNodeSet;
 

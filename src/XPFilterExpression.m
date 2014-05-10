@@ -39,6 +39,7 @@
     return self;
 }
 
+
 - (void)dealloc {
     self.start = nil;
     self.filter = nil;
@@ -162,6 +163,7 @@
     return [[[XPFilterEnumerator alloc] initWithBase:base filter:_filter context:ctx finishAfterReject:NO] autorelease];
 }
 
+
 /**
  * Determine which aspects of the context the expression depends on. The result is
  * a bitwise-or'ed value composed from constants such as Context.VARIABLES and
@@ -177,6 +179,7 @@
     // System.err.println("Filter expression getDependencies() = " + dependencies);
     return _dependencies;
 }
+
 
 /**
  * Perform a partial evaluation of the expression, by eliminating specified dependencies
@@ -198,6 +201,7 @@
         return self;
     }
 }
+
 
 /**
  * Determine, in the case of an expression whose data type is Value.NODESET,

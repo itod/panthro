@@ -15,5 +15,5 @@
 
 + (XPNodeSetExtent *)extentWithNodeEnumeration:(id <XPNodeEnumeration>)e controller:(XPController *)c;
 
-- (id)initWithNodeEnumeration:(id <XPNodeEnumeration>)e controller:(XPController *)c;
+- (instancetype)initWithNodeEnumeration:(id <XPNodeEnumeration>)e controller:(XPController *)c;
 @end

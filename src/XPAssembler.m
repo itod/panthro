@@ -35,7 +35,7 @@
 
 @implementation XPAssembler
 
-- (id)init {
+- (instancetype)init {
     if (self = [super init]) {
         self.paren = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
         self.slash = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"/" doubleValue:0.0];
