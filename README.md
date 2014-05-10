@@ -4,7 +4,7 @@ Panthro is an implementation of XPath 1.0 in Objective-C with decent unit test c
 
 Panthro is a mostly a port of the excellent [Saxon](http://saxonica.com) 6.5 (Java) by Michael Kay.
 
-The XPath 1.0 parser is based on [PEGKit](http://www.github.com/itod/pegkit).
+The XPath 1.0 parser is based on [PEGKit](http://www.github.com/itod/pegkit). The PEGKit dependency is managed via [git externals](http://nopugs.com/ext-tutorial).
 
 What's done?
 
