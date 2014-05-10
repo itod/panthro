@@ -213,7 +213,7 @@
 }
 
 
-- (void)parser:(PKParser *)p didMatchFilterPath:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchFilterExpr:(PKAssembly *)a {
     NSArray *filters = [self filtersFrom:a];
     
     if ([filters count]) {
@@ -253,7 +253,7 @@
 }
 
 
-- (void)parser:(PKParser *)p didMatchUnionExpr:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchUnionTail:(PKAssembly *)a {
     XPExpression *rhs = [a pop];
     id peek = [a pop];
     

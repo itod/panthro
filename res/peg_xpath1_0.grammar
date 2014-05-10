@@ -70,7 +70,8 @@ expr = orExpr;
                             multiplyOperator = '*';
                             unaryExpr = minusUnionExpr | unionExpr;
                                 minusUnionExpr = '-'+ unionExpr;
-                                unionExpr = pathExpr ('|' pathExpr)*;
+                                unionExpr = pathExpr unionTail*;
+                                unionTail = ('|' pathExpr);
     
 
 pathExpr = filterPath | locationPath;

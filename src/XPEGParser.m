@@ -335,12 +335,19 @@
 - (void)unionExpr_ {
     
     [self pathExpr_]; 
-    while ([self speculate:^{ [self match:XPEG_TOKEN_KIND_PIPE discard:NO]; [self pathExpr_]; }]) {
-        [self match:XPEG_TOKEN_KIND_PIPE discard:NO]; 
-        [self pathExpr_]; 
+    while ([self speculate:^{ [self unionTail_]; }]) {
+        [self unionTail_]; 
     }
 
     [self fireDelegateSelector:@selector(parser:didMatchUnionExpr:)];
+}
+
+- (void)unionTail_ {
+    
+    [self match:XPEG_TOKEN_KIND_PIPE discard:NO]; 
+    [self pathExpr_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchUnionTail:)];
 }
 
 - (void)pathExpr_ {
