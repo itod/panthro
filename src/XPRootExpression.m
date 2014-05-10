@@ -16,6 +16,7 @@
 #import "XPAxis.h"
 #import "XPAxisEnumeration.h"
 #import "XPSingletonNodeSet.h"
+#import "XPSingletonEnumeration.h"
 
 @implementation XPRootExpression
 
@@ -79,9 +80,8 @@
  */
 
 - (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
-    if (([self dependencies] & (XPDependenciesContextNode | XPDependenciesContextDocument)) != 0 ) {
+    if (([self dependencies] & (XPDependenciesContextNode | XPDependenciesContextDocument)) != 0) {
         return [[[XPSingletonNodeSet alloc] initWithNode:ctx.contextNode.documentRoot] autorelease];
-        //return [[[XPNodeSetValue alloc] initWithNodes:@[ctx.contextNode.documentRoot] comparer:[XPLocalOrderComparer instance]] autorelease];
     } else {
         return self;
     }
@@ -89,10 +89,11 @@
 
 
 - (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
-    XPNodeTest *nodeTest = [[[XPNodeTypeTest alloc] initWithNodeType:XPNodeTypeNode] autorelease];
-    id <XPNodeEnumeration>enm = [ctx.contextNode enumerationForAxis:XPAxisSelf nodeTest:nodeTest];
-    XPAssert(enm);
-    return enm;
+    return [[[XPSingletonEnumeration alloc] initWithNode:ctx.contextNode.documentRoot] autorelease];
+//    XPNodeTest *nodeTest = [[[XPNodeTypeTest alloc] initWithNodeType:XPNodeTypeNode] autorelease];
+//    id <XPNodeEnumeration>enm = [ctx.contextNode enumerationForAxis:XPAxisSelf nodeTest:nodeTest];
+//    XPAssert(enm);
+//    return enm;
 }
 
 @end

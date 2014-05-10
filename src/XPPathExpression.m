@@ -14,6 +14,7 @@
 #import "XPAxisExpression.h"
 #import "XPNodeSetValueEnumeration.h"
 #import "XPLocalOrderComparer.h"
+#import "XPSingletonNodeSet.h"
 
 @interface XPExpression ()
 @property (nonatomic, retain, readwrite) id <XPStaticContext>staticContext;

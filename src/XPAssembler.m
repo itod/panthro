@@ -276,7 +276,12 @@
     XPExpression *cxtNodeExpr = [[[XPContextNodeExpression alloc] init] autorelease];
     [a push:cxtNodeExpr];
     [a push:_dotDotDot];
-    [a push:step];
+    
+    if (XPAxisSelf == step.axis && XPNodeTypeNode == step.nodeTest.nodeType) {
+        // drop redundant self::node() step
+    } else {
+        [a push:step];
+    }
 }
 
 

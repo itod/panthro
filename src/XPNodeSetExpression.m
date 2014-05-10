@@ -14,6 +14,11 @@
 
 @implementation XPNodeSetExpression
 
+- (XPDataType)dataType {
+    return XPDataTypeNodeSet;
+}
+
+
 - (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return nil;
