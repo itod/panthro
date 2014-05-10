@@ -69,8 +69,9 @@
  */
 
 - (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sort {
+    XPContext *ctx2 = [[ctx copy] autorelease];
     return [[[XPUnionEnumeration alloc] initWithLhs:[_p1 enumerateInContext:ctx sorted:YES]
-                                                rhs:[_p2 enumerateInContext:ctx sorted:YES]
+                                                rhs:[_p2 enumerateInContext:ctx2 sorted:YES]
                                            comparer:[XPLocalOrderComparer instance]] autorelease];
 }
 
