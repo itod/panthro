@@ -17,12 +17,14 @@
 
 @interface XPNSXMLNodeImpl ()
 @property (nonatomic, retain, readwrite) NSXMLNode *node;
+@property (nonatomic, retain, readwrite) id <XPNodeInfo>parent;
 @property (nonatomic, assign, readwrite) NSInteger sortIndex;
 @end
 
 @implementation XPNSXMLNodeImpl
 
 - (instancetype)initWithNode:(NSXMLNode *)node sortIndex:(NSInteger)idx {
+    NSParameterAssert(node);
     self = [super init];
     if (self) {
         self.node = node;
@@ -45,14 +47,62 @@
 
 - (NSComparisonResult)compareOrderTo:(id <XPNodeInfo>)other {
     XPAssert([other isKindOfClass:[XPNSXMLNodeImpl class]]);
-    XPNSXMLNodeImpl *node = (id)other;
     
     NSComparisonResult result = NSOrderedSame;
-    if (_sortIndex < node->_sortIndex) {
-        result = NSOrderedAscending;
-    } else if (_sortIndex > node->_sortIndex) {
-        result = NSOrderedDescending;
+    
+    // are they the same node?
+    if ([self isSameNodeInfo:other]) {
+        return result;
     }
+
+    XPNSXMLNodeImpl *that = (id)other;
+
+    // are they siblings (common case)
+    if ([self.parent isSameNodeInfo:other.parent]) {
+        return self.node.index - that.node.index;
+    }
+    
+    // find the depths of both nodes in the tree
+    
+    NSUInteger depth1 = [self.node level];
+    NSUInteger depth2 = [that.node level];
+    id <XPNodeInfo>p1 = nil;
+    id <XPNodeInfo>p2 = nil;
+    
+    // move up one branch of the tree so we have two nodes on the same level
+    
+    p1 = self;
+    while (depth1>depth2) {
+        p1 = p1.parent;
+        if ([p1 isSameNodeInfo:that]) {
+            return NSOrderedDescending;
+        }
+        depth1--;
+    }
+    
+    p2 = that;
+    while (depth2>depth1) {
+        p2 = p2.parent;
+        if ([p2 isSameNodeInfo:self]) {
+            return NSOrderedAscending;
+        }
+        depth2--;
+    }
+    
+    // now move up both branches in sync until we find a common parent
+    while (1) {
+        id <XPNodeInfo>par1 = p1.parent;
+        id <XPNodeInfo>par2 = p2.parent;
+        if (!par1 || !par2) {
+            [NSException raise:@"NullPointerException" format:@"NSXML Tree Compare - internal error"];
+        }
+        if ([par1 isSameNodeInfo:par2]) {
+            return ((XPNSXMLNodeImpl *)p1).node.index - ((XPNSXMLNodeImpl *)p2).node.index;
+        }
+        p1 = par1;
+        p2 = par2;
+    }
+
     return result;
 }
 
@@ -122,6 +172,19 @@
 }
 
 
+- (id <XPNodeInfo>)parent {
+    XPAssert(_node);
+    NSXMLNode *parent = [self.node parent];
+    id <XPNodeInfo>node = nil;
+    
+    if (parent) {
+        Class cls = (NSXMLDocumentKind == [parent kind]) ? [XPNSXMLDocumentImpl class] : [XPNSXMLNodeImpl class];
+        node = [[[cls alloc] initWithNode:parent sortIndex:NSNotFound] autorelease];
+    }
+    return node;
+}
+
+
 - (NSString *)attributeValueForURI:(NSString *)uri localName:(NSString *)localName {
     XPAssert([_node isKindOfClass:[NSXMLElement class]]);
     NSXMLNode *attrNode = [(NSXMLElement *)_node attributeForLocalName:localName URI:uri];
@@ -130,7 +193,7 @@
 
 
 - (BOOL)isSameNodeInfo:(id <XPNodeInfo>)other {
-    XPAssert([other isKindOfClass:[XPNSXMLNodeImpl class]]);
+    XPAssert(!other || [other isKindOfClass:[XPNSXMLNodeImpl class]]);
     return other == self || [(id)other node] == self.node;
 }
 

@@ -48,6 +48,13 @@
 @property (nonatomic, copy, readonly) NSString *localName;
 @property (nonatomic, copy, readonly) NSString *prefix;
 
+
+/**
+ * Get the NodeInfo object representing the parent of this node
+ */
+
+- (id <XPNodeInfo>)parent;
+
 /**
  * Find the value of a given attribute of this node. <BR>
  * This method is defined on all nodes to meet XSL requirements, but for nodes
