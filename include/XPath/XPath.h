@@ -9,55 +9,55 @@
 
 #import <Foundation/Foundation.h>
 
-#import <XPath/XPUtils.h>
-#import <XPath/XPNodeInfo.h>
-#import <XPath/XPContext.h>
+#import "XPUtils.h"
+#import "XPNodeInfo.h"
+#import "XPContext.h"
 
 // Expr
-#import <XPath/XPNodeEnumeration.h>
-#import <XPath/XPStaticContext.h>
+#import "XPNodeEnumeration.h"
+#import "XPStaticContext.h"
 
-#import <XPath/XPExpression.h>
-#import <XPath/XPBinaryExpression.h>
-#import <XPath/XPBooleanExpression.h>
-#import <XPath/XPRelationalExpression.h>
-#import <XPath/XPArithmeticExpression.h>
+#import "XPExpression.h"
+#import "XPBinaryExpression.h"
+#import "XPBooleanExpression.h"
+#import "XPRelationalExpression.h"
+#import "XPArithmeticExpression.h"
 
 #import "XPNodeSetExpression.h"
-#import <XPath/XPRootExpression.h>
+#import "XPRootExpression.h"
 
-#import <XPath/XPValue.h>
-#import <XPath/XPBooleanValue.h>
-#import <XPath/XPNumericValue.h>
-#import <XPath/XPStringValue.h>
-#import <XPath/XPObjectValue.h>
+#import "XPValue.h"
+#import "XPBooleanValue.h"
+#import "XPNumericValue.h"
+#import "XPStringValue.h"
+#import "XPObjectValue.h"
 
-#import <XPath/XPNodeSetValue.h>
+#import "XPNodeSetValue.h"
 
 // Fn
-#import <XPath/XPFunction.h>
-#import <XPath/FNBoolean.h>
-#import <XPath/FNCeiling.h>
-#import <XPath/FNConcat.h>
-#import <XPath/FNContains.h>
-#import <XPath/FNCount.h>
-#import <XPath/FNEndsWith.h>
-#import <XPath/FNFloor.h>
-#import <XPath/FNLast.h>
-#import <XPath/FNNot.h>
-#import <XPath/FNNumber.h>
-#import <XPath/FNPosition.h>
-#import <XPath/FNRound.h>
-#import <XPath/FNStartsWith.h>
-#import <XPath/FNString.h>
-#import <XPath/FNStringLength.h>
-#import <XPath/FNSubstring.h>
-#import <XPath/FNSubstringAfter.h>
-#import <XPath/FNSubstringBefore.h>
-#import <XPath/FNSum.h>
+#import "XPFunction.h"
+#import "FNBoolean.h"
+#import "FNCeiling.h"
+#import "FNConcat.h"
+#import "FNContains.h"
+#import "FNCount.h"
+#import "FNEndsWith.h"
+#import "FNFloor.h"
+#import "FNLast.h"
+#import "FNNot.h"
+#import "FNNumber.h"
+#import "FNPosition.h"
+#import "FNRound.h"
+#import "FNStartsWith.h"
+#import "FNString.h"
+#import "FNStringLength.h"
+#import "FNSubstring.h"
+#import "FNSubstringAfter.h"
+#import "FNSubstringBefore.h"
+#import "FNSum.h"
 
 // Pattern
-#import <XPath/XPPattern.h>
-#import <XPath/XPNodeTest.h>
-#import <XPath/XPNameTest.h>
-#import <XPath/XPNamespaceTest.h>
+#import "XPPattern.h"
+#import "XPNodeTest.h"
+#import "XPNameTest.h"
+#import "XPNamespaceTest.h"

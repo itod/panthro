@@ -6,10 +6,10 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <XPath/FNLast.h>
-#import <XPath/XPContext.h>
-#import <XPath/XPValue.h>
-#import <XPath/XPNumericValue.h>
+#import "FNLast.h"
+#import "XPContext.h"
+#import "XPValue.h"
+#import "XPNumericValue.h"
 
 @interface XPFunction ()
 - (NSUInteger)checkArgumentCountForMin:(NSUInteger)min max:(NSUInteger)max;

@@ -6,7 +6,7 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <XPath/XPObjectValue.h>
+#import "XPObjectValue.h"
 
 @implementation XPObjectValue
 

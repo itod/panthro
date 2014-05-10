@@ -6,12 +6,12 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <XPath/XPExpression.h>
-#import <XPath/XPContext.h>
-#import <XPath/XPStaticContext.h>
-#import <XPath/XPValue.h>
-#import <XPath/XPNodeSetValue.h>
-#import <XPath/XPNodeEnumeration.h>
+#import "XPExpression.h"
+#import "XPContext.h"
+#import "XPStaticContext.h"
+#import "XPValue.h"
+#import "XPNodeSetValue.h"
+#import "XPNodeEnumeration.h"
 #import "NSError+XPAdditions.h"
 //#import "XPParser.h"
 #import "XPEGParser.h"

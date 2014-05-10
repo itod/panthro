@@ -8,9 +8,9 @@
 
 #import "XPStep.h"
 #import "XPNodeTest.h"
-#import <XPath/XPExpression.h>
-#import <XPath/XPValue.h>
-#import <XPath/XPNodeInfo.h>
+#import "XPExpression.h"
+#import "XPValue.h"
+#import "XPNodeInfo.h"
 #import "XPAxisEnumeration.h"
 #import "XPFilterEnumerator.h"
 

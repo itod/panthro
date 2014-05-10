@@ -7,10 +7,10 @@
 //
 
 #import "XPRootExpression.h"
-#import <XPath/XPDocumentInfo.h>
-#import <XPath/XPNodeInfo.h>
-#import <XPath/XPContext.h>
-#import <XPath/XPNodeSetValue.h>
+#import "XPDocumentInfo.h"
+#import "XPNodeInfo.h"
+#import "XPContext.h"
+#import "XPNodeSetValue.h"
 #import "XPLocalOrderComparer.h"
 #import "XPNodeTypeTest.h"
 #import "XPAxis.h"

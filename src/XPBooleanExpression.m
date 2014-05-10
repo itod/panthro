@@ -6,9 +6,9 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <XPath/XPBooleanExpression.h>
-#import <XPath/XPValue.h>
-#import <XPath/XPBooleanValue.h>
+#import "XPBooleanExpression.h"
+#import "XPValue.h"
+#import "XPBooleanValue.h"
 
 @implementation XPBooleanExpression
 

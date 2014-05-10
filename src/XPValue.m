@@ -6,12 +6,12 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <XPath/XPValue.h>
-#import <XPath/XPBooleanValue.h>
-#import <XPath/XPNumericValue.h>
-#import <XPath/XPStringValue.h>
-#import <XPath/XPNodeSetValue.h>
-#import <XPath/XPObjectValue.h>
+#import "XPValue.h"
+#import "XPBooleanValue.h"
+#import "XPNumericValue.h"
+#import "XPStringValue.h"
+#import "XPNodeSetValue.h"
+#import "XPObjectValue.h"
 
 double XPNumberFromString(NSString *s) {
     if ([s rangeOfString:@"+"].length ||

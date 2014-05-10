@@ -6,8 +6,8 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <XPath/XPContext.h>
-#import <XPath/XPStaticContext.h>
+#import "XPContext.h"
+#import "XPStaticContext.h"
 
 @interface XPContext ()
 @property (nonatomic, retain) id <XPStaticContext>staticContext;

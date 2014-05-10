@@ -6,7 +6,7 @@
 //
 //
 
-#import <XPath/XPath.h>
+#import "XPath.h"
 
 @interface XPUnionExpression : XPNodeSetExpression
 

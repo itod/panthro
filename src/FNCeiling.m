@@ -6,9 +6,9 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <XPath/FNCeiling.h>
-#import <XPath/XPValue.h>
-#import <XPath/XPNumericValue.h>
+#import "FNCeiling.h"
+#import "XPValue.h"
+#import "XPNumericValue.h"
 
 @interface XPExpression ()
 @property (nonatomic, readwrite, retain) id <XPStaticContext>staticContext;

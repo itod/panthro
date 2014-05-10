@@ -7,7 +7,7 @@
 //
 
 #import "XPSingletonEnumeration.h"
-#import <XPath/XPNodeInfo.h>
+#import "XPNodeInfo.h"
 
 @interface XPSingletonEnumeration ()
 @property (nonatomic, retain) id <XPNodeInfo>node;

@@ -7,9 +7,9 @@
 //
 
 #import "XPNodeSetExpression.h"
-#import <XPath/XPContext.h>
-#import <XPath/XPNodeEnumeration.h>
-#import <XPath/XPNodeSetValue.h>
+#import "XPContext.h"
+#import "XPNodeEnumeration.h"
+#import "XPNodeSetValue.h"
 #import "XPLocalOrderComparer.h"
 
 @implementation XPNodeSetExpression

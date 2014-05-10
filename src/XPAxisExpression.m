@@ -6,9 +6,9 @@
 //
 //
 
-#import <XPath/XPAxisExpression.h>
-#import <XPath/XPNodeInfo.h>
-#import <XPath/XPNodeTest.h>
+#import "XPAxisExpression.h"
+#import "XPNodeInfo.h"
+#import "XPNodeTest.h"
 
 @interface XPAxisExpression ()
 @end

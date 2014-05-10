@@ -6,7 +6,7 @@
 //
 //
 
-#import <XPath/XPNodeTest.h>
+#import "XPNodeTest.h"
 
 @interface XPNameTest : XPNodeTest
 

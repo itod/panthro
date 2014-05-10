@@ -6,7 +6,7 @@
 //  Copyright 2011 Celestial Teapot. All rights reserved.
 //
 
-#import <XPath/XPComparer.h>
+#import "XPComparer.h"
 
 @interface XPDoubleComparer : XPComparer
 

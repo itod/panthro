@@ -8,12 +8,12 @@
 
 #import "XPNodeSetValue.h"
 #import "XPNodeOrderComparer.h"
-#import <XPath/XPNodeInfo.h>
-#import <XPath/XPBooleanValue.h>
-#import <XPath/XPNumericValue.h>
-#import <XPath/XPStringValue.h>
-#import <XPath/XPObjectValue.h>
-#import <XPath/XPNodeEnumeration.h>
+#import "XPNodeInfo.h"
+#import "XPBooleanValue.h"
+#import "XPNumericValue.h"
+#import "XPStringValue.h"
+#import "XPObjectValue.h"
+#import "XPNodeEnumeration.h"
 #import "XPNodeSetValueEnumeration.h"
 #import "XPSingletonNodeSet.h"
 

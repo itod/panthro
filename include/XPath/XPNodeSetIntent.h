@@ -6,7 +6,7 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <XPath/XPNodeSetValue.h>
+#import "XPNodeSetValue.h"
 
 @class XPNodeSetExpression;
 @class XPController;

@@ -6,8 +6,8 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <XPath/XPBinaryExpression.h>
-#import <XPath/XPValue.h>
+#import "XPBinaryExpression.h"
+#import "XPValue.h"
 
 @interface XPExpression ()
 @property (nonatomic, retain, readwrite) id <XPStaticContext>staticContext;

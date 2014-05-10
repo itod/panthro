@@ -6,9 +6,9 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <XPath/FNSubstringAfter.h>
-#import <XPath/XPValue.h>
-#import <XPath/XPStringValue.h>
+#import "FNSubstringAfter.h"
+#import "XPValue.h"
+#import "XPStringValue.h"
 
 @interface XPExpression ()
 @property (nonatomic, readwrite, retain) id <XPStaticContext>staticContext;

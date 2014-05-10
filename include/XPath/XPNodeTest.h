@@ -6,9 +6,9 @@
 //
 //
 
-#import <XPath/XPPattern.h>
-#import <XPath/XPContext.h>
-#import <XPath/XPUtils.h>
+#import "XPPattern.h"
+#import "XPContext.h"
+#import "XPUtils.h"
 
 @protocol XPNodeInfo;
 

@@ -6,7 +6,7 @@
 //
 //
 
-#import <XPath/XPNodeInfo.h>
+#import "XPNodeInfo.h"
 
 @protocol XPDocumentInfo <XPNodeInfo>
 

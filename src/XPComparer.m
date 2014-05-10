@@ -6,8 +6,8 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <XPath/XPComparer.h>
-#import <XPath/XPDescendingComparer.h>
+#import "XPComparer.h"
+#import "XPDescendingComparer.h"
 
 @implementation XPComparer
 

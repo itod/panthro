@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <XPath/XPComparer.h>
+#import "XPComparer.h"
 
 @class XPComparer;
 

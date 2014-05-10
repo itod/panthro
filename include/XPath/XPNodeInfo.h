@@ -6,8 +6,8 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <XPath/XPUtils.h>
-#import <XPath/XPAxis.h>
+#import "XPUtils.h"
+#import "XPAxis.h"
 
 @protocol XPAxisEnumeration;
 @protocol XPDocumentInfo;

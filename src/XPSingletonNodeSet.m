@@ -7,7 +7,7 @@
 //
 
 #import "XPSingletonNodeSet.h"
-#import <XPath/XPNodeInfo.h>
+#import "XPNodeInfo.h"
 #import "XPEmptyNodeSet.h"
 #import "XPSingletonEnumeration.h"
 

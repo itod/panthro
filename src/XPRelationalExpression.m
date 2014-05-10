@@ -6,9 +6,9 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <XPath/XPRelationalExpression.h>
-#import <XPath/XPValue.h>
-#import <XPath/XPBooleanValue.h>
+#import "XPRelationalExpression.h"
+#import "XPValue.h"
+#import "XPBooleanValue.h"
 
 @implementation XPRelationalExpression
 

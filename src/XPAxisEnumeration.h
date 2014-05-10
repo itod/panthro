@@ -6,7 +6,7 @@
 //
 //
 
-#import <XPath/XPNodeEnumeration.h>
+#import "XPNodeEnumeration.h"
 #import "XPLastPositionFinder.h"
 
 @protocol XPNodeInfo;

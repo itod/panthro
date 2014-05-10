@@ -6,13 +6,13 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <XPath/XPNodeSetIntent.h>
-#import <XPath/XPNodeEnumeration.h>
-#import <XPath/XPNodeSetExtent.h>
+#import "XPNodeSetIntent.h"
+#import "XPNodeEnumeration.h"
+#import "XPNodeSetExtent.h"
 #import "XPNodeSetExpression.h"
-#import <XPath/XPController.h>
-#import <XPath/XPContext.h>
-#import <XPath/XPLastPositionFinder.h>
+#import "XPController.h"
+#import "XPContext.h"
+#import "XPLastPositionFinder.h"
 
 @interface XPNodeSetIntent ()
 - (void)fix;

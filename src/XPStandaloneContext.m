@@ -7,8 +7,8 @@
 //
 
 #import "XPStandaloneContext.h"
-#import <XPath/XPUtils.h>
-#import <XPath/XPExpression.h>
+#import "XPUtils.h"
+#import "XPExpression.h"
 #import "NSError+XPAdditions.h"
 
 NSString *XPNamespaceXML = @"http://www.w3.org/XML/1998/namespace";

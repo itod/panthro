@@ -6,8 +6,8 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <XPath/XPAssembler.h>
-#import <XPath/XPath.h>
+#import "XPAssembler.h"
+#import "XPath.h"
 #import <PEGKit/PEGKit.h>
 
 #import "XPPathExpression.h"

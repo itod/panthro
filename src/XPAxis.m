@@ -6,8 +6,8 @@
 //
 //
 
-#import <XPath/XPAxis.h>
-#import <XPath/XPUtils.h>
+#import "XPAxis.h"
+#import "XPUtils.h"
 
 /**
  * Table indicating the principal node type of each axis

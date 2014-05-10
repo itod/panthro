@@ -6,8 +6,8 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <XPath/XPFunction.h>
-#import <XPath/XPValue.h>
+#import "XPFunction.h"
+#import "XPValue.h"
 #import "NSError+XPAdditions.h"
 
 @interface XPFunction ()

@@ -6,11 +6,11 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <XPath/FNSum.h>
-#import <XPath/XPValue.h>
-#import <XPath/XPNumericValue.h>
-#import <XPath/XPNodeSetValue.h>
-#import <XPath/XPNodeEnumeration.h>
+#import "FNSum.h"
+#import "XPValue.h"
+#import "XPNumericValue.h"
+#import "XPNodeSetValue.h"
+#import "XPNodeEnumeration.h"
 
 @interface XPExpression ()
 @property (nonatomic, readwrite, retain) id <XPStaticContext>staticContext;

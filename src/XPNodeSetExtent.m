@@ -6,9 +6,9 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <XPath/XPNodeSetExtent.h>
-#import <XPath/XPNodeEnumeration.h>
-#import <XPath/XPController.h>
+#import "XPNodeSetExtent.h"
+#import "XPNodeEnumeration.h"
+#import "XPController.h"
 
 @implementation XPNodeSetExtent
 

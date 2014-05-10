@@ -6,7 +6,7 @@
 //
 //
 
-#import <XPath/XPath.h>
+#import "XPath.h"
 
 /**
  * PositionRange: a boolean expression that tests whether the position() is

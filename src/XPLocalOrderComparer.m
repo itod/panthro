@@ -7,7 +7,7 @@
 //
 
 #import "XPLocalOrderComparer.h"
-#import <XPath/XPNodeInfo.h>
+#import "XPNodeInfo.h"
 
 @implementation XPLocalOrderComparer
 /**

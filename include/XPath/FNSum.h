@@ -6,7 +6,7 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <XPath/XPFunction.h>
+#import "XPFunction.h"
 
 @interface FNSum : XPFunction
 

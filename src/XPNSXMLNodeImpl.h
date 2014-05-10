@@ -6,7 +6,7 @@
 //
 //
 
-#import <XPath/XPNodeInfo.h>
+#import "XPNodeInfo.h"
 
 @interface XPNSXMLNodeImpl : NSObject <XPNodeInfo>
 

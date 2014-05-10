@@ -6,7 +6,7 @@
 //
 //
 
-#import <XPath/XPStaticContext.h>
+#import "XPStaticContext.h"
 
 /**
  * A StandaloneContext provides a context for parsing an expression or pattern appearing

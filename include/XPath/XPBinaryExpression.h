@@ -6,7 +6,7 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <XPath/XPExpression.h>
+#import "XPExpression.h"
 
 @interface XPBinaryExpression : XPExpression
 

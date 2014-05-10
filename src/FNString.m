@@ -6,11 +6,11 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <XPath/FNString.h>
-#import <XPath/XPNodeInfo.h>
-#import <XPath/XPContext.h>
-#import <XPath/XPValue.h>
-#import <XPath/XPStringValue.h>
+#import "FNString.h"
+#import "XPNodeInfo.h"
+#import "XPContext.h"
+#import "XPValue.h"
+#import "XPStringValue.h"
 
 @interface XPExpression ()
 @property (nonatomic, readwrite, retain) id <XPStaticContext>staticContext;

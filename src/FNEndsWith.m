@@ -6,9 +6,9 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <XPath/FNEndsWith.h>
-#import <XPath/XPValue.h>
-#import <XPath/XPBooleanValue.h>
+#import "FNEndsWith.h"
+#import "XPValue.h"
+#import "XPBooleanValue.h"
 
 @interface XPExpression ()
 @property (nonatomic, readwrite, retain) id <XPStaticContext>staticContext;

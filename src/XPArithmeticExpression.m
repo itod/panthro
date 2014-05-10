@@ -6,9 +6,9 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <XPath/XPArithmeticExpression.h>
-#import <XPath/XPValue.h>
-#import <XPath/XPNumericValue.h>
+#import "XPArithmeticExpression.h"
+#import "XPValue.h"
+#import "XPNumericValue.h"
 
 @implementation XPArithmeticExpression
 
