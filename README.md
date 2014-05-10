@@ -1,6 +1,6 @@
 An implementation of XPath 1.0 in Objective-C/Cocoa with decent unit test coverage.
 
-This is a port of Saxon 6.5 (Java) by Michael Kay.
+This is a mostly a port of Saxon 6.5 (Java) by Michael Kay.
 
 The XPath 1.0 parser is based on [PEGKit](http://www.github.com/itod/pegkit).
 
@@ -13,8 +13,6 @@ What's missing?
 * The `following`, `following-sibling`, `preceding`, `preceding-sibling`, and `namespace` axes are not yet implemented.
 
 * Variable expressions are not yet complete.
-
-
 
 Some example expressions that currently work (i.e. they are parsed, execute, and return a result):
 
