@@ -6,7 +6,7 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <XPath/XPNodeSetExpression.h>
+#import "XPNodeSetExpression.h"
 #import <XPath/XPContext.h>
 #import <XPath/XPNodeEnumeration.h>
 #import <XPath/XPNodeSetValue.h>

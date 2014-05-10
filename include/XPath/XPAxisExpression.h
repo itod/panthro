@@ -7,7 +7,7 @@
 //
 
 #import <XPath/XPAxis.h>
-#import <XPath/XPNodeSetExpression.h>
+#import "XPNodeSetExpression.h"
 
 @class XPNodeTest;
 @protocol XPNodeInfo;

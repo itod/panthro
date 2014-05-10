@@ -6,7 +6,7 @@
 //
 //
 
-#import <XPath/XPNodeSetExpression.h>
+#import "XPNodeSetExpression.h"
 
 @interface XPContextNodeExpression : XPNodeSetExpression
 

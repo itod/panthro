@@ -23,7 +23,7 @@
 #import <XPath/XPRelationalExpression.h>
 #import <XPath/XPArithmeticExpression.h>
 
-#import <XPath/XPNodeSetExpression.h>
+#import "XPNodeSetExpression.h"
 #import <XPath/XPRootExpression.h>
 
 #import <XPath/XPValue.h>

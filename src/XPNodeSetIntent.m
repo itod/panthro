@@ -9,7 +9,7 @@
 #import <XPath/XPNodeSetIntent.h>
 #import <XPath/XPNodeEnumeration.h>
 #import <XPath/XPNodeSetExtent.h>
-#import <XPath/XPNodeSetExpression.h>
+#import "XPNodeSetExpression.h"
 #import <XPath/XPController.h>
 #import <XPath/XPContext.h>
 #import <XPath/XPLastPositionFinder.h>
