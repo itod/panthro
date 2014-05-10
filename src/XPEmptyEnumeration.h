@@ -6,9 +6,10 @@
 //
 //
 
+#import "XPBaseFastEnumeration.h"
 #import "XPAxisEnumeration.h"
 
-@interface XPEmptyEnumeration : NSObject <XPAxisEnumeration>
+@interface XPEmptyEnumeration : XPBaseFastEnumeration <XPAxisEnumeration>
 
 + (instancetype)instance;
 

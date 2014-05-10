@@ -64,7 +64,7 @@
 }
 
 
-- (id)firstNode {
+- (id <XPNodeInfo>)firstNode {
     return nil;
 }
 

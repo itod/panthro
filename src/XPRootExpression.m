@@ -15,6 +15,7 @@
 #import "XPNodeTypeTest.h"
 #import "XPAxis.h"
 #import "XPAxisEnumeration.h"
+#import "XPSingletonNodeSet.h"
 
 @implementation XPRootExpression
 
@@ -79,15 +80,11 @@
 
 - (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
     if (([self dependencies] & (XPDependenciesContextNode | XPDependenciesContextDocument)) != 0 ) {
-        return [[[XPNodeSetValue alloc] initWithNodes:@[ctx.contextNode.documentRoot] comparer:[XPLocalOrderComparer instance]] autorelease];
+        return [[[XPSingletonNodeSet alloc] initWithNode:ctx.contextNode.documentRoot] autorelease];
+        //return [[[XPNodeSetValue alloc] initWithNodes:@[ctx.contextNode.documentRoot] comparer:[XPLocalOrderComparer instance]] autorelease];
     } else {
         return self;
     }
-//    if (([self dependencies] & (XPDependenciesContextNode | XPDependenciesContextDocument)) != 0 ) {
-//        return [[[XPSingletonNodeSet alloc] initWithNode:ctx.contextNode.documentRoot] autorelease];
-//    } else {
-//        return self;
-//    }
 }
 
 

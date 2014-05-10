@@ -106,7 +106,7 @@
 }
 
 
-- (id)firstNode {
+- (id <XPNodeInfo>)firstNode {
     if (_extent) return [_extent firstNode];
     
     id <XPNodeEnumeration>e = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];

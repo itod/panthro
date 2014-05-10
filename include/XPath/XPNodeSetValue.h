@@ -11,6 +11,7 @@
 
 @protocol XPNodeOrderComparer;
 @protocol XPNodeEnumeration;
+@protocol XPNodeInfo;
 
 @interface XPNodeSetValue : XPValue <XPSortable>
 
@@ -23,7 +24,7 @@
 
 - (NSUInteger)count;
 - (XPNodeSetValue *)sort;
-- (id)firstNode;
+- (id <XPNodeInfo>)firstNode;
 
 @property (nonatomic, retain) id <XPNodeOrderComparer>comparer;
 @property (nonatomic, assign, readonly, getter=isSorted) BOOL sorted;

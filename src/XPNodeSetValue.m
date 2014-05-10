@@ -154,7 +154,7 @@
 }
 
 
-- (id)firstNode {
+- (id <XPNodeInfo>)firstNode {
     XPAssert(_value);
     return [_value firstObject];
 }
