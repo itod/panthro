@@ -1186,4 +1186,47 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDFalse([enm hasMoreObjects]);
 }
 
+
+- (void)testOpenDotUnionSlashSlashParaClosePredicate2 {
+    self.expr = [XPExpression expressionFromString:@"(.|//para)[2]" inContext:nil error:nil];
+    TDNotNil(_expr);
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
+    
+    node = [enm nextObject];
+    TDEqualObjects(@"para", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDEqualObjects(_paras[0], node.stringValue);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testDotUnionOpenSlashSlashParaClosePredicate2 {
+    self.expr = [XPExpression expressionFromString:@".|(//para)[2]" inContext:nil error:nil];
+    TDNotNil(_expr);
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
+    
+    node = [enm nextObject];
+    TDEqualObjects(@"book", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+
+    TDTrue([enm hasMoreObjects]);
+
+    node = [enm nextObject];
+    TDEqualObjects(@"para", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDEqualObjects(_paras[1], node.stringValue);
+
+    TDFalse([enm hasMoreObjects]);
+}
 @end
