@@ -1303,4 +1303,24 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDTrue([_res asBoolean]);
 }
 
+
+- (void)testChapterSlashAtIdEqChapterPredicate1SlashAtId {
+    self.expr = [XPExpression expressionFromString:@"chapter/@id = chapter[2]/@id" inContext:nil error:nil];
+    TDNotNil(_expr);
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPBooleanValue class]]);
+    TDTrue([_res asBoolean]);
+}
+
+
+- (void)testChapterSlashAtIdNeChapterPredicate1SlashAtId {
+    self.expr = [XPExpression expressionFromString:@"chapter/@id != chapter[2]/@id" inContext:nil error:nil];
+    TDNotNil(_expr);
+    
+    self.res = (id)[_expr evaluateInContext:_ctx];
+    TDTrue([_res isKindOfClass:[XPBooleanValue class]]);
+    TDTrue([_res asBoolean]);
+}
+
 @end
