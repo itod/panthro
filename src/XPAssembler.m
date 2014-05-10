@@ -86,6 +86,8 @@
 
 
 - (void)dealloc {
+    self.funcTab = nil;
+    self.nodeTypeTab = nil;
     self.paren = nil;
     self.slash = nil;
     self.doubleSlash = nil;
@@ -94,8 +96,6 @@
     self.closeBracket = nil;
     self.singleQuoteCharSet = nil;
     self.doubleQuoteCharSet = nil;
-    self.funcTab = nil;
-    self.nodeTypeTab = nil;
     [super dealloc];
 }
 

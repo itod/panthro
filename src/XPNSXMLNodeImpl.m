@@ -36,6 +36,7 @@
 
 - (void)dealloc {
     self.node = nil;
+    self.parent = nil;
     [super dealloc];
 }
 
@@ -174,14 +175,19 @@
 
 - (id <XPNodeInfo>)parent {
     XPAssert(_node);
-    NSXMLNode *parent = [self.node parent];
-    id <XPNodeInfo>node = nil;
     
-    if (parent) {
-        Class cls = (NSXMLDocumentKind == [parent kind]) ? [XPNSXMLDocumentImpl class] : [XPNSXMLNodeImpl class];
-        node = [[[cls alloc] initWithNode:parent sortIndex:NSNotFound] autorelease];
+    if (!_parent) {
+        NSXMLNode *parent = [self.node parent];
+        id <XPNodeInfo>node = nil;
+        
+        if (parent) {
+            Class cls = (NSXMLDocumentKind == [parent kind]) ? [XPNSXMLDocumentImpl class] : [XPNSXMLNodeImpl class];
+            node = [[[cls alloc] initWithNode:parent sortIndex:NSNotFound] autorelease];
+            self.parent = node;
+        }
     }
-    return node;
+    
+    return _parent;
 }
 
 
