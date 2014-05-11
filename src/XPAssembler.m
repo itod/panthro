@@ -37,6 +37,7 @@
 #import "FNEndsWith.h"
 #import "FNFloor.h"
 #import "FNLast.h"
+#import "FNMatches.h"
 #import "FNNot.h"
 #import "FNNumber.h"
 #import "FNPosition.h"
@@ -84,6 +85,7 @@
              @"ends-with": [FNEndsWith class],
              @"floor": [FNFloor class],
              @"last": [FNLast class],
+             @"matches": [FNMatches class],
              @"not": [FNNot class],
              @"number": [FNNumber class],
              @"position": [FNPosition class],

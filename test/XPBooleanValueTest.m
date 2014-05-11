@@ -144,4 +144,39 @@
     TDTrue(_res);
 }
 
+
+- (void)testMatches {
+    self.expr = [XPExpression expressionFromString:@"matches('foo', 'foo')" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"matches('foo', 'FOO')" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDFalse(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"matches('foo', 'FOO', 'i')" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"matches('foo', '\\w+')" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"matches('foo', '\\W+')" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDFalse(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"matches('abracadabra', 'bra')" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"matches('abracadabra', '^a.*a$')" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"matches('abracadabra', '^bra')" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDFalse(_res);
+}
+
 @end
