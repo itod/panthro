@@ -46,6 +46,8 @@
     TDNotNil(docEl);
     
     self.env = [XPStandaloneContext standaloneContext];
+    [_env setValue:[XPStringValue stringValueWithString:@"hello"] forVariable:@"foo"];
+    
     self.contextNode = docEl;
 }
 
@@ -1109,6 +1111,14 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     
     TDTrue([_res isKindOfClass:[XPBooleanValue class]]);
     TDTrue([_res asBoolean]);
+}
+
+
+- (void)testVarFoo {
+    [self eval:@"$foo"];
+    
+    TDTrue([_res isKindOfClass:[XPStringValue class]]);
+    TDEqualObjects(@"hello", [_res asString]);
 }
 
 @end

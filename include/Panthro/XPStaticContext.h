@@ -10,20 +10,21 @@
 
 @class XPNameTest;
 @class XPNamespaceTest;
+@class XPValue;
 
 @protocol XPStaticContext <NSObject>
 
 - (NSString *)systemId;
-
 - (NSUInteger)lineNumber;
-
 - (NSString *)baseURI;
 
 - (NSString *)namespaceURIForPrefix:(NSString *)prefix error:(NSError **)err;
 
 - (BOOL)isElementAvailable:(NSString *)qname error:(NSError **)err;
-
 - (BOOL)isFunctionAvailable:(NSString *)qname error:(NSError **)err;
 
 - (NSString *)version;
+
+- (void)setValue:(XPValue *)val forVariable:(NSString *)name;
+- (XPValue *)valueForVariable:(NSString *)name;
 @end

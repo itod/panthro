@@ -26,6 +26,8 @@
 #import "XPFilterExpression.h"
 #import "XPUnionExpression.h"
 
+#import "XPVariableReference.h"
+
 #import "XPFunction.h"
 #import "FNBoolean.h"
 #import "FNCeiling.h"
@@ -237,6 +239,15 @@
         [fn addArgument:arg];
     }
     [a push:fn];
+}
+
+
+- (void)parser:(PKParser *)p didMatchVariableReference:(PKAssembly *)a {
+    PKToken *tok = [a pop];
+    XPAssertToken(tok);
+    NSString *name = tok.stringValue;
+    XPVariableReference *ref = [[[XPVariableReference alloc] initWithName:name] autorelease];
+    [a push:ref];
 }
 
 

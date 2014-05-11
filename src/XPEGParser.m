@@ -494,7 +494,7 @@
 
 - (void)variableReference_ {
     
-    [self match:XPEG_TOKEN_KIND_DOLLAR discard:NO]; 
+    [self match:XPEG_TOKEN_KIND_DOLLAR discard:YES]; 
     [self qName_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchVariableReference:)];

@@ -19,6 +19,10 @@ NSString *XPNamespaceXML = @"http://www.w3.org/XML/1998/namespace";
 NSString *XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
 NSString *XPNamespaceAquaPath = @"http://celestialteapot.com/ns/aquapath";
 
+@interface XPStandaloneContext ()
+@property (nonatomic, retain) NSMutableDictionary *vars;
+@end
+
 @implementation XPStandaloneContext
 
 + (instancetype)standaloneContext {
@@ -29,6 +33,7 @@ NSString *XPNamespaceAquaPath = @"http://celestialteapot.com/ns/aquapath";
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.vars = [NSMutableDictionary dictionary];
         self.namespaces = [NSMutableDictionary dictionary];
 		[self declareNamespaceURI:XPNamespaceXML forPrefix:@"xml"];
 		[self declareNamespaceURI:XPNamespaceXSLT forPrefix:@"xsl"];
@@ -40,6 +45,7 @@ NSString *XPNamespaceAquaPath = @"http://celestialteapot.com/ns/aquapath";
 
 
 - (void)dealloc {
+    self.vars = nil;
     self.namespaces = nil;
     [super dealloc];
 }
@@ -176,6 +182,23 @@ NSString *XPNamespaceAquaPath = @"http://celestialteapot.com/ns/aquapath";
 
 - (NSString *)version {
     return @"1.1";
+}
+
+
+- (void)setValue:(XPValue *)val forVariable:(NSString *)name {
+    NSParameterAssert(val);
+    NSParameterAssert(name);
+    XPAssert(_vars);
+    
+    [_vars setObject:val forKey:name];
+}
+
+
+- (XPValue *)valueForVariable:(NSString *)name {
+    NSParameterAssert(name);
+    XPAssert(_vars);
+    
+    return [_vars objectForKey:name];
 }
 
 @end

@@ -190,10 +190,10 @@
  * dependencies
  */
 
-- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)context {
+- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
     if ((dep & [self dependencies]) != 0) {
-        XPExpression *newstart = [_start reduceDependencies:dep inContext:context];
-        XPExpression *newfilter = [_filter reduceDependencies:(dep & XPDependenciesXSLTContext) inContext:context];
+        XPExpression *newstart = [_start reduceDependencies:dep inContext:ctx];
+        XPExpression *newfilter = [_filter reduceDependencies:(dep & XPDependenciesXSLTContext) inContext:ctx];
         XPExpression *e = [[[XPFilterExpression alloc] initWithStart:newstart filter:newfilter] autorelease];
         e.staticContext = self.staticContext;
         return [e simplify];

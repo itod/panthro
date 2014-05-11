@@ -88,7 +88,7 @@ pathExpr = filterPath | locationPath;
 
     filterExpr = primaryExpr predicate*;
         primaryExpr = variableReference | literal | number | functionCall | '('! expr ')'!;
-            variableReference = '$' qName; // note whitespace is not allowed here. also qName is optional
+            variableReference = '$'! qName; // note whitespace is not allowed here. also qName is optional
             literal = QuotedString;
             number = Number;
             functionCall = actualFunctionCall | booleanLiteralFunctionCall;
