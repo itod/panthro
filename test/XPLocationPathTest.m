@@ -1123,14 +1123,14 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testCapterPredicate1SlashFollowingSiblingStar {
-    [self eval:@"chapter[1]/following-sibling::*"];
+    [self eval:@"chapter[1]/following-sibling::*/title"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     id <XPNodeInfo>node = nil;
     
     for (NSUInteger i = 1; i < 3; ++i) {
         node = [enm nextObject];
-        TDEqualObjects(@"chapter", node.name);
+        TDEqualObjects(@"title", node.name);
         TDEquals(XPNodeTypeElement, node.nodeType);
         TDEqualObjects(_titles[i], node.stringValue);
     }
