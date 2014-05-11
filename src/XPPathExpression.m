@@ -196,6 +196,8 @@
     }
 
     XPNodeSetValue *nodeSet = [[[XPNodeSetValue alloc] initWithNodes:resultUnion comparer:[XPLocalOrderComparer instance]] autorelease];
+    
+    // always sort after the curruent step has completed to remove dupes and place nodes in document order.
     id <XPNodeEnumeration>enm = [nodeSet enumerateInContext:ctx sorted:YES];
     
     
