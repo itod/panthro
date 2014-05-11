@@ -309,13 +309,13 @@
     for (NSXMLNode *child in [parent children]) {
         ++sortIndex;
         
-        [result addObjectsFromArray:[self descendantNodesFromParent:child nodeTest:nodeTest sortIndex:sortIndex]];
-        
         id <XPNodeInfo>node = [[[XPNSXMLNodeImpl alloc] initWithNode:child sortIndex:sortIndex] autorelease];
         
         if ([nodeTest matches:node]) {
             [result addObject:node];
         }
+
+        [result addObjectsFromArray:[self descendantNodesFromParent:child nodeTest:nodeTest sortIndex:sortIndex]];
     }
     
     return result;
