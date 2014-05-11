@@ -254,6 +254,7 @@
             break;
         case XPAxisNamespace:
             sorted = YES;
+            [NSException raise:@"XPathException" format:@"Namespace Axis not yet implemented."];
             break;
         case XPAxisParent:
             sorted = YES;
