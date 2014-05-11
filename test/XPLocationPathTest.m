@@ -56,7 +56,7 @@
     TDNotNil(_env);
     NSError *err = nil;
     self.res = [_env evalutate:xpathStr withNSXMLContextNode:_contextNode error:&err];
-    TDNil(err);
+    //TDNil(err);
     TDNotNil(_res);
 }
 
@@ -1248,6 +1248,91 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEqualObjects(@"title", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_titles[0], node.stringValue);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testChapterPredicate2SlashFollowingTitle {
+    [self eval:@"chapter[2]/following::title"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
+    
+    for (NSUInteger i = 2; i < 3; ++i) {
+        node = [enm nextObject];
+        TDEqualObjects(@"title", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+        TDEqualObjects(_titles[i], node.stringValue);
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testChapterPredicate2SlashPrecedingTitle {
+    [self eval:@"chapter[2]/preceding::title"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
+    
+    for (NSUInteger i = 0; i < 1; ++i) {
+        node = [enm nextObject];
+        TDEqualObjects(@"title", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+        TDEqualObjects(_titles[i], node.stringValue);
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testChapterPredicate3SlashPrecedingTitle {
+    [self eval:@"chapter[3]/preceding::title"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
+    
+    for (NSUInteger i = 0; i < 2; ++i) {
+        node = [enm nextObject];
+        TDEqualObjects(@"title", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+        TDEqualObjects(_titles[i], node.stringValue);
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testChapterPredicate3SlashPrecedingTitlePredicate1 {
+    [self eval:@"chapter[3]/preceding::title[1]"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
+    
+    for (NSUInteger i = 1; i < 2; ++i) {
+        node = [enm nextObject];
+        TDEqualObjects(@"title", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+        TDEqualObjects(_titles[i], node.stringValue);
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testChapterPredicate3SlashPrecedingTitlePredicate2 {
+    [self eval:@"chapter[3]/preceding::title[2]"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
+    
+    for (NSUInteger i = 0; i < 1; ++i) {
+        node = [enm nextObject];
+        TDEqualObjects(@"title", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+        TDEqualObjects(_titles[i], node.stringValue);
+    }
     
     TDFalse([enm hasMoreObjects]);
 }

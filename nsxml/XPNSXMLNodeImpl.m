@@ -241,10 +241,11 @@
             break;
         case XPAxisFollowing:
             sorted = YES;
+            nodes = [self nodesForFollowingSiblingAxis:nodeTest includeDescendants:YES];
             break;
         case XPAxisFollowingSibling:
             sorted = YES;
-            nodes = [self nodesForFollowingSiblingAxis:nodeTest];
+            nodes = [self nodesForFollowingSiblingAxis:nodeTest includeDescendants:NO];
             break;
         case XPAxisNamespace:
             sorted = YES;
@@ -255,10 +256,11 @@
             break;
         case XPAxisPreceding:
             sorted = NO;
+            nodes = [self nodesForPrecedingSiblingAxis:nodeTest includeDescendants:YES];
             break;
         case XPAxisPrecedingSibling:
             sorted = NO;
-            nodes = [self nodesForPrecedingSiblingAxis:nodeTest];
+            nodes = [self nodesForPrecedingSiblingAxis:nodeTest includeDescendants:NO];
             break;
         case XPAxisSelf:
             sorted = YES;
@@ -438,7 +440,9 @@
 }
 
 
-- (NSArray *)nodesForFollowingSiblingAxis:(XPNodeTest *)nodeTest {
+- (NSArray *)nodesForFollowingSiblingAxis:(XPNodeTest *)nodeTest includeDescendants:(BOOL)includeDescendants {
+    NSMutableArray *result = [NSMutableArray array];
+
     NSXMLNode *parent = [self.node parent];
     NSArray *children = [parent children];
     NSUInteger c = [children count];
@@ -446,18 +450,17 @@
     
     children = [children subarrayWithRange:NSMakeRange(i, c - i)];
     
-    NSMutableArray *result = nil;
-    
     NSInteger sortIndex = self.sortIndex;
     
     for (NSXMLNode *child in children) {
         id <XPNodeInfo>node = [[[XPNSXMLNodeImpl alloc] initWithNode:child sortIndex:++sortIndex] autorelease];
         
         if ([nodeTest matches:node]) {
-            if (!result) {
-                result = [NSMutableArray array];
-            }
             [result addObject:node];
+        }
+        
+        if (includeDescendants) {
+            [result addObjectsFromArray:[self descendantNodesFromParent:child nodeTest:nodeTest sortIndex:sortIndex]];
         }
     }
     
@@ -465,12 +468,11 @@
 }
 
 
-- (NSArray *)nodesForPrecedingSiblingAxis:(XPNodeTest *)nodeTest {
+- (NSArray *)nodesForPrecedingSiblingAxis:(XPNodeTest *)nodeTest includeDescendants:(BOOL)includeDescendants  {
+    NSMutableArray *result = [NSMutableArray array];
+
     NSUInteger i = [self.node index];
-    
     NSArray *children = [[[self.node parent] children] subarrayWithRange:NSMakeRange(0, i)];
-    
-    NSMutableArray *result = nil;
     
     NSInteger sortIndex = self.sortIndex;
     
@@ -478,14 +480,65 @@
         id <XPNodeInfo>node = [[[XPNSXMLNodeImpl alloc] initWithNode:child sortIndex:++sortIndex] autorelease];
         
         if ([nodeTest matches:node]) {
-            if (!result) {
-                result = [NSMutableArray array];
-            }
             [result addObject:node];
+        }
+
+        if (includeDescendants) {
+            [result addObjectsFromArray:[self descendantNodesFromParent:child nodeTest:nodeTest sortIndex:sortIndex]];
         }
     }
     
     return result;
 }
+
+
+//- (NSArray *)nodesForFollowingAxis:(XPNodeTest *)nodeTest {
+//    NSMutableArray *result = [NSMutableArray array];
+//    
+//    NSXMLNode *parent = [self.node parent];
+//    NSArray *children = [parent children];
+//    NSUInteger c = [children count];
+//    NSUInteger i = [self.node index] + 1;
+//    
+//    children = [children subarrayWithRange:NSMakeRange(i, c - i)];
+//    
+//    NSInteger sortIndex = self.sortIndex;
+//    
+//    for (NSXMLNode *child in children) {
+//        id <XPNodeInfo>node = [[[XPNSXMLNodeImpl alloc] initWithNode:child sortIndex:++sortIndex] autorelease];
+//        
+//        if ([nodeTest matches:node]) {
+//            [result addObject:node];
+//        }
+//
+//        [result addObjectsFromArray:[self descendantNodesFromParent:child nodeTest:nodeTest sortIndex:sortIndex]];
+//    }
+//    
+//    return result;
+//}
+//
+//
+//- (NSArray *)nodesForPrecedingAxis:(XPNodeTest *)nodeTest {
+//    NSUInteger i = [self.node index];
+//    
+//    NSArray *children = [[[self.node parent] children] subarrayWithRange:NSMakeRange(0, i)];
+//    
+//    NSMutableArray *result = nil;
+//    
+//    NSInteger sortIndex = self.sortIndex;
+//    
+//    for (NSXMLNode *child in [children reverseObjectEnumerator]) {
+//        id <XPNodeInfo>node = [[[XPNSXMLNodeImpl alloc] initWithNode:child sortIndex:++sortIndex] autorelease];
+//        
+//        if ([nodeTest matches:node]) {
+//            if (!result) {
+//                result = [NSMutableArray array];
+//            }
+//            [result addObject:node];
+//        }
+//    }
+//    
+//    return result;
+//}
 
 @end
