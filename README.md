@@ -12,7 +12,7 @@ What's done?
 
 What's missing?
 
-* The `following`, `following-sibling`, `preceding`, `preceding-sibling`, and `namespace` axes are not yet implemented.
+* The `following`, `preceding`, and `namespace` axes are not yet implemented.
 * Namespace-aware QName testing in `NameTest`s is currently dodgy (but can be fixed).
 * Namepsace prefix wildcards (`*:local-name`) are NOT yet implemented. But plain-ole name wildcards (`*`) ARE.
 
@@ -49,6 +49,8 @@ Some example expressions that currently work (i.e. they are parsed, execute, and
     ancestor-or-self::node()
 
     chapter/@id != chapter[2]/@id
+
+    chapter[3]/preceding-sibling::*[2]/title
 
 ###Objective-C API
 
