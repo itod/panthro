@@ -15,6 +15,11 @@
 #import "XPEmptyNodeSet.h"
 #import "XPLocalOrderComparer.h"
 
+@interface XPNodeSetValue ()
+@property (nonatomic, assign, readwrite, getter=isSorted) BOOL sorted;
+@property (nonatomic, assign, readwrite, getter=isReverseSorted) BOOL reverseSorted;
+@end
+
 @interface XPNSXMLNodeImpl ()
 @property (nonatomic, retain, readwrite) NSXMLNode *node;
 @property (nonatomic, retain, readwrite) id <XPNodeInfo>parent;
@@ -275,9 +280,8 @@
     
     if ([nodes count]) {
         nodeSet = [[[XPNodeSetValue alloc] initWithNodes:nodes comparer:[XPLocalOrderComparer instance]] autorelease];
-        if (sorted) {
-            [nodeSet sort];
-        }
+        nodeSet.sorted = sorted;
+        nodeSet.reverseSorted = !sorted;
     } else {
         nodeSet = [XPEmptyNodeSet emptyNodeSet];
     }
