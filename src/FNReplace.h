@@ -1,5 +1,5 @@
 //
-//  FNMatches.h
+//  FNReplace.h
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 7/20/09.
@@ -8,7 +8,6 @@
 
 #import "XPFunction.h"
 
-@interface FNMatches : XPFunction
+@interface FNReplace : XPFunction
 
-+ (NSRegularExpressionOptions)regexOptionsForString:(NSString *)flags;
 @end

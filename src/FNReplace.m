@@ -1,14 +1,15 @@
 //
-//  FNMatches.m
+//  FNReplace.m
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 7/20/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "FNMatches.h"
+#import "FNReplace.h"
 #import "XPValue.h"
-#import "XPBooleanValue.h"
+#import "XPStringValue.h"
+#import "FNMatches.h"
 
 @interface XPExpression ()
 @property (nonatomic, readwrite, retain) id <XPStaticContext>staticContext;
@@ -19,39 +20,10 @@
 @property (nonatomic, retain) NSMutableArray *args;
 @end
 
-@implementation FNMatches
-
-+ (NSRegularExpressionOptions)regexOptionsForString:(NSString *)flags {
-    NSRegularExpressionOptions opts = 0;
-    
-    if ([flags length]) {
-        if ([flags rangeOfString:@"i"].length) {
-            opts |= NSRegularExpressionCaseInsensitive;
-        }
-        
-        if ([flags rangeOfString:@"m"].length) {
-            opts |= NSRegularExpressionAnchorsMatchLines;
-        }
-        
-        if ([flags rangeOfString:@"x"].length) {
-            opts |= NSRegularExpressionAllowCommentsAndWhitespace;
-        }
-        
-        if ([flags rangeOfString:@"s"].length) {
-            opts |= NSRegularExpressionDotMatchesLineSeparators;
-        }
-        
-        if ([flags rangeOfString:@"u"].length) {
-            opts |= NSRegularExpressionUseUnicodeWordBoundaries;
-        }
-    }
-
-    return opts;
-}
-
+@implementation FNReplace
 
 - (NSString *)name {
-    return @"matches";
+    return @"replace";
 }
 
 
@@ -61,7 +33,7 @@
 
 
 - (XPExpression *)simplify {
-    [self checkArgumentCountForMin:2 max:3];
+    [self checkArgumentCountForMin:3 max:4];
     
     NSUInteger c = [self numberOfArguments];
     
@@ -70,29 +42,32 @@
     
     id pattern = [self.args[1] simplify];
     self.args[1] = pattern;
-
+    
+    id replacement = [self.args[2] simplify];
+    self.args[2] = replacement;
+    
     id flags = nil;
-    if (c > 2) {
-        flags = [self.args[2] simplify];
-        self.args[2] = flags;
+    if (c > 3) {
+        flags = [self.args[3] simplify];
+        self.args[3] = flags;
     }
     
     BOOL isFlagsValue = !flags || (flags && [flags isValue]);
     
-    if ([input isValue] && [pattern isValue] && isFlagsValue) {
+    if ([input isValue] && [pattern isValue] && [replacement isValue] && isFlagsValue) {
         return [self evaluateInContext:nil];
     }
     
-    if ([pattern isValue] && isFlagsValue && [[pattern asString] isEqualToString:@""]) {
-        return [XPBooleanValue booleanValueWithBoolean:NO];
+    if ([pattern isValue] && [replacement isValue] && isFlagsValue && [[pattern asString] isEqualToString:@""]) {
+        return [XPStringValue stringValueWithString:@""];
     }
     
     return self;
 }
 
 
-- (BOOL)evaluateAsBooleanInContext:(XPContext *)ctx {
-    BOOL result = NO;
+- (NSString *)evaluateAsStringInContext:(XPContext *)ctx {
+    NSString *result = @"";
     
     NSString *input = [self.args[0] evaluateAsStringInContext:ctx];
     if ([input length]) {
@@ -100,9 +75,11 @@
         NSString *pattern = [self.args[1] evaluateAsStringInContext:ctx];
         if ([pattern length]) {
             
+            NSString *replacement = [self.args[2] evaluateAsStringInContext:ctx];
+            
             NSString *flags = @"";
-            if ([self numberOfArguments] > 2) {
-                flags = [self.args[2] evaluateAsStringInContext:ctx];
+            if ([self numberOfArguments] > 3) {
+                flags = [self.args[3] evaluateAsStringInContext:ctx];
             }
             
             NSRegularExpressionOptions opts = [FNMatches regexOptionsForString:flags];
@@ -115,14 +92,7 @@
                 [NSException raise:@"XPathException" format:@"could not create Regex from pattern '%@'", pattern];
             }
             
-            NSUInteger numMatches = [[regex matchesInString:input options:0 range:NSMakeRange(0, [input length])] count];
-            NSAssert(NSNotFound != numMatches, @"this would be surprising");
-            
-            if (NSNotFound == numMatches || 0 == numMatches) {
-                result = NO;
-            } else {
-                result = YES;
-            }
+            result = [regex stringByReplacingMatchesInString:input options:opts range:NSMakeRange(0, [input length]) withTemplate:replacement];
         }
     }
     
@@ -131,7 +101,7 @@
 
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
-    return [XPBooleanValue booleanValueWithBoolean:[self evaluateAsBooleanInContext:ctx]];
+    return [XPStringValue stringValueWithString:[self evaluateAsStringInContext:ctx]];
 }
 
 
@@ -145,7 +115,7 @@
 
 
 - (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
-    FNMatches *f = [[[FNMatches alloc] init] autorelease];
+    FNReplace *f = [[[FNReplace alloc] init] autorelease];
     for (XPExpression *arg in self.args) {
         [f addArgument:[arg reduceDependencies:dep inContext:ctx]];
     }

@@ -42,6 +42,7 @@
 #import "FNNumber.h"
 #import "FNPosition.h"
 #import "FNRound.h"
+#import "FNReplace.h"
 #import "FNStartsWith.h"
 #import "FNString.h"
 #import "FNStringLength.h"
@@ -90,6 +91,7 @@
              @"number": [FNNumber class],
              @"position": [FNPosition class],
              @"round": [FNRound class],
+             @"replace": [FNReplace class],
              @"starts-with": [FNStartsWith class],
              @"string": [FNString class],
              @"string-length": [FNStringLength class],

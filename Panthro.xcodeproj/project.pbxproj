@@ -22,6 +22,8 @@
 		D33930F8191F132D00259939 /* XPVariableReference.m in Sources */ = {isa = PBXBuildFile; fileRef = D33930F6191F132D00259939 /* XPVariableReference.m */; };
 		D3393102192038EE00259939 /* FNMatches.h in Headers */ = {isa = PBXBuildFile; fileRef = D3393100192038EE00259939 /* FNMatches.h */; };
 		D3393103192038EE00259939 /* FNMatches.m in Sources */ = {isa = PBXBuildFile; fileRef = D3393101192038EE00259939 /* FNMatches.m */; };
+		D339311219203EBA00259939 /* FNReplace.h in Headers */ = {isa = PBXBuildFile; fileRef = D339311019203EBA00259939 /* FNReplace.h */; };
+		D339311319203EBA00259939 /* FNReplace.m in Sources */ = {isa = PBXBuildFile; fileRef = D339311119203EBA00259939 /* FNReplace.m */; };
 		D33E9F841916E0E000BB7DFE /* XPStandaloneContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E9F821916E0E000BB7DFE /* XPStandaloneContext.m */; };
 		D33E9F8C1916E60C00BB7DFE /* XPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E9F8A1916E60C00BB7DFE /* XPUtils.m */; };
 		D33E9F931917040D00BB7DFE /* XPPathExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D33E9F911917040D00BB7DFE /* XPPathExpression.h */; };
@@ -354,6 +356,8 @@
 		D33930FC191F17C800259939 /* XPBindery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBindery.m; path = src/XPBindery.m; sourceTree = "<group>"; };
 		D3393100192038EE00259939 /* FNMatches.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNMatches.h; path = src/FNMatches.h; sourceTree = "<group>"; };
 		D3393101192038EE00259939 /* FNMatches.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNMatches.m; path = src/FNMatches.m; sourceTree = "<group>"; };
+		D339311019203EBA00259939 /* FNReplace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNReplace.h; path = src/FNReplace.h; sourceTree = "<group>"; };
+		D339311119203EBA00259939 /* FNReplace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNReplace.m; path = src/FNReplace.m; sourceTree = "<group>"; };
 		D33E9F821916E0E000BB7DFE /* XPStandaloneContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPStandaloneContext.m; path = src/XPStandaloneContext.m; sourceTree = "<group>"; };
 		D33E9F8A1916E60C00BB7DFE /* XPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPUtils.m; path = src/XPUtils.m; sourceTree = "<group>"; };
 		D33E9F911917040D00BB7DFE /* XPPathExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPPathExpression.h; path = src/XPPathExpression.h; sourceTree = "<group>"; };
@@ -902,6 +906,8 @@
 				D37A31191015A6DA00E936B7 /* FNNumber.m */,
 				D3F0CB94191EC23D0049EC02 /* FNPosition.h */,
 				D37A2F3910157F9100E936B7 /* FNPosition.m */,
+				D339311019203EBA00259939 /* FNReplace.h */,
+				D339311119203EBA00259939 /* FNReplace.m */,
 				D3F0CB95191EC23D0049EC02 /* FNRound.h */,
 				D37A2FD610158A0600E936B7 /* FNRound.m */,
 				D3F0CB96191EC23D0049EC02 /* FNStartsWith.h */,
@@ -1118,6 +1124,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3A5DB45141E7BC30081FBB4 /* XPath_Prefix.pch in Headers */,
+				D339311219203EBA00259939 /* FNReplace.h in Headers */,
 				D3F0CC0F191EC8250049EC02 /* XPValue.h in Headers */,
 				D3F0CBE0191EC4F10049EC02 /* XPBinaryExpression.h in Headers */,
 				D383A31F187F748E006AE701 /* XPEGParser.h in Headers */,
@@ -1472,6 +1479,7 @@
 				D383A31A187F6EB8006AE701 /* XPAssembler.m in Sources */,
 				D383A320187F748E006AE701 /* XPEGParser.m in Sources */,
 				D3BE1417191AFC7200005C81 /* XPNodeSetValueEnumeration.m in Sources */,
+				D339311319203EBA00259939 /* FNReplace.m in Sources */,
 				D3F0CBBF191EC3A50049EC02 /* XPNSXMLDocumentImpl.m in Sources */,
 				D36BC032101BF52F00D1A6C7 /* XPNodeSetExpression.m in Sources */,
 				D3BBAE93191DD0CF00766EB4 /* XPSingletonEnumeration.m in Sources */,
