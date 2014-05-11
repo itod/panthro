@@ -12,7 +12,7 @@ What's done?
 
 What's missing?
 
-* The `following`, `preceding`, and `namespace` axes are not yet implemented.
+* The `namespace` axis is not yet implemented.
 * Namespace-aware QName testing in `NameTest`s is currently dodgy (but can be fixed).
 * Namepsace prefix wildcards (`*:local-name`) are NOT yet implemented. But plain-ole name wildcards (`*`) ARE.
 
