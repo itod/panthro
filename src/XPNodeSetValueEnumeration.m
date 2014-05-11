@@ -10,7 +10,7 @@
 
 @interface XPNodeSetValueEnumeration ()
 @property (nonatomic, copy) NSArray *nodes;
-@property (nonatomic, assign) BOOL isSorted;
+@property (nonatomic, assign, getter=isSorted) BOOL sorted;
 @property (nonatomic, assign) NSUInteger idx;
 @property (nonatomic, assign) NSUInteger lastPosition;
 @end
@@ -23,6 +23,7 @@
         self.nodes = nodes;
         self.lastPosition = [_nodes count];
         self.idx = 0;
+        self.sorted = sorted;
     }
     return self;
 }
@@ -40,7 +41,7 @@
 
 
 - (BOOL)isReverseSorted {
-    return !_isSorted;
+    return !_sorted;
 }
 
 /**

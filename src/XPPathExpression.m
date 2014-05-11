@@ -196,7 +196,7 @@
     }
 
     XPNodeSetValue *nodeSet = [[[XPNodeSetValue alloc] initWithNodes:resultUnion comparer:[XPLocalOrderComparer instance]] autorelease];
-    id <XPNodeEnumeration>enm = [nodeSet enumerateInContext:ctx sorted:sorted];
+    id <XPNodeEnumeration>enm = [nodeSet enumerateInContext:ctx sorted:YES];
     
     
     

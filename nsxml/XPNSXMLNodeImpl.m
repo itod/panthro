@@ -15,6 +15,11 @@
 #import "XPEmptyNodeSet.h"
 #import "XPLocalOrderComparer.h"
 
+@interface XPNodeSetValue ()
+@property (nonatomic, assign, readwrite, getter=isSorted) BOOL sorted;
+@property (nonatomic, assign, readwrite, getter=isReverseSorted) BOOL reverseSorted;
+@end
+
 @interface XPNSXMLNodeImpl ()
 @property (nonatomic, retain, readwrite) NSXMLNode *node;
 @property (nonatomic, retain, readwrite) id <XPNodeInfo>parent;
@@ -232,19 +237,19 @@
             nodes = [self nodesForChildAxis:nodeTest];
             break;
         case XPAxisDescendant:
-            nodes = [self nodesForDescendantAxis:nodeTest];
             sorted = YES;
+            nodes = [self nodesForDescendantAxis:nodeTest];
             break;
         case XPAxisDescendantOrSelf:
-            nodes = [self nodesForDescendantOrSelfAxis:nodeTest];
             sorted = YES;
+            nodes = [self nodesForDescendantOrSelfAxis:nodeTest];
             break;
         case XPAxisFollowing:
             sorted = YES;
             break;
         case XPAxisFollowingSibling:
-            nodes = [self nodesForFollowingSiblingAxis:nodeTest];
             sorted = YES;
+            nodes = [self nodesForFollowingSiblingAxis:nodeTest];
             break;
         case XPAxisNamespace:
             sorted = YES;
@@ -258,6 +263,7 @@
             break;
         case XPAxisPrecedingSibling:
             sorted = NO;
+            nodes = [self nodesForPrecedingSiblingAxis:nodeTest];
             break;
         case XPAxisSelf:
             sorted = YES;
@@ -272,6 +278,8 @@
     
     if ([nodes count]) {
         nodeSet = [[[XPNodeSetValue alloc] initWithNodes:nodes comparer:[XPLocalOrderComparer instance]] autorelease];
+        nodeSet.sorted = sorted;
+        nodeSet.reverseSorted = !sorted;
     } else {
         nodeSet = [XPEmptyNodeSet emptyNodeSet];
     }
@@ -447,6 +455,30 @@
     NSInteger sortIndex = self.sortIndex;
     
     for (NSXMLNode *child in children) {
+        id <XPNodeInfo>node = [[[XPNSXMLNodeImpl alloc] initWithNode:child sortIndex:++sortIndex] autorelease];
+        
+        if ([nodeTest matches:node]) {
+            if (!result) {
+                result = [NSMutableArray array];
+            }
+            [result addObject:node];
+        }
+    }
+    
+    return result;
+}
+
+
+- (NSArray *)nodesForPrecedingSiblingAxis:(XPNodeTest *)nodeTest {
+    NSUInteger i = [self.node index];
+    
+    NSArray *children = [[[self.node parent] children] subarrayWithRange:NSMakeRange(0, i)];
+    
+    NSMutableArray *result = nil;
+    
+    NSInteger sortIndex = self.sortIndex;
+    
+    for (NSXMLNode *child in [children reverseObjectEnumerator]) {
         id <XPNodeInfo>node = [[[XPNSXMLNodeImpl alloc] initWithNode:child sortIndex:++sortIndex] autorelease];
         
         if ([nodeTest matches:node]) {

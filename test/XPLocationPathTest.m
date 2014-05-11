@@ -690,12 +690,12 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeInfo>node = nil;
     
     node = [enm nextObject];
-    TDEqualObjects(@"book", node.name);
-    TDEquals(XPNodeTypeElement, node.nodeType);
-    
-    node = [enm nextObject];
     TDEqualObjects([XPNSXMLDocumentImpl class], [node class]);
     TDEquals(XPNodeTypeRoot, node.nodeType);
+    
+    node = [enm nextObject];
+    TDEqualObjects(@"book", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
     
     TDFalse([enm hasMoreObjects]);
 }
@@ -1134,6 +1134,75 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         TDEquals(XPNodeTypeElement, node.nodeType);
         TDEqualObjects(_titles[i], node.stringValue);
     }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testCapterPredicate2SlashFollowingSiblingStar {
+    [self eval:@"chapter[2]/following-sibling::*/title"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
+    
+    for (NSUInteger i = 2; i < 3; ++i) {
+        node = [enm nextObject];
+        TDEqualObjects(@"title", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+        TDEqualObjects(_titles[i], node.stringValue);
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testCapterPredicate3SlashFollowingSiblingStar {
+    [self eval:@"chapter[3]/following-sibling::*/title"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testCapterPredicate3SlashPrecedingSiblingStar {
+    [self eval:@"chapter[3]/preceding-sibling::*/title"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
+    
+    for (NSUInteger i = 0; i < 2; ++i) {
+        node = [enm nextObject];
+        TDEqualObjects(@"title", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+        TDEqualObjects(_titles[i], node.stringValue);
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testCapterPredicate2SlashPrecedingSiblingStar {
+    [self eval:@"chapter[2]/preceding-sibling::*/title"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
+    
+    for (NSUInteger i = 0; i < 1; ++i) {
+        node = [enm nextObject];
+        TDEqualObjects(@"title", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+        TDEqualObjects(_titles[i], node.stringValue);
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testCapterPredicate1SlashPrecedingSiblingStar {
+    [self eval:@"chapter[1]/preceding-sibling::*/title"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
     
     TDFalse([enm hasMoreObjects]);
 }
