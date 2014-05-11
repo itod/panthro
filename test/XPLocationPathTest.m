@@ -1122,7 +1122,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testCapterPredicate1SlashFollowingSiblingStar {
+- (void)testCapterPredicate1SlashFollowingSiblingStarSlashTitle {
     [self eval:@"chapter[1]/following-sibling::*/title"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1139,7 +1139,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testCapterPredicate2SlashFollowingSiblingStar {
+- (void)testCapterPredicate2SlashFollowingSiblingStarSlashTitle {
     [self eval:@"chapter[2]/following-sibling::*/title"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1156,7 +1156,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testCapterPredicate3SlashFollowingSiblingStar {
+- (void)testCapterPredicate3SlashFollowingSiblingStarSlashTitle {
     [self eval:@"chapter[3]/following-sibling::*/title"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1165,7 +1165,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testCapterPredicate3SlashPrecedingSiblingStar {
+- (void)testCapterPredicate3SlashPrecedingSiblingStarSlashTitle {
     [self eval:@"chapter[3]/preceding-sibling::*/title"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1182,7 +1182,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testCapterPredicate2SlashPrecedingSiblingStar {
+- (void)testCapterPredicate2SlashPrecedingSiblingStarSlashTitle {
     [self eval:@"chapter[2]/preceding-sibling::*/title"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1199,12 +1199,59 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testCapterPredicate1SlashPrecedingSiblingStar {
+- (void)testCapterPredicate1SlashPrecedingSiblingStarSlashTitle {
     [self eval:@"chapter[1]/preceding-sibling::*/title"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
     TDFalse([enm hasMoreObjects]);
 }
+
+
+- (void)testCapterPredicate3SlashPrecedingSiblingStarPredicate1SlashTitle {
+    [self eval:@"chapter[3]/preceding-sibling::*[1]/title"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
+    
+    node = [enm nextObject];
+    TDEqualObjects(@"title", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDEqualObjects(_titles[1], node.stringValue);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testCapterPredicate3SlashPrecedingSiblingStarPredicate2SlashTitle {
+    [self eval:@"chapter[3]/preceding-sibling::*[2]/title"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
+    
+    node = [enm nextObject];
+    TDEqualObjects(@"title", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDEqualObjects(_titles[0], node.stringValue);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testCapterPredicate3SlashPrecedingSiblingChapterPredicate2SlashTitle {
+    [self eval:@"chapter[3]/preceding-sibling::chapter[2]/title"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
+    
+    node = [enm nextObject];
+    TDEqualObjects(@"title", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDEqualObjects(_titles[0], node.stringValue);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
 
 @end
