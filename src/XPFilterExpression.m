@@ -175,6 +175,9 @@
     // not all dependencies in the filter expression matter, because the context node,
     // position, and size are not dependent on the outer context.
     if (XPDependenciesInvalid == _dependencies) {
+
+        // 2nd half herelooks for Variables and CurrentNode only.
+        // That masks out the ctx node, ctx position, and ctx size (these 3 are derived in a predicate, not used from the context)
         self.dependencies = [_start dependencies] | ([_filter dependencies] & XPDependenciesXSLTContext);
     }
     // System.err.println("Filter expression getDependencies() = " + dependencies);
