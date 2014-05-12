@@ -33,6 +33,7 @@
 #import "FNBoolean.h"
 #import "FNCeiling.h"
 #import "FNConcat.h"
+#import "FNCompare.h"
 #import "FNContains.h"
 #import "FNCount.h"
 #import "FNEndsWith.h"
@@ -89,6 +90,7 @@
              [FNBoolean name] : [FNBoolean class],
              [FNCeiling name] : [FNCeiling class],
              [FNConcat name] : [FNConcat class],
+             [FNCompare name] : [FNCompare class],
              [FNContains name] : [FNContains class],
              [FNCount name] : [FNCount class],
              [FNEndsWith name] : [FNEndsWith class],

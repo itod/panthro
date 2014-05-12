@@ -8,7 +8,7 @@
 
 #import "XPNumericValue.h"
 
-@implementation XPNumericValue{
+@implementation XPNumericValue {
     double _value;
 }
 

@@ -154,4 +154,23 @@
     TDTrue(_res);
 }
 
+
+- (void)testEqualsExprCompare {
+    self.expr = [XPExpression expressionFromString:@"0 = compare('abc', 'abc')" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"compare('abc', 'abc') = 0" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"-1 = compare('abc', 'bc')" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"compare('bc', 'abc') = 1" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+}
+
 @end

@@ -202,6 +202,8 @@
 		D3C0F58A1921255C00566524 /* FNLocalName.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C0F5881921255C00566524 /* FNLocalName.m */; };
 		D3C0F592192128E000566524 /* FNNamespaceURI.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C0F590192128E000566524 /* FNNamespaceURI.h */; };
 		D3C0F593192128E000566524 /* FNNamespaceURI.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C0F591192128E000566524 /* FNNamespaceURI.m */; };
+		D3C0F59619214BBD00566524 /* FNCompare.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C0F59419214BBD00566524 /* FNCompare.h */; };
+		D3C0F59719214BBD00566524 /* FNCompare.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C0F59519214BBD00566524 /* FNCompare.m */; };
 		D3C177F71880EE2E00F90600 /* XPEGParserFilterExprTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C177F61880EE2E00F90600 /* XPEGParserFilterExprTest.m */; };
 		D3C178011880EF4900F90600 /* XPEGParserLocationPathTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C178001880EF4900F90600 /* XPEGParserLocationPathTest.m */; };
 		D3C1782B18844C7D00F90600 /* XPPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C1782918844C7D00F90600 /* XPPattern.m */; };
@@ -563,6 +565,8 @@
 		D3C0F5881921255C00566524 /* FNLocalName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNLocalName.m; path = src/FNLocalName.m; sourceTree = "<group>"; };
 		D3C0F590192128E000566524 /* FNNamespaceURI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNNamespaceURI.h; path = src/FNNamespaceURI.h; sourceTree = "<group>"; };
 		D3C0F591192128E000566524 /* FNNamespaceURI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNNamespaceURI.m; path = src/FNNamespaceURI.m; sourceTree = "<group>"; };
+		D3C0F59419214BBD00566524 /* FNCompare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNCompare.h; path = src/FNCompare.h; sourceTree = "<group>"; };
+		D3C0F59519214BBD00566524 /* FNCompare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNCompare.m; path = src/FNCompare.m; sourceTree = "<group>"; };
 		D3C177F61880EE2E00F90600 /* XPEGParserFilterExprTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPEGParserFilterExprTest.m; path = test/XPEGParserFilterExprTest.m; sourceTree = "<group>"; };
 		D3C178001880EF4900F90600 /* XPEGParserLocationPathTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPEGParserLocationPathTest.m; path = test/XPEGParserLocationPathTest.m; sourceTree = "<group>"; };
 		D3C178221884472800F90600 /* XPAxisExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPAxisExpression.m; path = src/XPAxisExpression.m; sourceTree = "<group>"; };
@@ -918,6 +922,8 @@
 				D37A2A191014015E00E936B7 /* FNBoolean.m */,
 				D3F0CB8B191EC23D0049EC02 /* FNCeiling.h */,
 				D37A2CAA10142D8E00E936B7 /* FNCeiling.m */,
+				D3C0F59419214BBD00566524 /* FNCompare.h */,
+				D3C0F59519214BBD00566524 /* FNCompare.m */,
 				D3F0CB8C191EC23D0049EC02 /* FNConcat.h */,
 				D37A2D00101433C600E936B7 /* FNConcat.m */,
 				D3F0CB8D191EC23D0049EC02 /* FNContains.h */,
@@ -1228,6 +1234,7 @@
 				D3F0CBA4191EC23D0049EC02 /* FNLast.h in Headers */,
 				D3F0CBE5191EC4F10049EC02 /* XPSingletonExpression.h in Headers */,
 				D3393102192038EE00259939 /* FNMatches.h in Headers */,
+				D3C0F59619214BBD00566524 /* FNCompare.h in Headers */,
 				D3F0CC0E191EC8250049EC02 /* XPStringValue.h in Headers */,
 				D3BE140C191AC7A200005C81 /* XPUnionExpression.h in Headers */,
 				D3F0CBF8191EC7D00049EC02 /* XPUtils.h in Headers */,
@@ -1528,6 +1535,7 @@
 				D37A300110158DB300E936B7 /* FNString.m in Sources */,
 				D37A300510158DC200E936B7 /* FNStringLength.m in Sources */,
 				D37A300910158DD700E936B7 /* FNSubstring.m in Sources */,
+				D3C0F59719214BBD00566524 /* FNCompare.m in Sources */,
 				D37A300D10158DE500E936B7 /* FNSubstringAfter.m in Sources */,
 				D37A301110158DEF00E936B7 /* FNSubstringBefore.m in Sources */,
 				D37A301510158E0100E936B7 /* FNSum.m in Sources */,
