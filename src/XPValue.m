@@ -15,6 +15,8 @@
 
 double XPNumberFromString(NSString *s) {
 #if 1
+    s = [s stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+
     double n;
     if ([s length]) {
         n = [s doubleValue];
