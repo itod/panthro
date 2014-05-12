@@ -57,7 +57,8 @@ Some example expressions that currently work (i.e. they are parsed, execute, and
 Panthro departs from the XPath 1.0 spec in the following known ways:
 
 1. Some functions from XPath 2.0 are incuded: `abs()`, `lower-case()`, `matches()`, `replace()`, `upper-case()`.
-1. Another function of my own design is incuded: `title-case()`.
+1. Another function of my own design is incuded in the default function namespace: `title-case()`.
+1. Scientific notation (exponents) are allowed in number literals.
 
 ###Objective-C API
 
