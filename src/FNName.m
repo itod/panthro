@@ -9,8 +9,8 @@
 #import "FNName.h"
 #import "XPNodeInfo.h"
 #import "XPContext.h"
-#import "XPValue.h"
 #import "XPStringValue.h"
+#import "XPNodeSetValue.h"
 
 @interface XPExpression ()
 @property (nonatomic, readwrite, retain) id <XPStaticContext>staticContext;
@@ -55,7 +55,9 @@
 
 - (NSString *)evaluateAsStringInContext:(XPContext *)ctx {
     if (1 == [self numberOfArguments]) {
-        return [self.args[0] evaluateAsStringInContext:ctx];
+        XPNodeSetValue *nodeSet = [[self.args[0] evaluateAsNodeSetInContext:ctx] sort];
+        id <XPNodeInfo>firstNode = [nodeSet firstNode];
+        return [firstNode name];
     } else {
         return [ctx.contextNode name];
     }
