@@ -52,6 +52,8 @@ Some example expressions that currently work (i.e. they are parsed, execute, and
 
     chapter[3]/preceding-sibling::*[2]/title
 
+    //chapter[1]/@*[namespace-uri(.)='bar']/..
+
 ###Non-standard Additions
 
 Panthro departs from the XPath 1.0 spec in the following known ways:

@@ -61,8 +61,14 @@
     } else {
         node = ctx.contextNode;
     }
+    
     NSString *prefix = [node prefix];
-    NSString *nsURI = [node namespaceURIForPrefix:prefix];
+    NSString *nsURI = @"";
+
+    if ([prefix length]) {
+        nsURI = [node namespaceURIForPrefix:prefix];
+    }
+    
     return nsURI;
 }
 

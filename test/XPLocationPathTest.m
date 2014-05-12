@@ -56,6 +56,9 @@
     TDNotNil(_env);
     NSError *err = nil;
     self.res = [_env evalutate:xpathStr withNSXMLContextNode:_contextNode error:&err];
+    if (err) {
+        NSLog(@"%@", err);
+    }
     //TDNil(err);
     TDNotNil(_res);
 }
@@ -1431,18 +1434,17 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-//- (void)testSlashSlashChapterPredicate1PredicateNamespaceURIAtFooColonBazEqBar {
-//    [self eval:@"//chapter[1][namespace-uri(@*)='bar']"];
-//    
-//    id <XPNodeEnumeration>enm = [_res enumerate];
-//    
-//    id <XPNodeInfo>node = [enm nextObject];
-//    TDEqualObjects(@"chapter", node.name);
-//    TDEquals(XPNodeTypeElement, node.nodeType);
-//    TDTrue([[node stringValue] hasPrefix:_titles[0]]);
-//    
-//    TDFalse([enm hasMoreObjects]);
-//}
-
+- (void)testSlashSlashChapterPredicate1PredicateNamespaceURIAtFooColonBazEqBar {
+    [self eval:@"//chapter[1]/@*[namespace-uri(.)='bar']/.."];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(@"chapter", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDTrue([[node stringValue] hasPrefix:_titles[0]]);
+    
+    TDFalse([enm hasMoreObjects]);
+}
 
 @end

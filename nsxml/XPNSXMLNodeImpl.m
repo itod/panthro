@@ -207,13 +207,32 @@
 
 - (NSString *)namespaceURIForPrefix:(NSString *)prefix {
     XPAssert(_node);
-    NSString *xpathStr = [NSString stringWithFormat:@"namespace::%@", prefix];
-    NSError *err = nil;
-    NSArray *nodes = [_node nodesForXPath:xpathStr error:&err];
+    
     NSString *res = @"";
-    if ([nodes count]) {
-        NSXMLNode *nsNode = nodes[0];
-        res = [nsNode stringValue];
+    if ([prefix length]) {
+        
+        // 2nd arg to namespace-uri-for-prefix() must be an element node. so make sure we start with one.
+        NSXMLNode *node = _node;
+        if (XPNodeTypeElement != [self nodeType] && XPNodeTypeRoot != [self nodeType]) {
+            node = [node parent];
+        }
+        
+        NSString *xquery = nil;
+        NSError *err = nil;
+
+//        xquery = @"in-scope-prefixes(.)";
+//        err = nil;
+//        NSArray *prefixes = [node objectsForXQuery:xquery error:&err];
+//        NSLog(@"%@", prefixes);
+
+        xquery = [NSString stringWithFormat:@"namespace-uri-for-prefix('%@', .)", prefix];
+        err = nil;
+        NSArray *uris = [node objectsForXQuery:xquery error:&err];
+        if ([uris count]) {
+            res = [uris[0] absoluteString];
+        } else {
+            if (err) NSLog(@"%@", err);
+        }
     }
     return res;
 }
