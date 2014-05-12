@@ -8,11 +8,7 @@
 
 #import "XPNSXMLDocumentImpl.h"
 
-@interface XPNSXMLDocumentImpl ()
-@end
-
 @implementation XPNSXMLDocumentImpl
-
 
 - (XPNodeType)nodeType {
     return XPNodeTypeRoot;
