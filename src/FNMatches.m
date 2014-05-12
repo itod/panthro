@@ -61,9 +61,7 @@
 
 
 - (XPExpression *)simplify {
-    [self checkArgumentCountForMin:2 max:3];
-    
-    NSUInteger c = [self numberOfArguments];
+    NSUInteger numArgs = [self checkArgumentCountForMin:2 max:3];
     
     id input = [self.args[0] simplify];
     self.args[0] = input;
@@ -72,7 +70,7 @@
     self.args[1] = pattern;
 
     id flags = nil;
-    if (c > 2) {
+    if (numArgs > 2) {
         flags = [self.args[2] simplify];
         self.args[2] = flags;
     }

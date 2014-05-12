@@ -24,6 +24,14 @@
 		D3393103192038EE00259939 /* FNMatches.m in Sources */ = {isa = PBXBuildFile; fileRef = D3393101192038EE00259939 /* FNMatches.m */; };
 		D339311219203EBA00259939 /* FNReplace.h in Headers */ = {isa = PBXBuildFile; fileRef = D339311019203EBA00259939 /* FNReplace.h */; };
 		D339311319203EBA00259939 /* FNReplace.m in Sources */ = {isa = PBXBuildFile; fileRef = D339311119203EBA00259939 /* FNReplace.m */; };
+		D339311619204E9E00259939 /* FNAbs.h in Headers */ = {isa = PBXBuildFile; fileRef = D339311419204E9E00259939 /* FNAbs.h */; };
+		D339311719204E9E00259939 /* FNAbs.m in Sources */ = {isa = PBXBuildFile; fileRef = D339311519204E9E00259939 /* FNAbs.m */; };
+		D339311E1920527200259939 /* FNUpperCase.h in Headers */ = {isa = PBXBuildFile; fileRef = D339311C1920527200259939 /* FNUpperCase.h */; };
+		D339311F1920527200259939 /* FNUpperCase.m in Sources */ = {isa = PBXBuildFile; fileRef = D339311D1920527200259939 /* FNUpperCase.m */; };
+		D3393122192052C600259939 /* FNLowerCase.h in Headers */ = {isa = PBXBuildFile; fileRef = D3393120192052C600259939 /* FNLowerCase.h */; };
+		D3393123192052C600259939 /* FNLowerCase.m in Sources */ = {isa = PBXBuildFile; fileRef = D3393121192052C600259939 /* FNLowerCase.m */; };
+		D33931261920534E00259939 /* FNTitleCase.h in Headers */ = {isa = PBXBuildFile; fileRef = D33931241920534E00259939 /* FNTitleCase.h */; };
+		D33931271920534E00259939 /* FNTitleCase.m in Sources */ = {isa = PBXBuildFile; fileRef = D33931251920534E00259939 /* FNTitleCase.m */; };
 		D33E9F841916E0E000BB7DFE /* XPStandaloneContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E9F821916E0E000BB7DFE /* XPStandaloneContext.m */; };
 		D33E9F8C1916E60C00BB7DFE /* XPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E9F8A1916E60C00BB7DFE /* XPUtils.m */; };
 		D33E9F931917040D00BB7DFE /* XPPathExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D33E9F911917040D00BB7DFE /* XPPathExpression.h */; };
@@ -358,6 +366,14 @@
 		D3393101192038EE00259939 /* FNMatches.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNMatches.m; path = src/FNMatches.m; sourceTree = "<group>"; };
 		D339311019203EBA00259939 /* FNReplace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNReplace.h; path = src/FNReplace.h; sourceTree = "<group>"; };
 		D339311119203EBA00259939 /* FNReplace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNReplace.m; path = src/FNReplace.m; sourceTree = "<group>"; };
+		D339311419204E9E00259939 /* FNAbs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNAbs.h; path = src/FNAbs.h; sourceTree = "<group>"; };
+		D339311519204E9E00259939 /* FNAbs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNAbs.m; path = src/FNAbs.m; sourceTree = "<group>"; };
+		D339311C1920527200259939 /* FNUpperCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNUpperCase.h; path = src/FNUpperCase.h; sourceTree = "<group>"; };
+		D339311D1920527200259939 /* FNUpperCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNUpperCase.m; path = src/FNUpperCase.m; sourceTree = "<group>"; };
+		D3393120192052C600259939 /* FNLowerCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNLowerCase.h; path = src/FNLowerCase.h; sourceTree = "<group>"; };
+		D3393121192052C600259939 /* FNLowerCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNLowerCase.m; path = src/FNLowerCase.m; sourceTree = "<group>"; };
+		D33931241920534E00259939 /* FNTitleCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNTitleCase.h; path = src/FNTitleCase.h; sourceTree = "<group>"; };
+		D33931251920534E00259939 /* FNTitleCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNTitleCase.m; path = src/FNTitleCase.m; sourceTree = "<group>"; };
 		D33E9F821916E0E000BB7DFE /* XPStandaloneContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPStandaloneContext.m; path = src/XPStandaloneContext.m; sourceTree = "<group>"; };
 		D33E9F8A1916E60C00BB7DFE /* XPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPUtils.m; path = src/XPUtils.m; sourceTree = "<group>"; };
 		D33E9F911917040D00BB7DFE /* XPPathExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPPathExpression.h; path = src/XPPathExpression.h; sourceTree = "<group>"; };
@@ -882,6 +898,8 @@
 			children = (
 				D33930F3191EC98700259939 /* XPFunction.h */,
 				D37A29681013F39400E936B7 /* XPFunction.m */,
+				D339311419204E9E00259939 /* FNAbs.h */,
+				D339311519204E9E00259939 /* FNAbs.m */,
 				D3F0CB8A191EC23D0049EC02 /* FNBoolean.h */,
 				D37A2A191014015E00E936B7 /* FNBoolean.m */,
 				D3F0CB8B191EC23D0049EC02 /* FNCeiling.h */,
@@ -898,6 +916,8 @@
 				D37A2F0B101574B200E936B7 /* FNFloor.m */,
 				D3F0CB91191EC23D0049EC02 /* FNLast.h */,
 				D37A2F2910157F5400E936B7 /* FNLast.m */,
+				D3393120192052C600259939 /* FNLowerCase.h */,
+				D3393121192052C600259939 /* FNLowerCase.m */,
 				D3393100192038EE00259939 /* FNMatches.h */,
 				D3393101192038EE00259939 /* FNMatches.m */,
 				D3F0CB92191EC23D0049EC02 /* FNNot.h */,
@@ -924,6 +944,10 @@
 				D3F0CB9B191EC23D0049EC02 /* FNSubstringBefore.h */,
 				D3F0CB9C191EC23D0049EC02 /* FNSum.h */,
 				D37A301310158E0100E936B7 /* FNSum.m */,
+				D33931241920534E00259939 /* FNTitleCase.h */,
+				D33931251920534E00259939 /* FNTitleCase.m */,
+				D339311C1920527200259939 /* FNUpperCase.h */,
+				D339311D1920527200259939 /* FNUpperCase.m */,
 			);
 			name = Functions;
 			sourceTree = "<group>";
@@ -1160,6 +1184,7 @@
 				D3F0CBA2191EC23D0049EC02 /* FNEndsWith.h in Headers */,
 				D3F0CBA0191EC23D0049EC02 /* FNContains.h in Headers */,
 				D3BE141A191BC8C800005C81 /* XPLastPositionFinder.h in Headers */,
+				D33931261920534E00259939 /* FNTitleCase.h in Headers */,
 				D3BE141C191BCB5C00005C81 /* XPLocalOrderComparer.h in Headers */,
 				D3F0CBAF191EC23D0049EC02 /* FNSum.h in Headers */,
 				D3F0CBA3191EC23D0049EC02 /* FNFloor.h in Headers */,
@@ -1174,6 +1199,7 @@
 				D3BE1418191BC7FE00005C81 /* XPAxisEnumeration.h in Headers */,
 				D3BBAE8A191D881200766EB4 /* XPLookaheadEnumerator.h in Headers */,
 				D3F0CBE2191EC4F10049EC02 /* XPNodeOrderComparer.h in Headers */,
+				D339311619204E9E00259939 /* FNAbs.h in Headers */,
 				D3411B59191A87960082A196 /* XPContextNodeExpression.h in Headers */,
 				D3F0CBB6191EC2F70049EC02 /* XPNamespaceTest.h in Headers */,
 				D3F0CBA4191EC23D0049EC02 /* FNLast.h in Headers */,
@@ -1184,6 +1210,7 @@
 				D3F0CBF8191EC7D00049EC02 /* XPUtils.h in Headers */,
 				D3F0CB9D191EC23D0049EC02 /* FNBoolean.h in Headers */,
 				D3F0CBFD191EC7F60049EC02 /* XPNodeInfo.h in Headers */,
+				D339311E1920527200259939 /* FNUpperCase.h in Headers */,
 				D3F0CBFC191EC7F60049EC02 /* XPDocumentInfo.h in Headers */,
 				D33E9FA319170BB900BB7DFE /* XPRootExpression.h in Headers */,
 				D3F0CBB9191EC2F70049EC02 /* XPPattern.h in Headers */,
@@ -1197,6 +1224,7 @@
 				D3F0CBFF191EC8090049EC02 /* XPStaticContext.h in Headers */,
 				D3F0CBA7191EC23D0049EC02 /* FNPosition.h in Headers */,
 				D33E9F9F191706E100BB7DFE /* XPEmptyEnumeration.h in Headers */,
+				D3393122192052C600259939 /* FNLowerCase.h in Headers */,
 				D3F0CC11191EC8590049EC02 /* XPAxis.h in Headers */,
 				D3F0CBBE191EC3A50049EC02 /* XPNSXMLDocumentImpl.h in Headers */,
 				D3BE1424191C193900005C81 /* XPFilterEnumerator.h in Headers */,
@@ -1426,13 +1454,16 @@
 				D3C1783718844CC500F90600 /* XPNamespaceTest.m in Sources */,
 				D33E9F941917040D00BB7DFE /* XPPathExpression.m in Sources */,
 				D34BADF9100ABA9300996341 /* XPValue.m in Sources */,
+				D339311719204E9E00259939 /* FNAbs.m in Sources */,
 				D3363817100C6E0400AC4B51 /* XPNodeSetValue.m in Sources */,
 				D336381C100C6E2800AC4B51 /* XPNumericValue.m in Sources */,
 				D3363820100C6E4400AC4B51 /* XPStringValue.m in Sources */,
 				D3A6C2E41907391200F3EFF3 /* XPAxis.m in Sources */,
 				D3C1783318844C9F00F90600 /* XPNameTest.m in Sources */,
 				D3363956100D813500AC4B51 /* XPObjectValue.m in Sources */,
+				D33931271920534E00259939 /* FNTitleCase.m in Sources */,
 				D33930F8191F132D00259939 /* XPVariableReference.m in Sources */,
+				D339311F1920527200259939 /* FNUpperCase.m in Sources */,
 				D3393103192038EE00259939 /* FNMatches.m in Sources */,
 				D33E9F841916E0E000BB7DFE /* XPStandaloneContext.m in Sources */,
 				D36C679A10106874000361A0 /* XPRelationalExpression.m in Sources */,
@@ -1450,6 +1481,7 @@
 				D37A2A1B1014015E00E936B7 /* FNBoolean.m in Sources */,
 				D3BE1425191C193900005C81 /* XPFilterEnumerator.m in Sources */,
 				D33E9F8C1916E60C00BB7DFE /* XPUtils.m in Sources */,
+				D3393123192052C600259939 /* FNLowerCase.m in Sources */,
 				D37A2CAC10142D8E00E936B7 /* FNCeiling.m in Sources */,
 				D3BE141B191BCB5A00005C81 /* XPLocalOrderComparer.m in Sources */,
 				D37A2D02101433C600E936B7 /* FNConcat.m in Sources */,

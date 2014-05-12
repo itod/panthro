@@ -29,6 +29,7 @@
 #import "XPVariableReference.h"
 
 #import "XPFunction.h"
+#import "FNAbs.h"
 #import "FNBoolean.h"
 #import "FNCeiling.h"
 #import "FNConcat.h"
@@ -37,6 +38,7 @@
 #import "FNEndsWith.h"
 #import "FNFloor.h"
 #import "FNLast.h"
+#import "FNLowerCase.h"
 #import "FNMatches.h"
 #import "FNNot.h"
 #import "FNNumber.h"
@@ -50,6 +52,8 @@
 #import "FNSubstringAfter.h"
 #import "FNSubstringBefore.h"
 #import "FNSum.h"
+#import "FNTitleCase.h"
+#import "FNUpperCase.h"
 
 @interface XPAssembler ()
 @property (nonatomic, retain) NSDictionary *funcTab;
@@ -78,6 +82,7 @@
         self.doubleQuoteCharSet = [NSCharacterSet characterSetWithCharactersInString:@"\""];
         
         self.funcTab = @{
+             @"abs": [FNAbs class],
              @"boolean": [FNBoolean class],
              @"ceiling": [FNCeiling class],
              @"concat": [FNConcat class],
@@ -86,6 +91,7 @@
              @"ends-with": [FNEndsWith class],
              @"floor": [FNFloor class],
              @"last": [FNLast class],
+             @"lower-case": [FNLowerCase class],
              @"matches": [FNMatches class],
              @"not": [FNNot class],
              @"number": [FNNumber class],
@@ -99,6 +105,8 @@
              @"substring-after": [FNSubstringAfter class],
              @"substring-before": [FNSubstringBefore class],
              @"sum": [FNSum class],
+             @"upper-case": [FNUpperCase class],
+             @"title-case": [FNTitleCase class],
              };
 
         self.nodeTypeTab = @{

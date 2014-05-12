@@ -33,9 +33,7 @@
 
 
 - (XPExpression *)simplify {
-    [self checkArgumentCountForMin:3 max:4];
-    
-    NSUInteger c = [self numberOfArguments];
+    NSUInteger numArgs = [self checkArgumentCountForMin:3 max:4];
     
     id input = [self.args[0] simplify];
     self.args[0] = input;
@@ -47,7 +45,7 @@
     self.args[2] = replacement;
     
     id flags = nil;
-    if (c > 3) {
+    if (numArgs > 3) {
         flags = [self.args[3] simplify];
         self.args[3] = flags;
     }

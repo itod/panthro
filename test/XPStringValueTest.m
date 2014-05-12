@@ -109,4 +109,49 @@
     TDTrue(_res);
 }
 
+
+- (void)testEqualsExprLowerCase {
+    self.expr = [XPExpression expressionFromString:@"lower-case('') = ''" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"lower-case('A') = 'a'" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"lower-case('ABc!D') = 'abc!d'" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+}
+
+
+- (void)testEqualsExprUpperCase {
+    self.expr = [XPExpression expressionFromString:@"upper-case('') = ''" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"upper-case('a') = 'A'" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"upper-case('abC!d') = 'ABC!D'" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+}
+
+
+- (void)testEqualsExprTitleCase {
+    self.expr = [XPExpression expressionFromString:@"title-case('') = ''" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"title-case('a') = 'A'" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"title-case('abC!d') = 'AbC!d'" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+}
+
 @end
