@@ -1431,4 +1431,18 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
+//- (void)testSlashSlashChapterPredicate1PredicateNamespaceURIAtFooColonBazEqBar {
+//    [self eval:@"//chapter[1][namespace-uri(@*)='bar']"];
+//    
+//    id <XPNodeEnumeration>enm = [_res enumerate];
+//    
+//    id <XPNodeInfo>node = [enm nextObject];
+//    TDEqualObjects(@"chapter", node.name);
+//    TDEquals(XPNodeTypeElement, node.nodeType);
+//    TDTrue([[node stringValue] hasPrefix:_titles[0]]);
+//    
+//    TDFalse([enm hasMoreObjects]);
+//}
+
+
 @end
