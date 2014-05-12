@@ -96,4 +96,9 @@
 //    return enm;
 }
 
+
+- (BOOL)isContextDocumentNodeSet {
+    return YES;
+}
+
 @end

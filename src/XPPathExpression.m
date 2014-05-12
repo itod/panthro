@@ -76,7 +76,7 @@
     XPAssert(_step);
     
     if (XPDependenciesInvalid == _dependencies) {
-        NSUInteger dep = _start.dependencies;
+        XPDependencies dep = _start.dependencies;
         
         for (XPExpression *expr in _step.filters) {
             // Not all dependencies in the filter matter, because the context node, etc,
@@ -121,7 +121,7 @@
         XPStep *newstep = [[[XPStep alloc] initWithAxis:_step.axis nodeTest:_step.nodeTest] autorelease];
 
         NSUInteger removedep = dep & XPDependenciesXSLTContext;
-        if (_start.isContextDocumentNodeSet && ((dep & XPDependenciesContextDocument) != 0)) {
+        if ([_start isContextDocumentNodeSet] && ((dep & XPDependenciesContextDocument) != 0)) {
             removedep |= XPDependenciesContextDocument;
         }
         
@@ -161,7 +161,23 @@
     // are all known to be in the context document, then any dependency on the
     // context document (e.g. an absolute path expression in a predicate) can also
     // be removed now.
+    NSUInteger actualdep = self.dependencies;
+    NSUInteger removedep = 0;
     
+    if ((actualdep & XPDependenciesXSLTContext) != 0) {
+        removedep |= XPDependenciesXSLTContext;
+    }
+    
+    if ([_start isContextDocumentNodeSet] && ((actualdep & XPDependenciesContextDocument) != 0)) {
+        removedep |= XPDependenciesContextDocument;
+    }
+    
+    if ((removedep & (XPDependenciesXSLTContext | XPDependenciesContextDocument)) != 0) {
+        XPExpression *temp = [self reduceDependencies:removedep inContext:ctx];
+        return [temp enumerateInContext:ctx sorted:sorted];
+    }
+
+    // ok, here we are.
     ctx = [[ctx copy] autorelease];
     
     id <XPNodeEnumeration>contextNodeEnm = [_start enumerateInContext:ctx sorted:sorted];
@@ -202,22 +218,6 @@
     
     
     
-//    NSUInteger actualdep = self.dependencies;
-//    NSUInteger removedep = 0;
-//    
-//    if ((actualdep & XPDependenciesXSLTContext) != 0) {
-//        removedep |= XPDependenciesXSLTContext;
-//    }
-//    
-//    if (_start.isContextDocumentNodeSet &&
-//        ((actualdep & XPDependenciesContextDocument) != 0)) {
-//        removedep |= XPDependenciesContextDocument;
-//    }
-//    
-//    if ((removedep & (XPDependenciesXSLTContext | XPDependenciesContextDocument)) != 0) {
-//        XPExpression *temp = [self reduceDependencies:removedep inContext:ctx];
-//        return [temp enumerateInContext:ctx sorted:sorted];
-//    }
     
 //    id <XPNodeEnumeration>enm = [[[XPPathEnumeration alloc] initWithPathExpression:self start:_start context:ctx] autorelease];
 //    if (sorted && !enm.isSorted) {

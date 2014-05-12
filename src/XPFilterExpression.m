@@ -35,6 +35,7 @@
     if (self) {
         self.start = start;
         self.filter = filter;
+        self.dependencies = XPDependenciesInvalid;
     }
     return self;
 }
@@ -142,9 +143,9 @@
     
     if (!sort) {
         // the user didn't ask for document order, but we may need to do it anyway
-        if (_filter.dataType==XPDataTypeNumber ||
-            _filter.dataType==XPDataTypeAny ||
-            ([_filter dependencies] & (XPDependenciesContextPosition|XPDependenciesLast)) != 0 ) {
+        if (_filter.dataType == XPDataTypeNumber ||
+            _filter.dataType == XPDataTypeAny ||
+            ([_filter dependencies] & (XPDependenciesContextPosition|XPDependenciesLast)) != 0) {
             sort = YES;
         }
     }
@@ -173,8 +174,8 @@
 - (XPDependencies)dependencies {
     // not all dependencies in the filter expression matter, because the context node,
     // position, and size are not dependent on the outer context.
-    if (NSNotFound == _dependencies) {
-        _dependencies = [_start dependencies] | ([_filter dependencies] & XPDependenciesXSLTContext);
+    if (XPDependenciesInvalid == _dependencies) {
+        self.dependencies = [_start dependencies] | ([_filter dependencies] & XPDependenciesXSLTContext);
     }
     // System.err.println("Filter expression getDependencies() = " + dependencies);
     return _dependencies;

@@ -99,7 +99,7 @@
  */
 
 - (BOOL)isContextDocumentNodeSet {
-    return _p1.isContextDocumentNodeSet && _p2.isContextDocumentNodeSet;
+    return [_p1 isContextDocumentNodeSet] && [_p2 isContextDocumentNodeSet];
 }
 
 

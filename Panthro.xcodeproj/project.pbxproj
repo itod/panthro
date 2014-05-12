@@ -660,6 +660,7 @@
 			children = (
 				D3411BE5191A90430082A196 /* TDTemplateEngine.xcodeproj */,
 				D3C7983719060D0800EC8CB2 /* PEGKit.xcodeproj */,
+				D3411B53191A7B670082A196 /* Unused */,
 				D33639CB100DAA6B00AC4B51 /* Panthro Tests */,
 				08FB77AEFE84172EC02AAC07 /* Panthro Framework */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
@@ -691,7 +692,6 @@
 		08FB77AEFE84172EC02AAC07 /* Panthro Framework */ = {
 			isa = PBXGroup;
 			children = (
-				D3411B53191A7B670082A196 /* Unused */,
 				D317223C190DAAB1005C633B /* NSXML */,
 				D3BA9B29101C233B003C0040 /* Parser */,
 				D3F0CBEE191EC7D00049EC02 /* Panthro.h */,
