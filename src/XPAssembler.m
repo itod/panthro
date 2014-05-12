@@ -44,6 +44,7 @@
 #import "FNMatches.h"
 #import "FNName.h"
 #import "FNNamespaceURI.h"
+#import "FNNormalizeSpace.h"
 #import "FNNot.h"
 #import "FNNumber.h"
 #import "FNPosition.h"
@@ -56,6 +57,7 @@
 #import "FNSubstringAfter.h"
 #import "FNSubstringBefore.h"
 #import "FNSum.h"
+#import "FNTrimSpace.h"
 #import "FNTitleCase.h"
 #import "FNUpperCase.h"
 
@@ -101,6 +103,7 @@
              [FNMatches name] : [FNMatches class],
              [FNName name] : [FNName class],
              [FNNamespaceURI name] : [FNNamespaceURI class],
+             [FNNormalizeSpace name] : [FNNormalizeSpace class],
              [FNNot name] : [FNNot class],
              [FNNumber name] : [FNNumber class],
              [FNPosition name] : [FNPosition class],
@@ -113,6 +116,7 @@
              [FNSubstringAfter name] : [FNSubstringAfter class],
              [FNSubstringBefore name] : [FNSubstringBefore class],
              [FNSum name] : [FNSum class],
+             [FNTrimSpace name] : [FNTrimSpace class],
              [FNUpperCase name] : [FNUpperCase class],
              [FNTitleCase name] : [FNTitleCase class],
              };

@@ -173,4 +173,44 @@
     TDTrue(_res);
 }
 
+
+- (void)testEqualsExprNormalizeSpace {
+    self.expr = [XPExpression expressionFromString:@"'abc' = normalize-space('abc')" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+
+    self.expr = [XPExpression expressionFromString:@"normalize-space('  abc')" inContext:nil error:nil];
+    NSString *str = [_expr evaluateAsStringInContext:nil];
+    TDEqualObjects(@"abc", str);
+
+    self.expr = [XPExpression expressionFromString:@"normalize-space('  abc ')" inContext:nil error:nil];
+    str = [_expr evaluateAsStringInContext:nil];
+    TDEqualObjects(@"abc", str);
+    
+    self.expr = [XPExpression expressionFromString:@"normalize-space('  a   bc ')" inContext:nil error:nil];
+    str = [_expr evaluateAsStringInContext:nil];
+    TDEqualObjects(@"a bc", str);
+    
+}
+
+
+- (void)testEqualsExprTrimSpace {
+    self.expr = [XPExpression expressionFromString:@"'abc' = trim-space('abc')" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"trim-space('  abc')" inContext:nil error:nil];
+    NSString *str = [_expr evaluateAsStringInContext:nil];
+    TDEqualObjects(@"abc", str);
+    
+    self.expr = [XPExpression expressionFromString:@"trim-space('  abc ')" inContext:nil error:nil];
+    str = [_expr evaluateAsStringInContext:nil];
+    TDEqualObjects(@"abc", str);
+    
+    self.expr = [XPExpression expressionFromString:@"trim-space('  a   bc ')" inContext:nil error:nil];
+    str = [_expr evaluateAsStringInContext:nil];
+    TDEqualObjects(@"a   bc", str);
+    
+}
+
 @end

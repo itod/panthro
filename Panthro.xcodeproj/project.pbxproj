@@ -204,6 +204,10 @@
 		D3C0F593192128E000566524 /* FNNamespaceURI.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C0F591192128E000566524 /* FNNamespaceURI.m */; };
 		D3C0F59619214BBD00566524 /* FNCompare.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C0F59419214BBD00566524 /* FNCompare.h */; };
 		D3C0F59719214BBD00566524 /* FNCompare.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C0F59519214BBD00566524 /* FNCompare.m */; };
+		D3C0F59A19214DC900566524 /* FNNormalizeSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C0F59819214DC900566524 /* FNNormalizeSpace.h */; };
+		D3C0F59B19214DC900566524 /* FNNormalizeSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C0F59919214DC900566524 /* FNNormalizeSpace.m */; };
+		D3C0F59E19214FE700566524 /* FNTrimSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C0F59C19214FE700566524 /* FNTrimSpace.h */; };
+		D3C0F59F19214FE700566524 /* FNTrimSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C0F59D19214FE700566524 /* FNTrimSpace.m */; };
 		D3C177F71880EE2E00F90600 /* XPEGParserFilterExprTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C177F61880EE2E00F90600 /* XPEGParserFilterExprTest.m */; };
 		D3C178011880EF4900F90600 /* XPEGParserLocationPathTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C178001880EF4900F90600 /* XPEGParserLocationPathTest.m */; };
 		D3C1782B18844C7D00F90600 /* XPPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C1782918844C7D00F90600 /* XPPattern.m */; };
@@ -567,6 +571,10 @@
 		D3C0F591192128E000566524 /* FNNamespaceURI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNNamespaceURI.m; path = src/FNNamespaceURI.m; sourceTree = "<group>"; };
 		D3C0F59419214BBD00566524 /* FNCompare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNCompare.h; path = src/FNCompare.h; sourceTree = "<group>"; };
 		D3C0F59519214BBD00566524 /* FNCompare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNCompare.m; path = src/FNCompare.m; sourceTree = "<group>"; };
+		D3C0F59819214DC900566524 /* FNNormalizeSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNNormalizeSpace.h; path = src/FNNormalizeSpace.h; sourceTree = "<group>"; };
+		D3C0F59919214DC900566524 /* FNNormalizeSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNNormalizeSpace.m; path = src/FNNormalizeSpace.m; sourceTree = "<group>"; };
+		D3C0F59C19214FE700566524 /* FNTrimSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNTrimSpace.h; path = src/FNTrimSpace.h; sourceTree = "<group>"; };
+		D3C0F59D19214FE700566524 /* FNTrimSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNTrimSpace.m; path = src/FNTrimSpace.m; sourceTree = "<group>"; };
 		D3C177F61880EE2E00F90600 /* XPEGParserFilterExprTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPEGParserFilterExprTest.m; path = test/XPEGParserFilterExprTest.m; sourceTree = "<group>"; };
 		D3C178001880EF4900F90600 /* XPEGParserLocationPathTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPEGParserLocationPathTest.m; path = test/XPEGParserLocationPathTest.m; sourceTree = "<group>"; };
 		D3C178221884472800F90600 /* XPAxisExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPAxisExpression.m; path = src/XPAxisExpression.m; sourceTree = "<group>"; };
@@ -946,6 +954,8 @@
 				D339312B19211CC900259939 /* FNName.m */,
 				D3C0F590192128E000566524 /* FNNamespaceURI.h */,
 				D3C0F591192128E000566524 /* FNNamespaceURI.m */,
+				D3C0F59819214DC900566524 /* FNNormalizeSpace.h */,
+				D3C0F59919214DC900566524 /* FNNormalizeSpace.m */,
 				D3F0CB92191EC23D0049EC02 /* FNNot.h */,
 				D37A29A21013F95100E936B7 /* FNNot.m */,
 				D3F0CB93191EC23D0049EC02 /* FNNumber.h */,
@@ -970,6 +980,8 @@
 				D3F0CB9B191EC23D0049EC02 /* FNSubstringBefore.h */,
 				D3F0CB9C191EC23D0049EC02 /* FNSum.h */,
 				D37A301310158E0100E936B7 /* FNSum.m */,
+				D3C0F59C19214FE700566524 /* FNTrimSpace.h */,
+				D3C0F59D19214FE700566524 /* FNTrimSpace.m */,
 				D33931241920534E00259939 /* FNTitleCase.h */,
 				D33931251920534E00259939 /* FNTitleCase.m */,
 				D339311C1920527200259939 /* FNUpperCase.h */,
@@ -1199,6 +1211,7 @@
 				D3F0CBAB191EC23D0049EC02 /* FNStringLength.h in Headers */,
 				D3A6C2EF1907413800F3EFF3 /* XPStep.h in Headers */,
 				D3F0CC0B191EC8250049EC02 /* XPNodeSetValue.h in Headers */,
+				D3C0F59E19214FE700566524 /* FNTrimSpace.h in Headers */,
 				D3F0CBA6191EC23D0049EC02 /* FNNumber.h in Headers */,
 				D3F0CB9F191EC23D0049EC02 /* FNConcat.h in Headers */,
 				D33930F7191F132D00259939 /* XPVariableReference.h in Headers */,
@@ -1217,6 +1230,7 @@
 				D3F0CBAF191EC23D0049EC02 /* FNSum.h in Headers */,
 				D3F0CBA3191EC23D0049EC02 /* FNFloor.h in Headers */,
 				D3F0CC01191EC8100049EC02 /* XPNodeEnumeration.h in Headers */,
+				D3C0F59A19214DC900566524 /* FNNormalizeSpace.h in Headers */,
 				D3F0CB9E191EC23D0049EC02 /* FNCeiling.h in Headers */,
 				D33930F2191EC8D500259939 /* XPStandaloneContext.h in Headers */,
 				D3BBAE92191DD0CF00766EB4 /* XPSingletonEnumeration.h in Headers */,
@@ -1506,6 +1520,7 @@
 				D37A27E51012FFA600E936B7 /* XPBooleanExpression.m in Sources */,
 				D3BBAE8B191D881200766EB4 /* XPLookaheadEnumerator.m in Sources */,
 				D37A296A1013F39400E936B7 /* XPFunction.m in Sources */,
+				D3C0F59F19214FE700566524 /* FNTrimSpace.m in Sources */,
 				D3BBAE8F191DCBF900766EB4 /* XPSingletonNodeSet.m in Sources */,
 				D37A296E1013F57D00E936B7 /* NSError+XPAdditions.m in Sources */,
 				D37A29A41013F95100E936B7 /* FNNot.m in Sources */,
@@ -1530,6 +1545,7 @@
 				D37A2FD810158A0600E936B7 /* FNRound.m in Sources */,
 				D3C0F593192128E000566524 /* FNNamespaceURI.m in Sources */,
 				D37A2FFD10158DA900E936B7 /* FNStartsWith.m in Sources */,
+				D3C0F59B19214DC900566524 /* FNNormalizeSpace.m in Sources */,
 				D3F0CBC1191EC3A50049EC02 /* XPNSXMLNodeImpl.m in Sources */,
 				D3C1782B18844C7D00F90600 /* XPPattern.m in Sources */,
 				D37A300110158DB300E936B7 /* FNString.m in Sources */,
