@@ -15,6 +15,9 @@
 
 @protocol XPNodeInfo <NSObject>
 
++ (id <XPNodeInfo>)nodeInfoFromNode:(void *)node;
+
+
 - (NSComparisonResult)compareOrderTo:(id <XPNodeInfo>)other;
 
 /**

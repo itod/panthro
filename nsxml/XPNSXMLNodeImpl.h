@@ -10,8 +10,7 @@
 
 @interface XPNSXMLNodeImpl : NSObject <XPNodeInfo>
 
-- (instancetype)initWithNode:(NSXMLNode *)node sortIndex:(NSInteger)idx;
+- (instancetype)initWithNode:(NSXMLNode *)node;
 
 @property (nonatomic, retain, readonly) NSXMLNode *node;
-@property (nonatomic, assign, readonly) NSInteger sortIndex;
 @end

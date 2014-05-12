@@ -23,17 +23,23 @@
 @interface XPNSXMLNodeImpl ()
 @property (nonatomic, retain, readwrite) NSXMLNode *node;
 @property (nonatomic, retain, readwrite) id <XPNodeInfo>parent;
-@property (nonatomic, assign, readwrite) NSInteger sortIndex;
 @end
 
 @implementation XPNSXMLNodeImpl
 
-- (instancetype)initWithNode:(NSXMLNode *)node sortIndex:(NSInteger)idx {
++ (id <XPNodeInfo>)nodeInfoFromNode:(void *)inNode {
+    NSXMLNode *node = (id)inNode;
+    Class cls = (NSXMLDocumentKind == [node kind]) ? [XPNSXMLDocumentImpl class] : [XPNSXMLNodeImpl class];
+    id <XPNodeInfo>nodeInfo = [[[cls alloc] initWithNode:node] autorelease];
+    return nodeInfo;
+}
+
+
+- (instancetype)initWithNode:(NSXMLNode *)node {
     NSParameterAssert(node);
     self = [super init];
     if (self) {
         self.node = node;
-        self.sortIndex = idx;
     }
     return self;
 }
@@ -183,12 +189,8 @@
     
     if (!_parent) {
         NSXMLNode *parent = [self.node parent];
-        id <XPNodeInfo>node = nil;
-        
         if (parent) {
-            Class cls = (NSXMLDocumentKind == [parent kind]) ? [XPNSXMLDocumentImpl class] : [XPNSXMLNodeImpl class];
-            node = [[[cls alloc] initWithNode:parent sortIndex:NSNotFound] autorelease];
-            self.parent = node;
+            self.parent = [[self class] nodeInfoFromNode:parent];
         }
     }
     
@@ -211,7 +213,7 @@
 
 - (id <XPDocumentInfo>)documentRoot {
     XPAssert(_node);
-    return [[[XPNSXMLDocumentImpl alloc] initWithNode:[_node rootDocument] sortIndex:0] autorelease];
+    return [[[XPNSXMLDocumentImpl alloc] initWithNode:[_node rootDocument]] autorelease];
 }
 
 
@@ -303,19 +305,18 @@
 }
 
 
-- (NSArray *)descendantNodesFromParent:(NSXMLNode *)parent nodeTest:(XPNodeTest *)nodeTest sortIndex:(NSInteger)sortIndex {
+- (NSArray *)descendantNodesFromParent:(NSXMLNode *)parent nodeTest:(XPNodeTest *)nodeTest {
     NSMutableArray *result = [NSMutableArray array];
     
     for (NSXMLNode *child in [parent children]) {
-        ++sortIndex;
         
-        id <XPNodeInfo>node = [[[XPNSXMLNodeImpl alloc] initWithNode:child sortIndex:sortIndex] autorelease];
+        id <XPNodeInfo>node = [[self class] nodeInfoFromNode:child];
         
         if ([nodeTest matches:node]) {
             [result addObject:node];
         }
 
-        [result addObjectsFromArray:[self descendantNodesFromParent:child nodeTest:nodeTest sortIndex:sortIndex]];
+        [result addObjectsFromArray:[self descendantNodesFromParent:child nodeTest:nodeTest]];
     }
     
     return result;
@@ -329,8 +330,7 @@
         [result addObject:self];
     }
     
-    NSInteger sortIndex = self.sortIndex;
-    [result addObjectsFromArray:[self descendantNodesFromParent:self.node nodeTest:nodeTest sortIndex:sortIndex]];
+    [result addObjectsFromArray:[self descendantNodesFromParent:self.node nodeTest:nodeTest]];
     
     return result;
 }
@@ -339,8 +339,7 @@
 - (NSArray *)nodesForDescendantAxis:(XPNodeTest *)nodeTest {
     NSMutableArray *nodes = [NSMutableArray array];
     
-    NSInteger sortIndex = self.sortIndex;
-    [nodes addObjectsFromArray:[self descendantNodesFromParent:self.node nodeTest:nodeTest sortIndex:sortIndex]];
+    [nodes addObjectsFromArray:[self descendantNodesFromParent:self.node nodeTest:nodeTest]];
     
     return nodes;
 }
@@ -362,12 +361,9 @@
 - (NSArray *)nodesForAncestorAxis:(XPNodeTest *)nodeTest {
     NSMutableArray *result = nil;
     
-    NSInteger sortIndex = self.sortIndex;
-    
     NSXMLNode *parent = [self.node parent];
     while (parent) {
-        Class cls = (NSXMLDocumentKind == [parent kind]) ? [XPNSXMLDocumentImpl class] : [XPNSXMLNodeImpl class];
-        id <XPNodeInfo>node = [[[cls alloc] initWithNode:parent sortIndex:--sortIndex] autorelease];
+        id <XPNodeInfo>node = [[self class] nodeInfoFromNode:parent];
         
         if ([nodeTest matches:node]) {
             if (!result) {
@@ -385,9 +381,8 @@
 
 - (NSArray *)nodesForParentAxis:(XPNodeTest *)nodeTest {
     NSXMLNode *parent = [self.node parent];
-    Class cls = (NSXMLDocumentKind == [parent kind]) ? [XPNSXMLDocumentImpl class] : [XPNSXMLNodeImpl class];
 
-    id <XPNodeInfo>node = [[[cls alloc] initWithNode:parent sortIndex:self.sortIndex-1] autorelease];
+    id <XPNodeInfo>node = [[self class] nodeInfoFromNode:parent];
     
     NSArray *result = nil;
     
@@ -404,10 +399,8 @@
     
     NSMutableArray *result = nil;
     
-    NSInteger sortIndex = self.sortIndex;
-    
     for (NSXMLNode *child in children) {
-        id <XPNodeInfo>node = [[[XPNSXMLNodeImpl alloc] initWithNode:child sortIndex:++sortIndex] autorelease];
+        id <XPNodeInfo>node = [[self class] nodeInfoFromNode:child];
         
         if ([nodeTest matches:node]) {
             if (!result) {
@@ -428,10 +421,8 @@
     
     NSMutableArray *result = nil;
     
-    NSInteger sortIndex = self.sortIndex;
-    
     for (NSXMLNode *attr in attrs) {
-        id <XPNodeInfo>node = [[[XPNSXMLNodeImpl alloc] initWithNode:attr sortIndex:++sortIndex] autorelease];
+        id <XPNodeInfo>node = [[self class] nodeInfoFromNode:attr];
         
         if ([nodeTest matches:node]) {
             if (!result) {
@@ -455,17 +446,15 @@
     
     children = [children subarrayWithRange:NSMakeRange(i, c - i)];
     
-    NSInteger sortIndex = self.sortIndex;
-    
     for (NSXMLNode *child in children) {
-        id <XPNodeInfo>node = [[[XPNSXMLNodeImpl alloc] initWithNode:child sortIndex:++sortIndex] autorelease];
+        id <XPNodeInfo>node = [[self class] nodeInfoFromNode:child];
         
         if ([nodeTest matches:node]) {
             [result addObject:node];
         }
         
         if (includeDescendants) {
-            [result addObjectsFromArray:[self descendantNodesFromParent:child nodeTest:nodeTest sortIndex:sortIndex]];
+            [result addObjectsFromArray:[self descendantNodesFromParent:child nodeTest:nodeTest]];
         }
     }
     
@@ -479,17 +468,15 @@
     NSUInteger i = [self.node index];
     NSArray *children = [[[self.node parent] children] subarrayWithRange:NSMakeRange(0, i)];
     
-    NSInteger sortIndex = self.sortIndex;
-    
     for (NSXMLNode *child in [children reverseObjectEnumerator]) {
-        id <XPNodeInfo>node = [[[XPNSXMLNodeImpl alloc] initWithNode:child sortIndex:++sortIndex] autorelease];
+        id <XPNodeInfo>node = [[self class] nodeInfoFromNode:child];
         
         if ([nodeTest matches:node]) {
             [result addObject:node];
         }
 
         if (includeDescendants) {
-            [result addObjectsFromArray:[self descendantNodesFromParent:child nodeTest:nodeTest sortIndex:sortIndex]];
+            [result addObjectsFromArray:[self descendantNodesFromParent:child nodeTest:nodeTest]];
         }
     }
     

@@ -52,7 +52,7 @@ NSString *XPNamespaceAquaPath = @"http://celestialteapot.com/ns/aquapath";
 
 
 - (id)evalutate:(NSString *)xpathStr withNSXMLContextNode:(NSXMLNode *)nsxmlCtxNode error:(NSError **)outErr {
-    id <XPNodeInfo>ctxNode = [[[XPNSXMLNodeImpl alloc] initWithNode:nsxmlCtxNode sortIndex:NSNotFound] autorelease];
+    id <XPNodeInfo>ctxNode = [XPNSXMLNodeImpl nodeInfoFromNode:nsxmlCtxNode];
     return [self evalutate:xpathStr withContextNode:ctxNode error:outErr];
 }
 
