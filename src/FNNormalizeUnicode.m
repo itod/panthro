@@ -1,12 +1,12 @@
 //
-//  FNNormalizeSpace.m
+//  FNNormalizeUnicode.m
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 7/20/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "FNNormalizeSpace.h"
+#import "FNNormalizeUnicode.h"
 #import "XPNodeInfo.h"
 #import "XPContext.h"
 #import "XPStringValue.h"
@@ -21,23 +21,20 @@
 - (NSUInteger)checkArgumentCountForMin:(NSUInteger)min max:(NSUInteger)max;
 @end
 
-@implementation FNNormalizeSpace
+@implementation FNNormalizeUnicode
 
-- (NSString *)normalize:(NSString *)str {
-    str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    
-    static NSRegularExpression *sRegex = nil;
-    if (!sRegex) {
-        sRegex = [[NSRegularExpression regularExpressionWithPattern:@"\\s+" options:0 error:nil] retain];
+- (NSString *)normalize:(NSString *)str locale:(NSString *)localeName {
+    NSLocale *locale = nil;
+    if ([localeName length]) {
+        locale = [NSLocale localeWithLocaleIdentifier:localeName];
     }
-    str = [sRegex stringByReplacingMatchesInString:str options:0 range:NSMakeRange(0, [str length]) withTemplate:@" "];
-    
+    str = [str stringByFoldingWithOptions:0 locale:locale];
     return str;
 }
 
 
 + (NSString *)name {
-    return @"normalize-space";
+    return @"normalize-unicode";
 }
 
 
@@ -47,29 +44,33 @@
 
 
 - (XPExpression *)simplify {
-    NSUInteger numArgs = [self checkArgumentCountForMin:0 max:1];
+    NSUInteger numArgs = [self checkArgumentCountForMin:1 max:2];
     
-    if (1 == numArgs) {
-        id arg0 = [self.args[0] simplify];
-        self.args[0] = arg0;
-        
-        if ([arg0 isValue]) {
-            return [self evaluateInContext:nil];
-        }
+    id input = [self.args[0] simplify];
+    self.args[0] = input;
+    
+    id locale = nil;
+    
+    if (numArgs > 1) {
+        locale = [self.args[1] simplify];
+        self.args[1] = locale;
+
     }
     
+    BOOL isLocaleValue = !locale || [locale isValue];
+    
+    if ([input isValue] && isLocaleValue) {
+        return [self evaluateInContext:nil];
+    }
+
     return self;
 }
 
 
 - (NSString *)evaluateAsStringInContext:(XPContext *)ctx {
-    NSString *str = nil;
-    if (1 == [self numberOfArguments]) {
-        str = [self.args[0] evaluateAsStringInContext:ctx];
-    } else {
-        str = [ctx.contextNode stringValue];
-    }
-    str = [self normalize:str];
+    NSString *input = [self.args[0] evaluateAsStringInContext:ctx];
+    NSString *localeName = [self.args[1] evaluateAsStringInContext:ctx];
+    NSString *str = [self normalize:input locale:localeName];
     return str;
 }
 
@@ -90,7 +91,7 @@
 
 - (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
     if (1 == [self numberOfArguments]) {
-        FNNormalizeSpace *f = [[[FNNormalizeSpace alloc] init] autorelease];
+        FNNormalizeUnicode *f = [[[FNNormalizeUnicode alloc] init] autorelease];
         [f addArgument:[self.args[0] reduceDependencies:dep inContext:ctx]];
         [f setStaticContext:[self staticContext]];
         return [f simplify];

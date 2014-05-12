@@ -30,7 +30,7 @@
 
     self.ids = @[@"c1", @"c2", @"c3"];
     self.titles = @[@"Chapter 1", @"Chapter 2", @"Chapter 3"];
-    self.paras = @[@"Chapter 1 content.", @"Chapter 2 content.", @"Chapter 3 content."];
+    self.paras = @[@"Chapter 1 content. ", @"Chapter 2 content.", @"Chapter 3 content."];
 
     NSString *str = XPContentsOfFile(@"book.xml");
     NSError *err = nil;
@@ -1443,6 +1443,34 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEqualObjects(@"chapter", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDTrue([[node stringValue] hasPrefix:_titles[0]]);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testNormalizeSpaceSlashSlashChapterSlashParaPredicateNormalizeSpace {
+    [self eval:@"//chapter[1]/para[normalize-space() = 'Chapter 1 content.']"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(@"para", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDTrue([[node stringValue] hasPrefix:_paras[0]]);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testNormalizeSpaceSlashSlashChapterSlashParaPredicateNormalizeSpaceDot {
+    [self eval:@"//chapter[1]/para[normalize-space(.) = 'Chapter 1 content.']"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(@"para", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDTrue([[node stringValue] hasPrefix:_paras[0]]);
     
     TDFalse([enm hasMoreObjects]);
 }

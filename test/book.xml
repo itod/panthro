@@ -2,7 +2,7 @@
 <book xmlns:foo="bar">
     <chapter id="c1" foo:baz="OHAI">
       <title>Chapter 1</title>
-      <para>Chapter 1 content.</para>
+      <para>Chapter 1 content. </para>
     </chapter>
 
     <chapter id="c2">
