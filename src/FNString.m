@@ -23,7 +23,7 @@
 
 @implementation FNString
 
-- (NSString *)name {
++ (NSString *)name {
     return @"string";
 }
 

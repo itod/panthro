@@ -23,7 +23,7 @@
 
 @implementation FNCount
 
-- (NSString *)name {
++ (NSString *)name {
     return @"count";
 }
 

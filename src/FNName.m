@@ -1,16 +1,16 @@
 //
-//  FNNumber.m
+//  FNName.m
 //  Panthro
 //
-//  Created by Todd Ditchendorf on 7/21/09.
+//  Created by Todd Ditchendorf on 7/20/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "FNNumber.h"
+#import "FNName.h"
 #import "XPNodeInfo.h"
 #import "XPContext.h"
 #import "XPValue.h"
-#import "XPNumericValue.h"
+#import "XPStringValue.h"
 
 @interface XPExpression ()
 @property (nonatomic, readwrite, retain) id <XPStaticContext>staticContext;
@@ -21,30 +21,31 @@
 - (NSUInteger)checkArgumentCountForMin:(NSUInteger)min max:(NSUInteger)max;
 @end
 
-@implementation FNNumber
+@implementation FNName
 
 + (NSString *)name {
-    return @"number";
+    return @"name";
 }
 
 
 - (XPDataType)dataType {
-    return XPDataTypeNumber;
+    return XPDataTypeString;
 }
 
 
 - (XPExpression *)simplify {
     NSUInteger numArgs = [self checkArgumentCountForMin:0 max:1];
+    
     if (1 == numArgs) {
         id arg0 = [self.args[0] simplify];
         self.args[0] = arg0;
         
-        if (XPDataTypeNumber == [arg0 dataType]) {
+        if (XPDataTypeString == [arg0 dataType]) {
             return arg0;
         }
         
         if ([arg0 isValue]) {
-            return [XPNumericValue numericValueWithNumber:[arg0 asNumber]];
+            return [XPStringValue stringValueWithString:[arg0 asString]];
         }
     }
     
@@ -52,34 +53,38 @@
 }
 
 
-- (double)evaluateAsNumberInContext:(XPContext *)ctx {
+- (NSString *)evaluateAsStringInContext:(XPContext *)ctx {
     if (1 == [self numberOfArguments]) {
-        return [self.args[0] evaluateAsNumberInContext:ctx];
+        return [self.args[0] evaluateAsStringInContext:ctx];
     } else {
-        return XPNumberFromString([ctx.contextNode stringValue]);
+        return [ctx.contextNode name];
     }
 }
 
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
-    return [XPNumericValue numericValueWithNumber:[self evaluateAsNumberInContext:ctx]];
+    return [XPStringValue stringValueWithString:[self evaluateAsStringInContext:ctx]];
 }
 
 
 - (XPDependencies)dependencies {
-    return [(XPExpression *)self.args[0] dependencies];
+    if (1 == [self numberOfArguments]) {
+        return [(XPExpression *)self.args[0] dependencies];
+    } else {
+        return XPDependenciesContextNode;
+    }
 }
 
 
 - (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
     if (1 == [self numberOfArguments]) {
-        FNNumber *f = [[[FNNumber alloc] init] autorelease];
+        FNName *f = [[[FNName alloc] init] autorelease];
         [f addArgument:[self.args[0] reduceDependencies:dep inContext:ctx]];
         [f setStaticContext:[self staticContext]];
         return [f simplify];
     } else {
         if (dep & XPDependenciesContextNode) {
-            return [self evaluateInContext:ctx];
+            return [self evaluateInContext:nil];
         } else {
             return self;
         }

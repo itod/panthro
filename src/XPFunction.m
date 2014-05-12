@@ -23,7 +23,7 @@
 
 
 - (NSString *)description {
-    id str = [NSMutableString stringWithFormat:@"`%@(", self.name];
+    id str = [NSMutableString stringWithFormat:@"`%@(", [[self class] name]];
     NSUInteger i = 0;
     NSUInteger c = [self numberOfArguments];
     for (id arg in _args) {
@@ -51,7 +51,7 @@
 }
 
 
-- (NSString *)name {
++ (NSString *)name {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return nil;
 }
@@ -63,20 +63,15 @@
 - (NSUInteger)checkArgumentCountForMin:(NSUInteger)min max:(NSUInteger)max {
     NSUInteger num = [self numberOfArguments];
     if (min == max && num != min) {
-        [NSException raise:@"XPathException" format:@"Invalid numer of args supplied to %@() function. %lu expected. %lu given", [self name], min, num];
+        [NSException raise:@"XPathException" format:@"Invalid numer of args supplied to %@() function. %lu expected. %lu given", [[self class] name], min, num];
     }
     if (num < min) {
-        [NSException raise:@"XPathException" format:@"Invalid numer of args supplied to %@() function. at least %lu expected. %lu given", [self name], min, num];
+        [NSException raise:@"XPathException" format:@"Invalid numer of args supplied to %@() function. at least %lu expected. %lu given", [[self class] name], min, num];
     }
     if (num > max) {
-        [NSException raise:@"XPathException" format:@"Invalid numer of args supplied to %@() function. only %lu accepted. %lu given", [self name], max, num];
+        [NSException raise:@"XPathException" format:@"Invalid numer of args supplied to %@() function. only %lu accepted. %lu given", [[self class] name], max, num];
     }
     return num;
-}
-
-
-- (void)display:(NSInteger)level {
-    //NSLog(@"%@boolean (%@)", [self indent:level], [self asString]);
 }
 
 @end

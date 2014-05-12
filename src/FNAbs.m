@@ -21,7 +21,7 @@
 
 @implementation FNAbs
 
-- (NSString *)name {
++ (NSString *)name {
     return @"abs";
 }
 

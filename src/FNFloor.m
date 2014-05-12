@@ -21,7 +21,7 @@
 
 @implementation FNFloor
 
-- (NSString *)name {
++ (NSString *)name {
     return @"floor";
 }
 

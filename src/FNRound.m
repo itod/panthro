@@ -21,7 +21,7 @@
 
 @implementation FNRound
 
-- (NSString *)name {
++ (NSString *)name {
     return @"round";
 }
 

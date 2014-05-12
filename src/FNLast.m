@@ -17,7 +17,7 @@
 
 @implementation FNLast
 
-- (NSString *)name {
++ (NSString *)name {
     return @"last";
 }
 

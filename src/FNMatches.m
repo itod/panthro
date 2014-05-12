@@ -50,7 +50,7 @@
 }
 
 
-- (NSString *)name {
++ (NSString *)name {
     return @"matches";
 }
 

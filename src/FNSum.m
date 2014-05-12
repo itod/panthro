@@ -27,7 +27,7 @@
 
 @implementation FNSum
 
-- (NSString *)name {
++ (NSString *)name {
     return @"sum";
 }
 

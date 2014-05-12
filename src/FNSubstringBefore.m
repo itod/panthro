@@ -21,7 +21,7 @@
 
 @implementation FNSubstringBefore
 
-- (NSString *)name {
++ (NSString *)name {
     return @"substring-before";
 }
 

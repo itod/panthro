@@ -21,7 +21,7 @@
 
 @implementation FNSubstring
 
-- (NSString *)name {
++ (NSString *)name {
     return @"substring";
 }
 

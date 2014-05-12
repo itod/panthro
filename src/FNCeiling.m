@@ -21,7 +21,7 @@
 
 @implementation FNCeiling
 
-- (NSString *)name {
++ (NSString *)name {
     return @"ceiling";
 }
 

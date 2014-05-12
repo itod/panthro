@@ -17,7 +17,7 @@
 
 @implementation FNPosition
 
-- (NSString *)name {
++ (NSString *)name {
     return @"position";
 }
 

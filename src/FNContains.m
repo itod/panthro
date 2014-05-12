@@ -21,7 +21,7 @@
 
 @implementation FNContains
 
-- (NSString *)name {
++ (NSString *)name {
     return @"contains";
 }
 

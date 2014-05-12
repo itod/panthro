@@ -9,8 +9,8 @@
 #import "XPExpression.h"
 
 @interface XPFunction : XPExpression
++ (NSString *)name;
 
 - (void)addArgument:(XPExpression *)expr;
 - (NSUInteger)numberOfArguments;
-- (NSString *)name;
 @end

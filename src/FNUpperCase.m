@@ -21,7 +21,7 @@
 
 @implementation FNUpperCase
 
-- (NSString *)name {
++ (NSString *)name {
     return @"upper-case";
 }
 

@@ -23,7 +23,7 @@
 
 @implementation FNStringLength
 
-- (NSString *)name {
++ (NSString *)name {
     return @"string-length";
 }
 

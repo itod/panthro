@@ -21,7 +21,7 @@
 
 @implementation FNStartsWith
 
-- (NSString *)name {
++ (NSString *)name {
     return @"starts-with";
 }
 

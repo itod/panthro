@@ -21,7 +21,7 @@
 
 @implementation FNTitleCase
 
-- (NSString *)name {
++ (NSString *)name {
     return @"title-case";
 }
 

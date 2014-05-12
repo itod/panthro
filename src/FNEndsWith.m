@@ -21,7 +21,7 @@
 
 @implementation FNEndsWith
 
-- (NSString *)name {
++ (NSString *)name {
     return @"ends-with";
 }
 

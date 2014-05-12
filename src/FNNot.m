@@ -21,7 +21,7 @@
 
 @implementation FNNot
 
-- (NSString *)name {
++ (NSString *)name {
     return @"not";
 }
 

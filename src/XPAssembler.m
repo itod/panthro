@@ -40,6 +40,7 @@
 #import "FNLast.h"
 #import "FNLowerCase.h"
 #import "FNMatches.h"
+#import "FNName.h"
 #import "FNNot.h"
 #import "FNNumber.h"
 #import "FNPosition.h"
@@ -82,31 +83,32 @@
         self.doubleQuoteCharSet = [NSCharacterSet characterSetWithCharactersInString:@"\""];
         
         self.funcTab = @{
-             @"abs": [FNAbs class],
-             @"boolean": [FNBoolean class],
-             @"ceiling": [FNCeiling class],
-             @"concat": [FNConcat class],
-             @"contains": [FNContains class],
-             @"count": [FNCount class],
-             @"ends-with": [FNEndsWith class],
-             @"floor": [FNFloor class],
-             @"last": [FNLast class],
-             @"lower-case": [FNLowerCase class],
-             @"matches": [FNMatches class],
-             @"not": [FNNot class],
-             @"number": [FNNumber class],
-             @"position": [FNPosition class],
-             @"round": [FNRound class],
-             @"replace": [FNReplace class],
-             @"starts-with": [FNStartsWith class],
-             @"string": [FNString class],
-             @"string-length": [FNStringLength class],
-             @"substring": [FNSubstring class],
-             @"substring-after": [FNSubstringAfter class],
-             @"substring-before": [FNSubstringBefore class],
-             @"sum": [FNSum class],
-             @"upper-case": [FNUpperCase class],
-             @"title-case": [FNTitleCase class],
+             [FNAbs name] : [FNAbs class],
+             [FNBoolean name] : [FNBoolean class],
+             [FNCeiling name] : [FNCeiling class],
+             [FNConcat name] : [FNConcat class],
+             [FNContains name] : [FNContains class],
+             [FNCount name] : [FNCount class],
+             [FNEndsWith name] : [FNEndsWith class],
+             [FNFloor name] : [FNFloor class],
+             [FNLast name] : [FNLast class],
+             [FNLowerCase name] : [FNLowerCase class],
+             [FNMatches name] : [FNMatches class],
+             [FNName name] : [FNName class],
+             [FNNot name] : [FNNot class],
+             [FNNumber name] : [FNNumber class],
+             [FNPosition name] : [FNPosition class],
+             [FNRound name] : [FNRound class],
+             [FNReplace name] : [FNReplace class],
+             [FNStartsWith name] : [FNStartsWith class],
+             [FNString name] : [FNString class],
+             [FNStringLength name] : [FNStringLength class],
+             [FNSubstring name] : [FNSubstring class],
+             [FNSubstringAfter name] : [FNSubstringAfter class],
+             [FNSubstringBefore name] : [FNSubstringBefore class],
+             [FNSum name] : [FNSum class],
+             [FNUpperCase name] : [FNUpperCase class],
+             [FNTitleCase name] : [FNTitleCase class],
              };
 
         self.nodeTypeTab = @{

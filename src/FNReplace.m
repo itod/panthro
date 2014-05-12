@@ -22,7 +22,7 @@
 
 @implementation FNReplace
 
-- (NSString *)name {
++ (NSString *)name {
     return @"replace";
 }
 

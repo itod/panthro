@@ -21,7 +21,7 @@
 
 @implementation FNLowerCase
 
-- (NSString *)name {
++ (NSString *)name {
     return @"lower-case";
 }
 

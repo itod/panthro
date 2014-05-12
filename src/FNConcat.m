@@ -23,7 +23,7 @@
     NSMutableArray *args;
 }
 
-- (NSString *)name {
++ (NSString *)name {
     return @"concat";
 }
 
