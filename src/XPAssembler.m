@@ -45,6 +45,7 @@
 #import "FNName.h"
 #import "FNNamespaceURI.h"
 #import "FNNormalizeSpace.h"
+#import "FNNormalizeUnicode.h"
 #import "FNNot.h"
 #import "FNNumber.h"
 #import "FNPosition.h"
@@ -104,6 +105,7 @@
              [FNName name] : [FNName class],
              [FNNamespaceURI name] : [FNNamespaceURI class],
              [FNNormalizeSpace name] : [FNNormalizeSpace class],
+             [FNNormalizeUnicode name] : [FNNormalizeUnicode class],
              [FNNot name] : [FNNot class],
              [FNNumber name] : [FNNumber class],
              [FNPosition name] : [FNPosition class],

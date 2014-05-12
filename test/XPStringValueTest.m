@@ -210,7 +210,17 @@
     self.expr = [XPExpression expressionFromString:@"trim-space('  a   bc ')" inContext:nil error:nil];
     str = [_expr evaluateAsStringInContext:nil];
     TDEqualObjects(@"a   bc", str);
-    
+}
+
+
+- (void)testEqualsExprNormalizeUnicode {
+//    self.expr = [XPExpression expressionFromString:@"'ü' = normalize-unicode('ü')" inContext:nil error:nil];
+//    self.res = [_expr evaluateAsBooleanInContext:nil];
+//    TDTrue(_res);
+//
+//    self.expr = [XPExpression expressionFromString:@"'ü' = normalize-unicode('ü')" inContext:nil error:nil];
+//    self.res = [_expr evaluateAsBooleanInContext:nil];
+//    TDTrue(_res);
 }
 
 @end

@@ -27,8 +27,9 @@
     NSLocale *locale = nil;
     if ([localeName length]) {
         locale = [NSLocale localeWithLocaleIdentifier:localeName];
+        XPAssert(locale);
     }
-    str = [str stringByFoldingWithOptions:0 locale:locale];
+    str = [str stringByFoldingWithOptions:NSLiteralSearch locale:locale];
     return str;
 }
 
@@ -69,7 +70,10 @@
 
 - (NSString *)evaluateAsStringInContext:(XPContext *)ctx {
     NSString *input = [self.args[0] evaluateAsStringInContext:ctx];
-    NSString *localeName = [self.args[1] evaluateAsStringInContext:ctx];
+    NSString *localeName = nil;
+    if ([self numberOfArguments] > 1) {
+        localeName = [self.args[1] evaluateAsStringInContext:ctx];
+    }
     NSString *str = [self normalize:input locale:localeName];
     return str;
 }
