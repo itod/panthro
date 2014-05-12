@@ -160,8 +160,12 @@
 
 
 - (id <XPNodeInfo>)firstNode {
-    XPAssert(_value);
-    return [_value firstObject];
+    id <XPNodeInfo>first = nil;
+    id <XPNodeEnumeration>enm = [self enumerate];
+    if ([enm hasMoreObjects]) {
+        first = [enm nextObject];
+    }
+    return first;
 }
 
 
@@ -232,7 +236,6 @@
 
 - (BOOL)isNotEqualToValue:(XPValue *)other {
 
-    
     if ([other isObjectValue]) {
         return NO;
         

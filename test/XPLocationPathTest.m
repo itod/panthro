@@ -1380,4 +1380,27 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
+- (void)testSlashSlashChapterPredicate1PredicateNameAtIdEqC1 {
+    [self eval:@"//chapter[1][name(@id)='c1']"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testSlashSlashChapterPredicate1PredicateNameAtIdEqId {
+    [self eval:@"//chapter[1][name(@id)='id']"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(@"chapter", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDTrue([[node stringValue] hasPrefix:_titles[0]]);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
 @end
