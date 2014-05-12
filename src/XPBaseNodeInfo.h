@@ -10,5 +10,8 @@
 
 @interface XPBaseNodeInfo : NSObject <XPNodeInfo>
 
++ (void)incrementInstanceCount;
++ (NSUInteger)instanceCount;
+
 @property (nonatomic, retain) id node;
 @end
