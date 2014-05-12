@@ -52,6 +52,13 @@ Some example expressions that currently work (i.e. they are parsed, execute, and
 
     chapter[3]/preceding-sibling::*[2]/title
 
+###Non-standard Additions
+
+Panthro departs from the XPath 1.0 spec in the following known ways:
+
+1. Some functions from XPath 2.0 are incuded: `abs()`, `lower-case()`, `matches()`, `replace()`, `upper-case()`.
+1. Another function of my own design is incuded: `title-case()`.
+
 ###Objective-C API
 
 XPath works on a tree-like representation of an XML document. So Panthro needs a tree-based XML API available (in C, C++, or ObjC) on Apple platforms. The most commonly-used XML tree APIs on these platforms are:

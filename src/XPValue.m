@@ -14,6 +14,15 @@
 #import "XPObjectValue.h"
 
 double XPNumberFromString(NSString *s) {
+#if 1
+    double n;
+    if ([s length]) {
+        n = [s doubleValue];
+    } else {
+        n = NAN;
+    }
+    return n;
+#else
     if ([s rangeOfString:@"+"].length ||
         [s rangeOfString:@"e"].length ||
         [s rangeOfString:@"E"].length) {
@@ -33,6 +42,7 @@ double XPNumberFromString(NSString *s) {
     }
     
     return n;
+#endif
 }
 
 @implementation XPValue
