@@ -15,19 +15,13 @@
 #import "XPEmptyNodeSet.h"
 #import "XPLocalOrderComparer.h"
 
-@interface XPNodeSetValue ()
-@property (nonatomic, assign, readwrite, getter=isSorted) BOOL sorted;
-@property (nonatomic, assign, readwrite, getter=isReverseSorted) BOOL reverseSorted;
-@end
-
 @interface XPNSXMLNodeImpl ()
-@property (nonatomic, retain, readwrite) NSXMLNode *node;
-@property (nonatomic, retain, readwrite) id <XPNodeInfo>parent;
+@property (nonatomic, retain) id <XPNodeInfo>parent;
 @end
 
 @implementation XPNSXMLNodeImpl
 
-+ (id <XPNodeInfo>)nodeInfoFromNode:(void *)inNode {
++ (id <XPNodeInfo>)nodeInfoWithNode:(id)inNode {
     NSXMLNode *node = (id)inNode;
     Class cls = (NSXMLDocumentKind == [node kind]) ? [XPNSXMLDocumentImpl class] : [XPNSXMLNodeImpl class];
     id <XPNodeInfo>nodeInfo = [[[cls alloc] initWithNode:node] autorelease];
@@ -35,7 +29,7 @@
 }
 
 
-- (instancetype)initWithNode:(NSXMLNode *)node {
+- (id <XPNodeInfo>)initWithNode:(id)node {
     NSParameterAssert(node);
     self = [super init];
     if (self) {
@@ -46,7 +40,6 @@
 
 
 - (void)dealloc {
-    self.node = nil;
     self.parent = nil;
     [super dealloc];
 }
@@ -71,7 +64,7 @@
 
     // are they siblings (common case)
     if ([self.parent isSameNodeInfo:other.parent]) {
-        return self.node.index - that.node.index;
+        return [self.node index] - [that.node index];
     }
     
     // find the depths of both nodes in the tree
@@ -109,7 +102,7 @@
             [NSException raise:@"NullPointerException" format:@"NSXML Tree Compare - internal error"];
         }
         if ([par1 isSameNodeInfo:par2]) {
-            return ((XPNSXMLNodeImpl *)p1).node.index - ((XPNSXMLNodeImpl *)p2).node.index;
+            return [((XPNSXMLNodeImpl *)p1).node index] - [((XPNSXMLNodeImpl *)p2).node index];
         }
         p1 = par1;
         p2 = par2;
@@ -120,10 +113,10 @@
 
 
 - (XPNodeType)nodeType {
-    XPAssert(_node);
+    XPAssert(self.node);
     XPNodeType type = XPNodeTypeNone;
     
-    switch ([self.node kind]) {
+    switch ([(NSXMLNode *)self.node kind]) {
         case NSXMLDocumentKind:
             type = XPNodeTypeRoot;
             break;
@@ -161,36 +154,36 @@
 
 
 - (NSString *)stringValue {
-    XPAssert(_node);
-    return [_node stringValue];
+    XPAssert(self.node);
+    return [self.node stringValue];
 }
 
 
 - (NSString *)name {
-    XPAssert(_node);
-    return [_node name];
+    XPAssert(self.node);
+    return [self.node name];
 }
 
 
 - (NSString *)localName {
-    XPAssert(_node);
-    return [_node localName];
+    XPAssert(self.node);
+    return [self.node localName];
 }
 
 
 - (NSString *)prefix {
-    XPAssert(_node);
-    return [_node prefix];
+    XPAssert(self.node);
+    return [self.node prefix];
 }
 
 
 - (id <XPNodeInfo>)parent {
-    XPAssert(_node);
+    XPAssert(self.node);
     
     if (!_parent) {
         NSXMLNode *parent = [self.node parent];
         if (parent) {
-            self.parent = [[self class] nodeInfoFromNode:parent];
+            self.parent = [[self class] nodeInfoWithNode:parent];
         }
     }
     
@@ -198,21 +191,27 @@
 }
 
 
+- (id <XPDocumentInfo>)documentRoot {
+    XPAssert(self.node);
+    return [[[XPNSXMLDocumentImpl alloc] initWithNode:[self.node rootDocument]] autorelease];
+}
+
+
 - (NSString *)attributeValueForURI:(NSString *)uri localName:(NSString *)localName {
-    XPAssert([_node isKindOfClass:[NSXMLElement class]]);
-    NSXMLNode *attrNode = [(NSXMLElement *)_node attributeForLocalName:localName URI:uri];
+    XPAssert([self.node isKindOfClass:[NSXMLElement class]]);
+    NSXMLNode *attrNode = [(NSXMLElement *)self.node attributeForLocalName:localName URI:uri];
     return [attrNode stringValue];
 }
 
 
 - (NSString *)namespaceURIForPrefix:(NSString *)prefix {
-    XPAssert(_node);
+    XPAssert(self.node);
     
     NSString *res = @"";
     if ([prefix length]) {
         
         // 2nd arg to namespace-uri-for-prefix() must be an element node. so make sure we start with one.
-        NSXMLNode *node = _node;
+        NSXMLNode *node = self.node;
         if (XPNodeTypeElement != [self nodeType] && XPNodeTypeRoot != [self nodeType]) {
             node = [node parent];
         }
@@ -238,95 +237,6 @@
 }
 
 
-- (BOOL)isSameNodeInfo:(id <XPNodeInfo>)other {
-    XPAssert(!other || [other isKindOfClass:[XPNSXMLNodeImpl class]]);
-    return other == self || [(id)other node] == self.node;
-}
-
-
-- (id <XPDocumentInfo>)documentRoot {
-    XPAssert(_node);
-    return [[[XPNSXMLDocumentImpl alloc] initWithNode:[_node rootDocument]] autorelease];
-}
-
-
-- (id <XPAxisEnumeration>)enumerationForAxis:(XPAxis)axis nodeTest:(XPNodeTest *)nodeTest {
-    NSArray *nodes = nil;
-    BOOL sorted = NO;
-    
-    switch (axis) {
-        case XPAxisAncestor:
-            sorted = NO;
-            nodes = [self nodesForAncestorAxis:nodeTest];
-            break;
-        case XPAxisAncestorOrSelf:
-            sorted = NO;
-            nodes = [self nodesForAncestorOrSelfAxis:nodeTest];
-            break;
-        case XPAxisAttribute:
-            sorted = YES;
-            nodes = [self nodesForAttributeAxis:nodeTest];
-            break;
-        case XPAxisChild:
-            sorted = YES;
-            nodes = [self nodesForChildAxis:nodeTest];
-            break;
-        case XPAxisDescendant:
-            sorted = YES;
-            nodes = [self nodesForDescendantAxis:nodeTest];
-            break;
-        case XPAxisDescendantOrSelf:
-            sorted = YES;
-            nodes = [self nodesForDescendantOrSelfAxis:nodeTest];
-            break;
-        case XPAxisFollowing:
-            sorted = YES;
-            nodes = [self nodesForFollowingSiblingAxis:nodeTest includeDescendants:YES];
-            break;
-        case XPAxisFollowingSibling:
-            sorted = YES;
-            nodes = [self nodesForFollowingSiblingAxis:nodeTest includeDescendants:NO];
-            break;
-        case XPAxisNamespace:
-            sorted = YES;
-            [NSException raise:@"XPathException" format:@"Namespace Axis not yet implemented."];
-            break;
-        case XPAxisParent:
-            sorted = YES;
-            nodes = [self nodesForParentAxis:nodeTest];
-            break;
-        case XPAxisPreceding:
-            sorted = NO;
-            nodes = [self nodesForPrecedingSiblingAxis:nodeTest includeDescendants:YES];
-            break;
-        case XPAxisPrecedingSibling:
-            sorted = NO;
-            nodes = [self nodesForPrecedingSiblingAxis:nodeTest includeDescendants:NO];
-            break;
-        case XPAxisSelf:
-            sorted = YES;
-            nodes = [self nodesForSelfAxis:nodeTest];
-            break;
-        default:
-            XPAssert(0);
-            break;
-    }
-    
-    XPNodeSetValue *nodeSet = nil;
-    
-    if ([nodes count]) {
-        nodeSet = [[[XPNodeSetValue alloc] initWithNodes:nodes comparer:[XPLocalOrderComparer instance]] autorelease];
-        nodeSet.sorted = sorted;
-        nodeSet.reverseSorted = !sorted;
-    } else {
-        nodeSet = [XPEmptyNodeSet emptyNodeSet];
-    }
-    
-    id <XPAxisEnumeration>enm = (id <XPAxisEnumeration>)[nodeSet enumerate];
-    return enm;
-}
-
-
 - (NSArray *)nodesForSelfAxis:(XPNodeTest *)nodeTest {
     NSArray *result = nil;
     
@@ -343,7 +253,7 @@
     
     for (NSXMLNode *child in [parent children]) {
         
-        id <XPNodeInfo>node = [[self class] nodeInfoFromNode:child];
+        id <XPNodeInfo>node = [[self class] nodeInfoWithNode:child];
         
         if ([nodeTest matches:node]) {
             [result addObject:node];
@@ -396,7 +306,7 @@
     
     NSXMLNode *parent = [self.node parent];
     while (parent) {
-        id <XPNodeInfo>node = [[self class] nodeInfoFromNode:parent];
+        id <XPNodeInfo>node = [[self class] nodeInfoWithNode:parent];
         
         if ([nodeTest matches:node]) {
             if (!result) {
@@ -415,7 +325,7 @@
 - (NSArray *)nodesForParentAxis:(XPNodeTest *)nodeTest {
     NSXMLNode *parent = [self.node parent];
 
-    id <XPNodeInfo>node = [[self class] nodeInfoFromNode:parent];
+    id <XPNodeInfo>node = [[self class] nodeInfoWithNode:parent];
     
     NSArray *result = nil;
     
@@ -433,7 +343,7 @@
     NSMutableArray *result = nil;
     
     for (NSXMLNode *child in children) {
-        id <XPNodeInfo>node = [[self class] nodeInfoFromNode:child];
+        id <XPNodeInfo>node = [[self class] nodeInfoWithNode:child];
         
         if ([nodeTest matches:node]) {
             if (!result) {
@@ -455,7 +365,7 @@
     NSMutableArray *result = nil;
     
     for (NSXMLNode *attr in attrs) {
-        id <XPNodeInfo>node = [[self class] nodeInfoFromNode:attr];
+        id <XPNodeInfo>node = [[self class] nodeInfoWithNode:attr];
         
         if ([nodeTest matches:node]) {
             if (!result) {
@@ -480,7 +390,7 @@
     children = [children subarrayWithRange:NSMakeRange(i, c - i)];
     
     for (NSXMLNode *child in children) {
-        id <XPNodeInfo>node = [[self class] nodeInfoFromNode:child];
+        id <XPNodeInfo>node = [[self class] nodeInfoWithNode:child];
         
         if ([nodeTest matches:node]) {
             [result addObject:node];
@@ -502,7 +412,7 @@
     NSArray *children = [[[self.node parent] children] subarrayWithRange:NSMakeRange(0, i)];
     
     for (NSXMLNode *child in [children reverseObjectEnumerator]) {
-        id <XPNodeInfo>node = [[self class] nodeInfoFromNode:child];
+        id <XPNodeInfo>node = [[self class] nodeInfoWithNode:child];
         
         if ([nodeTest matches:node]) {
             [result addObject:node];

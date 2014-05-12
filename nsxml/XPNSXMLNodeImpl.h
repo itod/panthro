@@ -6,11 +6,8 @@
 //
 //
 
-#import "XPNodeInfo.h"
+#import "XPBaseNodeInfo.h"
 
-@interface XPNSXMLNodeImpl : NSObject <XPNodeInfo>
+@interface XPNSXMLNodeImpl : XPBaseNodeInfo
 
-- (instancetype)initWithNode:(NSXMLNode *)node;
-
-@property (nonatomic, retain, readonly) NSXMLNode *node;
 @end

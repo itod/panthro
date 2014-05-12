@@ -210,6 +210,8 @@
 		D3C0F59F19214FE700566524 /* FNTrimSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C0F59D19214FE700566524 /* FNTrimSpace.m */; };
 		D3C0F5A21921555800566524 /* FNNormalizeUnicode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C0F5A01921555800566524 /* FNNormalizeUnicode.h */; };
 		D3C0F5A31921555800566524 /* FNNormalizeUnicode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C0F5A11921555800566524 /* FNNormalizeUnicode.m */; };
+		D3C0F5A61921715900566524 /* XPBaseNodeInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C0F5A41921715900566524 /* XPBaseNodeInfo.h */; };
+		D3C0F5A71921715900566524 /* XPBaseNodeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C0F5A51921715900566524 /* XPBaseNodeInfo.m */; };
 		D3C177F71880EE2E00F90600 /* XPEGParserFilterExprTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C177F61880EE2E00F90600 /* XPEGParserFilterExprTest.m */; };
 		D3C178011880EF4900F90600 /* XPEGParserLocationPathTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C178001880EF4900F90600 /* XPEGParserLocationPathTest.m */; };
 		D3C1782B18844C7D00F90600 /* XPPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C1782918844C7D00F90600 /* XPPattern.m */; };
@@ -579,6 +581,8 @@
 		D3C0F59D19214FE700566524 /* FNTrimSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNTrimSpace.m; path = src/FNTrimSpace.m; sourceTree = "<group>"; };
 		D3C0F5A01921555800566524 /* FNNormalizeUnicode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNNormalizeUnicode.h; path = src/FNNormalizeUnicode.h; sourceTree = "<group>"; };
 		D3C0F5A11921555800566524 /* FNNormalizeUnicode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNNormalizeUnicode.m; path = src/FNNormalizeUnicode.m; sourceTree = "<group>"; };
+		D3C0F5A41921715900566524 /* XPBaseNodeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPBaseNodeInfo.h; path = src/XPBaseNodeInfo.h; sourceTree = "<group>"; };
+		D3C0F5A51921715900566524 /* XPBaseNodeInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBaseNodeInfo.m; path = src/XPBaseNodeInfo.m; sourceTree = "<group>"; };
 		D3C177F61880EE2E00F90600 /* XPEGParserFilterExprTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPEGParserFilterExprTest.m; path = test/XPEGParserFilterExprTest.m; sourceTree = "<group>"; };
 		D3C178001880EF4900F90600 /* XPEGParserLocationPathTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPEGParserLocationPathTest.m; path = test/XPEGParserLocationPathTest.m; sourceTree = "<group>"; };
 		D3C178221884472800F90600 /* XPAxisExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPAxisExpression.m; path = src/XPAxisExpression.m; sourceTree = "<group>"; };
@@ -770,6 +774,8 @@
 		D317223C190DAAB1005C633B /* NSXML */ = {
 			isa = PBXGroup;
 			children = (
+				D3C0F5A41921715900566524 /* XPBaseNodeInfo.h */,
+				D3C0F5A51921715900566524 /* XPBaseNodeInfo.m */,
 				D3F0CBBC191EC3A50049EC02 /* XPNSXMLNodeImpl.h */,
 				D3F0CBBD191EC3A50049EC02 /* XPNSXMLNodeImpl.m */,
 				D3F0CBBA191EC3A50049EC02 /* XPNSXMLDocumentImpl.h */,
@@ -1249,6 +1255,7 @@
 				D3C0F592192128E000566524 /* FNNamespaceURI.h in Headers */,
 				D3BBAE8A191D881200766EB4 /* XPLookaheadEnumerator.h in Headers */,
 				D3F0CBE2191EC4F10049EC02 /* XPNodeOrderComparer.h in Headers */,
+				D3C0F5A61921715900566524 /* XPBaseNodeInfo.h in Headers */,
 				D339311619204E9E00259939 /* FNAbs.h in Headers */,
 				D3411B59191A87960082A196 /* XPContextNodeExpression.h in Headers */,
 				D3F0CBB6191EC2F70049EC02 /* XPNamespaceTest.h in Headers */,
@@ -1547,6 +1554,7 @@
 				D3BBAE97191DD9B700766EB4 /* XPUnionEnumeration.m in Sources */,
 				D37A2F0D101574B200E936B7 /* FNFloor.m in Sources */,
 				D37A2F2B10157F5400E936B7 /* FNLast.m in Sources */,
+				D3C0F5A71921715900566524 /* XPBaseNodeInfo.m in Sources */,
 				D37A2F3B10157F9100E936B7 /* FNPosition.m in Sources */,
 				D37A2F761015812800E936B7 /* XPContext.m in Sources */,
 				D37A2FD810158A0600E936B7 /* FNRound.m in Sources */,

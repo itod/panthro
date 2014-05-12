@@ -28,11 +28,11 @@
 
     NSXMLDocument *doc = [[[NSXMLDocument alloc] initWithXMLString:@"<doc><p><a/></p><!-- foo --></doc>" options:0 error:nil] autorelease];
     TDNotNil(doc);
-    id <XPNodeInfo>docNode = [XPNSXMLNodeImpl nodeInfoFromNode:doc];
+    id <XPNodeInfo>docNode = [XPNSXMLNodeImpl nodeInfoWithNode:doc];
     TDNotNil(docNode);
     
     NSXMLNode *docEl = [doc rootElement];
-    id <XPNodeInfo>docElNode = [XPNSXMLNodeImpl nodeInfoFromNode:docEl];
+    id <XPNodeInfo>docElNode = [XPNSXMLNodeImpl nodeInfoWithNode:docEl];
     
     self.env = [[[XPStandaloneContext alloc] init] autorelease];
     self.ctx = [[[XPContext alloc] initWithStaticContext:_env] autorelease];
