@@ -1,12 +1,12 @@
 //
-//  FNName.m
+//  FNLocalName.m
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 7/20/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "FNName.h"
+#import "FNLocalName.h"
 #import "XPNodeInfo.h"
 #import "XPContext.h"
 #import "XPStringValue.h"
@@ -21,10 +21,10 @@
 - (NSUInteger)checkArgumentCountForMin:(NSUInteger)min max:(NSUInteger)max;
 @end
 
-@implementation FNName
+@implementation FNLocalName
 
 + (NSString *)name {
-    return @"name";
+    return @"local-name";
 }
 
 
@@ -61,7 +61,7 @@
     } else {
         node = ctx.contextNode;
     }
-    return [node name];
+    return [node localName];
 }
 
 
@@ -81,7 +81,7 @@
 
 - (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
     if (1 == [self numberOfArguments]) {
-        FNName *f = [[[FNName alloc] init] autorelease];
+        FNLocalName *f = [[[FNLocalName alloc] init] autorelease];
         [f addArgument:[self.args[0] reduceDependencies:dep inContext:ctx]];
         [f setStaticContext:[self staticContext]];
         return [f simplify];

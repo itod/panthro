@@ -38,9 +38,11 @@
 #import "FNEndsWith.h"
 #import "FNFloor.h"
 #import "FNLast.h"
+#import "FNLocalName.h"
 #import "FNLowerCase.h"
 #import "FNMatches.h"
 #import "FNName.h"
+#import "FNNamespaceURI.h"
 #import "FNNot.h"
 #import "FNNumber.h"
 #import "FNPosition.h"
@@ -92,9 +94,11 @@
              [FNEndsWith name] : [FNEndsWith class],
              [FNFloor name] : [FNFloor class],
              [FNLast name] : [FNLast class],
+             [FNLocalName name] : [FNLocalName class],
              [FNLowerCase name] : [FNLowerCase class],
              [FNMatches name] : [FNMatches class],
              [FNName name] : [FNName class],
+             [FNNamespaceURI name] : [FNNamespaceURI class],
              [FNNot name] : [FNNot class],
              [FNNumber name] : [FNNumber class],
              [FNPosition name] : [FNPosition class],
@@ -112,13 +116,13 @@
              };
 
         self.nodeTypeTab = @{
-            @"node": @(XPNodeTypeNode),
-            @"element": @(XPNodeTypeElement),
-            @"attribute": @(XPNodeTypeAttribute),
-            @"text": @(XPNodeTypeText),
-            @"processing-instruction": @(XPNodeTypePI),
-            @"comment": @(XPNodeTypeComment),
-            @"root": @(XPNodeTypeRoot),
+            XPNodeTypeName[XPNodeTypeNode] : @(XPNodeTypeNode),
+            XPNodeTypeName[XPNodeTypeElement] : @(XPNodeTypeElement),
+            XPNodeTypeName[XPNodeTypeAttribute] : @(XPNodeTypeAttribute),
+            XPNodeTypeName[XPNodeTypeText] : @(XPNodeTypeText),
+            XPNodeTypeName[XPNodeTypePI] : @(XPNodeTypePI),
+            XPNodeTypeName[XPNodeTypeComment] : @(XPNodeTypeComment),
+            XPNodeTypeName[XPNodeTypeRoot] : @(XPNodeTypeRoot),
             @"namespace": @(XPNodeTypeNamespace),
             @"number-of-types": @(XPNodeTypeNumberOfTypes),
             @"none": @(XPNodeTypeNone),

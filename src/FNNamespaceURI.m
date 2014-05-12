@@ -1,12 +1,12 @@
 //
-//  FNName.m
+//  FNNamespaceURI.m
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 7/20/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "FNName.h"
+#import "FNNamespaceURI.h"
 #import "XPNodeInfo.h"
 #import "XPContext.h"
 #import "XPStringValue.h"
@@ -21,10 +21,10 @@
 - (NSUInteger)checkArgumentCountForMin:(NSUInteger)min max:(NSUInteger)max;
 @end
 
-@implementation FNName
+@implementation FNNamespaceURI
 
 + (NSString *)name {
-    return @"name";
+    return @"namespace-uri";
 }
 
 
@@ -61,7 +61,9 @@
     } else {
         node = ctx.contextNode;
     }
-    return [node name];
+    NSString *prefix = [node prefix];
+    NSString *nsURI = [node namespaceURIForPrefix:prefix];
+    return nsURI;
 }
 
 
@@ -81,7 +83,7 @@
 
 - (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
     if (1 == [self numberOfArguments]) {
-        FNName *f = [[[FNName alloc] init] autorelease];
+        FNNamespaceURI *f = [[[FNNamespaceURI alloc] init] autorelease];
         [f addArgument:[self.args[0] reduceDependencies:dep inContext:ctx]];
         [f setStaticContext:[self staticContext]];
         return [f simplify];

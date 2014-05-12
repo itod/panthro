@@ -68,6 +68,7 @@
  */
 
 - (NSString *)attributeValueForURI:(NSString *)uri localName:(NSString *)localName;
+- (NSString *)namespaceURIForPrefix:(NSString *)prefix;
 
 
 /**

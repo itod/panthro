@@ -205,6 +205,20 @@
 }
 
 
+- (NSString *)namespaceURIForPrefix:(NSString *)prefix {
+    XPAssert(_node);
+    NSString *xpathStr = [NSString stringWithFormat:@"namespace::%@", prefix];
+    NSError *err = nil;
+    NSArray *nodes = [_node nodesForXPath:xpathStr error:&err];
+    NSString *res = @"";
+    if ([nodes count]) {
+        NSXMLNode *nsNode = nodes[0];
+        res = [nsNode stringValue];
+    }
+    return res;
+}
+
+
 - (BOOL)isSameNodeInfo:(id <XPNodeInfo>)other {
     XPAssert(!other || [other isKindOfClass:[XPNSXMLNodeImpl class]]);
     return other == self || [(id)other node] == self.node;
