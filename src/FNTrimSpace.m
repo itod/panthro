@@ -23,12 +23,6 @@
 
 @implementation FNTrimSpace
 
-- (NSString *)normalize:(NSString *)str {
-    str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    return str;
-}
-
-
 + (NSString *)name {
     return @"trim-space";
 }
@@ -47,7 +41,7 @@
         self.args[0] = arg0;
         
         if ([arg0 isValue]) {
-            return [XPStringValue stringValueWithString:[self normalize:[arg0 asString]]];
+            return [self evaluateInContext:nil];
         }
     }
     
@@ -56,15 +50,13 @@
 
 
 - (NSString *)evaluateAsStringInContext:(XPContext *)ctx {
-    id <XPNodeInfo>node = nil;
+    NSString *str = nil;
     if (1 == [self numberOfArguments]) {
-        XPNodeSetValue *nodeSet = [[self.args[0] evaluateAsNodeSetInContext:ctx] sort];
-        node = [nodeSet firstNode];
+        str = [self.args[0] evaluateAsStringInContext:ctx];
     } else {
-        node = ctx.contextNode;
+        str = [ctx.contextNode stringValue];
     }
-    NSString *str = [self normalize:[node stringValue]];
-    
+    str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     return str;
 }
 
