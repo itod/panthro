@@ -624,28 +624,28 @@
 		0867D691FE84028FC02AAC07 /* Exedore */ = {
 			isa = PBXGroup;
 			children = (
-				D330973A1921BED5004317EA /* TDTemplateEngine.framework */,
-				D33097361921BE99004317EA /* PEGKit.framework */,
-				D33097371921BE99004317EA /* TDTemplateEngine.framework */,
-				D33097341921BE08004317EA /* PEGKit.framework */,
 				D3411B53191A7B670082A196 /* Unused */,
 				D33639CB100DAA6B00AC4B51 /* Panthro Tests */,
 				08FB77AEFE84172EC02AAC07 /* Panthro Framework */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				089C1665FE841158C02AAC07 /* Resources */,
-				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
+				0867D69AFE84028FC02AAC07 /* Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
 			);
 			name = Exedore;
 			sourceTree = "<group>";
 		};
-		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
+		0867D69AFE84028FC02AAC07 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D330973A1921BED5004317EA /* TDTemplateEngine.framework */,
+				D33097361921BE99004317EA /* PEGKit.framework */,
+				D33097371921BE99004317EA /* TDTemplateEngine.framework */,
+				D33097341921BE08004317EA /* PEGKit.framework */,
 				D3A6C2EB19073D4900F3EFF3 /* XCTest.framework */,
 				D3AC85B70F60D13200392CB4 /* Foundation.framework */,
 			);
-			name = "External Frameworks and Libraries";
+			name = Libraries;
 			sourceTree = "<group>";
 		};
 		089C1665FE841158C02AAC07 /* Resources */ = {
