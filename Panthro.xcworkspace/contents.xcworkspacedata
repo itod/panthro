@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:lib/pegkit/PEGKit.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:lib/tdtemplateengine/TDTemplateEngine.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Panthro.xcodeproj">
+   </FileRef>
+</Workspace>
