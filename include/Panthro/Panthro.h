@@ -18,6 +18,7 @@
 #import <Panthro/XPStaticContext.h>
 #import <Panthro/XPContext.h>
 #import <Panthro/XPSortable.h>
+#import <Panthro/XPLastPositionFinder.h>
 
 #import <Panthro/XPFunction.h>
 
@@ -30,4 +31,5 @@
 
 #import <Panthro/XPExpression.h>
 #import <Panthro/XPNodeEnumeration.h>
+
 #import <Panthro/XPStandaloneContext.h>

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D3172237190D8FE6005C633B /* XPEqualityExprTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3172236190D8FE6005C633B /* XPEqualityExprTest.m */; };
+		D334BAB4192193AA00A32DD6 /* XPLastPositionFinder.h in Headers */ = {isa = PBXBuildFile; fileRef = D334BAB3192193AA00A32DD6 /* XPLastPositionFinder.h */; };
 		D3363817100C6E0400AC4B51 /* XPNodeSetValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D3363815100C6E0400AC4B51 /* XPNodeSetValue.m */; };
 		D336381C100C6E2800AC4B51 /* XPNumericValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D336381A100C6E2800AC4B51 /* XPNumericValue.m */; };
 		D3363820100C6E4400AC4B51 /* XPStringValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D336381E100C6E4400AC4B51 /* XPStringValue.m */; };
@@ -185,7 +186,6 @@
 		D3BE1416191AFC7200005C81 /* XPNodeSetValueEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D3BE1414191AFC7200005C81 /* XPNodeSetValueEnumeration.h */; };
 		D3BE1417191AFC7200005C81 /* XPNodeSetValueEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BE1415191AFC7200005C81 /* XPNodeSetValueEnumeration.m */; };
 		D3BE1418191BC7FE00005C81 /* XPAxisEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A6C2F7190756FC00F3EFF3 /* XPAxisEnumeration.h */; };
-		D3BE141A191BC8C800005C81 /* XPLastPositionFinder.h in Headers */ = {isa = PBXBuildFile; fileRef = D3BE1419191BC8C800005C81 /* XPLastPositionFinder.h */; };
 		D3BE141B191BCB5A00005C81 /* XPLocalOrderComparer.m in Sources */ = {isa = PBXBuildFile; fileRef = D30D9698191862E300627D41 /* XPLocalOrderComparer.m */; };
 		D3BE141C191BCB5C00005C81 /* XPLocalOrderComparer.h in Headers */ = {isa = PBXBuildFile; fileRef = D30D9697191862E300627D41 /* XPLocalOrderComparer.h */; };
 		D3BE141F191C05D600005C81 /* XPLocationPathTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BE141E191C05D600005C81 /* XPLocationPathTest.m */; };
@@ -360,6 +360,7 @@
 		D30D9697191862E300627D41 /* XPLocalOrderComparer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPLocalOrderComparer.h; path = src/XPLocalOrderComparer.h; sourceTree = "<group>"; };
 		D30D9698191862E300627D41 /* XPLocalOrderComparer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPLocalOrderComparer.m; path = src/XPLocalOrderComparer.m; sourceTree = "<group>"; };
 		D3172236190D8FE6005C633B /* XPEqualityExprTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPEqualityExprTest.m; path = test/XPEqualityExprTest.m; sourceTree = "<group>"; };
+		D334BAB3192193AA00A32DD6 /* XPLastPositionFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPLastPositionFinder.h; path = include/Panthro/XPLastPositionFinder.h; sourceTree = "<group>"; };
 		D3363815100C6E0400AC4B51 /* XPNodeSetValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNodeSetValue.m; path = src/XPNodeSetValue.m; sourceTree = "<group>"; };
 		D336381A100C6E2800AC4B51 /* XPNumericValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNumericValue.m; path = src/XPNumericValue.m; sourceTree = "<group>"; };
 		D336381E100C6E4400AC4B51 /* XPStringValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPStringValue.m; path = src/XPStringValue.m; sourceTree = "<group>"; };
@@ -560,7 +561,6 @@
 		D3BE140F191AC80400005C81 /* XPFilterExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPFilterExpression.m; path = src/XPFilterExpression.m; sourceTree = "<group>"; };
 		D3BE1414191AFC7200005C81 /* XPNodeSetValueEnumeration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPNodeSetValueEnumeration.h; path = src/XPNodeSetValueEnumeration.h; sourceTree = "<group>"; };
 		D3BE1415191AFC7200005C81 /* XPNodeSetValueEnumeration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNodeSetValueEnumeration.m; path = src/XPNodeSetValueEnumeration.m; sourceTree = "<group>"; };
-		D3BE1419191BC8C800005C81 /* XPLastPositionFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPLastPositionFinder.h; path = src/XPLastPositionFinder.h; sourceTree = "<group>"; };
 		D3BE141E191C05D600005C81 /* XPLocationPathTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPLocationPathTest.m; path = test/XPLocationPathTest.m; sourceTree = "<group>"; };
 		D3BE1420191C087500005C81 /* book.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = book.xml; path = test/book.xml; sourceTree = "<group>"; };
 		D3BE1422191C193900005C81 /* XPFilterEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPFilterEnumerator.h; path = src/XPFilterEnumerator.h; sourceTree = "<group>"; };
@@ -741,7 +741,7 @@
 				D37A2F741015812800E936B7 /* XPContext.m */,
 				D3F0CC00191EC8100049EC02 /* XPNodeEnumeration.h */,
 				D3A6C2F7190756FC00F3EFF3 /* XPAxisEnumeration.h */,
-				D3BE1419191BC8C800005C81 /* XPLastPositionFinder.h */,
+				D334BAB3192193AA00A32DD6 /* XPLastPositionFinder.h */,
 				D3F0CBD5191EC4B30049EC02 /* Sort */,
 				D37A29661013F36300E936B7 /* Functions */,
 				D3C1782718844C5F00F90600 /* Pattern */,
@@ -1237,12 +1237,12 @@
 				D3BE143F191D46AA00005C81 /* XPEmptyNodeSet.h in Headers */,
 				D3F0CBA2191EC23D0049EC02 /* FNEndsWith.h in Headers */,
 				D3F0CBA0191EC23D0049EC02 /* FNContains.h in Headers */,
-				D3BE141A191BC8C800005C81 /* XPLastPositionFinder.h in Headers */,
 				D33931261920534E00259939 /* FNTitleCase.h in Headers */,
 				D3BE141C191BCB5C00005C81 /* XPLocalOrderComparer.h in Headers */,
 				D3F0CBAF191EC23D0049EC02 /* FNSum.h in Headers */,
 				D3F0CBA3191EC23D0049EC02 /* FNFloor.h in Headers */,
 				D3F0CC01191EC8100049EC02 /* XPNodeEnumeration.h in Headers */,
+				D334BAB4192193AA00A32DD6 /* XPLastPositionFinder.h in Headers */,
 				D3C0F59A19214DC900566524 /* FNNormalizeSpace.h in Headers */,
 				D3F0CB9E191EC23D0049EC02 /* FNCeiling.h in Headers */,
 				D33930F2191EC8D500259939 /* XPStandaloneContext.h in Headers */,
@@ -1677,6 +1677,7 @@
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath/";
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
@@ -1706,6 +1707,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath/";
 				FRAMEWORK_VERSION = A;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
