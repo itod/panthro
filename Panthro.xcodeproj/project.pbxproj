@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		D3172237190D8FE6005C633B /* XPEqualityExprTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3172236190D8FE6005C633B /* XPEqualityExprTest.m */; };
-		D33097351921BE08004317EA /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33097341921BE08004317EA /* PEGKit.framework */; };
 		D33097381921BE99004317EA /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33097361921BE99004317EA /* PEGKit.framework */; };
 		D330973B1921BED5004317EA /* TDTemplateEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D330973A1921BED5004317EA /* TDTemplateEngine.framework */; };
 		D334BAB4192193AA00A32DD6 /* XPLastPositionFinder.h in Headers */ = {isa = PBXBuildFile; fileRef = D334BAB3192193AA00A32DD6 /* XPLastPositionFinder.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -78,6 +77,7 @@
 		D36C679A10106874000361A0 /* XPRelationalExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D36C679810106874000361A0 /* XPRelationalExpression.m */; };
 		D36C679E1010689A000361A0 /* XPBinaryExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D36C679C1010689A000361A0 /* XPBinaryExpression.m */; };
 		D36C68131010E0FE000361A0 /* XPArithmeticExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D36C68111010E0FE000361A0 /* XPArithmeticExpression.m */; };
+		D3745D9B192261D500929DE8 /* OkudaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3745D9A192261D500929DE8 /* OkudaKit.framework */; };
 		D37A27E51012FFA600E936B7 /* XPBooleanExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A27E31012FFA600E936B7 /* XPBooleanExpression.m */; };
 		D37A27F5101304EF00E936B7 /* XPBooleanExprTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A27F4101304EF00E936B7 /* XPBooleanExprTest.m */; };
 		D37A296A1013F39400E936B7 /* XPFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A29681013F39400E936B7 /* XPFunction.m */; };
@@ -371,6 +371,7 @@
 		D36C679810106874000361A0 /* XPRelationalExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPRelationalExpression.m; path = src/XPRelationalExpression.m; sourceTree = "<group>"; };
 		D36C679C1010689A000361A0 /* XPBinaryExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBinaryExpression.m; path = src/XPBinaryExpression.m; sourceTree = "<group>"; };
 		D36C68111010E0FE000361A0 /* XPArithmeticExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPArithmeticExpression.m; path = src/XPArithmeticExpression.m; sourceTree = "<group>"; };
+		D3745D9A192261D500929DE8 /* OkudaKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OkudaKit.framework; path = ../okudakit/build/Release/OkudaKit.framework; sourceTree = "<group>"; };
 		D37A27E31012FFA600E936B7 /* XPBooleanExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBooleanExpression.m; path = src/XPBooleanExpression.m; sourceTree = "<group>"; };
 		D37A27F4101304EF00E936B7 /* XPBooleanExprTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBooleanExprTest.m; path = test/XPBooleanExprTest.m; sourceTree = "<group>"; };
 		D37A29681013F39400E936B7 /* XPFunction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPFunction.m; path = src/XPFunction.m; sourceTree = "<group>"; };
@@ -593,8 +594,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3745D9B192261D500929DE8 /* OkudaKit.framework in Frameworks */,
 				D3AC85B80F60D13200392CB4 /* Foundation.framework in Frameworks */,
-				D33097351921BE08004317EA /* PEGKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -638,6 +639,7 @@
 		0867D69AFE84028FC02AAC07 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D3745D9A192261D500929DE8 /* OkudaKit.framework */,
 				D330973A1921BED5004317EA /* TDTemplateEngine.framework */,
 				D33097361921BE99004317EA /* PEGKit.framework */,
 				D33097371921BE99004317EA /* TDTemplateEngine.framework */,
@@ -1511,7 +1513,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath/";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Pathology-doxwvuofuciwccdebesuebrfrlls/Build/Products/Debug",
+				);
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
@@ -1542,7 +1547,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath/";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Pathology-doxwvuofuciwccdebesuebrfrlls/Build/Products/Debug",
+				);
 				FRAMEWORK_VERSION = A;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

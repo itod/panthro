@@ -129,6 +129,8 @@
         [t.symbolState add:@"::"];
         [t.symbolState add:@"<="];
         [t.symbolState add:@"=>"];
+        [t.symbolState add:@"(:"];
+        [t.symbolState add:@":)"];
 
         [t setTokenizerState:t.wordState from:'_' to:'_'];
         [t.wordState setWordChars:YES from:'-' to:'-'];
@@ -139,10 +141,15 @@
         [t setTokenizerState:t.numberState from:'.' to:'.'];
 
         [t setTokenizerState:t.numberState from:'#' to:'#'];
-        t.numberState.allowsScientificNotation = NO;
+        t.numberState.allowsScientificNotation = YES;
 
         [t setTokenizerState:t.symbolState from:'/' to:'/'];
 
+        [t.commentState addMultiLineStartMarker:@"(:" endMarker:@":)"];
+        [t setTokenizerState:t.commentState from:'(' to:'('];
+        [t setTokenizerState:t.commentState from:':' to:':'];
+        [t.commentState setFallbackState:t.symbolState from:'(' to:'('];
+        [t.commentState setFallbackState:t.symbolState from:':' to:':'];
     }];
 
     [self stmt_]; 
