@@ -150,6 +150,7 @@
         [t setTokenizerState:t.commentState from:':' to:':'];
         [t.commentState setFallbackState:t.symbolState from:'(' to:'('];
         [t.commentState setFallbackState:t.symbolState from:':' to:':'];
+
     }];
 
     [self stmt_]; 

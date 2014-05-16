@@ -71,13 +71,13 @@
 		D3411BF3191A90800082A196 /* PEGKitParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411BF2191A90800082A196 /* PEGKitParser.m */; };
 		D34BADF5100ABA7C00996341 /* XPBooleanValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BADF3100ABA7C00996341 /* XPBooleanValue.m */; };
 		D34BADF9100ABA9300996341 /* XPValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BADF7100ABA9300996341 /* XPValue.m */; };
+		D36235DD19269EE300C88990 /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33097361921BE99004317EA /* PEGKit.framework */; };
 		D36BC032101BF52F00D1A6C7 /* XPNodeSetExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D36BC02E101BF52F00D1A6C7 /* XPNodeSetExpression.m */; };
 		D36C6771101059CE000361A0 /* XPNumericValueTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D36C6770101059CE000361A0 /* XPNumericValueTest.m */; };
 		D36C678310105EBE000361A0 /* XPStringValueTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D36C678210105EBE000361A0 /* XPStringValueTest.m */; };
 		D36C679A10106874000361A0 /* XPRelationalExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D36C679810106874000361A0 /* XPRelationalExpression.m */; };
 		D36C679E1010689A000361A0 /* XPBinaryExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D36C679C1010689A000361A0 /* XPBinaryExpression.m */; };
 		D36C68131010E0FE000361A0 /* XPArithmeticExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D36C68111010E0FE000361A0 /* XPArithmeticExpression.m */; };
-		D3745D9B192261D500929DE8 /* OkudaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3745D9A192261D500929DE8 /* OkudaKit.framework */; };
 		D37A27E51012FFA600E936B7 /* XPBooleanExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A27E31012FFA600E936B7 /* XPBooleanExpression.m */; };
 		D37A27F5101304EF00E936B7 /* XPBooleanExprTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A27F4101304EF00E936B7 /* XPBooleanExprTest.m */; };
 		D37A296A1013F39400E936B7 /* XPFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A29681013F39400E936B7 /* XPFunction.m */; };
@@ -594,7 +594,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3745D9B192261D500929DE8 /* OkudaKit.framework in Frameworks */,
+				D36235DD19269EE300C88990 /* PEGKit.framework in Frameworks */,
 				D3AC85B80F60D13200392CB4 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1516,6 +1516,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Pathology-doxwvuofuciwccdebesuebrfrlls/Build/Products/Debug",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Panthro-dmvdaloqmsblyzezdvatkwnhfouk/Build/Products/Debug",
 				);
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1550,6 +1551,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Pathology-doxwvuofuciwccdebesuebrfrlls/Build/Products/Debug",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Panthro-dmvdaloqmsblyzezdvatkwnhfouk/Build/Products/Debug",
 				);
 				FRAMEWORK_VERSION = A;
 				GCC_MODEL_TUNING = G5;
