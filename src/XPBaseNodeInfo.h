@@ -13,5 +13,4 @@
 + (void)incrementInstanceCount;
 + (NSUInteger)instanceCount;
 
-@property (nonatomic, retain) id node;
 @end

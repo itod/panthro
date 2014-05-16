@@ -32,20 +32,20 @@ static NSUInteger sInstanceCount = 0;
 }
 
 
-+ (id <XPNodeInfo>)nodeInfoWithNode:(id)inNode {
++ (id <XPNodeInfo>)nodeInfoWithNode:(void *)inNode {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return nil;
 }
 
 
-- (id <XPNodeInfo>)initWithNode:(id)node {
+- (id <XPNodeInfo>)initWithNode:(void *)node {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return nil;
 }
 
 
 - (void)dealloc {
-    self.node = nil;
+
     [super dealloc];
 }
 
@@ -111,8 +111,8 @@ static NSUInteger sInstanceCount = 0;
 
 
 - (BOOL)isSameNodeInfo:(id <XPNodeInfo>)other {
-    XPAssert(!other || [other isKindOfClass:[XPBaseNodeInfo class]]);
-    return other == self || [(id)other node] == self.node;
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return NO;
 }
 
 

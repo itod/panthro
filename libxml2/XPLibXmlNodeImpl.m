@@ -1,13 +1,13 @@
 //
-//  XPNSXMLNodeImpl.m
+//  XPLibXmlNodeImpl.m
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 4/27/14.
 //
 //
 
-#import "XPNSXMLNodeImpl.h"
-#import "XPNSXMLDocumentImpl.h"
+#import "XPLibXmlNodeImpl.h"
+#import "XPLibXmlDocumentImpl.h"
 #import "XPAxis.h"
 #import "XPNodeSetValueEnumeration.h"
 #import "XPNodeTest.h"
@@ -15,15 +15,33 @@
 #import "XPEmptyNodeSet.h"
 #import "XPLocalOrderComparer.h"
 
-@interface XPNSXMLNodeImpl ()
+#import <libxml/tree.h>
+
+#define XPSTR(zstr) [NSString stringWithUTF8String:(const char *)(zstr)];
+
+static NSUInteger XPIndexInParent(xmlNodePtr node) {
+    xmlNodePtr parent = node->parent;
+    
+    NSUInteger idx = 0;
+    for (xmlNodePtr child = parent->children; NULL != child; ++idx, child = child->next) {
+        if (child == node) {
+            break;
+        }
+    }
+    
+    return idx;
+}
+
+@interface XPLibXmlNodeImpl ()
+@property (nonatomic, assign) xmlNodePtr node;
 @property (nonatomic, retain) id <XPNodeInfo>parent;
 @end
 
-@implementation XPNSXMLNodeImpl
+@implementation XPLibXmlNodeImpl
 
 + (id <XPNodeInfo>)nodeInfoWithNode:(void *)inNode {
-    NSXMLNode *node = (id)inNode;
-    Class cls = (NSXMLDocumentKind == [node kind]) ? [XPNSXMLDocumentImpl class] : [XPNSXMLNodeImpl class];
+    xmlNodePtr node = (xmlNodePtr)inNode;
+    Class cls = (XML_DOCUMENT_NODE == node->type) ? [XPLibXmlDocumentImpl class] : [XPLibXmlNodeImpl class];
     id <XPNodeInfo>nodeInfo = [[[cls alloc] initWithNode:node] autorelease];
     return nodeInfo;
 }
@@ -41,7 +59,10 @@
 
 
 - (void)dealloc {
-    self.node = nil;
+    if (_node) {
+        xmlFreeNode(_node);
+        _node = NULL;
+    }
     self.parent = nil;
     [super dealloc];
 }
@@ -53,7 +74,7 @@
 
 
 - (NSComparisonResult)compareOrderTo:(id <XPNodeInfo>)other {
-    XPAssert([other isKindOfClass:[XPNSXMLNodeImpl class]]);
+    XPAssert([other isKindOfClass:[XPLibXmlNodeImpl class]]);
     
     NSComparisonResult result = NSOrderedSame;
     
@@ -62,19 +83,27 @@
         return result;
     }
 
-    XPNSXMLNodeImpl *that = (id)other;
+    XPLibXmlNodeImpl *that = (id)other;
 
     // are they siblings (common case)
     if ([self.parent isSameNodeInfo:other.parent]) {
-        return [self.node index] - [that.node index];
+        return XPIndexInParent(_node) - XPIndexInParent(that.node);
     }
     
     // find the depths of both nodes in the tree
     
-    NSUInteger depth1 = [self.node level];
-    NSUInteger depth2 = [that.node level];
+    NSUInteger depth1 = 0;
+    NSUInteger depth2 = 0;
     id <XPNodeInfo>p1 = nil;
     id <XPNodeInfo>p2 = nil;
+    while (p1) {
+        depth1++;
+        p1 = p1.parent;
+    }
+    while (p2) {
+        depth2++;
+        p2 = p2.parent;
+    }
     
     // move up one branch of the tree so we have two nodes on the same level
     
@@ -104,7 +133,7 @@
             [NSException raise:@"NullPointerException" format:@"NSXML Tree Compare - internal error"];
         }
         if ([par1 isSameNodeInfo:par2]) {
-            return [((XPNSXMLNodeImpl *)p1).node index] - [((XPNSXMLNodeImpl *)p2).node index];
+            return XPIndexInParent(((XPLibXmlNodeImpl *)p1).node) - XPIndexInParent(((XPLibXmlNodeImpl *)p2).node);
         }
         p1 = par1;
         p2 = par2;
@@ -114,44 +143,46 @@
 }
 
 
-- (BOOL)isSameNodeInfo:(id <XPNodeInfo>)other {
-    XPAssert(!other || [other isKindOfClass:[XPBaseNodeInfo class]]);
-    return other == self || [(id)other node] == self.node;
-}
-
-
 - (XPNodeType)nodeType {
-    XPAssert(self.node);
+    XPAssert(_node);
     XPNodeType type = XPNodeTypeNone;
     
-    switch ([(NSXMLNode *)self.node kind]) {
-        case NSXMLDocumentKind:
+    xmlElementType kind = _node->type;
+    switch (kind) {
+        case XML_DOCUMENT_NODE:
             type = XPNodeTypeRoot;
             break;
-        case NSXMLElementKind:
+        case XML_ELEMENT_NODE:
             type = XPNodeTypeElement;
             break;
-        case NSXMLAttributeKind:
+        case XML_ATTRIBUTE_NODE:
             type = XPNodeTypeAttribute;
             break;
-        case NSXMLNamespaceKind:
+        case XML_NAMESPACE_DECL:
             type = XPNodeTypeNamespace;
             break;
-        case NSXMLProcessingInstructionKind:
+        case XML_PI_NODE:
             type = XPNodeTypePI;
             break;
-        case NSXMLCommentKind:
+        case XML_COMMENT_NODE:
             type = XPNodeTypeComment;
             break;
-        case NSXMLTextKind:
+        case XML_TEXT_NODE:
             type = XPNodeTypeText;
             break;
-        case NSXMLInvalidKind:
-        case NSXMLDTDKind:
-        case NSXMLEntityDeclarationKind:
-        case NSXMLAttributeDeclarationKind:
-        case NSXMLNotationDeclarationKind:
-        case NSXMLElementDeclarationKind:
+        case XML_CDATA_SECTION_NODE:
+        case XML_ENTITY_REF_NODE:
+        case XML_ENTITY_NODE:
+        case XML_DOCUMENT_TYPE_NODE:
+        case XML_DOCUMENT_FRAG_NODE:
+        case XML_NOTATION_NODE:
+        case XML_HTML_DOCUMENT_NODE:
+        case XML_DTD_NODE:
+        case XML_ELEMENT_DECL:
+        case XML_ATTRIBUTE_DECL:
+        case XML_ENTITY_DECL:
+        case XML_XINCLUDE_START:
+        case XML_XINCLUDE_END:
         default:
             type = XPNodeTypeNone;
             break;
@@ -162,34 +193,35 @@
 
 
 - (NSString *)stringValue {
-    XPAssert(self.node);
-    return [self.node stringValue];
+    XPAssert(_node);
+    xmlChar *zstr = _node->content;
+    return XPSTR(zstr);
 }
 
 
 - (NSString *)name {
-    XPAssert(self.node);
-    return [self.node name];
+    XPAssert(_node);
+    return XPSTR(_node->name);
 }
 
 
 - (NSString *)localName {
-    XPAssert(self.node);
-    return [self.node localName];
+    XPAssert(_node);
+    return XPSTR(_node->name);
 }
 
 
 - (NSString *)prefix {
-    XPAssert(self.node);
-    return [self.node prefix];
+    XPAssert(_node);
+    return XPSTR(_node->ns->prefix);
 }
 
 
 - (id <XPNodeInfo>)parent {
-    XPAssert(self.node);
+    XPAssert(_node);
     
     if (!_parent) {
-        NSXMLNode *parent = [self.node parent];
+        xmlNodePtr parent = _node->parent;
         if (parent) {
             self.parent = [[self class] nodeInfoWithNode:parent];
         }
@@ -200,45 +232,38 @@
 
 
 - (id <XPDocumentInfo>)documentRoot {
-    XPAssert(self.node);
-    return [[[XPNSXMLDocumentImpl alloc] initWithNode:[self.node rootDocument]] autorelease];
+    XPAssert(_node);
+    xmlDocPtr doc = _node->doc;
+    return [[[XPLibXmlDocumentImpl alloc] initWithNode:doc] autorelease];
 }
 
 
 - (NSString *)attributeValueForURI:(NSString *)uri localName:(NSString *)localName {
     XPAssert(XPNodeTypeElement == self.nodeType);
-    NSXMLNode *attrNode = [(NSXMLElement *)self.node attributeForLocalName:localName URI:uri];
-    return [attrNode stringValue];
+    
+    NSString *res = nil;
+    for (xmlAttrPtr attr = _node->properties; NULL != attr; attr = attr->next) {
+        if (0 == strcmp((char *)attr->name, [localName UTF8String])) {
+            xmlNodePtr val = attr->children;
+            if (val) {
+                res = XPSTR(val->content);
+            }
+            break;
+        }
+    }
+
+    return res;
 }
 
 
 - (NSString *)namespaceURIForPrefix:(NSString *)prefix {
-    XPAssert(self.node);
+    XPAssert(_node);
     
-    NSString *res = @"";
-    if ([prefix length]) {
-        
-        // 2nd arg to namespace-uri-for-prefix() must be an element node. so make sure we start with one.
-        NSXMLNode *node = self.node;
-        if (XPNodeTypeElement != [self nodeType] && XPNodeTypeRoot != [self nodeType]) {
-            node = [node parent];
-        }
-        
-        NSString *xquery = nil;
-        NSError *err = nil;
-
-//        xquery = @"in-scope-prefixes(.)";
-//        err = nil;
-//        NSArray *prefixes = [node objectsForXQuery:xquery error:&err];
-//        NSLog(@"%@", prefixes);
-
-        xquery = [NSString stringWithFormat:@"namespace-uri-for-prefix('%@', .)", prefix];
-        err = nil;
-        NSArray *uris = [node objectsForXQuery:xquery error:&err];
-        if ([uris count]) {
-            res = [uris[0] absoluteString];
-        } else {
-            if (err) NSLog(@"%@", err);
+    NSString *res = nil;
+    
+    for (xmlNsPtr ns = _node->nsDef; NULL != ns; ns = ns->next) {
+        if (0 == strcmp((char *)ns->prefix, [prefix UTF8String])) {
+            res = XPSTR(ns->href);
         }
     }
     return res;
@@ -256,11 +281,11 @@
 }
 
 
-- (NSArray *)descendantNodesFromParent:(NSXMLNode *)parent nodeTest:(XPNodeTest *)nodeTest {
+- (NSArray *)descendantNodesFromParent:(xmlNodePtr)parent nodeTest:(XPNodeTest *)nodeTest {
     NSMutableArray *result = [NSMutableArray array];
     
-    for (NSXMLNode *child in [parent children]) {
-        
+    for (xmlNodePtr child = parent->children; NULL != child; child = child->next) {
+    
         id <XPNodeInfo>node = [[self class] nodeInfoWithNode:child];
         
         if ([nodeTest matches:node]) {
@@ -310,9 +335,11 @@
 
 
 - (NSArray *)nodesForAncestorAxis:(XPNodeTest *)nodeTest {
+    XPAssert(_node);
+    
     NSMutableArray *result = nil;
     
-    NSXMLNode *parent = [self.node parent];
+    xmlNodePtr parent = _node->parent;
     while (parent) {
         id <XPNodeInfo>node = [[self class] nodeInfoWithNode:parent];
         
@@ -323,7 +350,7 @@
             [result addObject:node];
         }
         
-        parent = [parent parent];
+        parent = parent->parent;
     }
     
     return result;
@@ -331,7 +358,8 @@
 
 
 - (NSArray *)nodesForParentAxis:(XPNodeTest *)nodeTest {
-    NSXMLNode *parent = [self.node parent];
+    XPAssert(_node);
+    xmlNodePtr parent = _node->parent;
 
     id <XPNodeInfo>node = [[self class] nodeInfoWithNode:parent];
     
@@ -346,11 +374,10 @@
 
 
 - (NSArray *)nodesForChildAxis:(XPNodeTest *)nodeTest {
-    NSArray *children = [self.node children];
-    
+    XPAssert(_node);
     NSMutableArray *result = nil;
     
-    for (NSXMLNode *child in children) {
+    for (xmlNodePtr child = _node->children; NULL != child; child = child->next) {
         id <XPNodeInfo>node = [[self class] nodeInfoWithNode:child];
         
         if ([nodeTest matches:node]) {
@@ -366,11 +393,12 @@
 
 
 - (NSArray *)nodesForAttributeAxis:(XPNodeTest *)nodeTest {
+    XPAssert(_node);
     NSMutableArray *result = nil;
 
     if (XPNodeTypeElement == self.nodeType) {
-        NSArray *attrs = [(NSXMLElement *)self.node attributes];
-        for (NSXMLNode *attr in attrs) {
+
+        for (xmlAttrPtr attr = _node->properties; NULL != attr; attr = attr->next) {
             id <XPNodeInfo>node = [[self class] nodeInfoWithNode:attr];
             
             if ([nodeTest matches:node]) {
@@ -387,16 +415,20 @@
 
 
 - (NSArray *)nodesForFollowingSiblingAxis:(XPNodeTest *)nodeTest includeDescendants:(BOOL)includeDescendants {
+    XPAssert(_node);
     NSMutableArray *result = [NSMutableArray array];
 
-    NSXMLNode *parent = [self.node parent];
-    NSArray *children = [parent children];
-    NSUInteger c = [children count];
-    NSUInteger i = [self.node index] + 1;
-    
-    children = [children subarrayWithRange:NSMakeRange(i, c - i)];
-    
-    for (NSXMLNode *child in children) {
+    xmlNodePtr parent = _node->parent;
+
+    BOOL found = NO;
+    for (xmlNodePtr child = parent->children; NULL != child; child = child->next) {
+        if (!found) {
+            found = child == _node;
+        }
+        if (!found) {
+            continue;
+        }
+        
         id <XPNodeInfo>node = [[self class] nodeInfoWithNode:child];
         
         if ([nodeTest matches:node]) {
@@ -413,12 +445,20 @@
 
 
 - (NSArray *)nodesForPrecedingSiblingAxis:(XPNodeTest *)nodeTest includeDescendants:(BOOL)includeDescendants  {
+    XPAssert(_node);
     NSMutableArray *result = [NSMutableArray array];
-
-    NSUInteger i = [self.node index];
-    NSArray *children = [[[self.node parent] children] subarrayWithRange:NSMakeRange(0, i)];
     
-    for (NSXMLNode *child in [children reverseObjectEnumerator]) {
+    xmlNodePtr parent = _node->parent;
+    
+    BOOL found = NO;
+    for (xmlNodePtr child = parent->last; NULL != child; child = child->prev) {
+        if (!found) {
+            found = child == _node;
+        }
+        if (!found) {
+            continue;
+        }
+        
         id <XPNodeInfo>node = [[self class] nodeInfoWithNode:child];
         
         if ([nodeTest matches:node]) {

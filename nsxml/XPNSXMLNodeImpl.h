@@ -10,4 +10,5 @@
 
 @interface XPNSXMLNodeImpl : XPBaseNodeInfo
 
+@property (nonatomic, retain) id node;
 @end
