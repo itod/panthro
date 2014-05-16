@@ -131,9 +131,9 @@
             XPNodeTypeName[XPNodeTypePI] : @(XPNodeTypePI),
             XPNodeTypeName[XPNodeTypeComment] : @(XPNodeTypeComment),
             XPNodeTypeName[XPNodeTypeRoot] : @(XPNodeTypeRoot),
-            @"namespace": @(XPNodeTypeNamespace),
-            @"number-of-types": @(XPNodeTypeNumberOfTypes),
-            @"none": @(XPNodeTypeNone),
+            XPNodeTypeName[XPNodeTypeNamespace] : @(XPNodeTypeNamespace),
+            XPNodeTypeName[XPNodeTypeNumberOfTypes] : @(XPNodeTypeNumberOfTypes),
+            XPNodeTypeName[XPNodeTypeNone] : @(XPNodeTypeNone),
             };
 }
     return self;

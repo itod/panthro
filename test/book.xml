@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <book xmlns:foo="bar">
+    <!-- some comment  text -->
     <chapter id="c1" foo:baz="OHAI">
       <title>Chapter 1</title>
       <para>Chapter 1 content. </para>

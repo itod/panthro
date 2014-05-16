@@ -22,6 +22,7 @@
 @property (nonatomic, retain) NSArray *ids;
 @property (nonatomic, retain) NSArray *titles;
 @property (nonatomic, retain) NSArray *paras;
+@property (nonatomic, retain) NSArray *comments;
 @end
 
 @implementation XPLocationPathTest
@@ -32,6 +33,7 @@
     self.ids = @[@"c1", @"c2", @"c3"];
     self.titles = @[@"Chapter 1", @"Chapter 2", @"Chapter 3"];
     self.paras = @[@"Chapter 1 content. ", @"Chapter 2 content.", @"Chapter 3 content."];
+    self.comments = @[@" some comment  text "];
 
     NSString *str = XPContentsOfFile(@"book.xml");
     NSError *err = nil;
@@ -66,7 +68,10 @@
 
 
 - (void)tearDown {
-
+    self.ids = nil;
+    self.titles = nil;
+    self.paras = nil;
+    self.comments = nil;
     [super tearDown];
 }
 
@@ -1474,6 +1479,20 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEqualObjects(@"para", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDTrue([[node stringValue] hasPrefix:_paras[0]]);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testSlashSlashComment {
+    [self eval:@"comment()"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(nil, node.name);
+    TDEquals(XPNodeTypeComment, node.nodeType);
+    TDEqualObjects(_comments[0], [node stringValue]);
     
     TDFalse([enm hasMoreObjects]);
 }
