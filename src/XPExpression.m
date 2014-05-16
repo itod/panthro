@@ -43,7 +43,7 @@ static XPAssembler *sAssembler = nil;
         PKAssembly *a = [sParser parseString:exprStr error:outErr];
 
         XPExpression *expr = [a pop];
-        XPAssert([expr isKindOfClass:[XPExpression class]]);
+        //XPAssert([expr isKindOfClass:[XPExpression class]]);
         
         expr = [expr simplify];
         [expr setStaticContext:env];

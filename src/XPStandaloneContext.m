@@ -75,7 +75,7 @@ NSString *XPNamespaceAquaPath = @"http://celestialteapot.com/ns/aquapath";
             } @catch (NSException *ex) {
                 result = nil;
                 if (outErr) {
-                    *outErr = [NSError XPathErrorWithCode:47 format:@"XPath runtime evaluation error: %@", [ex reason]];
+                    *outErr = [[NSError XPathErrorWithCode:47 format:@"XPath runtime evaluation error: %@", [ex reason]] retain]; // +1 to survive
                 }
             }
         }
@@ -83,6 +83,7 @@ NSString *XPNamespaceAquaPath = @"http://celestialteapot.com/ns/aquapath";
         [result retain]; // +1 to survive autorelase pool drain
     }
 
+    [*outErr autorelease]; // -1 to balance
     return [result autorelease]; // -1 to balance
 }
 

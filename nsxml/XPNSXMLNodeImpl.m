@@ -359,20 +359,19 @@
 
 
 - (NSArray *)nodesForAttributeAxis:(XPNodeTest *)nodeTest {
-    XPAssert(XPNodeTypeElement == self.nodeType);
-    
-    NSArray *attrs = [(NSXMLElement *)self.node attributes];
-    
     NSMutableArray *result = nil;
-    
-    for (NSXMLNode *attr in attrs) {
-        id <XPNodeInfo>node = [[self class] nodeInfoWithNode:attr];
-        
-        if ([nodeTest matches:node]) {
-            if (!result) {
-                result = [NSMutableArray array];
+
+    if (XPNodeTypeElement == self.nodeType) {
+        NSArray *attrs = [(NSXMLElement *)self.node attributes];
+        for (NSXMLNode *attr in attrs) {
+            id <XPNodeInfo>node = [[self class] nodeInfoWithNode:attr];
+            
+            if ([nodeTest matches:node]) {
+                if (!result) {
+                    result = [NSMutableArray array];
+                }
+                [result addObject:node];
             }
-            [result addObject:node];
         }
     }
     
