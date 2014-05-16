@@ -128,6 +128,8 @@
 		D383A321187F7EA5006AE701 /* XPTestScaffold.m in Sources */ = {isa = PBXBuildFile; fileRef = D33639DA100DAB8C00AC4B51 /* XPTestScaffold.m */; };
 		D3A5DB45141E7BC30081FBB4 /* XPath_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DB44141E7BC30081FBB4 /* XPath_Prefix.pch */; };
 		D3A6578C1926B3A100A846A5 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A6578B1926B3A100A846A5 /* libxml2.dylib */; };
+		D3A6578D1926BFE000A846A5 /* XPLocationPathLibXmlTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D36235E51926B07000C88990 /* XPLocationPathLibXmlTest.m */; };
+		D3A6578E1926C13F00A846A5 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A6578B1926B3A100A846A5 /* libxml2.dylib */; };
 		D3A6C2E41907391200F3EFF3 /* XPAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A6C2E31907391200F3EFF3 /* XPAxis.m */; };
 		D3A6C2EA19073B4700F3EFF3 /* XPStepTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A6C2E919073B4700F3EFF3 /* XPStepTest.m */; };
 		D3A6C2EC19073D4900F3EFF3 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A6C2EB19073D4900F3EFF3 /* XCTest.framework */; };
@@ -613,6 +615,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3A6578E1926C13F00A846A5 /* libxml2.dylib in Frameworks */,
 				D330973B1921BED5004317EA /* TDTemplateEngine.framework in Frameworks */,
 				D33097381921BE99004317EA /* PEGKit.framework in Frameworks */,
 				D33639E4100DACDF00AC4B51 /* Panthro.framework in Frameworks */,
@@ -1476,6 +1479,7 @@
 				D3411BD6191A8E140082A196 /* PGRootNode.m in Sources */,
 				D3411BD7191A8E140082A196 /* PGActionNode.m in Sources */,
 				D3411BD8191A8E140082A196 /* PGAlternationNode.m in Sources */,
+				D3A6578D1926BFE000A846A5 /* XPLocationPathLibXmlTest.m in Sources */,
 				D3411BD9191A8E140082A196 /* PGCollectionNode.m in Sources */,
 				D3411BDA191A8E140082A196 /* PGCompositeNode.m in Sources */,
 				D3411BDB191A8E140082A196 /* PGConstantNode.m in Sources */,

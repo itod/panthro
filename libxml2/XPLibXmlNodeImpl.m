@@ -60,7 +60,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
 
 - (void)dealloc {
     if (_node) {
-        xmlFreeNode(_node);
+        //xmlFreeNode(_node);
         _node = NULL;
     }
     self.parent = nil;
@@ -70,6 +70,12 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"<%@ %p %@ %@>", [self class], self, XPNodeTypeName[self.nodeType], self.name];
+}
+
+
+- (BOOL)isSameNodeInfo:(id <XPNodeInfo>)other {
+    XPAssert(!other || [other isKindOfClass:[XPBaseNodeInfo class]]);
+    return other == self || [(id)other node] == (void *)_node;
 }
 
 

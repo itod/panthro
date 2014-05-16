@@ -20,6 +20,7 @@
 + (instancetype)standaloneContext;
 
 - (id)evalutate:(NSString *)xpathStr withNSXMLContextNode:(NSXMLNode *)nsxmlCtxNode error:(NSError **)outErr;
+- (id)evalutate:(NSString *)xpathStr withLibXmlContextNode:(void *)nsxmlCtxNode error:(NSError **)outErr;
 
 - (id)evalutate:(NSString *)xpathStr withContextNode:(id <XPNodeInfo>)ctxNode error:(NSError **)outErr;
 

@@ -14,6 +14,7 @@
 #import "XPExpression.h"
 
 #import "XPNSXMLNodeImpl.h"
+#import "XPLibXmlNodeImpl.h"
 
 NSString *XPNamespaceXML = @"http://www.w3.org/XML/1998/namespace";
 NSString *XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
@@ -53,6 +54,12 @@ NSString *XPNamespaceAquaPath = @"http://celestialteapot.com/ns/aquapath";
 
 - (id)evalutate:(NSString *)xpathStr withNSXMLContextNode:(NSXMLNode *)nsxmlCtxNode error:(NSError **)outErr {
     id <XPNodeInfo>ctxNode = [XPNSXMLNodeImpl nodeInfoWithNode:nsxmlCtxNode];
+    return [self evalutate:xpathStr withContextNode:ctxNode error:outErr];
+}
+
+
+- (id)evalutate:(NSString *)xpathStr withLibXmlContextNode:(void *)libxmlCtxNode error:(NSError **)outErr {
+    id <XPNodeInfo>ctxNode = [XPLibXmlNodeImpl nodeInfoWithNode:libxmlCtxNode];
     return [self evalutate:xpathStr withContextNode:ctxNode error:outErr];
 }
 
