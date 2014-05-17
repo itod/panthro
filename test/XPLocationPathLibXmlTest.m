@@ -39,7 +39,9 @@
 
     NSString *str = XPContentsOfFile(@"book.xml");
     
-    xmlDocPtr doc = xmlReadMemory([str UTF8String], [str length], NULL, "utf-8", XML_PARSE_NOENT);
+    xmlParserCtxtPtr parserCtx = xmlNewParserCtxt();
+    xmlDocPtr doc = xmlCtxtReadMemory(parserCtx, [str UTF8String], [str length], NULL, "utf-8", XML_PARSE_NOENT);
+//    xmlDocPtr doc = xmlReadMemory([str UTF8String], [str length], NULL, "utf-8",
     TDTrue(NULL != doc);
 
 //    NSError *err = nil;
@@ -54,6 +56,9 @@
     xmlNodePtr docEl = doc->children;
     TDTrue(NULL != docEl);
     
+//    const xmlParserNodeInfo *info = xmlParserFindNodeInfo(parserCtx, docEl);
+//    NSLog(@"%lu:%lu", info->begin_line, info->begin_pos);
+
     self.env = [XPStandaloneContext standaloneContext];
     [_env setValue:[XPStringValue stringValueWithString:@"hello"] forVariable:@"foo"];
     
@@ -156,82 +161,82 @@
     
     TDFalse([enm hasMoreObjects]);
 }
-//
-//
-//- (void)testExplicitChildAxisNameTestChapterSlashTitle {
-//    [self eval:@"child::chapter/child::title"];
-//    
-//    id <XPNodeEnumeration>enm = [_res enumerate];
-//    
-//    for (NSUInteger i = 0; i < 3; ++i) {
-//        id <XPNodeInfo>node = [enm nextObject];
-//        TDEqualObjects(@"title", node.name);
-//        TDEquals(XPNodeTypeElement, node.nodeType);
-//        TDEqualObjects(_titles[i], node.stringValue);
-//    }
-//    
-//    TDFalse([enm hasMoreObjects]);
-//}
-//
-//
-//- (void)testImplicitChildAxisNameTestChapterPredicate1 {
-//    [self eval:@"chapter[1]"];
-//
-//    NSLog(@"Instance count: %lu", [XPBaseNodeInfo instanceCount]);
-//    
-//    id <XPNodeEnumeration>enm = [_res enumerate];
-//    
-//    id <XPNodeInfo>node = [enm nextObject];
-//    TDEqualObjects(@"chapter", node.name);
-//    TDEquals(XPNodeTypeElement, node.nodeType);
-//    TDEqualObjects(_ids[0], [node attributeValueForURI:nil localName:@"id"]);
-//    
-//    TDFalse([enm hasMoreObjects]);
-//}
-//
-//
-//- (void)testImplicitChildAxisNameTestChapterPredicate2 {
-//    [self eval:@"chapter[2]"];
-//    
-//    id <XPNodeEnumeration>enm = [_res enumerate];
-//    
-//    id <XPNodeInfo>node = [enm nextObject];
-//    TDEqualObjects(@"chapter", node.name);
-//    TDEquals(XPNodeTypeElement, node.nodeType);
-//    TDEqualObjects(_ids[1], [node attributeValueForURI:nil localName:@"id"]);
-//    
-//    TDFalse([enm hasMoreObjects]);
-//}
-//
-//
-//- (void)testImplicitChildAxisNameTestChapterPredicate3 {
-//    [self eval:@"chapter[3]"];
-//    
-//    id <XPNodeEnumeration>enm = [_res enumerate];
-//    
-//    id <XPNodeInfo>node = [enm nextObject];
-//    TDEqualObjects(@"chapter", node.name);
-//    TDEquals(XPNodeTypeElement, node.nodeType);
-//    TDEqualObjects(_ids[2], [node attributeValueForURI:nil localName:@"id"]);
-//    
-//    TDFalse([enm hasMoreObjects]);
-//}
-//
-//
-//- (void)testImplicitChildAxisNameTestChapterPredicatePositionEq1 {
-//    [self eval:@"chapter[position()=1]"];
-//    
-//    id <XPNodeEnumeration>enm = [_res enumerate];
-//    
-//    id <XPNodeInfo>node = [enm nextObject];
-//    TDEqualObjects(@"chapter", node.name);
-//    TDEquals(XPNodeTypeElement, node.nodeType);
-//    TDEqualObjects(_ids[0], [node attributeValueForURI:nil localName:@"id"]);
-//    
-//    TDFalse([enm hasMoreObjects]);
-//}
-//
-//
+
+
+- (void)testExplicitChildAxisNameTestChapterSlashTitle {
+    [self eval:@"child::chapter/child::title"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    for (NSUInteger i = 0; i < 3; ++i) {
+        id <XPNodeInfo>node = [enm nextObject];
+        TDEqualObjects(@"title", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+        TDEqualObjects(_titles[i], node.stringValue);
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testImplicitChildAxisNameTestChapterPredicate1 {
+    [self eval:@"chapter[1]"];
+
+    NSLog(@"Instance count: %lu", [XPBaseNodeInfo instanceCount]);
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(@"chapter", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDEqualObjects(_ids[0], [node attributeValueForURI:nil localName:@"id"]);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testImplicitChildAxisNameTestChapterPredicate2 {
+    [self eval:@"chapter[2]"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(@"chapter", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDEqualObjects(_ids[1], [node attributeValueForURI:nil localName:@"id"]);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testImplicitChildAxisNameTestChapterPredicate3 {
+    [self eval:@"chapter[3]"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(@"chapter", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDEqualObjects(_ids[2], [node attributeValueForURI:nil localName:@"id"]);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testImplicitChildAxisNameTestChapterPredicatePositionEq1 {
+    [self eval:@"chapter[position()=1]"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(@"chapter", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDEqualObjects(_ids[0], [node attributeValueForURI:nil localName:@"id"]);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
 //- (void)testImplicitChildAxisNameTestChapterPredicatePositionEq2 {
 //    [self eval:@"chapter[position()=2]"];
 //    

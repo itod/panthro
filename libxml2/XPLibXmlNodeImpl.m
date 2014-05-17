@@ -17,7 +17,13 @@
 
 #import <libxml/tree.h>
 
-#define XPSTR(zstr) [NSString stringWithUTF8String:(const char *)(zstr)];
+static NSString *XPSTR(const xmlChar *zstr) {
+    NSString *res = nil;
+    if (zstr) {
+        res = [NSString stringWithUTF8String:(const char *)zstr];
+    }
+    return res;
+}
 
 static NSUInteger XPIndexInParent(xmlNodePtr node) {
     xmlNodePtr parent = node->parent;
@@ -200,8 +206,20 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
 
 - (NSString *)stringValue {
     XPAssert(_node);
-    xmlChar *zstr = _node->content;
-    return XPSTR(zstr);
+    NSMutableString *buf = [NSMutableString string];
+    [self gatherStringValue:buf fromNode:_node];
+    return buf;
+}
+
+
+- (void)gatherStringValue:(NSMutableString *)buf fromNode:(xmlNodePtr)node {
+    if (node->content) {
+        [buf appendFormat:@"%s", node->content];
+    }
+    
+    for (xmlNodePtr child = node->children; NULL != child; child = child->next) {
+        [self gatherStringValue:buf fromNode:child];
+    }
 }
 
 
