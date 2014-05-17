@@ -538,7 +538,6 @@
 		D383A31D187F748E006AE701 /* XPEGParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPEGParser.h; path = src/XPEGParser.h; sourceTree = "<group>"; };
 		D383A31E187F748E006AE701 /* XPEGParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPEGParser.m; path = src/XPEGParser.m; sourceTree = "<group>"; };
 		D3A5DB44141E7BC30081FBB4 /* XPath_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPath_Prefix.pch; sourceTree = "<group>"; };
-		D3A6578B1926B3A100A846A5 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		D3A6C2E31907391200F3EFF3 /* XPAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPAxis.m; path = src/XPAxis.m; sourceTree = "<group>"; };
 		D3A6C2E919073B4700F3EFF3 /* XPStepTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPStepTest.m; path = test/XPStepTest.m; sourceTree = "<group>"; };
 		D3A6C2EB19073D4900F3EFF3 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -732,8 +731,6 @@
 		0867D691FE84028FC02AAC07 /* Exedore */ = {
 			isa = PBXGroup;
 			children = (
-				D339F6681927B9A700C79A51 /* libiconv.dylib */,
-				D339F6541927B6CF00C79A51 /* libz.dylib */,
 				D339F5011927B4B400C79A51 /* libxml */,
 				D3411B53191A7B670082A196 /* Unused */,
 				D33639CB100DAA6B00AC4B51 /* Panthro Tests */,
@@ -749,7 +746,8 @@
 		0867D69AFE84028FC02AAC07 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				D3A6578B1926B3A100A846A5 /* libxml2.dylib */,
+				D339F6681927B9A700C79A51 /* libiconv.dylib */,
+				D339F6541927B6CF00C79A51 /* libz.dylib */,
 				D3745D9A192261D500929DE8 /* OkudaKit.framework */,
 				D330973A1921BED5004317EA /* TDTemplateEngine.framework */,
 				D33097361921BE99004317EA /* PEGKit.framework */,
@@ -772,8 +770,8 @@
 			isa = PBXGroup;
 			children = (
 				D3F0CBFB191EC7F60049EC02 /* XPNodeInfo.h */,
-				D36235E81926B0D800C88990 /* libxml2 */,
-				D317223C190DAAB1005C633B /* NSXML */,
+				D36235E81926B0D800C88990 /* libxml2 Bindings */,
+				D317223C190DAAB1005C633B /* NSXML Bindings */,
 				D3BA9B29101C233B003C0040 /* Parser */,
 				D3F0CBEE191EC7D00049EC02 /* Panthro.h */,
 				D3F0CBF2191EC7D00049EC02 /* XPUtils.h */,
@@ -817,7 +815,7 @@
 			name = Sort;
 			sourceTree = "<group>";
 		};
-		D317223C190DAAB1005C633B /* NSXML */ = {
+		D317223C190DAAB1005C633B /* NSXML Bindings */ = {
 			isa = PBXGroup;
 			children = (
 				D3F0CBBC191EC3A50049EC02 /* XPNSXMLNodeImpl.h */,
@@ -825,7 +823,7 @@
 				D3F0CBBA191EC3A50049EC02 /* XPNSXMLDocumentImpl.h */,
 				D3F0CBBB191EC3A50049EC02 /* XPNSXMLDocumentImpl.m */,
 			);
-			name = NSXML;
+			name = "NSXML Bindings";
 			sourceTree = "<group>";
 		};
 		D33639CB100DAA6B00AC4B51 /* Panthro Tests */ = {
@@ -1003,7 +1001,7 @@
 			name = PG;
 			sourceTree = "<group>";
 		};
-		D36235E81926B0D800C88990 /* libxml2 */ = {
+		D36235E81926B0D800C88990 /* libxml2 Bindings */ = {
 			isa = PBXGroup;
 			children = (
 				D339F1E919279E4600C79A51 /* XPLibxmlNodeImpl.h */,
@@ -1011,7 +1009,7 @@
 				D339F1E719279E4600C79A51 /* XPLibxmlDocumentImpl.h */,
 				D339F1E819279E4600C79A51 /* XPLibxmlDocumentImpl.m */,
 			);
-			name = libxml2;
+			name = "libxml2 Bindings";
 			sourceTree = "<group>";
 		};
 		D37A295E1013F34C00E936B7 /* Expr */ = {

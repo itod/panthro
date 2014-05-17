@@ -61,9 +61,9 @@
     xmlNodePtr docEl = doc->children;
     TDTrue(NULL != docEl);
     
-    const xmlParserNodeInfo *info = xmlParserFindNodeInfo(_parserCtx, docEl);
-    NSLog(@"begin %lu:%lu", info->begin_line, info->begin_pos);
-    NSLog(@"end %lu:%lu", info->end_line, info->end_pos);
+//    const xmlParserNodeInfo *info = xmlParserFindNodeInfo(_parserCtx, docEl);
+//    NSLog(@"begin %lu:%lu", info->begin_line, info->begin_pos);
+//    NSLog(@"end %lu:%lu", info->end_line, info->end_pos);
 
     self.env = [XPStandaloneContext standaloneContext];
     [_env setValue:[XPStringValue stringValueWithString:@"hello"] forVariable:@"foo"];
