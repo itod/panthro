@@ -14,4 +14,6 @@
 + (id <XPNodeInfo>)nodeInfoWithNode:(void *)node parserContext:(xmlParserCtxtPtr)parserCtx;
 - (id <XPNodeInfo>)initWithNode:(void *)node parserContext:(xmlParserCtxtPtr)parserCtx;
 
+@property (nonatomic, assign) xmlNodePtr node;
+@property (nonatomic, assign) xmlParserCtxtPtr parserCtx;
 @end
