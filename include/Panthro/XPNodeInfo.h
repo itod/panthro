@@ -49,6 +49,7 @@
 @property (nonatomic, copy, readonly) NSString *prefix;
 
 @property (nonatomic, assign, readonly) NSRange range;
+@property (nonatomic, assign, readonly) NSInteger lineNumber;
 
 /**
  * Get the NodeInfo object representing the parent of this node

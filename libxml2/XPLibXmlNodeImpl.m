@@ -60,6 +60,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
 @interface XPLibxmlNodeImpl ()
 @property (nonatomic, retain) id <XPNodeInfo>parent;
 @property (nonatomic, assign) NSRange range;
+@property (nonatomic, assign) NSInteger lineNumber;
 @end
 
 @implementation XPLibxmlNodeImpl {
@@ -80,6 +81,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     if (self) {
         self.node = node;
         self.parserCtx = parserCtx;
+        self.lineNumber = -1;
     }
     return self;
 }
@@ -308,6 +310,15 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     }
 
     return _range;
+}
+
+
+- (NSInteger)lineNumber {
+    XPAssert(_node);
+    if (-1 == _lineNumber) {
+        _lineNumber = xmlGetLineNo(_node);
+    }
+    return _lineNumber;
 }
 
 

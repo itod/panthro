@@ -23,6 +23,7 @@
 @interface XPNSXMLNodeImpl ()
 @property (nonatomic, retain) id <XPNodeInfo>parent;
 @property (nonatomic, assign) NSRange range;
+@property (nonatomic, assign) NSInteger lineNumber;
 @end
 
 @implementation XPNSXMLNodeImpl
