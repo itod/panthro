@@ -822,13 +822,12 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     NSUInteger chIdx = 0;
     NSUInteger paraIdx = 0;
     for (NSUInteger i = 0; i < 6; ++i) {
+        id <XPNodeInfo>node = [enm nextObject];
         if (i % 2 == 0) {
-            id <XPNodeInfo>node = [enm nextObject];
             TDEqualObjects(@"id", node.name);
             TDEquals(XPNodeTypeAttribute, node.nodeType);
             TDEqualObjects(_ids[chIdx++], [node stringValue]);
         } else {
-            id <XPNodeInfo>node = [enm nextObject];
             TDEqualObjects(@"para", node.name);
             TDEquals(XPNodeTypeElement, node.nodeType);
             TDEqualObjects(_paras[paraIdx++], node.stringValue);
@@ -1363,7 +1362,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(@"chapter", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
-    TDTrue([[node stringValue] rangeOfString:_titles[0]].length);
+    TDTrue([[[node stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] hasPrefix:_titles[0]]);
     
     TDFalse([enm hasMoreObjects]);
 }
@@ -1377,7 +1376,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(@"chapter", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
-    TDTrue([[node stringValue] rangeOfString:_titles[0]].length);
+    TDTrue([[[node stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] hasPrefix:_titles[0]]);
     
     TDFalse([enm hasMoreObjects]);
 }
@@ -1391,7 +1390,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(@"chapter", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
-    TDTrue([[node stringValue] rangeOfString:_titles[0]].length);
+    TDTrue([[[node stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] hasPrefix:_titles[0]]);
     
     TDFalse([enm hasMoreObjects]);
 }
@@ -1414,7 +1413,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(@"chapter", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
-    TDTrue([[node stringValue] rangeOfString:_titles[0]].length);
+    TDTrue([[[node stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] hasPrefix:_titles[0]]);
     
     TDFalse([enm hasMoreObjects]);
 }
@@ -1428,7 +1427,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(@"chapter", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
-    TDTrue([[node stringValue] rangeOfString:_titles[0]].length);
+    TDTrue([[[node stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] hasPrefix:_titles[0]]);
     
     TDFalse([enm hasMoreObjects]);
 }
@@ -1442,7 +1441,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(@"chapter", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
-    TDTrue([[node stringValue] rangeOfString:_titles[0]].length);
+    TDTrue([[[node stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] hasPrefix:_titles[0]]);
     
     TDFalse([enm hasMoreObjects]);
 }
@@ -1456,7 +1455,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(@"chapter", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
-    TDTrue([[node stringValue] rangeOfString:_titles[0]].length);
+    TDTrue([[[node stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] hasPrefix:_titles[0]]);
     
     TDFalse([enm hasMoreObjects]);
 }

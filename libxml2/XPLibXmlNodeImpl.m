@@ -29,9 +29,15 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     xmlNodePtr parent = node->parent;
     
     NSUInteger idx = 0;
+    for (xmlAttrPtr attr = parent->properties; NULL != attr; ++idx, attr = attr->next) {
+        if (attr == (void *)node) {
+            return idx;
+        }
+    }
+    
     for (xmlNodePtr child = parent->children; NULL != child; ++idx, child = child->next) {
         if (child == node) {
-            break;
+            return idx;
         }
     }
     
@@ -94,7 +100,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     if ([self isSameNodeInfo:other]) {
         return result;
     }
-
+    
     XPLibXmlNodeImpl *that = (id)other;
 
     // are they siblings (common case)
@@ -144,7 +150,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
         if (!par1 || !par2) {
             [NSException raise:@"NullPointerException" format:@"libxml Tree Compare - internal error"];
         }
-        if ([par1 isSameNodeInfo:par2]) {
+        if ([par1 isSameNodeInfo:par2]) {            
             return XPIndexInParent(((XPLibXmlNodeImpl *)p1).node) - XPIndexInParent(((XPLibXmlNodeImpl *)p2).node);
         }
         p1 = par1;
