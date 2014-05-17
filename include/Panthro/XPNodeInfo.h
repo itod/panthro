@@ -48,6 +48,7 @@
 @property (nonatomic, copy, readonly) NSString *localName;
 @property (nonatomic, copy, readonly) NSString *prefix;
 
+@property (nonatomic, assign, readonly) NSRange range;
 
 /**
  * Get the NodeInfo object representing the parent of this node

@@ -22,6 +22,7 @@
 
 @interface XPNSXMLNodeImpl ()
 @property (nonatomic, retain) id <XPNodeInfo>parent;
+@property (nonatomic, assign) NSRange range;
 @end
 
 @implementation XPNSXMLNodeImpl

@@ -61,9 +61,12 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
 @property (nonatomic, assign) xmlNodePtr node;
 @property (nonatomic, assign) xmlParserCtxtPtr parserCtx;
 @property (nonatomic, retain) id <XPNodeInfo>parent;
+@property (nonatomic, assign) NSRange range;
 @end
 
-@implementation XPLibxmlNodeImpl
+@implementation XPLibxmlNodeImpl {
+    BOOL _foundRange;
+}
 
 + (id <XPNodeInfo>)nodeInfoWithNode:(void *)inNode parserContext:(xmlParserCtxtPtr)parserCtx {
     xmlNodePtr node = (xmlNodePtr)inNode;
@@ -281,6 +284,30 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     }
 
     return res;
+}
+
+
+- (NSRange)range {
+    if (!_foundRange) {
+        XPAssert(_parserCtx);
+        
+        const xmlParserNodeInfo *info = xmlParserFindNodeInfo(_parserCtx, _node);
+//        NSLog(@"begin %lu:%lu", info->begin_line, info->begin_pos);
+//        NSLog(@"end %lu:%lu", info->end_line, info->end_pos);
+
+        NSUInteger loc = 0;
+        NSUInteger len = 0;
+        if (info) {
+            loc = info->begin_pos;
+            len = info->end_pos;
+        } else {
+            XPAssert(0);
+        }
+        _foundRange = YES;
+        self.range = NSMakeRange(loc, len);
+    }
+
+    return _range;
 }
 
 
