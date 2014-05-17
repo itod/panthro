@@ -1,5 +1,5 @@
 //
-//  XPLocationPathLibXmlTest.m
+//  XPLocationPathTest.m
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 4/22/14.
@@ -8,18 +8,16 @@
 
 #import "XPTestScaffold.h"
 #import "XPNodeTypeTest.h"
-#import "XPLibXmlDocumentImpl.h"
-#import "XPLibXmlNodeImpl.h"
+#import "XPNSXMLDocumentImpl.h"
+#import "XPNSXMLNodeImpl.h"
 #import "XPPathExpression.h"
 #import "XPNodeInfo.h"
 #import "XPStandaloneContext.h"
 #import "XPBaseNodeInfo.h"
 
-#import <libxml/tree.h>
-
-@interface XPLocationPathLibXmlTest : XCTestCase
+@interface XPLocationPathNSXMLTest : XCTestCase
 @property (nonatomic, retain) XPStandaloneContext *env;
-@property (nonatomic, assign) xmlNodePtr contextNode;
+@property (nonatomic, retain) NSXMLNode *contextNode;
 @property (nonatomic, retain) XPNodeSetValue *res;
 @property (nonatomic, retain) NSArray *ids;
 @property (nonatomic, retain) NSArray *titles;
@@ -27,7 +25,7 @@
 @property (nonatomic, retain) NSArray *comments;
 @end
 
-@implementation XPLocationPathLibXmlTest
+@implementation XPLocationPathNSXMLTest
 
 - (void)setUp {
     [super setUp];
@@ -38,22 +36,18 @@
     self.comments = @[@" some comment  text "];
 
     NSString *str = XPContentsOfFile(@"book.xml");
+    NSError *err = nil;
+    NSXMLDocument *doc = [[[NSXMLDocument alloc] initWithXMLString:str options:0 error:&err] autorelease];
+    TDNotNil(doc);
+    TDNil(err);
     
-    xmlParserCtxtPtr parserCtx = xmlNewParserCtxt();
-    xmlDocPtr doc = xmlCtxtReadMemory(parserCtx, [str UTF8String], [str length], NULL, "utf-8", XML_PARSE_NOENT);
-//    xmlDocPtr doc = xmlReadMemory([str UTF8String], [str length], NULL, "utf-8",
-    TDTrue(NULL != doc);
-
     //
     // NOTE: the <book> outermost element is the context node in all tests!!!
     //
     
-    xmlNodePtr docEl = doc->children;
-    TDTrue(NULL != docEl);
+    NSXMLNode *docEl = [doc rootElement];
+    TDNotNil(docEl);
     
-//    const xmlParserNodeInfo *info = xmlParserFindNodeInfo(parserCtx, docEl);
-//    NSLog(@"%lu:%lu", info->begin_line, info->begin_pos);
-
     self.env = [XPStandaloneContext standaloneContext];
     [_env setValue:[XPStringValue stringValueWithString:@"hello"] forVariable:@"foo"];
     
@@ -64,7 +58,7 @@
 - (void)eval:(NSString *)xpathStr {
     TDNotNil(_env);
     NSError *err = nil;
-    self.res = [_env evalutate:xpathStr withLibXmlContextNode:_contextNode error:&err];
+    self.res = [_env evalutate:xpathStr withNSXMLContextNode:_contextNode error:&err];
     if (err) {
         NSLog(@"%@", err);
     }
@@ -693,7 +687,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeEnumeration>enm = [_res enumerate];
     
     id <XPNodeInfo>node = [enm nextObject];
-    TDEqualObjects([XPLibXmlDocumentImpl class], [node class]);
+    TDEqualObjects([XPNSXMLDocumentImpl class], [node class]);
     TDEquals(XPNodeTypeRoot, node.nodeType);
     
     TDFalse([enm hasMoreObjects]);
@@ -707,7 +701,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeInfo>node = nil;
     
     node = [enm nextObject];
-    TDEqualObjects([XPLibXmlDocumentImpl class], [node class]);
+    TDEqualObjects([XPNSXMLDocumentImpl class], [node class]);
     TDEquals(XPNodeTypeRoot, node.nodeType);
     
     node = [enm nextObject];
@@ -741,7 +735,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeInfo>node = nil;
     
     node = [enm nextObject];
-    TDEqualObjects([XPLibXmlDocumentImpl class], [node class]);
+    TDEqualObjects([XPNSXMLDocumentImpl class], [node class]);
     TDEquals(XPNodeTypeRoot, node.nodeType);
     
     TDFalse([enm hasMoreObjects]);
@@ -757,7 +751,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeInfo>node = nil;
 
     node = [enm nextObject];
-    TDEqualObjects([XPLibXmlDocumentImpl class], [node class]);
+    TDEqualObjects([XPNSXMLDocumentImpl class], [node class]);
     TDEquals(XPNodeTypeRoot, node.nodeType);
     
     TDFalse([enm hasMoreObjects]);
@@ -822,12 +816,13 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     NSUInteger chIdx = 0;
     NSUInteger paraIdx = 0;
     for (NSUInteger i = 0; i < 6; ++i) {
-        id <XPNodeInfo>node = [enm nextObject];
         if (i % 2 == 0) {
+            id <XPNodeInfo>node = [enm nextObject];
             TDEqualObjects(@"id", node.name);
             TDEquals(XPNodeTypeAttribute, node.nodeType);
             TDEqualObjects(_ids[chIdx++], [node stringValue]);
         } else {
+            id <XPNodeInfo>node = [enm nextObject];
             TDEqualObjects(@"para", node.name);
             TDEquals(XPNodeTypeElement, node.nodeType);
             TDEqualObjects(_paras[paraIdx++], node.stringValue);
@@ -1362,7 +1357,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(@"chapter", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
-    TDTrue([[[node stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] hasPrefix:_titles[0]]);
+    TDTrue([[node stringValue] hasPrefix:_titles[0]]);
     
     TDFalse([enm hasMoreObjects]);
 }
@@ -1376,7 +1371,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(@"chapter", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
-    TDTrue([[[node stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] hasPrefix:_titles[0]]);
+    TDTrue([[node stringValue] hasPrefix:_titles[0]]);
     
     TDFalse([enm hasMoreObjects]);
 }
@@ -1390,7 +1385,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(@"chapter", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
-    TDTrue([[[node stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] hasPrefix:_titles[0]]);
+    TDTrue([[node stringValue] hasPrefix:_titles[0]]);
     
     TDFalse([enm hasMoreObjects]);
 }
@@ -1413,7 +1408,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(@"chapter", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
-    TDTrue([[[node stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] hasPrefix:_titles[0]]);
+    TDTrue([[node stringValue] hasPrefix:_titles[0]]);
     
     TDFalse([enm hasMoreObjects]);
 }
@@ -1427,7 +1422,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(@"chapter", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
-    TDTrue([[[node stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] hasPrefix:_titles[0]]);
+    TDTrue([[node stringValue] hasPrefix:_titles[0]]);
     
     TDFalse([enm hasMoreObjects]);
 }
@@ -1441,7 +1436,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(@"chapter", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
-    TDTrue([[[node stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] hasPrefix:_titles[0]]);
+    TDTrue([[node stringValue] hasPrefix:_titles[0]]);
     
     TDFalse([enm hasMoreObjects]);
 }
@@ -1455,7 +1450,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(@"chapter", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
-    TDTrue([[[node stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] hasPrefix:_titles[0]]);
+    TDTrue([[node stringValue] hasPrefix:_titles[0]]);
     
     TDFalse([enm hasMoreObjects]);
 }
