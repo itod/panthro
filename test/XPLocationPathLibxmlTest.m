@@ -61,11 +61,6 @@
     xmlNodePtr docEl = doc->children;
     TDTrue(NULL != docEl);
     
-    int line = xmlGetLineNo(docEl);
-    
-//    xmlParserNodeInfoSeqPtr seq = _parserCtx->node_seq;
-//    xmlInitNodeInfoSeq(seq);
-    
     const xmlParserNodeInfo *info = xmlParserFindNodeInfo(_parserCtx, docEl);
     NSLog(@"begin %lu:%lu", info->begin_line, info->begin_pos);
     NSLog(@"end %lu:%lu", info->end_line, info->end_pos);

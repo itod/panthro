@@ -27,6 +27,9 @@
 #include "triodef.h"
 #include "triostr.h"
 
+#pragma clang diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-variable"
+
 /*************************************************************************
  * Definitions
  */
@@ -2104,3 +2107,5 @@ TRIO_ARGS1((self),
 #endif /* !defined(TRIO_MINIMAL) */
 
 /** @} End of DynamicStrings */
+
+#pragma clang diagnostic pop

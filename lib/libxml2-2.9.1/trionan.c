@@ -1,3 +1,5 @@
+#pragma clang diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-variable"
 /*************************************************************************
  *
  * $Id$
@@ -912,3 +914,4 @@ int main(TRIO_NOARGS)
   return 0;
 }
 #endif
+#pragma clang diagnostic pop

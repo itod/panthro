@@ -7,6 +7,9 @@
  * daniel@veillard.com
  */
 
+#pragma clang diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-variable"
+
 #define IN_LIBXML
 #include "libxml.h"
 
@@ -1042,3 +1045,5 @@ DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 #endif
 #define bottom_threads
 #include "elfgcchack.h"
+
+#pragma clang diagnostic pop

@@ -59,24 +59,26 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
 
 @interface XPLibxmlNodeImpl ()
 @property (nonatomic, assign) xmlNodePtr node;
+@property (nonatomic, assign) xmlParserCtxtPtr parserCtx;
 @property (nonatomic, retain) id <XPNodeInfo>parent;
 @end
 
 @implementation XPLibxmlNodeImpl
 
-+ (id <XPNodeInfo>)nodeInfoWithNode:(void *)inNode {
++ (id <XPNodeInfo>)nodeInfoWithNode:(void *)inNode parserContext:(xmlParserCtxtPtr)parserCtx {
     xmlNodePtr node = (xmlNodePtr)inNode;
     Class cls = (XML_DOCUMENT_NODE == node->type) ? [XPLibxmlDocumentImpl class] : [XPLibxmlNodeImpl class];
-    id <XPNodeInfo>nodeInfo = [[[cls alloc] initWithNode:node] autorelease];
+    id <XPNodeInfo>nodeInfo = [[[cls alloc] initWithNode:node parserContext:parserCtx] autorelease];
     return nodeInfo;
 }
 
 
-- (id <XPNodeInfo>)initWithNode:(void *)node {
+- (id <XPNodeInfo>)initWithNode:(void *)node parserContext:(xmlParserCtxtPtr)parserCtx {
     NSParameterAssert(node);
     self = [super init];
     if (self) {
         self.node = node;
+        self.parserCtx = parserCtx;
     }
     return self;
 }
@@ -288,7 +290,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     if (!_parent) {
         xmlNodePtr parent = _node->parent;
         if (parent) {
-            self.parent = [[self class] nodeInfoWithNode:parent];
+            self.parent = [[self class] nodeInfoWithNode:parent parserContext:_parserCtx];
         }
     }
     
@@ -299,7 +301,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
 - (id <XPDocumentInfo>)documentRoot {
     XPAssert(_node);
     xmlDocPtr doc = _node->doc;
-    return [[[XPLibxmlDocumentImpl alloc] initWithNode:doc] autorelease];
+    return [[[XPLibxmlDocumentImpl alloc] initWithNode:doc parserContext:_parserCtx] autorelease];
 }
 
 
@@ -436,7 +438,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     
     for (xmlNodePtr child = parent->children; NULL != child; child = child->next) {
     
-        id <XPNodeInfo>node = [[self class] nodeInfoWithNode:child];
+        id <XPNodeInfo>node = [[self class] nodeInfoWithNode:child parserContext:_parserCtx];
         
         if ([nodeTest matches:node]) {
             [result addObject:node];
@@ -491,7 +493,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     
     xmlNodePtr parent = _node->parent;
     while (parent) {
-        id <XPNodeInfo>node = [[self class] nodeInfoWithNode:parent];
+        id <XPNodeInfo>node = [[self class] nodeInfoWithNode:parent parserContext:_parserCtx];
         
         if ([nodeTest matches:node]) {
             if (!result) {
@@ -511,7 +513,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     XPAssert(_node);
     xmlNodePtr parent = _node->parent;
 
-    id <XPNodeInfo>node = [[self class] nodeInfoWithNode:parent];
+    id <XPNodeInfo>node = [[self class] nodeInfoWithNode:parent parserContext:_parserCtx];
     
     NSArray *result = nil;
     
@@ -528,7 +530,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     NSMutableArray *result = nil;
     
     for (xmlNodePtr child = _node->children; NULL != child; child = child->next) {
-        id <XPNodeInfo>node = [[self class] nodeInfoWithNode:child];
+        id <XPNodeInfo>node = [[self class] nodeInfoWithNode:child parserContext:_parserCtx];
         
         if ([nodeTest matches:node]) {
             if (!result) {
@@ -549,7 +551,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     if (XPNodeTypeElement == self.nodeType) {
 
         for (xmlAttrPtr attr = _node->properties; NULL != attr; attr = attr->next) {
-            id <XPNodeInfo>node = [[self class] nodeInfoWithNode:attr];
+            id <XPNodeInfo>node = [[self class] nodeInfoWithNode:attr parserContext:_parserCtx];
             
             if ([nodeTest matches:node]) {
                 if (!result) {
@@ -582,7 +584,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
             continue;
         }
         
-        id <XPNodeInfo>node = [[self class] nodeInfoWithNode:child];
+        id <XPNodeInfo>node = [[self class] nodeInfoWithNode:child parserContext:_parserCtx];
         
         if ([nodeTest matches:node]) {
             [result addObject:node];
@@ -615,7 +617,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
             continue;
         }
         
-        id <XPNodeInfo>node = [[self class] nodeInfoWithNode:child];
+        id <XPNodeInfo>node = [[self class] nodeInfoWithNode:child parserContext:_parserCtx];
         
         if ([nodeTest matches:node]) {
             [result addObject:node];
