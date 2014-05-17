@@ -225,7 +225,24 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
 
 - (NSString *)name {
     XPAssert(_node);
-    return XPSTR(_node->name);
+    NSString *res = nil;
+    switch (self.nodeType) {
+        case XPNodeTypeElement:
+        case XPNodeTypeAttribute:
+        case XPNodeTypePI:
+        case XPNodeTypeNamespace:
+            res = XPSTR(_node->name);
+            break;
+        case XPNodeTypeRoot:
+        case XPNodeTypeComment:
+        case XPNodeTypeText:
+        case XPNodeTypeNode:
+            break;
+        default:
+            XPAssert(0);
+            break;
+    }
+    return res;
 }
 
 

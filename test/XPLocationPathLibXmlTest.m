@@ -8,8 +8,8 @@
 
 #import "XPTestScaffold.h"
 #import "XPNodeTypeTest.h"
-#import "XPNSXMLDocumentImpl.h"
-#import "XPNSXMLNodeImpl.h"
+#import "XPLibXmlDocumentImpl.h"
+#import "XPLibXmlNodeImpl.h"
 #import "XPPathExpression.h"
 #import "XPNodeInfo.h"
 #import "XPStandaloneContext.h"
@@ -44,11 +44,6 @@
 //    xmlDocPtr doc = xmlReadMemory([str UTF8String], [str length], NULL, "utf-8",
     TDTrue(NULL != doc);
 
-//    NSError *err = nil;
-//    NSXMLDocument *doc = [[[NSXMLDocument alloc] initWithXMLString:str options:0 error:&err] autorelease];
-//    TDNotNil(doc);
-//    TDNil(err);
-    
     //
     // NOTE: the <book> outermost element is the context node in all tests!!!
     //
@@ -698,7 +693,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeEnumeration>enm = [_res enumerate];
     
     id <XPNodeInfo>node = [enm nextObject];
-    TDEqualObjects([XPNSXMLDocumentImpl class], [node class]);
+    TDEqualObjects([XPLibXmlDocumentImpl class], [node class]);
     TDEquals(XPNodeTypeRoot, node.nodeType);
     
     TDFalse([enm hasMoreObjects]);
@@ -712,7 +707,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeInfo>node = nil;
     
     node = [enm nextObject];
-    TDEqualObjects([XPNSXMLDocumentImpl class], [node class]);
+    TDEqualObjects([XPLibXmlDocumentImpl class], [node class]);
     TDEquals(XPNodeTypeRoot, node.nodeType);
     
     node = [enm nextObject];
@@ -746,7 +741,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeInfo>node = nil;
     
     node = [enm nextObject];
-    TDEqualObjects([XPNSXMLDocumentImpl class], [node class]);
+    TDEqualObjects([XPLibXmlDocumentImpl class], [node class]);
     TDEquals(XPNodeTypeRoot, node.nodeType);
     
     TDFalse([enm hasMoreObjects]);
@@ -762,7 +757,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeInfo>node = nil;
 
     node = [enm nextObject];
-    TDEqualObjects([XPNSXMLDocumentImpl class], [node class]);
+    TDEqualObjects([XPLibXmlDocumentImpl class], [node class]);
     TDEquals(XPNodeTypeRoot, node.nodeType);
     
     TDFalse([enm hasMoreObjects]);
@@ -1368,7 +1363,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(@"chapter", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
-    TDTrue([[node stringValue] hasPrefix:_titles[0]]);
+    TDTrue([[node stringValue] rangeOfString:_titles[0]].length);
     
     TDFalse([enm hasMoreObjects]);
 }
@@ -1382,7 +1377,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(@"chapter", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
-    TDTrue([[node stringValue] hasPrefix:_titles[0]]);
+    TDTrue([[node stringValue] rangeOfString:_titles[0]].length);
     
     TDFalse([enm hasMoreObjects]);
 }
@@ -1396,7 +1391,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(@"chapter", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
-    TDTrue([[node stringValue] hasPrefix:_titles[0]]);
+    TDTrue([[node stringValue] rangeOfString:_titles[0]].length);
     
     TDFalse([enm hasMoreObjects]);
 }
@@ -1419,7 +1414,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(@"chapter", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
-    TDTrue([[node stringValue] hasPrefix:_titles[0]]);
+    TDTrue([[node stringValue] rangeOfString:_titles[0]].length);
     
     TDFalse([enm hasMoreObjects]);
 }
@@ -1433,7 +1428,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(@"chapter", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
-    TDTrue([[node stringValue] hasPrefix:_titles[0]]);
+    TDTrue([[node stringValue] rangeOfString:_titles[0]].length);
     
     TDFalse([enm hasMoreObjects]);
 }
@@ -1447,7 +1442,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(@"chapter", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
-    TDTrue([[node stringValue] hasPrefix:_titles[0]]);
+    TDTrue([[node stringValue] rangeOfString:_titles[0]].length);
     
     TDFalse([enm hasMoreObjects]);
 }
@@ -1461,7 +1456,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeInfo>node = [enm nextObject];
     TDEqualObjects(@"chapter", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
-    TDTrue([[node stringValue] hasPrefix:_titles[0]]);
+    TDTrue([[node stringValue] rangeOfString:_titles[0]].length);
     
     TDFalse([enm hasMoreObjects]);
 }
