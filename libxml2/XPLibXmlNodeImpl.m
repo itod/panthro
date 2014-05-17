@@ -106,8 +106,8 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     
     NSUInteger depth1 = 0;
     NSUInteger depth2 = 0;
-    id <XPNodeInfo>p1 = nil;
-    id <XPNodeInfo>p2 = nil;
+    id <XPNodeInfo>p1 = self;
+    id <XPNodeInfo>p2 = other;
     while (p1) {
         depth1++;
         p1 = p1.parent;
@@ -142,7 +142,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
         id <XPNodeInfo>par1 = p1.parent;
         id <XPNodeInfo>par2 = p2.parent;
         if (!par1 || !par2) {
-            [NSException raise:@"NullPointerException" format:@"NSXML Tree Compare - internal error"];
+            [NSException raise:@"NullPointerException" format:@"libxml Tree Compare - internal error"];
         }
         if ([par1 isSameNodeInfo:par2]) {
             return XPIndexInParent(((XPLibXmlNodeImpl *)p1).node) - XPIndexInParent(((XPLibXmlNodeImpl *)p2).node);
@@ -237,7 +237,14 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
 
 - (NSString *)prefix {
     XPAssert(_node);
-    return XPSTR(_node->ns->prefix);
+    NSString *res = nil;
+    if (XPNodeTypeAttribute == self.nodeType) {
+//        xmlAttributePtr attr = (xmlAttributePtr)_node;
+//        res = XPSTR(attr->prefix);
+    } else {
+//        res = XPSTR(_node->ns->prefix);
+    }
+    return res;
 }
 
 
@@ -330,7 +337,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
         [result addObject:self];
     }
     
-    [result addObjectsFromArray:[self descendantNodesFromParent:self.node nodeTest:nodeTest]];
+    [result addObjectsFromArray:[self descendantNodesFromParent:_node nodeTest:nodeTest]];
     
     return result;
 }
@@ -339,7 +346,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
 - (NSArray *)nodesForDescendantAxis:(XPNodeTest *)nodeTest {
     NSMutableArray *nodes = [NSMutableArray array];
     
-    [nodes addObjectsFromArray:[self descendantNodesFromParent:self.node nodeTest:nodeTest]];
+    [nodes addObjectsFromArray:[self descendantNodesFromParent:_node nodeTest:nodeTest]];
     
     return nodes;
 }

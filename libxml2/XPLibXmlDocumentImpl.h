@@ -7,8 +7,8 @@
 //
 
 #import "XPDocumentInfo.h"
-#import "XPNSXMLNodeImpl.h"
+#import "XPLibXmlNodeImpl.h"
 
-@interface XPLibXmlDocumentImpl : XPNSXMLNodeImpl <XPDocumentInfo>
+@interface XPLibXmlDocumentImpl : XPLibXmlNodeImpl <XPDocumentInfo>
 
 @end
