@@ -29,6 +29,14 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     xmlNodePtr parent = node->parent;
     
     NSUInteger idx = 0;
+    
+    // not sure about this ns looping
+    for (xmlNsPtr ns = parent->nsDef; NULL != ns; ++idx, ns = ns->next) {
+        if (ns == (void *)node) {
+            return idx;
+        }
+    }
+
     for (xmlAttrPtr attr = parent->properties; NULL != attr; ++idx, attr = attr->next) {
         if (attr == (void *)node) {
             return idx;
@@ -261,12 +269,11 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
 - (NSString *)prefix {
     XPAssert(_node);
     NSString *res = nil;
-    if (XPNodeTypeAttribute == self.nodeType) {
-//        xmlAttributePtr attr = (xmlAttributePtr)_node;
-//        res = XPSTR(attr->prefix);
-    } else {
-//        res = XPSTR(_node->ns->prefix);
+    
+    if (_node->ns && _node->ns->prefix) {
+        res = XPSTR(_node->ns->prefix);
     }
+
     return res;
 }
 
@@ -315,11 +322,19 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     
     NSString *res = nil;
     
-    for (xmlNsPtr ns = _node->nsDef; NULL != ns; ns = ns->next) {
-        if (0 == strcmp((char *)ns->prefix, [prefix UTF8String])) {
-            res = XPSTR(ns->href);
+    xmlNodePtr node = _node;
+    
+    while (node) {
+        if (XML_ELEMENT_NODE == node->type) {
+            for (xmlNsPtr ns = node->nsDef; NULL != ns; ns = ns->next) {
+                if (ns->prefix && 0 == strcmp((char *)ns->prefix, [prefix UTF8String])) {
+                    res = XPSTR(ns->href);
+                }
+            }
         }
+        node = node->parent;
     }
+    
     return res;
 }
 
