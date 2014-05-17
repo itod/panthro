@@ -13,7 +13,6 @@
 #import "XPPathExpression.h"
 #import "XPNodeInfo.h"
 #import "XPStandaloneContext.h"
-#import "XPBaseNodeInfo.h"
 
 @interface XPLocationPathNSXMLTest : XCTestCase
 @property (nonatomic, retain) XPStandaloneContext *env;
@@ -170,8 +169,6 @@
 
 - (void)testImplicitChildAxisNameTestChapterPredicate1 {
     [self eval:@"chapter[1]"];
-
-    NSLog(@"Instance count: %lu", [XPBaseNodeInfo instanceCount]);
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
