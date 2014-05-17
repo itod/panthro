@@ -1,14 +1,14 @@
 //
-//  XPLibXmlDocumentImpl.m
+//  XPLibxmlDocumentImpl.m
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 5/4/14.
 //
 //
 
-#import "XPLibXmlDocumentImpl.h"
+#import "XPLibxmlDocumentImpl.h"
 
-@implementation XPLibXmlDocumentImpl
+@implementation XPLibxmlDocumentImpl
 
 - (XPNodeType)nodeType {
     return XPNodeTypeRoot;

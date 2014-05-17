@@ -1,13 +1,13 @@
 //
-//  XPLibXmlNodeImpl.m
+//  XPLibxmlNodeImpl.m
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 4/27/14.
 //
 //
 
-#import "XPLibXmlNodeImpl.h"
-#import "XPLibXmlDocumentImpl.h"
+#import "XPLibxmlNodeImpl.h"
+#import "XPLibxmlDocumentImpl.h"
 #import "XPAxis.h"
 #import "XPNodeSetValueEnumeration.h"
 #import "XPNodeTest.h"
@@ -52,16 +52,16 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     return idx;
 }
 
-@interface XPLibXmlNodeImpl ()
+@interface XPLibxmlNodeImpl ()
 @property (nonatomic, assign) xmlNodePtr node;
 @property (nonatomic, retain) id <XPNodeInfo>parent;
 @end
 
-@implementation XPLibXmlNodeImpl
+@implementation XPLibxmlNodeImpl
 
 + (id <XPNodeInfo>)nodeInfoWithNode:(void *)inNode {
     xmlNodePtr node = (xmlNodePtr)inNode;
-    Class cls = (XML_DOCUMENT_NODE == node->type) ? [XPLibXmlDocumentImpl class] : [XPLibXmlNodeImpl class];
+    Class cls = (XML_DOCUMENT_NODE == node->type) ? [XPLibxmlDocumentImpl class] : [XPLibxmlNodeImpl class];
     id <XPNodeInfo>nodeInfo = [[[cls alloc] initWithNode:node] autorelease];
     return nodeInfo;
 }
@@ -100,7 +100,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
 
 
 - (NSComparisonResult)compareOrderTo:(id <XPNodeInfo>)other {
-    XPAssert([other isKindOfClass:[XPLibXmlNodeImpl class]]);
+    XPAssert([other isKindOfClass:[XPLibxmlNodeImpl class]]);
     
     NSComparisonResult result = NSOrderedSame;
     
@@ -109,7 +109,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
         return result;
     }
     
-    XPLibXmlNodeImpl *that = (id)other;
+    XPLibxmlNodeImpl *that = (id)other;
 
     // are they siblings (common case)
     if ([self.parent isSameNodeInfo:other.parent]) {
@@ -159,7 +159,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
             [NSException raise:@"NullPointerException" format:@"libxml Tree Compare - internal error"];
         }
         if ([par1 isSameNodeInfo:par2]) {            
-            return XPIndexInParent(((XPLibXmlNodeImpl *)p1).node) - XPIndexInParent(((XPLibXmlNodeImpl *)p2).node);
+            return XPIndexInParent(((XPLibxmlNodeImpl *)p1).node) - XPIndexInParent(((XPLibxmlNodeImpl *)p2).node);
         }
         p1 = par1;
         p2 = par2;
@@ -295,7 +295,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
 - (id <XPDocumentInfo>)documentRoot {
     XPAssert(_node);
     xmlDocPtr doc = _node->doc;
-    return [[[XPLibXmlDocumentImpl alloc] initWithNode:doc] autorelease];
+    return [[[XPLibxmlDocumentImpl alloc] initWithNode:doc] autorelease];
 }
 
 

@@ -1,5 +1,5 @@
 //
-//  XPLibXmlDocumentImpl.h
+//  XPLibxmlDocumentImpl.h
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 5/4/14.
@@ -7,8 +7,8 @@
 //
 
 #import "XPDocumentInfo.h"
-#import "XPLibXmlNodeImpl.h"
+#import "XPLibxmlNodeImpl.h"
 
-@interface XPLibXmlDocumentImpl : XPLibXmlNodeImpl <XPDocumentInfo>
+@interface XPLibxmlDocumentImpl : XPLibxmlNodeImpl <XPDocumentInfo>
 
 @end
