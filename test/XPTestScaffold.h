@@ -19,4 +19,5 @@
 #define TDEquals(e1, e2) XCTAssertEqual((e1), (e2), @"")
 #define TDEqualObjects(e1, e2) XCTAssertEqualObjects((e1), (e2), @"")
 
+extern NSString *XPPathOfFile(NSString *relFilePath);
 extern NSString *XPContentsOfFile(NSString *relFilePath);

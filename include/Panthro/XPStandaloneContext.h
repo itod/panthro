@@ -7,6 +7,7 @@
 //
 
 #import "XPStaticContext.h"
+#import <libxml/parser.h>
 
 @protocol XPNodeInfo;
 
@@ -20,7 +21,7 @@
 + (instancetype)standaloneContext;
 
 - (id)evalutate:(NSString *)xpathStr withNSXMLContextNode:(NSXMLNode *)nsxmlCtxNode error:(NSError **)outErr;
-- (id)evalutate:(NSString *)xpathStr withLibxmlContextNode:(void *)nsxmlCtxNode error:(NSError **)outErr;
+- (id)evalutate:(NSString *)xpathStr withLibxmlContextNode:(void *)libxmlCtxNode parserContext:(xmlParserCtxtPtr)parserCtx error:(NSError **)outErr;
 
 - (id)evalutate:(NSString *)xpathStr withContextNode:(id <XPNodeInfo>)ctxNode error:(NSError **)outErr;
 
