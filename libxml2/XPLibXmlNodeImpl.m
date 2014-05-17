@@ -455,6 +455,9 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     for (xmlNodePtr child = parent->children; NULL != child; child = child->next) {
         if (!found) {
             found = child == _node;
+            if (found) {
+                continue;
+            }
         }
         if (!found) {
             continue;
@@ -485,6 +488,9 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     for (xmlNodePtr child = parent->last; NULL != child; child = child->prev) {
         if (!found) {
             found = child == _node;
+            if (found) {
+                continue;
+            }
         }
         if (!found) {
             continue;
