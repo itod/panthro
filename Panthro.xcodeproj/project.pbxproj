@@ -1198,8 +1198,6 @@
 				D3BE1415191AFC7200005C81 /* XPNodeSetValueEnumeration.m */,
 				D3BBAE94191DD9B700766EB4 /* XPUnionEnumeration.h */,
 				D3BBAE95191DD9B700766EB4 /* XPUnionEnumeration.m */,
-				D3BE1422191C193900005C81 /* XPFilterEnumerator.h */,
-				D3BE1423191C193900005C81 /* XPFilterEnumerator.m */,
 				D3BBAE88191D881200766EB4 /* XPLookaheadEnumerator.h */,
 				D3BBAE89191D881200766EB4 /* XPLookaheadEnumerator.m */,
 			);
@@ -1251,6 +1249,8 @@
 				D36BC02E101BF52F00D1A6C7 /* XPNodeSetExpression.m */,
 				D3BE140E191AC80400005C81 /* XPFilterExpression.h */,
 				D3BE140F191AC80400005C81 /* XPFilterExpression.m */,
+				D3BE1422191C193900005C81 /* XPFilterEnumerator.h */,
+				D3BE1423191C193900005C81 /* XPFilterEnumerator.m */,
 				D3BE140A191AC7A200005C81 /* XPUnionExpression.h */,
 				D3BE140B191AC7A200005C81 /* XPUnionExpression.m */,
 				D3BE1413191AC82300005C81 /* Location Path Expr */,

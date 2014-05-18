@@ -26,6 +26,7 @@
  */
 
 - (instancetype)initWithBase:(id <XPNodeEnumeration>)base {
+    XPAssert(![base conformsToProtocol:@protocol(XPLastPositionFinder)]);
     self = [super init];
     if (self) {
         self.base = base;
@@ -77,7 +78,7 @@
  */
 
 - (NSUInteger)lastPosition {
-    if (_last>0) {
+    if (_last > 0) {
         return _last;
     } else {
         // load the reservoir with all remaining input nodes

@@ -1678,4 +1678,19 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDFalse([enm hasMoreObjects]);
 }
 
+
+- (void)testIdC2_C1PredicateLastSlashTitle {
+    [self eval:@"id('c2 c1')[last()]/title"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
+    
+    node = [enm nextObject];
+    TDEqualObjects(@"title", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDEqualObjects(_titles[1], [node stringValue]);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
 @end

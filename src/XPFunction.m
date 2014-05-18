@@ -23,15 +23,16 @@
 
 
 - (NSString *)description {
-    id str = [NSMutableString stringWithFormat:@"`%@(", [[self class] name]];
+    id str = [NSMutableString stringWithFormat:@"%@(", [[self class] name]];
     NSUInteger i = 0;
     NSUInteger c = [self numberOfArguments];
     for (id arg in _args) {
         NSString *fmt = i++ == c - 1 ? @"%@" : @"%@, ";
         [str appendFormat:fmt, arg];
     }
-    [str appendString:@")`"];
-    return [NSString stringWithFormat:@"<%@ %p %@>", [self class], self, str];
+    [str appendString:@")"];
+    return str;
+//    return [NSString stringWithFormat:@"<%@ %p %@>", [self class], self, str];
 }
 
 

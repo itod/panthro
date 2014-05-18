@@ -180,37 +180,19 @@
     }
 
     // ok, here we are.
-    ctx = [[ctx copy] autorelease];
     
     id <XPNodeEnumeration>contextNodeEnm = [_start enumerateInContext:ctx sorted:sorted];
     
-    id <XPNodeInfo>contextNode = nil;
-    NSUInteger contextSize = 0;
-    NSUInteger contextPosition = 0;
-    
-    if ([contextNodeEnm conformsToProtocol:@protocol(XPLastPositionFinder)]) {
-        contextSize = [(id <XPLastPositionFinder>)contextNodeEnm lastPosition];
-        
-    // ?????
-    } else if ([contextNodeEnm isKindOfClass:[XPFilterEnumerator class]]) {
-        contextSize = [[[(XPFilterEnumerator *)contextNodeEnm filterContext] lastPositionFinder] lastPosition];
-    } else {
-        XPAssert(0);
-    }
-    
-    ctx.last = contextSize;
-    ctx.position = 0;
+    ctx = [[ctx copy] autorelease];
+    ctx.position = 1;
+    ctx.last = 1;
     
     NSMutableArray *resultUnion = [NSMutableArray array];
-    
+
     while ([contextNodeEnm hasMoreObjects]) {
-        contextNode = [contextNodeEnm nextObject];
-        ++contextPosition;
+        ctx.contextNode = [contextNodeEnm nextObject];
 
-        ctx.contextNode = contextNode;
-        ctx.position = contextPosition;
-
-        id <XPNodeEnumeration>enm = [_step enumerate:contextNode inContext:ctx];
+        id <XPNodeEnumeration>enm = [_step enumerate:ctx.contextNode inContext:ctx];
         
         for (id <XPNodeInfo>node in enm) {
             [resultUnion addObject:node];
