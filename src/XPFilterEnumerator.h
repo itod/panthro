@@ -21,4 +21,5 @@
 @interface XPFilterEnumerator : XPBaseFastEnumeration <XPNodeEnumeration>
 
 - (instancetype)initWithBase:(id <XPNodeEnumeration>)base filter:(XPExpression *)filter context:(XPContext *)ctx finishAfterReject:(BOOL)finishAfterReject;
+@property (nonatomic, retain) XPContext *filterContext;
 @end

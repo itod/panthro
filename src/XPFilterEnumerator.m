@@ -27,7 +27,6 @@
 @property (nonatomic, assign) NSUInteger max;
 
 @property (nonatomic, retain) id <XPNodeInfo>current;
-@property (nonatomic, retain) XPContext *filterContext;
 
 @property (nonatomic, assign) XPDataType dataType;
 @property (nonatomic, assign) BOOL positional;

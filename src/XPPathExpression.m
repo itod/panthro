@@ -12,6 +12,8 @@
 #import "XPAxis.h"
 #import "XPEmptyNodeSet.h"
 #import "XPNodeSetValueEnumeration.h"
+#import "XPLookaheadEnumerator.h"
+#import "XPFilterEnumerator.h"
 #import "XPLocalOrderComparer.h"
 #import "XPSingletonNodeSet.h"
 
@@ -188,8 +190,12 @@
     
     if ([contextNodeEnm conformsToProtocol:@protocol(XPLastPositionFinder)]) {
         contextSize = [(id <XPLastPositionFinder>)contextNodeEnm lastPosition];
+        
+    // ?????
+    } else if ([contextNodeEnm isKindOfClass:[XPFilterEnumerator class]]) {
+        contextSize = [[[(XPFilterEnumerator *)contextNodeEnm filterContext] lastPositionFinder] lastPosition];
     } else {
-        XPAssert(0); // TODO determine last position finder
+        XPAssert(0);
     }
     
     ctx.last = contextSize;
