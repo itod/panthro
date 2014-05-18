@@ -738,11 +738,8 @@
         [self nameTest_]; 
     } else if ([self speculate:^{ [self typeTest_]; }]) {
         [self typeTest_]; 
-    } else if ([self speculate:^{ [self match:XPEG_TOKEN_KIND_PROCESSING_INSTRUCTION discard:NO]; [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:NO]; [self literal_]; [self match:XPEG_TOKEN_KIND_CLOSE_PAREN discard:NO]; }]) {
-        [self match:XPEG_TOKEN_KIND_PROCESSING_INSTRUCTION discard:NO]; 
-        [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:NO]; 
-        [self literal_]; 
-        [self match:XPEG_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+    } else if ([self speculate:^{ [self specificPITest_]; }]) {
+        [self specificPITest_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'nodeTest'."];
     }
@@ -791,6 +788,16 @@
     }
 
     [self fireDelegateSelector:@selector(parser:didMatchNodeType:)];
+}
+
+- (void)specificPITest_ {
+    
+    [self match:XPEG_TOKEN_KIND_PROCESSING_INSTRUCTION discard:YES]; 
+    [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:YES]; 
+    [self literal_]; 
+    [self match:XPEG_TOKEN_KIND_CLOSE_PAREN discard:YES]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchSpecificPITest:)];
 }
 
 - (void)abbreviatedStep_ {

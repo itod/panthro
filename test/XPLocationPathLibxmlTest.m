@@ -25,6 +25,7 @@
 @property (nonatomic, retain) NSArray *titles;
 @property (nonatomic, retain) NSArray *paras;
 @property (nonatomic, retain) NSArray *comments;
+@property (nonatomic, retain) NSArray *pis;
 @end
 
 @implementation XPLocationPathLibxmlTest
@@ -36,14 +37,13 @@
     self.titles = @[@"Chapter 1", @"Chapter 2", @"Chapter 3"];
     self.paras = @[@"Chapter 1 content. ", @"Chapter 2 content.", @"Chapter 3 content."];
     self.comments = @[@" some comment  text "];
+    self.pis = @[@"bar='baz'"];
 
     //NSString *str = XPContentsOfFile(@"book.xml");
     NSString *path = XPPathOfFile(@"book.xml");
     
     
     self.parserCtx = xmlNewParserCtxt();
-//    xmlCtxtReset(_parserCtx);
-//    _parserCtx->record_info = 1;
 
     xmlLineNumbersDefault(1);
     
@@ -61,10 +61,6 @@
     xmlNodePtr docEl = doc->children;
     TDTrue(NULL != docEl);
     
-//    const xmlParserNodeInfo *info = xmlParserFindNodeInfo(_parserCtx, docEl);
-//    NSLog(@"begin %lu:%lu", info->begin_line, info->begin_pos);
-//    NSLog(@"end %lu:%lu", info->end_line, info->end_pos);
-
     self.env = [XPStandaloneContext standaloneContext];
     [_env setValue:[XPStringValue stringValueWithString:@"hello"] forVariable:@"foo"];
     
@@ -89,6 +85,7 @@
     self.titles = nil;
     self.paras = nil;
     self.comments = nil;
+    self.pis = nil;
     [super tearDown];
 }
 
@@ -1507,6 +1504,34 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEqualObjects(nil, node.name);
     TDEquals(XPNodeTypeComment, node.nodeType);
     TDEqualObjects(_comments[0], [node stringValue]);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testSlashSlashPI {
+    [self eval:@"//processing-instruction()"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(@"foo", node.name);
+    TDEquals(XPNodeTypePI, node.nodeType);
+    TDEqualObjects(_pis[0], [node stringValue]);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testSlashSlashPIFoo {
+    [self eval:@"processing-instruction('foo')"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(@"foo", node.name);
+    TDEquals(XPNodeTypePI, node.nodeType);
+    TDEqualObjects(_pis[0], [node stringValue]);
     
     TDFalse([enm hasMoreObjects]);
 }

@@ -15,4 +15,5 @@
       <title>Chapter 3</title>
       <para>Chapter 3 content.</para>
     </chapter>
+    <?foo bar='baz'?>
 </book>

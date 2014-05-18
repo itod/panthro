@@ -9,6 +9,7 @@
 #import "XPAssembler.h"
 #import <Panthro/Panthro.h>
 #import <PEGKit/PEGKit.h>
+#import <PEGKit/PKParser+Subclass.h>
 
 #import "XPBooleanExpression.h"
 #import "XPRelationalExpression.h"
@@ -409,7 +410,7 @@
     XPAssert([axisNum isKindOfClass:[NSNumber class]]);
     XPAxis axis = [axisNum unsignedIntegerValue];
     
-    if ([nodeTest isKindOfClass:[XPNameTest class]]) {
+    if ([nodeTest isKindOfClass:[XPNameTest class]] && XPNodeTypePI != nodeTest.nodeType) {
         nodeTest.nodeType = XPAxisPrincipalNodeType[axis];
     }
     
@@ -427,7 +428,7 @@
 
     XPAxis axis = XPAxisChild;
     
-    if ([nodeTest isKindOfClass:[XPNameTest class]]) {
+    if ([nodeTest isKindOfClass:[XPNameTest class]] && XPNodeTypePI != nodeTest.nodeType) {
         nodeTest.nodeType = XPAxisPrincipalNodeType[axis];
     }
 
@@ -476,6 +477,16 @@
     XPNodeTypeTest *typeTest = [[[XPNodeTypeTest alloc] initWithNodeType:type] autorelease];
     
     [a push:typeTest];
+}
+
+
+- (void)parser:(PKParser *)p didMatchSpecificPITest:(PKAssembly *)a {
+    NSString *name = [p popQuotedString];
+    XPAssert([name isKindOfClass:[NSString class]]);
+    XPNameTest *nameTest = [[[XPNameTest alloc] initWithName:name] autorelease];
+    nameTest.nodeType = XPNodeTypePI;
+    
+    [a push:nameTest];
 }
 
 
