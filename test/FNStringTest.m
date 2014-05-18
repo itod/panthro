@@ -6,7 +6,13 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "FNStringTest.h"
+#import "XPTestScaffold.h"
+
+@interface FNStringTest : XCTestCase
+@property (nonatomic, retain) XPExpression *expr;
+@property (nonatomic, retain) XPFunction *fn;
+@property (nonatomic, retain) NSString *res;
+@end
 
 @implementation FNStringTest
 

@@ -6,7 +6,13 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "FNStartsWithTest.h"
+#import "XPTestScaffold.h"
+
+@interface FNStartsWithTest : XCTestCase
+@property (nonatomic, retain) XPExpression *expr;
+@property (nonatomic, retain) XPFunction *fn;
+@property (nonatomic, assign) BOOL res;
+@end
 
 @implementation FNStartsWithTest
 

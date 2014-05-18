@@ -6,7 +6,13 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "FNRoundTest.h"
+#import "XPTestScaffold.h"
+
+@interface FNRoundTest : XCTestCase
+@property (nonatomic, retain) XPExpression *expr;
+@property (nonatomic, retain) XPFunction *fn;
+@property (nonatomic, assign) double res;
+@end
 
 @implementation FNRoundTest
 
