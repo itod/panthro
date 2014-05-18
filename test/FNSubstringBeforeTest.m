@@ -53,4 +53,20 @@
     TDEqualObjects(_res, @"1");
 }
 
+
+
+- (void)testEqualsExprSubstringBefore {
+    self.expr = [XPExpression expressionFromString:@"substring-before('ab', 'b') = 'a'" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"substring-before('ab', 'a') = ''" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"substring-before('ab', 'c') = ''" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+}
+
 @end

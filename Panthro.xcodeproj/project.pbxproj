@@ -95,6 +95,8 @@
 		D339F6691927B9A700C79A51 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D339F6681927B9A700C79A51 /* libiconv.dylib */; };
 		D339F66C1928EA1100C79A51 /* FNId.h in Headers */ = {isa = PBXBuildFile; fileRef = D339F66A1928EA1100C79A51 /* FNId.h */; };
 		D339F66D1928EA1100C79A51 /* FNId.m in Sources */ = {isa = PBXBuildFile; fileRef = D339F66B1928EA1100C79A51 /* FNId.m */; };
+		D339F6721929623700C79A51 /* FNTranslate.h in Headers */ = {isa = PBXBuildFile; fileRef = D339F6701929623700C79A51 /* FNTranslate.h */; };
+		D339F6731929623700C79A51 /* FNTranslate.m in Sources */ = {isa = PBXBuildFile; fileRef = D339F6711929623700C79A51 /* FNTranslate.m */; };
 		D33E9F841916E0E000BB7DFE /* XPStandaloneContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E9F821916E0E000BB7DFE /* XPStandaloneContext.m */; };
 		D33E9F8C1916E60C00BB7DFE /* XPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E9F8A1916E60C00BB7DFE /* XPUtils.m */; };
 		D33E9F931917040D00BB7DFE /* XPPathExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D33E9F911917040D00BB7DFE /* XPPathExpression.h */; };
@@ -439,6 +441,8 @@
 		D339F6681927B9A700C79A51 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		D339F66A1928EA1100C79A51 /* FNId.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNId.h; path = src/FNId.h; sourceTree = "<group>"; };
 		D339F66B1928EA1100C79A51 /* FNId.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNId.m; path = src/FNId.m; sourceTree = "<group>"; };
+		D339F6701929623700C79A51 /* FNTranslate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNTranslate.h; path = src/FNTranslate.h; sourceTree = "<group>"; };
+		D339F6711929623700C79A51 /* FNTranslate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNTranslate.m; path = src/FNTranslate.m; sourceTree = "<group>"; };
 		D33E9F821916E0E000BB7DFE /* XPStandaloneContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPStandaloneContext.m; path = src/XPStandaloneContext.m; sourceTree = "<group>"; };
 		D33E9F8A1916E60C00BB7DFE /* XPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPUtils.m; path = src/XPUtils.m; sourceTree = "<group>"; };
 		D33E9F911917040D00BB7DFE /* XPPathExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPPathExpression.h; path = src/XPPathExpression.h; sourceTree = "<group>"; };
@@ -493,16 +497,12 @@
 		D37A2B97101418EC00E936B7 /* FNBooleanTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNBooleanTest.m; path = test/FNBooleanTest.m; sourceTree = "<group>"; };
 		D37A2BDB10141E7C00E936B7 /* NSError+XPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSError+XPAdditions.h"; path = "src/NSError+XPAdditions.h"; sourceTree = "<group>"; };
 		D37A2CAA10142D8E00E936B7 /* FNCeiling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNCeiling.m; path = src/FNCeiling.m; sourceTree = "<group>"; };
-		D37A2CD810142EC100E936B7 /* FNCeilingTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNCeilingTest.h; path = test/FNCeilingTest.h; sourceTree = "<group>"; };
 		D37A2CD910142EC100E936B7 /* FNCeilingTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNCeilingTest.m; path = test/FNCeilingTest.m; sourceTree = "<group>"; };
 		D37A2D00101433C600E936B7 /* FNConcat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNConcat.m; path = src/FNConcat.m; sourceTree = "<group>"; };
-		D37A2D23101436CE00E936B7 /* FNConcatTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNConcatTest.h; path = test/FNConcatTest.h; sourceTree = "<group>"; };
 		D37A2D24101436CE00E936B7 /* FNConcatTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNConcatTest.m; path = test/FNConcatTest.m; sourceTree = "<group>"; };
 		D37A2D621014393D00E936B7 /* FNCount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNCount.m; path = src/FNCount.m; sourceTree = "<group>"; };
 		D37A2E7B10156BF000E936B7 /* FNContains.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNContains.m; path = src/FNContains.m; sourceTree = "<group>"; };
-		D37A2EAA10156F5700E936B7 /* FNContainsTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNContainsTest.h; path = test/FNContainsTest.h; sourceTree = "<group>"; };
 		D37A2EAB10156F5700E936B7 /* FNContainsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNContainsTest.m; path = test/FNContainsTest.m; sourceTree = "<group>"; };
-		D37A2ED51015724700E936B7 /* FNFloorTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNFloorTest.h; path = test/FNFloorTest.h; sourceTree = "<group>"; };
 		D37A2ED61015724700E936B7 /* FNFloorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNFloorTest.m; path = test/FNFloorTest.m; sourceTree = "<group>"; };
 		D37A2F0B101574B200E936B7 /* FNFloor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNFloor.m; path = src/FNFloor.m; sourceTree = "<group>"; };
 		D37A2F2910157F5400E936B7 /* FNLast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNLast.m; path = src/FNLast.m; sourceTree = "<group>"; };
@@ -519,7 +519,6 @@
 		D37A300F10158DEF00E936B7 /* FNSubstringBefore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNSubstringBefore.m; path = src/FNSubstringBefore.m; sourceTree = "<group>"; };
 		D37A301310158E0100E936B7 /* FNSum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNSum.m; path = src/FNSum.m; sourceTree = "<group>"; };
 		D37A306E1015952F00E936B7 /* FNEndsWith.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNEndsWith.m; path = src/FNEndsWith.m; sourceTree = "<group>"; };
-		D37A3073101595F400E936B7 /* FNEndsWithTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNEndsWithTest.h; path = test/FNEndsWithTest.h; sourceTree = "<group>"; };
 		D37A3074101595F400E936B7 /* FNEndsWithTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNEndsWithTest.m; path = test/FNEndsWithTest.m; sourceTree = "<group>"; };
 		D37A3076101595FD00E936B7 /* FNStartsWithTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNStartsWithTest.h; path = test/FNStartsWithTest.h; sourceTree = "<group>"; };
 		D37A3077101595FD00E936B7 /* FNStartsWithTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNStartsWithTest.m; path = test/FNStartsWithTest.m; sourceTree = "<group>"; };
@@ -1093,10 +1092,12 @@
 				D37A300710158DD700E936B7 /* FNSubstring.m */,
 				D3F0CB9A191EC23D0049EC02 /* FNSubstringAfter.h */,
 				D37A300B10158DE500E936B7 /* FNSubstringAfter.m */,
-				D37A300F10158DEF00E936B7 /* FNSubstringBefore.m */,
 				D3F0CB9B191EC23D0049EC02 /* FNSubstringBefore.h */,
+				D37A300F10158DEF00E936B7 /* FNSubstringBefore.m */,
 				D3F0CB9C191EC23D0049EC02 /* FNSum.h */,
 				D37A301310158E0100E936B7 /* FNSum.m */,
+				D339F6701929623700C79A51 /* FNTranslate.h */,
+				D339F6711929623700C79A51 /* FNTranslate.m */,
 				D3C0F59C19214FE700566524 /* FNTrimSpace.h */,
 				D3C0F59D19214FE700566524 /* FNTrimSpace.m */,
 				D33931241920534E00259939 /* FNTitleCase.h */,
@@ -1129,15 +1130,10 @@
 			isa = PBXGroup;
 			children = (
 				D37A2B97101418EC00E936B7 /* FNBooleanTest.m */,
-				D37A2CD810142EC100E936B7 /* FNCeilingTest.h */,
 				D37A2CD910142EC100E936B7 /* FNCeilingTest.m */,
-				D37A2D23101436CE00E936B7 /* FNConcatTest.h */,
 				D37A2D24101436CE00E936B7 /* FNConcatTest.m */,
-				D37A2EAA10156F5700E936B7 /* FNContainsTest.h */,
 				D37A2EAB10156F5700E936B7 /* FNContainsTest.m */,
-				D37A3073101595F400E936B7 /* FNEndsWithTest.h */,
 				D37A3074101595F400E936B7 /* FNEndsWithTest.m */,
-				D37A2ED51015724700E936B7 /* FNFloorTest.h */,
 				D37A2ED61015724700E936B7 /* FNFloorTest.m */,
 				D37A299B1013F87900E936B7 /* FNNotTest.h */,
 				D37A299C1013F87900E936B7 /* FNNotTest.m */,
@@ -1325,6 +1321,7 @@
 				D3F0CBF6191EC7D00049EC02 /* XPContext.h in Headers */,
 				D3C0F5A21921555800566524 /* FNNormalizeUnicode.h in Headers */,
 				D3F0CC0A191EC8250049EC02 /* XPBooleanValue.h in Headers */,
+				D339F6721929623700C79A51 /* FNTranslate.h in Headers */,
 				D3F0CBAD191EC23D0049EC02 /* FNSubstringAfter.h in Headers */,
 				D3F0CBF4191EC7D00049EC02 /* Panthro.h in Headers */,
 				D3F0CBAE191EC23D0049EC02 /* FNSubstringBefore.h in Headers */,
@@ -1644,6 +1641,7 @@
 				D37A300D10158DE500E936B7 /* FNSubstringAfter.m in Sources */,
 				D37A301110158DEF00E936B7 /* FNSubstringBefore.m in Sources */,
 				D3C0F5A31921555800566524 /* FNNormalizeUnicode.m in Sources */,
+				D339F6731929623700C79A51 /* FNTranslate.m in Sources */,
 				D37A301510158E0100E936B7 /* FNSum.m in Sources */,
 				D339F64E1927B66500C79A51 /* xmlstring.c in Sources */,
 				D339312D19211CC900259939 /* FNName.m in Sources */,

@@ -6,7 +6,13 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "FNConcatTest.h"
+#import "XPTestScaffold.h"
+
+@interface FNConcatTest : XCTestCase
+@property (nonatomic, retain) XPExpression *expr;
+@property (nonatomic, retain) XPFunction *fn;
+@property (nonatomic, retain) NSString *res;
+@end
 
 @implementation FNConcatTest
 
@@ -29,6 +35,13 @@
     self.expr = [XPExpression expressionFromString:@"concat('foo', 'bar')" inContext:nil error:nil];
     self.res = [_expr evaluateAsStringInContext:nil];
     TDEqualObjects(_res, @"foobar");
+}
+
+
+- (void)testEqualsExprConcat {
+    self.expr = [XPExpression expressionFromString:@"concat('a', 'b') = 'ab'" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
 }
 
 @end

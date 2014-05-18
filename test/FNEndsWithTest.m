@@ -6,7 +6,13 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "FNEndsWithTest.h"
+#import "XPTestScaffold.h"
+
+@interface FNEndsWithTest : XCTestCase
+@property (nonatomic, retain) XPExpression *expr;
+@property (nonatomic, retain) XPFunction *fn;
+@property (nonatomic, assign) BOOL res;
+@end
 
 @implementation FNEndsWithTest
 

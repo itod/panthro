@@ -53,4 +53,19 @@
     TDEqualObjects(_res, @"345");
 }
 
+
+- (void)testEqualsExprSubstringAfter {
+    self.expr = [XPExpression expressionFromString:@"substring-after('ab', 'b') = ''" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"substring-after('ab', 'a') = 'b'" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"substring-after('ab', 'c') = ''" inContext:nil error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+}
+
 @end
