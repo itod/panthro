@@ -83,8 +83,7 @@ expr = orExpr;
     
 
 pathExpr = filterPath | locationPath;
-    filterPath = complexFilterPath | simpleFilterPath;
-    simpleFilterPath = filterExpr;
+    filterPath = complexFilterPath | filterExpr;
     complexFilterPath = complexFilterPathStartExpr slashStep pathTail;
     complexFilterPathStartExpr = filterExpr;
     locationPath = relativeLocationPath | absoluteLocationPath;

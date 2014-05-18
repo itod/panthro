@@ -149,7 +149,9 @@
     if (1 == [idrefresult count]) {
         return [XPSingletonNodeSet singletonNodeSetWithNode:idrefresult[0]];
     }
-    return [[[XPNodeSetValue alloc] initWithNodes:idrefresult comparer:[XPLocalOrderComparer instance]] autorelease];
+    XPNodeSetValue *nodeSet = [[[XPNodeSetValue alloc] initWithNodes:idrefresult comparer:[XPLocalOrderComparer instance]] autorelease];
+    [nodeSet sort];
+    return nodeSet;
 }
 
 @end

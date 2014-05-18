@@ -320,21 +320,6 @@
     [a push:pathExpr];
 }
 
-
-- (void)parser:(PKParser *)p didMatchSimpleFilterPath:(PKAssembly *)a {
-    XPExpression *expr = [a pop];
-    XPAssertExpr(expr);
-
-    // must force naked func calls that return a nodeset like `id()` to sort their result node set.
-    if ([expr isKindOfClass:[XPFunction class]] && XPDataTypeNodeSet == [expr dataType]) {
-        XPNodeTest *nodeTest = [[[XPNodeTypeTest alloc] initWithNodeType:XPNodeTypeNode] autorelease];
-        XPStep *step = [[[XPStep alloc] initWithAxis:XPAxisSelf nodeTest:nodeTest] autorelease];
-        expr = [[[XPPathExpression alloc] initWithStart:expr step:step] autorelease];
-    }
-    
-    [a push:expr];
-}
-
     
 - (void)parser:(PKParser *)p didMatchComplexFilterPathStartExpr:(PKAssembly *)a {
     [a push:_dotDotDot];

@@ -375,20 +375,13 @@
     
     if ([self speculate:^{ [self complexFilterPath_]; }]) {
         [self complexFilterPath_]; 
-    } else if ([self speculate:^{ [self simpleFilterPath_]; }]) {
-        [self simpleFilterPath_]; 
+    } else if ([self speculate:^{ [self filterExpr_]; }]) {
+        [self filterExpr_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'filterPath'."];
     }
 
     [self fireDelegateSelector:@selector(parser:didMatchFilterPath:)];
-}
-
-- (void)simpleFilterPath_ {
-    
-    [self filterExpr_]; 
-
-    [self fireDelegateSelector:@selector(parser:didMatchSimpleFilterPath:)];
 }
 
 - (void)complexFilterPath_ {
