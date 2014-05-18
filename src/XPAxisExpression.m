@@ -51,7 +51,7 @@
 }
 
 
-- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
+- (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
     if (!_contextNode && (dep & XPDependenciesContextNode) != 0) {
         XPAxisExpression *exp2 = [[[XPAxisExpression alloc] initWithAxis:_axis nodeTest:_test] autorelease];
         exp2.contextNode = ctx.contextNode;

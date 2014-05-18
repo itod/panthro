@@ -68,7 +68,7 @@
 }
 
 
-- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
+- (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
     FNSum *f = [[[FNSum alloc] init] autorelease];
     [f addArgument:[self.args[0] reduceDependencies:dep inContext:ctx]];
     [f setStaticContext:[self staticContext]];

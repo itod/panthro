@@ -49,7 +49,7 @@
 }
 
 
-- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
+- (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
     if (dep & XPDependenciesLast) {
         return [XPNumericValue numericValueWithNumber:[ctx last]];
     } else {

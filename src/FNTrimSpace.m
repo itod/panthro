@@ -75,7 +75,7 @@
 }
 
 
-- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
+- (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
     if (1 == [self numberOfArguments]) {
         FNTrimSpace *f = [[[FNTrimSpace alloc] init] autorelease];
         [f addArgument:[self.args[0] reduceDependencies:dep inContext:ctx]];

@@ -83,7 +83,7 @@
 }
 
 
-- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
+- (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
     FNId *idFn = [[[FNId alloc] init] autorelease];
     [idFn addArgument:[self.args[0] reduceDependencies:dep inContext:ctx]];
     idFn.staticContext = self.staticContext;

@@ -194,7 +194,7 @@
  * dependencies
  */
 
-- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
+- (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
     if ((dep & [self dependencies]) != 0) {
         XPExpression *newstart = [_start reduceDependencies:dep inContext:ctx];
         XPExpression *newfilter = [_filter reduceDependencies:(dep & XPDependenciesXSLTContext) inContext:ctx];

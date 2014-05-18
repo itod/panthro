@@ -37,7 +37,7 @@
  * dependencies
  */
 
-- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
+- (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
     if (([self dependencies] & XPDependenciesContextNode) != 0) {
         return [[[XPSingletonNodeSet alloc] initWithNode:ctx.contextNode] autorelease];
     } else {

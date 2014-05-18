@@ -60,7 +60,7 @@ typedef NS_ENUM(NSUInteger, XPDependencies) {
 
 - (XPExpression *)simplify;
 - (XPDependencies)dependencies;
-- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx;
+- (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx;
 
 - (XPDataType)dataType;
 

@@ -112,7 +112,7 @@
  * dependencies
  */
 
-- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
+- (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
     if (([self dependencies] & dep) != 0) {
         XPExpression *e = [[[XPUnionExpression alloc] initWithLhs:[_p1 reduceDependencies:dep inContext:ctx]
                                                               rhs:[_p2 reduceDependencies:dep inContext:ctx]] autorelease];

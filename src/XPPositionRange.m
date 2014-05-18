@@ -83,7 +83,7 @@
  * dependencies
  */
     
-- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
+- (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
     if ((XPDependenciesContextPosition & self.dependencies) != 0) {
         return [self evaluateInContext:ctx];
     }

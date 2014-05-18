@@ -112,7 +112,7 @@
 }
 
 
-- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(XPContext *)ctx {
+- (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
     FNReplace *f = [[[FNReplace alloc] init] autorelease];
     for (XPExpression *arg in self.args) {
         [f addArgument:[arg reduceDependencies:dep inContext:ctx]];
