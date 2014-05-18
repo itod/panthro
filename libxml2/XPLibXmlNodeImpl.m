@@ -230,19 +230,12 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
 - (NSString *)stringValue {
     XPAssert(_node);
     NSMutableString *buf = [NSMutableString string];
-    [self gatherStringValue:buf fromNode:_node];
+    xmlChar *zstr = xmlNodeGetContent(_node);
+    if (zstr) {
+        [buf appendFormat:@"%s", zstr];
+        xmlFree(zstr);
+    }
     return buf;
-}
-
-
-- (void)gatherStringValue:(NSMutableString *)buf fromNode:(xmlNodePtr)node {
-    if (node->content) {
-        [buf appendFormat:@"%s", node->content];
-    }
-    
-    for (xmlNodePtr child = node->children; NULL != child; child = child->next) {
-        [self gatherStringValue:buf fromNode:child];
-    }
 }
 
 
@@ -363,6 +356,11 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
 
 - (NSString *)namespaceURIForPrefix:(NSString *)prefix {
     XPAssert(_node);
+    
+//    xmlSearchNs
+//    xmlSearchNsByHref
+//    xmlGetNsList
+    
     
     NSString *res = nil;
     

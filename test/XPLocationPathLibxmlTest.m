@@ -53,15 +53,16 @@
 //    xmlSetFeature(_parserCtx, "validate", &validate);
 //XML_PARSE_DTDVALID
     xmlDocPtr doc = xmlCtxtReadFile(_parserCtx, [path UTF8String], NULL, XML_PARSE_NOENT);
-    //xmlDocPtr doc = xmlCtxtReadMemory(_parserCtx, [str UTF8String], [str length], NULL, "utf-8", XML_PARSE_NOENT);
+    //xmlDocPtr doc = xmlCtxtReadMemory(_parserCtx, [str UTF8String], [str length], NULL, "utf-8", XML_PARSE_NOENT|);
     TDTrue(NULL != doc);
 
     //
     // NOTE: the <book> outermost element is the context node in all tests!!!
     //
     
-    xmlNodePtr docEl = doc->children;
+    xmlNodePtr docEl = xmlFirstElementChild((void *)doc);
     TDTrue(NULL != docEl);
+    TDTrue(0 == strcmp((char *)docEl->name, "book"));
     
     self.env = [XPStandaloneContext standaloneContext];
     [_env setValue:[XPStringValue stringValueWithString:@"hello"] forVariable:@"foo"];

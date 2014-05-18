@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!--
 <!DOCTYPE book [
     <!ELEMENT chapter ANY>
     <!ATTLIST chapter id ID #REQUIRED>
 ]>
+ -->
 <book xmlns:foo="bar">
     <!-- some comment  text -->
     <chapter id="c1" foo:baz="OHAI">
