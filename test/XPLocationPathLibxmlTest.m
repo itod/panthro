@@ -49,7 +49,9 @@
     
     int record_info = 1;
     xmlSetFeature(_parserCtx, "gather line info", &record_info);
-
+//    int validate = 1;
+//    xmlSetFeature(_parserCtx, "validate", &validate);
+//XML_PARSE_DTDVALID
     xmlDocPtr doc = xmlCtxtReadFile(_parserCtx, [path UTF8String], NULL, XML_PARSE_NOENT);
     //xmlDocPtr doc = xmlCtxtReadMemory(_parserCtx, [str UTF8String], [str length], NULL, "utf-8", XML_PARSE_NOENT);
     TDTrue(NULL != doc);
@@ -1532,6 +1534,20 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEqualObjects(@"foo", node.name);
     TDEquals(XPNodeTypePI, node.nodeType);
     TDEqualObjects(_pis[0], [node stringValue]);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testIdC2 {
+    [self eval:@"id('c2')"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextObject];
+    TDEqualObjects(@"chapter", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDTrue([[[node stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] hasPrefix:_titles[1]]);
     
     TDFalse([enm hasMoreObjects]);
 }

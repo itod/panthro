@@ -19,4 +19,10 @@
     return self;
 }
 
+
+- (id <XPNodeInfo>)selectID:(NSString *)identifier {
+    XPAssert(0);
+    return nil;
+}
+
 @end

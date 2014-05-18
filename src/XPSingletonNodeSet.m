@@ -17,6 +17,11 @@
 
 @implementation XPSingletonNodeSet
 
++ (instancetype)singletonNodeSetWithNode:(id <XPNodeInfo>)node {
+    return [[[self alloc] initWithNode:node] autorelease];
+}
+
+
 - (instancetype)init {
     self = [self initWithNode:nil];
     return self;

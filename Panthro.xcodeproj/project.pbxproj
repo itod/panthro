@@ -93,6 +93,8 @@
 		D339F6651927B96A00C79A51 /* schematron.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6641927B96A00C79A51 /* schematron.c */; };
 		D339F6671927B98D00C79A51 /* hash.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6661927B98D00C79A51 /* hash.c */; };
 		D339F6691927B9A700C79A51 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D339F6681927B9A700C79A51 /* libiconv.dylib */; };
+		D339F66C1928EA1100C79A51 /* FNId.h in Headers */ = {isa = PBXBuildFile; fileRef = D339F66A1928EA1100C79A51 /* FNId.h */; };
+		D339F66D1928EA1100C79A51 /* FNId.m in Sources */ = {isa = PBXBuildFile; fileRef = D339F66B1928EA1100C79A51 /* FNId.m */; };
 		D33E9F841916E0E000BB7DFE /* XPStandaloneContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E9F821916E0E000BB7DFE /* XPStandaloneContext.m */; };
 		D33E9F8C1916E60C00BB7DFE /* XPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E9F8A1916E60C00BB7DFE /* XPUtils.m */; };
 		D33E9F931917040D00BB7DFE /* XPPathExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D33E9F911917040D00BB7DFE /* XPPathExpression.h */; };
@@ -435,6 +437,8 @@
 		D339F6641927B96A00C79A51 /* schematron.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = schematron.c; path = "lib/libxml2-2.9.1/schematron.c"; sourceTree = "<group>"; };
 		D339F6661927B98D00C79A51 /* hash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = hash.c; path = "lib/libxml2-2.9.1/hash.c"; sourceTree = "<group>"; };
 		D339F6681927B9A700C79A51 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
+		D339F66A1928EA1100C79A51 /* FNId.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNId.h; path = src/FNId.h; sourceTree = "<group>"; };
+		D339F66B1928EA1100C79A51 /* FNId.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNId.m; path = src/FNId.m; sourceTree = "<group>"; };
 		D33E9F821916E0E000BB7DFE /* XPStandaloneContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPStandaloneContext.m; path = src/XPStandaloneContext.m; sourceTree = "<group>"; };
 		D33E9F8A1916E60C00BB7DFE /* XPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPUtils.m; path = src/XPUtils.m; sourceTree = "<group>"; };
 		D33E9F911917040D00BB7DFE /* XPPathExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPPathExpression.h; path = src/XPPathExpression.h; sourceTree = "<group>"; };
@@ -1051,6 +1055,8 @@
 				D37A306E1015952F00E936B7 /* FNEndsWith.m */,
 				D3F0CB90191EC23D0049EC02 /* FNFloor.h */,
 				D37A2F0B101574B200E936B7 /* FNFloor.m */,
+				D339F66A1928EA1100C79A51 /* FNId.h */,
+				D339F66B1928EA1100C79A51 /* FNId.m */,
 				D3F0CB91191EC23D0049EC02 /* FNLast.h */,
 				D37A2F2910157F5400E936B7 /* FNLast.m */,
 				D3C0F5871921255C00566524 /* FNLocalName.h */,
@@ -1312,6 +1318,7 @@
 				D3A6C2EF1907413800F3EFF3 /* XPStep.h in Headers */,
 				D3F0CC0B191EC8250049EC02 /* XPNodeSetValue.h in Headers */,
 				D3C0F59E19214FE700566524 /* FNTrimSpace.h in Headers */,
+				D339F66C1928EA1100C79A51 /* FNId.h in Headers */,
 				D3F0CBA6191EC23D0049EC02 /* FNNumber.h in Headers */,
 				D3F0CB9F191EC23D0049EC02 /* FNConcat.h in Headers */,
 				D33930F7191F132D00259939 /* XPVariableReference.h in Headers */,
@@ -1628,6 +1635,7 @@
 				D3C1782B18844C7D00F90600 /* XPPattern.m in Sources */,
 				D37A300110158DB300E936B7 /* FNString.m in Sources */,
 				D37A300510158DC200E936B7 /* FNStringLength.m in Sources */,
+				D339F66D1928EA1100C79A51 /* FNId.m in Sources */,
 				D339F64F1927B66500C79A51 /* xmlunicode.c in Sources */,
 				D339F61E1927B66500C79A51 /* list.c in Sources */,
 				D339F65B1927B74B00C79A51 /* trio.c in Sources */,

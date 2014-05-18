@@ -39,6 +39,7 @@
 #import "FNCount.h"
 #import "FNEndsWith.h"
 #import "FNFloor.h"
+#import "FNId.h"
 #import "FNLast.h"
 #import "FNLocalName.h"
 #import "FNLowerCase.h"
@@ -99,6 +100,7 @@
              [FNCount name] : [FNCount class],
              [FNEndsWith name] : [FNEndsWith class],
              [FNFloor name] : [FNFloor class],
+             [FNId name] : [FNId class],
              [FNLast name] : [FNLast class],
              [FNLocalName name] : [FNLocalName class],
              [FNLowerCase name] : [FNLowerCase class],
