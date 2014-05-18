@@ -1574,8 +1574,48 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testIdC2_C1 {
+- (void)testIdC2_C1SlashSelfNode {
     [self eval:@"id('c2 c1')/self::node()"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
+    
+    node = [enm nextObject];
+    TDEqualObjects(@"chapter", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDTrue([[[node stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] hasPrefix:_titles[0]]);
+    
+    node = [enm nextObject];
+    TDEqualObjects(@"chapter", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDTrue([[[node stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] hasPrefix:_titles[1]]);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testIdC2_C1SlashDot {
+    [self eval:@"id('c2 c1')/."];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
+    
+    node = [enm nextObject];
+    TDEqualObjects(@"chapter", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDTrue([[[node stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] hasPrefix:_titles[0]]);
+    
+    node = [enm nextObject];
+    TDEqualObjects(@"chapter", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDTrue([[[node stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] hasPrefix:_titles[1]]);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testIdC2_C1 {
+    [self eval:@"id('c2 c1')"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     id <XPNodeInfo>node = nil;
