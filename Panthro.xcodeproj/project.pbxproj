@@ -97,6 +97,14 @@
 		D339F66D1928EA1100C79A51 /* FNId.m in Sources */ = {isa = PBXBuildFile; fileRef = D339F66B1928EA1100C79A51 /* FNId.m */; };
 		D339F6721929623700C79A51 /* FNTranslate.h in Headers */ = {isa = PBXBuildFile; fileRef = D339F6701929623700C79A51 /* FNTranslate.h */; };
 		D339F6731929623700C79A51 /* FNTranslate.m in Sources */ = {isa = PBXBuildFile; fileRef = D339F6711929623700C79A51 /* FNTranslate.m */; };
+		D339F6751929684D00C79A51 /* FNLowerCaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D339F6741929684D00C79A51 /* FNLowerCaseTest.m */; };
+		D339F6781929687D00C79A51 /* FNTitleCaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D339F6761929687D00C79A51 /* FNTitleCaseTest.m */; };
+		D339F6791929687D00C79A51 /* FNUpperCaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D339F6771929687D00C79A51 /* FNUpperCaseTest.m */; };
+		D339F67B192968C900C79A51 /* FNCompareTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D339F67A192968C900C79A51 /* FNCompareTest.m */; };
+		D339F67D192968F700C79A51 /* FNNormalizeSpaceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D339F67C192968F700C79A51 /* FNNormalizeSpaceTest.m */; };
+		D339F6801929692C00C79A51 /* FNNormalizeUnicodeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D339F67E1929692C00C79A51 /* FNNormalizeUnicodeTest.m */; };
+		D339F6811929692C00C79A51 /* FNTrimSpaceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D339F67F1929692C00C79A51 /* FNTrimSpaceTest.m */; };
+		D339F683192969A700C79A51 /* FNAbsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D339F682192969A700C79A51 /* FNAbsTest.m */; };
 		D33E9F841916E0E000BB7DFE /* XPStandaloneContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E9F821916E0E000BB7DFE /* XPStandaloneContext.m */; };
 		D33E9F8C1916E60C00BB7DFE /* XPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E9F8A1916E60C00BB7DFE /* XPUtils.m */; };
 		D33E9F931917040D00BB7DFE /* XPPathExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D33E9F911917040D00BB7DFE /* XPPathExpression.h */; };
@@ -443,6 +451,14 @@
 		D339F66B1928EA1100C79A51 /* FNId.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNId.m; path = src/FNId.m; sourceTree = "<group>"; };
 		D339F6701929623700C79A51 /* FNTranslate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNTranslate.h; path = src/FNTranslate.h; sourceTree = "<group>"; };
 		D339F6711929623700C79A51 /* FNTranslate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNTranslate.m; path = src/FNTranslate.m; sourceTree = "<group>"; };
+		D339F6741929684D00C79A51 /* FNLowerCaseTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNLowerCaseTest.m; path = test/FNLowerCaseTest.m; sourceTree = "<group>"; };
+		D339F6761929687D00C79A51 /* FNTitleCaseTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNTitleCaseTest.m; path = test/FNTitleCaseTest.m; sourceTree = "<group>"; };
+		D339F6771929687D00C79A51 /* FNUpperCaseTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNUpperCaseTest.m; path = test/FNUpperCaseTest.m; sourceTree = "<group>"; };
+		D339F67A192968C900C79A51 /* FNCompareTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNCompareTest.m; path = test/FNCompareTest.m; sourceTree = "<group>"; };
+		D339F67C192968F700C79A51 /* FNNormalizeSpaceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNNormalizeSpaceTest.m; path = test/FNNormalizeSpaceTest.m; sourceTree = "<group>"; };
+		D339F67E1929692C00C79A51 /* FNNormalizeUnicodeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNNormalizeUnicodeTest.m; path = test/FNNormalizeUnicodeTest.m; sourceTree = "<group>"; };
+		D339F67F1929692C00C79A51 /* FNTrimSpaceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNTrimSpaceTest.m; path = test/FNTrimSpaceTest.m; sourceTree = "<group>"; };
+		D339F682192969A700C79A51 /* FNAbsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNAbsTest.m; path = test/FNAbsTest.m; sourceTree = "<group>"; };
 		D33E9F821916E0E000BB7DFE /* XPStandaloneContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPStandaloneContext.m; path = src/XPStandaloneContext.m; sourceTree = "<group>"; };
 		D33E9F8A1916E60C00BB7DFE /* XPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPUtils.m; path = src/XPUtils.m; sourceTree = "<group>"; };
 		D33E9F911917040D00BB7DFE /* XPPathExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPPathExpression.h; path = src/XPPathExpression.h; sourceTree = "<group>"; };
@@ -1120,12 +1136,17 @@
 		D37A2A17101400AD00E936B7 /* Fn */ = {
 			isa = PBXGroup;
 			children = (
+				D339F682192969A700C79A51 /* FNAbsTest.m */,
 				D37A2B97101418EC00E936B7 /* FNBooleanTest.m */,
 				D37A2CD910142EC100E936B7 /* FNCeilingTest.m */,
+				D339F67A192968C900C79A51 /* FNCompareTest.m */,
 				D37A2D24101436CE00E936B7 /* FNConcatTest.m */,
 				D37A2EAB10156F5700E936B7 /* FNContainsTest.m */,
 				D37A3074101595F400E936B7 /* FNEndsWithTest.m */,
 				D37A2ED61015724700E936B7 /* FNFloorTest.m */,
+				D339F6741929684D00C79A51 /* FNLowerCaseTest.m */,
+				D339F67C192968F700C79A51 /* FNNormalizeSpaceTest.m */,
+				D339F67E1929692C00C79A51 /* FNNormalizeUnicodeTest.m */,
 				D37A299C1013F87900E936B7 /* FNNotTest.m */,
 				D37A311F1015A74D00E936B7 /* FNNumberTest.m */,
 				D37A2FDD10158BE200E936B7 /* FNRoundTest.m */,
@@ -1135,6 +1156,9 @@
 				D37A31BE1016A7B000E936B7 /* FNSubstringTest.m */,
 				D37A320B1016C37400E936B7 /* FNSubstringAfterTest.m */,
 				D37A320E1016C38000E936B7 /* FNSubstringBeforeTest.m */,
+				D339F6761929687D00C79A51 /* FNTitleCaseTest.m */,
+				D339F67F1929692C00C79A51 /* FNTrimSpaceTest.m */,
+				D339F6771929687D00C79A51 /* FNUpperCaseTest.m */,
 			);
 			name = Fn;
 			sourceTree = "<group>";
@@ -1656,6 +1680,8 @@
 				D3411BD1191A8E140082A196 /* PGBaseVisitor.m in Sources */,
 				D3411BD2191A8E140082A196 /* PGDefinitionPhaseVisitor.m in Sources */,
 				D3411BD3191A8E140082A196 /* PGParserGenVisitor.m in Sources */,
+				D339F67D192968F700C79A51 /* FNNormalizeSpaceTest.m in Sources */,
+				D339F6751929684D00C79A51 /* FNLowerCaseTest.m in Sources */,
 				D3411BD4191A8E140082A196 /* PGTokenKindDescriptor.m in Sources */,
 				D3411BD5191A8E140082A196 /* PGBaseNode.m in Sources */,
 				D3411BD6191A8E140082A196 /* PGRootNode.m in Sources */,
@@ -1666,6 +1692,7 @@
 				D3411BDA191A8E140082A196 /* PGCompositeNode.m in Sources */,
 				D3411BDB191A8E140082A196 /* PGConstantNode.m in Sources */,
 				D3411BDC191A8E140082A196 /* PGDefinitionNode.m in Sources */,
+				D339F6811929692C00C79A51 /* FNTrimSpaceTest.m in Sources */,
 				D3BE141F191C05D600005C81 /* XPLocationPathNSXMLTest.m in Sources */,
 				D3411BDD191A8E140082A196 /* PGDelimitedNode.m in Sources */,
 				D3411BDE191A8E140082A196 /* PGLiteralNode.m in Sources */,
@@ -1681,16 +1708,21 @@
 				D36C678310105EBE000361A0 /* XPStringValueTest.m in Sources */,
 				D37A27F5101304EF00E936B7 /* XPBooleanExprTest.m in Sources */,
 				D3C178011880EF4900F90600 /* XPEGParserLocationPathTest.m in Sources */,
+				D339F6791929687D00C79A51 /* FNUpperCaseTest.m in Sources */,
+				D339F6781929687D00C79A51 /* FNTitleCaseTest.m in Sources */,
 				D3C177F71880EE2E00F90600 /* XPEGParserFilterExprTest.m in Sources */,
 				D37A299D1013F87900E936B7 /* FNNotTest.m in Sources */,
 				D383A321187F7EA5006AE701 /* XPTestScaffold.m in Sources */,
+				D339F67B192968C900C79A51 /* FNCompareTest.m in Sources */,
 				D37A2B98101418EC00E936B7 /* FNBooleanTest.m in Sources */,
 				D37A2CDA10142EC100E936B7 /* FNCeilingTest.m in Sources */,
+				D339F6801929692C00C79A51 /* FNNormalizeUnicodeTest.m in Sources */,
 				D37A2D25101436CE00E936B7 /* FNConcatTest.m in Sources */,
 				D37A2EAC10156F5700E936B7 /* FNContainsTest.m in Sources */,
 				D3172237190D8FE6005C633B /* XPEqualityExprTest.m in Sources */,
 				D37A2ED71015724700E936B7 /* FNFloorTest.m in Sources */,
 				D339312F19211E8300259939 /* XPRegexTest.m in Sources */,
+				D339F683192969A700C79A51 /* FNAbsTest.m in Sources */,
 				D37A2FDE10158BE200E936B7 /* FNRoundTest.m in Sources */,
 				D37A3075101595F400E936B7 /* FNEndsWithTest.m in Sources */,
 				D37A3078101595FD00E936B7 /* FNStartsWithTest.m in Sources */,
