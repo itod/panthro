@@ -69,6 +69,9 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
 
 + (id <XPNodeInfo>)nodeInfoWithNode:(void *)inNode parserContext:(xmlParserCtxtPtr)parserCtx {
     xmlNodePtr node = (xmlNodePtr)inNode;
+    if (XML_DTD_NODE == node->type) {
+        NSLog(@"%@", self);
+    }
     Class cls = (XML_DOCUMENT_NODE == node->type) ? [XPLibxmlDocumentImpl class] : [XPLibxmlNodeImpl class];
     id <XPNodeInfo>nodeInfo = [[[cls alloc] initWithNode:node parserContext:parserCtx] autorelease];
     return nodeInfo;
@@ -229,13 +232,13 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
 
 - (NSString *)stringValue {
     XPAssert(_node);
-    NSMutableString *buf = [NSMutableString string];
+    NSString *res = @"";
     xmlChar *zstr = xmlNodeGetContent(_node);
     if (zstr) {
-        [buf appendFormat:@"%s", zstr];
+        res = [NSString stringWithUTF8String:(const char *)zstr];
         xmlFree(zstr);
     }
-    return buf;
+    return res;
 }
 
 
@@ -473,7 +476,8 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     NSMutableArray *result = [NSMutableArray array];
     
     for (xmlNodePtr child = parent->children; NULL != child; child = child->next) {
-    
+        if (XML_DTD_NODE == child->type) continue;
+        
         id <XPNodeInfo>node = [[self class] nodeInfoWithNode:child parserContext:_parserCtx];
         
         if ([nodeTest matches:node]) {
@@ -566,6 +570,8 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     NSMutableArray *result = nil;
     
     for (xmlNodePtr child = _node->children; NULL != child; child = child->next) {
+        if (XML_DTD_NODE == child->type) continue;
+
         id <XPNodeInfo>node = [[self class] nodeInfoWithNode:child parserContext:_parserCtx];
         
         if ([nodeTest matches:node]) {
@@ -610,6 +616,8 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
 
     BOOL found = NO;
     for (xmlNodePtr child = parent->children; NULL != child; child = child->next) {
+        if (XML_DTD_NODE == child->type) continue;
+
         if (!found) {
             found = child == _node;
             if (found) {
@@ -643,6 +651,8 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     
     BOOL found = NO;
     for (xmlNodePtr child = parent->last; NULL != child; child = child->prev) {
+        if (XML_DTD_NODE == child->type) continue;
+
         if (!found) {
             found = child == _node;
             if (found) {
