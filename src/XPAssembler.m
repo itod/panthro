@@ -320,6 +320,16 @@
 }
 
 
+- (void)parser:(PKParser *)p willMatchFilterPathTail:(PKAssembly *)a {
+    [a push:_dotDotDot];
+}
+
+
+- (void)parser:(PKParser *)p didMatchFilterPathTail:(PKAssembly *)a {
+    [self parser:p didMatchLocationPath:a];
+}
+
+
 - (void)parser:(PKParser *)p didMatchUnionTail:(PKAssembly *)a {
     XPExpression *rhs = [a pop];
     id peek = [a pop];

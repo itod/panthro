@@ -160,6 +160,8 @@
 
 - (void)stmt_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchStmt:)];
+
     [self expr_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchStmt:)];
@@ -167,6 +169,8 @@
 
 - (void)expr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchExpr:)];
+
     [self orExpr_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchExpr:)];
@@ -174,6 +178,8 @@
 
 - (void)orExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchOrExpr:)];
+
     [self andExpr_]; 
     while ([self speculate:^{ [self orAndExpr_]; }]) {
         [self orAndExpr_]; 
@@ -184,6 +190,8 @@
 
 - (void)orAndExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchOrAndExpr:)];
+
     [self match:XPEG_TOKEN_KIND_OR discard:NO]; 
     [self andExpr_]; 
 
@@ -192,6 +200,8 @@
 
 - (void)andExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchAndExpr:)];
+
     [self equalityExpr_]; 
     while ([self speculate:^{ [self andEqualityExpr_]; }]) {
         [self andEqualityExpr_]; 
@@ -202,6 +212,8 @@
 
 - (void)andEqualityExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchAndEqualityExpr:)];
+
     [self match:XPEG_TOKEN_KIND_AND discard:NO]; 
     [self equalityExpr_]; 
 
@@ -210,6 +222,8 @@
 
 - (void)equalityExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchEqualityExpr:)];
+
     [self relationalExpr_]; 
     while ([self speculate:^{ [self eqRelationalExpr_]; }]) {
         [self eqRelationalExpr_]; 
@@ -220,6 +234,8 @@
 
 - (void)eqRelationalExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchEqRelationalExpr:)];
+
     if ([self predicts:XPEG_TOKEN_KIND_EQUALS, 0]) {
         [self match:XPEG_TOKEN_KIND_EQUALS discard:NO]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_NOT_EQUAL, 0]) {
@@ -234,6 +250,8 @@
 
 - (void)relationalExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchRelationalExpr:)];
+
     [self additiveExpr_]; 
     while ([self speculate:^{ [self compareAdditiveExpr_]; }]) {
         [self compareAdditiveExpr_]; 
@@ -244,6 +262,8 @@
 
 - (void)compareAdditiveExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchCompareAdditiveExpr:)];
+
     if ([self predicts:XPEG_TOKEN_KIND_LT_SYM, 0]) {
         [self match:XPEG_TOKEN_KIND_LT_SYM discard:NO]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_GT_SYM, 0]) {
@@ -262,6 +282,8 @@
 
 - (void)additiveExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchAdditiveExpr:)];
+
     [self multiplicativeExpr_]; 
     while ([self speculate:^{ [self plusOrMinusMultiExpr_]; }]) {
         [self plusOrMinusMultiExpr_]; 
@@ -272,6 +294,8 @@
 
 - (void)plusOrMinusMultiExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchPlusOrMinusMultiExpr:)];
+
     if ([self predicts:XPEG_TOKEN_KIND_PLUS, 0]) {
         [self match:XPEG_TOKEN_KIND_PLUS discard:NO]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_MINUS, 0]) {
@@ -286,6 +310,8 @@
 
 - (void)multiplicativeExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchMultiplicativeExpr:)];
+
     [self unaryExpr_]; 
     while ([self speculate:^{ [self multDivOrModUnaryExpr_]; }]) {
         [self multDivOrModUnaryExpr_]; 
@@ -296,6 +322,8 @@
 
 - (void)multDivOrModUnaryExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchMultDivOrModUnaryExpr:)];
+
     if ([self predicts:XPEG_TOKEN_KIND_MULTIPLYOPERATOR, 0]) {
         [self multiplyOperator_]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_DIV, 0]) {
@@ -312,6 +340,8 @@
 
 - (void)multiplyOperator_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchMultiplyOperator:)];
+
     [self match:XPEG_TOKEN_KIND_MULTIPLYOPERATOR discard:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchMultiplyOperator:)];
@@ -319,6 +349,8 @@
 
 - (void)unaryExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchUnaryExpr:)];
+
     if ([self predicts:XPEG_TOKEN_KIND_MINUS, 0]) {
         [self minusUnionExpr_]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_ABBREVIATEDAXIS, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTOR_OR_SELF, XPEG_TOKEN_KIND_ATTRIBUTE, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANT_OR_SELF, XPEG_TOKEN_KIND_DOLLAR, XPEG_TOKEN_KIND_DOT, XPEG_TOKEN_KIND_DOT_DOT, XPEG_TOKEN_KIND_DOUBLE_SLASH, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWING_SIBLING, XPEG_TOKEN_KIND_FORWARD_SLASH, XPEG_TOKEN_KIND_MULTIPLYOPERATOR, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OPEN_PAREN, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDING_SIBLING, XPEG_TOKEN_KIND_PROCESSING_INSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TRUE, 0]) {
@@ -332,6 +364,8 @@
 
 - (void)minusUnionExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchMinusUnionExpr:)];
+
     do {
         [self match:XPEG_TOKEN_KIND_MINUS discard:NO]; 
     } while ([self predicts:XPEG_TOKEN_KIND_MINUS, 0]);
@@ -342,6 +376,8 @@
 
 - (void)unionExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchUnionExpr:)];
+
     [self pathExpr_]; 
     while ([self speculate:^{ [self unionTail_]; }]) {
         [self unionTail_]; 
@@ -352,6 +388,8 @@
 
 - (void)unionTail_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchUnionTail:)];
+
     [self match:XPEG_TOKEN_KIND_PIPE discard:NO]; 
     [self pathExpr_]; 
 
@@ -360,6 +398,8 @@
 
 - (void)pathExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchPathExpr:)];
+
     if ([self speculate:^{ [self filterPath_]; }]) {
         [self filterPath_]; 
     } else if ([self speculate:^{ [self locationPath_]; }]) {
@@ -373,14 +413,30 @@
 
 - (void)filterPath_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchFilterPath:)];
+
     [self filterExpr_]; 
-    [self pathTail_]; 
+    if ([self speculate:^{ [self filterPathTail_]; }]) {
+        [self filterPathTail_]; 
+    }
 
     [self fireDelegateSelector:@selector(parser:didMatchFilterPath:)];
 }
 
+- (void)filterPathTail_ {
+    
+    [self fireDelegateSelector:@selector(parser:willMatchFilterPathTail:)];
+
+    [self slashStep_]; 
+    [self pathTail_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchFilterPathTail:)];
+}
+
 - (void)locationPath_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchLocationPath:)];
+
     if ([self predicts:TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_ABBREVIATEDAXIS, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTOR_OR_SELF, XPEG_TOKEN_KIND_ATTRIBUTE, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANT_OR_SELF, XPEG_TOKEN_KIND_DOT, XPEG_TOKEN_KIND_DOT_DOT, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWING_SIBLING, XPEG_TOKEN_KIND_MULTIPLYOPERATOR, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDING_SIBLING, XPEG_TOKEN_KIND_PROCESSING_INSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, 0]) {
         [self relativeLocationPath_]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_DOUBLE_SLASH, XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {
@@ -394,6 +450,8 @@
 
 - (void)relativeLocationPath_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchRelativeLocationPath:)];
+
     [self firstRelativeStep_]; 
     [self pathTail_]; 
 
@@ -402,6 +460,8 @@
 
 - (void)pathBody_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchPathBody:)];
+
     [self step_]; 
     [self pathTail_]; 
 
@@ -410,22 +470,35 @@
 
 - (void)pathTail_ {
     
-    while ([self speculate:^{ if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:NO]; } else if ([self predicts:XPEG_TOKEN_KIND_DOUBLE_SLASH, 0]) {[self match:XPEG_TOKEN_KIND_DOUBLE_SLASH discard:NO]; } else {[self raise:@"No viable alternative found in rule 'pathTail'."];}[self step_]; }]) {
-        if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {
-            [self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:NO]; 
-        } else if ([self predicts:XPEG_TOKEN_KIND_DOUBLE_SLASH, 0]) {
-            [self match:XPEG_TOKEN_KIND_DOUBLE_SLASH discard:NO]; 
-        } else {
-            [self raise:@"No viable alternative found in rule 'pathTail'."];
-        }
-        [self step_]; 
+    [self fireDelegateSelector:@selector(parser:willMatchPathTail:)];
+
+    while ([self speculate:^{ [self slashStep_]; }]) {
+        [self slashStep_]; 
     }
 
     [self fireDelegateSelector:@selector(parser:didMatchPathTail:)];
 }
 
+- (void)slashStep_ {
+    
+    [self fireDelegateSelector:@selector(parser:willMatchSlashStep:)];
+
+    if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {
+        [self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:NO]; 
+    } else if ([self predicts:XPEG_TOKEN_KIND_DOUBLE_SLASH, 0]) {
+        [self match:XPEG_TOKEN_KIND_DOUBLE_SLASH discard:NO]; 
+    } else {
+        [self raise:@"No viable alternative found in rule 'slashStep'."];
+    }
+    [self step_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchSlashStep:)];
+}
+
 - (void)absoluteLocationPath_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchAbsoluteLocationPath:)];
+
     if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {
         [self rootSlash_]; 
         if ([self speculate:^{ [self pathBody_]; }]) {
@@ -442,6 +515,8 @@
 
 - (void)abbreviatedAbsoluteLocationPath_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchAbbreviatedAbsoluteLocationPath:)];
+
     [self rootDoubleSlash_]; 
     [self pathBody_]; 
 
@@ -450,6 +525,8 @@
 
 - (void)rootSlash_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchRootSlash:)];
+
     [self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:YES]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchRootSlash:)];
@@ -457,6 +534,8 @@
 
 - (void)rootDoubleSlash_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchRootDoubleSlash:)];
+
     [self match:XPEG_TOKEN_KIND_DOUBLE_SLASH discard:YES]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchRootDoubleSlash:)];
@@ -464,6 +543,8 @@
 
 - (void)firstRelativeStep_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchFirstRelativeStep:)];
+
     [self step_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchFirstRelativeStep:)];
@@ -471,6 +552,8 @@
 
 - (void)filterExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchFilterExpr:)];
+
     [self primaryExpr_]; 
     while ([self speculate:^{ [self predicate_]; }]) {
         [self predicate_]; 
@@ -481,6 +564,8 @@
 
 - (void)primaryExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchPrimaryExpr:)];
+
     if ([self predicts:XPEG_TOKEN_KIND_DOLLAR, 0]) {
         [self variableReference_]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
@@ -502,6 +587,8 @@
 
 - (void)variableReference_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchVariableReference:)];
+
     [self match:XPEG_TOKEN_KIND_DOLLAR discard:YES]; 
     [self qName_]; 
 
@@ -510,6 +597,8 @@
 
 - (void)literal_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchLiteral:)];
+
     [self matchQuotedString:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchLiteral:)];
@@ -517,6 +606,8 @@
 
 - (void)number_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchNumber:)];
+
     [self matchNumber:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchNumber:)];
@@ -524,6 +615,8 @@
 
 - (void)functionCall_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchFunctionCall:)];
+
     if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self actualFunctionCall_]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_TRUE, 0]) {
@@ -537,6 +630,8 @@
 
 - (void)actualFunctionCall_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchActualFunctionCall:)];
+
     [self functionName_]; 
     [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:NO]; 
     if ([self speculate:^{ [self argument_]; while ([self speculate:^{ [self match:XPEG_TOKEN_KIND_COMMA discard:YES]; [self argument_]; }]) {[self match:XPEG_TOKEN_KIND_COMMA discard:YES]; [self argument_]; }}]) {
@@ -553,6 +648,8 @@
 
 - (void)booleanLiteralFunctionCall_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchBooleanLiteralFunctionCall:)];
+
     [self booleanLiteral_]; 
     [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:YES]; 
     [self match:XPEG_TOKEN_KIND_CLOSE_PAREN discard:YES]; 
@@ -562,6 +659,8 @@
 
 - (void)functionName_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchFunctionName:)];
+
     [self testAndThrow:(id)^{ return NE(LS(1), @"true") && NE(LS(1), @"false") && NE(LS(1), @"comment") && NE(LS(1), @"text") && NE(LS(1), @"processing-instruction") && NE(LS(1), @"node"); }]; 
     [self qName_]; 
 
@@ -570,6 +669,8 @@
 
 - (void)booleanLiteral_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchBooleanLiteral:)];
+
     if ([self predicts:XPEG_TOKEN_KIND_TRUE, 0]) {
         [self match:XPEG_TOKEN_KIND_TRUE discard:NO]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_FALSE, 0]) {
@@ -583,6 +684,8 @@
 
 - (void)qName_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchQName:)];
+
     if ([self speculate:^{ [self prefix_]; [self match:XPEG_TOKEN_KIND_COLON discard:NO]; }]) {
         [self prefix_]; 
         [self match:XPEG_TOKEN_KIND_COLON discard:NO]; 
@@ -594,6 +697,8 @@
 
 - (void)prefix_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchPrefix:)];
+
     [self ncName_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchPrefix:)];
@@ -601,6 +706,8 @@
 
 - (void)localPart_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchLocalPart:)];
+
     [self ncName_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchLocalPart:)];
@@ -608,6 +715,8 @@
 
 - (void)ncName_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchNcName:)];
+
     [self matchWord:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchNcName:)];
@@ -615,6 +724,8 @@
 
 - (void)argument_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchArgument:)];
+
     [self expr_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchArgument:)];
@@ -622,6 +733,8 @@
 
 - (void)predicate_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchPredicate:)];
+
     [self match:XPEG_TOKEN_KIND_OPEN_BRACKET discard:YES]; 
     [self predicateExpr_]; 
     [self match:XPEG_TOKEN_KIND_CLOSE_BRACKET discard:YES]; 
@@ -631,6 +744,8 @@
 
 - (void)predicateExpr_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchPredicateExpr:)];
+
     [self expr_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchPredicateExpr:)];
@@ -638,6 +753,8 @@
 
 - (void)step_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchStep:)];
+
     if ([self predicts:XPEG_TOKEN_KIND_ABBREVIATEDAXIS, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTOR_OR_SELF, XPEG_TOKEN_KIND_ATTRIBUTE, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANT_OR_SELF, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWING_SIBLING, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDING_SIBLING, XPEG_TOKEN_KIND_SELF, 0]) {
         [self explicitAxisStep_]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_DOT, XPEG_TOKEN_KIND_DOT_DOT, 0]) {
@@ -653,6 +770,8 @@
 
 - (void)explicitAxisStep_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchExplicitAxisStep:)];
+
     [self axis_]; 
     [self stepBody_]; 
 
@@ -661,6 +780,8 @@
 
 - (void)implicitAxisStep_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchImplicitAxisStep:)];
+
     [self stepBody_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchImplicitAxisStep:)];
@@ -668,6 +789,8 @@
 
 - (void)axis_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchAxis:)];
+
     if ([self predicts:XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTOR_OR_SELF, XPEG_TOKEN_KIND_ATTRIBUTE, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANT_OR_SELF, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWING_SIBLING, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDING_SIBLING, XPEG_TOKEN_KIND_SELF, 0]) {
         [self axisName_]; 
         [self match:XPEG_TOKEN_KIND_DOUBLE_COLON discard:YES]; 
@@ -682,6 +805,8 @@
 
 - (void)axisName_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchAxisName:)];
+
     if ([self predicts:XPEG_TOKEN_KIND_ANCESTOR, 0]) {
         [self match:XPEG_TOKEN_KIND_ANCESTOR discard:NO]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_ANCESTOR_OR_SELF, 0]) {
@@ -717,6 +842,8 @@
 
 - (void)abbreviatedAxis_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchAbbreviatedAxis:)];
+
     [self match:XPEG_TOKEN_KIND_ABBREVIATEDAXIS discard:YES]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchAbbreviatedAxis:)];
@@ -724,6 +851,8 @@
 
 - (void)stepBody_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchStepBody:)];
+
     [self nodeTest_]; 
     while ([self speculate:^{ [self predicate_]; }]) {
         [self predicate_]; 
@@ -734,6 +863,8 @@
 
 - (void)nodeTest_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchNodeTest:)];
+
     if ([self speculate:^{ [self nameTest_]; }]) {
         [self nameTest_]; 
     } else if ([self speculate:^{ [self typeTest_]; }]) {
@@ -749,6 +880,8 @@
 
 - (void)nameTest_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchNameTest:)];
+
     if ([self speculate:^{ [self match:XPEG_TOKEN_KIND_MULTIPLYOPERATOR discard:NO]; }]) {
         [self match:XPEG_TOKEN_KIND_MULTIPLYOPERATOR discard:NO]; 
     } else if ([self speculate:^{ [self ncName_]; [self match:XPEG_TOKEN_KIND_COLON discard:NO]; [self match:XPEG_TOKEN_KIND_MULTIPLYOPERATOR discard:NO]; }]) {
@@ -766,6 +899,8 @@
 
 - (void)typeTest_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchTypeTest:)];
+
     [self nodeType_]; 
     [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:YES]; 
     [self match:XPEG_TOKEN_KIND_CLOSE_PAREN discard:YES]; 
@@ -775,6 +910,8 @@
 
 - (void)nodeType_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchNodeType:)];
+
     if ([self predicts:XPEG_TOKEN_KIND_COMMENT, 0]) {
         [self match:XPEG_TOKEN_KIND_COMMENT discard:NO]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_TEXT, 0]) {
@@ -792,6 +929,8 @@
 
 - (void)specificPITest_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchSpecificPITest:)];
+
     [self match:XPEG_TOKEN_KIND_PROCESSING_INSTRUCTION discard:YES]; 
     [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:YES]; 
     [self literal_]; 
@@ -802,6 +941,8 @@
 
 - (void)abbreviatedStep_ {
     
+    [self fireDelegateSelector:@selector(parser:willMatchAbbreviatedStep:)];
+
     if ([self predicts:XPEG_TOKEN_KIND_DOT, 0]) {
         [self match:XPEG_TOKEN_KIND_DOT discard:NO]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_DOT_DOT, 0]) {

@@ -83,11 +83,13 @@ expr = orExpr;
     
 
 pathExpr = filterPath | locationPath;
-    filterPath = filterExpr pathTail;
+    filterPath = filterExpr filterPathTail?;
+    filterPathTail = slashStep pathTail;
     locationPath = relativeLocationPath | absoluteLocationPath;
         relativeLocationPath = firstRelativeStep pathTail;
         pathBody = step pathTail;
-        pathTail = (('/' | '//') step)*;
+        pathTail = slashStep*;
+        slashStep = (('/' | '//') step);
         absoluteLocationPath = rootSlash pathBody? | abbreviatedAbsoluteLocationPath;
             abbreviatedAbsoluteLocationPath = rootDoubleSlash pathBody;
             rootSlash = '/'!;

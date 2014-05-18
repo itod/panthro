@@ -38,6 +38,8 @@ static XPEGParser *parser;
     
     visitor = [[PGParserGenVisitor alloc] init];
     visitor.enableMemoization = NO;
+    visitor.delegatePreMatchCallbacksOn = PGParserFactoryDelegateCallbacksOnAll;
+    visitor.delegatePostMatchCallbacksOn = PGParserFactoryDelegateCallbacksOnAll;
     
     [root visit:visitor];
     

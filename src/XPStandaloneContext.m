@@ -69,6 +69,7 @@ NSString *XPNamespaceAquaPath = @"http://celestialteapot.com/ns/aquapath";
     NSParameterAssert(ctxNode);
     
     id result = nil;
+    NSError *err = nil;
     
     @autoreleasepool {
         XPExpression *expr = [XPExpression expressionFromString:xpathStr inContext:self error:outErr];
@@ -81,16 +82,19 @@ NSString *XPNamespaceAquaPath = @"http://celestialteapot.com/ns/aquapath";
                 result = [expr evaluateInContext:ctx];
             } @catch (NSException *ex) {
                 result = nil;
-                if (outErr) {
-                    *outErr = [[NSError XPathErrorWithCode:47 format:@"XPath runtime evaluation error: %@", [ex reason]] retain]; // +1 to survive
-                }
+                err = [NSError XPathErrorWithCode:47 format:@"XPath runtime evaluation error: %@", [ex reason]];
             }
         }
         
         [result retain]; // +1 to survive autorelase pool drain
+        [err retain]; // +1 to survive autorelase pool drain
     }
 
-    [*outErr autorelease]; // -1 to balance
+    if (outErr) {
+        *outErr = err;
+    }
+    
+    [err autorelease]; // -1 to balance
     return [result autorelease]; // -1 to balance
 }
 
