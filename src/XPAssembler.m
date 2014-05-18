@@ -60,6 +60,7 @@
 #import "FNSubstringAfter.h"
 #import "FNSubstringBefore.h"
 #import "FNSum.h"
+#import "FNTranslate.h"
 #import "FNTrimSpace.h"
 #import "FNTitleCase.h"
 #import "FNUpperCase.h"
@@ -121,6 +122,7 @@
              [FNSubstringAfter name] : [FNSubstringAfter class],
              [FNSubstringBefore name] : [FNSubstringBefore class],
              [FNSum name] : [FNSum class],
+             [FNTranslate name] : [FNTranslate class],
              [FNTrimSpace name] : [FNTrimSpace class],
              [FNUpperCase name] : [FNUpperCase class],
              [FNTitleCase name] : [FNTitleCase class],
