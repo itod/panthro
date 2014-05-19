@@ -80,4 +80,10 @@
     return NO;
 }
 
+
+- (NSUInteger)lastPosition {
+    XPAssert(_nodes);
+    return [_nodes count];
+}
+
 @end

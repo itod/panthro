@@ -181,16 +181,22 @@
 
     // ok, here we are.
     
-    id <XPNodeEnumeration>contextNodeEnm = [_start enumerateInContext:ctx sorted:sorted];
+    id <XPNodeEnumeration>ctxNodeEnm = [_start enumerateInContext:ctx sorted:sorted];
     
     ctx = [[ctx copy] autorelease];
-    ctx.position = 1;
-    ctx.last = 1;
+    ctx.position = 0;
+    
+    if ([ctxNodeEnm conformsToProtocol:@protocol(XPLastPositionFinder)]) {
+        ctx.lastPositionFinder = (id <XPLastPositionFinder>)ctxNodeEnm;
+    } else {
+        ctx.lastPositionFinder = [[[XPLookaheadEnumerator alloc] initWithBase:ctxNodeEnm] autorelease];
+    }
     
     NSMutableArray *resultUnion = [NSMutableArray array];
 
-    while ([contextNodeEnm hasMoreObjects]) {
-        ctx.contextNode = [contextNodeEnm nextObject];
+    while ([ctxNodeEnm hasMoreObjects]) {
+        ++ctx.position;
+        ctx.contextNode = [ctxNodeEnm nextObject];
 
         id <XPNodeEnumeration>enm = [_step enumerate:ctx.contextNode inContext:ctx];
         
