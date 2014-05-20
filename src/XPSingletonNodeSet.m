@@ -49,11 +49,14 @@
  */
 
 - (XPExpression *)simplify {
+    XPExpression *result = self;
+    
     if (!_node) {
-        return [XPEmptyNodeSet emptyNodeSet];
-    } else {
-        return self;
+        result = [XPEmptyNodeSet emptyNodeSet];
     }
+    
+    result.range = self.range;
+    return result;
 }
 
 

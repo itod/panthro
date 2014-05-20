@@ -58,11 +58,16 @@
  */
 
 - (XPExpression *)simplify {
+    XPExpression *result = self;
     self.p1 = [_p1 simplify];
     self.p2 = [_p2 simplify];
-    if ([_p1 isKindOfClass:[XPEmptyNodeSet class]]) return _p2;
-    if ([_p2 isKindOfClass:[XPEmptyNodeSet class]]) return _p1;
-    return self;
+    if ([_p1 isKindOfClass:[XPEmptyNodeSet class]]) {
+        result = _p2;
+    } else if ([_p2 isKindOfClass:[XPEmptyNodeSet class]]) {
+        result = _p1;
+    }
+    result.range = self.range;
+    return result;
 }
 
 

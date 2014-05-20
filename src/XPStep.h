@@ -28,4 +28,7 @@
 @property (nonatomic, assign, readonly) NSUInteger numberOfFilters;
 @property (nonatomic, assign) XPAxis axis;
 @property (nonatomic, retain) XPNodeTest *nodeTest;
+
+@property (nonatomic, assign) NSRange range;
+@property (nonatomic, retain) NSArray *filterRanges;
 @end

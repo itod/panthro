@@ -52,17 +52,21 @@
 
 
 - (XPExpression *)simplify {
+    XPExpression *result = self;
+    
     self.p1 = [self.p1 simplify];
     self.p2 = [self.p2 simplify];
     
     // TODO
     
     if ([self.p1 isValue] && [self.p2 isValue]) {
-        return [self evaluateInContext:nil];
+        result = [self evaluateInContext:nil];
     }
     
     // TODO
-    return self;
+    
+    result.range = self.range;
+    return result;
 }
 
 

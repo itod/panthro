@@ -22,7 +22,7 @@ static XPEGParser *sParser = nil;
 static XPAssembler *sAssembler = nil;
 
 @interface XPExpression ()
-@property (nonatomic, readwrite, retain) id <XPStaticContext>staticContext;
+@property (nonatomic, retain, readwrite) id <XPStaticContext>staticContext;
 @end
 
 @implementation XPExpression
@@ -37,20 +37,24 @@ static XPAssembler *sAssembler = nil;
 
 
 + (XPExpression *)expressionFromString:(NSString *)exprStr inContext:(id <XPStaticContext>)env error:(NSError **)outErr {
+    return [self expressionFromString:exprStr inContext:env simplify:YES error:outErr];
+}
+
+
++ (XPExpression *)expressionFromString:(NSString *)exprStr inContext:(id <XPStaticContext>)env simplify:(BOOL)simplify error:(NSError **)outErr {
     XPAssert(sParser);
     @try {
-//        XPExpression *expr = [sParser parseExpression:exprStr inContext:env];
         PKAssembly *a = [sParser parseString:exprStr error:outErr];
-
         XPExpression *expr = [a pop];
-        //XPAssert([expr isKindOfClass:[XPExpression class]]);
         
-        expr = [expr simplify];
+        if (simplify) {
+            expr = [expr simplify];
+        }
         [expr setStaticContext:env];
         return expr;
     }
     @catch (NSException *e) {
-//        if (outErr) *outErr = [NSError XPathErrorWithCode:47 format:[e reason]];
+        //if (outErr) *outErr = [NSError XPathErrorWithCode:47 format:[e reason]];
     }
     return nil;
 }
@@ -59,6 +63,15 @@ static XPAssembler *sAssembler = nil;
 + (XPFunction *)makeSystemFunction:(NSString *)name {
     XPAssert(sAssembler);
     return [sAssembler makeSystemFunction:name];
+}
+
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.range = NSMakeRange(NSNotFound, 0);
+    }
+    return self;
 }
 
 

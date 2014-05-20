@@ -55,14 +55,17 @@
 
 
 - (XPExpression *)simplify {
+    XPExpression *result = self;
+    
     self.p1 = [_p1 simplify];
     self.p2 = [_p2 simplify];
     
     if ([_p1 isValue] && [_p2 isValue]) {
-        return [self evaluateInContext:nil];
+        result = [self evaluateInContext:nil];
     }
     
-    return self;
+    result.range = self.range;
+    return result;
 }
 
 

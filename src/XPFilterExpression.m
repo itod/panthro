@@ -58,24 +58,25 @@
  */
 
 - (XPExpression *)simplify {
+    XPExpression *result = self;
     
     self.start = [_start simplify];
     self.filter = [_filter simplify];
     
     // ignore the filter if the base expression is an empty node-set
     if ([_start isKindOfClass:[XPEmptyNodeSet class]]) {
-        return _start;
-    }
-    
-    // check whether the filter is a constant true() or false()
-    if ([_filter isValue] && ![_filter isKindOfClass:[XPNumericValue class]]) {
+        result = _start;
+    } else if ([_filter isValue] && ![_filter isKindOfClass:[XPNumericValue class]]) { // check whether the filter is a constant true() or false()
         BOOL f = [(XPValue *)_filter asBoolean];
         if (f) {
-            return _start;
+            result = _start;
         } else {
-            return [XPEmptyNodeSet emptyNodeSet];
+            result = [XPEmptyNodeSet emptyNodeSet];
         }
     }
+    
+    result.range = self.range;
+    return result;
     
 //    // check whether the filter is [last()] (note, position()=last() will
 //    // have already been simplified)

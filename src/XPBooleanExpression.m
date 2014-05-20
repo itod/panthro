@@ -9,6 +9,7 @@
 #import "XPBooleanExpression.h"
 #import "XPValue.h"
 #import "XPBooleanValue.h"
+#import "XPPositionRange.h"
 
 @implementation XPBooleanExpression
 
@@ -23,15 +24,25 @@
 
 
 - (XPExpression *)simplify {
+    XPExpression *result = self;
+    
     self.p1 = [self.p1 simplify];
     self.p2 = [self.p2 simplify];
+
     if ([self.p2 isValue] && [self.p2 isValue]) {
-        return [self evaluateInContext:nil];
+        result = [self evaluateInContext:nil];
+    } else if ([self.p1 isKindOfClass:[XPPositionRange class]] && [self.p2 isKindOfClass:[XPPositionRange class]]) {
+        XPPositionRange *pr1 = (XPPositionRange *)self.p1;
+        XPPositionRange *pr2 = (XPPositionRange *)self.p2;
+        if (pr1.maxPosition == NSUIntegerMax && pr2.minPosition == 1) {
+            result = [[[XPPositionRange alloc] initWithMin:pr1.minPosition max:pr2.maxPosition] autorelease];
+        } else if (pr2.maxPosition == NSUIntegerMax && pr1.minPosition == 1) {
+            result = [[[XPPositionRange alloc] initWithMin:pr2.minPosition max:pr1.maxPosition] autorelease];
+        }
     }
     
-    // TODO
-    
-    return self;
+    result.range = self.range;
+    return result;
 }
 
 

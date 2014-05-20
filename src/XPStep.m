@@ -33,7 +33,7 @@
 - (void)dealloc {
     self.nodeTest = nil;
     self.allFilters = nil;
-    
+    self.filterRanges = nil;
     [super dealloc];
 }
 

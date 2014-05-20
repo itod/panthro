@@ -217,7 +217,9 @@
         op = XPTokenTypeGE;
     }
     
-    [a push:[XPRelationalExpression relationalExpressionWithOperand:p1 operator:op operand:p2]];
+    XPExpression *relExpr = [XPRelationalExpression relationalExpressionWithOperand:p1 operator:op operand:p2];
+    relExpr.range = NSMakeRange(p1.range.location, NSMaxRange(p2.range));
+    [a push:relExpr];
 }
 
 
@@ -241,7 +243,9 @@
         op = XPTokenTypeMod;
     }
     
-    [a push:[XPArithmeticExpression arithmeticExpressionWithOperand:v1 operator:op operand:v2]];
+    XPExpression *mathExpr = [XPArithmeticExpression arithmeticExpressionWithOperand:v1 operator:op operand:v2];
+    mathExpr.range = NSMakeRange(v1.range.location, NSMaxRange(v2.range));
+    [a push:mathExpr];
 }
 
 
@@ -527,7 +531,9 @@
     XPAssert([tok.stringValue isEqualToString:@"-"]);
 
     BOOL isNegative = NO;
+    NSUInteger offset = NSNotFound;
     while ([tok.stringValue isEqualToString:@"-"]) {
+        offset = tok.offset;
         isNegative = !isNegative;
         tok = [a pop];
     }
@@ -535,21 +541,28 @@
     
     double d = [val asNumber];
     if (isNegative) d = -d;
-    [a push:[XPNumericValue numericValueWithNumber:d]];
+    
+    XPExpression *numExpr = [XPNumericValue numericValueWithNumber:d];
+    XPAssert(NSNotFound != offset);
+    numExpr.range = NSMakeRange(offset, NSMaxRange(val.range));
+    [a push:numExpr];
 }
 
 
 - (void)parser:(PKParser *)p didMatchNumber:(PKAssembly *)a {
     PKToken *tok = [a pop];
-    [a push:[XPNumericValue numericValueWithNumber:tok.doubleValue]];
+    XPExpression *numExpr = [XPNumericValue numericValueWithNumber:tok.doubleValue];
+    numExpr.range = NSMakeRange(tok.offset, [tok.stringValue length]);
+    [a push:numExpr];
 }
 
 
 - (void)parser:(PKParser *)p didMatchLiteral:(PKAssembly *)a {
     PKToken *tok = [a pop];
     NSString *s = tok.stringValue;
+    NSUInteger len = [s length];
     
-    if ([s length]) {
+    if (len) {
         unichar c = [s characterAtIndex:0];
         NSCharacterSet *set = _singleQuoteCharSet;
         if ('"' == c) {
@@ -557,8 +570,10 @@
         }
         s = [s stringByTrimmingCharactersInSet:set];
     }
-    
-    [a push:[XPStringValue stringValueWithString:s]];
+
+    XPExpression *strExpr = [XPStringValue stringValueWithString:s];
+    strExpr.range = NSMakeRange(tok.offset, len);
+    [a push:strExpr];
 }
 
 @end

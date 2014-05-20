@@ -43,6 +43,7 @@ typedef NS_ENUM(NSUInteger, XPDependencies) {
 @interface XPExpression : NSObject
 
 + (XPExpression *)expressionFromString:(NSString *)exprStr inContext:(id <XPStaticContext>)env error:(NSError **)outErr;
++ (XPExpression *)expressionFromString:(NSString *)exprStr inContext:(id <XPStaticContext>)env simplify:(BOOL)simplify error:(NSError **)outErr;
 + (XPFunction *)makeSystemFunction:(NSString *)name;
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx;
@@ -64,5 +65,6 @@ typedef NS_ENUM(NSUInteger, XPDependencies) {
 
 - (XPDataType)dataType;
 
-@property (nonatomic, readonly, retain) id <XPStaticContext>staticContext;
+@property (nonatomic, assign) NSRange range;
+@property (nonatomic, retain, readonly) id <XPStaticContext>staticContext;
 @end
