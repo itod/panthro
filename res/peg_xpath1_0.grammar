@@ -123,7 +123,7 @@ pathExpr = filterPath | locationPath;
         
         axis = axisName '::'! | abbreviatedAxis;
             axisName = 'ancestor' | 'ancestor-or-self' | 'attribute' | 'child' | 'descendant' | 'descendant-or-self' | 'following' | 'following-sibling' | 'namespace' | 'parent' | 'preceding' | 'preceding-sibling' | 'self';
-            abbreviatedAxis = '@'!;
+            abbreviatedAxis = '@';
         stepBody = nodeTest predicate*;
         nodeTest = nameTest | typeTest | specificPITest;
             nameTest = '*' | ncName ':' '*' | qName; // note whitespace should not be allowed in second alt here

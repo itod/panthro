@@ -129,7 +129,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[book, not, (, preceding-sibling, book, /, author, =, author, ), /, title]book/[/not/(/preceding-sibling/::/book///@/author/=/@/author/)/]///title^", [a description]);
+    TDEqualObjects(@"[book, not, (, preceding-sibling, book, /, @, author, =, @, author, ), /, title]book/[/not/(/preceding-sibling/::/book///@/author/=/@/author/)/]///title^", [a description]);
 }
 
 

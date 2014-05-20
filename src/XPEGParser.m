@@ -745,7 +745,7 @@
 
 - (void)abbreviatedAxis_ {
     
-    [self match:XPEG_TOKEN_KIND_ABBREVIATEDAXIS discard:YES]; 
+    [self match:XPEG_TOKEN_KIND_ABBREVIATEDAXIS discard:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchAbbreviatedAxis:)];
 }

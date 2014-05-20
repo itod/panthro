@@ -74,6 +74,7 @@
 @property (nonatomic, retain) PKToken *dotDotDot;
 @property (nonatomic, retain) PKToken *pipe;
 @property (nonatomic, retain) PKToken *closeBracket;
+@property (nonatomic, retain) PKToken *atAxis;
 @property (nonatomic, retain) NSCharacterSet *singleQuoteCharSet;
 @property (nonatomic, retain) NSCharacterSet *doubleQuoteCharSet;
 @end
@@ -88,6 +89,7 @@
         self.dotDotDot = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"…" doubleValue:0.0];
         self.pipe = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"|" doubleValue:0.0];
         self.closeBracket = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"]" doubleValue:0.0];
+        self.atAxis = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"@" doubleValue:0.0];
         self.singleQuoteCharSet = [NSCharacterSet characterSetWithCharactersInString:@"'"];
         self.doubleQuoteCharSet = [NSCharacterSet characterSetWithCharactersInString:@"\""];
         
@@ -154,6 +156,7 @@
     self.dotDotDot = nil;
     self.pipe = nil;
     self.closeBracket = nil;
+    self.atAxis = nil;
     self.singleQuoteCharSet = nil;
     self.doubleQuoteCharSet = nil;
     [super dealloc];
@@ -452,9 +455,15 @@
     XPNodeTest *nodeTest = [a pop];
     XPAssert([nodeTest isKindOfClass:[XPNodeTest class]]);
     
-    NSNumber *axisNum = [a pop];
-    XPAssert([axisNum isKindOfClass:[NSNumber class]]);
-    XPAxis axis = [axisNum unsignedIntegerValue];
+    PKToken *axisTok = [a pop];
+    XPAssertToken(axisTok);
+    
+    XPAxis axis;
+    if ([axisTok isEqualTo:_atAxis]) {
+        axis = XPAxisAttribute;
+    } else {
+        axis = XPAxisForName(axisTok.stringValue);
+    }
     
     if ([nodeTest isKindOfClass:[XPNameTest class]] && XPNodeTypePI != nodeTest.nodeType) {
         nodeTest.nodeType = XPAxisPrincipalNodeType[axis];
@@ -497,20 +506,6 @@
     XPNodeTest *nodeTest = [[[XPNodeTypeTest alloc] initWithNodeType:XPNodeTypeNode] autorelease];
     XPStep *step = [self stepWithAxis:axis nodeTest:nodeTest filters:nil];
     [a push:step];
-}
-
-
-- (void)parser:(PKParser *)p didMatchAxisName:(PKAssembly *)a {
-    PKToken *tok = [a pop];
-    XPAssertToken(tok);
-    
-    XPAxis axis = XPAxisForName(tok.stringValue);
-    [a push:@(axis)];
-}
-
-
-- (void)parser:(PKParser *)p didMatchAbbreviatedAxis:(PKAssembly *)a {
-    [a push:@(XPAxisAttribute)];
 }
 
 
