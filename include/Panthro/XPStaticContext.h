@@ -31,8 +31,4 @@
 
 @property (retain, readonly) XPSync *debugSync;
 @property (assign) BOOL debug;
-@property (copy) NSDictionary *debugInfo;
-
-- (BOOL)pauseWithDebugInfo:(NSDictionary *)info;
-//- (void)resume;
 @end

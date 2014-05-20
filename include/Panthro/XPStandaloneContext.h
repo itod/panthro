@@ -32,7 +32,7 @@ extern NSString *const XPNamespaceXSL;
 - (void)declareNamespaceURI:(NSString *)uri forPrefix:(NSString *)prefix;
 
 @property (nonatomic, retain) NSMutableDictionary *namespaces;
+
 @property (retain) XPSync *debugSync;
 @property (assign) BOOL debug;
-@property (copy) NSDictionary *debugInfo;
 @end

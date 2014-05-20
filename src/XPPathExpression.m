@@ -8,6 +8,7 @@
 
 #import "XPPathExpression.h"
 #import "XPStaticContext.h"
+#import "XPSync.h"
 #import "XPContext.h"
 #import "XPStep.h"
 #import "XPAxis.h"
@@ -210,9 +211,14 @@
 
     XPNodeSetValue *nodeSet = [[[XPNodeSetValue alloc] initWithNodes:resultUnion comparer:[XPLocalOrderComparer instance]] autorelease];
     
-    BOOL resume = [ctx.staticContext pauseWithDebugInfo:@{@"contextNode": ctx.contextNode, @"result": nodeSet}];
-    if (!resume) {
-        [NSException raise:@"XPathTerminateException" format:@"User Terminated"];
+    if (ctx.staticContext.debug) {
+        [ctx.staticContext.debugSync putPauseInfo:@{@"contextNode": ctx.contextNode, @"result": nodeSet, @"done": @NO}];
+        [ctx.staticContext.debugSync takeResumeInfo];
+
+        BOOL resume = YES;
+        if (!resume) {
+            [NSException raise:@"XPathTerminateException" format:@"User Terminated"];
+        }
     }
     
     // always sort after the curruent step has completed to remove dupes and place nodes in document order.

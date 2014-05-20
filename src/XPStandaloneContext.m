@@ -37,7 +37,6 @@ NSString *const XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
         self.vars = [NSMutableDictionary dictionary];
         self.namespaces = [NSMutableDictionary dictionary];
         self.debugSync = [XPSync sync];
-//        [_debugSync putPauseInfo:[NSNull null]];
 
 		[self declareNamespaceURI:XPNamespaceXML forPrefix:@"xml"];
 		[self declareNamespaceURI:XPNamespaceXSLT forPrefix:@"xsl"];
@@ -51,7 +50,6 @@ NSString *const XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
     self.vars = nil;
     self.namespaces = nil;
     self.debugSync = nil;
-    self.debugInfo = nil;
     [super dealloc];
 }
 
@@ -216,18 +214,5 @@ NSString *const XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
     
     return [_vars objectForKey:name];
 }
-
-
-- (BOOL)pauseWithDebugInfo:(NSDictionary *)info {
-    if (self.debug) {
-        [_debugSync putPauseInfo:info];
-        [_debugSync takeResumeInfo];
-    }
-    return YES;
-}
-
-
-//- (void)resume {
-//}
 
 @end
