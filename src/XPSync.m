@@ -24,8 +24,8 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.pauseChannel = [XPSynchronousChannel synchronousChannelWithPutPermit:YES];
-        self.resumeChannel = [XPSynchronousChannel synchronousChannelWithPutPermit:YES];
+        self.pauseChannel = [XPSynchronousChannel synchronousChannel];
+        self.resumeChannel = [XPSynchronousChannel synchronousChannel];
     }
     return self;
 }

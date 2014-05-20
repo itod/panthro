@@ -18,16 +18,16 @@
 
 @implementation XPSynchronousChannel
 
-+ (instancetype)synchronousChannelWithPutPermit:(BOOL)isPut {
-    return [[[self alloc] initWithPutPermit:isPut] autorelease];
++ (instancetype)synchronousChannel {
+    return [[[self alloc] init] autorelease];
 }
 
 
-- (instancetype)initWithPutPermit:(BOOL)isPut {
+- (instancetype)init {
     self = [super init];
     if (self) {
-        self.putPermit = [XPSemaphore semaphoreWithValue:isPut ? 1 : 0];
-        self.takePermit = [XPSemaphore semaphoreWithValue:isPut ? 0 : 1];
+        self.putPermit = [XPSemaphore semaphoreWithValue:1];
+        self.takePermit = [XPSemaphore semaphoreWithValue:0];
     }
     return self;
 }

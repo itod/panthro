@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		D3172237190D8FE6005C633B /* XPEqualityExprTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3172236190D8FE6005C633B /* XPEqualityExprTest.m */; };
-		D324A1A0192AE4C00093C4B5 /* XPSynchronousChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = D324A19F192AE4BF0093C4B5 /* XPSynchronousChannel.h */; };
 		D324A1A4192AE4D90093C4B5 /* XPSync.m in Sources */ = {isa = PBXBuildFile; fileRef = D324A1A2192AE4D90093C4B5 /* XPSync.m */; };
 		D324A1A6192AE5550093C4B5 /* XPSync.h in Headers */ = {isa = PBXBuildFile; fileRef = D324A1A5192AE5550093C4B5 /* XPSync.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D324A1A8192AF16D0093C4B5 /* XPSynchronousChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = D324A1A7192AF16D0093C4B5 /* XPSynchronousChannel.h */; };
 		D33097381921BE99004317EA /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33097361921BE99004317EA /* PEGKit.framework */; };
 		D330973B1921BED5004317EA /* TDTemplateEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D330973A1921BED5004317EA /* TDTemplateEngine.framework */; };
 		D334BAB4192193AA00A32DD6 /* XPLastPositionFinder.h in Headers */ = {isa = PBXBuildFile; fileRef = D334BAB3192193AA00A32DD6 /* XPLastPositionFinder.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -363,9 +363,9 @@
 		D30D9697191862E300627D41 /* XPLocalOrderComparer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPLocalOrderComparer.h; path = src/XPLocalOrderComparer.h; sourceTree = "<group>"; };
 		D30D9698191862E300627D41 /* XPLocalOrderComparer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPLocalOrderComparer.m; path = src/XPLocalOrderComparer.m; sourceTree = "<group>"; };
 		D3172236190D8FE6005C633B /* XPEqualityExprTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPEqualityExprTest.m; path = test/XPEqualityExprTest.m; sourceTree = "<group>"; };
-		D324A19F192AE4BF0093C4B5 /* XPSynchronousChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPSynchronousChannel.h; path = ../../Pathology/XPSynchronousChannel.h; sourceTree = "<group>"; };
 		D324A1A2192AE4D90093C4B5 /* XPSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPSync.m; path = src/XPSync.m; sourceTree = "<group>"; };
 		D324A1A5192AE5550093C4B5 /* XPSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPSync.h; path = include/Panthro/XPSync.h; sourceTree = "<group>"; };
+		D324A1A7192AF16D0093C4B5 /* XPSynchronousChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPSynchronousChannel.h; path = src/XPSynchronousChannel.h; sourceTree = "<group>"; };
 		D33097361921BE99004317EA /* PEGKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PEGKit.framework; path = "../../../Library/Developer/Xcode/DerivedData/Panthro-dmvdaloqmsblyzezdvatkwnhfouk/Build/Products/Debug/PEGKit.framework"; sourceTree = "<group>"; };
 		D330973A1921BED5004317EA /* TDTemplateEngine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TDTemplateEngine.framework; path = "../../../Library/Developer/Xcode/DerivedData/Panthro-dmvdaloqmsblyzezdvatkwnhfouk/Build/Products/Debug/TDTemplateEngine.framework"; sourceTree = "<group>"; };
 		D334BAB3192193AA00A32DD6 /* XPLastPositionFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPLastPositionFinder.h; path = include/Panthro/XPLastPositionFinder.h; sourceTree = "<group>"; };
@@ -808,7 +808,7 @@
 				D36712E7192AD0CC00B13A63 /* XPLocking.h */,
 				D324A1A5192AE5550093C4B5 /* XPSync.h */,
 				D324A1A2192AE4D90093C4B5 /* XPSync.m */,
-				D324A19F192AE4BF0093C4B5 /* XPSynchronousChannel.h */,
+				D324A1A7192AF16D0093C4B5 /* XPSynchronousChannel.h */,
 				D36712E0192ACC1700B13A63 /* XPSynchronousChannel.m */,
 				D36712E3192ACC2600B13A63 /* XPSemaphore.h */,
 				D339F689192AA1D000C79A51 /* XPSemaphore.m */,
@@ -1349,6 +1349,7 @@
 				D3F0CB9F191EC23D0049EC02 /* FNConcat.h in Headers */,
 				D36712E8192AD0CF00B13A63 /* XPLocking.h in Headers */,
 				D33930F7191F132D00259939 /* XPVariableReference.h in Headers */,
+				D324A1A8192AF16D0093C4B5 /* XPSynchronousChannel.h in Headers */,
 				D3F0CBF6191EC7D00049EC02 /* XPContext.h in Headers */,
 				D3C0F5A21921555800566524 /* FNNormalizeUnicode.h in Headers */,
 				D3F0CC0A191EC8250049EC02 /* XPBooleanValue.h in Headers */,
@@ -1405,7 +1406,6 @@
 				D3BE1410191AC80400005C81 /* XPFilterExpression.h in Headers */,
 				D383A31C187F6ECB006AE701 /* XPAssembler.h in Headers */,
 				D3F0CBFF191EC8090049EC02 /* XPStaticContext.h in Headers */,
-				D324A1A0192AE4C00093C4B5 /* XPSynchronousChannel.h in Headers */,
 				D3F0CBA7191EC23D0049EC02 /* FNPosition.h in Headers */,
 				D324A1A6192AE5550093C4B5 /* XPSync.h in Headers */,
 				D33E9F9F191706E100BB7DFE /* XPEmptyEnumeration.h in Headers */,
