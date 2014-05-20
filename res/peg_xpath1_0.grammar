@@ -103,8 +103,8 @@ pathExpr = filterPath | locationPath;
             literal = QuotedString;
             number = Number;
             functionCall = actualFunctionCall | booleanLiteralFunctionCall;
-                actualFunctionCall = functionName '(' (argument (','! argument)* )? ')'!;
-                booleanLiteralFunctionCall = booleanLiteral '('! ')'!;
+                actualFunctionCall = functionName '(' (argument (','! argument)* )? ')';
+                booleanLiteralFunctionCall = booleanLiteral '('! ')';
                     functionName = { NE(LS(1), @"true") && NE(LS(1), @"false") && NE(LS(1), @"comment") && NE(LS(1), @"text") && NE(LS(1), @"processing-instruction") && NE(LS(1), @"node") }? qName;
                     booleanLiteral = 'true' | 'false';
                 

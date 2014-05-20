@@ -249,7 +249,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[title, position, (, =, 2]title/[/position/(/)/=/2/]^", [a description]);
+    TDEqualObjects(@"[title, position, (, ), =, 2]title/[/position/(/)/=/2/]^", [a description]);
 }
 
 

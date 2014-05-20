@@ -69,6 +69,36 @@
     TDEquals(0, _expr.range.location);
     TDEquals(5, _expr.range.length);
     
+    self.expr = [XPExpression expressionFromString:@"1 = 1" inContext:nil simplify:NO error:nil];
+    TDEqualObjects([_expr class], [XPRelationalExpression class]);
+    TDEquals(0, _expr.range.location);
+    TDEquals(5, _expr.range.length);
+    
+    self.expr = [XPExpression expressionFromString:@"1 = 1" inContext:nil simplify:YES error:nil];
+    TDEqualObjects([_expr class], [XPBooleanValue class]);
+    TDEquals(0, _expr.range.location);
+    TDEquals(5, _expr.range.length);
+    
+    self.expr = [XPExpression expressionFromString:@"1 != 1" inContext:nil simplify:NO error:nil];
+    TDEqualObjects([_expr class], [XPRelationalExpression class]);
+    TDEquals(0, _expr.range.location);
+    TDEquals(6, _expr.range.length);
+    
+    self.expr = [XPExpression expressionFromString:@"1 != 1" inContext:nil simplify:YES error:nil];
+    TDEqualObjects([_expr class], [XPBooleanValue class]);
+    TDEquals(0, _expr.range.location);
+    TDEquals(6, _expr.range.length);
+    
+    self.expr = [XPExpression expressionFromString:@"2 >= 3" inContext:nil simplify:NO error:nil];
+    TDEqualObjects([_expr class], [XPRelationalExpression class]);
+    TDEquals(0, _expr.range.location);
+    TDEquals(6, _expr.range.length);
+    
+    self.expr = [XPExpression expressionFromString:@"2 >= 3" inContext:nil simplify:YES error:nil];
+    TDEqualObjects([_expr class], [XPBooleanValue class]);
+    TDEquals(0, _expr.range.location);
+    TDEquals(6, _expr.range.length);
+    
 }
 
 @end

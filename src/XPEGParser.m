@@ -574,7 +574,7 @@
             [self argument_]; 
         }
     }
-    [self match:XPEG_TOKEN_KIND_CLOSE_PAREN discard:YES]; 
+    [self match:XPEG_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchActualFunctionCall:)];
 }
@@ -583,7 +583,7 @@
     
     [self booleanLiteral_]; 
     [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:YES]; 
-    [self match:XPEG_TOKEN_KIND_CLOSE_PAREN discard:YES]; 
+    [self match:XPEG_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchBooleanLiteralFunctionCall:)];
 }

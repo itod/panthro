@@ -33,7 +33,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[boolean, (, 1]boolean/(/1/)^", [a description]);
+    TDEqualObjects(@"[boolean, (, 1, )]boolean/(/1/)^", [a description]);
 }
 
 
@@ -45,7 +45,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[true]true/(/)^", [a description]);
+    TDEqualObjects(@"[true, )]true/(/)^", [a description]);
 }
 
 
@@ -93,7 +93,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[foo, (, //, price]foo/(/)////price^", [a description]);
+    TDEqualObjects(@"[foo, (, ), //, price]foo/(/)////price^", [a description]);
 }
 
 
@@ -105,7 +105,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[foo, (, /, price]foo/(/)///price^", [a description]);
+    TDEqualObjects(@"[foo, (, ), /, price]foo/(/)///price^", [a description]);
 }
 
 @end

@@ -68,7 +68,8 @@
 @interface XPAssembler ()
 @property (nonatomic, retain) NSDictionary *funcTab;
 @property (nonatomic, retain) NSDictionary *nodeTypeTab;
-@property (nonatomic, retain) PKToken *paren;
+@property (nonatomic, retain) PKToken *openParen;
+@property (nonatomic, retain) PKToken *closeParen;
 @property (nonatomic, retain) PKToken *slash;
 @property (nonatomic, retain) PKToken *doubleSlash;
 @property (nonatomic, retain) PKToken *dotDotDot;
@@ -82,7 +83,8 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        self.paren = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
+        self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
+        self.closeParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@")" doubleValue:0.0];
         self.slash = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"/" doubleValue:0.0];
         self.doubleSlash = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"//" doubleValue:0.0];
         self.dotDotDot = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"…" doubleValue:0.0];
@@ -148,7 +150,8 @@
 - (void)dealloc {
     self.funcTab = nil;
     self.nodeTypeTab = nil;
-    self.paren = nil;
+    self.openParen = nil;
+    self.closeParen = nil;
     self.slash = nil;
     self.doubleSlash = nil;
     self.dotDotDot = nil;
@@ -250,6 +253,8 @@
 
 
 - (void)parser:(PKParser *)p didMatchBooleanLiteralFunctionCall:(PKAssembly *)a {
+    PKToken *closeParenTok = [a pop];
+    XPAssert([closeParenTok isEqualTo:_closeParen]);
     PKToken *nameTok = [a pop];
     
     BOOL b = NO;
@@ -258,15 +263,22 @@
         b = YES;
     }
 
-    [a push:[XPBooleanValue booleanValueWithBoolean:b]];
+    XPExpression *boolExpr = [XPBooleanValue booleanValueWithBoolean:b];
+    NSUInteger offset = nameTok.offset;
+    boolExpr.range = NSMakeRange(offset, (closeParenTok.offset+1) - offset);
+    [a push:boolExpr];
 }
 
 
 - (void)parser:(PKParser *)p didMatchActualFunctionCall:(PKAssembly *)a {
-    NSArray *args = [a objectsAbove:_paren];
+    PKToken *closeParenTok = [a pop];
+    XPAssert([closeParenTok isEqualTo:_closeParen]);
+
+    NSArray *args = [a objectsAbove:_openParen];
     [a pop]; // '('
     
-    NSString *name = [[a pop] stringValue];
+    PKToken *nameTok = [a pop];
+    NSString *name = [nameTok stringValue];
 
     XPFunction *fn = [self makeSystemFunction:name];
     
@@ -274,6 +286,8 @@
         [fn addArgument:arg];
     }
     
+    NSUInteger offset = nameTok.offset;
+    fn.range = NSMakeRange(offset, (closeParenTok.offset+1) - offset);
     [a push:fn];
 }
 
