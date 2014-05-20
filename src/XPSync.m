@@ -38,36 +38,26 @@
 }
 
 
-- (id)takePauseInfo {
+- (id)awaitPauseInfo {
     XPAssert(_pauseChannel);
-    XPAssert(_resumeChannel);
-    
-    id info = [_pauseChannel take];
-    return info;
+    return [_pauseChannel take];
 }
 
 
-- (void)putPauseInfo:(id)info {
+- (void)pauseWithInfo:(id)info {
     XPAssert(_pauseChannel);
-    XPAssert(_resumeChannel);
-    
     [_pauseChannel put:info];
 }
 
 
-- (id)takeResumeInfo {
-    XPAssert(_pauseChannel);
+- (id)awaitResumeInfo {
     XPAssert(_resumeChannel);
-    
-    id info = [_resumeChannel take];
-    return info;
+    return [_resumeChannel take];
 }
 
 
-- (void)putResumeInfo:(id)info {
-    XPAssert(_pauseChannel);
+- (void)resumeWithInfo:(id)info {
     XPAssert(_resumeChannel);
-
     [_resumeChannel put:info];
 }
 
