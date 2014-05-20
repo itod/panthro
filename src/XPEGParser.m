@@ -478,14 +478,14 @@
 
 - (void)rootSlash_ {
     
-    [self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:YES]; 
+    [self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchRootSlash:)];
 }
 
 - (void)rootDoubleSlash_ {
     
-    [self match:XPEG_TOKEN_KIND_DOUBLE_SLASH discard:YES]; 
+    [self match:XPEG_TOKEN_KIND_DOUBLE_SLASH discard:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchRootDoubleSlash:)];
 }
@@ -530,7 +530,7 @@
 
 - (void)variableReference_ {
     
-    [self match:XPEG_TOKEN_KIND_DOLLAR discard:YES]; 
+    [self match:XPEG_TOKEN_KIND_DOLLAR discard:NO]; 
     [self qName_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchVariableReference:)];

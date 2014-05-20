@@ -93,13 +93,13 @@ pathExpr = filterPath | locationPath;
         slashStep = (('/' | '//') step);
         absoluteLocationPath = rootSlash pathBody? | abbreviatedAbsoluteLocationPath;
             abbreviatedAbsoluteLocationPath = rootDoubleSlash pathBody;
-            rootSlash = '/'!;
-            rootDoubleSlash = '//'!;
+            rootSlash = '/';
+            rootDoubleSlash = '//';
             firstRelativeStep = step;
 
     filterExpr = primaryExpr predicate*;
         primaryExpr = variableReference | literal | number | functionCall | '('! expr ')'!;
-            variableReference = '$'! qName; // note whitespace is not allowed here. also qName is optional
+            variableReference = '$' qName; // note whitespace is not allowed here. also qName is optional
             literal = QuotedString;
             number = Number;
             functionCall = actualFunctionCall | booleanLiteralFunctionCall;

@@ -57,7 +57,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[foo]$/foo^", [a description]);
+    TDEqualObjects(@"[$, foo]$/foo^", [a description]);
 }
 
 
@@ -69,7 +69,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[foo, /, price]$/foo///price^", [a description]);
+    TDEqualObjects(@"[$, foo, /, price]$/foo///price^", [a description]);
 }
 
 
@@ -81,7 +81,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[foo, //, price]$/foo////price^", [a description]);
+    TDEqualObjects(@"[$, foo, //, price]$/foo////price^", [a description]);
 }
 
 

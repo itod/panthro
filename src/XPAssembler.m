@@ -69,7 +69,6 @@
 @property (nonatomic, retain) NSDictionary *funcTab;
 @property (nonatomic, retain) NSDictionary *nodeTypeTab;
 @property (nonatomic, retain) PKToken *openParen;
-@property (nonatomic, retain) PKToken *closeParen;
 @property (nonatomic, retain) PKToken *slash;
 @property (nonatomic, retain) PKToken *doubleSlash;
 @property (nonatomic, retain) PKToken *dotDotDot;
@@ -84,7 +83,6 @@
 - (instancetype)init {
     if (self = [super init]) {
         self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
-        self.closeParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@")" doubleValue:0.0];
         self.slash = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"/" doubleValue:0.0];
         self.doubleSlash = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"//" doubleValue:0.0];
         self.dotDotDot = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"…" doubleValue:0.0];
@@ -151,7 +149,6 @@
     self.funcTab = nil;
     self.nodeTypeTab = nil;
     self.openParen = nil;
-    self.closeParen = nil;
     self.slash = nil;
     self.doubleSlash = nil;
     self.dotDotDot = nil;
@@ -190,7 +187,9 @@
         op = XPTokenTypeOr;
     }
 
-    [a push:[XPBooleanExpression booleanExpressionWithOperand:v1 operator:op operand:v2]];
+    XPExpression *boolExpr = [XPBooleanExpression booleanExpressionWithOperand:v1 operator:op operand:v2];
+    boolExpr.range = NSMakeRange(v1.range.location, NSMaxRange(v2.range));
+    [a push:boolExpr];
 }
 
 
@@ -254,7 +253,7 @@
 
 - (void)parser:(PKParser *)p didMatchBooleanLiteralFunctionCall:(PKAssembly *)a {
     PKToken *closeParenTok = [a pop];
-    XPAssert([closeParenTok isEqualTo:_closeParen]);
+    XPAssert([closeParenTok.stringValue isEqualToString:@")"]);
     PKToken *nameTok = [a pop];
     
     BOOL b = NO;
@@ -272,7 +271,7 @@
 
 - (void)parser:(PKParser *)p didMatchActualFunctionCall:(PKAssembly *)a {
     PKToken *closeParenTok = [a pop];
-    XPAssert([closeParenTok isEqualTo:_closeParen]);
+    XPAssert([closeParenTok.stringValue isEqualToString:@")"]);
 
     NSArray *args = [a objectsAbove:_openParen];
     [a pop]; // '('
@@ -293,10 +292,17 @@
 
 
 - (void)parser:(PKParser *)p didMatchVariableReference:(PKAssembly *)a {
-    PKToken *tok = [a pop];
-    XPAssertToken(tok);
-    NSString *name = tok.stringValue;
+    PKToken *nameTok = [a pop];
+    XPAssertToken(nameTok);
+    
+    PKToken *dollarTok = [a pop];
+    XPAssertToken(dollarTok);
+    XPAssert([dollarTok.stringValue isEqualToString:@"$"]);
+
+    NSString *name = nameTok.stringValue;
     XPVariableReference *ref = [[[XPVariableReference alloc] initWithName:name] autorelease];
+    NSUInteger offset = dollarTok.offset;
+    ref.range = NSMakeRange(offset, (nameTok.offset+name.length) - offset);
     [a push:ref];
 }
 
@@ -329,7 +335,7 @@
             continue;
         } else if ([_doubleSlash isEqualTo:part]) {
             XPNodeTest *nodeTest = [[[XPNodeTypeTest alloc] initWithNodeType:XPNodeTypeNode] autorelease];
-            step = [[[XPStep alloc] initWithAxis:XPAxisDescendantOrSelf nodeTest:nodeTest] autorelease];
+            step = [self stepWithAxis:XPAxisDescendantOrSelf nodeTest:nodeTest filters:nil];
         } else {
             XPAssert([part isKindOfClass:[XPStep class]]);
             step = (id)part;
@@ -359,6 +365,7 @@
         XPExpression *lhs = [a pop];
         
         XPExpression *unionExpr = [[[XPUnionExpression alloc] initWithLhs:lhs rhs:rhs] autorelease];
+        unionExpr.range = NSMakeRange(lhs.range.location, NSMaxRange(rhs.range));
         [a push:unionExpr];
     } else {
         [a push:peek];
@@ -384,19 +391,25 @@
 
 
 - (void)parser:(PKParser *)p didMatchRootSlash:(PKAssembly *)a {
+    PKToken *slashTok = [a pop];
+    XPAssertToken(slashTok);
     XPExpression *rootExpr = [[[XPRootExpression alloc] init] autorelease];
+    rootExpr.range = NSMakeRange(slashTok.offset, 1);
     [a push:rootExpr];
     [a push:_dotDotDot];
 }
 
 
 - (void)parser:(PKParser *)p didMatchRootDoubleSlash:(PKAssembly *)a {
+    PKToken *slashTok = [a pop];
+    XPAssertToken(slashTok);
     XPExpression *rootExpr = [[[XPRootExpression alloc] init] autorelease];
+    rootExpr.range = NSMakeRange(slashTok.offset, 2);
     [a push:rootExpr];
     [a push:_dotDotDot];
 
     XPNodeTest *nodeTest = [[[XPNodeTypeTest alloc] initWithNodeType:XPNodeTypeNode] autorelease];
-    XPStep *step = [[[XPStep alloc] initWithAxis:XPAxisDescendantOrSelf nodeTest:nodeTest] autorelease];
+    XPStep *step = [self stepWithAxis:XPAxisDescendantOrSelf nodeTest:nodeTest filters:nil];
     [a push:step];
     [a push:_slash];
 }
@@ -482,7 +495,7 @@
     }
     
     XPNodeTest *nodeTest = [[[XPNodeTypeTest alloc] initWithNodeType:XPNodeTypeNode] autorelease];
-    XPStep *step = [[[XPStep alloc] initWithAxis:axis nodeTest:nodeTest] autorelease];
+    XPStep *step = [self stepWithAxis:axis nodeTest:nodeTest filters:nil];
     [a push:step];
 }
 

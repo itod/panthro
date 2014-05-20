@@ -33,7 +33,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[book, /, title]///book///title^", [a description]);
+    TDEqualObjects(@"[//, book, /, title]///book///title^", [a description]);
 }
 
 
@@ -45,7 +45,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[book]///book^", [a description]);
+    TDEqualObjects(@"[//, book]///book^", [a description]);
 }
 
 
@@ -93,7 +93,7 @@
     TDNil(err);
     TDNotNil(a);
     
-    TDEqualObjects(@"[book]//book^", [a description]);
+    TDEqualObjects(@"[/, book]//book^", [a description]);
 }
 
 
