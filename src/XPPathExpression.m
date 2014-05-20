@@ -212,8 +212,8 @@
     XPNodeSetValue *nodeSet = [[[XPNodeSetValue alloc] initWithNodes:resultUnion comparer:[XPLocalOrderComparer instance]] autorelease];
     
     if (ctx.staticContext.debug) {
-        [ctx.staticContext.debugSync pauseWithInfo:@{@"contextNode": ctx.contextNode, @"result": nodeSet, @"done": @NO}];
-        BOOL resume = [[ctx.staticContext.debugSync awaitResumeInfo] boolValue];
+        [ctx.staticContext.debugSync pause:@{@"contextNode": ctx.contextNode, @"result": nodeSet, @"done": @NO}];
+        BOOL resume = [[ctx.staticContext.debugSync awaitResume] boolValue];
 
         if (!resume) {
             [NSException raise:@"XPathTerminateException" format:@"User Terminated"];

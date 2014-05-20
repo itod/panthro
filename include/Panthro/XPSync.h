@@ -12,9 +12,9 @@
 
 + (instancetype)sync;
 
-- (id)awaitPauseInfo;
-- (void)pauseWithInfo:(id)info;
+- (id)awaitPause;
+- (void)pause:(id)info;
 
-- (id)awaitResumeInfo;
-- (void)resumeWithInfo:(id)info;
+- (id)awaitResume;
+- (void)resume:(id)info;
 @end
