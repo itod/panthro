@@ -10,15 +10,15 @@
 #import "XPUtils.h"
 #import "NSError+XPAdditions.h"
 
+#import "XPSync.h"
 #import "XPContext.h"
 #import "XPExpression.h"
 
 #import "XPNSXMLNodeImpl.h"
 #import "XPLibxmlNodeImpl.h"
 
-NSString *XPNamespaceXML = @"http://www.w3.org/XML/1998/namespace";
-NSString *XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
-NSString *XPNamespaceAquaPath = @"http://celestialteapot.com/ns/aquapath";
+NSString *const XPNamespaceXML = @"http://www.w3.org/XML/1998/namespace";
+NSString *const XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
 
 @interface XPStandaloneContext ()
 @property (nonatomic, retain) NSMutableDictionary *vars;
@@ -36,9 +36,11 @@ NSString *XPNamespaceAquaPath = @"http://celestialteapot.com/ns/aquapath";
     if (self) {
         self.vars = [NSMutableDictionary dictionary];
         self.namespaces = [NSMutableDictionary dictionary];
+        self.debugSync = [XPSync sync];
+//        [_debugSync putPauseInfo:[NSNull null]];
+
 		[self declareNamespaceURI:XPNamespaceXML forPrefix:@"xml"];
 		[self declareNamespaceURI:XPNamespaceXSLT forPrefix:@"xsl"];
-		[self declareNamespaceURI:XPNamespaceAquaPath forPrefix:@"ap"];
         [self declareNamespaceURI:@"" forPrefix:@""];
     }
     return self;
@@ -48,6 +50,8 @@ NSString *XPNamespaceAquaPath = @"http://celestialteapot.com/ns/aquapath";
 - (void)dealloc {
     self.vars = nil;
     self.namespaces = nil;
+    self.debugSync = nil;
+    self.debugInfo = nil;
     [super dealloc];
 }
 
@@ -70,7 +74,7 @@ NSString *XPNamespaceAquaPath = @"http://celestialteapot.com/ns/aquapath";
     
     id result = nil;
     NSError *err = nil;
-    
+
     @autoreleasepool {
         XPExpression *expr = [XPExpression expressionFromString:xpathStr inContext:self error:outErr];
         
@@ -212,5 +216,18 @@ NSString *XPNamespaceAquaPath = @"http://celestialteapot.com/ns/aquapath";
     
     return [_vars objectForKey:name];
 }
+
+
+- (BOOL)pauseWithDebugInfo:(NSDictionary *)info {
+    if (self.debug) {
+        [_debugSync putPauseInfo:info];
+        [_debugSync takeResumeInfo];
+    }
+    return YES;
+}
+
+
+//- (void)resume {
+//}
 
 @end

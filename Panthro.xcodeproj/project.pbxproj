@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		D3172237190D8FE6005C633B /* XPEqualityExprTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3172236190D8FE6005C633B /* XPEqualityExprTest.m */; };
+		D324A1A0192AE4C00093C4B5 /* XPSynchronousChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = D324A19F192AE4BF0093C4B5 /* XPSynchronousChannel.h */; };
+		D324A1A4192AE4D90093C4B5 /* XPSync.m in Sources */ = {isa = PBXBuildFile; fileRef = D324A1A2192AE4D90093C4B5 /* XPSync.m */; };
+		D324A1A6192AE5550093C4B5 /* XPSync.h in Headers */ = {isa = PBXBuildFile; fileRef = D324A1A5192AE5550093C4B5 /* XPSync.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D33097381921BE99004317EA /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33097361921BE99004317EA /* PEGKit.framework */; };
 		D330973B1921BED5004317EA /* TDTemplateEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D330973A1921BED5004317EA /* TDTemplateEngine.framework */; };
 		D334BAB4192193AA00A32DD6 /* XPLastPositionFinder.h in Headers */ = {isa = PBXBuildFile; fileRef = D334BAB3192193AA00A32DD6 /* XPLastPositionFinder.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -106,6 +109,7 @@
 		D339F6811929692C00C79A51 /* FNTrimSpaceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D339F67F1929692C00C79A51 /* FNTrimSpaceTest.m */; };
 		D339F683192969A700C79A51 /* FNAbsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D339F682192969A700C79A51 /* FNAbsTest.m */; };
 		D339F685192969FE00C79A51 /* FNTranslateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D339F684192969FE00C79A51 /* FNTranslateTest.m */; };
+		D339F68A192AA1D000C79A51 /* XPSemaphore.m in Sources */ = {isa = PBXBuildFile; fileRef = D339F689192AA1D000C79A51 /* XPSemaphore.m */; };
 		D33E9F841916E0E000BB7DFE /* XPStandaloneContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E9F821916E0E000BB7DFE /* XPStandaloneContext.m */; };
 		D33E9F8C1916E60C00BB7DFE /* XPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E9F8A1916E60C00BB7DFE /* XPUtils.m */; };
 		D33E9F931917040D00BB7DFE /* XPPathExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D33E9F911917040D00BB7DFE /* XPPathExpression.h */; };
@@ -140,6 +144,9 @@
 		D34BADF5100ABA7C00996341 /* XPBooleanValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BADF3100ABA7C00996341 /* XPBooleanValue.m */; };
 		D34BADF9100ABA9300996341 /* XPValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BADF7100ABA9300996341 /* XPValue.m */; };
 		D36235DD19269EE300C88990 /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33097361921BE99004317EA /* PEGKit.framework */; };
+		D36712E2192ACC1700B13A63 /* XPSynchronousChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = D36712E0192ACC1700B13A63 /* XPSynchronousChannel.m */; };
+		D36712E4192ACC2600B13A63 /* XPSemaphore.h in Headers */ = {isa = PBXBuildFile; fileRef = D36712E3192ACC2600B13A63 /* XPSemaphore.h */; };
+		D36712E8192AD0CF00B13A63 /* XPLocking.h in Headers */ = {isa = PBXBuildFile; fileRef = D36712E7192AD0CC00B13A63 /* XPLocking.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D36BC032101BF52F00D1A6C7 /* XPNodeSetExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D36BC02E101BF52F00D1A6C7 /* XPNodeSetExpression.m */; };
 		D36C6771101059CE000361A0 /* XPNumericValueTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D36C6770101059CE000361A0 /* XPNumericValueTest.m */; };
 		D36C678310105EBE000361A0 /* XPStringValueTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D36C678210105EBE000361A0 /* XPStringValueTest.m */; };
@@ -356,6 +363,9 @@
 		D30D9697191862E300627D41 /* XPLocalOrderComparer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPLocalOrderComparer.h; path = src/XPLocalOrderComparer.h; sourceTree = "<group>"; };
 		D30D9698191862E300627D41 /* XPLocalOrderComparer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPLocalOrderComparer.m; path = src/XPLocalOrderComparer.m; sourceTree = "<group>"; };
 		D3172236190D8FE6005C633B /* XPEqualityExprTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPEqualityExprTest.m; path = test/XPEqualityExprTest.m; sourceTree = "<group>"; };
+		D324A19F192AE4BF0093C4B5 /* XPSynchronousChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPSynchronousChannel.h; path = ../../Pathology/XPSynchronousChannel.h; sourceTree = "<group>"; };
+		D324A1A2192AE4D90093C4B5 /* XPSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPSync.m; path = src/XPSync.m; sourceTree = "<group>"; };
+		D324A1A5192AE5550093C4B5 /* XPSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPSync.h; path = include/Panthro/XPSync.h; sourceTree = "<group>"; };
 		D33097361921BE99004317EA /* PEGKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PEGKit.framework; path = "../../../Library/Developer/Xcode/DerivedData/Panthro-dmvdaloqmsblyzezdvatkwnhfouk/Build/Products/Debug/PEGKit.framework"; sourceTree = "<group>"; };
 		D330973A1921BED5004317EA /* TDTemplateEngine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TDTemplateEngine.framework; path = "../../../Library/Developer/Xcode/DerivedData/Panthro-dmvdaloqmsblyzezdvatkwnhfouk/Build/Products/Debug/TDTemplateEngine.framework"; sourceTree = "<group>"; };
 		D334BAB3192193AA00A32DD6 /* XPLastPositionFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPLastPositionFinder.h; path = include/Panthro/XPLastPositionFinder.h; sourceTree = "<group>"; };
@@ -461,6 +471,7 @@
 		D339F67F1929692C00C79A51 /* FNTrimSpaceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNTrimSpaceTest.m; path = test/FNTrimSpaceTest.m; sourceTree = "<group>"; };
 		D339F682192969A700C79A51 /* FNAbsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNAbsTest.m; path = test/FNAbsTest.m; sourceTree = "<group>"; };
 		D339F684192969FE00C79A51 /* FNTranslateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNTranslateTest.m; path = test/FNTranslateTest.m; sourceTree = "<group>"; };
+		D339F689192AA1D000C79A51 /* XPSemaphore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPSemaphore.m; path = src/XPSemaphore.m; sourceTree = "<group>"; };
 		D33E9F821916E0E000BB7DFE /* XPStandaloneContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPStandaloneContext.m; path = src/XPStandaloneContext.m; sourceTree = "<group>"; };
 		D33E9F8A1916E60C00BB7DFE /* XPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPUtils.m; path = src/XPUtils.m; sourceTree = "<group>"; };
 		D33E9F911917040D00BB7DFE /* XPPathExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPPathExpression.h; path = src/XPPathExpression.h; sourceTree = "<group>"; };
@@ -496,6 +507,9 @@
 		D3411BF2191A90800082A196 /* PEGKitParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PEGKitParser.m; path = lib/pegkit/ParserGenApp/PEGKitParser.m; sourceTree = "<group>"; };
 		D34BADF3100ABA7C00996341 /* XPBooleanValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBooleanValue.m; path = src/XPBooleanValue.m; sourceTree = "<group>"; };
 		D34BADF7100ABA9300996341 /* XPValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPValue.m; path = src/XPValue.m; sourceTree = "<group>"; };
+		D36712E0192ACC1700B13A63 /* XPSynchronousChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPSynchronousChannel.m; path = src/XPSynchronousChannel.m; sourceTree = "<group>"; };
+		D36712E3192ACC2600B13A63 /* XPSemaphore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPSemaphore.h; path = src/XPSemaphore.h; sourceTree = "<group>"; };
+		D36712E7192AD0CC00B13A63 /* XPLocking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = XPLocking.h; path = src/XPLocking.h; sourceTree = "<group>"; };
 		D36BC02E101BF52F00D1A6C7 /* XPNodeSetExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNodeSetExpression.m; path = src/XPNodeSetExpression.m; sourceTree = "<group>"; };
 		D36BC031101BF52F00D1A6C7 /* XPSingletonExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPSingletonExpression.m; path = src/XPSingletonExpression.m; sourceTree = "<group>"; };
 		D36C6770101059CE000361A0 /* XPNumericValueTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNumericValueTest.m; path = test/XPNumericValueTest.m; sourceTree = "<group>"; };
@@ -791,6 +805,13 @@
 				D33E9F8A1916E60C00BB7DFE /* XPUtils.m */,
 				D3F0CBF1191EC7D00049EC02 /* XPSortable.h */,
 				D3F0CBFE191EC8090049EC02 /* XPStaticContext.h */,
+				D36712E7192AD0CC00B13A63 /* XPLocking.h */,
+				D324A1A5192AE5550093C4B5 /* XPSync.h */,
+				D324A1A2192AE4D90093C4B5 /* XPSync.m */,
+				D324A19F192AE4BF0093C4B5 /* XPSynchronousChannel.h */,
+				D36712E0192ACC1700B13A63 /* XPSynchronousChannel.m */,
+				D36712E3192ACC2600B13A63 /* XPSemaphore.h */,
+				D339F689192AA1D000C79A51 /* XPSemaphore.m */,
 				D33930F1191EC8D500259939 /* XPStandaloneContext.h */,
 				D33E9F821916E0E000BB7DFE /* XPStandaloneContext.m */,
 				D3F0CBF0191EC7D00049EC02 /* XPContext.h */,
@@ -1326,11 +1347,13 @@
 				D339F66C1928EA1100C79A51 /* FNId.h in Headers */,
 				D3F0CBA6191EC23D0049EC02 /* FNNumber.h in Headers */,
 				D3F0CB9F191EC23D0049EC02 /* FNConcat.h in Headers */,
+				D36712E8192AD0CF00B13A63 /* XPLocking.h in Headers */,
 				D33930F7191F132D00259939 /* XPVariableReference.h in Headers */,
 				D3F0CBF6191EC7D00049EC02 /* XPContext.h in Headers */,
 				D3C0F5A21921555800566524 /* FNNormalizeUnicode.h in Headers */,
 				D3F0CC0A191EC8250049EC02 /* XPBooleanValue.h in Headers */,
 				D339F6721929623700C79A51 /* FNTranslate.h in Headers */,
+				D36712E4192ACC2600B13A63 /* XPSemaphore.h in Headers */,
 				D3F0CBAD191EC23D0049EC02 /* FNSubstringAfter.h in Headers */,
 				D3F0CBF4191EC7D00049EC02 /* Panthro.h in Headers */,
 				D3F0CBAE191EC23D0049EC02 /* FNSubstringBefore.h in Headers */,
@@ -1382,7 +1405,9 @@
 				D3BE1410191AC80400005C81 /* XPFilterExpression.h in Headers */,
 				D383A31C187F6ECB006AE701 /* XPAssembler.h in Headers */,
 				D3F0CBFF191EC8090049EC02 /* XPStaticContext.h in Headers */,
+				D324A1A0192AE4C00093C4B5 /* XPSynchronousChannel.h in Headers */,
 				D3F0CBA7191EC23D0049EC02 /* FNPosition.h in Headers */,
+				D324A1A6192AE5550093C4B5 /* XPSync.h in Headers */,
 				D33E9F9F191706E100BB7DFE /* XPEmptyEnumeration.h in Headers */,
 				D3393122192052C600259939 /* FNLowerCase.h in Headers */,
 				D3F0CC11191EC8590049EC02 /* XPAxis.h in Headers */,
@@ -1573,6 +1598,7 @@
 				D339F6441927B66500C79A51 /* xmlcatalog.c in Sources */,
 				D339F6141927B66500C79A51 /* catalog.c in Sources */,
 				D339F6271927B66500C79A51 /* SAX.c in Sources */,
+				D36712E2192ACC1700B13A63 /* XPSynchronousChannel.m in Sources */,
 				D33930F8191F132D00259939 /* XPVariableReference.m in Sources */,
 				D339F64B1927B66500C79A51 /* xmlsave.c in Sources */,
 				D339311F1920527200259939 /* FNUpperCase.m in Sources */,
@@ -1606,6 +1632,7 @@
 				D3393123192052C600259939 /* FNLowerCase.m in Sources */,
 				D37A2CAC10142D8E00E936B7 /* FNCeiling.m in Sources */,
 				D3BE141B191BCB5A00005C81 /* XPLocalOrderComparer.m in Sources */,
+				D324A1A4192AE4D90093C4B5 /* XPSync.m in Sources */,
 				D37A2D02101433C600E936B7 /* FNConcat.m in Sources */,
 				D339F6511927B66500C79A51 /* xpath.c in Sources */,
 				D37A2D641014393D00E936B7 /* FNCount.m in Sources */,
@@ -1629,6 +1656,7 @@
 				D37A2FFD10158DA900E936B7 /* FNStartsWith.m in Sources */,
 				D339F6631927B95900C79A51 /* relaxng.c in Sources */,
 				D339F6411927B66500C79A51 /* valid.c in Sources */,
+				D339F68A192AA1D000C79A51 /* XPSemaphore.m in Sources */,
 				D339F6501927B66500C79A51 /* xmlwriter.c in Sources */,
 				D339F6401927B66500C79A51 /* uri.c in Sources */,
 				D339F61A1927B66500C79A51 /* globals.c in Sources */,

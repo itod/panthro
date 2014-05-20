@@ -7,6 +7,7 @@
 //
 
 #import "XPPathExpression.h"
+#import "XPStaticContext.h"
 #import "XPContext.h"
 #import "XPStep.h"
 #import "XPAxis.h"
@@ -195,6 +196,7 @@
     NSMutableArray *resultUnion = [NSMutableArray array];
 
     while ([ctxNodeEnm hasMoreObjects]) {
+        
         ++ctx.position;
         ctx.contextNode = [ctxNodeEnm nextObject];
 
@@ -203,9 +205,15 @@
         for (id <XPNodeInfo>node in enm) {
             [resultUnion addObject:node];
         }
+
     }
 
     XPNodeSetValue *nodeSet = [[[XPNodeSetValue alloc] initWithNodes:resultUnion comparer:[XPLocalOrderComparer instance]] autorelease];
+    
+    BOOL resume = [ctx.staticContext pauseWithDebugInfo:@{@"contextNode": ctx.contextNode, @"result": nodeSet}];
+    if (!resume) {
+        [NSException raise:@"XPathTerminateException" format:@"User Terminated"];
+    }
     
     // always sort after the curruent step has completed to remove dupes and place nodes in document order.
     id <XPNodeEnumeration>enm = [nodeSet enumerateInContext:ctx sorted:YES];

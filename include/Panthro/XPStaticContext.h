@@ -11,6 +11,7 @@
 @class XPNameTest;
 @class XPNamespaceTest;
 @class XPValue;
+@class XPSync;
 
 @protocol XPStaticContext <NSObject>
 
@@ -27,4 +28,11 @@
 
 - (void)setValue:(XPValue *)val forVariable:(NSString *)name;
 - (XPValue *)valueForVariable:(NSString *)name;
+
+@property (retain, readonly) XPSync *debugSync;
+@property (assign) BOOL debug;
+@property (copy) NSDictionary *debugInfo;
+
+- (BOOL)pauseWithDebugInfo:(NSDictionary *)info;
+//- (void)resume;
 @end

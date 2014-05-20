@@ -33,3 +33,4 @@
 #import <Panthro/XPNodeEnumeration.h>
 
 #import <Panthro/XPStandaloneContext.h>
+#import <Panthro/XPSync.h>
