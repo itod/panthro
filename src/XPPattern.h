@@ -13,4 +13,5 @@
 - (double)defaultPriority;
 
 @property (nonatomic, copy) NSString *originalText;
+@property (nonatomic, assign) NSRange range;
 @end

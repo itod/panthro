@@ -510,31 +510,51 @@
 
 
 - (void)parser:(PKParser *)p didMatchTypeTest:(PKAssembly *)a {
-    PKToken *tok = [a pop];
-    XPAssertToken(tok);
+    PKToken *closeParenTok = [a pop];
+    XPAssert([closeParenTok.stringValue isEqualToString:@")"]);
+    
+    PKToken *typeTok = [a pop];
+    XPAssertToken(typeTok);
     XPAssert(_nodeTypeTab);
-    XPNodeType type = [_nodeTypeTab[tok.stringValue] unsignedIntegerValue];
+    XPNodeType type = [_nodeTypeTab[typeTok.stringValue] unsignedIntegerValue];
     XPAssert(XPNodeTypeNone != type);
     XPNodeTypeTest *typeTest = [[[XPNodeTypeTest alloc] initWithNodeType:type] autorelease];
-    
+
+    NSUInteger offset = typeTok.offset;
+    typeTest.range = NSMakeRange(offset, (closeParenTok.offset+1) - offset);
+
     [a push:typeTest];
 }
 
 
 - (void)parser:(PKParser *)p didMatchSpecificPITest:(PKAssembly *)a {
+    PKToken *closeParenTok = [a pop];
+    XPAssert([closeParenTok.stringValue isEqualToString:@")"]);
+    
     NSString *name = [p popQuotedString];
     XPAssert([name isKindOfClass:[NSString class]]);
+    
+    PKToken *typeTok = [a pop];
+    XPAssert([typeTok.stringValue isEqualToString:@"processing-instruction"]);
+    
     XPNameTest *nameTest = [[[XPNameTest alloc] initWithName:name] autorelease];
     nameTest.nodeType = XPNodeTypePI;
+    
+    NSUInteger offset = typeTok.offset;
+    nameTest.range = NSMakeRange(offset, (closeParenTok.offset+1) - offset);
     
     [a push:nameTest];
 }
 
 
 - (void)parser:(PKParser *)p didMatchNameTest:(PKAssembly *)a {
-    PKToken *tok = [a pop];
-    XPAssertToken(tok);
-    XPNameTest *nameTest = [[[XPNameTest alloc] initWithName:tok.stringValue] autorelease];
+    PKToken *nameTok = [a pop];
+    XPAssertToken(nameTok);
+    
+    NSString *name = nameTok.stringValue;
+    XPNameTest *nameTest = [[[XPNameTest alloc] initWithName:name] autorelease];
+    
+    nameTest.range = NSMakeRange(nameTok.offset, [name length]);
     [a push:nameTest];
 }
 

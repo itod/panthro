@@ -796,7 +796,7 @@
     
     [self nodeType_]; 
     [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:YES]; 
-    [self match:XPEG_TOKEN_KIND_CLOSE_PAREN discard:YES]; 
+    [self match:XPEG_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchTypeTest:)];
 }
@@ -820,10 +820,10 @@
 
 - (void)specificPITest_ {
     
-    [self match:XPEG_TOKEN_KIND_PROCESSING_INSTRUCTION discard:YES]; 
+    [self match:XPEG_TOKEN_KIND_PROCESSING_INSTRUCTION discard:NO]; 
     [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:YES]; 
     [self literal_]; 
-    [self match:XPEG_TOKEN_KIND_CLOSE_PAREN discard:YES]; 
+    [self match:XPEG_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchSpecificPITest:)];
 }

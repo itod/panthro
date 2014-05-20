@@ -127,8 +127,8 @@ pathExpr = filterPath | locationPath;
         stepBody = nodeTest predicate*;
         nodeTest = nameTest | typeTest | specificPITest;
             nameTest = '*' | ncName ':' '*' | qName; // note whitespace should not be allowed in second alt here
-            typeTest = nodeType '('! ')'!;
+            typeTest = nodeType '('! ')';
             nodeType = 'comment' | 'text' | 'processing-instruction' | 'node';
-            specificPITest = 'processing-instruction'! '('! literal ')'!;
+            specificPITest = 'processing-instruction' '('! literal ')';
         abbreviatedStep = '.' | '..';
             
