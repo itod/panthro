@@ -346,8 +346,12 @@
             XPAssert([part isKindOfClass:[XPStep class]]);
             step = (id)part;
         }
+        NSUInteger offset = pathExpr.range.location;
         pathExpr = [[[XPPathExpression alloc] initWithStart:pathExpr step:step] autorelease];
-        pathExpr.range = NSMakeRange(pathExpr.range.location, NSMaxRange(step.range));
+        pathExpr.range = NSMakeRange(offset, NSMaxRange(step.range));
+        XPAssert(NSNotFound != pathExpr.range.location);
+        XPAssert(NSNotFound != pathExpr.range.length);
+        XPAssert(pathExpr.range.length);
     }
     
     [a push:pathExpr];
