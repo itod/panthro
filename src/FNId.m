@@ -64,7 +64,9 @@
 
 - (XPNodeSetValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
     id arg = [self.args[0] evaluateInContext:ctx];
-    return [self findId:arg inContext:ctx];
+    XPNodeSetValue *nodeSet = [self findId:arg inContext:ctx];
+    nodeSet.range = self.range;
+    return nodeSet;
 }
 
 

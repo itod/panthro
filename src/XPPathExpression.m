@@ -123,6 +123,7 @@
     if ((dep & self.dependencies) != 0) {
         XPExpression *newstart = [_start reduceDependencies:dep inContext:ctx];
         XPStep *newstep = [[[XPStep alloc] initWithAxis:_step.axis nodeTest:_step.nodeTest] autorelease];
+        newstep.range = _step.range;
 
         NSUInteger removedep = dep & XPDependenciesXSLTContext;
         if ([_start isContextDocumentNodeSet] && ((dep & XPDependenciesContextDocument) != 0)) {
@@ -213,7 +214,11 @@
     XPNodeSetValue *nodeSet = [[[XPNodeSetValue alloc] initWithNodes:resultUnion comparer:[XPLocalOrderComparer instance]] autorelease];
     
     if (ctx.staticContext.debug) {
-        id info = @{@"contextNode": ctx.contextNode, @"result": nodeSet, @"done": @NO, @"mainQueryRange": [NSValue valueWithRange:self.range]};
+        XPAssert(NSNotFound != _step.range.location);
+        XPAssert(NSNotFound != _step.range.length);
+        XPAssert(_step.range.length);
+
+        id info = @{@"contextNode": ctx.contextNode, @"result": nodeSet, @"done": @NO, @"mainQueryRange": [NSValue valueWithRange:_step.range]};
         [ctx.staticContext.debugSync pause:info];
         BOOL resume = [[ctx.staticContext.debugSync awaitResume] boolValue];
 

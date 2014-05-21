@@ -104,13 +104,13 @@ static XPAssembler *sAssembler = nil;
 
 - (XPNodeSetValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
     XPValue *v = [self evaluateInContext:ctx];
+    v.range = self.range;
     
-    if ([v isNodeSetValue]) {
-        return (XPNodeSetValue *)v;
-    } else {
+    if (![v isNodeSetValue]) {
         [NSException raise:@"XPathException" format:@"The value %@ is not a node-set", v];
-        return nil;
     }
+
+    return (XPNodeSetValue *)v;
 }
 
 

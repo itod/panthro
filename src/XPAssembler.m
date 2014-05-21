@@ -458,6 +458,9 @@
         lastRange = f.range;
     }
     step.range = NSMakeRange(offset, NSMaxRange(lastRange) - offset);
+    XPAssert(NSNotFound != step.range.location);
+    XPAssert(NSNotFound != step.range.length);
+    XPAssert(step.range.length);
     return step;
 }
 
