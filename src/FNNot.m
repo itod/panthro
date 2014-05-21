@@ -67,6 +67,8 @@
 - (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
     FNNot *f = [[[FNNot alloc] init] autorelease];
     [f addArgument:[self.args[0] reduceDependencies:dep inContext:ctx]];
+    f.staticContext = self.staticContext;
+    f.range = self.range;
     return [f simplify];
 }
 

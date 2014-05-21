@@ -87,6 +87,7 @@
     FNId *idFn = [[[FNId alloc] init] autorelease];
     [idFn addArgument:[self.args[0] reduceDependencies:dep inContext:ctx]];
     idFn.staticContext = self.staticContext;
+    idFn.range = self.range;
     idFn.boundDocument = _boundDocument;
     
     if (!_boundDocument && ((dep & (XPDependenciesContextNode | XPDependenciesContextDocument)) != 0)) {

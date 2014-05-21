@@ -81,19 +81,20 @@
 
 
 - (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
+    XPExpression *result = self;
+
     if (1 == [self numberOfArguments]) {
         FNLocalName *f = [[[FNLocalName alloc] init] autorelease];
         [f addArgument:[self.args[0] reduceDependencies:dep inContext:ctx]];
         f.staticContext = self.staticContext;
-    f.range = self.range;
-        return [f simplify];
-    } else {
-        if (dep & XPDependenciesContextNode) {
-            return [self evaluateInContext:nil];
-        } else {
-            return self;
-        }
+        f.range = self.range;
+        result = [f simplify];
+    } else if (dep & XPDependenciesContextNode) {
+        result = [self evaluateInContext:nil];
     }
+    
+    result.range = self.range;
+    return result;
 }
 
 @end

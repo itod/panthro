@@ -77,7 +77,7 @@
     [f addArgument:[self.args[0] reduceDependencies:dep inContext:ctx]];
     f.staticContext = self.staticContext;
     f.range = self.range;
-    return self;
+    return [f simplify];
 }
 
 @end

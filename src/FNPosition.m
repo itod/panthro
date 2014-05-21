@@ -49,11 +49,14 @@
 
 
 - (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
+    XPExpression *result = self;
+    
     if (dep & XPDependenciesContextPosition) {
-        return [XPNumericValue numericValueWithNumber:[ctx position]];
-    } else {
-        return self;
+        result = [XPNumericValue numericValueWithNumber:[ctx position]];
     }
+    
+    result.range = self.range;
+    return result;
 }
 
 @end

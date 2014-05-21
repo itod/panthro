@@ -50,11 +50,12 @@
 
 
 - (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
+    XPExpression *f = self;
     if (dep & XPDependenciesLast) {
-        return [XPNumericValue numericValueWithNumber:[ctx last]];
-    } else {
-        return self;
+        f = [XPNumericValue numericValueWithNumber:[ctx last]];
     }
+    f.range = self.range;
+    return f;
 }
 
 @end
