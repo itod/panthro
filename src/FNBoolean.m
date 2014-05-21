@@ -54,8 +54,10 @@
 
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
-    BOOL res = [self evaluateAsBooleanInContext:ctx];
-    return [XPBooleanValue booleanValueWithBoolean:res];
+    BOOL b = [self evaluateAsBooleanInContext:ctx];
+    XPValue *val = [XPBooleanValue booleanValueWithBoolean:b];
+    val.range = self.range;
+    return val;
 }
 
 

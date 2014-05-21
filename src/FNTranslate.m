@@ -79,7 +79,10 @@
 
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
-    return [XPStringValue stringValueWithString:[self evaluateAsStringInContext:ctx]];
+    NSString *str = [self evaluateAsStringInContext:ctx];
+    XPValue *val = [XPStringValue stringValueWithString:str];
+    val.range = self.range;
+    return val;
 }
 
 

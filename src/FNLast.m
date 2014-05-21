@@ -39,8 +39,10 @@
 
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
-    double res = [self evaluateAsNumberInContext:ctx];
-    return [XPNumericValue numericValueWithNumber:res];
+    double d = [self evaluateAsNumberInContext:ctx];
+    XPValue *val = [XPNumericValue numericValueWithNumber:d];
+    val.range = self.range;
+    return val;
 }
 
 
@@ -53,8 +55,8 @@
     XPExpression *f = self;
     if (dep & XPDependenciesLast) {
         f = [XPNumericValue numericValueWithNumber:[ctx last]];
+        f.range = self.range;
     }
-    f.range = self.range;
     return f;
 }
 

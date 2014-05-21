@@ -69,7 +69,9 @@
 
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
-    return [self evaluateAsNodeSetInContext:ctx];
+    XPValue *val = [self evaluateAsNodeSetInContext:ctx];
+    val.range = self.range;
+    return val;
 }
 
 
