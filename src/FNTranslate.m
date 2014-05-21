@@ -32,6 +32,8 @@
 
 
 - (XPExpression *)simplify {
+    XPExpression *result = self;
+    
     [self checkArgumentCountForMin:3 max:3];
 
     id arg0 = [self.args[0] simplify];
@@ -46,10 +48,11 @@
     BOOL fixed = [arg0 isValue] && [arg1 isValue] && [arg2 isValue];
     
     if (fixed) {
-        return [self evaluateInContext:nil];
+        result = [self evaluateInContext:nil];
     }
     
-    return self;
+    result.range = self.range;
+    return result;
 }
 
 

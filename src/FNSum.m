@@ -38,16 +38,19 @@
 
 
 - (XPExpression *)simplify {
+    XPExpression *result = self;
+    
     [self checkArgumentCountForMin:1 max:1];
     
     id arg0 = [self.args[0] simplify];
     self.args[0] = arg0;
     
     if ([arg0 isValue]) { // can't happen?
-        return [self evaluateInContext:nil];
+        result = [self evaluateInContext:nil];
     }
     
-    return self;
+    result.range = self.range;
+    return result;
 }
 
 

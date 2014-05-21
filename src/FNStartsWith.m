@@ -32,6 +32,8 @@
 
 
 - (XPExpression *)simplify {
+    XPExpression *result = self;
+    
     [self checkArgumentCountForMin:2 max:2];
     
     id arg0 = [self.args[0] simplify];
@@ -41,14 +43,13 @@
     self.args[1] = arg1;
     
     if ([arg0 isValue] && [arg1 isValue]) {
-        return [self evaluateInContext:nil];
+        result = [self evaluateInContext:nil];
+    } else if ([arg1 isValue] && [[arg1 asString] isEqualToString:@""]) {
+        result = [XPBooleanValue booleanValueWithBoolean:YES];
     }
     
-    if ([arg1 isValue] && [[arg1 asString] isEqualToString:@""]) {
-        return [XPBooleanValue booleanValueWithBoolean:YES];
-    }
-    
-    return self;
+    result.range = self.range;
+    return result;
 }
 
 

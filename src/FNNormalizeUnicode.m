@@ -45,6 +45,8 @@
 
 
 - (XPExpression *)simplify {
+    XPExpression *result = self;
+    
     NSUInteger numArgs = [self checkArgumentCountForMin:1 max:2];
     
     id input = [self.args[0] simplify];
@@ -61,10 +63,11 @@
     BOOL isLocaleValue = !locale || [locale isValue];
     
     if ([input isValue] && isLocaleValue) {
-        return [self evaluateInContext:nil];
+        result = [self evaluateInContext:nil];
     }
 
-    return self;
+    result.range = self.range;
+    return result;
 }
 
 

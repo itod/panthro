@@ -61,6 +61,8 @@
 
 
 - (XPExpression *)simplify {
+    XPExpression *result = self;
+    
     NSUInteger numArgs = [self checkArgumentCountForMin:2 max:3];
     
     id input = [self.args[0] simplify];
@@ -78,14 +80,13 @@
     BOOL isFlagsValue = !flags || (flags && [flags isValue]);
     
     if ([input isValue] && [pattern isValue] && isFlagsValue) {
-        return [self evaluateInContext:nil];
+        result = [self evaluateInContext:nil];
+    } else if ([pattern isValue] && isFlagsValue && [[pattern asString] isEqualToString:@""]) {
+        result = [XPBooleanValue booleanValueWithBoolean:NO];
     }
     
-    if ([pattern isValue] && isFlagsValue && [[pattern asString] isEqualToString:@""]) {
-        return [XPBooleanValue booleanValueWithBoolean:NO];
-    }
-    
-    return self;
+    result.range = self.range;
+    return result;
 }
 
 

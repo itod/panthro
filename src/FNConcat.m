@@ -34,6 +34,8 @@
 
 
 - (XPExpression *)simplify {
+    XPExpression *result = self;
+    
     [self checkArgumentCountForMin:2 max:NSIntegerMax];
 
     BOOL allKnown = YES;
@@ -49,10 +51,11 @@
     self.args = newArgs;
     
     if (allKnown) {
-        return [self evaluateInContext:nil];
+        result = [self evaluateInContext:nil];
     }
 
-    return self;
+    result.range = self.range;
+    return result;
 }
 
 

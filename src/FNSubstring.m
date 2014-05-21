@@ -32,6 +32,8 @@
 
 
 - (XPExpression *)simplify {
+    XPExpression *result = self;
+    
     NSUInteger numArgs = [self checkArgumentCountForMin:2 max:3];
 
     id arg0 = [self.args[0] simplify];
@@ -48,10 +50,11 @@
         fixed = fixed && [arg2 isValue];
     }
     if (fixed) {
-        return [self evaluateInContext:nil];
+        result = [self evaluateInContext:nil];
     }
     
-    return self;
+    result.range = self.range;
+    return result;
 }
 
 

@@ -41,9 +41,9 @@
     
     if ([arg0 isValue]) {
         result = [self evaluateInContext:nil];
-        result.range = self.range;
     }
     
+    result.range = self.range;
     return result;
 }
 

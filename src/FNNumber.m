@@ -34,21 +34,22 @@
 
 
 - (XPExpression *)simplify {
+    XPExpression *result = self;
+    
     NSUInteger numArgs = [self checkArgumentCountForMin:0 max:1];
     if (1 == numArgs) {
         id arg0 = [self.args[0] simplify];
         self.args[0] = arg0;
         
         if (XPDataTypeNumber == [arg0 dataType]) {
-            return arg0;
-        }
-        
-        if ([arg0 isValue]) {
-            return [XPNumericValue numericValueWithNumber:[arg0 asNumber]];
+            result = arg0;
+        } else if ([arg0 isValue]) {
+            result = [XPNumericValue numericValueWithNumber:[arg0 asNumber]];
         }
     }
     
-    return self;
+    result.range = self.range;
+    return result;
 }
 
 

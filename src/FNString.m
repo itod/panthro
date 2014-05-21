@@ -34,6 +34,8 @@
 
 
 - (XPExpression *)simplify {
+    XPExpression *result = self;
+    
     NSUInteger num = [self checkArgumentCountForMin:0 max:1];
     
     if (1 == num) {
@@ -41,14 +43,14 @@
         self.args[0] = arg0;
         
         if (XPDataTypeString == [arg0 dataType]) {
-            return arg0;
-        }
-        if ([arg0 isValue]) {
-            return [XPStringValue stringValueWithString:[arg0 asString]];
+            result = arg0;
+        } else if ([arg0 isValue]) {
+            result = [XPStringValue stringValueWithString:[arg0 asString]];
         }
     }
     
-    return self;
+    result.range = self.range;
+    return result;
 }
 
 
