@@ -113,7 +113,7 @@ pathExpr = filterPath | locationPath;
                         localPart = ncName;
                             ncName = Word;
                 argument = expr;
-        predicate = '['! predicateExpr ']'!;
+        predicate = '['! predicateExpr ']';
             predicateExpr = expr;
                 
 

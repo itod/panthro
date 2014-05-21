@@ -652,7 +652,7 @@
     
     [self match:XPEG_TOKEN_KIND_OPEN_BRACKET discard:YES]; 
     [self predicateExpr_]; 
-    [self match:XPEG_TOKEN_KIND_CLOSE_BRACKET discard:YES]; 
+    [self match:XPEG_TOKEN_KIND_CLOSE_BRACKET discard:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchPredicate:)];
 }
