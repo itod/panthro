@@ -63,7 +63,8 @@
 - (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
     FNRound *f = [[[FNRound alloc] init] autorelease];
     [f addArgument:[self.args[0] reduceDependencies:dep inContext:ctx]];
-    [f setStaticContext:[self staticContext]];
+    f.staticContext = self.staticContext;
+    f.range = self.range;
     return [f simplify];
 }
 

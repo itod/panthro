@@ -138,6 +138,7 @@
         
         path = [[[XPPathExpression alloc] initWithStart:newstart step:newstep] autorelease];
         path.staticContext = self.staticContext;
+        path.range = self.range;
         path = [path simplify];
     }
 
@@ -212,7 +213,8 @@
     XPNodeSetValue *nodeSet = [[[XPNodeSetValue alloc] initWithNodes:resultUnion comparer:[XPLocalOrderComparer instance]] autorelease];
     
     if (ctx.staticContext.debug) {
-        [ctx.staticContext.debugSync pause:@{@"contextNode": ctx.contextNode, @"result": nodeSet, @"done": @NO}];
+        id info = @{@"contextNode": ctx.contextNode, @"result": nodeSet, @"done": @NO, @"mainQueryRange": [NSValue valueWithRange:self.range]};
+        [ctx.staticContext.debugSync pause:info];
         BOOL resume = [[ctx.staticContext.debugSync awaitResume] boolValue];
 
         if (!resume) {

@@ -92,7 +92,8 @@
     if (1 == [self numberOfArguments]) {
         FNNormalizeSpace *f = [[[FNNormalizeSpace alloc] init] autorelease];
         [f addArgument:[self.args[0] reduceDependencies:dep inContext:ctx]];
-        [f setStaticContext:[self staticContext]];
+        f.staticContext = self.staticContext;
+    f.range = self.range;
         return [f simplify];
     } else {
         if (dep & XPDependenciesContextNode) {

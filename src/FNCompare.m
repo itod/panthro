@@ -82,7 +82,8 @@
     for (XPExpression *arg in self.args) {
         [f addArgument:[arg reduceDependencies:dep inContext:ctx]];
     }
-    [f setStaticContext:[self staticContext]];
+    f.staticContext = self.staticContext;
+    f.range = self.range;
     return [f simplify];
 }
 

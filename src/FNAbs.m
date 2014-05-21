@@ -32,16 +32,19 @@
 
 
 - (XPExpression *)simplify {
+    XPExpression *result = self;
+    
     [self checkArgumentCountForMin:1 max:1];
     
     id arg0 = [self.args[0] simplify];
     self.args[0] = arg0;
     
     if ([arg0 isValue]) {
-        return [self evaluateInContext:nil];
+        result = [self evaluateInContext:nil];
+        result.range = self.range;
     }
     
-    return self;
+    return result;
 }
 
 
@@ -64,7 +67,8 @@
 - (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
     FNAbs *f = [[[FNAbs alloc] init] autorelease];
     [f addArgument:[self.args[0] reduceDependencies:dep inContext:ctx]];
-    [f setStaticContext:[self staticContext]];
+    f.staticContext = self.staticContext;
+    f.range = self.range;
     return [f simplify];
 }
 
