@@ -316,8 +316,12 @@
     if ([filters count]) {
         XPFilterExpression *filterExpr = [a pop];
         for (XPExpression *f in filters) {
+            NSUInteger offset = filterExpr.range.location;
             filterExpr = [[[XPFilterExpression alloc] initWithStart:filterExpr filter:f] autorelease];
-            filterExpr.range = NSMakeRange(filterExpr.range.location, NSMaxRange(f.range));
+            filterExpr.range = NSMakeRange(offset, NSMaxRange(f.range));
+            XPAssert(NSNotFound != filterExpr.range.location);
+            XPAssert(NSNotFound != filterExpr.range.length);
+            XPAssert(filterExpr.range.length);
         }
         
         [a push:filterExpr];
