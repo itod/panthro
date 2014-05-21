@@ -75,15 +75,18 @@
 
 
 - (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
+    XPExpression *result = self;
+    
     if (([self dependencies] & dep) != 0) {
-        XPExpression *expr = [[[[self class] alloc] initWithOperand:[_p1 reduceDependencies:dep inContext:ctx]
-                                                           operator:_operator
-                                                            operand:[_p2 reduceDependencies:dep inContext:ctx]] autorelease];
-        [expr setStaticContext:[self staticContext]];
-        return [expr simplify];
-    } else {
-        return self;
+        result = [[[[self class] alloc] initWithOperand:[_p1 reduceDependencies:dep inContext:ctx]
+                                               operator:_operator
+                                                operand:[_p2 reduceDependencies:dep inContext:ctx]] autorelease];
+        result.staticContext = self.staticContext;
+        result.range = self.range;
+        result = [result simplify];
     }
+    
+    return result;
 }
 
 @end

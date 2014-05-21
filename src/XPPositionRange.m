@@ -39,7 +39,9 @@
  */
     
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
-    return [XPBooleanValue booleanValueWithBoolean:[self evaluateAsBooleanInContext:ctx]];
+    XPValue *val = [XPBooleanValue booleanValueWithBoolean:[self evaluateAsBooleanInContext:ctx]];
+    val.range = self.range;
+    return val;
 }
 
 
@@ -84,10 +86,14 @@
  */
     
 - (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
+    XPExpression *result = self;
+
     if ((XPDependenciesContextPosition & self.dependencies) != 0) {
-        return [self evaluateInContext:ctx];
+        result = [self evaluateInContext:ctx];
+        result.range = self.range;
     }
-    return self;
+
+    return result;
 }
 
 @end

@@ -61,11 +61,14 @@
  */
 
 - (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
+    XPExpression *result = self;
+
     if ((dep & XPDependenciesVariables) != 0) {
-        return [self evaluateInContext:ctx];
-    } else {
-        return self;
+        result = [self evaluateInContext:ctx];
+        result.range = self.range;
     }
+    
+    return result;
 }
 
 
@@ -76,7 +79,7 @@
  * @throw XPathException if the variable is undefined
  */
 
-- (XPValue *)evaluateInContext:(XPContext *)c {
+- (XPValue *)evaluateInContext:(XPContext *)ctx {
     
 //    id <XPBindery>b = [c bindery];
 //    XPValue *v = [b value:_binding];
@@ -125,7 +128,8 @@
 //        }
 //    }
     
-    XPValue *v = [c.staticContext valueForVariable:self.name];
+    XPValue *v = [ctx.staticContext valueForVariable:self.name];
+    v.range = self.range;
     return v;
 }
 

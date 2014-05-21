@@ -26,23 +26,24 @@
 
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
+    XPValue *result = nil;
     XPExpression *expr = [self reduceDependencies:XPDependenciesAll inContext:ctx];
     
     if ([expr isKindOfClass:[XPNodeSetValue class]]) {
-        return (XPValue *)expr;
+        result = (XPValue *)expr;
     } else if ([expr isKindOfClass:[XPNodeSetExpression class]]) {
         id <XPNodeEnumeration>enm = [(XPNodeSetExpression *)expr enumerateInContext:ctx sorted:NO];
         XPNodeSetValue *nodeSet = [[[XPNodeSetValue alloc] initWithEnumeration:enm comparer:[XPLocalOrderComparer instance]] autorelease];
-        return nodeSet; // TODO [XPNodeSetIntent intentWithNodeSetExpression:(XPNodeSetExpression *)expr controller:[ctx controller]];
+        result = nodeSet; // TODO [XPNodeSetIntent intentWithNodeSetExpression:(XPNodeSetExpression *)expr controller:[ctx controller]];
     } else {
-        XPValue *value = [expr evaluateInContext:ctx];
-        if ([value isKindOfClass:[XPNodeSetValue class]]) {
-            return value;
-        } else {
+        result = [expr evaluateInContext:ctx];
+        if (![result isKindOfClass:[XPNodeSetValue class]]) {
             [NSException raise:@"XPathException" format:@"Value must be a node-set. it is a %@", [expr class]];
-            return nil;
         }
     }
+
+    result.range = self.range;
+    return result;
 }
 
 @end

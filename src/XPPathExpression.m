@@ -119,7 +119,7 @@
     XPAssert(_start);
     XPAssert(_step);
     
-    XPExpression *path = self;
+    XPExpression *result = self;
     if ((dep & self.dependencies) != 0) {
         XPExpression *newstart = [_start reduceDependencies:dep inContext:ctx];
         XPStep *newstep = [[[XPStep alloc] initWithAxis:_step.axis nodeTest:_step.nodeTest] autorelease];
@@ -136,10 +136,10 @@
             [newstep addFilter:newfilter];
         }
         
-        path = [[[XPPathExpression alloc] initWithStart:newstart step:newstep] autorelease];
-        path.staticContext = self.staticContext;
-        path.range = self.range;
-        path = [path simplify];
+        result = [[[XPPathExpression alloc] initWithStart:newstart step:newstep] autorelease];
+        result.staticContext = self.staticContext;
+        result.range = self.range;
+        result = [result simplify];
     }
 
 //    // Pre-evaluate an expression if the start is now a constant node-set
@@ -151,7 +151,7 @@
 //        //return [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPPathExpression *)path controller:ctx.controller] autorelease];
 //    }
     
-    return path;
+    return result;
 }
 
 
