@@ -317,6 +317,7 @@
         XPFilterExpression *filterExpr = [a pop];
         for (XPExpression *f in filters) {
             filterExpr = [[[XPFilterExpression alloc] initWithStart:filterExpr filter:f] autorelease];
+            filterExpr.range = NSMakeRange(filterExpr.range.location, NSMaxRange(f.range));
         }
         
         [a push:filterExpr];
@@ -338,12 +339,15 @@
             continue;
         } else if ([_doubleSlash isEqualTo:part]) {
             XPNodeTest *nodeTest = [[[XPNodeTypeTest alloc] initWithNodeType:XPNodeTypeNode] autorelease];
-            step = [self stepWithAxis:XPAxisDescendantOrSelf nodeTest:nodeTest filters:nil];
+            NSUInteger offset = [part offset];
+            nodeTest.range = NSMakeRange(offset+2, 0);
+            step = [self stepWithOffset:offset axis:XPAxisDescendantOrSelf nodeTest:nodeTest filters:nil];
         } else {
             XPAssert([part isKindOfClass:[XPStep class]]);
             step = (id)part;
         }
         pathExpr = [[[XPPathExpression alloc] initWithStart:pathExpr step:step] autorelease];
+        pathExpr.range = NSMakeRange(pathExpr.range.location, NSMaxRange(step.range));
     }
     
     [a push:pathExpr];
@@ -381,8 +385,9 @@
     XPStep *step = [a pop];
     XPAssert([step isKindOfClass:[XPStep class]]);
     
-    XPExpression *cxtNodeExpr = [[[XPContextNodeExpression alloc] init] autorelease];
-    [a push:cxtNodeExpr];
+    XPExpression *ctxNodeExpr = [[[XPContextNodeExpression alloc] init] autorelease];
+    ctxNodeExpr.range = NSMakeRange(step.range.location, 0);
+    [a push:ctxNodeExpr];
     [a push:_dotDotDot];
     
     if (XPAxisSelf == step.axis && XPNodeTypeNode == step.nodeTest.nodeType) {
@@ -412,7 +417,9 @@
     [a push:_dotDotDot];
 
     XPNodeTest *nodeTest = [[[XPNodeTypeTest alloc] initWithNodeType:XPNodeTypeNode] autorelease];
-    XPStep *step = [self stepWithAxis:XPAxisDescendantOrSelf nodeTest:nodeTest filters:nil];
+    NSUInteger offset = slashTok.offset;
+    nodeTest.range = NSMakeRange(offset+2, 0);
+    XPStep *step = [self stepWithOffset:offset axis:XPAxisDescendantOrSelf nodeTest:nodeTest filters:nil];
     [a push:step];
     [a push:_slash];
 }
@@ -439,11 +446,14 @@
 }
 
 
-- (XPStep *)stepWithAxis:(XPAxis)axis nodeTest:(XPNodeTest *)nodeTest filters:(NSArray *)filters {
+- (XPStep *)stepWithOffset:(NSUInteger)offset axis:(XPAxis)axis nodeTest:(XPNodeTest *)nodeTest filters:(NSArray *)filters {
     XPStep *step = [[[XPStep alloc] initWithAxis:axis nodeTest:nodeTest] autorelease];
+    NSRange lastRange = nodeTest.range;
     for (XPExpression *f in filters) {
         [step addFilter:f];
+        lastRange = f.range;
     }
+    step.range = NSMakeRange(offset, NSMaxRange(lastRange) - offset);
     return step;
 }
 
@@ -469,7 +479,7 @@
         nodeTest.nodeType = XPAxisPrincipalNodeType[axis];
     }
     
-    XPStep *step = [self stepWithAxis:axis nodeTest:nodeTest filters:filters];
+    XPStep *step = [self stepWithOffset:axisTok.offset axis:axis nodeTest:nodeTest filters:filters];
     [a push:step];
 }
 
@@ -487,24 +497,28 @@
         nodeTest.nodeType = XPAxisPrincipalNodeType[axis];
     }
 
-    XPStep *step = [self stepWithAxis:axis nodeTest:nodeTest filters:filters];
+    XPStep *step = [self stepWithOffset:nodeTest.range.location axis:axis nodeTest:nodeTest filters:filters];
     [a push:step];
 }
 
 
 - (void)parser:(PKParser *)p didMatchAbbreviatedStep:(PKAssembly *)a {
-    PKToken *tok = [a pop];
+    PKToken *dotTok = [a pop];
     
     XPAxis axis;
-    if ([tok.stringValue isEqualToString:@"."]) {
+    NSUInteger len;
+    if ([dotTok.stringValue isEqualToString:@"."]) {
         axis = XPAxisSelf;
+        len = 1;
     } else {
-        XPAssert([tok.stringValue isEqualToString:@".."])
+        XPAssert([dotTok.stringValue isEqualToString:@".."])
         axis = XPAxisParent;
+        len = 2;
     }
     
     XPNodeTest *nodeTest = [[[XPNodeTypeTest alloc] initWithNodeType:XPNodeTypeNode] autorelease];
-    XPStep *step = [self stepWithAxis:axis nodeTest:nodeTest filters:nil];
+    nodeTest.range = NSMakeRange(dotTok.offset+len, 0);
+    XPStep *step = [self stepWithOffset:dotTok.offset axis:axis nodeTest:nodeTest filters:nil];
     [a push:step];
 }
 
