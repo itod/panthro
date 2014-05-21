@@ -450,7 +450,9 @@
         }
         [filters insertObject:f atIndex:0];
 
-        lastBracketMaxOffset = [(PKToken *)peek offset] + 1;
+        if (NSNotFound == lastBracketMaxOffset) {
+            lastBracketMaxOffset = [(PKToken *)peek offset] + 1;
+        }
         
         peek = [a pop];
     }
