@@ -144,6 +144,8 @@
 		D3411BF3191A90800082A196 /* PEGKitParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411BF2191A90800082A196 /* PEGKitParser.m */; };
 		D34BADF5100ABA7C00996341 /* XPBooleanValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BADF3100ABA7C00996341 /* XPBooleanValue.m */; };
 		D34BADF9100ABA9300996341 /* XPValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BADF7100ABA9300996341 /* XPValue.m */; };
+		D3539406192FA6A900D6EEA6 /* XPException.h in Headers */ = {isa = PBXBuildFile; fileRef = D3539404192FA6A900D6EEA6 /* XPException.h */; };
+		D3539407192FA6A900D6EEA6 /* XPException.m in Sources */ = {isa = PBXBuildFile; fileRef = D3539405192FA6A900D6EEA6 /* XPException.m */; };
 		D36235DD19269EE300C88990 /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33097361921BE99004317EA /* PEGKit.framework */; };
 		D36712E2192ACC1700B13A63 /* XPSynchronousChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = D36712E0192ACC1700B13A63 /* XPSynchronousChannel.m */; };
 		D36712E4192ACC2600B13A63 /* XPSemaphore.h in Headers */ = {isa = PBXBuildFile; fileRef = D36712E3192ACC2600B13A63 /* XPSemaphore.h */; };
@@ -508,6 +510,8 @@
 		D3411BF2191A90800082A196 /* PEGKitParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PEGKitParser.m; path = lib/pegkit/ParserGenApp/PEGKitParser.m; sourceTree = "<group>"; };
 		D34BADF3100ABA7C00996341 /* XPBooleanValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBooleanValue.m; path = src/XPBooleanValue.m; sourceTree = "<group>"; };
 		D34BADF7100ABA9300996341 /* XPValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPValue.m; path = src/XPValue.m; sourceTree = "<group>"; };
+		D3539404192FA6A900D6EEA6 /* XPException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPException.h; path = src/XPException.h; sourceTree = "<group>"; };
+		D3539405192FA6A900D6EEA6 /* XPException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPException.m; path = src/XPException.m; sourceTree = "<group>"; };
 		D36712E0192ACC1700B13A63 /* XPSynchronousChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPSynchronousChannel.m; path = src/XPSynchronousChannel.m; sourceTree = "<group>"; };
 		D36712E3192ACC2600B13A63 /* XPSemaphore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPSemaphore.h; path = src/XPSemaphore.h; sourceTree = "<group>"; };
 		D36712E7192AD0CC00B13A63 /* XPLocking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = XPLocking.h; path = src/XPLocking.h; sourceTree = "<group>"; };
@@ -1048,6 +1052,8 @@
 			isa = PBXGroup;
 			children = (
 				D3F0CC02191EC8180049EC02 /* XPExpression.h */,
+				D3539404192FA6A900D6EEA6 /* XPException.h */,
+				D3539405192FA6A900D6EEA6 /* XPException.m */,
 				D3AC84540F60C7EC00392CB4 /* XPExpression.m */,
 				D3BE1426191C3B8400005C81 /* XPPositionRange.h */,
 				D3BE1427191C3B8400005C81 /* XPPositionRange.m */,
@@ -1327,6 +1333,7 @@
 				D3F0CBDF191EC4F10049EC02 /* XPAxisExpression.h in Headers */,
 				D3F0CBA9191EC23D0049EC02 /* FNStartsWith.h in Headers */,
 				D3F0CBDE191EC4F10049EC02 /* XPArithmeticExpression.h in Headers */,
+				D3539406192FA6A900D6EEA6 /* XPException.h in Headers */,
 				D3F0CBA5191EC23D0049EC02 /* FNNot.h in Headers */,
 				D33930F4191EC98700259939 /* XPFunction.h in Headers */,
 				D3F0CBAA191EC23D0049EC02 /* FNString.h in Headers */,
@@ -1601,6 +1608,7 @@
 				D339F64B1927B66500C79A51 /* xmlsave.c in Sources */,
 				D339311F1920527200259939 /* FNUpperCase.m in Sources */,
 				D3393103192038EE00259939 /* FNMatches.m in Sources */,
+				D3539407192FA6A900D6EEA6 /* XPException.m in Sources */,
 				D339F65C1927B74B00C79A51 /* trionan.c in Sources */,
 				D339F6121927B66500C79A51 /* buf.c in Sources */,
 				D33E9F841916E0E000BB7DFE /* XPStandaloneContext.m in Sources */,

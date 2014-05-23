@@ -17,6 +17,8 @@
 @class XPFunction;
 
 extern NSString * const XPathExceptionName;
+extern NSString * const XPathExceptionRangeKey;
+
 extern NSString * const XPathErrorDomain;
 
 extern const NSUInteger XPathErrorCodeCompiletime;

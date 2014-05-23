@@ -12,12 +12,13 @@
 #import "XPValue.h"
 #import "XPNodeSetValue.h"
 #import "XPNodeEnumeration.h"
-//#import "XPParser.h"
 #import "XPEGParser.h"
 #import "XPAssembler.h"
 #import <PEGKit/PKAssembly.h>
 
 NSString * const XPathExceptionName = @"XPath Exception";
+NSString * const XPathExceptionRangeKey = @"range";
+
 NSString * const XPathErrorDomain = @"XPathErrorDomain";
 
 const NSUInteger XPathErrorCodeCompiletime = 1;
