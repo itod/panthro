@@ -18,8 +18,8 @@
  * in a context other than a stylesheet.
  */
 
-extern NSString *const XPNamespaceXML;
-extern NSString *const XPNamespaceXSL;
+extern NSString * const XPNamespaceXML;
+extern NSString * const XPNamespaceXSL;
 
 @interface XPStandaloneContext : NSObject <XPStaticContext>
 

@@ -16,8 +16,8 @@
 #import "XPNSXMLNodeImpl.h"
 #import "XPLibxmlNodeImpl.h"
 
-NSString *const XPNamespaceXML = @"http://www.w3.org/XML/1998/namespace";
-NSString *const XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
+NSString * const XPNamespaceXML = @"http://www.w3.org/XML/1998/namespace";
+NSString * const XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
 
 @interface XPStandaloneContext ()
 @property (nonatomic, retain) NSMutableDictionary *vars;
