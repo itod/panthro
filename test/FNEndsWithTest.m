@@ -24,13 +24,13 @@
 - (void)testErrors {
     NSError *err = nil;
     [XPExpression expressionFromString:@"ends-with('foo')" inContext:nil error:&err];
-    TDNil(err);
+    TDNotNil(err);
     
     [XPExpression expressionFromString:@"ends-with()" inContext:nil error:&err];
-    TDNil(err);
+    TDNotNil(err);
     
     [XPExpression expressionFromString:@"ends-with('1', '2', '3')" inContext:nil error:&err];
-    TDNil(err);
+    TDNotNil(err);
 }
 
 

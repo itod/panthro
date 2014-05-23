@@ -31,11 +31,11 @@
 - (void)testErrors {
     NSError *err = nil;
     [XPExpression expressionFromString:@"boolean(1, 2)" inContext:nil error:&err];
-    TDNil(err);
+    TDNotNil(err);
 
     err = nil;
     [XPExpression expressionFromString:@"boolean()" inContext:nil error:&err];
-    TDNil(err);
+    TDNotNil(err);
 }
 
 

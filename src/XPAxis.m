@@ -8,13 +8,13 @@
 
 #import "XPAxis.h"
 #import "XPUtils.h"
+#import "XPExpression.h"
 
 /**
  * Table indicating the principal node type of each axis
  */
 
-const NSUInteger XPAxisPrincipalNodeType[] =
-{
+const NSUInteger XPAxisPrincipalNodeType[] = {
     XPNodeTypeElement,       // ANCESTOR
     XPNodeTypeElement,       // ANCESTOR_OR_SELF;
     XPNodeTypeAttribute,     // ATTRIBUTE;
@@ -36,8 +36,7 @@ const NSUInteger XPAxisPrincipalNodeType[] =
  * Table indicating for each axis whether it is in forwards document order
  */
 
-const BOOL XPAxisIsForwards[] =
-{
+const BOOL XPAxisIsForwards[] = {
     NO,          // ANCESTOR
     NO,          // ANCESTOR_OR_SELF;
     YES,         // ATTRIBUTE;
@@ -58,8 +57,7 @@ const BOOL XPAxisIsForwards[] =
  * Table indicating for each axis whether it is in reverse document order
  */
 
-const BOOL XPAxisIsReverse[] =
-{
+const BOOL XPAxisIsReverse[] = {
     YES,         // ANCESTOR
     YES,         // ANCESTOR_OR_SELF;
     NO,          // ATTRIBUTE;
@@ -81,8 +79,7 @@ const BOOL XPAxisIsReverse[] =
  * axis if no node on the axis is an ancestor of another node on the axis.
  */
 
-const BOOL XPAxisIsPeerAxis[] =
-{
+const BOOL XPAxisIsPeerAxis[] = {
     NO,          // ANCESTOR
     NO,          // ANCESTOR_OR_SELF;
     YES,         // ATTRIBUTE;
@@ -104,8 +101,7 @@ const BOOL XPAxisIsPeerAxis[] =
  * rooted at the origin node.
  */
 
-const BOOL XPAxisIsSubtreeAxis[] =
-{
+const BOOL XPAxisIsSubtreeAxis[] = {
     NO,          // ANCESTOR
     NO,          // ANCESTOR_OR_SELF;
     YES,         // ATTRIBUTE;
@@ -126,8 +122,7 @@ const BOOL XPAxisIsSubtreeAxis[] =
  * Table giving the name each axis
  */
 
-const NSString *XPAxisName[] =
-{
+const NSString *XPAxisName[] = {
     @"ancestor",             // ANCESTOR
     @"ancestor-or-self",     // ANCESTOR_OR_SELF;
     @"attribute",            // ATTRIBUTE;
@@ -163,7 +158,7 @@ NSUInteger XPAxisForName(NSString *name) {
     if ([name isEqualToString:@"preceding-sibling"])       return XPAxisPrecedingSibling;
     if ([name isEqualToString:@"self"])                    return XPAxisSelf;
     // preceding-or-ancestor cannot be used in an XPath expression
-    [NSException raise:@"XPathException" format:@"Unknown axis name: %@", name];
+    [NSException raise:XPathExceptionName format:@"Unknown axis name: %@", name];
     return 0;
 }
 

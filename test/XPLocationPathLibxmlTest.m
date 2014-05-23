@@ -74,7 +74,7 @@
 - (void)eval:(NSString *)xpathStr {
     TDNotNil(_env);
     NSError *err = nil;
-    self.res = [_env evaluate:xpathStr withLibxmlContextNode:_contextNode parserContext:_parserCtx error:&err];
+    self.res = [_env execute:xpathStr withLibxmlContextNode:_contextNode parserContext:_parserCtx error:&err];
     if (err) {
         NSLog(@"%@", err);
     }

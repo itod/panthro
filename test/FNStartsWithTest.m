@@ -24,13 +24,13 @@
 - (void)testErrors {
     NSError *err = nil;
     [XPExpression expressionFromString:@"starts-with('foo')" inContext:nil error:&err];
-    TDNil(err);
+    TDNotNil(err);
     
     [XPExpression expressionFromString:@"starts-with()" inContext:nil error:&err];
-    TDNil(err);
+    TDNotNil(err);
     
     [XPExpression expressionFromString:@"starts-with('1', '2', '3')" inContext:nil error:&err];
-    TDNil(err);
+    TDNotNil(err);
 }
 
 

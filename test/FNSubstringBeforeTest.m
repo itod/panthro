@@ -24,13 +24,13 @@
 - (void)testErrors {
     NSError *err = nil;
     [XPExpression expressionFromString:@"substring-before('foo')" inContext:nil error:&err];
-    TDNil(err);
+    TDNotNil(err);
     
     [XPExpression expressionFromString:@"substring-before('1', '2', '3', '4')" inContext:nil error:&err];
-    TDNil(err);
+    TDNotNil(err);
     
     [XPExpression expressionFromString:@"substring-before()" inContext:nil error:&err];
-    TDNil(err);
+    TDNotNil(err);
 }
 
 

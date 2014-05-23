@@ -153,7 +153,7 @@
     
     if ([_start isKindOfClass:[XPSingletonNodeSet class]]) {
         if (![(XPSingletonNodeSet *)_start isGeneralUseAllowed]) {
-            [NSException raise:@"XPathException" format:@"To use a result tree fragment in a filter expression, either use exsl:node-set() or specify version='1.1'"];
+            [NSException raise:XPathExceptionName format:@"To use a result tree fragment in a filter expression, either use exsl:node-set() or specify version='1.1'"];
         }
     }
     

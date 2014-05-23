@@ -63,13 +63,13 @@
 - (NSUInteger)checkArgumentCountForMin:(NSUInteger)min max:(NSUInteger)max {
     NSUInteger num = [self numberOfArguments];
     if (min == max && num != min) {
-        [NSException raise:@"XPathException" format:@"Invalid numer of args supplied to %@() function. %lu expected. %lu given", [[self class] name], min, num];
+        [NSException raise:XPathExceptionName format:@"Invalid numer of args supplied to %@() function. %lu expected. %lu given", [[self class] name], min, num];
     }
     if (num < min) {
-        [NSException raise:@"XPathException" format:@"Invalid numer of args supplied to %@() function. at least %lu expected. %lu given", [[self class] name], min, num];
+        [NSException raise:XPathExceptionName format:@"Invalid numer of args supplied to %@() function. at least %lu expected. %lu given", [[self class] name], min, num];
     }
     if (num > max) {
-        [NSException raise:@"XPathException" format:@"Invalid numer of args supplied to %@() function. only %lu accepted. %lu given", [[self class] name], max, num];
+        [NSException raise:XPathExceptionName format:@"Invalid numer of args supplied to %@() function. only %lu accepted. %lu given", [[self class] name], max, num];
     }
     return num;
 }

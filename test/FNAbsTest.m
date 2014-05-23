@@ -24,11 +24,11 @@
 - (void)testErrors {
     NSError *err = nil;
     [XPExpression expressionFromString:@"abs(1, 2)" inContext:nil error:&err];
-    TDNil(err);
+    TDNotNil(err);
     
     err = nil;
     self.expr = [XPExpression expressionFromString:@"abs()" inContext:nil error:&err];
-    TDNil(err);
+    TDNotNil(err);
 }
 
 

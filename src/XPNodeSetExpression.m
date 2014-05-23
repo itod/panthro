@@ -39,7 +39,7 @@
     } else {
         result = [expr evaluateInContext:ctx];
         if (![result isKindOfClass:[XPNodeSetValue class]]) {
-            [NSException raise:@"XPathException" format:@"Value must be a node-set. it is a %@", [expr class]];
+            [NSException raise:XPathExceptionName format:@"Value must be a node-set. it is a %@", [expr class]];
         }
     }
 

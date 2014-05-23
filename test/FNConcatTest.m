@@ -24,10 +24,10 @@
 - (void)testErrors {
     NSError *err = nil;
     [XPExpression expressionFromString:@"concat('foo')" inContext:nil error:&err];
-    TDNil(err);
+    TDNotNil(err);
     
     [XPExpression expressionFromString:@"concat()" inContext:nil error:&err];
-    TDNil(err);
+    TDNotNil(err);
 }
 
 

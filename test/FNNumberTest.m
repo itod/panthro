@@ -24,7 +24,7 @@
 - (void)testErrors {
     NSError *err = nil;
     [XPExpression expressionFromString:@"number(1, 2)" inContext:nil error:&err];
-    TDNil(err);
+    TDNotNil(err);
 }
 
 

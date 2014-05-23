@@ -48,7 +48,7 @@
         case XPTokenTypeNegate:
             return -n2;
         default:
-            [NSException raise:@"XPathException" format:@"invalid operator in arithmetic expr"];
+            [NSException raise:XPathExceptionName format:@"invalid operator in arithmetic expr"];
             return NAN;
             break;
     }

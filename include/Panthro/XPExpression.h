@@ -16,6 +16,7 @@
 @class XPNodeSetValue;
 @class XPFunction;
 
+extern NSString * const XPathExceptionName;
 extern NSString * const XPathErrorDomain;
 
 extern const NSUInteger XPathErrorCodeCompiletime;

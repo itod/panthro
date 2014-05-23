@@ -88,7 +88,7 @@
             NSError *err = nil;
             NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:opts error:&err];
             if (!regex) {
-                [NSException raise:@"XPathException" format:@"could not create Regex from pattern '%@'", pattern];
+                [NSException raise:XPathExceptionName format:@"could not create Regex from pattern '%@'", pattern];
             }
             
             result = [regex stringByReplacingMatchesInString:input options:opts range:NSMakeRange(0, [input length]) withTemplate:replacement];

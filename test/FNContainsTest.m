@@ -24,13 +24,13 @@
 - (void)testErrors {
     NSError *err = nil;
     [XPExpression expressionFromString:@"contains('foo')" inContext:nil error:&err];
-    TDNil(err);
+    TDNotNil(err);
     
     [XPExpression expressionFromString:@"contains()" inContext:nil error:&err];
-    TDNil(err);
+    TDNotNil(err);
 
     [XPExpression expressionFromString:@"contains('1', '2', '3')" inContext:nil error:&err];
-    TDNil(err);
+    TDNotNil(err);
 }
 
 

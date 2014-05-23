@@ -87,7 +87,7 @@
 //    if (!v) {
 //        
 //        if (![_binding isGlobal]) {
-//            [NSException raise:@"XPathException" format:@"Variable %@ is undefined", [_binding variableName]];
+//            [NSException raise:XPathExceptionName format:@"Variable %@ is undefined", [_binding variableName]];
 //        }
 //        
 //        // it must be a forwards reference; try to evaluate it now.
@@ -124,7 +124,7 @@
 //        }
 //        
 //        if (!v) {
-//            [NSException raise:@"XPathException" format:@"Variable %@ is undefined", [_binding variableName]];
+//            [NSException raise:XPathExceptionName format:@"Variable %@ is undefined", [_binding variableName]];
 //        }
 //    }
     
