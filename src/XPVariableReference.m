@@ -8,6 +8,7 @@
 
 #import "XPVariableReference.h"
 #import "XPContext.h"
+#import "XPException.h"
 //#import "XPBindery.h"
 //#import "XPBinding.h"
 
@@ -87,7 +88,7 @@
 //    if (!v) {
 //        
 //        if (![_binding isGlobal]) {
-//            [NSException raise:XPathExceptionName format:@"Variable %@ is undefined", [_binding variableName]];
+//            [XPException raiseIn:self format:@"Variable %@ is undefined", [_binding variableName]];
 //        }
 //        
 //        // it must be a forwards reference; try to evaluate it now.
@@ -124,7 +125,7 @@
 //        }
 //        
 //        if (!v) {
-//            [NSException raise:XPathExceptionName format:@"Variable %@ is undefined", [_binding variableName]];
+//            [XPException raiseIn:self format:@"Variable %@ is undefined", [_binding variableName]];
 //        }
 //    }
     

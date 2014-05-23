@@ -10,7 +10,15 @@
 
 @class XPExpression;
 
+extern NSString * const XPathExceptionName;
+extern NSString * const XPathExceptionRangeKey;
+extern NSString * const XPathExceptionLineNumberKey;
+
 @interface XPException : NSException
 
+@property (nonatomic, assign) NSRange range;
+
++ (void)raiseWithFormat:(NSString *)format, ...;
 + (void)raiseIn:(XPExpression *)expr format:(NSString *)format, ...;
+
 @end

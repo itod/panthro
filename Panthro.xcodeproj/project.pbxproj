@@ -144,7 +144,6 @@
 		D3411BF3191A90800082A196 /* PEGKitParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411BF2191A90800082A196 /* PEGKitParser.m */; };
 		D34BADF5100ABA7C00996341 /* XPBooleanValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BADF3100ABA7C00996341 /* XPBooleanValue.m */; };
 		D34BADF9100ABA9300996341 /* XPValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BADF7100ABA9300996341 /* XPValue.m */; };
-		D3539406192FA6A900D6EEA6 /* XPException.h in Headers */ = {isa = PBXBuildFile; fileRef = D3539404192FA6A900D6EEA6 /* XPException.h */; };
 		D3539407192FA6A900D6EEA6 /* XPException.m in Sources */ = {isa = PBXBuildFile; fileRef = D3539405192FA6A900D6EEA6 /* XPException.m */; };
 		D36235DD19269EE300C88990 /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33097361921BE99004317EA /* PEGKit.framework */; };
 		D36712E2192ACC1700B13A63 /* XPSynchronousChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = D36712E0192ACC1700B13A63 /* XPSynchronousChannel.m */; };
@@ -199,6 +198,7 @@
 		D383A31F187F748E006AE701 /* XPEGParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D383A31D187F748E006AE701 /* XPEGParser.h */; };
 		D383A320187F748E006AE701 /* XPEGParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D383A31E187F748E006AE701 /* XPEGParser.m */; };
 		D383A321187F7EA5006AE701 /* XPTestScaffold.m in Sources */ = {isa = PBXBuildFile; fileRef = D33639DA100DAB8C00AC4B51 /* XPTestScaffold.m */; };
+		D3902BDC192FAC84004D8A76 /* XPException.h in Headers */ = {isa = PBXBuildFile; fileRef = D3902BDB192FAC84004D8A76 /* XPException.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A5DB45141E7BC30081FBB4 /* XPath_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = D3A5DB44141E7BC30081FBB4 /* XPath_Prefix.pch */; };
 		D3A6C2E41907391200F3EFF3 /* XPAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A6C2E31907391200F3EFF3 /* XPAxis.m */; };
 		D3A6C2EA19073B4700F3EFF3 /* XPStepTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A6C2E919073B4700F3EFF3 /* XPStepTest.m */; };
@@ -510,7 +510,6 @@
 		D3411BF2191A90800082A196 /* PEGKitParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PEGKitParser.m; path = lib/pegkit/ParserGenApp/PEGKitParser.m; sourceTree = "<group>"; };
 		D34BADF3100ABA7C00996341 /* XPBooleanValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBooleanValue.m; path = src/XPBooleanValue.m; sourceTree = "<group>"; };
 		D34BADF7100ABA9300996341 /* XPValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPValue.m; path = src/XPValue.m; sourceTree = "<group>"; };
-		D3539404192FA6A900D6EEA6 /* XPException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPException.h; path = src/XPException.h; sourceTree = "<group>"; };
 		D3539405192FA6A900D6EEA6 /* XPException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPException.m; path = src/XPException.m; sourceTree = "<group>"; };
 		D36712E0192ACC1700B13A63 /* XPSynchronousChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPSynchronousChannel.m; path = src/XPSynchronousChannel.m; sourceTree = "<group>"; };
 		D36712E3192ACC2600B13A63 /* XPSemaphore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPSemaphore.h; path = src/XPSemaphore.h; sourceTree = "<group>"; };
@@ -566,6 +565,7 @@
 		D383A31B187F6ECB006AE701 /* XPAssembler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPAssembler.h; path = src/XPAssembler.h; sourceTree = "<group>"; };
 		D383A31D187F748E006AE701 /* XPEGParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPEGParser.h; path = src/XPEGParser.h; sourceTree = "<group>"; };
 		D383A31E187F748E006AE701 /* XPEGParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPEGParser.m; path = src/XPEGParser.m; sourceTree = "<group>"; };
+		D3902BDB192FAC84004D8A76 /* XPException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPException.h; path = include/Panthro/XPException.h; sourceTree = "<group>"; };
 		D3A5DB44141E7BC30081FBB4 /* XPath_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPath_Prefix.pch; sourceTree = "<group>"; };
 		D3A6C2E31907391200F3EFF3 /* XPAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPAxis.m; path = src/XPAxis.m; sourceTree = "<group>"; };
 		D3A6C2E919073B4700F3EFF3 /* XPStepTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPStepTest.m; path = test/XPStepTest.m; sourceTree = "<group>"; };
@@ -1051,9 +1051,9 @@
 		D37A295E1013F34C00E936B7 /* Expr */ = {
 			isa = PBXGroup;
 			children = (
-				D3F0CC02191EC8180049EC02 /* XPExpression.h */,
-				D3539404192FA6A900D6EEA6 /* XPException.h */,
+				D3902BDB192FAC84004D8A76 /* XPException.h */,
 				D3539405192FA6A900D6EEA6 /* XPException.m */,
+				D3F0CC02191EC8180049EC02 /* XPExpression.h */,
 				D3AC84540F60C7EC00392CB4 /* XPExpression.m */,
 				D3BE1426191C3B8400005C81 /* XPPositionRange.h */,
 				D3BE1427191C3B8400005C81 /* XPPositionRange.m */,
@@ -1333,7 +1333,6 @@
 				D3F0CBDF191EC4F10049EC02 /* XPAxisExpression.h in Headers */,
 				D3F0CBA9191EC23D0049EC02 /* FNStartsWith.h in Headers */,
 				D3F0CBDE191EC4F10049EC02 /* XPArithmeticExpression.h in Headers */,
-				D3539406192FA6A900D6EEA6 /* XPException.h in Headers */,
 				D3F0CBA5191EC23D0049EC02 /* FNNot.h in Headers */,
 				D33930F4191EC98700259939 /* XPFunction.h in Headers */,
 				D3F0CBAA191EC23D0049EC02 /* FNString.h in Headers */,
@@ -1412,6 +1411,7 @@
 				D383A31C187F6ECB006AE701 /* XPAssembler.h in Headers */,
 				D3F0CBFF191EC8090049EC02 /* XPStaticContext.h in Headers */,
 				D3F0CBA7191EC23D0049EC02 /* FNPosition.h in Headers */,
+				D3902BDC192FAC84004D8A76 /* XPException.h in Headers */,
 				D324A1A6192AE5550093C4B5 /* XPSync.h in Headers */,
 				D33E9F9F191706E100BB7DFE /* XPEmptyEnumeration.h in Headers */,
 				D3393122192052C600259939 /* FNLowerCase.h in Headers */,

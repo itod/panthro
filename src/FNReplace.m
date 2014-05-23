@@ -10,6 +10,7 @@
 #import "XPValue.h"
 #import "XPStringValue.h"
 #import "FNMatches.h"
+#import "XPException.h"
 
 @interface XPExpression ()
 @property (nonatomic, readwrite, retain) id <XPStaticContext>staticContext;
@@ -88,7 +89,7 @@
             NSError *err = nil;
             NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:opts error:&err];
             if (!regex) {
-                [NSException raise:XPathExceptionName format:@"could not create Regex from pattern '%@'", pattern];
+                [XPException raiseIn:self format:@"could not create Regex from pattern '%@'", pattern];
             }
             
             result = [regex stringByReplacingMatchesInString:input options:opts range:NSMakeRange(0, [input length]) withTemplate:replacement];

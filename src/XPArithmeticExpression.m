@@ -9,6 +9,7 @@
 #import "XPArithmeticExpression.h"
 #import "XPValue.h"
 #import "XPNumericValue.h"
+#import "XPException.h"
 
 @implementation XPArithmeticExpression
 
@@ -48,7 +49,7 @@
         case XPTokenTypeNegate:
             return -n2;
         default:
-            [NSException raise:XPathExceptionName format:@"invalid operator in arithmetic expr"];
+            [XPException raiseIn:self format:@"invalid operator in arithmetic expr"];
             return NAN;
             break;
     }

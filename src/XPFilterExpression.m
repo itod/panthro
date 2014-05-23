@@ -11,6 +11,7 @@
 #import "XPNumericValue.h"
 #import "XPFilterEnumerator.h"
 #import "XPSingletonNodeSet.h"
+#import "XPException.h"
 
 @interface XPExpression ()
 @property (nonatomic, readwrite, retain) id <XPStaticContext>staticContext;
@@ -153,7 +154,7 @@
     
     if ([_start isKindOfClass:[XPSingletonNodeSet class]]) {
         if (![(XPSingletonNodeSet *)_start isGeneralUseAllowed]) {
-            [NSException raise:XPathExceptionName format:@"To use a result tree fragment in a filter expression, either use exsl:node-set() or specify version='1.1'"];
+            [XPException raiseIn:self format:@"To use a result tree fragment in a filter expression, either use exsl:node-set() or specify version='1.1'"];
         }
     }
     

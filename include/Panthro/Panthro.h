@@ -29,6 +29,7 @@
 #import <Panthro/XPNodeSetValue.h>
 #import <Panthro/XPObjectValue.h>
 
+#import <Panthro/XPException.h>
 #import <Panthro/XPExpression.h>
 #import <Panthro/XPNodeEnumeration.h>
 

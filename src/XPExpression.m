@@ -14,10 +14,8 @@
 #import "XPNodeEnumeration.h"
 #import "XPEGParser.h"
 #import "XPAssembler.h"
+#import "XPException.h"
 #import <PEGKit/PKAssembly.h>
-
-NSString * const XPathExceptionName = @"XPath Exception";
-NSString * const XPathExceptionRangeKey = @"range";
 
 NSString * const XPathErrorDomain = @"XPathErrorDomain";
 
@@ -54,15 +52,17 @@ static XPAssembler *sAssembler = nil;
     @try {
         PKAssembly *a = [sParser parseString:exprStr error:outErr];
         expr = [a pop];
-        
-        if (simplify) {
-            expr = [expr simplify];
+
+        if (expr) {
+            if (simplify) {
+                expr = [expr simplify];
+            }
+            [expr setStaticContext:env];
         }
-        [expr setStaticContext:env];
     }
-    @catch (NSException *ex) {
+    @catch (XPException *ex) {
         if (outErr) {
-            id info = @{NSLocalizedDescriptionKey: [ex name], NSLocalizedFailureReasonErrorKey: [ex reason]};
+            id info = @{NSLocalizedDescriptionKey: [ex name], NSLocalizedFailureReasonErrorKey: [ex reason], XPathExceptionRangeKey: [NSValue valueWithRange:[ex range]]};
             *outErr = [NSError errorWithDomain:XPathErrorDomain code:XPathErrorCodeCompiletime userInfo:info];
         }
     }
@@ -117,7 +117,7 @@ static XPAssembler *sAssembler = nil;
     v.range = self.range;
     
     if (![v isNodeSetValue]) {
-        [NSException raise:XPathExceptionName format:@"The value %@ is not a node-set", v];
+        [XPException raiseIn:self format:@"The value %@ is not a node-set", v];
     }
 
     return (XPNodeSetValue *)v;
@@ -134,7 +134,7 @@ static XPAssembler *sAssembler = nil;
         id <XPNodeEnumeration>e = [(XPNodeSetValue *)v enumerate];
         return e;
     }
-    [NSException raise:XPathExceptionName format:@"The value is not a node-set"];
+    [XPException raiseIn:self format:@"The value is not a node-set"];
     return nil;
 }
 

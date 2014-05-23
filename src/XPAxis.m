@@ -9,6 +9,7 @@
 #import "XPAxis.h"
 #import "XPUtils.h"
 #import "XPExpression.h"
+#import "XPException.h"
 
 /**
  * Table indicating the principal node type of each axis
@@ -158,7 +159,7 @@ NSUInteger XPAxisForName(NSString *name) {
     if ([name isEqualToString:@"preceding-sibling"])       return XPAxisPrecedingSibling;
     if ([name isEqualToString:@"self"])                    return XPAxisSelf;
     // preceding-or-ancestor cannot be used in an XPath expression
-    [NSException raise:XPathExceptionName format:@"Unknown axis name: %@", name];
+    [XPException raiseWithFormat:@"Unknown axis name: %@", name];
     return 0;
 }
 
