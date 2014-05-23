@@ -57,7 +57,9 @@
 - (void)eval:(NSString *)xpathStr {
     TDNotNil(_env);
     NSError *err = nil;
-    self.res = [_env execute:xpathStr withNSXMLContextNode:_contextNode error:&err];
+    
+    id <XPNodeInfo>ctxNode = [XPNSXMLNodeImpl nodeInfoWithNode:_contextNode];
+    self.res = [_env execute:xpathStr withContextNode:ctxNode error:&err];
     if (err) {
         NSLog(@"%@", err);
     }
