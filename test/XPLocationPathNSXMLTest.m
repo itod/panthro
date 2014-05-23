@@ -57,7 +57,7 @@
 - (void)eval:(NSString *)xpathStr {
     TDNotNil(_env);
     NSError *err = nil;
-    self.res = [_env evalutate:xpathStr withNSXMLContextNode:_contextNode error:&err];
+    self.res = [_env evaluate:xpathStr withNSXMLContextNode:_contextNode error:&err];
     if (err) {
         NSLog(@"%@", err);
     }

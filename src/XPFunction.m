@@ -8,7 +8,6 @@
 
 #import "XPFunction.h"
 #import "XPValue.h"
-#import "NSError+XPAdditions.h"
 
 @interface XPFunction ()
 @property (nonatomic, retain) NSMutableArray *args;

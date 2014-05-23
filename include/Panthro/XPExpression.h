@@ -16,6 +16,11 @@
 @class XPNodeSetValue;
 @class XPFunction;
 
+extern NSString * const XPathErrorDomain;
+
+extern const NSUInteger XPathErrorCodeCompiletime;
+extern const NSUInteger XPathErrorCodeRuntime;
+
 typedef NS_ENUM(NSUInteger, XPDataType) {
     XPDataTypeBoolean,
     XPDataTypeNumber,

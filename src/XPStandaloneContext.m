@@ -8,7 +8,6 @@
 
 #import "XPStandaloneContext.h"
 #import "XPUtils.h"
-#import "NSError+XPAdditions.h"
 
 #import "XPSync.h"
 #import "XPContext.h"
@@ -54,50 +53,79 @@ NSString *const XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
 }
 
 
-- (id)evalutate:(NSString *)xpathStr withNSXMLContextNode:(NSXMLNode *)nsxmlCtxNode error:(NSError **)outErr {
-    id <XPNodeInfo>ctxNode = [XPNSXMLNodeImpl nodeInfoWithNode:nsxmlCtxNode];
-    return [self evalutate:xpathStr withContextNode:ctxNode error:outErr];
-}
-
-
-- (id)evalutate:(NSString *)xpathStr withLibxmlContextNode:(void *)libxmlCtxNode parserContext:(xmlParserCtxtPtr)parserCtx error:(NSError **)outErr;{
-    id <XPNodeInfo>ctxNode = [XPLibxmlNodeImpl nodeInfoWithNode:libxmlCtxNode parserContext:parserCtx];
-    return [self evalutate:xpathStr withContextNode:ctxNode error:outErr];
-}
-
-
-- (id)evalutate:(NSString *)xpathStr withContextNode:(id <XPNodeInfo>)ctxNode error:(NSError **)outErr {
+- (XPExpression *)compile:(NSString *)xpathStr withContextNode:(id <XPNodeInfo>)ctxNode error:(NSError **)outErr {
     NSParameterAssert([xpathStr length]);
     NSParameterAssert(ctxNode);
     
-    id result = nil;
+    XPExpression *result = nil;
     NSError *err = nil;
-
+    
     @autoreleasepool {
-        XPExpression *expr = [XPExpression expressionFromString:xpathStr inContext:self error:outErr];
-        
-        if (expr) {
-            XPContext *ctx = [[[XPContext alloc] initWithStaticContext:self] autorelease];
-            ctx.contextNode = ctxNode;
-            
-            @try {
-                result = [expr evaluateInContext:ctx];
-            } @catch (NSException *ex) {
-                result = nil;
-                err = [NSError XPathErrorWithCode:47 format:@"XPath runtime evaluation error: %@", [ex reason]];
-            }
-        }
+        result = [XPExpression expressionFromString:xpathStr inContext:self error:&err];
         
         [result retain]; // +1 to survive autorelase pool drain
         [err retain]; // +1 to survive autorelase pool drain
     }
-
+    
     if (outErr) {
         *outErr = err;
     }
     
     [err autorelease]; // -1 to balance
     return [result autorelease]; // -1 to balance
+}
+
+
+- (id)evaluate:(XPExpression *)expr withContextNode:(id <XPNodeInfo>)ctxNode error:(NSError **)outErr {
+    NSParameterAssert(expr);
+    NSParameterAssert(ctxNode);
+    
+    id result = nil;
+    NSError *err = nil;
+    
+    @autoreleasepool {
+        XPContext *ctx = [[[XPContext alloc] initWithStaticContext:self] autorelease];
+        ctx.contextNode = ctxNode;
+        
+        @try {
+            result = [expr evaluateInContext:ctx];
+        } @catch (NSException *ex) {
+            result = nil;
+            err = [NSError errorWithDomain:XPathErrorDomain code:XPathErrorCodeRuntime userInfo:[ex userInfo]];
+        }
+        
+        [result retain]; // +1 to survive autorelase pool drain
+        [err retain]; // +1 to survive autorelase pool drain
+    }
+    
+    if (outErr) {
+        *outErr = err;
+    }
+    
+    [err autorelease]; // -1 to balance
+    return [result autorelease]; // -1 to balance
+}
+
+
+- (id)execute:(NSString *)xpathStr withNSXMLContextNode:(NSXMLNode *)nsxmlCtxNode error:(NSError **)outErr {
+    id <XPNodeInfo>ctxNode = [XPNSXMLNodeImpl nodeInfoWithNode:nsxmlCtxNode];
+    return [self execute:xpathStr withContextNode:ctxNode error:outErr];
+}
+
+
+- (id)execute:(NSString *)xpathStr withLibxmlContextNode:(void *)libxmlCtxNode parserContext:(xmlParserCtxtPtr)parserCtx error:(NSError **)outErr;{
+    id <XPNodeInfo>ctxNode = [XPLibxmlNodeImpl nodeInfoWithNode:libxmlCtxNode parserContext:parserCtx];
+    return [self execute:xpathStr withContextNode:ctxNode error:outErr];
+}
+
+
+- (id)execute:(NSString *)xpathStr withContextNode:(id <XPNodeInfo>)ctxNode error:(NSError **)outErr {
+    XPExpression *expr = [self compile:xpathStr withContextNode:ctxNode error:outErr];
+    id result = nil;
+    if (expr) {
+        result = [self evaluate:expr withContextNode:ctxNode error:outErr];
+    }
+    return result;
 }
 
 
@@ -151,15 +179,13 @@ NSString *const XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
  * @throw XPathException if the prefix is not declared
  */
     
-- (NSString *)namespaceURIForPrefix:(NSString *)prefix error:(NSError **)err {
+- (NSString *)namespaceURIForPrefix:(NSString *)prefix {
     NSParameterAssert(prefix);
     XPAssert(_namespaces);
     
     NSString *uri = _namespaces[prefix];
     if (!uri) {
-        if (err) {
-            *err = [NSError XPathErrorWithCode:47 format:@"Prefix %@ has not been declared", prefix];
-        }
+        [NSException raise:@"XPathException" format:@"Prefix %@ has not been declared", prefix];
     }
 
     return uri;
@@ -170,7 +196,7 @@ NSString *const XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
  * Determine if an extension element is available
  */
     
-- (BOOL)isElementAvailable:(NSString *)qname error:(NSError **)err {
+- (BOOL)isElementAvailable:(NSString *)qname {
     return NO;
 }
 
@@ -179,7 +205,7 @@ NSString *const XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
  * Determine if a function is available
  */
     
-- (BOOL)isFunctionAvailable:(NSString *)qname error:(NSError **)err {
+- (BOOL)isFunctionAvailable:(NSString *)qname {
     
     NSString *prefix = XPNameGetPrefix(qname);
     if (![prefix length]) {

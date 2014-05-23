@@ -12,11 +12,15 @@
 #import "XPValue.h"
 #import "XPNodeSetValue.h"
 #import "XPNodeEnumeration.h"
-#import "NSError+XPAdditions.h"
 //#import "XPParser.h"
 #import "XPEGParser.h"
 #import "XPAssembler.h"
 #import <PEGKit/PKAssembly.h>
+
+NSString * const XPathErrorDomain = @"XPathErrorDomain";
+
+const NSUInteger XPathErrorCodeCompiletime = 1;
+const NSUInteger XPathErrorCodeRuntime = 2;
 
 static XPEGParser *sParser = nil;
 static XPAssembler *sAssembler = nil;
@@ -53,8 +57,8 @@ static XPAssembler *sAssembler = nil;
         [expr setStaticContext:env];
         return expr;
     }
-    @catch (NSException *e) {
-        //if (outErr) *outErr = [NSError XPathErrorWithCode:47 format:[e reason]];
+    @catch (NSException *ex) {
+        if (outErr) *outErr = [NSError errorWithDomain:XPathErrorDomain code:XPathErrorCodeCompiletime userInfo:[ex userInfo]];
     }
     return nil;
 }

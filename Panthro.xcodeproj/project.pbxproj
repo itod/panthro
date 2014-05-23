@@ -157,7 +157,6 @@
 		D37A27E51012FFA600E936B7 /* XPBooleanExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A27E31012FFA600E936B7 /* XPBooleanExpression.m */; };
 		D37A27F5101304EF00E936B7 /* XPBooleanExprTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A27F4101304EF00E936B7 /* XPBooleanExprTest.m */; };
 		D37A296A1013F39400E936B7 /* XPFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A29681013F39400E936B7 /* XPFunction.m */; };
-		D37A296E1013F57D00E936B7 /* NSError+XPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A296C1013F57D00E936B7 /* NSError+XPAdditions.m */; };
 		D37A299D1013F87900E936B7 /* FNNotTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A299C1013F87900E936B7 /* FNNotTest.m */; };
 		D37A29A41013F95100E936B7 /* FNNot.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A29A21013F95100E936B7 /* FNNot.m */; };
 		D37A2A1B1014015E00E936B7 /* FNBoolean.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A2A191014015E00E936B7 /* FNBoolean.m */; };
@@ -523,12 +522,10 @@
 		D37A27E31012FFA600E936B7 /* XPBooleanExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBooleanExpression.m; path = src/XPBooleanExpression.m; sourceTree = "<group>"; };
 		D37A27F4101304EF00E936B7 /* XPBooleanExprTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBooleanExprTest.m; path = test/XPBooleanExprTest.m; sourceTree = "<group>"; };
 		D37A29681013F39400E936B7 /* XPFunction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPFunction.m; path = src/XPFunction.m; sourceTree = "<group>"; };
-		D37A296C1013F57D00E936B7 /* NSError+XPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSError+XPAdditions.m"; path = "src/NSError+XPAdditions.m"; sourceTree = "<group>"; };
 		D37A299C1013F87900E936B7 /* FNNotTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNNotTest.m; path = test/FNNotTest.m; sourceTree = "<group>"; };
 		D37A29A21013F95100E936B7 /* FNNot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNNot.m; path = src/FNNot.m; sourceTree = "<group>"; };
 		D37A2A191014015E00E936B7 /* FNBoolean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNBoolean.m; path = src/FNBoolean.m; sourceTree = "<group>"; };
 		D37A2B97101418EC00E936B7 /* FNBooleanTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNBooleanTest.m; path = test/FNBooleanTest.m; sourceTree = "<group>"; };
-		D37A2BDB10141E7C00E936B7 /* NSError+XPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSError+XPAdditions.h"; path = "src/NSError+XPAdditions.h"; sourceTree = "<group>"; };
 		D37A2CAA10142D8E00E936B7 /* FNCeiling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNCeiling.m; path = src/FNCeiling.m; sourceTree = "<group>"; };
 		D37A2CD910142EC100E936B7 /* FNCeilingTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNCeilingTest.m; path = test/FNCeilingTest.m; sourceTree = "<group>"; };
 		D37A2D00101433C600E936B7 /* FNConcat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNConcat.m; path = src/FNConcat.m; sourceTree = "<group>"; };
@@ -1198,8 +1195,6 @@
 				D383A31E187F748E006AE701 /* XPEGParser.m */,
 				D383A31B187F6ECB006AE701 /* XPAssembler.h */,
 				D383A319187F6EB8006AE701 /* XPAssembler.m */,
-				D37A2BDB10141E7C00E936B7 /* NSError+XPAdditions.h */,
-				D37A296C1013F57D00E936B7 /* NSError+XPAdditions.m */,
 			);
 			name = Parser;
 			sourceTree = "<group>";
@@ -1623,7 +1618,6 @@
 				D37A296A1013F39400E936B7 /* XPFunction.m in Sources */,
 				D3C0F59F19214FE700566524 /* FNTrimSpace.m in Sources */,
 				D3BBAE8F191DCBF900766EB4 /* XPSingletonNodeSet.m in Sources */,
-				D37A296E1013F57D00E936B7 /* NSError+XPAdditions.m in Sources */,
 				D37A29A41013F95100E936B7 /* FNNot.m in Sources */,
 				D3BE1438191D46A500005C81 /* XPEmptyNodeSet.m in Sources */,
 				D37A2A1B1014015E00E936B7 /* FNBoolean.m in Sources */,

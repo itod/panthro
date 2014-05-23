@@ -19,10 +19,10 @@
 - (NSUInteger)lineNumber;
 - (NSString *)baseURI;
 
-- (NSString *)namespaceURIForPrefix:(NSString *)prefix error:(NSError **)err;
+- (NSString *)namespaceURIForPrefix:(NSString *)prefix;
 
-- (BOOL)isElementAvailable:(NSString *)qname error:(NSError **)err;
-- (BOOL)isFunctionAvailable:(NSString *)qname error:(NSError **)err;
+- (BOOL)isElementAvailable:(NSString *)qname;
+- (BOOL)isFunctionAvailable:(NSString *)qname;
 
 - (NSString *)version;
 
