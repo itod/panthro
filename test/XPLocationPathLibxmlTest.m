@@ -1365,6 +1365,23 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
+- (void)testSlashBookSlashCapterPredicateStartsWithDotCh {
+    [self eval:@"/book/chapter[starts-with(., 'Ch')]"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
+    
+    for (NSUInteger i = 0; i < 1; ++i) {
+        node = [enm nextObject];
+        TDEqualObjects(@"chapter", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+        //TDEqualObjects(_titles[i], node.stringValue);
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
 - (void)testSlashSlashChapterPredicate1 {
     [self eval:@"//chapter[1]"];
     
