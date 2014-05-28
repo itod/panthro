@@ -1369,13 +1369,56 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     [self eval:@"/book/chapter[starts-with(., 'Ch')]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testSlashBookSlashCapterPredicateStartsWithTrimSpaceDotCh {
+    [self eval:@"/book/chapter[starts-with(trim-space(.), 'Ch')]"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
     id <XPNodeInfo>node = nil;
     
-    for (NSUInteger i = 0; i < 1; ++i) {
+    for (NSUInteger i = 0; i < 3; ++i) {
         node = [enm nextObject];
         TDEqualObjects(@"chapter", node.name);
         TDEquals(XPNodeTypeElement, node.nodeType);
-        //TDEqualObjects(_titles[i], node.stringValue);
+        TDTrue([[[node stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] hasPrefix:_titles[i]]);
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testSlashBookSlashCapterPredicateContainsTrimSpaceDotCh {
+    [self eval:@"/book/chapter[contains(trim-space(.), 'Ch')]"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
+    
+    for (NSUInteger i = 0; i < 3; ++i) {
+        node = [enm nextObject];
+        TDEqualObjects(@"chapter", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+        TDTrue([[[node stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] hasPrefix:_titles[i]]);
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testSlashBookSlashCapterPredicateContainsDotCh {
+    [self eval:@"/book/chapter[contains(., 'Ch')]"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
+    
+    for (NSUInteger i = 0; i < 3; ++i) {
+        node = [enm nextObject];
+        TDEqualObjects(@"chapter", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+        TDTrue([[[node stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] hasPrefix:_titles[i]]);
     }
     
     TDFalse([enm hasMoreObjects]);
