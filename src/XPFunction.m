@@ -64,13 +64,13 @@
 - (NSUInteger)checkArgumentCountForMin:(NSUInteger)min max:(NSUInteger)max {
     NSUInteger num = [self numberOfArguments];
     if (min == max && num != min) {
-        [XPException raiseIn:self format:@"Invalid numer of args supplied to %@() function. %lu expected. %lu given", [[self class] name], min, num];
+        [XPException raiseIn:self format:@"Invalid numer of args supplied to %@() function. %lu expected. %lu given.", [[self class] name], min, num];
     }
     if (num < min) {
-        [XPException raiseIn:self format:@"Invalid numer of args supplied to %@() function. at least %lu expected. %lu given", [[self class] name], min, num];
+        [XPException raiseIn:self format:@"Invalid numer of args supplied to %@() function. at least %lu expected. %lu given.", [[self class] name], min, num];
     }
     if (num > max) {
-        [XPException raiseIn:self format:@"Invalid numer of args supplied to %@() function. only %lu accepted. %lu given", [[self class] name], max, num];
+        [XPException raiseIn:self format:@"Invalid numer of args supplied to %@() function. only %lu accepted. %lu given.", [[self class] name], max, num];
     }
     return num;
 }
