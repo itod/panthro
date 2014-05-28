@@ -37,7 +37,7 @@ static XPEGParser *parser;
     root.grammarName = @"XPEG";
     
     visitor = [[PGParserGenVisitor alloc] init];
-    visitor.enableMemoization = NO;
+    visitor.enableMemoization = YES;
     visitor.delegatePreMatchCallbacksOn = PGParserFactoryDelegateCallbacksOnNone;
     visitor.delegatePostMatchCallbacksOn = PGParserFactoryDelegateCallbacksOnAll;
     

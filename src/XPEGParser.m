@@ -4,6 +4,69 @@
 
 @interface XPEGParser ()
 
+@property (nonatomic, retain) NSMutableDictionary *stmt_memo;
+@property (nonatomic, retain) NSMutableDictionary *expr_memo;
+@property (nonatomic, retain) NSMutableDictionary *orExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *orAndExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *andExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *andEqualityExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *equalityExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *eqRelationalExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *relationalExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *compareAdditiveExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *additiveExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *plusOrMinusMultiExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *multiplicativeExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *multDivOrModUnaryExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *multiplyOperator_memo;
+@property (nonatomic, retain) NSMutableDictionary *unaryExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *minusUnionExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *unionExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *unionTail_memo;
+@property (nonatomic, retain) NSMutableDictionary *pathExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *filterPath_memo;
+@property (nonatomic, retain) NSMutableDictionary *complexFilterPath_memo;
+@property (nonatomic, retain) NSMutableDictionary *complexFilterPathStartExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *locationPath_memo;
+@property (nonatomic, retain) NSMutableDictionary *relativeLocationPath_memo;
+@property (nonatomic, retain) NSMutableDictionary *pathBody_memo;
+@property (nonatomic, retain) NSMutableDictionary *pathTail_memo;
+@property (nonatomic, retain) NSMutableDictionary *slashStep_memo;
+@property (nonatomic, retain) NSMutableDictionary *absoluteLocationPath_memo;
+@property (nonatomic, retain) NSMutableDictionary *abbreviatedAbsoluteLocationPath_memo;
+@property (nonatomic, retain) NSMutableDictionary *rootSlash_memo;
+@property (nonatomic, retain) NSMutableDictionary *rootDoubleSlash_memo;
+@property (nonatomic, retain) NSMutableDictionary *firstRelativeStep_memo;
+@property (nonatomic, retain) NSMutableDictionary *filterExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *primaryExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *variableReference_memo;
+@property (nonatomic, retain) NSMutableDictionary *literal_memo;
+@property (nonatomic, retain) NSMutableDictionary *number_memo;
+@property (nonatomic, retain) NSMutableDictionary *functionCall_memo;
+@property (nonatomic, retain) NSMutableDictionary *actualFunctionCall_memo;
+@property (nonatomic, retain) NSMutableDictionary *booleanLiteralFunctionCall_memo;
+@property (nonatomic, retain) NSMutableDictionary *functionName_memo;
+@property (nonatomic, retain) NSMutableDictionary *booleanLiteral_memo;
+@property (nonatomic, retain) NSMutableDictionary *qName_memo;
+@property (nonatomic, retain) NSMutableDictionary *prefix_memo;
+@property (nonatomic, retain) NSMutableDictionary *localPart_memo;
+@property (nonatomic, retain) NSMutableDictionary *ncName_memo;
+@property (nonatomic, retain) NSMutableDictionary *argument_memo;
+@property (nonatomic, retain) NSMutableDictionary *predicate_memo;
+@property (nonatomic, retain) NSMutableDictionary *predicateExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *step_memo;
+@property (nonatomic, retain) NSMutableDictionary *explicitAxisStep_memo;
+@property (nonatomic, retain) NSMutableDictionary *implicitAxisStep_memo;
+@property (nonatomic, retain) NSMutableDictionary *axis_memo;
+@property (nonatomic, retain) NSMutableDictionary *axisName_memo;
+@property (nonatomic, retain) NSMutableDictionary *abbreviatedAxis_memo;
+@property (nonatomic, retain) NSMutableDictionary *stepBody_memo;
+@property (nonatomic, retain) NSMutableDictionary *nodeTest_memo;
+@property (nonatomic, retain) NSMutableDictionary *nameTest_memo;
+@property (nonatomic, retain) NSMutableDictionary *typeTest_memo;
+@property (nonatomic, retain) NSMutableDictionary *nodeType_memo;
+@property (nonatomic, retain) NSMutableDictionary *specificPITest_memo;
+@property (nonatomic, retain) NSMutableDictionary *abbreviatedStep_memo;
 @end
 
 @implementation XPEGParser { }
@@ -107,14 +170,206 @@
         self.tokenKindNameTab[XPEG_TOKEN_KIND_LE_SYM] = @"<=";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_ANCESTOR_OR_SELF] = @"ancestor-or-self";
 
+        self.stmt_memo = [NSMutableDictionary dictionary];
+        self.expr_memo = [NSMutableDictionary dictionary];
+        self.orExpr_memo = [NSMutableDictionary dictionary];
+        self.orAndExpr_memo = [NSMutableDictionary dictionary];
+        self.andExpr_memo = [NSMutableDictionary dictionary];
+        self.andEqualityExpr_memo = [NSMutableDictionary dictionary];
+        self.equalityExpr_memo = [NSMutableDictionary dictionary];
+        self.eqRelationalExpr_memo = [NSMutableDictionary dictionary];
+        self.relationalExpr_memo = [NSMutableDictionary dictionary];
+        self.compareAdditiveExpr_memo = [NSMutableDictionary dictionary];
+        self.additiveExpr_memo = [NSMutableDictionary dictionary];
+        self.plusOrMinusMultiExpr_memo = [NSMutableDictionary dictionary];
+        self.multiplicativeExpr_memo = [NSMutableDictionary dictionary];
+        self.multDivOrModUnaryExpr_memo = [NSMutableDictionary dictionary];
+        self.multiplyOperator_memo = [NSMutableDictionary dictionary];
+        self.unaryExpr_memo = [NSMutableDictionary dictionary];
+        self.minusUnionExpr_memo = [NSMutableDictionary dictionary];
+        self.unionExpr_memo = [NSMutableDictionary dictionary];
+        self.unionTail_memo = [NSMutableDictionary dictionary];
+        self.pathExpr_memo = [NSMutableDictionary dictionary];
+        self.filterPath_memo = [NSMutableDictionary dictionary];
+        self.complexFilterPath_memo = [NSMutableDictionary dictionary];
+        self.complexFilterPathStartExpr_memo = [NSMutableDictionary dictionary];
+        self.locationPath_memo = [NSMutableDictionary dictionary];
+        self.relativeLocationPath_memo = [NSMutableDictionary dictionary];
+        self.pathBody_memo = [NSMutableDictionary dictionary];
+        self.pathTail_memo = [NSMutableDictionary dictionary];
+        self.slashStep_memo = [NSMutableDictionary dictionary];
+        self.absoluteLocationPath_memo = [NSMutableDictionary dictionary];
+        self.abbreviatedAbsoluteLocationPath_memo = [NSMutableDictionary dictionary];
+        self.rootSlash_memo = [NSMutableDictionary dictionary];
+        self.rootDoubleSlash_memo = [NSMutableDictionary dictionary];
+        self.firstRelativeStep_memo = [NSMutableDictionary dictionary];
+        self.filterExpr_memo = [NSMutableDictionary dictionary];
+        self.primaryExpr_memo = [NSMutableDictionary dictionary];
+        self.variableReference_memo = [NSMutableDictionary dictionary];
+        self.literal_memo = [NSMutableDictionary dictionary];
+        self.number_memo = [NSMutableDictionary dictionary];
+        self.functionCall_memo = [NSMutableDictionary dictionary];
+        self.actualFunctionCall_memo = [NSMutableDictionary dictionary];
+        self.booleanLiteralFunctionCall_memo = [NSMutableDictionary dictionary];
+        self.functionName_memo = [NSMutableDictionary dictionary];
+        self.booleanLiteral_memo = [NSMutableDictionary dictionary];
+        self.qName_memo = [NSMutableDictionary dictionary];
+        self.prefix_memo = [NSMutableDictionary dictionary];
+        self.localPart_memo = [NSMutableDictionary dictionary];
+        self.ncName_memo = [NSMutableDictionary dictionary];
+        self.argument_memo = [NSMutableDictionary dictionary];
+        self.predicate_memo = [NSMutableDictionary dictionary];
+        self.predicateExpr_memo = [NSMutableDictionary dictionary];
+        self.step_memo = [NSMutableDictionary dictionary];
+        self.explicitAxisStep_memo = [NSMutableDictionary dictionary];
+        self.implicitAxisStep_memo = [NSMutableDictionary dictionary];
+        self.axis_memo = [NSMutableDictionary dictionary];
+        self.axisName_memo = [NSMutableDictionary dictionary];
+        self.abbreviatedAxis_memo = [NSMutableDictionary dictionary];
+        self.stepBody_memo = [NSMutableDictionary dictionary];
+        self.nodeTest_memo = [NSMutableDictionary dictionary];
+        self.nameTest_memo = [NSMutableDictionary dictionary];
+        self.typeTest_memo = [NSMutableDictionary dictionary];
+        self.nodeType_memo = [NSMutableDictionary dictionary];
+        self.specificPITest_memo = [NSMutableDictionary dictionary];
+        self.abbreviatedStep_memo = [NSMutableDictionary dictionary];
     }
     return self;
 }
 
 - (void)dealloc {
     
+    self.stmt_memo = nil;
+    self.expr_memo = nil;
+    self.orExpr_memo = nil;
+    self.orAndExpr_memo = nil;
+    self.andExpr_memo = nil;
+    self.andEqualityExpr_memo = nil;
+    self.equalityExpr_memo = nil;
+    self.eqRelationalExpr_memo = nil;
+    self.relationalExpr_memo = nil;
+    self.compareAdditiveExpr_memo = nil;
+    self.additiveExpr_memo = nil;
+    self.plusOrMinusMultiExpr_memo = nil;
+    self.multiplicativeExpr_memo = nil;
+    self.multDivOrModUnaryExpr_memo = nil;
+    self.multiplyOperator_memo = nil;
+    self.unaryExpr_memo = nil;
+    self.minusUnionExpr_memo = nil;
+    self.unionExpr_memo = nil;
+    self.unionTail_memo = nil;
+    self.pathExpr_memo = nil;
+    self.filterPath_memo = nil;
+    self.complexFilterPath_memo = nil;
+    self.complexFilterPathStartExpr_memo = nil;
+    self.locationPath_memo = nil;
+    self.relativeLocationPath_memo = nil;
+    self.pathBody_memo = nil;
+    self.pathTail_memo = nil;
+    self.slashStep_memo = nil;
+    self.absoluteLocationPath_memo = nil;
+    self.abbreviatedAbsoluteLocationPath_memo = nil;
+    self.rootSlash_memo = nil;
+    self.rootDoubleSlash_memo = nil;
+    self.firstRelativeStep_memo = nil;
+    self.filterExpr_memo = nil;
+    self.primaryExpr_memo = nil;
+    self.variableReference_memo = nil;
+    self.literal_memo = nil;
+    self.number_memo = nil;
+    self.functionCall_memo = nil;
+    self.actualFunctionCall_memo = nil;
+    self.booleanLiteralFunctionCall_memo = nil;
+    self.functionName_memo = nil;
+    self.booleanLiteral_memo = nil;
+    self.qName_memo = nil;
+    self.prefix_memo = nil;
+    self.localPart_memo = nil;
+    self.ncName_memo = nil;
+    self.argument_memo = nil;
+    self.predicate_memo = nil;
+    self.predicateExpr_memo = nil;
+    self.step_memo = nil;
+    self.explicitAxisStep_memo = nil;
+    self.implicitAxisStep_memo = nil;
+    self.axis_memo = nil;
+    self.axisName_memo = nil;
+    self.abbreviatedAxis_memo = nil;
+    self.stepBody_memo = nil;
+    self.nodeTest_memo = nil;
+    self.nameTest_memo = nil;
+    self.typeTest_memo = nil;
+    self.nodeType_memo = nil;
+    self.specificPITest_memo = nil;
+    self.abbreviatedStep_memo = nil;
 
     [super dealloc];
+}
+
+- (void)clearMemo {
+    [_stmt_memo removeAllObjects];
+    [_expr_memo removeAllObjects];
+    [_orExpr_memo removeAllObjects];
+    [_orAndExpr_memo removeAllObjects];
+    [_andExpr_memo removeAllObjects];
+    [_andEqualityExpr_memo removeAllObjects];
+    [_equalityExpr_memo removeAllObjects];
+    [_eqRelationalExpr_memo removeAllObjects];
+    [_relationalExpr_memo removeAllObjects];
+    [_compareAdditiveExpr_memo removeAllObjects];
+    [_additiveExpr_memo removeAllObjects];
+    [_plusOrMinusMultiExpr_memo removeAllObjects];
+    [_multiplicativeExpr_memo removeAllObjects];
+    [_multDivOrModUnaryExpr_memo removeAllObjects];
+    [_multiplyOperator_memo removeAllObjects];
+    [_unaryExpr_memo removeAllObjects];
+    [_minusUnionExpr_memo removeAllObjects];
+    [_unionExpr_memo removeAllObjects];
+    [_unionTail_memo removeAllObjects];
+    [_pathExpr_memo removeAllObjects];
+    [_filterPath_memo removeAllObjects];
+    [_complexFilterPath_memo removeAllObjects];
+    [_complexFilterPathStartExpr_memo removeAllObjects];
+    [_locationPath_memo removeAllObjects];
+    [_relativeLocationPath_memo removeAllObjects];
+    [_pathBody_memo removeAllObjects];
+    [_pathTail_memo removeAllObjects];
+    [_slashStep_memo removeAllObjects];
+    [_absoluteLocationPath_memo removeAllObjects];
+    [_abbreviatedAbsoluteLocationPath_memo removeAllObjects];
+    [_rootSlash_memo removeAllObjects];
+    [_rootDoubleSlash_memo removeAllObjects];
+    [_firstRelativeStep_memo removeAllObjects];
+    [_filterExpr_memo removeAllObjects];
+    [_primaryExpr_memo removeAllObjects];
+    [_variableReference_memo removeAllObjects];
+    [_literal_memo removeAllObjects];
+    [_number_memo removeAllObjects];
+    [_functionCall_memo removeAllObjects];
+    [_actualFunctionCall_memo removeAllObjects];
+    [_booleanLiteralFunctionCall_memo removeAllObjects];
+    [_functionName_memo removeAllObjects];
+    [_booleanLiteral_memo removeAllObjects];
+    [_qName_memo removeAllObjects];
+    [_prefix_memo removeAllObjects];
+    [_localPart_memo removeAllObjects];
+    [_ncName_memo removeAllObjects];
+    [_argument_memo removeAllObjects];
+    [_predicate_memo removeAllObjects];
+    [_predicateExpr_memo removeAllObjects];
+    [_step_memo removeAllObjects];
+    [_explicitAxisStep_memo removeAllObjects];
+    [_implicitAxisStep_memo removeAllObjects];
+    [_axis_memo removeAllObjects];
+    [_axisName_memo removeAllObjects];
+    [_abbreviatedAxis_memo removeAllObjects];
+    [_stepBody_memo removeAllObjects];
+    [_nodeTest_memo removeAllObjects];
+    [_nameTest_memo removeAllObjects];
+    [_typeTest_memo removeAllObjects];
+    [_nodeType_memo removeAllObjects];
+    [_specificPITest_memo removeAllObjects];
+    [_abbreviatedStep_memo removeAllObjects];
 }
 
 - (void)start {
@@ -158,21 +413,29 @@
 
 }
 
-- (void)stmt_ {
+- (void)__stmt {
     
     [self expr_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchStmt:)];
 }
 
-- (void)expr_ {
+- (void)stmt_ {
+    [self parseRule:@selector(__stmt) withMemo:_stmt_memo];
+}
+
+- (void)__expr {
     
     [self orExpr_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchExpr:)];
 }
 
-- (void)orExpr_ {
+- (void)expr_ {
+    [self parseRule:@selector(__expr) withMemo:_expr_memo];
+}
+
+- (void)__orExpr {
     
     [self andExpr_]; 
     while ([self speculate:^{ [self orAndExpr_]; }]) {
@@ -182,7 +445,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchOrExpr:)];
 }
 
-- (void)orAndExpr_ {
+- (void)orExpr_ {
+    [self parseRule:@selector(__orExpr) withMemo:_orExpr_memo];
+}
+
+- (void)__orAndExpr {
     
     [self match:XPEG_TOKEN_KIND_OR discard:NO]; 
     [self andExpr_]; 
@@ -190,7 +457,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchOrAndExpr:)];
 }
 
-- (void)andExpr_ {
+- (void)orAndExpr_ {
+    [self parseRule:@selector(__orAndExpr) withMemo:_orAndExpr_memo];
+}
+
+- (void)__andExpr {
     
     [self equalityExpr_]; 
     while ([self speculate:^{ [self andEqualityExpr_]; }]) {
@@ -200,7 +471,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchAndExpr:)];
 }
 
-- (void)andEqualityExpr_ {
+- (void)andExpr_ {
+    [self parseRule:@selector(__andExpr) withMemo:_andExpr_memo];
+}
+
+- (void)__andEqualityExpr {
     
     [self match:XPEG_TOKEN_KIND_AND discard:NO]; 
     [self equalityExpr_]; 
@@ -208,7 +483,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchAndEqualityExpr:)];
 }
 
-- (void)equalityExpr_ {
+- (void)andEqualityExpr_ {
+    [self parseRule:@selector(__andEqualityExpr) withMemo:_andEqualityExpr_memo];
+}
+
+- (void)__equalityExpr {
     
     [self relationalExpr_]; 
     while ([self speculate:^{ [self eqRelationalExpr_]; }]) {
@@ -218,7 +497,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchEqualityExpr:)];
 }
 
-- (void)eqRelationalExpr_ {
+- (void)equalityExpr_ {
+    [self parseRule:@selector(__equalityExpr) withMemo:_equalityExpr_memo];
+}
+
+- (void)__eqRelationalExpr {
     
     if ([self predicts:XPEG_TOKEN_KIND_EQUALS, 0]) {
         [self match:XPEG_TOKEN_KIND_EQUALS discard:NO]; 
@@ -232,7 +515,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchEqRelationalExpr:)];
 }
 
-- (void)relationalExpr_ {
+- (void)eqRelationalExpr_ {
+    [self parseRule:@selector(__eqRelationalExpr) withMemo:_eqRelationalExpr_memo];
+}
+
+- (void)__relationalExpr {
     
     [self additiveExpr_]; 
     while ([self speculate:^{ [self compareAdditiveExpr_]; }]) {
@@ -242,7 +529,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchRelationalExpr:)];
 }
 
-- (void)compareAdditiveExpr_ {
+- (void)relationalExpr_ {
+    [self parseRule:@selector(__relationalExpr) withMemo:_relationalExpr_memo];
+}
+
+- (void)__compareAdditiveExpr {
     
     if ([self predicts:XPEG_TOKEN_KIND_LT_SYM, 0]) {
         [self match:XPEG_TOKEN_KIND_LT_SYM discard:NO]; 
@@ -260,7 +551,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchCompareAdditiveExpr:)];
 }
 
-- (void)additiveExpr_ {
+- (void)compareAdditiveExpr_ {
+    [self parseRule:@selector(__compareAdditiveExpr) withMemo:_compareAdditiveExpr_memo];
+}
+
+- (void)__additiveExpr {
     
     [self multiplicativeExpr_]; 
     while ([self speculate:^{ [self plusOrMinusMultiExpr_]; }]) {
@@ -270,7 +565,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchAdditiveExpr:)];
 }
 
-- (void)plusOrMinusMultiExpr_ {
+- (void)additiveExpr_ {
+    [self parseRule:@selector(__additiveExpr) withMemo:_additiveExpr_memo];
+}
+
+- (void)__plusOrMinusMultiExpr {
     
     if ([self predicts:XPEG_TOKEN_KIND_PLUS, 0]) {
         [self match:XPEG_TOKEN_KIND_PLUS discard:NO]; 
@@ -284,7 +583,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchPlusOrMinusMultiExpr:)];
 }
 
-- (void)multiplicativeExpr_ {
+- (void)plusOrMinusMultiExpr_ {
+    [self parseRule:@selector(__plusOrMinusMultiExpr) withMemo:_plusOrMinusMultiExpr_memo];
+}
+
+- (void)__multiplicativeExpr {
     
     [self unaryExpr_]; 
     while ([self speculate:^{ [self multDivOrModUnaryExpr_]; }]) {
@@ -294,7 +597,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchMultiplicativeExpr:)];
 }
 
-- (void)multDivOrModUnaryExpr_ {
+- (void)multiplicativeExpr_ {
+    [self parseRule:@selector(__multiplicativeExpr) withMemo:_multiplicativeExpr_memo];
+}
+
+- (void)__multDivOrModUnaryExpr {
     
     if ([self predicts:XPEG_TOKEN_KIND_MULTIPLYOPERATOR, 0]) {
         [self multiplyOperator_]; 
@@ -310,14 +617,22 @@
     [self fireDelegateSelector:@selector(parser:didMatchMultDivOrModUnaryExpr:)];
 }
 
-- (void)multiplyOperator_ {
+- (void)multDivOrModUnaryExpr_ {
+    [self parseRule:@selector(__multDivOrModUnaryExpr) withMemo:_multDivOrModUnaryExpr_memo];
+}
+
+- (void)__multiplyOperator {
     
     [self match:XPEG_TOKEN_KIND_MULTIPLYOPERATOR discard:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchMultiplyOperator:)];
 }
 
-- (void)unaryExpr_ {
+- (void)multiplyOperator_ {
+    [self parseRule:@selector(__multiplyOperator) withMemo:_multiplyOperator_memo];
+}
+
+- (void)__unaryExpr {
     
     if ([self predicts:XPEG_TOKEN_KIND_MINUS, 0]) {
         [self minusUnionExpr_]; 
@@ -330,7 +645,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchUnaryExpr:)];
 }
 
-- (void)minusUnionExpr_ {
+- (void)unaryExpr_ {
+    [self parseRule:@selector(__unaryExpr) withMemo:_unaryExpr_memo];
+}
+
+- (void)__minusUnionExpr {
     
     do {
         [self match:XPEG_TOKEN_KIND_MINUS discard:NO]; 
@@ -340,7 +659,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchMinusUnionExpr:)];
 }
 
-- (void)unionExpr_ {
+- (void)minusUnionExpr_ {
+    [self parseRule:@selector(__minusUnionExpr) withMemo:_minusUnionExpr_memo];
+}
+
+- (void)__unionExpr {
     
     [self pathExpr_]; 
     while ([self speculate:^{ [self unionTail_]; }]) {
@@ -350,7 +673,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchUnionExpr:)];
 }
 
-- (void)unionTail_ {
+- (void)unionExpr_ {
+    [self parseRule:@selector(__unionExpr) withMemo:_unionExpr_memo];
+}
+
+- (void)__unionTail {
     
     [self match:XPEG_TOKEN_KIND_PIPE discard:NO]; 
     [self pathExpr_]; 
@@ -358,7 +685,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchUnionTail:)];
 }
 
-- (void)pathExpr_ {
+- (void)unionTail_ {
+    [self parseRule:@selector(__unionTail) withMemo:_unionTail_memo];
+}
+
+- (void)__pathExpr {
     
     if ([self speculate:^{ [self filterPath_]; }]) {
         [self filterPath_]; 
@@ -371,7 +702,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchPathExpr:)];
 }
 
-- (void)filterPath_ {
+- (void)pathExpr_ {
+    [self parseRule:@selector(__pathExpr) withMemo:_pathExpr_memo];
+}
+
+- (void)__filterPath {
     
     if ([self speculate:^{ [self complexFilterPath_]; }]) {
         [self complexFilterPath_]; 
@@ -384,7 +719,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchFilterPath:)];
 }
 
-- (void)complexFilterPath_ {
+- (void)filterPath_ {
+    [self parseRule:@selector(__filterPath) withMemo:_filterPath_memo];
+}
+
+- (void)__complexFilterPath {
     
     [self complexFilterPathStartExpr_]; 
     [self slashStep_]; 
@@ -393,14 +732,22 @@
     [self fireDelegateSelector:@selector(parser:didMatchComplexFilterPath:)];
 }
 
-- (void)complexFilterPathStartExpr_ {
+- (void)complexFilterPath_ {
+    [self parseRule:@selector(__complexFilterPath) withMemo:_complexFilterPath_memo];
+}
+
+- (void)__complexFilterPathStartExpr {
     
     [self filterExpr_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchComplexFilterPathStartExpr:)];
 }
 
-- (void)locationPath_ {
+- (void)complexFilterPathStartExpr_ {
+    [self parseRule:@selector(__complexFilterPathStartExpr) withMemo:_complexFilterPathStartExpr_memo];
+}
+
+- (void)__locationPath {
     
     if ([self predicts:TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_ABBREVIATEDAXIS, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTOR_OR_SELF, XPEG_TOKEN_KIND_ATTRIBUTE, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANT_OR_SELF, XPEG_TOKEN_KIND_DOT, XPEG_TOKEN_KIND_DOT_DOT, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWING_SIBLING, XPEG_TOKEN_KIND_MULTIPLYOPERATOR, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDING_SIBLING, XPEG_TOKEN_KIND_PROCESSING_INSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, 0]) {
         [self relativeLocationPath_]; 
@@ -413,7 +760,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchLocationPath:)];
 }
 
-- (void)relativeLocationPath_ {
+- (void)locationPath_ {
+    [self parseRule:@selector(__locationPath) withMemo:_locationPath_memo];
+}
+
+- (void)__relativeLocationPath {
     
     [self firstRelativeStep_]; 
     [self pathTail_]; 
@@ -421,7 +772,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchRelativeLocationPath:)];
 }
 
-- (void)pathBody_ {
+- (void)relativeLocationPath_ {
+    [self parseRule:@selector(__relativeLocationPath) withMemo:_relativeLocationPath_memo];
+}
+
+- (void)__pathBody {
     
     [self step_]; 
     [self pathTail_]; 
@@ -429,7 +784,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchPathBody:)];
 }
 
-- (void)pathTail_ {
+- (void)pathBody_ {
+    [self parseRule:@selector(__pathBody) withMemo:_pathBody_memo];
+}
+
+- (void)__pathTail {
     
     while ([self speculate:^{ [self slashStep_]; }]) {
         [self slashStep_]; 
@@ -438,7 +797,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchPathTail:)];
 }
 
-- (void)slashStep_ {
+- (void)pathTail_ {
+    [self parseRule:@selector(__pathTail) withMemo:_pathTail_memo];
+}
+
+- (void)__slashStep {
     
     if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {
         [self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:NO]; 
@@ -452,7 +815,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchSlashStep:)];
 }
 
-- (void)absoluteLocationPath_ {
+- (void)slashStep_ {
+    [self parseRule:@selector(__slashStep) withMemo:_slashStep_memo];
+}
+
+- (void)__absoluteLocationPath {
     
     if ([self predicts:XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {
         [self rootSlash_]; 
@@ -468,7 +835,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchAbsoluteLocationPath:)];
 }
 
-- (void)abbreviatedAbsoluteLocationPath_ {
+- (void)absoluteLocationPath_ {
+    [self parseRule:@selector(__absoluteLocationPath) withMemo:_absoluteLocationPath_memo];
+}
+
+- (void)__abbreviatedAbsoluteLocationPath {
     
     [self rootDoubleSlash_]; 
     [self pathBody_]; 
@@ -476,28 +847,44 @@
     [self fireDelegateSelector:@selector(parser:didMatchAbbreviatedAbsoluteLocationPath:)];
 }
 
-- (void)rootSlash_ {
+- (void)abbreviatedAbsoluteLocationPath_ {
+    [self parseRule:@selector(__abbreviatedAbsoluteLocationPath) withMemo:_abbreviatedAbsoluteLocationPath_memo];
+}
+
+- (void)__rootSlash {
     
     [self match:XPEG_TOKEN_KIND_FORWARD_SLASH discard:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchRootSlash:)];
 }
 
-- (void)rootDoubleSlash_ {
+- (void)rootSlash_ {
+    [self parseRule:@selector(__rootSlash) withMemo:_rootSlash_memo];
+}
+
+- (void)__rootDoubleSlash {
     
     [self match:XPEG_TOKEN_KIND_DOUBLE_SLASH discard:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchRootDoubleSlash:)];
 }
 
-- (void)firstRelativeStep_ {
+- (void)rootDoubleSlash_ {
+    [self parseRule:@selector(__rootDoubleSlash) withMemo:_rootDoubleSlash_memo];
+}
+
+- (void)__firstRelativeStep {
     
     [self step_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchFirstRelativeStep:)];
 }
 
-- (void)filterExpr_ {
+- (void)firstRelativeStep_ {
+    [self parseRule:@selector(__firstRelativeStep) withMemo:_firstRelativeStep_memo];
+}
+
+- (void)__filterExpr {
     
     [self primaryExpr_]; 
     while ([self speculate:^{ [self predicate_]; }]) {
@@ -507,7 +894,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchFilterExpr:)];
 }
 
-- (void)primaryExpr_ {
+- (void)filterExpr_ {
+    [self parseRule:@selector(__filterExpr) withMemo:_filterExpr_memo];
+}
+
+- (void)__primaryExpr {
     
     if ([self predicts:XPEG_TOKEN_KIND_DOLLAR, 0]) {
         [self variableReference_]; 
@@ -528,7 +919,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchPrimaryExpr:)];
 }
 
-- (void)variableReference_ {
+- (void)primaryExpr_ {
+    [self parseRule:@selector(__primaryExpr) withMemo:_primaryExpr_memo];
+}
+
+- (void)__variableReference {
     
     [self match:XPEG_TOKEN_KIND_DOLLAR discard:NO]; 
     [self qName_]; 
@@ -536,21 +931,33 @@
     [self fireDelegateSelector:@selector(parser:didMatchVariableReference:)];
 }
 
-- (void)literal_ {
+- (void)variableReference_ {
+    [self parseRule:@selector(__variableReference) withMemo:_variableReference_memo];
+}
+
+- (void)__literal {
     
     [self matchQuotedString:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchLiteral:)];
 }
 
-- (void)number_ {
+- (void)literal_ {
+    [self parseRule:@selector(__literal) withMemo:_literal_memo];
+}
+
+- (void)__number {
     
     [self matchNumber:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchNumber:)];
 }
 
-- (void)functionCall_ {
+- (void)number_ {
+    [self parseRule:@selector(__number) withMemo:_number_memo];
+}
+
+- (void)__functionCall {
     
     if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self actualFunctionCall_]; 
@@ -563,7 +970,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchFunctionCall:)];
 }
 
-- (void)actualFunctionCall_ {
+- (void)functionCall_ {
+    [self parseRule:@selector(__functionCall) withMemo:_functionCall_memo];
+}
+
+- (void)__actualFunctionCall {
     
     [self functionName_]; 
     [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:NO]; 
@@ -579,7 +990,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchActualFunctionCall:)];
 }
 
-- (void)booleanLiteralFunctionCall_ {
+- (void)actualFunctionCall_ {
+    [self parseRule:@selector(__actualFunctionCall) withMemo:_actualFunctionCall_memo];
+}
+
+- (void)__booleanLiteralFunctionCall {
     
     [self booleanLiteral_]; 
     [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:YES]; 
@@ -588,7 +1003,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchBooleanLiteralFunctionCall:)];
 }
 
-- (void)functionName_ {
+- (void)booleanLiteralFunctionCall_ {
+    [self parseRule:@selector(__booleanLiteralFunctionCall) withMemo:_booleanLiteralFunctionCall_memo];
+}
+
+- (void)__functionName {
     
     [self testAndThrow:(id)^{ return NE(LS(1), @"true") && NE(LS(1), @"false") && NE(LS(1), @"comment") && NE(LS(1), @"text") && NE(LS(1), @"processing-instruction") && NE(LS(1), @"node"); }]; 
     [self qName_]; 
@@ -596,7 +1015,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchFunctionName:)];
 }
 
-- (void)booleanLiteral_ {
+- (void)functionName_ {
+    [self parseRule:@selector(__functionName) withMemo:_functionName_memo];
+}
+
+- (void)__booleanLiteral {
     
     if ([self predicts:XPEG_TOKEN_KIND_TRUE, 0]) {
         [self match:XPEG_TOKEN_KIND_TRUE discard:NO]; 
@@ -609,7 +1032,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchBooleanLiteral:)];
 }
 
-- (void)qName_ {
+- (void)booleanLiteral_ {
+    [self parseRule:@selector(__booleanLiteral) withMemo:_booleanLiteral_memo];
+}
+
+- (void)__qName {
     
     if ([self speculate:^{ [self prefix_]; [self match:XPEG_TOKEN_KIND_COLON discard:NO]; }]) {
         [self prefix_]; 
@@ -620,35 +1047,55 @@
     [self fireDelegateSelector:@selector(parser:didMatchQName:)];
 }
 
-- (void)prefix_ {
+- (void)qName_ {
+    [self parseRule:@selector(__qName) withMemo:_qName_memo];
+}
+
+- (void)__prefix {
     
     [self ncName_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchPrefix:)];
 }
 
-- (void)localPart_ {
+- (void)prefix_ {
+    [self parseRule:@selector(__prefix) withMemo:_prefix_memo];
+}
+
+- (void)__localPart {
     
     [self ncName_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchLocalPart:)];
 }
 
-- (void)ncName_ {
+- (void)localPart_ {
+    [self parseRule:@selector(__localPart) withMemo:_localPart_memo];
+}
+
+- (void)__ncName {
     
     [self matchWord:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchNcName:)];
 }
 
-- (void)argument_ {
+- (void)ncName_ {
+    [self parseRule:@selector(__ncName) withMemo:_ncName_memo];
+}
+
+- (void)__argument {
     
     [self expr_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchArgument:)];
 }
 
-- (void)predicate_ {
+- (void)argument_ {
+    [self parseRule:@selector(__argument) withMemo:_argument_memo];
+}
+
+- (void)__predicate {
     
     [self match:XPEG_TOKEN_KIND_OPEN_BRACKET discard:YES]; 
     [self predicateExpr_]; 
@@ -657,14 +1104,22 @@
     [self fireDelegateSelector:@selector(parser:didMatchPredicate:)];
 }
 
-- (void)predicateExpr_ {
+- (void)predicate_ {
+    [self parseRule:@selector(__predicate) withMemo:_predicate_memo];
+}
+
+- (void)__predicateExpr {
     
     [self expr_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchPredicateExpr:)];
 }
 
-- (void)step_ {
+- (void)predicateExpr_ {
+    [self parseRule:@selector(__predicateExpr) withMemo:_predicateExpr_memo];
+}
+
+- (void)__step {
     
     if ([self predicts:XPEG_TOKEN_KIND_ABBREVIATEDAXIS, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTOR_OR_SELF, XPEG_TOKEN_KIND_ATTRIBUTE, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANT_OR_SELF, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWING_SIBLING, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDING_SIBLING, XPEG_TOKEN_KIND_SELF, 0]) {
         [self explicitAxisStep_]; 
@@ -679,7 +1134,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchStep:)];
 }
 
-- (void)explicitAxisStep_ {
+- (void)step_ {
+    [self parseRule:@selector(__step) withMemo:_step_memo];
+}
+
+- (void)__explicitAxisStep {
     
     [self axis_]; 
     [self stepBody_]; 
@@ -687,14 +1146,22 @@
     [self fireDelegateSelector:@selector(parser:didMatchExplicitAxisStep:)];
 }
 
-- (void)implicitAxisStep_ {
+- (void)explicitAxisStep_ {
+    [self parseRule:@selector(__explicitAxisStep) withMemo:_explicitAxisStep_memo];
+}
+
+- (void)__implicitAxisStep {
     
     [self stepBody_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchImplicitAxisStep:)];
 }
 
-- (void)axis_ {
+- (void)implicitAxisStep_ {
+    [self parseRule:@selector(__implicitAxisStep) withMemo:_implicitAxisStep_memo];
+}
+
+- (void)__axis {
     
     if ([self predicts:XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTOR_OR_SELF, XPEG_TOKEN_KIND_ATTRIBUTE, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANT_OR_SELF, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWING_SIBLING, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDING_SIBLING, XPEG_TOKEN_KIND_SELF, 0]) {
         [self axisName_]; 
@@ -708,7 +1175,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchAxis:)];
 }
 
-- (void)axisName_ {
+- (void)axis_ {
+    [self parseRule:@selector(__axis) withMemo:_axis_memo];
+}
+
+- (void)__axisName {
     
     if ([self predicts:XPEG_TOKEN_KIND_ANCESTOR, 0]) {
         [self match:XPEG_TOKEN_KIND_ANCESTOR discard:NO]; 
@@ -743,14 +1214,22 @@
     [self fireDelegateSelector:@selector(parser:didMatchAxisName:)];
 }
 
-- (void)abbreviatedAxis_ {
+- (void)axisName_ {
+    [self parseRule:@selector(__axisName) withMemo:_axisName_memo];
+}
+
+- (void)__abbreviatedAxis {
     
     [self match:XPEG_TOKEN_KIND_ABBREVIATEDAXIS discard:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchAbbreviatedAxis:)];
 }
 
-- (void)stepBody_ {
+- (void)abbreviatedAxis_ {
+    [self parseRule:@selector(__abbreviatedAxis) withMemo:_abbreviatedAxis_memo];
+}
+
+- (void)__stepBody {
     
     [self nodeTest_]; 
     while ([self speculate:^{ [self predicate_]; }]) {
@@ -760,7 +1239,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchStepBody:)];
 }
 
-- (void)nodeTest_ {
+- (void)stepBody_ {
+    [self parseRule:@selector(__stepBody) withMemo:_stepBody_memo];
+}
+
+- (void)__nodeTest {
     
     if ([self speculate:^{ [self nameTest_]; }]) {
         [self nameTest_]; 
@@ -775,7 +1258,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchNodeTest:)];
 }
 
-- (void)nameTest_ {
+- (void)nodeTest_ {
+    [self parseRule:@selector(__nodeTest) withMemo:_nodeTest_memo];
+}
+
+- (void)__nameTest {
     
     if ([self speculate:^{ [self match:XPEG_TOKEN_KIND_MULTIPLYOPERATOR discard:NO]; }]) {
         [self match:XPEG_TOKEN_KIND_MULTIPLYOPERATOR discard:NO]; 
@@ -792,7 +1279,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchNameTest:)];
 }
 
-- (void)typeTest_ {
+- (void)nameTest_ {
+    [self parseRule:@selector(__nameTest) withMemo:_nameTest_memo];
+}
+
+- (void)__typeTest {
     
     [self nodeType_]; 
     [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:YES]; 
@@ -801,7 +1292,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchTypeTest:)];
 }
 
-- (void)nodeType_ {
+- (void)typeTest_ {
+    [self parseRule:@selector(__typeTest) withMemo:_typeTest_memo];
+}
+
+- (void)__nodeType {
     
     if ([self predicts:XPEG_TOKEN_KIND_COMMENT, 0]) {
         [self match:XPEG_TOKEN_KIND_COMMENT discard:NO]; 
@@ -818,7 +1313,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchNodeType:)];
 }
 
-- (void)specificPITest_ {
+- (void)nodeType_ {
+    [self parseRule:@selector(__nodeType) withMemo:_nodeType_memo];
+}
+
+- (void)__specificPITest {
     
     [self match:XPEG_TOKEN_KIND_PROCESSING_INSTRUCTION discard:NO]; 
     [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:YES]; 
@@ -828,7 +1327,11 @@
     [self fireDelegateSelector:@selector(parser:didMatchSpecificPITest:)];
 }
 
-- (void)abbreviatedStep_ {
+- (void)specificPITest_ {
+    [self parseRule:@selector(__specificPITest) withMemo:_specificPITest_memo];
+}
+
+- (void)__abbreviatedStep {
     
     if ([self predicts:XPEG_TOKEN_KIND_DOT, 0]) {
         [self match:XPEG_TOKEN_KIND_DOT discard:NO]; 
@@ -839,6 +1342,10 @@
     }
 
     [self fireDelegateSelector:@selector(parser:didMatchAbbreviatedStep:)];
+}
+
+- (void)abbreviatedStep_ {
+    [self parseRule:@selector(__abbreviatedStep) withMemo:_abbreviatedStep_memo];
 }
 
 @end
