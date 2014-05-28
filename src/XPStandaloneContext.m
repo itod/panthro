@@ -8,6 +8,7 @@
 
 #import "XPStandaloneContext.h"
 #import "XPUtils.h"
+#import "XPException.h"
 
 #import "XPSync.h"
 #import "XPContext.h"
@@ -91,7 +92,8 @@ NSString * const XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
             result = [expr evaluateInContext:ctx];
         } @catch (NSException *ex) {
             result = nil;
-            err = [NSError errorWithDomain:XPathErrorDomain code:XPathErrorCodeRuntime userInfo:[ex userInfo]];
+            id info = @{NSLocalizedDescriptionKey: [ex name], NSLocalizedFailureReasonErrorKey: [ex reason], XPathExceptionRangeKey: [NSValue valueWithRange:[ex range]]};
+            err = [NSError errorWithDomain:XPathErrorDomain code:XPathErrorCodeRuntime userInfo:info];
         }
         
         [result retain]; // +1 to survive autorelase pool drain

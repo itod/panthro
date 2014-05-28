@@ -8,6 +8,7 @@
 
 #import "XPPathExpression.h"
 #import "XPStaticContext.h"
+#import "XPException.h"
 #import "XPSync.h"
 #import "XPContext.h"
 #import "XPStep.h"
@@ -235,7 +236,7 @@
         BOOL resume = [[ctx.staticContext.debugSync awaitResume] boolValue];
 
         if (!resume) {
-            [NSException raise:@"XPathTerminateException" format:@"User Terminated"];
+            [XPException raiseIn:self format:@"User Terminated"];
         }
     }
     
