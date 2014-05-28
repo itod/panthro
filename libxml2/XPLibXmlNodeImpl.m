@@ -347,7 +347,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
         if (0 == strcmp((char *)attr->name, [localName UTF8String])) {
             xmlNodePtr val = attr->children;
             if (val) {
-                res = XPSTR(val->content);
+                res = XPSTR(XML_GET_CONTENT(val));
             }
             break;
         }

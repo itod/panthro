@@ -8,7 +8,6 @@
     <chapter id="c1" foobar:baz="OHAI">
         <title>Chapter 1</title>
         <para>Chapter 1 content. </para>
-        <foobar:hello>Hello</foobar:hello>
     </chapter>
 
     <chapter id="c2">

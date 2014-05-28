@@ -39,10 +39,6 @@
 
 
 - (BOOL)matches:(XPNodeType)nodeType name:(NSString *)name {
-    NSLog(@"self: %@, %d, %lu", _name, _isWildcard, self.nodeType);
-    if ([name hasPrefix:@"foo"]) {
-        NSLog(@"fooo!!");
-    }
     BOOL matches = NO;
     if ((XPNodeTypeNode == nodeType || self.nodeType == nodeType) && (_isWildcard || [_name isEqualToString:name])) {
         matches = YES;
