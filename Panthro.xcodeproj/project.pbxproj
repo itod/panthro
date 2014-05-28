@@ -869,8 +869,8 @@
 				D33639DB100DAB8C00AC4B51 /* XPTestScaffold.h */,
 				D33639DA100DAB8C00AC4B51 /* XPTestScaffold.m */,
 				D3366B0C188051D9008C4144 /* Parser */,
-				D37A2A16101400A500E936B7 /* Expr */,
 				D37A2A17101400AD00E936B7 /* Fn */,
+				D37A2A16101400A500E936B7 /* Expr */,
 			);
 			name = "Panthro Tests";
 			sourceTree = "<group>";

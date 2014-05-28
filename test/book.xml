@@ -3,11 +3,12 @@
     <!ELEMENT chapter ANY>
     <!ATTLIST chapter id ID #REQUIRED>
 ]>
-<book xmlns:foo="bar">
+<book xmlns:foobar="bar">
     <!-- some comment  text -->
-    <chapter id="c1" foo:baz="OHAI">
-      <title>Chapter 1</title>
-      <para>Chapter 1 content. </para>
+    <chapter id="c1" foobar:baz="OHAI">
+        <title>Chapter 1</title>
+        <para>Chapter 1 content. </para>
+        <foobar:hello>Hello</foobar:hello>
     </chapter>
 
     <chapter id="c2">
@@ -16,8 +17,8 @@
     </chapter>
 
     <chapter id="c3">
-      <title>Chapter 3</title>
-      <para>Chapter 3 content.</para>
+        <title>Chapter 3</title>
+        <para>Chapter 3 content.</para>
     </chapter>
     <?foo bar='baz'?>
 </book>
