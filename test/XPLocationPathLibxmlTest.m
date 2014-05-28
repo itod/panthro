@@ -1608,7 +1608,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     id <XPNodeEnumeration>enm = [_res enumerate];
     
     id <XPNodeInfo>node = [enm nextObject];
-    TDEqualObjects(nil, node.name);
+    TDEqualObjects(@"", node.name);
     TDEquals(XPNodeTypeComment, node.nodeType);
     TDEqualObjects(_comments[0], [node stringValue]);
     

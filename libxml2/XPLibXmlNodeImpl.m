@@ -242,26 +242,46 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
 }
 
 
+//XMLPUBFUN xmlNsPtr XMLCALL
+//xmlSearchNs		(xmlDocPtr doc,
+//                 xmlNodePtr node,
+//                 const xmlChar *nameSpace);
+//XMLPUBFUN xmlNsPtr XMLCALL
+//xmlSearchNsByHref	(xmlDocPtr doc,
+//					 xmlNodePtr node,
+//					 const xmlChar *href);
+//
+
 - (NSString *)name {
     XPAssert(_node);
-    NSString *res = nil;
+    NSString *qName = nil;
+    NSString *localName = nil;
     switch (self.nodeType) {
         case XPNodeTypeElement:
         case XPNodeTypeAttribute:
         case XPNodeTypePI:
         case XPNodeTypeNamespace:
-            res = XPSTR(_node->name);
+            localName = XPSTR(_node->name);
             break;
-        case XPNodeTypeRoot:
-        case XPNodeTypeComment:
         case XPNodeTypeText:
-        case XPNodeTypeNode:
+        case XPNodeTypeComment:
+        case XPNodeTypeRoot:
+            localName = @"";
             break;
+        case XPNodeTypeNode:
         default:
             XPAssert(0);
             break;
     }
-    return res;
+    xmlNsPtr ns = _node->ns;
+    if (ns) {
+        NSString *prefix = XPSTR(ns->prefix);
+        qName = [NSString stringWithFormat:@"%@:%@", prefix, localName];
+    } else {
+        qName = localName;
+    }
+    
+    return qName;
 }
 
 
@@ -312,7 +332,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
 - (NSInteger)lineNumber {
     XPAssert(_node);
     if (-1 == _lineNumber) {
-        _lineNumber = xmlGetLineNo(_node);
+        _lineNumber = XML_GET_LINE(_node);
     }
     return _lineNumber;
 }
