@@ -589,9 +589,6 @@
 }
 
 
-
-
-
 /*
 NOTE: The location path //para[1] does not mean the same as the location path /descendant::para[1]. 
  The latter selects the first descendant para element; 
