@@ -64,7 +64,17 @@
 - (XPExpression *)simplify {
     self.start = [_start simplify];
     self.step = [_step simplify];
+
+    if ([_start isKindOfClass:[XPEmptyNodeSet class]]) {
+        return _start;
+    }
+        
+    if (!_step) {
+        return [XPEmptyNodeSet emptyNodeSet];
+    }
     
+    XPAssert(_start);
+    XPAssert(_step);
     return self;
 }
 
@@ -137,6 +147,8 @@
             [newstep addFilter:newfilter];
         }
         
+        XPAssert(newstart);
+        XPAssert(newstep);
         result = [[[XPPathExpression alloc] initWithStart:newstart step:newstep] autorelease];
         result.staticContext = self.staticContext;
         result.range = self.range;

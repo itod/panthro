@@ -543,7 +543,7 @@
 }
 
 
-- (void)testSlashSlashCapterPredicateAtIdEqC1 {
+- (void)testSlashSlashChapterPredicateAtIdEqC1 {
     [self eval:@"//chapter[@id='c1']"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1149,7 +1149,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testCapterPredicate1SlashFollowingSiblingStarSlashTitle {
+- (void)testChapterPredicate1SlashFollowingSiblingStarSlashTitle {
     [self eval:@"chapter[1]/following-sibling::*/title"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1166,7 +1166,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testCapterPredicate2SlashFollowingSiblingStarSlashTitle {
+- (void)testChapterPredicate2SlashFollowingSiblingStarSlashTitle {
     [self eval:@"chapter[2]/following-sibling::*/title"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1183,7 +1183,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testCapterPredicate3SlashFollowingSiblingStarSlashTitle {
+- (void)testChapterPredicate3SlashFollowingSiblingStarSlashTitle {
     [self eval:@"chapter[3]/following-sibling::*/title"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1192,7 +1192,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testCapterPredicate3SlashPrecedingSiblingStarSlashTitle {
+- (void)testChapterPredicate3SlashPrecedingSiblingStarSlashTitle {
     [self eval:@"chapter[3]/preceding-sibling::*/title"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1209,7 +1209,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testCapterPredicate2SlashPrecedingSiblingStarSlashTitle {
+- (void)testChapterPredicate2SlashPrecedingSiblingStarSlashTitle {
     [self eval:@"chapter[2]/preceding-sibling::*/title"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1226,7 +1226,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testCapterPredicate1SlashPrecedingSiblingStarSlashTitle {
+- (void)testChapterPredicate1SlashPrecedingSiblingStarSlashTitle {
     [self eval:@"chapter[1]/preceding-sibling::*/title"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1235,7 +1235,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testCapterPredicate3SlashPrecedingSiblingStarPredicate1SlashTitle {
+- (void)testChapterPredicate3SlashPrecedingSiblingStarPredicate1SlashTitle {
     [self eval:@"chapter[3]/preceding-sibling::*[1]/title"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1250,7 +1250,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testCapterPredicate3SlashPrecedingSiblingStarPredicate2SlashTitle {
+- (void)testChapterPredicate3SlashPrecedingSiblingStarPredicate2SlashTitle {
     [self eval:@"chapter[3]/preceding-sibling::*[2]/title"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1265,7 +1265,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testCapterPredicate3SlashPrecedingSiblingChapterPredicate2SlashTitle {
+- (void)testChapterPredicate3SlashPrecedingSiblingChapterPredicate2SlashTitle {
     [self eval:@"chapter[3]/preceding-sibling::chapter[2]/title"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1365,7 +1365,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testSlashBookSlashCapterPredicateStartsWithDotCh {
+- (void)testSlashBookSlashChapterPredicateStartsWithDotCh {
     [self eval:@"/book/chapter[starts-with(., 'Ch')]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1374,7 +1374,32 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testSlashBookSlashCapterPredicateStartsWithTrimSpaceDotCh {
+- (void)testSlashBookSlashChapterSlashParaPredicateStartsWithDotCh {
+    [self eval:@"/book/chapter/para[starts-with(., 'Ch')]"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testSlashBookSlashChapterPredicateStartsWithStringDotCh {
+    [self eval:@"/book/chapter[starts-with(string(.), 'Ch')]"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testSlashBookSlashChapterSlashParaPredicateStartsWithStringDotCh {
+    [self eval:@"/book/chapter/para[starts-with(string(.), 'Ch')]"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testSlashBookSlashChapterPredicateStartsWithTrimSpaceDotCh {
     [self eval:@"/book/chapter[starts-with(trim-space(.), 'Ch')]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1391,7 +1416,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testSlashBookSlashCapterPredicateContainsTrimSpaceDotCh {
+- (void)testSlashBookSlashChapterPredicateContainsTrimSpaceDotCh {
     [self eval:@"/book/chapter[contains(trim-space(.), 'Ch')]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1408,7 +1433,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testSlashBookSlashCapterPredicateContainsDotCh {
+- (void)testSlashBookSlashChapterPredicateContainsDotCh {
     [self eval:@"/book/chapter[contains(., 'Ch')]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
