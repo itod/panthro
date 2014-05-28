@@ -70,6 +70,7 @@
 @property (nonatomic, retain) NSDictionary *nodeTypeTab;
 @property (nonatomic, retain) PKToken *openParen;
 @property (nonatomic, retain) PKToken *slash;
+@property (nonatomic, retain) PKToken *colon;
 @property (nonatomic, retain) PKToken *doubleSlash;
 @property (nonatomic, retain) PKToken *dotDotDot;
 @property (nonatomic, retain) PKToken *pipe;
@@ -85,6 +86,7 @@
     if (self = [super init]) {
         self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
         self.slash = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"/" doubleValue:0.0];
+        self.colon = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@":" doubleValue:0.0];
         self.doubleSlash = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"//" doubleValue:0.0];
         self.dotDotDot = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"…" doubleValue:0.0];
         self.pipe = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"|" doubleValue:0.0];
@@ -152,6 +154,7 @@
     self.nodeTypeTab = nil;
     self.openParen = nil;
     self.slash = nil;
+    self.colon = nil;
     self.doubleSlash = nil;
     self.dotDotDot = nil;
     self.pipe = nil;
@@ -591,6 +594,13 @@
     XPAssertToken(nameTok);
     
     NSString *name = nameTok.stringValue;
+    id peek = [a pop];
+    if ([_colon isEqualTo:peek]) {
+        NSString *prefix = [a pop];
+        name = [NSString stringWithFormat:@"%@:%@", prefix, name];
+    } else {
+        [a push:peek];
+    }
     XPNameTest *nameTest = [[[XPNameTest alloc] initWithName:name] autorelease];
     
     nameTest.range = NSMakeRange(nameTok.offset, [name length]);

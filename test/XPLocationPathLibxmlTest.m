@@ -573,6 +573,22 @@
 }
 
 
+- (void)testSlashSlashFoobarColonPara {
+    [self eval:@"//foobar:para"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    for (NSUInteger i = 0; i < 1; ++i) {
+        id <XPNodeInfo>node = [enm nextObject];
+        TDEqualObjects(@"foobar:para", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+        TDEqualObjects(@"Hello", node.stringValue);
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
 - (void)testDotSlashSlashPara {
     [self eval:@".//para"];
     
