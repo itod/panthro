@@ -1378,6 +1378,14 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     [self eval:@"/book/chapter/para[starts-with(., 'Ch')]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
+    
+    for (NSUInteger i = 0; i < 3; ++i) {
+        node = [enm nextObject];
+        TDEqualObjects(@"para", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+        TDEqualObjects(_paras[i], [node stringValue]);
+    }
     
     TDFalse([enm hasMoreObjects]);
 }
@@ -1395,6 +1403,15 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     [self eval:@"/book/chapter/para[starts-with(string(.), 'Ch')]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
+    
+    for (NSUInteger i = 0; i < 3; ++i) {
+        node = [enm nextObject];
+        TDEqualObjects(@"para", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+        TDEqualObjects(_paras[i], [node stringValue]);
+    }
+    
     TDFalse([enm hasMoreObjects]);
 }
 

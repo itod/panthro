@@ -199,7 +199,7 @@
 - (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
     XPExpression *result = self;
 
-    if ((dep & [self dependencies]) != 0) {
+    if ((self.dependencies & dep) != 0) {
         XPExpression *newstart = [_start reduceDependencies:dep inContext:ctx];
         XPExpression *newfilter = [_filter reduceDependencies:(dep & XPDependenciesXSLTContext) inContext:ctx];
         XPExpression *e = [[[XPFilterExpression alloc] initWithStart:newstart filter:newfilter] autorelease];

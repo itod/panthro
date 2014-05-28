@@ -130,13 +130,13 @@
     XPAssert(_step);
     
     XPExpression *result = self;
-    if ((dep & self.dependencies) != 0) {
+    if ((self.dependencies & dep) != 0) {
         XPExpression *newstart = [_start reduceDependencies:dep inContext:ctx];
         XPStep *newstep = [[[XPStep alloc] initWithAxis:_step.axis nodeTest:_step.nodeTest] autorelease];
         newstep.range = _step.range;
 
         NSUInteger removedep = dep & XPDependenciesXSLTContext;
-        if ([_start isContextDocumentNodeSet] && ((dep & XPDependenciesContextDocument) != 0)) {
+        if (_start.isContextDocumentNodeSet && ((dep & XPDependenciesContextDocument) != 0)) {
             removedep |= XPDependenciesContextDocument;
         }
         

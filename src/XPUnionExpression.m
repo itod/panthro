@@ -120,7 +120,7 @@
 - (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
     XPExpression *result = self;
 
-    if (([self dependencies] & dep) != 0) {
+    if ((self.dependencies & dep) != 0) {
         XPExpression *e = [[[XPUnionExpression alloc] initWithLhs:[_p1 reduceDependencies:dep inContext:ctx]
                                                               rhs:[_p2 reduceDependencies:dep inContext:ctx]] autorelease];
         e.staticContext = self.staticContext;

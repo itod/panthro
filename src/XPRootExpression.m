@@ -82,7 +82,7 @@
 - (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
     XPExpression *result = self;
 
-    if (([self dependencies] & (XPDependenciesContextNode | XPDependenciesContextDocument)) != 0) {
+    if ((self.dependencies & dep) != 0) {
         result = [[[XPSingletonNodeSet alloc] initWithNode:ctx.contextNode.documentRoot] autorelease];
         result.range = self.range;
     }

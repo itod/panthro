@@ -77,7 +77,7 @@
 - (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
     XPExpression *result = self;
     
-    if (([self dependencies] & dep) != 0) {
+    if ((self.dependencies & dep) != 0) {
         result = [[[[self class] alloc] initWithOperand:[_p1 reduceDependencies:dep inContext:ctx]
                                                operator:_operator
                                                 operand:[_p2 reduceDependencies:dep inContext:ctx]] autorelease];

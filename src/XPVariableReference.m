@@ -64,7 +64,7 @@
 - (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
     XPExpression *result = self;
 
-    if ((dep & XPDependenciesVariables) != 0) {
+    if ((self.dependencies & dep) != 0) {
         result = [self evaluateInContext:ctx];
         result.range = self.range;
     }
