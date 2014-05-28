@@ -47,6 +47,7 @@
 @property (nonatomic, copy, readonly) NSString *name;
 @property (nonatomic, copy, readonly) NSString *localName;
 @property (nonatomic, copy, readonly) NSString *prefix;
+@property (nonatomic, copy, readonly) NSString *namespaceURI;
 
 @property (nonatomic, assign, readonly) NSRange range;
 @property (nonatomic, assign, readonly) NSInteger lineNumber;

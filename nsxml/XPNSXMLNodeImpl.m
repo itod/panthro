@@ -191,6 +191,12 @@
 }
 
 
+- (NSString *)namespaceURI {
+    XPAssert(self.node);
+    return [self.node URI];
+}
+
+
 - (id <XPNodeInfo>)parent {
     XPAssert(self.node);
     

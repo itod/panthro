@@ -242,19 +242,24 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
 }
 
 
-//XMLPUBFUN xmlNsPtr XMLCALL
-//xmlSearchNs		(xmlDocPtr doc,
-//                 xmlNodePtr node,
-//                 const xmlChar *nameSpace);
-//XMLPUBFUN xmlNsPtr XMLCALL
-//xmlSearchNsByHref	(xmlDocPtr doc,
-//					 xmlNodePtr node,
-//					 const xmlChar *href);
-//
-
 - (NSString *)name {
     XPAssert(_node);
     NSString *qName = nil;
+    NSString *localName = [self localName];
+    NSString *prefix = [self prefix];
+    if (prefix) {
+        XPAssert([prefix length]);
+        qName = [NSString stringWithFormat:@"%@:%@", prefix, localName];
+    } else {
+        qName = localName;
+    }
+    
+    return qName;
+}
+
+
+- (NSString *)localName {
+    XPAssert(_node);
     NSString *localName = nil;
     switch (self.nodeType) {
         case XPNodeTypeElement:
@@ -273,33 +278,55 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
             XPAssert(0);
             break;
     }
-    xmlNsPtr ns = _node->ns;
-    if (ns) {
-        NSString *prefix = XPSTR(ns->prefix);
-        qName = [NSString stringWithFormat:@"%@:%@", prefix, localName];
-    } else {
-        qName = localName;
-    }
-    
-    return qName;
-}
-
-
-- (NSString *)localName {
-    XPAssert(_node);
-    return XPSTR(_node->name);
+    return localName;
 }
 
 
 - (NSString *)prefix {
     XPAssert(_node);
-    NSString *res = nil;
+    NSString *prefix = nil;
     
-    if (_node->ns && _node->ns->prefix) {
-        res = XPSTR(_node->ns->prefix);
+    xmlNsPtr ns = _node->ns;
+    if (ns) {
+        prefix = XPSTR(ns->prefix);
+    }
+    
+    return prefix;
+}
+
+
+- (NSString *)namespaceURI {
+    XPAssert(_node);
+    NSString *nsURI = nil;
+    
+    xmlNsPtr ns = _node->ns;
+    if (ns) {
+        nsURI = XPSTR(ns->href);
+    }
+    
+    return nsURI;
+}
+
+
+- (NSString *)attributeValueForURI:(NSString *)nsURI localName:(NSString *)localName {
+    XPAssert(XPNodeTypeElement == self.nodeType);
+    
+    NSString *res = XPSTR(xmlGetNsProp(_node, (xmlChar *)[localName UTF8String], (xmlChar *)[nsURI UTF8String]));
+    return res;
+}
+
+
+- (NSString *)namespaceURIForPrefix:(NSString *)prefix {
+    XPAssert(_node);
+    NSString *nsURI = nil;
+    
+    XPAssert(_node->doc);
+    xmlNsPtr ns = xmlSearchNs(_node->doc, _node, (xmlChar *)[prefix UTF8String]);
+    if (ns) {
+        nsURI = XPSTR(ns->href);
     }
 
-    return res;
+    return nsURI;
 }
 
 
@@ -356,51 +383,6 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     XPAssert(_node);
     xmlDocPtr doc = _node->doc;
     return [[[XPLibxmlDocumentImpl alloc] initWithNode:doc parserContext:_parserCtx] autorelease];
-}
-
-
-- (NSString *)attributeValueForURI:(NSString *)uri localName:(NSString *)localName {
-    XPAssert(XPNodeTypeElement == self.nodeType);
-    
-    NSString *res = nil;
-    for (xmlAttrPtr attr = _node->properties; NULL != attr; attr = attr->next) {
-        if (0 == strcmp((char *)attr->name, [localName UTF8String])) {
-            xmlNodePtr val = attr->children;
-            if (val) {
-                res = XPSTR(XML_GET_CONTENT(val));
-            }
-            break;
-        }
-    }
-
-    return res;
-}
-
-
-- (NSString *)namespaceURIForPrefix:(NSString *)prefix {
-    XPAssert(_node);
-    
-//    xmlSearchNs
-//    xmlSearchNsByHref
-//    xmlGetNsList
-    
-    
-    NSString *res = nil;
-    
-    xmlNodePtr node = _node;
-    
-    while (node) {
-        if (XML_ELEMENT_NODE == node->type) {
-            for (xmlNsPtr ns = node->nsDef; NULL != ns; ns = ns->next) {
-                if (ns->prefix && 0 == strcmp((char *)ns->prefix, [prefix UTF8String])) {
-                    res = XPSTR(ns->href);
-                }
-            }
-        }
-        node = node->parent;
-    }
-    
-    return res;
 }
 
 
