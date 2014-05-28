@@ -90,7 +90,7 @@ NSString * const XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
         
         @try {
             result = [expr evaluateInContext:ctx];
-        } @catch (NSException *ex) {
+        } @catch (XPException *ex) {
             result = nil;
             id info = @{NSLocalizedDescriptionKey: [ex name], NSLocalizedFailureReasonErrorKey: [ex reason], XPathExceptionRangeKey: [NSValue valueWithRange:[ex range]]};
             err = [NSError errorWithDomain:XPathErrorDomain code:XPathErrorCodeRuntime userInfo:info];
