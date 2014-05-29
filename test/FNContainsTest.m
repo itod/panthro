@@ -23,19 +23,19 @@
 
 - (void)testErrors {
     NSError *err = nil;
-    [XPExpression expressionFromString:@"contains('foo')" inContext:nil error:&err];
+    [XPExpression expressionFromString:@"contains('foo')" inContext:[XPStandaloneContext standaloneContext] error:&err];
     TDNotNil(err);
     
-    [XPExpression expressionFromString:@"contains()" inContext:nil error:&err];
+    [XPExpression expressionFromString:@"contains()" inContext:[XPStandaloneContext standaloneContext] error:&err];
     TDNotNil(err);
 
-    [XPExpression expressionFromString:@"contains('1', '2', '3')" inContext:nil error:&err];
+    [XPExpression expressionFromString:@"contains('1', '2', '3')" inContext:[XPStandaloneContext standaloneContext] error:&err];
     TDNotNil(err);
 }
 
 
 - (void)testFoo {
-    self.expr = [XPExpression expressionFromString:@"contains('foo', 'bar')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"contains('foo', 'bar')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDFalse(_res);
 }

@@ -26,30 +26,30 @@
 
 
 - (void)testTransitivity {
-    self.expr = [XPExpression expressionFromString:@"1=true()" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"1=true()" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
     
-    self.expr = [XPExpression expressionFromString:@"true()='true'" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"true()='true'" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
     
-    self.expr = [XPExpression expressionFromString:@"1='true'" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"1='true'" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDFalse(_res);
 }
 
 
 - (void)testNums {
-    self.expr = [XPExpression expressionFromString:@"'2'='2.0'" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"'2'='2.0'" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDFalse(_res);
     
-    self.expr = [XPExpression expressionFromString:@"'2'<='2.0'" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"'2'<='2.0'" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
     
-    self.expr = [XPExpression expressionFromString:@"'2'>='2.0'" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"'2'>='2.0'" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
 }

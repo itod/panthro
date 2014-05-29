@@ -23,27 +23,27 @@
 
 - (void)testErrors {
     NSError *err = nil;
-    [XPExpression expressionFromString:@"ends-with('foo')" inContext:nil error:&err];
+    [XPExpression expressionFromString:@"ends-with('foo')" inContext:[XPStandaloneContext standaloneContext] error:&err];
     TDNotNil(err);
     
-    [XPExpression expressionFromString:@"ends-with()" inContext:nil error:&err];
+    [XPExpression expressionFromString:@"ends-with()" inContext:[XPStandaloneContext standaloneContext] error:&err];
     TDNotNil(err);
     
-    [XPExpression expressionFromString:@"ends-with('1', '2', '3')" inContext:nil error:&err];
+    [XPExpression expressionFromString:@"ends-with('1', '2', '3')" inContext:[XPStandaloneContext standaloneContext] error:&err];
     TDNotNil(err);
 }
 
 
 - (void)testFoo {
-    self.expr = [XPExpression expressionFromString:@"ends-with('foo', 'bar')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"ends-with('foo', 'bar')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDFalse(_res);
 
-    self.expr = [XPExpression expressionFromString:@"ends-with('bar', 'foobar')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"ends-with('bar', 'foobar')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDFalse(_res);
 
-    self.expr = [XPExpression expressionFromString:@"ends-with('foobar', 'bar')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"ends-with('foobar', 'bar')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
 }

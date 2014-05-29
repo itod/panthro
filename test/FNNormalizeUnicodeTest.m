@@ -22,11 +22,11 @@
 
 
 - (void)testEqualsExprNormalizeUnicode {
-    //    self.expr = [XPExpression expressionFromString:@"'ü' = normalize-unicode('ü')" inContext:nil error:nil];
+    //    self.expr = [XPExpression expressionFromString:@"'ü' = normalize-unicode('ü')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     //    self.res = [_expr evaluateAsBooleanInContext:nil];
     //    TDTrue(_res);
     //
-    //    self.expr = [XPExpression expressionFromString:@"'ü' = normalize-unicode('ü')" inContext:nil error:nil];
+    //    self.expr = [XPExpression expressionFromString:@"'ü' = normalize-unicode('ü')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     //    self.res = [_expr evaluateAsBooleanInContext:nil];
     //    TDTrue(_res);
 }

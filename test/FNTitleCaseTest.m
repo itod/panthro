@@ -22,15 +22,15 @@
 
 
 - (void)testEqualsExprTitleCase {
-    self.expr = [XPExpression expressionFromString:@"title-case('') = ''" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"title-case('') = ''" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
     
-    self.expr = [XPExpression expressionFromString:@"title-case('a') = 'A'" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"title-case('a') = 'A'" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
     
-    self.expr = [XPExpression expressionFromString:@"title-case('abC!d') = 'AbC!d'" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"title-case('abC!d') = 'AbC!d'" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
 }

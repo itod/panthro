@@ -11,6 +11,7 @@
 #import <Panthro/Panthro.h>
 
 #import "XPEGParser.h"
+#import "XPStandaloneContext.h"
 
 #define TDTrue(e) XCTAssertTrue((e), @"")
 #define TDFalse(e) XCTAssertFalse((e), @"")

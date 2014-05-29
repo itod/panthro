@@ -25,6 +25,16 @@
 }
 
 
+- (NSString *)prefix {
+    return @"";
+}
+
+
+- (NSString *)namespaceURI {
+    return @"";
+}
+
+
 - (id <XPNodeInfo>)selectID:(NSString *)inId {
     XPAssert(self.node);
     XPAssert(self.parserCtx);

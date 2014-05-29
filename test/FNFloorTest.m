@@ -23,29 +23,29 @@
 
 - (void)testErrors {
     NSError *err = nil;
-    [XPExpression expressionFromString:@"floor(1, 2)" inContext:nil error:&err];
+    [XPExpression expressionFromString:@"floor(1, 2)" inContext:[XPStandaloneContext standaloneContext] error:&err];
     TDNotNil(err);
     
     err = nil;
-    self.expr = [XPExpression expressionFromString:@"floor()" inContext:nil error:&err];
+    self.expr = [XPExpression expressionFromString:@"floor()" inContext:[XPStandaloneContext standaloneContext] error:&err];
     TDNotNil(err);
 }
 
 
 - (void)testNumbers {
-    self.expr = [XPExpression expressionFromString:@"floor(0)" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"floor(0)" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsNumberInContext:nil];
     TDEquals(0.0, _res);
     
-    self.expr = [XPExpression expressionFromString:@"floor(0.0)" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"floor(0.0)" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsNumberInContext:nil];
     TDEquals(0.0, _res);
     
-    self.expr = [XPExpression expressionFromString:@"floor(1.1)" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"floor(1.1)" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsNumberInContext:nil];
     TDEquals(1.0, _res);
     
-    self.expr = [XPExpression expressionFromString:@"floor(-1.1)" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"floor(-1.1)" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsNumberInContext:nil];
     TDEquals(-2.0, _res);
 }

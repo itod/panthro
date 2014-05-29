@@ -23,23 +23,23 @@
 
 - (void)testErrors {
     NSError *err = nil;
-    [XPExpression expressionFromString:@"concat('foo')" inContext:nil error:&err];
+    [XPExpression expressionFromString:@"concat('foo')" inContext:[XPStandaloneContext standaloneContext] error:&err];
     TDNotNil(err);
     
-    [XPExpression expressionFromString:@"concat()" inContext:nil error:&err];
+    [XPExpression expressionFromString:@"concat()" inContext:[XPStandaloneContext standaloneContext] error:&err];
     TDNotNil(err);
 }
 
 
 - (void)testStrings {
-    self.expr = [XPExpression expressionFromString:@"concat('foo', 'bar')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"concat('foo', 'bar')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsStringInContext:nil];
     TDEqualObjects(_res, @"foobar");
 }
 
 
 - (void)testEqualsExprConcat {
-    self.expr = [XPExpression expressionFromString:@"concat('a', 'b') = 'ab'" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"concat('a', 'b') = 'ab'" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
 }

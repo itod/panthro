@@ -22,15 +22,15 @@
 
 
 - (void)testEqualsExprUpperCase {
-    self.expr = [XPExpression expressionFromString:@"upper-case('') = ''" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"upper-case('') = ''" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
     
-    self.expr = [XPExpression expressionFromString:@"upper-case('a') = 'A'" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"upper-case('a') = 'A'" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
     
-    self.expr = [XPExpression expressionFromString:@"upper-case('abC!d') = 'ABC!D'" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"upper-case('abC!d') = 'ABC!D'" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
 }

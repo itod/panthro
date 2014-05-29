@@ -23,38 +23,38 @@
 
 - (void)testErrors {
     NSError *err = nil;
-    [XPExpression expressionFromString:@"substring-before('foo')" inContext:nil error:&err];
+    [XPExpression expressionFromString:@"substring-before('foo')" inContext:[XPStandaloneContext standaloneContext] error:&err];
     TDNotNil(err);
     
-    [XPExpression expressionFromString:@"substring-before('1', '2', '3', '4')" inContext:nil error:&err];
+    [XPExpression expressionFromString:@"substring-before('1', '2', '3', '4')" inContext:[XPStandaloneContext standaloneContext] error:&err];
     TDNotNil(err);
     
-    [XPExpression expressionFromString:@"substring-before()" inContext:nil error:&err];
+    [XPExpression expressionFromString:@"substring-before()" inContext:[XPStandaloneContext standaloneContext] error:&err];
     TDNotNil(err);
 }
 
 
 - (void)testStrings {
-    self.expr = [XPExpression expressionFromString:@"substring-before('12345', '2')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"substring-before('12345', '2')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsStringInContext:nil];
     TDEqualObjects(_res, @"1");
     
-    self.expr = [XPExpression expressionFromString:@"substring-before('12345', '6')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"substring-before('12345', '6')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsStringInContext:nil];
     TDEqualObjects(_res, @"");
     
-    self.expr = [XPExpression expressionFromString:@"substring-before('1999/04/01', '/')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"substring-before('1999/04/01', '/')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsStringInContext:nil];
     TDEqualObjects(_res, @"1999");
     
-    self.expr = [XPExpression expressionFromString:@"substring-before('1999/04/01', '19')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"substring-before('1999/04/01', '19')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsStringInContext:nil];
     TDEqualObjects(_res, @"");
 }
 
 
 - (void)testNumbers {
-    self.expr = [XPExpression expressionFromString:@"substring-before('12345', 2)" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"substring-before('12345', 2)" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsStringInContext:nil];
     TDEqualObjects(_res, @"1");
 }
@@ -62,15 +62,15 @@
 
 
 - (void)testEqualsExprSubstringBefore {
-    self.expr = [XPExpression expressionFromString:@"substring-before('ab', 'b') = 'a'" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"substring-before('ab', 'b') = 'a'" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
     
-    self.expr = [XPExpression expressionFromString:@"substring-before('ab', 'a') = ''" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"substring-before('ab', 'a') = ''" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
     
-    self.expr = [XPExpression expressionFromString:@"substring-before('ab', 'c') = ''" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"substring-before('ab', 'c') = ''" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
 }

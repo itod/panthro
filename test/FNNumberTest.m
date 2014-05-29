@@ -23,51 +23,51 @@
 
 - (void)testErrors {
     NSError *err = nil;
-    [XPExpression expressionFromString:@"number(1, 2)" inContext:nil error:&err];
+    [XPExpression expressionFromString:@"number(1, 2)" inContext:[XPStandaloneContext standaloneContext] error:&err];
     TDNotNil(err);
 }
 
 
 - (void)testNumbers {
-    self.expr = [XPExpression expressionFromString:@"number(1)" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"number(1)" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsNumberInContext:nil];
     TDEquals(1.0, _res);
     
-    self.expr = [XPExpression expressionFromString:@"number()" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"number()" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsNumberInContext:nil];
     TDTrue(isnan(_res));
     
-    self.expr = [XPExpression expressionFromString:@"number(0)" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"number(0)" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsNumberInContext:nil];
     TDEquals(0.0, _res);
     
-    self.expr = [XPExpression expressionFromString:@"number(-0)" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"number(-0)" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsNumberInContext:nil];
     TDEquals(-0.0, _res);
 }
 
 
 - (void)testStrings {
-    self.expr = [XPExpression expressionFromString:@"number('0')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"number('0')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsNumberInContext:nil];
     TDEquals(0.0, _res);
     
-    self.expr = [XPExpression expressionFromString:@"ceiling('2.0')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"ceiling('2.0')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsNumberInContext:nil];
     TDEquals(2.0, _res);
     
-    self.expr = [XPExpression expressionFromString:@"ceiling('-1.1')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"ceiling('-1.1')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsNumberInContext:nil];
     TDEquals(-1.0, _res);
 }
 
 
 - (void)testBooleans {
-    self.expr = [XPExpression expressionFromString:@"number(true())" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"number(true())" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsNumberInContext:nil];
     TDEquals(1.0, _res);
     
-    self.expr = [XPExpression expressionFromString:@"number(false())" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"number(false())" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsNumberInContext:nil];
     TDEquals(0.0, _res);
 }

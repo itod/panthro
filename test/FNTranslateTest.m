@@ -22,11 +22,11 @@
 
 
 - (void)testEqualsExprTranslate {
-    self.expr = [XPExpression expressionFromString:@"translate('bar', 'abc', 'ABC') = 'BAr'" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"translate('bar', 'abc', 'ABC') = 'BAr'" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
     
-    self.expr = [XPExpression expressionFromString:@"'AAA' = translate('--aaa--','abc-','ABC')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"'AAA' = translate('--aaa--','abc-','ABC')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
 }

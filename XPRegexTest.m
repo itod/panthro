@@ -28,78 +28,78 @@
 
 
 - (void)testMatches {
-    self.expr = [XPExpression expressionFromString:@"matches('foo', 'foo')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"matches('foo', 'foo')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
     
-    self.expr = [XPExpression expressionFromString:@"matches('foo', 'FOO')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"matches('foo', 'FOO')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDFalse(_res);
     
-    self.expr = [XPExpression expressionFromString:@"matches('foo', 'FOO', 'i')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"matches('foo', 'FOO', 'i')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
     
-    self.expr = [XPExpression expressionFromString:@"matches('foo', '\\w+')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"matches('foo', '\\w+')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
     
-    self.expr = [XPExpression expressionFromString:@"matches('foo', '\\W+')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"matches('foo', '\\W+')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDFalse(_res);
     
-    self.expr = [XPExpression expressionFromString:@"matches('abracadabra', 'bra')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"matches('abracadabra', 'bra')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
     
-    self.expr = [XPExpression expressionFromString:@"matches('abracadabra', '^a.*a$')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"matches('abracadabra', '^a.*a$')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
     
-    self.expr = [XPExpression expressionFromString:@"matches('abracadabra', '^bra')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"matches('abracadabra', '^bra')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDFalse(_res);
 }
 
 
 - (void)testReplace {
-    self.expr = [XPExpression expressionFromString:@"replace('abracadabra', 'bra', '*')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"replace('abracadabra', 'bra', '*')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     NSString *res = [_expr evaluateAsStringInContext:nil];
     TDEqualObjects(@"a*cada*", res);
     
-    self.expr = [XPExpression expressionFromString:@"replace('abracadabra', 'BRA', '*', 'i')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"replace('abracadabra', 'BRA', '*', 'i')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     res = [_expr evaluateAsStringInContext:nil];
     TDEqualObjects(@"a*cada*", res);
     
-    self.expr = [XPExpression expressionFromString:@"replace('abracadabra', 'a.*a', '*')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"replace('abracadabra', 'a.*a', '*')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     res = [_expr evaluateAsStringInContext:nil];
     TDEqualObjects(@"*", res);
     
-    self.expr = [XPExpression expressionFromString:@"replace('abracadabra', 'a.*?a', '*')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"replace('abracadabra', 'a.*?a', '*')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     res = [_expr evaluateAsStringInContext:nil];
     TDEqualObjects(@"*c*bra", res);
     
-    self.expr = [XPExpression expressionFromString:@"replace('abracadabra', 'a', '')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"replace('abracadabra', 'a', '')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     res = [_expr evaluateAsStringInContext:nil];
     TDEqualObjects(@"brcdbr", res);
     
-    self.expr = [XPExpression expressionFromString:@"replace('abracadabra', 'a(.)', 'a$1$1')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"replace('abracadabra', 'a(.)', 'a$1$1')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     res = [_expr evaluateAsStringInContext:nil];
     TDEqualObjects(@"abbraccaddabbra", res);
     
-    self.expr = [XPExpression expressionFromString:@"replace('abracadabra', '.*?', '$1')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"replace('abracadabra', '.*?', '$1')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     res = [_expr evaluateAsStringInContext:nil];
     TDEqualObjects(@"abracadabra", res);
     
-    self.expr = [XPExpression expressionFromString:@"replace('AAAA', 'A+', 'b')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"replace('AAAA', 'A+', 'b')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     res = [_expr evaluateAsStringInContext:nil];
     TDEqualObjects(@"b", res);
     
-    self.expr = [XPExpression expressionFromString:@"replace('AAAA', 'A+?', 'b')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"replace('AAAA', 'A+?', 'b')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     res = [_expr evaluateAsStringInContext:nil];
     TDEqualObjects(@"bbbb", res);
     
-    self.expr = [XPExpression expressionFromString:@"replace('darted', '^(.*?)d(.*)$', '$1c$2')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"replace('darted', '^(.*?)d(.*)$', '$1c$2')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     res = [_expr evaluateAsStringInContext:nil];
     TDEqualObjects(@"carted", res);
     

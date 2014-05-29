@@ -127,19 +127,19 @@
 
 
 - (void)testEqualsExpr {
-    self.expr = [XPExpression expressionFromString:@"true() != false()" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"true() != false()" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
 
-    self.expr = [XPExpression expressionFromString:@"false() != true()" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"false() != true()" inContext:[XPStandaloneContext standaloneContext] error:nil];
     [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
 
-    self.expr = [XPExpression expressionFromString:@"true() = true()" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"true() = true()" inContext:[XPStandaloneContext standaloneContext] error:nil];
     [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
 
-    self.expr = [XPExpression expressionFromString:@"false() = false()" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"false() = false()" inContext:[XPStandaloneContext standaloneContext] error:nil];
     [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
 }

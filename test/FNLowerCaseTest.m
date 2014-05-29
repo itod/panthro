@@ -22,15 +22,15 @@
 
 
 - (void)testEqualsExprLowerCase {
-    self.expr = [XPExpression expressionFromString:@"lower-case('') = ''" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"lower-case('') = ''" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
     
-    self.expr = [XPExpression expressionFromString:@"lower-case('A') = 'a'" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"lower-case('A') = 'a'" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
     
-    self.expr = [XPExpression expressionFromString:@"lower-case('ABc!D') = 'abc!d'" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"lower-case('ABc!D') = 'abc!d'" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
 }

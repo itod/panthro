@@ -23,39 +23,39 @@
 
 - (void)testErrors {
     NSError *err = nil;
-    [XPExpression expressionFromString:@"string(1, 2)" inContext:nil error:&err];
+    [XPExpression expressionFromString:@"string(1, 2)" inContext:[XPStandaloneContext standaloneContext] error:&err];
     TDNotNil(err);
 }
 
 
 - (void)testNumbers {
-    self.expr = [XPExpression expressionFromString:@"string()" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"string()" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsStringInContext:nil];
     TDNil(_res);
     
-    self.expr = [XPExpression expressionFromString:@"string(1)" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"string(1)" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsStringInContext:nil];
     TDEqualObjects(_res, @"1");
     
-    self.expr = [XPExpression expressionFromString:@"string(-1.0)" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"string(-1.0)" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsStringInContext:nil];
     TDEqualObjects(_res, @"-1");
 }
 
 
 - (void)testBooleans {
-    self.expr = [XPExpression expressionFromString:@"string(true())" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"string(true())" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsStringInContext:nil];
     TDEqualObjects(_res, @"true");
     
-    self.expr = [XPExpression expressionFromString:@"string(false())" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"string(false())" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsStringInContext:nil];
     TDEqualObjects(_res, @"false");
 }
 
 
 - (void)testStrings {
-    self.expr = [XPExpression expressionFromString:@"string('foo')" inContext:nil error:nil];
+    self.expr = [XPExpression expressionFromString:@"string('foo')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsStringInContext:nil];
     TDEqualObjects(_res, @"foo");
 }
