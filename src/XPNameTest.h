@@ -10,7 +10,8 @@
 
 @interface XPNameTest : XPNodeTest
 
-- (instancetype)initWithName:(NSString *)name;
+- (instancetype)initWithNamespaceURI:(NSString *)nsURI localName:(NSString *)localName;
 
-@property (nonatomic, copy, readonly) NSString *name;
+@property (nonatomic, copy, readonly) NSString *namespaceURI;
+@property (nonatomic, copy, readonly) NSString *localName;
 @end

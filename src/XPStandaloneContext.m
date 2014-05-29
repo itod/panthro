@@ -13,15 +13,53 @@
 #import "XPSync.h"
 #import "XPContext.h"
 #import "XPExpression.h"
+#import "XPFunction.h"
 
 #import "XPNSXMLNodeImpl.h"
 #import "XPLibxmlNodeImpl.h"
+
+#import "XPFunction.h"
+#import "FNAbs.h"
+#import "FNBoolean.h"
+#import "FNCeiling.h"
+#import "FNConcat.h"
+#import "FNCompare.h"
+#import "FNContains.h"
+#import "FNCount.h"
+#import "FNEndsWith.h"
+#import "FNFloor.h"
+#import "FNId.h"
+#import "FNLast.h"
+#import "FNLocalName.h"
+#import "FNLowerCase.h"
+#import "FNMatches.h"
+#import "FNName.h"
+#import "FNNamespaceURI.h"
+#import "FNNormalizeSpace.h"
+#import "FNNormalizeUnicode.h"
+#import "FNNot.h"
+#import "FNNumber.h"
+#import "FNPosition.h"
+#import "FNRound.h"
+#import "FNReplace.h"
+#import "FNStartsWith.h"
+#import "FNString.h"
+#import "FNStringLength.h"
+#import "FNSubstring.h"
+#import "FNSubstringAfter.h"
+#import "FNSubstringBefore.h"
+#import "FNSum.h"
+#import "FNTranslate.h"
+#import "FNTrimSpace.h"
+#import "FNTitleCase.h"
+#import "FNUpperCase.h"
 
 NSString * const XPNamespaceXML = @"http://www.w3.org/XML/1998/namespace";
 NSString * const XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
 
 @interface XPStandaloneContext ()
 @property (nonatomic, retain) NSMutableDictionary *vars;
+@property (nonatomic, retain) NSDictionary *funcTab;
 @end
 
 @implementation XPStandaloneContext
@@ -41,6 +79,44 @@ NSString * const XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
 		[self declareNamespaceURI:XPNamespaceXML forPrefix:@"xml"];
 		[self declareNamespaceURI:XPNamespaceXSLT forPrefix:@"xsl"];
         [self declareNamespaceURI:@"" forPrefix:@""];
+        
+        self.funcTab = @{
+             [FNAbs name] : [FNAbs class],
+             [FNBoolean name] : [FNBoolean class],
+             [FNCeiling name] : [FNCeiling class],
+             [FNConcat name] : [FNConcat class],
+             [FNCompare name] : [FNCompare class],
+             [FNContains name] : [FNContains class],
+             [FNCount name] : [FNCount class],
+             [FNEndsWith name] : [FNEndsWith class],
+             [FNFloor name] : [FNFloor class],
+             [FNId name] : [FNId class],
+             [FNLast name] : [FNLast class],
+             [FNLocalName name] : [FNLocalName class],
+             [FNLowerCase name] : [FNLowerCase class],
+             [FNMatches name] : [FNMatches class],
+             [FNName name] : [FNName class],
+             [FNNamespaceURI name] : [FNNamespaceURI class],
+             [FNNormalizeSpace name] : [FNNormalizeSpace class],
+             [FNNormalizeUnicode name] : [FNNormalizeUnicode class],
+             [FNNot name] : [FNNot class],
+             [FNNumber name] : [FNNumber class],
+             [FNPosition name] : [FNPosition class],
+             [FNRound name] : [FNRound class],
+             [FNReplace name] : [FNReplace class],
+             [FNStartsWith name] : [FNStartsWith class],
+             [FNString name] : [FNString class],
+             [FNStringLength name] : [FNStringLength class],
+             [FNSubstring name] : [FNSubstring class],
+             [FNSubstringAfter name] : [FNSubstringAfter class],
+             [FNSubstringBefore name] : [FNSubstringBefore class],
+             [FNSum name] : [FNSum class],
+             [FNTranslate name] : [FNTranslate class],
+             [FNTrimSpace name] : [FNTrimSpace class],
+             [FNUpperCase name] : [FNUpperCase class],
+             [FNTitleCase name] : [FNTitleCase class],
+        };
+
     }
     return self;
 }
@@ -48,6 +124,7 @@ NSString * const XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
 
 - (void)dealloc {
     self.vars = nil;
+    self.funcTab = nil;
     self.namespaces = nil;
     self.debugSync = nil;
     [super dealloc];
@@ -131,6 +208,19 @@ NSString * const XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
 }
 
 
+- (XPFunction *)makeSystemFunction:(NSString *)name {
+    XPAssert(_funcTab);
+    
+    Class cls = [_funcTab objectForKey:name];
+    NSAssert1(cls, @"unknown function %@", name);
+    
+    XPFunction *fn = [[[cls alloc] init] autorelease];
+    XPAssert(fn);
+    
+    return fn;
+}
+
+
 /**
  * Declare a namespace whose prefix can be used in expressions
  */
@@ -211,7 +301,7 @@ NSString * const XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
     
     NSString *prefix = XPNameGetPrefix(qname);
     if (![prefix length]) {
-        return nil != [XPExpression makeSystemFunction:qname];
+        return nil != [self makeSystemFunction:qname];
     }
     
     return NO;   // no user functions allowed in standalone context.

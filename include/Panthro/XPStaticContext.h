@@ -12,6 +12,7 @@
 @class XPNamespaceTest;
 @class XPValue;
 @class XPSync;
+@class XPFunction;
 
 @protocol XPStaticContext <NSObject>
 
@@ -20,6 +21,9 @@
 - (NSString *)baseURI;
 
 - (NSString *)namespaceURIForPrefix:(NSString *)prefix;
+- (void)declareNamespaceURI:(NSString *)uri forPrefix:(NSString *)prefix;
+
+- (XPFunction *)makeSystemFunction:(NSString *)name;
 
 - (BOOL)isElementAvailable:(NSString *)qname;
 - (BOOL)isFunctionAvailable:(NSString *)qname;

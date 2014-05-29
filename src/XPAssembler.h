@@ -17,6 +17,6 @@
 
 @interface XPAssembler : NSObject
 
-- (XPFunction *)makeSystemFunction:(NSString *)name;
+- (instancetype)initWithContext:(id <XPStaticContext>)env;
 
 @end

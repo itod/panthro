@@ -12,6 +12,7 @@
 @protocol XPNodeInfo;
 @class XPExpression;
 @class XPSynchronousChannel;
+@class XPFunction;
 
 /**
  * A StandaloneContext provides a context for parsing an expression or pattern appearing
@@ -29,8 +30,6 @@ extern NSString * const XPNamespaceXSL;
 - (id)evaluate:(XPExpression *)expr withContextNode:(id <XPNodeInfo>)ctxNode error:(NSError **)outErr;
 
 - (id)execute:(NSString *)xpathStr withContextNode:(id <XPNodeInfo>)ctxNode error:(NSError **)outErr;
-
-- (void)declareNamespaceURI:(NSString *)uri forPrefix:(NSString *)prefix;
 
 @property (nonatomic, retain) NSMutableDictionary *namespaces;
 

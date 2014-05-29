@@ -64,7 +64,7 @@
 }
 
 
-- (BOOL)matches:(XPNodeType)nodeType name:(NSString *)name {
+- (BOOL)matches:(XPNodeType)nodeType namespaceURI:(NSString *)nsURI localName:(NSString *)localName {
     BOOL matches = NO;
     if (XPNodeTypeNode == self.nodeType || nodeType == self.nodeType) {
         matches = YES;

@@ -37,7 +37,7 @@
  * The value should be -1 for a node with no name.
  */
 
-- (BOOL)matches:(XPNodeType)nodeType name:(NSString *)name;
+- (BOOL)matches:(XPNodeType)nodeType namespaceURI:(NSString *)nsURI localName:(NSString *)localName;
 
 /**
  * Test whether this node test is satisfied by a given node, in a given Context

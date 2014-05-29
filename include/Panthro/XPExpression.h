@@ -49,7 +49,6 @@ typedef NS_ENUM(NSUInteger, XPDependencies) {
 
 + (XPExpression *)expressionFromString:(NSString *)exprStr inContext:(id <XPStaticContext>)env error:(NSError **)outErr;
 + (XPExpression *)expressionFromString:(NSString *)exprStr inContext:(id <XPStaticContext>)env simplify:(BOOL)simplify error:(NSError **)outErr;
-+ (XPFunction *)makeSystemFunction:(NSString *)name;
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx;
 - (BOOL)evaluateAsBooleanInContext:(XPContext *)ctx;

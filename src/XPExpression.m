@@ -22,8 +22,8 @@ NSString * const XPathErrorDomain = @"XPathErrorDomain";
 const NSUInteger XPathErrorCodeCompiletime = 1;
 const NSUInteger XPathErrorCodeRuntime = 2;
 
-static XPEGParser *sParser = nil;
-static XPAssembler *sAssembler = nil;
+//static XPEGParser *sParser = nil;
+//static XPAssembler *sAssembler = nil;
 
 @interface XPExpression ()
 @property (nonatomic, retain, readwrite) id <XPStaticContext>staticContext;
@@ -33,9 +33,9 @@ static XPAssembler *sAssembler = nil;
 
 + (void)initialize {
     if ([XPExpression class] == self) {
-        sAssembler = [[XPAssembler alloc] init];
-        sParser = [[XPEGParser alloc] initWithDelegate:sAssembler];
-        XPAssert(sParser);
+//        sAssembler = [[XPAssembler alloc] init];
+//        sParser = [[XPEGParser alloc] initWithDelegate:sAssembler];
+//        XPAssert(sParser);
     }
 }
 
@@ -46,11 +46,11 @@ static XPAssembler *sAssembler = nil;
 
 
 + (XPExpression *)expressionFromString:(NSString *)exprStr inContext:(id <XPStaticContext>)env simplify:(BOOL)simplify error:(NSError **)outErr {
-    XPAssert(sParser);
-
     XPExpression *expr = nil;
     @try {
-        PKAssembly *a = [sParser parseString:exprStr error:outErr];
+        XPAssembler *ass = [[[XPAssembler alloc] initWithContext:env] autorelease];
+        XPEGParser *parser = [[[XPEGParser alloc] initWithDelegate:ass] autorelease];
+        PKAssembly *a = [parser parseString:exprStr error:outErr];
         expr = [a pop];
 
         if (expr) {
@@ -67,12 +67,6 @@ static XPAssembler *sAssembler = nil;
         }
     }
     return expr;
-}
-
-
-+ (XPFunction *)makeSystemFunction:(NSString *)name {
-    XPAssert(sAssembler);
-    return [sAssembler makeSystemFunction:name];
 }
 
 

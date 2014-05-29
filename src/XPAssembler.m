@@ -29,44 +29,8 @@
 
 #import "XPVariableReference.h"
 
-#import "XPFunction.h"
-#import "FNAbs.h"
-#import "FNBoolean.h"
-#import "FNCeiling.h"
-#import "FNConcat.h"
-#import "FNCompare.h"
-#import "FNContains.h"
-#import "FNCount.h"
-#import "FNEndsWith.h"
-#import "FNFloor.h"
-#import "FNId.h"
-#import "FNLast.h"
-#import "FNLocalName.h"
-#import "FNLowerCase.h"
-#import "FNMatches.h"
-#import "FNName.h"
-#import "FNNamespaceURI.h"
-#import "FNNormalizeSpace.h"
-#import "FNNormalizeUnicode.h"
-#import "FNNot.h"
-#import "FNNumber.h"
-#import "FNPosition.h"
-#import "FNRound.h"
-#import "FNReplace.h"
-#import "FNStartsWith.h"
-#import "FNString.h"
-#import "FNStringLength.h"
-#import "FNSubstring.h"
-#import "FNSubstringAfter.h"
-#import "FNSubstringBefore.h"
-#import "FNSum.h"
-#import "FNTranslate.h"
-#import "FNTrimSpace.h"
-#import "FNTitleCase.h"
-#import "FNUpperCase.h"
-
 @interface XPAssembler ()
-@property (nonatomic, retain) NSDictionary *funcTab;
+@property (nonatomic, retain) id <XPStaticContext>env;
 @property (nonatomic, retain) NSDictionary *nodeTypeTab;
 @property (nonatomic, retain) PKToken *openParen;
 @property (nonatomic, retain) PKToken *slash;
@@ -82,8 +46,10 @@
 
 @implementation XPAssembler
 
-- (instancetype)init {
+- (instancetype)initWithContext:(id <XPStaticContext>)env {
+    XPAssert(env);
     if (self = [super init]) {
+        self.env = env;
         self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
         self.slash = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"/" doubleValue:0.0];
         self.colon = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@":" doubleValue:0.0];
@@ -95,43 +61,6 @@
         self.singleQuoteCharSet = [NSCharacterSet characterSetWithCharactersInString:@"'"];
         self.doubleQuoteCharSet = [NSCharacterSet characterSetWithCharactersInString:@"\""];
         
-        self.funcTab = @{
-             [FNAbs name] : [FNAbs class],
-             [FNBoolean name] : [FNBoolean class],
-             [FNCeiling name] : [FNCeiling class],
-             [FNConcat name] : [FNConcat class],
-             [FNCompare name] : [FNCompare class],
-             [FNContains name] : [FNContains class],
-             [FNCount name] : [FNCount class],
-             [FNEndsWith name] : [FNEndsWith class],
-             [FNFloor name] : [FNFloor class],
-             [FNId name] : [FNId class],
-             [FNLast name] : [FNLast class],
-             [FNLocalName name] : [FNLocalName class],
-             [FNLowerCase name] : [FNLowerCase class],
-             [FNMatches name] : [FNMatches class],
-             [FNName name] : [FNName class],
-             [FNNamespaceURI name] : [FNNamespaceURI class],
-             [FNNormalizeSpace name] : [FNNormalizeSpace class],
-             [FNNormalizeUnicode name] : [FNNormalizeUnicode class],
-             [FNNot name] : [FNNot class],
-             [FNNumber name] : [FNNumber class],
-             [FNPosition name] : [FNPosition class],
-             [FNRound name] : [FNRound class],
-             [FNReplace name] : [FNReplace class],
-             [FNStartsWith name] : [FNStartsWith class],
-             [FNString name] : [FNString class],
-             [FNStringLength name] : [FNStringLength class],
-             [FNSubstring name] : [FNSubstring class],
-             [FNSubstringAfter name] : [FNSubstringAfter class],
-             [FNSubstringBefore name] : [FNSubstringBefore class],
-             [FNSum name] : [FNSum class],
-             [FNTranslate name] : [FNTranslate class],
-             [FNTrimSpace name] : [FNTrimSpace class],
-             [FNUpperCase name] : [FNUpperCase class],
-             [FNTitleCase name] : [FNTitleCase class],
-             };
-
         self.nodeTypeTab = @{
             XPNodeTypeName[XPNodeTypeNode] : @(XPNodeTypeNode),
             XPNodeTypeName[XPNodeTypeElement] : @(XPNodeTypeElement),
@@ -143,14 +72,14 @@
             XPNodeTypeName[XPNodeTypeNamespace] : @(XPNodeTypeNamespace),
             XPNodeTypeName[XPNodeTypeNumberOfTypes] : @(XPNodeTypeNumberOfTypes),
             XPNodeTypeName[XPNodeTypeNone] : @(XPNodeTypeNone),
-            };
-}
+        };
+    }
     return self;
 }
 
 
 - (void)dealloc {
-    self.funcTab = nil;
+    self.env = nil;
     self.nodeTypeTab = nil;
     self.openParen = nil;
     self.slash = nil;
@@ -163,19 +92,6 @@
     self.singleQuoteCharSet = nil;
     self.doubleQuoteCharSet = nil;
     [super dealloc];
-}
-
-
-- (XPFunction *)makeSystemFunction:(NSString *)name {
-    XPAssert(_funcTab);
-
-    Class cls = [_funcTab objectForKey:name];
-    NSAssert1(cls, @"unknown function %@", name);
-    
-    XPFunction *fn = [[[cls alloc] init] autorelease];
-    XPAssert(fn);
-    
-    return fn;
 }
 
 
@@ -285,7 +201,8 @@
     PKToken *nameTok = [a pop];
     NSString *name = [nameTok stringValue];
 
-    XPFunction *fn = [self makeSystemFunction:name];
+    XPAssert(_env);
+    XPFunction *fn = [_env makeSystemFunction:name];
     
     for (id arg in [args reverseObjectEnumerator]) {
         [fn addArgument:arg];
@@ -573,13 +490,13 @@
     PKToken *closeParenTok = [a pop];
     XPAssert([closeParenTok.stringValue isEqualToString:@")"]);
     
-    NSString *name = [p popQuotedString];
-    XPAssert([name isKindOfClass:[NSString class]]);
+    NSString *localName = [p popQuotedString];
+    XPAssert([localName isKindOfClass:[NSString class]]);
     
     PKToken *typeTok = [a pop];
     XPAssert([typeTok.stringValue isEqualToString:@"processing-instruction"]);
     
-    XPNameTest *nameTest = [[[XPNameTest alloc] initWithName:name] autorelease];
+    XPNameTest *nameTest = [[[XPNameTest alloc] initWithNamespaceURI:nil localName:localName] autorelease];
     nameTest.nodeType = XPNodeTypePI;
     
     NSUInteger offset = typeTok.offset;
@@ -593,17 +510,20 @@
     PKToken *nameTok = [a pop];
     XPAssertToken(nameTok);
     
-    NSString *name = nameTok.stringValue;
+    NSString *localName = nameTok.stringValue;
+    NSString *nsURI = nil;
     id peek = [a pop];
     if ([_colon isEqualTo:peek]) {
-        NSString *prefix = [a pop];
-        name = [NSString stringWithFormat:@"%@:%@", prefix, name];
+        PKToken *prefixTok = [a pop];
+        XPAssertToken(prefixTok);
+        NSString *prefix = prefixTok.stringValue;
+        nsURI = [_env namespaceURIForPrefix:prefix];
     } else {
         [a push:peek];
     }
-    XPNameTest *nameTest = [[[XPNameTest alloc] initWithName:name] autorelease];
+    XPNameTest *nameTest = [[[XPNameTest alloc] initWithNamespaceURI:nsURI localName:localName] autorelease];
     
-    nameTest.range = NSMakeRange(nameTok.offset, [name length]);
+    nameTest.range = NSMakeRange(nameTok.offset, [localName length]);
     [a push:nameTest];
 }
 

@@ -12,11 +12,11 @@
 @implementation XPNodeTest
 
 - (BOOL)matches:(id <XPNodeInfo>)node {
-    return [self matches:node.nodeType name:node.name];
+    return [self matches:node.nodeType namespaceURI:node.namespaceURI localName:node.localName];
 }
 
 
-- (BOOL)matches:(XPNodeType)nodeType name:(NSString *)nodeName {
+- (BOOL)matches:(XPNodeType)nodeType namespaceURI:(NSString *)nsURI localName:(NSString *)localName {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return NO;
 }

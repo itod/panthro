@@ -10,17 +10,21 @@
 #import "XPNodeInfo.h"
 
 @interface XPNameTest ()
-@property (nonatomic, copy, readwrite) NSString *name;
+@property (nonatomic, copy, readwrite) NSString *namespaceURI;
+@property (nonatomic, copy, readwrite) NSString *localName;
+@property (nonatomic, assign) BOOL isInNullNamespace;
 @property (nonatomic, assign) BOOL isWildcard;
 @end
 
 @implementation XPNameTest
 
-- (instancetype)initWithName:(NSString *)name {
+- (instancetype)initWithNamespaceURI:(NSString *)nsURI localName:(NSString *)localName {
     self = [super init];
     if (self) {
-        self.name = name;
-        self.isWildcard = [name isEqualToString:@"*"];
+        self.namespaceURI = nsURI;
+        self.localName = localName;
+        self.isInNullNamespace = 0 == [nsURI length];
+        self.isWildcard = [localName isEqualToString:@"*"];
         self.nodeType = XPNodeTypeNode;
     }
     return self;
@@ -28,21 +32,34 @@
 
 
 - (void)dealloc {
-    self.name = nil;
+    self.namespaceURI = nil;
+    self.localName = nil;
     [super dealloc];
 }
 
 
 - (NSString *)description {
-    return _name;
+    if (_isInNullNamespace) {
+        return _localName;
+    } else {
+        return [NSString stringWithFormat:@"%@:%@", _namespaceURI, _localName];
+    }
 }
 
 
-- (BOOL)matches:(XPNodeType)nodeType name:(NSString *)name {
-    BOOL matches = NO;
-    if ((XPNodeTypeNode == nodeType || self.nodeType == nodeType) && (_isWildcard || [_name isEqualToString:name])) {
-        matches = YES;
+- (BOOL)matches:(XPNodeType)nodeType namespaceURI:(NSString *)nsURI localName:(NSString *)localName {
+    BOOL nsURIMatches = NO;
+    BOOL localNameMatches = NO;
+    BOOL typeMatches = (XPNodeTypeNode == nodeType || self.nodeType == nodeType);
+    
+    if (typeMatches) {
+        nsURIMatches = (_isInNullNamespace && 0 == [nsURI length]) || [_namespaceURI isEqualToString:nsURI];
+        if (nsURIMatches) {
+            localNameMatches = _isWildcard || [_localName isEqualToString:localName];
+        }
     }
+    
+    BOOL matches = typeMatches && nsURIMatches && localNameMatches;
     return matches;
 }
 
