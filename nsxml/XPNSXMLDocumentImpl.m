@@ -25,4 +25,19 @@
     return nil;
 }
 
+
+- (NSString *)name {
+    return @"";
+}
+
+
+- (NSString *)prefix {
+    return @"";
+}
+
+
+- (NSString *)namespaceURI {
+    return @"";
+}
+
 @end

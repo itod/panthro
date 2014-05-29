@@ -157,7 +157,7 @@
     id <XPNodeEnumeration>enm = [_res enumerate];
     
     id <XPNodeInfo>node = [enm nextObject];
-    TDEqualObjects(nil, node.name);
+    TDEqualObjects(@"", node.name);
     TDEquals(XPNodeTypeRoot, node.nodeType);
     
     TDFalse([enm hasMoreObjects]);
@@ -173,7 +173,7 @@
     id <XPNodeEnumeration>enm = [_res enumerate];
     
     id <XPNodeInfo>node = [enm nextObject];
-    TDEqualObjects(nil, node.name);
+    TDEqualObjects(@"", node.name);
     TDEquals(XPNodeTypeRoot, node.nodeType);
     
     TDFalse([enm hasMoreObjects]);
@@ -189,7 +189,7 @@
     id <XPNodeEnumeration>enm = [_res enumerate];
     
     id <XPNodeInfo>node = [enm nextObject];
-    TDEqualObjects(nil, node.name);
+    TDEqualObjects(@"", node.name);
     TDEquals(XPNodeTypeRoot, node.nodeType);
     
     TDFalse([enm hasMoreObjects]);

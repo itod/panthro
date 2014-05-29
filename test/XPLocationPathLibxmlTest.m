@@ -574,6 +574,7 @@
 
 
 - (void)testSlashSlashFoobarColonPara {
+    [_env declareNamespaceURI:@"bar" forPrefix:@"foobar"];
     [self eval:@"//foobar:para"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1574,6 +1575,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 
 
 - (void)testSlashSlashChapterPredicate1PredicateNamespaceURIAtFooColonBazEqBar {
+    [_env declareNamespaceURI:@"bar" forPrefix:@"foobar"];
     [self eval:@"//chapter[1]/@*[namespace-uri(.)='bar']/.."];
     
     id <XPNodeEnumeration>enm = [_res enumerate];

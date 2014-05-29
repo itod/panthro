@@ -169,31 +169,36 @@
 
 - (NSString *)stringValue {
     XPAssert(self.node);
-    return [self.node stringValue];
+    NSString *str = [self.node stringValue];
+    return str ? str : @"";
 }
 
 
 - (NSString *)name {
     XPAssert(self.node);
-    return [self.node name];
+    NSString *str = [self.node name];
+    return str ? str : @"";
 }
 
 
 - (NSString *)localName {
     XPAssert(self.node);
-    return [self.node localName];
+    NSString *str = [self.node localName];
+    return str ? str : @"";
 }
 
 
 - (NSString *)prefix {
     XPAssert(self.node);
-    return [self.node prefix];
+    NSString *str = [self.node prefix];
+    return str ? str : @"";
 }
 
 
 - (NSString *)namespaceURI {
     XPAssert(self.node);
-    return [self.node URI];
+    NSString *str = [self.node URI];
+    return str ? str : @"";
 }
 
 

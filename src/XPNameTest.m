@@ -13,7 +13,8 @@
 @property (nonatomic, copy, readwrite) NSString *namespaceURI;
 @property (nonatomic, copy, readwrite) NSString *localName;
 @property (nonatomic, assign) BOOL isInNullNamespace;
-@property (nonatomic, assign) BOOL isWildcard;
+@property (nonatomic, assign) BOOL isNamespaceURIWildcard;
+@property (nonatomic, assign) BOOL isLocalNameWildcard;
 @end
 
 @implementation XPNameTest
@@ -21,10 +22,12 @@
 - (instancetype)initWithNamespaceURI:(NSString *)nsURI localName:(NSString *)localName {
     self = [super init];
     if (self) {
-        self.namespaceURI = nsURI;
+        self.namespaceURI = nsURI ? nsURI : @"";
         self.localName = localName;
-        self.isInNullNamespace = 0 == [nsURI length];
-        self.isWildcard = [localName isEqualToString:@"*"];
+
+        self.isLocalNameWildcard = [localName isEqualToString:@"*"];
+        self.isNamespaceURIWildcard = [nsURI isEqualToString:@"*"] || (_isLocalNameWildcard && 0 == [_namespaceURI length]);
+        
         self.nodeType = XPNodeTypeNode;
     }
     return self;
@@ -39,23 +42,26 @@
 
 
 - (NSString *)description {
-    if (_isInNullNamespace) {
-        return _localName;
-    } else {
+    if ([_namespaceURI length]) {
         return [NSString stringWithFormat:@"%@:%@", _namespaceURI, _localName];
+    } else {
+        return _localName;
     }
 }
 
 
 - (BOOL)matches:(XPNodeType)nodeType namespaceURI:(NSString *)nsURI localName:(NSString *)localName {
+    XPAssert(nsURI);
+    XPAssert(localName);
+    
     BOOL nsURIMatches = NO;
     BOOL localNameMatches = NO;
     BOOL typeMatches = (XPNodeTypeNode == nodeType || self.nodeType == nodeType);
     
     if (typeMatches) {
-        nsURIMatches = (_isInNullNamespace && 0 == [nsURI length]) || [_namespaceURI isEqualToString:nsURI];
+        nsURIMatches = _isNamespaceURIWildcard || [_namespaceURI isEqualToString:nsURI];
         if (nsURIMatches) {
-            localNameMatches = _isWildcard || [_localName isEqualToString:localName];
+            localNameMatches = _isLocalNameWildcard || [_localName isEqualToString:localName];
         }
     }
     

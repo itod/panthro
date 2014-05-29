@@ -496,7 +496,7 @@
     PKToken *typeTok = [a pop];
     XPAssert([typeTok.stringValue isEqualToString:@"processing-instruction"]);
     
-    XPNameTest *nameTest = [[[XPNameTest alloc] initWithNamespaceURI:nil localName:localName] autorelease];
+    XPNameTest *nameTest = [[[XPNameTest alloc] initWithNamespaceURI:@"" localName:localName] autorelease];
     nameTest.nodeType = XPNodeTypePI;
     
     NSUInteger offset = typeTok.offset;
@@ -511,7 +511,7 @@
     XPAssertToken(nameTok);
     
     NSString *localName = nameTok.stringValue;
-    NSString *nsURI = nil;
+    NSString *nsURI = @"";
     id peek = [a pop];
     if ([_colon isEqualTo:peek]) {
         PKToken *prefixTok = [a pop];
