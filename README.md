@@ -13,8 +13,6 @@ What's done?
 What's missing?
 
 * The `namespace` axis is not yet implemented.
-* Namespace-aware QName testing in `NameTest`s is currently dodgy (but can be fixed).
-* Namepsace prefix wildcards (`*:local-name`) are NOT yet implemented. But plain-ole name wildcards (`*`) ARE.
 
 Some example expressions that currently work (i.e. they are parsed, execute, and return a correct result):
 
@@ -68,12 +66,12 @@ Panthro departs from the XPath 1.0 spec in the following known ways:
 
 XPath works on a tree-like representation of an XML document. So Panthro needs a tree-based XML API available (in C, C++, or ObjC) on Apple platforms. The most commonly-used XML tree APIs on these platforms are:
 
+* [libxml](http://xmlsoft.org/) (iOS, OS X, C, open source)
 * [NSXML](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/NSXML_Concepts/Articles/NSXMLFeatures.html) (OS X, ObjC, closed-source)
 * [WebKit's DOM](http://www.webkit.org/) (OS X, ObjC, open source)
-* [libxml](http://xmlsoft.org/) (iOS, OS X, C, open source)
 * [Iconara DOM](http://www.iconara.net/developer/products/DOM/) (OS X, ObjC, open source)
 
-Panthro is designed to work with any XML tree API, but requires a small adapter layer for each (an implementation of the `XPNodeInfo` and `XPDocumentInfo` protocols). Panthro currently only has an adapter for libxml and NSXML.
+Panthro is designed to work with any XML tree API, but requires a small adapter layer for each (an implementation of the `XPNodeInfo` and `XPDocumentInfo` protocols). Panthro currently includes an adapter layer for libxml and NSXML.
 
 To use Panthro with NSXML on OS X:
 
@@ -83,5 +81,5 @@ To use Panthro with NSXML on OS X:
     XPStandaloneContext *env = [XPStandaloneContext standaloneContext];
 
     NSError *err = nil;
-    NSString ch1Title = [env evalutate:@"book/chapter[@id='ch1']/title" withNSXMLContextNode:doc error:&err];
+    NSString ch1Title = [env execute:@"book/chapter[@id='ch1']/title" withContextNode:doc error:&err];
     
