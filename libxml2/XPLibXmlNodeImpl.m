@@ -222,6 +222,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
         case XML_XINCLUDE_START:
         case XML_XINCLUDE_END:
         default:
+            XPAssert(0);
             type = XPNodeTypeNone;
             break;
     }
