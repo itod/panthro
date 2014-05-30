@@ -273,6 +273,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
             localName = @"";
             break;
         case XPNodeTypeNode:
+        case XPNodeTypeNone:
         default:
             XPAssert(0);
             break;
