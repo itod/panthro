@@ -20,7 +20,7 @@
 - (NSUInteger)lineNumber;
 - (NSString *)baseURI;
 
-- (NSString *)namespaceURIForPrefix:(NSString *)prefix;
+- (NSString *)namespaceURIForPrefix:(NSString *)prefix error:(NSError **)outErr;
 - (void)declareNamespaceURI:(NSString *)uri forPrefix:(NSString *)prefix;
 
 - (XPFunction *)makeSystemFunction:(NSString *)name;
