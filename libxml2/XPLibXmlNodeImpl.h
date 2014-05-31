@@ -16,4 +16,6 @@
 
 @property (nonatomic, assign) xmlNodePtr node;
 @property (nonatomic, assign) xmlParserCtxtPtr parserCtx;
+
+@property (nonatomic, retain) id <XPNodeInfo>parent;
 @end

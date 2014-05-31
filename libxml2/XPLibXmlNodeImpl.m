@@ -8,6 +8,7 @@
 
 #import "XPLibxmlNodeImpl.h"
 #import "XPLibxmlDocumentImpl.h"
+#import "XPLibxmlNamespaceImpl.h"
 #import "XPAxis.h"
 #import "XPNodeSetValueEnumeration.h"
 #import "XPNodeTest.h"
@@ -58,7 +59,6 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
 }
 
 @interface XPLibxmlNodeImpl ()
-@property (nonatomic, retain) id <XPNodeInfo>parent;
 @property (nonatomic, assign) NSRange range;
 @property (nonatomic, assign) NSInteger lineNumber;
 @end
@@ -72,7 +72,20 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     if (XML_DTD_NODE == node->type) {
         NSLog(@"%@", self);
     }
-    Class cls = (XML_DOCUMENT_NODE == node->type) ? [XPLibxmlDocumentImpl class] : [XPLibxmlNodeImpl class];
+    Class cls = nil;
+    
+    switch (node->type) {
+        case XML_DOCUMENT_NODE:
+            cls = [XPLibxmlDocumentImpl class];
+            break;
+        case XML_NAMESPACE_DECL:
+            cls = [XPLibxmlNamespaceImpl class];
+            break;
+        default:
+            cls = [XPLibxmlNodeImpl class];
+            break;
+    }
+
     id <XPNodeInfo>nodeInfo = [[[cls alloc] initWithNode:node parserContext:parserCtx] autorelease];
     return nodeInfo;
 }
@@ -288,7 +301,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     NSString *prefix = @"";
     
     xmlNsPtr ns = _node->ns;
-    if (ns) {
+    if (ns && XPNodeTypeNamespace != self.nodeType) {
         prefix = XPSTR(ns->prefix);
     }
     
@@ -301,7 +314,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     NSString *nsURI = @"";
     
     xmlNsPtr ns = _node->ns;
-    if (ns) {
+    if (ns && XPNodeTypeNamespace != self.nodeType) {
         nsURI = XPSTR(ns->href);
     }
     
@@ -426,7 +439,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
             break;
         case XPAxisNamespace:
             sorted = YES;
-            [NSException raise:@"XPathException" format:@"Namespace Axis not yet implemented."];
+            nodes = [self nodesForNamespaceAxis:nodeTest];
             break;
         case XPAxisParent:
             sorted = YES;
@@ -675,6 +688,32 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
         if (includeDescendants) {
             [result addObjectsFromArray:[self descendantNodesFromParent:child nodeTest:nodeTest]];
         }
+    }
+    
+    return result;
+}
+
+
+- (NSArray *)nodesForNamespaceAxis:(XPNodeTest *)nodeTest {
+    XPAssert(_node);
+    NSMutableArray *result = nil;
+    
+    if (XPNodeTypeElement == self.nodeType) {
+        xmlNsPtr *nsList = xmlGetNsList(_node->doc, _node);
+        
+        for (xmlNsPtr ns = *nsList; NULL != ns; ++nsList, ns = *nsList) {
+            XPLibxmlNamespaceImpl *node = (id)[[self class] nodeInfoWithNode:ns parserContext:_parserCtx];
+            XPAssert([node isKindOfClass:[XPLibxmlNamespaceImpl class]]);
+            node.parent = self;
+            
+            if ([nodeTest matches:node]) {
+                if (!result) {
+                    result = [NSMutableArray array];
+                }
+                [result addObject:node];
+            }
+        }
+        
     }
     
     return result;
