@@ -249,7 +249,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     NSString *res = @"";
     xmlChar *zstr = xmlNodeGetContent(_node);
     if (zstr) {
-        res = [NSString stringWithUTF8String:(const char *)zstr];
+        res = XPSTR(zstr);
         xmlFree(zstr);
     }
     return res;
