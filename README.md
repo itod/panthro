@@ -83,13 +83,13 @@ To use Panthro with NSXML on OS X:
     // Create a Panthro stand-alone XPath context
     XPStandaloneContext *env = [XPStandaloneContext standaloneContext];
 
-The Panthro API allows you to first compile your XPath string into an intermediate tree representation (Abstract Syntax Tree, or AST), which can then be evaluated multiple times. The type of the AST is `XPExpression`. The API keywords for this are `compile` and `evalutate`:
+The Panthro API allows you to first compile your XPath string into an intermediate tree representation (Abstract Syntax Tree, or AST), which can then be evaluated multiple times. The type of the AST is `XPExpression`. The API keywords for this are `compile` and `evaluate`:
 
     // compile first…
     NSError *err = nil;
     XPExpression *expr = [env compile:@"book/chapter[@id='ch1']/title" error:&err];
     
-    // …then evaluate later
+    // …then evaluate (possibly multiple times) later
     NSString ch1Title = [env evaluate:expr withContextNode:ctxNode error:&err];
 
 Alternatively, the Panthro API allows you to complile and evaluate an XPath string all in one go. The API keyword for this combined action is `execute`:
