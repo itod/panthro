@@ -55,7 +55,7 @@ Some example expressions that currently work (i.e. they are parsed, execute, and
 Panthro departs from the XPath 1.0 spec in the following known ways:
 
 1. Some functions from XPath 2.0 are incuded: `abs()`, `compare()`, `ends-with()`, `lower-case()`, `matches()`, `normalize-unicode()` `replace()`, and `upper-case()`.
-1. Other functions of my own design is incuded in the default function namespace: `title-case()`, and `trim-space()`.
+1. Other functions of my own design are incuded in the default function namespace: `title-case()`, and `trim-space()`.
 1. Scientific notation (exponents) are allowed in number literals.
 
 ###XML Tree Model Bindings
