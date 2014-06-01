@@ -3,9 +3,9 @@
     <!ELEMENT chapter ANY>
     <!ATTLIST chapter id ID #REQUIRED>
 ]>
-<book xmlns:foobar="bar">
+<book xmlns:foobar="bar" xmlns:google="www.google.com">
     <!-- some comment  text -->
-    <chapter id="c1" foobar:baz="OHAI">
+    <chapter id="c1" foobar:baz="OHAI" xmlns:apple="www.apple.com">
         <title>Chapter 1</title>
         <para>Chapter 1 content. </para>
         <foobar:para>Hello</foobar:para>

@@ -25,6 +25,11 @@
 }
 
 
+- (NSString *)localName {
+    return @"";
+}
+
+
 - (NSString *)prefix {
     return @"";
 }

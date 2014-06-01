@@ -31,10 +31,16 @@ static NSString *XPSTR(const xmlChar *zstr) {
     return res;
 }
 
-static NSUInteger XPIndexInParent(xmlNodePtr node) {
-    xmlNodePtr parent = node->parent;
+static NSUInteger XPIndexInParent(id <XPNodeInfo>nodeInfo) {
+    // must go thru XPNodeInfo parent pointer, not libxml parent pointer, cuz libxml namespace nodes are missing their parent pointers, and I've allready fixed those up manually.
+    xmlNodePtr parent = [(XPLibxmlNodeImpl *)nodeInfo.parent node];
+    xmlNodePtr node = [(XPLibxmlNodeImpl *)nodeInfo node];
     
     NSUInteger idx = 0;
+    
+    //    if (XML_NAMESPACE_DECL == node->type) {
+    //        return idx;
+    //    }
     
     // not sure about this ns looping
     for (xmlNsPtr ns = parent->nsDef; NULL != ns; ++idx, ns = ns->next) {
@@ -42,7 +48,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
             return idx;
         }
     }
-
+    
     for (xmlAttrPtr attr = parent->properties; NULL != attr; ++idx, attr = attr->next) {
         if (attr == (void *)node) {
             return idx;
@@ -85,7 +91,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
             cls = [XPLibxmlNodeImpl class];
             break;
     }
-
+    
     id <XPNodeInfo>nodeInfo = [[[cls alloc] initWithNode:node parserContext:parserCtx] autorelease];
     return nodeInfo;
 }
@@ -135,10 +141,10 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     }
     
     XPLibxmlNodeImpl *that = (id)other;
-
+    
     // are they siblings (common case)
     if ([self.parent isSameNodeInfo:other.parent]) {
-        return XPIndexInParent(_node) - XPIndexInParent(that.node);
+        return XPIndexInParent(self) - XPIndexInParent(that);
     }
     
     // find the depths of both nodes in the tree
@@ -183,13 +189,13 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
         if (!par1 || !par2) {
             [NSException raise:@"NullPointerException" format:@"libxml Tree Compare - internal error"];
         }
-        if ([par1 isSameNodeInfo:par2]) {            
-            return XPIndexInParent(((XPLibxmlNodeImpl *)p1).node) - XPIndexInParent(((XPLibxmlNodeImpl *)p2).node);
+        if ([par1 isSameNodeInfo:par2]) {
+            return XPIndexInParent(p1) - XPIndexInParent(p2);
         }
         p1 = par1;
         p2 = par2;
     }
-
+    
     return result;
 }
 
@@ -249,7 +255,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     NSString *res = @"";
     xmlChar *zstr = xmlNodeGetContent(_node);
     if (zstr) {
-        res = [NSString stringWithUTF8String:(const char *)zstr];
+        res = XPSTR(zstr);
         xmlFree(zstr);
     }
     return res;
@@ -339,7 +345,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     if (ns) {
         nsURI = XPSTR(ns->href);
     }
-
+    
     return nsURI;
 }
 
@@ -350,12 +356,12 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
         
         NSUInteger loc = NSNotFound;
         NSUInteger len = 0;
-
+        
         if (XPNodeTypeElement == self.nodeType) {
             
             const xmlParserNodeInfo *info = xmlParserFindNodeInfo(_parserCtx, _node);
             XPAssert(info);
-
+            
             if (info) {
                 loc = info->begin_pos;
                 len = info->end_pos - loc;
@@ -365,7 +371,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
         _foundRange = YES;
         self.range = NSMakeRange(loc, len);
     }
-
+    
     return _range;
 }
 
@@ -499,7 +505,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
         if ([nodeTest matches:node]) {
             [result addObject:node];
         }
-
+        
         [result addObjectsFromArray:[self descendantNodesFromParent:child nodeTest:nodeTest]];
     }
     
@@ -568,7 +574,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
 - (NSArray *)nodesForParentAxis:(XPNodeTest *)nodeTest {
     XPAssert(_node);
     xmlNodePtr parent = _node->parent;
-
+    
     id <XPNodeInfo>node = [[self class] nodeInfoWithNode:parent parserContext:_parserCtx];
     
     NSArray *result = nil;
@@ -587,7 +593,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     
     for (xmlNodePtr child = _node->children; NULL != child; child = child->next) {
         if (XML_DTD_NODE == child->type) continue;
-
+        
         id <XPNodeInfo>node = [[self class] nodeInfoWithNode:child parserContext:_parserCtx];
         
         if ([nodeTest matches:node]) {
@@ -605,9 +611,9 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
 - (NSArray *)nodesForAttributeAxis:(XPNodeTest *)nodeTest {
     XPAssert(_node);
     NSMutableArray *result = nil;
-
+    
     if (XPNodeTypeElement == self.nodeType) {
-
+        
         for (xmlAttrPtr attr = _node->properties; NULL != attr; attr = attr->next) {
             id <XPNodeInfo>node = [[self class] nodeInfoWithNode:attr parserContext:_parserCtx];
             
@@ -627,13 +633,13 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
 - (NSArray *)nodesForFollowingSiblingAxis:(XPNodeTest *)nodeTest includeDescendants:(BOOL)includeDescendants {
     XPAssert(_node);
     NSMutableArray *result = [NSMutableArray array];
-
+    
     xmlNodePtr parent = _node->parent;
-
+    
     BOOL found = NO;
     for (xmlNodePtr child = parent->children; NULL != child; child = child->next) {
         if (XML_DTD_NODE == child->type) continue;
-
+        
         if (!found) {
             found = child == _node;
             if (found) {
@@ -668,7 +674,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
     BOOL found = NO;
     for (xmlNodePtr child = parent->last; NULL != child; child = child->prev) {
         if (XML_DTD_NODE == child->type) continue;
-
+        
         if (!found) {
             found = child == _node;
             if (found) {
@@ -684,7 +690,7 @@ static NSUInteger XPIndexInParent(xmlNodePtr node) {
         if ([nodeTest matches:node]) {
             [result addObject:node];
         }
-
+        
         if (includeDescendants) {
             [result addObjectsFromArray:[self descendantNodesFromParent:child nodeTest:nodeTest]];
         }

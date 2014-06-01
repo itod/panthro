@@ -1882,4 +1882,25 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDFalse([enm hasMoreObjects]);
 }
 
+
+- (void)testSlashBookSlashNamespaceAxisStar {
+    [self eval:@"/book/namespace::*"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
+    
+    node = [enm nextObject];
+    TDEqualObjects(@"foobar", node.name);
+    TDEquals(XPNodeTypeNamespace, node.nodeType);
+    TDEqualObjects(@"bar", [node stringValue]);
+    
+    node = [enm nextObject];
+    TDEqualObjects(@"google", node.name);
+    TDEquals(XPNodeTypeNamespace, node.nodeType);
+    TDEqualObjects(@"www.google.com", [node stringValue]);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
 @end
