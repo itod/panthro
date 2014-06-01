@@ -54,7 +54,7 @@ Some example expressions that currently work (i.e. they are parsed, execute, and
 
 Panthro departs from the XPath 1.0 spec in the following known ways:
 
-1. Some functions from XPath 2.0 are incuded: `abs()`, `compare()`, `ends-with()`, `lower-case()`, `matches()`, `normalize-unicode()` `replace()`, and `upper-case()`.
+1. Some functions from XPath 2.0 are incuded: `abs()`, `compare()`, `ends-with()`, `lower-case()`, `matches()`, `normalize-unicode()`, `replace()`, and `upper-case()`.
 1. Other functions of my own design are incuded in the default function namespace: `title-case()`, and `trim-space()`.
 1. Scientific notation (exponents) are allowed in number literals.
 
@@ -67,7 +67,7 @@ XPath works on a tree-like representation of an XML document. So Panthro needs a
 * [WebKit's DOM](http://www.webkit.org/) (OS X, ObjC, open source)
 * [Iconara DOM](http://www.iconara.net/developer/products/DOM/) (OS X, ObjC, open source)
 
-Panthro is designed to work with any XML tree API, but requires a small adapter layer for each (an implementation of the `XPNodeInfo` and `XPDocumentInfo` protocols). Panthro currently includes an adapter layer for libxml and NSXML.
+Panthro is designed to work with any XML tree API, but requires a small adapter layer for each (an implementation of the `XPNodeInfo` and `XPDocumentInfo` protocols). Panthro currently includes an adapter layer for libxml (for iOS and OS X) and NSXML (for OS X only).
 
 ###Objective-C API
 
