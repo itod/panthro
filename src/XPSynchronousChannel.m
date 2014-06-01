@@ -7,7 +7,6 @@
 //
 
 #import "XPSynchronousChannel.h"
-#import "XPLocking.h"
 #import "XPSemaphore.h"
 
 @interface XPSynchronousChannel ()

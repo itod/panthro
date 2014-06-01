@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Todd Ditchendorf. All rights reserved.
 //
 
-#import "XPLocking.h"
+#import <Foundation/Foundation.h>
 
-@interface XPSemaphore : NSObject <XPLocking>
+@interface XPSemaphore : NSObject
 
 + (instancetype)semaphoreWithValue:(NSInteger)value;
 - (instancetype)initWithValue:(NSInteger)value;

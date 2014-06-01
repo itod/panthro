@@ -7,7 +7,6 @@
 //
 
 #import "XPSemaphore.h"
-#import "XPLocking.h"
 
 @interface XPSemaphore ()
 - (void)lock;
