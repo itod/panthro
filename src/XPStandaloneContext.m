@@ -271,13 +271,18 @@ NSString * const XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
  * @throw XPathException if the prefix is not declared
  */
     
-- (NSString *)namespaceURIForPrefix:(NSString *)prefix {
+- (NSString *)namespaceURIForPrefix:(NSString *)prefix error:(NSError **)outErr {
     NSParameterAssert(prefix);
     XPAssert(_namespaces);
+    XPAssert(outErr);
     
     NSString *uri = _namespaces[prefix];
     if (!uri) {
-        [NSException raise:@"XPathException" format:@"Prefix %@ has not been declared", prefix];
+        if (outErr) {
+            NSString *msg = [NSString stringWithFormat:@"Prefix %@ has not been declared", prefix];
+            id info = @{NSLocalizedDescriptionKey: msg, NSLocalizedFailureReasonErrorKey: msg};
+            *outErr = [NSError errorWithDomain:XPathErrorDomain code:XPathErrorCodeCompiletime userInfo:info];
+        }
     }
 
     return uri;

@@ -517,7 +517,15 @@
         PKToken *prefixTok = [a pop];
         XPAssertToken(prefixTok);
         NSString *prefix = prefixTok.stringValue;
-        nsURI = [_env namespaceURIForPrefix:prefix];
+        NSError *err = nil;
+        nsURI = [_env namespaceURIForPrefix:prefix error:&err];
+        if (err) {
+            PKRecognitionException *rex = [[[PKRecognitionException alloc] init] autorelease];
+            rex.range = NSMakeRange(prefixTok.offset, [prefix length]);
+            rex.currentName = @"Missing XPath namespace";
+            rex.currentReason = [err localizedFailureReason];
+            [rex raise];
+        }
     } else {
         [a push:peek];
     }
