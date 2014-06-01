@@ -29,6 +29,16 @@ static NSString *XPSTR(const xmlChar *zstr) {
 }
 
 
+- (BOOL)isSameNodeInfo:(id <XPNodeInfo>)other {
+    XPAssert(!other || [other isKindOfClass:[XPLibxmlNodeImpl class]]);
+    BOOL res = [super isSameNodeInfo:other];
+    if (!res && XPNodeTypeNamespace == other.nodeType) {
+        res = [self.localName isEqualToString:other.localName] && [self.stringValue isEqualToString:other.stringValue];
+    }
+    return res;
+}
+
+
 - (NSString *)name {
     return self.localName;
 }
