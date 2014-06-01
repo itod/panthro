@@ -111,7 +111,7 @@ const NSUInteger XPathErrorCodeRuntime = 2;
     v.range = self.range;
     
     if (![v isNodeSetValue]) {
-        [XPException raiseIn:self format:@"The value %@ is not a node-set", v];
+        [XPException raiseIn:self format:@"The value `%@` is not a node-set", v];
     }
 
     return (XPNodeSetValue *)v;
@@ -128,7 +128,7 @@ const NSUInteger XPathErrorCodeRuntime = 2;
         id <XPNodeEnumeration>e = [(XPNodeSetValue *)v enumerate];
         return e;
     }
-    [XPException raiseIn:self format:@"The value is not a node-set"];
+    [XPException raiseIn:self format:@"The value `%@` is not a node-set", v];
     return nil;
 }
 
