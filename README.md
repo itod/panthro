@@ -92,7 +92,7 @@ The Panthro API allows you to first compile your XPath string into an intermedia
     // …then evaluate later
     NSString ch1Title = [env evaluate:expr withContextNode:ctxNode error:&err];
 
-Alternatively, the Panthro API also allows you to complile and evaluate an XPath string all in one go. The API keyword for this combined action is `execute`:
+Alternatively, the Panthro API allows you to complile and evaluate an XPath string all in one go. The API keyword for this combined action is `execute`:
 
     // compile and evaluate together (AKA `execute`)
     NSError *err = nil;
