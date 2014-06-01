@@ -32,7 +32,8 @@ static NSString *XPSTR(const xmlChar *zstr) {
 }
 
 static NSUInteger XPIndexInParent(id <XPNodeInfo>nodeInfo) {
-    // must go thru XPNodeInfo parent pointer, not libxml parent pointer, cuz libxml namespace nodes are missing their parent pointers, and I've allready fixed those up manually.
+    // must go thru XPNodeInfo parent pointer, not libxml parent pointer, cuz libxml namespace nodes are missing their parent pointers,
+    // and I've allready fixed those up manually in XPNodeInfo
     xmlNodePtr parent = [(XPLibxmlNodeImpl *)nodeInfo.parent node];
     xmlNodePtr node = [(XPLibxmlNodeImpl *)nodeInfo node];
     
