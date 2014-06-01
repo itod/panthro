@@ -41,17 +41,18 @@ static NSUInteger XPIndexInParent(id <XPNodeInfo>nodeInfo) {
     
     NSUInteger idx = 0;
     
-    //    if (XML_NAMESPACE_DECL == node->type) {
-    //        return idx;
-    //    }
-    
     // not sure about this ns looping
     for (xmlNsPtr ns = parent->nsDef; NULL != ns; ++idx, ns = ns->next) {
         if (ns == (void *)node) {
             return idx;
         }
     }
-    
+
+    if (XML_NAMESPACE_DECL == node->type) {
+        // it's a namespace node present on parent, but actually declared on an ancestor in the source. so return 0?
+        return 0;
+    }
+
     for (xmlAttrPtr attr = parent->properties; NULL != attr; ++idx, attr = attr->next) {
         if (attr == (void *)node) {
             return idx;
