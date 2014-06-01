@@ -18,12 +18,6 @@ static NSString *XPSTR(const xmlChar *zstr) {
 
 @implementation XPLibxmlNamespaceImpl
 
-- (void)dealloc {
-    self.parent = nil;
-    [super dealloc];
-}
-
-
 - (XPNodeType)nodeType {
     return XPNodeTypeNamespace;
 }
@@ -31,11 +25,16 @@ static NSString *XPSTR(const xmlChar *zstr) {
 
 - (BOOL)isSameNodeInfo:(id <XPNodeInfo>)other {
     XPAssert(!other || [other isKindOfClass:[XPLibxmlNodeImpl class]]);
-    BOOL res = [super isSameNodeInfo:other];
-    if (!res && XPNodeTypeNamespace == other.nodeType) {
-        res = [self.localName isEqualToString:other.localName] && [self.stringValue isEqualToString:other.stringValue];
+    BOOL isSame = [super isSameNodeInfo:other];
+    
+    // ok, I had to patch up the parent nodes of NS NodeInfos, because the parent pointer of xmlNsPtr is always nil.
+    // Seems like libxml will represent ghost ns nodes on lots of elements as a single object in memory with no parent pointer.
+    // That's reasonable, but not good for XPath 1.0, in which all those nodes are distinct. so check for diff parents here:
+    if (isSame && XPNodeTypeNamespace == other.nodeType) {
+        isSame = self.parent == other.parent;
     }
-    return res;
+    
+    return isSame;
 }
 
 
