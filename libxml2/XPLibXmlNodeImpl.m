@@ -37,6 +37,8 @@ static NSUInteger XPIndexInParent(id <XPNodeInfo>nodeInfo) {
     xmlNodePtr parent = [(XPLibxmlNodeImpl *)nodeInfo.parent node];
     xmlNodePtr node = [(XPLibxmlNodeImpl *)nodeInfo node];
     
+    assert(XPNodeTypeElement == nodeInfo.parent.nodeType || XPNodeTypeRoot == nodeInfo.parent.nodeType);
+    
     NSUInteger idx = 0;
     
     //    if (XML_NAMESPACE_DECL == node->type) {
