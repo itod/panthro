@@ -8,11 +8,7 @@ The XPath 1.0 parser is based on [PEGKit](http://www.github.com/itod/pegkit). Th
 
 What's done?
 
-* Almost everything!
-
-What's missing?
-
-* The `namespace` axis is not yet implemented.
+* Everything! Panthro should implement the entire XPath 1.0 spec. If you find any missing features, please let me know via an Issue on this GitHub project.
 
 Some example expressions that currently work (i.e. they are parsed, execute, and return a correct result):
 
@@ -62,7 +58,7 @@ Panthro departs from the XPath 1.0 spec in the following known ways:
 1. Other functions of my own design is incuded in the default function namespace: `title-case()`, and `trim-space()`.
 1. Scientific notation (exponents) are allowed in number literals.
 
-###Objective-C API
+###XML Tree Model Bindings
 
 XPath works on a tree-like representation of an XML document. So Panthro needs a tree-based XML API available (in C, C++, or ObjC) on Apple platforms. The most commonly-used XML tree APIs on these platforms are:
 
@@ -73,13 +69,31 @@ XPath works on a tree-like representation of an XML document. So Panthro needs a
 
 Panthro is designed to work with any XML tree API, but requires a small adapter layer for each (an implementation of the `XPNodeInfo` and `XPDocumentInfo` protocols). Panthro currently includes an adapter layer for libxml and NSXML.
 
+###Objective-C API
+
 To use Panthro with NSXML on OS X:
 
+    // Build XML doc with NSXML
     NSString *str = …
     NSXMLDocument *doc = [[[NSXMLDocument alloc] initWithXMLString:str options:0 error:nil] autorelease];
     
+    // Wrap NSXML doc in Panthro adapter (id <XPNodeInfo>)
+    id <XPNodeInfo>ctxNode = [[[XPNodeInfoNSXMLImpl alloc] initWithNode:doc] autorelease];
+    
+    // Create a Panthro stand-alone XPath context
     XPStandaloneContext *env = [XPStandaloneContext standaloneContext];
 
+The Panthro API allows you to first compile your XPath string into an intermediate tree representation (Abstract Syntax Tree, or AST), which can then be evaluated multiple times. The type of the AST is `XPExpression`. The API keywords for this are `compile` and `evalutate`:
+
+    // compile first…
     NSError *err = nil;
-    NSString ch1Title = [env execute:@"book/chapter[@id='ch1']/title" withContextNode:doc error:&err];
+    XPExpression *expr = [env compile:@"book/chapter[@id='ch1']/title" error:&err];
     
+    // …then evaluate later
+    NSString ch1Title = [env evaluate:expr withContextNode:ctxNode error:&err];
+
+Alternatively, the Panthro API also allows you to complile and evaluate an XPath string all in one go. The API keyword for this combined action is `execute`:
+
+    // compile and evaluate together (AKA `execute`)
+    NSError *err = nil;
+    NSString ch1Title = [env execute:@"book/chapter[@id='ch1']/title" withContextNode:ctxNode error:&err];

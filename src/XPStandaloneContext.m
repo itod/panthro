@@ -131,9 +131,8 @@ NSString * const XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
 }
 
 
-- (XPExpression *)compile:(NSString *)xpathStr withContextNode:(id <XPNodeInfo>)ctxNode error:(NSError **)outErr {
+- (XPExpression *)compile:(NSString *)xpathStr error:(NSError **)outErr {
     NSParameterAssert([xpathStr length]);
-    NSParameterAssert(ctxNode);
     
     XPExpression *result = nil;
     NSError *err = nil;
@@ -199,7 +198,7 @@ NSString * const XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
 
 
 - (id)execute:(NSString *)xpathStr withContextNode:(id <XPNodeInfo>)ctxNode error:(NSError **)outErr {
-    XPExpression *expr = [self compile:xpathStr withContextNode:ctxNode error:outErr];
+    XPExpression *expr = [self compile:xpathStr error:outErr];
     id result = nil;
     if (expr) {
         result = [self evaluate:expr withContextNode:ctxNode error:outErr];

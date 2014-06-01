@@ -26,7 +26,7 @@ extern NSString * const XPNamespaceXSL;
 
 + (instancetype)standaloneContext;
 
-- (XPExpression *)compile:(NSString *)xpathStr withContextNode:(id <XPNodeInfo>)ctxNode error:(NSError **)outErr;
+- (XPExpression *)compile:(NSString *)xpathStr error:(NSError **)outErr;
 - (id)evaluate:(XPExpression *)expr withContextNode:(id <XPNodeInfo>)ctxNode error:(NSError **)outErr;
 
 - (id)execute:(NSString *)xpathStr withContextNode:(id <XPNodeInfo>)ctxNode error:(NSError **)outErr;
