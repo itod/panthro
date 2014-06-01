@@ -78,7 +78,7 @@ To use Panthro with NSXML on OS X:
     NSXMLDocument *doc = [[[NSXMLDocument alloc] initWithXMLString:str options:0 error:nil] autorelease];
     
     // Wrap NSXML doc in Panthro adapter (id <XPNodeInfo>)
-    id <XPNodeInfo>ctxNode = [[[XPNodeInfoNSXMLImpl alloc] initWithNode:doc] autorelease];
+    id <XPNodeInfo>ctxNode = [[[XPNSXMLDocumentImpl alloc] initWithNode:doc] autorelease];
     
     // Create a Panthro stand-alone XPath context
     XPStandaloneContext *env = [XPStandaloneContext standaloneContext];
