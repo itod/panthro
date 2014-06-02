@@ -207,14 +207,22 @@ NSString * const XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
 }
 
 
-- (XPFunction *)makeSystemFunction:(NSString *)name {
+- (XPFunction *)makeSystemFunction:(NSString *)name error:(NSError **)outErr {
     XPAssert(_funcTab);
     
-    Class cls = [_funcTab objectForKey:name];
-    NSAssert1(cls, @"unknown function %@", name);
+    XPFunction *fn = nil;
     
-    XPFunction *fn = [[[cls alloc] init] autorelease];
-    XPAssert(fn);
+    Class cls = [_funcTab objectForKey:name];
+    if (cls) {
+        fn = [[[cls alloc] init] autorelease];
+        XPAssert(fn);
+    } else {
+        if (outErr) {
+            NSString *msg = [NSString stringWithFormat:@"Unknown function: `%@()`", name];
+            id info = @{NSLocalizedDescriptionKey: msg, NSLocalizedFailureReasonErrorKey: msg};
+            *outErr = [NSError errorWithDomain:XPathErrorDomain code:XPathErrorCodeCompiletime userInfo:info];
+        }
+    }
     
     return fn;
 }
@@ -278,7 +286,7 @@ NSString * const XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
     NSString *uri = _namespaces[prefix];
     if (!uri) {
         if (outErr) {
-            NSString *msg = [NSString stringWithFormat:@"Prefix %@ has not been declared", prefix];
+            NSString *msg = [NSString stringWithFormat:@"Prefix `%@` has not been declared", prefix];
             id info = @{NSLocalizedDescriptionKey: msg, NSLocalizedFailureReasonErrorKey: msg};
             *outErr = [NSError errorWithDomain:XPathErrorDomain code:XPathErrorCodeCompiletime userInfo:info];
         }
@@ -305,7 +313,7 @@ NSString * const XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
     
     NSString *prefix = XPNameGetPrefix(qname);
     if (![prefix length]) {
-        return nil != [self makeSystemFunction:qname];
+        return nil != [self makeSystemFunction:qname error:nil];
     }
     
     return NO;   // no user functions allowed in standalone context.

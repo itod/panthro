@@ -202,7 +202,17 @@
     NSString *name = [nameTok stringValue];
 
     XPAssert(_env);
-    XPFunction *fn = [_env makeSystemFunction:name];
+    NSError *err = nil;
+    XPFunction *fn = [_env makeSystemFunction:name error:&err];
+    if (!fn) {
+        if (err) {
+            PKRecognitionException *rex = [[[PKRecognitionException alloc] init] autorelease];
+            rex.range = NSMakeRange(nameTok.offset, [name length]);
+            rex.currentName = @"Unknown XPath function";
+            rex.currentReason = [err localizedFailureReason];
+            [rex raise];
+        }
+    }
     
     for (id arg in [args reverseObjectEnumerator]) {
         [fn addArgument:arg];
