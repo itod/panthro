@@ -521,6 +521,9 @@
     XPAssertToken(nameTok);
     
     NSString *localName = nameTok.stringValue;
+    NSRange localRange = NSMakeRange(nameTok.offset, [localName length]);
+    NSRange range = localRange;
+    
     NSString *nsURI = @"";
     id peek = [a pop];
     if ([_colon isEqualTo:peek]) {
@@ -536,12 +539,18 @@
             rex.currentReason = [err localizedFailureReason];
             [rex raise];
         }
+        NSRange prefixRange = NSMakeRange(prefixTok.offset, [prefixTok.stringValue length]);
+        NSUInteger offset = prefixRange.location;
+        range = NSMakeRange(offset, NSMaxRange(localRange) - offset);
     } else {
         [a push:peek];
     }
     XPNameTest *nameTest = [[[XPNameTest alloc] initWithNamespaceURI:nsURI localName:localName] autorelease];
     
-    nameTest.range = NSMakeRange(nameTok.offset, [localName length]);
+    XPAssert(NSNotFound != range.location);
+    XPAssert(NSNotFound != range.length);
+    XPAssert(range.length);
+    nameTest.range = range;
     [a push:nameTest];
 }
 
