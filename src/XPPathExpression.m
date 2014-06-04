@@ -210,6 +210,11 @@
     }
     
     NSMutableArray *resultUnion = [NSMutableArray array];
+    
+#if 1
+    id <XPNodeInfo>startingCtxNode = ctx.contextNode;
+    XPAssert(startingCtxNode);
+#endif
 
     while ([ctxNodeEnm hasMoreObjects]) {
         
@@ -226,7 +231,9 @@
 
     XPNodeSetValue *nodeSet = [[[XPNodeSetValue alloc] initWithNodes:resultUnion comparer:[XPLocalOrderComparer instance]] autorelease];
     
-    [ctx.staticContext pauseFrom:self withContextNode:ctx.contextNode result:nodeSet range:_step.range done:NO];
+#if 1
+    [ctx.staticContext pauseFrom:self withContextNode:startingCtxNode result:nodeSet range:_step.range done:NO];
+#endif
     
     // always sort after the curruent step has completed to remove dupes and place nodes in document order.
     id <XPNodeEnumeration>enm = [nodeSet enumerateInContext:ctx sorted:YES];
