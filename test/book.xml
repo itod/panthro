@@ -7,7 +7,7 @@
     <!-- some comment  text -->
     <chapter id="c1" foobar:baz="OHAI" xmlns:apple="www.apple.com">
         <title>Chapter 1</title>
-        <para>Chapter 1 content. </para>
+        <para>Chapter <div/>1 content. </para>
         <foobar:para>Hello</foobar:para>
     </chapter>
 

@@ -59,9 +59,9 @@
 stmt = expr;
 expr = orExpr;
     orExpr = andExpr orAndExpr*;
-        orAndExpr = ('or' andExpr);
+        orAndExpr = (or andExpr);
         andExpr = equalityExpr andEqualityExpr*;
-            andEqualityExpr = ('and' equalityExpr);
+            andEqualityExpr = (and equalityExpr);
 
             equalityExpr = relationalExpr eqRelationalExpr*;
                 eqRelationalExpr = ('=' | '!=') relationalExpr;
@@ -106,12 +106,12 @@ pathExpr = filterPath | locationPath;
                 actualFunctionCall = functionName '(' (argument (','! argument)* )? ')';
                 booleanLiteralFunctionCall = booleanLiteral '('! ')';
                     functionName = { NE(LS(1), @"true") && NE(LS(1), @"false") && NE(LS(1), @"comment") && NE(LS(1), @"text") && NE(LS(1), @"processing-instruction") && NE(LS(1), @"node") }? qName;
-                    booleanLiteral = 'true' | 'false';
+                    booleanLiteral = true | false;
                 
                     qName = (prefix ':')? localPart;
                         prefix = ncName;
                         localPart = ncName;
-                            ncName = Word | div | mod;
+                            ncName = Word | keyword;
                 argument = expr;
         predicate = '['! predicateExpr ']';
             predicateExpr = expr;
@@ -122,15 +122,62 @@ pathExpr = filterPath | locationPath;
         implicitAxisStep = stepBody;
         
         axis = axisName '::'! | abbreviatedAxis;
-            axisName = 'ancestor' | 'ancestor-or-self' | 'attribute' | 'child' | 'descendant' | 'descendant-or-self' | 'following' | 'following-sibling' | 'namespace' | 'parent' | 'preceding' | 'preceding-sibling' | 'self';
+            axisName = ancestor | ancestorOrSelf | attr | child | descendant | descendantOrSelf | following | followingSibling | namespace | parent | preceding | precedingSibling | self;
             abbreviatedAxis = '@';
         stepBody = nodeTest predicate*;
-        nodeTest = nameTest | typeTest | specificPITest;
+        nodeTest = typeTest | specificPITest | nameTest;
             nameTest = '*' | ncName ':' '*' | qName; // note whitespace should not be allowed in second alt here
             typeTest = nodeType '('! ')';
-            nodeType = 'comment' | 'text' | 'processing-instruction' | 'node';
-            specificPITest = 'processing-instruction' '('! literal ')';
+            nodeType = comment | text | processingInstruction | node;
+            specificPITest = processingInstruction '('! literal ')';
         abbreviatedStep = '.' | '..';
             
+ancestor = 'ancestor';
+ancestorOrSelf = 'ancestor-or-self';
+attr = 'attribute';
+child = 'child';
+descendant = 'descendant';
+descendantOrSelf = 'descendant-or-self';
+following = 'following';
+followingSibling = 'following-sibling';
+namespace = 'namespace';
+parent = 'parent';
+preceding = 'preceding';
+precedingSibling = 'preceding-sibling';
+self = 'self';
 div = 'div';
 mod = 'mod';
+or = 'or';
+and = 'and';
+true = 'true';
+false = 'false';
+comment = 'comment';
+text = 'text';
+processingInstruction = 'processing-instruction';
+node = 'node';
+
+keyword
+    = ancestor
+    | ancestorOrSelf 
+    | attr
+    | child 
+    | descendant 
+    | descendantOrSelf 
+    | following 
+    | followingSibling 
+    | namespace 
+    | parent 
+    | preceding 
+    | precedingSibling 
+    | self 
+    | div 
+    | mod
+    | or
+    | and
+    | true
+    | false
+    | comment
+    | text
+    | processingInstruction
+    | node
+    ;
