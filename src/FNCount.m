@@ -62,7 +62,7 @@
 
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
-    double d = [self evaluateAsBooleanInContext:ctx];
+    double d = [self evaluateAsNumberInContext:ctx];
     XPValue *val = [XPNumericValue numericValueWithNumber:d];
     val.range = self.range;
     return val;
