@@ -29,6 +29,7 @@
 #import "FNEndsWith.h"
 #import "FNFloor.h"
 #import "FNId.h"
+#import "FNLang.h"
 #import "FNLast.h"
 #import "FNLocalName.h"
 #import "FNLowerCase.h"
@@ -53,9 +54,6 @@
 #import "FNTrimSpace.h"
 #import "FNTitleCase.h"
 #import "FNUpperCase.h"
-
-NSString * const XPNamespaceXML = @"http://www.w3.org/XML/1998/namespace";
-NSString * const XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
 
 @interface XPStandaloneContext ()
 @property (nonatomic, retain) NSMutableDictionary *vars;
@@ -92,6 +90,7 @@ NSString * const XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
              [FNEndsWith name] : [FNEndsWith class],
              [FNFloor name] : [FNFloor class],
              [FNId name] : [FNId class],
+             [FNLang name] : [FNLang class],
              [FNLast name] : [FNLast class],
              [FNLocalName name] : [FNLocalName class],
              [FNLowerCase name] : [FNLowerCase class],

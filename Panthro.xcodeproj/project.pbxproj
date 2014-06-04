@@ -141,6 +141,8 @@
 		D3411BE2191A8E140082A196 /* PGReferenceNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411BCF191A8E140082A196 /* PGReferenceNode.m */; };
 		D3411BE3191A8E140082A196 /* PGParserFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411BD0191A8E140082A196 /* PGParserFactory.m */; };
 		D3411BF3191A90800082A196 /* PEGKitParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411BF2191A90800082A196 /* PEGKitParser.m */; };
+		D3479560193FDEA100181E56 /* FNLang.h in Headers */ = {isa = PBXBuildFile; fileRef = D347955E193FDEA100181E56 /* FNLang.h */; };
+		D3479561193FDEA100181E56 /* FNLang.m in Sources */ = {isa = PBXBuildFile; fileRef = D347955F193FDEA100181E56 /* FNLang.m */; };
 		D34BADF5100ABA7C00996341 /* XPBooleanValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BADF3100ABA7C00996341 /* XPBooleanValue.m */; };
 		D34BADF9100ABA9300996341 /* XPValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BADF7100ABA9300996341 /* XPValue.m */; };
 		D3539407192FA6A900D6EEA6 /* XPException.m in Sources */ = {isa = PBXBuildFile; fileRef = D3539405192FA6A900D6EEA6 /* XPException.m */; };
@@ -508,6 +510,8 @@
 		D3411BCF191A8E140082A196 /* PGReferenceNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGReferenceNode.m; path = lib/pegkit/ParserGenApp/nodes/PGReferenceNode.m; sourceTree = "<group>"; };
 		D3411BD0191A8E140082A196 /* PGParserFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGParserFactory.m; path = lib/pegkit/ParserGenApp/PGParserFactory.m; sourceTree = "<group>"; };
 		D3411BF2191A90800082A196 /* PEGKitParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PEGKitParser.m; path = lib/pegkit/ParserGenApp/PEGKitParser.m; sourceTree = "<group>"; };
+		D347955E193FDEA100181E56 /* FNLang.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNLang.h; path = src/FNLang.h; sourceTree = "<group>"; };
+		D347955F193FDEA100181E56 /* FNLang.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNLang.m; path = src/FNLang.m; sourceTree = "<group>"; };
 		D34BADF3100ABA7C00996341 /* XPBooleanValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBooleanValue.m; path = src/XPBooleanValue.m; sourceTree = "<group>"; };
 		D34BADF7100ABA9300996341 /* XPValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPValue.m; path = src/XPValue.m; sourceTree = "<group>"; };
 		D3539405192FA6A900D6EEA6 /* XPException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPException.m; path = src/XPException.m; sourceTree = "<group>"; };
@@ -1094,6 +1098,8 @@
 				D37A2F0B101574B200E936B7 /* FNFloor.m */,
 				D339F66A1928EA1100C79A51 /* FNId.h */,
 				D339F66B1928EA1100C79A51 /* FNId.m */,
+				D347955E193FDEA100181E56 /* FNLang.h */,
+				D347955F193FDEA100181E56 /* FNLang.m */,
 				D3F0CB91191EC23D0049EC02 /* FNLast.h */,
 				D37A2F2910157F5400E936B7 /* FNLast.m */,
 				D3C0F5871921255C00566524 /* FNLocalName.h */,
@@ -1365,6 +1371,7 @@
 				D3F0CBAD191EC23D0049EC02 /* FNSubstringAfter.h in Headers */,
 				D3F0CBF4191EC7D00049EC02 /* Panthro.h in Headers */,
 				D3F0CBAE191EC23D0049EC02 /* FNSubstringBefore.h in Headers */,
+				D3479560193FDEA100181E56 /* FNLang.h in Headers */,
 				D3F0CBA1191EC23D0049EC02 /* FNCount.h in Headers */,
 				D3BE143F191D46AA00005C81 /* XPEmptyNodeSet.h in Headers */,
 				D3F0CBA2191EC23D0049EC02 /* FNEndsWith.h in Headers */,
@@ -1691,6 +1698,7 @@
 				D37A301510158E0100E936B7 /* FNSum.m in Sources */,
 				D339F64E1927B66500C79A51 /* xmlstring.c in Sources */,
 				D339312D19211CC900259939 /* FNName.m in Sources */,
+				D3479561193FDEA100181E56 /* FNLang.m in Sources */,
 				D37A30701015952F00E936B7 /* FNEndsWith.m in Sources */,
 				D3A6C2F01907413800F3EFF3 /* XPStep.m in Sources */,
 				D339F61F1927B66500C79A51 /* nanoftp.c in Sources */,

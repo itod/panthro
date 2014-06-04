@@ -16,6 +16,9 @@
 
 @protocol XPNodeInfo;
 
+#define XPNamespaceXML @"http://www.w3.org/XML/1998/namespace"
+#define XPNamespaceXSLT @"http://www.w3.org/1999/XSL/Transform"
+
 @protocol XPStaticContext <NSObject>
 
 - (NSString *)systemId;
