@@ -71,9 +71,9 @@ expr = orExpr;
                     
                     additiveExpr = multiplicativeExpr plusOrMinusMultiExpr*;
                         plusOrMinusMultiExpr  = (('+' | '-') multiplicativeExpr);
-                    
+
                         multiplicativeExpr = unaryExpr multDivOrModUnaryExpr*;
-                            multDivOrModUnaryExpr = ((multiplyOperator | 'div' | 'mod') unaryExpr);
+                            multDivOrModUnaryExpr = ((multiplyOperator | div | mod) unaryExpr);
                             
                             multiplyOperator = '*';
                             unaryExpr = minusUnionExpr | unionExpr;
@@ -111,7 +111,7 @@ pathExpr = filterPath | locationPath;
                     qName = (prefix ':')? localPart;
                         prefix = ncName;
                         localPart = ncName;
-                            ncName = Word;
+                            ncName = Word | div | mod;
                 argument = expr;
         predicate = '['! predicateExpr ']';
             predicateExpr = expr;
@@ -132,3 +132,5 @@ pathExpr = filterPath | locationPath;
             specificPITest = 'processing-instruction' '('! literal ')';
         abbreviatedStep = '.' | '..';
             
+div = 'div';
+mod = 'mod';
