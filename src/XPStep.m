@@ -14,6 +14,14 @@
 #import "XPAxisEnumeration.h"
 #import "XPFilterEnumerator.h"
 
+#import "XPStaticContext.h"
+#import "XPException.h"
+#import "XPSync.h"
+#import "XPContext.h"
+#import "XPNodeSetValueEnumeration.h"
+#import "XPNodeSetValue.h"
+#import "XPLocalOrderComparer.h"
+
 @interface XPStep ()
 @property (nonatomic, retain) NSMutableArray *allFilters;
 @end
@@ -114,6 +122,20 @@
     if ([enm hasMoreObjects]) {       // if there are no nodes, there's nothing to filter
         for (XPExpression *filter in _allFilters) {
             
+            if (ctx.staticContext.debug && [enm isKindOfClass:[XPNodeSetValueEnumeration class]]) {
+                NSArray *nodes = [(XPNodeSetValueEnumeration *)enm nodes];
+                XPNodeSetValue *result = [[[XPNodeSetValue alloc] initWithNodes:nodes comparer:[XPLocalOrderComparer instance]] autorelease];
+                NSRange range = NSMakeRange(self.range.location, NSMaxRange(self.nodeTest.range) - self.range.location);
+                
+                id info = @{@"contextNode": ctx.contextNode, @"result": result, @"done": @NO, @"mainQueryRange": [NSValue valueWithRange:range]};
+                [ctx.staticContext.debugSync pause:info];
+                BOOL resume = [[ctx.staticContext.debugSync awaitResume] boolValue];
+                
+                if (!resume) {
+                    [XPException raiseIn:filter format:@"User Terminated"];
+                }
+            }
+
             enm = [[[XPFilterEnumerator alloc] initWithBase:enm filter:filter context:ctx finishAfterReject:NO] autorelease];
         }
     }

@@ -13,4 +13,5 @@
 
 - (instancetype)initWithNodes:(NSArray *)nodes isSorted:(BOOL)sorted;
 
+@property (nonatomic, copy) NSArray *nodes;
 @end

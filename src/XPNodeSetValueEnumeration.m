@@ -9,7 +9,6 @@
 #import "XPNodeSetValueEnumeration.h"
 
 @interface XPNodeSetValueEnumeration ()
-@property (nonatomic, copy) NSArray *nodes;
 @property (nonatomic, assign, getter=isSorted) BOOL sorted;
 @property (nonatomic, assign) NSUInteger idx;
 @property (nonatomic, assign) NSUInteger lastPosition;

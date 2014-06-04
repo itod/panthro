@@ -326,7 +326,7 @@
     XPAssert([step isKindOfClass:[XPStep class]]);
     
     XPExpression *ctxNodeExpr = [[[XPContextNodeExpression alloc] init] autorelease];
-    ctxNodeExpr.range = NSMakeRange(step.range.location, 0);
+    ctxNodeExpr.range = step.range;
     [a push:ctxNodeExpr];
     [a push:_dotDotDot];
     
@@ -472,7 +472,7 @@
     }
     
     XPNodeTest *nodeTest = [[[XPNodeTypeTest alloc] initWithNodeType:XPNodeTypeNode] autorelease];
-    nodeTest.range = NSMakeRange(dotTok.offset+len, 0);
+    nodeTest.range = NSMakeRange(dotTok.offset, len);
     XPStep *step = [self stepWithStartOffset:dotTok.offset maxOffset:NSNotFound axis:axis nodeTest:nodeTest filters:nil];
     [a push:step];
 }
