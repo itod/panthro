@@ -41,15 +41,7 @@
     if ([expr isKindOfClass:[XPNodeSetValue class]]) {
         result = (XPValue *)expr;
 
-        if (ctx.staticContext.debug) {
-            id info = @{@"contextNode": ctx.contextNode, @"result": result, @"done": @NO, @"mainQueryRange": [NSValue valueWithRange:result.range]};
-            [ctx.staticContext.debugSync pause:info];
-            BOOL resume = [[ctx.staticContext.debugSync awaitResume] boolValue];
-            
-            if (!resume) {
-                [XPException raiseIn:self format:@"User Terminated"];
-            }
-        }
+        [ctx.staticContext pauseFrom:self withContextNode:ctx.contextNode result:result range:result.range done:NO];
         
     } else if ([expr isKindOfClass:[XPNodeSetExpression class]]) {
         id <XPNodeEnumeration>enm = [(XPNodeSetExpression *)expr enumerateInContext:ctx sorted:NO];

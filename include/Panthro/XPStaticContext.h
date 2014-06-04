@@ -8,11 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+@class XPExpression;
+@class XPValue;
+@class XPFunction;
 @class XPNameTest;
 @class XPNamespaceTest;
-@class XPValue;
-@class XPSync;
-@class XPFunction;
+
+@protocol XPNodeInfo;
 
 @protocol XPStaticContext <NSObject>
 
@@ -33,6 +35,7 @@
 - (void)setValue:(XPValue *)val forVariable:(NSString *)name;
 - (XPValue *)valueForVariable:(NSString *)name;
 
-@property (retain, readonly) XPSync *debugSync;
+// Debugging
+- (void)pauseFrom:(XPExpression *)expr withContextNode:(id <XPNodeInfo>)ctxNode result:(XPValue *)result range:(NSRange)range done:(BOOL)isDone;
 @property (assign) BOOL debug;
 @end

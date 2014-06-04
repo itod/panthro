@@ -60,6 +60,7 @@ NSString * const XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
 @interface XPStandaloneContext ()
 @property (nonatomic, retain) NSMutableDictionary *vars;
 @property (nonatomic, retain) NSDictionary *funcTab;
+@property (nonatomic, retain) NSMutableDictionary *namespaces;
 @end
 
 @implementation XPStandaloneContext
@@ -343,6 +344,26 @@ NSString * const XPNamespaceXSLT = @"http://www.w3.org/1999/XSL/Transform";
     XPAssert(_vars);
     
     return [_vars objectForKey:name];
+}
+
+
+- (void)pauseFrom:(XPExpression *)expr withContextNode:(id <XPNodeInfo>)ctxNode result:(XPValue *)result range:(NSRange)range done:(BOOL)isDone {
+    XPAssert(expr);
+    XPAssert(ctxNode);
+    XPAssert(result);
+    XPAssert(NSNotFound != range.location);
+    XPAssert(NSNotFound != range.length);
+    XPAssert(range.length);
+
+    if (self.debug) {
+        id info = @{@"contextNode": ctxNode, @"result": result, @"done": @(isDone), @"mainQueryRange": [NSValue valueWithRange:range]};
+        [self.debugSync pause:info];
+        BOOL resume = [[self.debugSync awaitResume] boolValue];
+        
+        if (!resume) {
+            [XPException raiseIn:expr format:@"User Terminated"];
+        }
+    }
 }
 
 @end

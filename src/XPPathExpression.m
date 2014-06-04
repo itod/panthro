@@ -226,19 +226,7 @@
 
     XPNodeSetValue *nodeSet = [[[XPNodeSetValue alloc] initWithNodes:resultUnion comparer:[XPLocalOrderComparer instance]] autorelease];
     
-    if (ctx.staticContext.debug) {
-        XPAssert(NSNotFound != _step.range.location);
-        XPAssert(NSNotFound != _step.range.length);
-        XPAssert(_step.range.length);
-
-        id info = @{@"contextNode": ctx.contextNode, @"result": nodeSet, @"done": @NO, @"mainQueryRange": [NSValue valueWithRange:_step.range]};
-        [ctx.staticContext.debugSync pause:info];
-        BOOL resume = [[ctx.staticContext.debugSync awaitResume] boolValue];
-
-        if (!resume) {
-            [XPException raiseIn:self format:@"User Terminated"];
-        }
-    }
+    [ctx.staticContext pauseFrom:self withContextNode:ctx.contextNode result:nodeSet range:_step.range done:NO];
     
     // always sort after the curruent step has completed to remove dupes and place nodes in document order.
     id <XPNodeEnumeration>enm = [nodeSet enumerateInContext:ctx sorted:YES];

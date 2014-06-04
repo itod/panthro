@@ -7,12 +7,12 @@
 //
 
 #import "XPStaticContext.h"
-#import <libxml/parser.h>
+
+@class XPExpression;
+@class XPFunction;
+@class XPSync;
 
 @protocol XPNodeInfo;
-@class XPExpression;
-@class XPSynchronousChannel;
-@class XPFunction;
 
 /**
  * A StandaloneContext provides a context for parsing an expression or pattern appearing
@@ -31,8 +31,7 @@ extern NSString * const XPNamespaceXSL;
 
 - (id)execute:(NSString *)xpathStr withContextNode:(id <XPNodeInfo>)ctxNode error:(NSError **)outErr;
 
-@property (nonatomic, retain) NSMutableDictionary *namespaces;
-
+// Debugging
 @property (retain) XPSync *debugSync;
 @property (assign) BOOL debug;
 @end

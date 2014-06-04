@@ -127,13 +127,7 @@
                 XPNodeSetValue *result = [[[XPNodeSetValue alloc] initWithNodes:nodes comparer:[XPLocalOrderComparer instance]] autorelease];
                 NSRange range = NSMakeRange(self.range.location, NSMaxRange(self.nodeTest.range) - self.range.location);
                 
-                id info = @{@"contextNode": ctx.contextNode, @"result": result, @"done": @NO, @"mainQueryRange": [NSValue valueWithRange:range]};
-                [ctx.staticContext.debugSync pause:info];
-                BOOL resume = [[ctx.staticContext.debugSync awaitResume] boolValue];
-                
-                if (!resume) {
-                    [XPException raiseIn:filter format:@"User Terminated"];
-                }
+                [ctx.staticContext pauseFrom:filter withContextNode:ctx.contextNode result:result range:range done:NO];
             }
 
             enm = [[[XPFilterEnumerator alloc] initWithBase:enm filter:filter context:ctx finishAfterReject:NO] autorelease];
