@@ -224,6 +224,11 @@
         id <XPNodeEnumeration>enm = [_step enumerate:ctx.contextNode inContext:ctx];
         
         for (id <XPNodeInfo>node in enm) {
+#if 1
+            if (1 == ctx.position) {
+                startingCtxNode = ctx.contextNode;
+            }
+#endif
             [resultUnion addObject:node];
         }
 
