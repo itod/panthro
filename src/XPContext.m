@@ -8,6 +8,7 @@
 
 #import "XPContext.h"
 #import "XPStaticContext.h"
+#import "XPNodeInfo.h"
 
 @interface XPContext ()
 @property (nonatomic, assign) id <XPStaticContext>staticContext;
@@ -15,6 +16,7 @@
 
 @implementation XPContext {
     NSUInteger _last;
+    id <XPNodeInfo>_stepContextNode;
 }
 
 - (instancetype)init {
@@ -94,6 +96,24 @@
         return [self contextPosition];    // for want of anything better
     }
 }
+
+
+- (void)setStepContextNode:(id <XPNodeInfo>)node {
+    if (node != _stepContextNode) {
+        [_stepContextNode release];
+        _stepContextNode = [node retain];
+    }
+}
+
+
+- (id <XPNodeInfo>)stepContextNode {
+    id <XPNodeInfo>result = _stepContextNode;
+    if (!result) {
+        result = self.contextNode;
+    }
+    return result;
+}
+
 
 #pragma mark -
 #pragma mark XPLastPositionFinder
