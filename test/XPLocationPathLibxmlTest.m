@@ -1954,4 +1954,13 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDFalse([enm hasMoreObjects]);
 }
 
+
+- (void)testEarlyBail {
+    [self eval:@"/book/foo/bar"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
 @end

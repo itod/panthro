@@ -200,6 +200,11 @@
     
     id <XPNodeEnumeration>ctxNodeEnm = [_start enumerateInContext:ctx sorted:sorted];
     
+    // if this is a blind alley with no possible matches, just bail with nil flag
+    if (![ctxNodeEnm hasMoreObjects]) {
+        return nil;
+    }
+    
     ctx = [[ctx copy] autorelease];
     ctx.position = 0;
     

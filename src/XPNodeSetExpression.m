@@ -12,6 +12,7 @@
 #import "XPNodeSetValue.h"
 #import "XPLocalOrderComparer.h"
 #import "XPException.h"
+#import "XPEmptyNodeSet.h"
 
 #import "XPStaticContext.h"
 #import "XPException.h"
@@ -45,9 +46,14 @@
         
     } else if ([expr isKindOfClass:[XPNodeSetExpression class]]) {
         id <XPNodeEnumeration>enm = [(XPNodeSetExpression *)expr enumerateInContext:ctx sorted:NO];
-        XPNodeSetValue *nodeSet = [[[XPNodeSetValue alloc] initWithEnumeration:enm comparer:[XPLocalOrderComparer instance]] autorelease];
-        nodeSet.range = self.range;
-        result = nodeSet; // TODO [XPNodeSetIntent intentWithNodeSetExpression:(XPNodeSetExpression *)expr controller:[ctx controller]];
+        
+        if (enm) {
+            XPNodeSetValue *nodeSet = [[[XPNodeSetValue alloc] initWithEnumeration:enm comparer:[XPLocalOrderComparer instance]] autorelease];
+            nodeSet.range = self.range;
+            result = nodeSet; // TODO [XPNodeSetIntent intentWithNodeSetExpression:(XPNodeSetExpression *)expr controller:[ctx controller]];
+        } else {
+            result = [XPEmptyNodeSet emptyNodeSet];
+        }
     } else {
         result = [expr evaluateInContext:ctx];
         if (![result isKindOfClass:[XPNodeSetValue class]]) {
