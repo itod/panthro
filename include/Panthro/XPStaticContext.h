@@ -38,7 +38,9 @@
 - (void)setValue:(XPValue *)val forVariable:(NSString *)name;
 - (XPValue *)valueForVariable:(NSString *)name;
 
+#if PAUSE_ENABLED
 // Debugging
 - (void)pauseFrom:(XPExpression *)expr withContextNode:(id <XPNodeInfo>)ctxNode result:(XPValue *)result range:(NSRange)range done:(BOOL)isDone;
 @property (assign) BOOL debug;
+#endif
 @end

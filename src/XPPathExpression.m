@@ -216,7 +216,7 @@
     
     NSMutableArray *resultUnion = [NSMutableArray array];
     
-#if 1
+#if PAUSE_ENABLED
     id <XPNodeInfo>startingCtxNode = ctx.contextNode;
     XPAssert(startingCtxNode);
 #endif
@@ -229,7 +229,7 @@
         id <XPNodeEnumeration>enm = [_step enumerate:ctx.contextNode inContext:ctx];
         
         for (id <XPNodeInfo>node in enm) {
-#if 1
+#if PAUSE_ENABLED
             if (1 == ctx.position) {
                 startingCtxNode = ctx.contextNode;
             }
@@ -241,7 +241,7 @@
 
     XPNodeSetValue *nodeSet = [[[XPNodeSetValue alloc] initWithNodes:resultUnion comparer:[XPLocalOrderComparer instance]] autorelease];
     
-#if 1
+#if PAUSE_ENABLED
     [ctx.staticContext pauseFrom:self withContextNode:startingCtxNode result:nodeSet range:_step.range done:NO];
 #endif
     

@@ -73,7 +73,9 @@
     if (self) {
         self.vars = [NSMutableDictionary dictionary];
         self.namespaces = [NSMutableDictionary dictionary];
+#if PAUSE_ENABLED
         self.debugSync = [XPSync sync];
+#endif
 
 		[self declareNamespaceURI:XPNamespaceXML forPrefix:@"xml"];
 		[self declareNamespaceURI:XPNamespaceXSLT forPrefix:@"xsl"];
@@ -126,7 +128,9 @@
     self.vars = nil;
     self.funcTab = nil;
     self.namespaces = nil;
+#if PAUSE_ENABLED
     self.debugSync = nil;
+#endif
     [super dealloc];
 }
 
@@ -346,6 +350,7 @@
 }
 
 
+#if PAUSE_ENABLED
 - (void)pauseFrom:(XPExpression *)expr withContextNode:(id <XPNodeInfo>)ctxNode result:(XPValue *)result range:(NSRange)range done:(BOOL)isDone {
     XPAssert(expr);
     XPAssert(ctxNode);
@@ -364,5 +369,6 @@
         }
     }
 }
+#endif
 
 @end

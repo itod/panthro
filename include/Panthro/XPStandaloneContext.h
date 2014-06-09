@@ -28,7 +28,9 @@
 
 - (id)execute:(NSString *)xpathStr withContextNode:(id <XPNodeInfo>)ctxNode error:(NSError **)outErr;
 
+#if PAUSE_ENABLED
 // Debugging
 @property (retain) XPSync *debugSync;
 @property (assign) BOOL debug;
+#endif
 @end
