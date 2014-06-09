@@ -12,6 +12,9 @@
 #import <Panthro/XPUtils.h>
 #import <Panthro/XPAxis.h>
 
+#import <Panthro/XPPattern.h>
+#import <Panthro/XPNodeTest.h>
+
 #import <Panthro/XPNodeInfo.h>
 #import <Panthro/XPDocumentInfo.h>
 
@@ -27,6 +30,7 @@
 #import <Panthro/XPNumericValue.h>
 #import <Panthro/XPStringValue.h>
 #import <Panthro/XPNodeSetValue.h>
+#import <Panthro/XPEmptyNodeSet.h>
 #import <Panthro/XPObjectValue.h>
 
 #import <Panthro/XPException.h>

@@ -16,6 +16,7 @@
 #import "XPNodeEnumeration.h"
 #import "XPNodeSetValueEnumeration.h"
 #import "XPSingletonNodeSet.h"
+#import "XPLocalOrderComparer.h"
 
 @interface XPNodeSetValue ()
 @property (nonatomic, retain) NSMutableArray *value; // TODO
@@ -32,7 +33,7 @@
     if (self) {
         self.value = [[nodes mutableCopy] autorelease];
         self.count = [_value count];
-        self.comparer = comparer;
+        self.comparer = comparer ? comparer : [XPLocalOrderComparer instance];
         self.sorted = _count < 2;
         self.reverseSorted = _count < 2;
     }
