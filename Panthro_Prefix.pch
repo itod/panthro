@@ -11,3 +11,5 @@
 #define XPAssert(expr) NSAssert((expr), @"assertion failed in %s", __PRETTY_FUNCTION__);
 #define XPAssertToken(obj) NSAssert([(obj) isKindOfClass:[PKToken class]], @"assertion failed in %s", __PRETTY_FUNCTION__);
 #define XPAssertExpr(obj) NSAssert([(obj) isKindOfClass:[XPExpression class]], @"assertion failed in %s", __PRETTY_FUNCTION__);
+
+#define PAUSE_ENABLED 1
