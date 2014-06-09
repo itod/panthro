@@ -356,7 +356,7 @@
 
     if (self.debug) {
         id info = @{@"contextNode": ctxNode, @"result": result, @"done": @(isDone), @"mainQueryRange": [NSValue valueWithRange:range]};
-        [self.debugSync pause:info];
+        [self.debugSync pauseWithInfo:info];
         BOOL resume = [[self.debugSync awaitResume] boolValue];
         
         if (!resume) {

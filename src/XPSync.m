@@ -44,7 +44,7 @@
 }
 
 
-- (void)pause:(id)info {
+- (void)pauseWithInfo:(id)info {
     XPAssert(_pauseChannel);
     [_pauseChannel put:info];
 }
@@ -56,7 +56,7 @@
 }
 
 
-- (void)resume:(id)info {
+- (void)resumeWithInfo:(id)info {
     XPAssert(_resumeChannel);
     [_resumeChannel put:info];
 }
