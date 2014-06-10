@@ -1117,7 +1117,7 @@
 
 - (void)__functionName {
     
-    [self testAndThrow:(id)^{ return NE(LS(1), @"true") && NE(LS(1), @"false") && NE(LS(1), @"comment") && NE(LS(1), @"text") && NE(LS(1), @"processing-instruction") && NE(LS(1), @"node") && (!_finderSupportEnabled || NE(LS(1), @"file") || NE(LS(1), @"folder")); }]; 
+    [self testAndThrow:(id)^{ return NE(LS(1), @"true") && NE(LS(1), @"false") && NE(LS(1), @"comment") && NE(LS(1), @"text") && NE(LS(1), @"processing-instruction") && NE(LS(1), @"node"); }]; 
     [self qName_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchFunctionName:)];
@@ -1424,12 +1424,6 @@
         [self processingInstruction_]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_NODE, 0]) {
         [self node_]; 
-    } else if ([self predicts:XPEG_TOKEN_KIND_FOLDER, 0]) {
-        [self testAndThrow:(id)^{ return _finderSupportEnabled; }]; 
-        [self folder_]; 
-    } else if ([self predicts:XPEG_TOKEN_KIND_FILE, 0]) {
-        [self testAndThrow:(id)^{ return _finderSupportEnabled; }]; 
-        [self file_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'nodeType'."];
     }

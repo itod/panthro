@@ -22,10 +22,7 @@ NSString * const XPathErrorDomain = @"XPathErrorDomain";
 const NSUInteger XPathErrorCodeCompiletime = 1;
 const NSUInteger XPathErrorCodeRuntime = 2;
 
-static BOOL sFinderSupportEnabled = NO;
-
 @interface XPExpression ()
-+ (void)setFinderSupportEnabled:(BOOL)yn;
 @property (nonatomic, retain, readwrite) id <XPStaticContext>staticContext;
 @end
 
@@ -38,11 +35,6 @@ static BOOL sFinderSupportEnabled = NO;
 //}
 
 
-+ (void)setFinderSupportEnabled:(BOOL)yn {
-    sFinderSupportEnabled = yn;
-}
-
-
 + (XPExpression *)expressionFromString:(NSString *)exprStr inContext:(id <XPStaticContext>)env error:(NSError **)outErr {
     return [self expressionFromString:exprStr inContext:env simplify:YES error:outErr];
 }
@@ -53,7 +45,6 @@ static BOOL sFinderSupportEnabled = NO;
     @try {
         XPAssembler *ass = [[[XPAssembler alloc] initWithContext:env] autorelease];
         XPEGParser *parser = [[[XPEGParser alloc] initWithDelegate:ass] autorelease];
-        parser.finderSupportEnabled = sFinderSupportEnabled;
         PKAssembly *a = [parser parseString:exprStr error:outErr];
         expr = [a pop];
 

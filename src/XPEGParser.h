@@ -52,8 +52,6 @@ enum {
 };
 
 @interface XPEGParser : PKParser
-        
-@property (nonatomic, assign) BOOL finderSupportEnabled;
 
 @end
 
