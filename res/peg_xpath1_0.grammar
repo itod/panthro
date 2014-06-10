@@ -155,8 +155,6 @@ comment = 'comment';
 text = 'text';
 processingInstruction = 'processing-instruction';
 node = 'node';
-file = 'file';
-folder = 'folder';
 
 keyword
     = ancestor
@@ -182,6 +180,4 @@ keyword
     | text
     | processingInstruction
     | node
-    | file
-    | folder
     ;
