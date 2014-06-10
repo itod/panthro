@@ -29,6 +29,10 @@
 
 #import "XPVariableReference.h"
 
+@interface PKParser ()
+@property (nonatomic, assign) BOOL finderSupportEnabled;
+@end
+
 @interface XPAssembler ()
 @property (nonatomic, retain) id <XPStaticContext>env;
 @property (nonatomic, retain) NSDictionary *nodeTypeTab;
@@ -431,7 +435,7 @@
         axis = XPAxisForName(axisTok.stringValue);
     }
     
-    if ([nodeTest isKindOfClass:[XPNameTest class]] && XPNodeTypePI != nodeTest.nodeType) {
+    if (!p.finderSupportEnabled && [nodeTest isKindOfClass:[XPNameTest class]] && XPNodeTypePI != nodeTest.nodeType) {
         nodeTest.nodeType = XPAxisPrincipalNodeType[axis];
     }
     
@@ -450,7 +454,7 @@
 
     XPAxis axis = XPAxisChild;
     
-    if ([nodeTest isKindOfClass:[XPNameTest class]] && XPNodeTypePI != nodeTest.nodeType) {
+    if (!p.finderSupportEnabled && [nodeTest isKindOfClass:[XPNameTest class]] && XPNodeTypePI != nodeTest.nodeType) {
         nodeTest.nodeType = XPAxisPrincipalNodeType[axis];
     }
 

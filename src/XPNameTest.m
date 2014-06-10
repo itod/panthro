@@ -56,7 +56,7 @@
     
     BOOL nsURIMatches = NO;
     BOOL localNameMatches = NO;
-    BOOL typeMatches = (XPNodeTypeNode == nodeType || self.nodeType == nodeType);
+    BOOL typeMatches = (XPNodeTypeNode == nodeType || XPNodeTypeNode == self.nodeType || self.nodeType == nodeType);
     
     if (typeMatches) {
         nsURIMatches = _isNamespaceURIWildcard || [_namespaceURI isEqualToString:nsURI];
