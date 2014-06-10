@@ -6,7 +6,7 @@
 //
 //
 
-#import "XPNodeTest.h"
+#import <Panthro/XPNodeTest.h>
 
 @interface XPNameTest : XPNodeTest
 
