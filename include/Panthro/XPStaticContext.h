@@ -29,6 +29,7 @@
 - (void)declareNamespaceURI:(NSString *)uri forPrefix:(NSString *)prefix;
 
 - (XPFunction *)makeSystemFunction:(NSString *)name error:(NSError **)outErr;
+- (void)declareSystemFunction:(Class)cls forName:(NSString *)name;
 
 - (BOOL)isElementAvailable:(NSString *)qname;
 - (BOOL)isFunctionAvailable:(NSString *)qname;

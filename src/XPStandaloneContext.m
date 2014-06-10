@@ -56,8 +56,8 @@
 #import "FNUpperCase.h"
 
 @interface XPStandaloneContext ()
-@property (nonatomic, retain) NSMutableDictionary *vars;
-@property (nonatomic, retain) NSDictionary *funcTab;
+@property (nonatomic, retain) NSMutableDictionary *variables;
+@property (nonatomic, retain) NSMutableDictionary *functions;
 @property (nonatomic, retain) NSMutableDictionary *namespaces;
 @end
 
@@ -71,8 +71,10 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.vars = [NSMutableDictionary dictionary];
+        self.variables = [NSMutableDictionary dictionary];
+        self.functions = [NSMutableDictionary dictionary];
         self.namespaces = [NSMutableDictionary dictionary];
+
 #if PAUSE_ENABLED
         self.debugSync = [XPSync sync];
 #endif
@@ -81,52 +83,49 @@
 		[self declareNamespaceURI:XPNamespaceXSLT forPrefix:@"xsl"];
         [self declareNamespaceURI:@"" forPrefix:@""];
         
-        self.funcTab = @{
-             [FNAbs name] : [FNAbs class],
-             [FNBoolean name] : [FNBoolean class],
-             [FNCeiling name] : [FNCeiling class],
-             [FNConcat name] : [FNConcat class],
-             [FNCompare name] : [FNCompare class],
-             [FNContains name] : [FNContains class],
-             [FNCount name] : [FNCount class],
-             [FNEndsWith name] : [FNEndsWith class],
-             [FNFloor name] : [FNFloor class],
-             [FNId name] : [FNId class],
-             [FNLang name] : [FNLang class],
-             [FNLast name] : [FNLast class],
-             [FNLocalName name] : [FNLocalName class],
-             [FNLowerCase name] : [FNLowerCase class],
-             [FNMatches name] : [FNMatches class],
-             [FNName name] : [FNName class],
-             [FNNamespaceURI name] : [FNNamespaceURI class],
-             [FNNormalizeSpace name] : [FNNormalizeSpace class],
-             [FNNormalizeUnicode name] : [FNNormalizeUnicode class],
-             [FNNot name] : [FNNot class],
-             [FNNumber name] : [FNNumber class],
-             [FNPosition name] : [FNPosition class],
-             [FNRound name] : [FNRound class],
-             [FNReplace name] : [FNReplace class],
-             [FNStartsWith name] : [FNStartsWith class],
-             [FNString name] : [FNString class],
-             [FNStringLength name] : [FNStringLength class],
-             [FNSubstring name] : [FNSubstring class],
-             [FNSubstringAfter name] : [FNSubstringAfter class],
-             [FNSubstringBefore name] : [FNSubstringBefore class],
-             [FNSum name] : [FNSum class],
-             [FNTranslate name] : [FNTranslate class],
-             [FNTrimSpace name] : [FNTrimSpace class],
-             [FNUpperCase name] : [FNUpperCase class],
-             [FNTitleCase name] : [FNTitleCase class],
-        };
-
+        [self declareSystemFunction:[FNAbs class] forName:[FNAbs name]];
+        [self declareSystemFunction:[FNBoolean class] forName:[FNBoolean name]];
+        [self declareSystemFunction:[FNCeiling class] forName:[FNCeiling name]];
+        [self declareSystemFunction:[FNConcat class] forName:[FNConcat name]];
+        [self declareSystemFunction:[FNCompare class] forName:[FNCompare name]];
+        [self declareSystemFunction:[FNContains class] forName:[FNContains name]];
+        [self declareSystemFunction:[FNCount class] forName:[FNCount name]];
+        [self declareSystemFunction:[FNEndsWith class] forName:[FNEndsWith name]];
+        [self declareSystemFunction:[FNFloor class] forName:[FNFloor name]];
+        [self declareSystemFunction:[FNId class] forName:[FNId name]];
+        [self declareSystemFunction:[FNLang class] forName:[FNLang name]];
+        [self declareSystemFunction:[FNLast class] forName:[FNLast name]];
+        [self declareSystemFunction:[FNLocalName class] forName:[FNLocalName name]];
+        [self declareSystemFunction:[FNLowerCase class] forName:[FNLowerCase name]];
+        [self declareSystemFunction:[FNMatches class] forName:[FNMatches name]];
+        [self declareSystemFunction:[FNName class] forName:[FNName name]];
+        [self declareSystemFunction:[FNNamespaceURI class] forName:[FNNamespaceURI name]];
+        [self declareSystemFunction:[FNNormalizeSpace class] forName:[FNNormalizeSpace name]];
+        [self declareSystemFunction:[FNNormalizeUnicode class] forName:[FNNormalizeUnicode name]];
+        [self declareSystemFunction:[FNNot class] forName:[FNNot name]];
+        [self declareSystemFunction:[FNNumber class] forName:[FNNumber name]];
+        [self declareSystemFunction:[FNPosition class] forName:[FNPosition name]];
+        [self declareSystemFunction:[FNRound class] forName:[FNRound name]];
+        [self declareSystemFunction:[FNReplace class] forName:[FNReplace name]];
+        [self declareSystemFunction:[FNStartsWith class] forName:[FNStartsWith name]];
+        [self declareSystemFunction:[FNString class] forName:[FNString name]];
+        [self declareSystemFunction:[FNStringLength class] forName:[FNStringLength name]];
+        [self declareSystemFunction:[FNSubstring class] forName:[FNSubstring name]];
+        [self declareSystemFunction:[FNSubstringAfter class] forName:[FNSubstringAfter name]];
+        [self declareSystemFunction:[FNSubstringBefore class] forName:[FNSubstringBefore name]];
+        [self declareSystemFunction:[FNSum class] forName:[FNSum name]];
+        [self declareSystemFunction:[FNTranslate class] forName:[FNTranslate name]];
+        [self declareSystemFunction:[FNTrimSpace class] forName:[FNTrimSpace name]];
+        [self declareSystemFunction:[FNUpperCase class] forName:[FNUpperCase name]];
+        [self declareSystemFunction:[FNTitleCase class] forName:[FNTitleCase name]];
     }
     return self;
 }
 
 
 - (void)dealloc {
-    self.vars = nil;
-    self.funcTab = nil;
+    self.variables = nil;
+    self.functions = nil;
     self.namespaces = nil;
 #if PAUSE_ENABLED
     self.debugSync = nil;
@@ -212,11 +211,11 @@
 
 
 - (XPFunction *)makeSystemFunction:(NSString *)name error:(NSError **)outErr {
-    XPAssert(_funcTab);
+    XPAssert(_functions);
     
     XPFunction *fn = nil;
     
-    Class cls = [_funcTab objectForKey:name];
+    Class cls = [_functions objectForKey:name];
     if (cls) {
         fn = [[[cls alloc] init] autorelease];
         XPAssert(fn);
@@ -229,6 +228,16 @@
     }
     
     return fn;
+}
+
+
+- (void)declareSystemFunction:(Class)cls forName:(NSString *)name {
+    XPAssert(cls);
+    XPAssert([cls isSubclassOfClass:[XPFunction class]]);
+    XPAssert([name length]);
+    XPAssert(_functions);
+    
+    _functions[name] = cls;
 }
 
 
@@ -336,17 +345,17 @@
 - (void)setValue:(XPValue *)val forVariable:(NSString *)name {
     NSParameterAssert(val);
     NSParameterAssert(name);
-    XPAssert(_vars);
+    XPAssert(_variables);
     
-    [_vars setObject:val forKey:name];
+    [_variables setObject:val forKey:name];
 }
 
 
 - (XPValue *)valueForVariable:(NSString *)name {
     NSParameterAssert(name);
-    XPAssert(_vars);
+    XPAssert(_variables);
     
-    return [_vars objectForKey:name];
+    return [_variables objectForKey:name];
 }
 
 
