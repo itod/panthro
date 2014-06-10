@@ -1963,4 +1963,22 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDFalse([enm hasMoreObjects]);
 }
 
+
+- (void)testImplicitChildAxisStarColonChapter {
+    // this is XPath 2.0
+    [self eval:@"*:chapter"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    for (NSUInteger i = 0; i < 3; ++i) {
+        id <XPNodeInfo>node = [enm nextObject];
+        TDEqualObjects(@"chapter", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+
 @end

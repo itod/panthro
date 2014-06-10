@@ -57,6 +57,7 @@ Panthro departs from the XPath 1.0 spec in the following known ways:
 1. Some functions from XPath 2.0 are incuded: `abs()`, `compare()`, `ends-with()`, `lower-case()`, `matches()`, `normalize-unicode()`, `replace()`, and `upper-case()`. The biggies here are `matches()` and `replace()`, which bring much-needed regex support to XPath 1.0.
 1. Other functions of my own design are incuded in the default function namespace: `title-case()`, and `trim-space()`.
 1. Scientific notation (exponents) are allowed in number literals.
+1. NameTest wildcard QName ***prefixes*** such as `*:div` **are** supported. While XPath 2.0 includes this feature, XPath 1.0 only allows wildcard prefix ***local-names*** like `html:*`. Again, Panthro extends XPath 1.0 by allowing ***both*** forms.
 
 ###XML Tree Model Bindings
 

@@ -1366,7 +1366,11 @@
 
 - (void)__nameTest {
     
-    if ([self speculate:^{ [self match:XPEG_TOKEN_KIND_MULTIPLYOPERATOR discard:NO]; }]) {
+    if ([self speculate:^{ [self match:XPEG_TOKEN_KIND_MULTIPLYOPERATOR discard:NO]; [self match:XPEG_TOKEN_KIND_COLON discard:NO]; [self ncName_]; }]) {
+        [self match:XPEG_TOKEN_KIND_MULTIPLYOPERATOR discard:NO]; 
+        [self match:XPEG_TOKEN_KIND_COLON discard:NO]; 
+        [self ncName_]; 
+    } else if ([self speculate:^{ [self match:XPEG_TOKEN_KIND_MULTIPLYOPERATOR discard:NO]; }]) {
         [self match:XPEG_TOKEN_KIND_MULTIPLYOPERATOR discard:NO]; 
     } else if ([self speculate:^{ [self ncName_]; [self match:XPEG_TOKEN_KIND_COLON discard:NO]; [self match:XPEG_TOKEN_KIND_MULTIPLYOPERATOR discard:NO]; }]) {
         [self ncName_]; 

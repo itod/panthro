@@ -530,15 +530,21 @@
         PKToken *prefixTok = [a pop];
         XPAssertToken(prefixTok);
         NSString *prefix = prefixTok.stringValue;
-        NSError *err = nil;
-        nsURI = [_env namespaceURIForPrefix:prefix error:&err];
-        if (err) {
-            PKRecognitionException *rex = [[[PKRecognitionException alloc] init] autorelease];
-            rex.range = NSMakeRange(prefixTok.offset, [prefix length]);
-            rex.currentName = @"Missing XPath namespace";
-            rex.currentReason = [err localizedFailureReason];
-            [rex raise];
+        
+        if ([prefix isEqualToString:@"*"]) {
+            nsURI = prefix;
+        } else {
+            NSError *err = nil;
+            nsURI = [_env namespaceURIForPrefix:prefix error:&err];
+            if (err) {
+                PKRecognitionException *rex = [[[PKRecognitionException alloc] init] autorelease];
+                rex.range = NSMakeRange(prefixTok.offset, [prefix length]);
+                rex.currentName = @"Missing XPath namespace";
+                rex.currentReason = [err localizedFailureReason];
+                [rex raise];
+            }
         }
+        
         NSRange prefixRange = NSMakeRange(prefixTok.offset, [prefixTok.stringValue length]);
         NSUInteger offset = prefixRange.location;
         range = NSMakeRange(offset, NSMaxRange(localRange) - offset);
