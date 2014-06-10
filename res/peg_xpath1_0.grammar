@@ -109,7 +109,7 @@ pathExpr = filterPath | locationPath;
             functionCall = actualFunctionCall | booleanLiteralFunctionCall;
                 actualFunctionCall = functionName '(' (argument (','! argument)* )? ')';
                 booleanLiteralFunctionCall = booleanLiteral '('! ')';
-                    functionName = { NE(LS(1), @"true") && NE(LS(1), @"false") && NE(LS(1), @"comment") && NE(LS(1), @"text") && NE(LS(1), @"processing-instruction") && NE(LS(1), @"node") && (!_finderSupportEnabled || NE(LS(1), @"file") || NE(LS(1), @"folder") || NE(LS(1), @"image")) }? qName;
+                    functionName = { NE(LS(1), @"true") && NE(LS(1), @"false") && NE(LS(1), @"comment") && NE(LS(1), @"text") && NE(LS(1), @"processing-instruction") && NE(LS(1), @"node") && (!_finderSupportEnabled || NE(LS(1), @"file") || NE(LS(1), @"folder")) }? qName;
                     booleanLiteral = true | false;
                 
                     qName = (prefix ':')? localPart;
@@ -132,7 +132,7 @@ pathExpr = filterPath | locationPath;
         nodeTest = typeTest | specificPITest | nameTest;
             nameTest = '*' ':' ncName | '*' | ncName ':' '*' | qName; // note whitespace should not be allowed in second alt here
             typeTest = nodeType '('! ')';
-            nodeType = comment | text | processingInstruction | node | { _finderSupportEnabled }? folder | { _finderSupportEnabled }? file | { _finderSupportEnabled }? image;
+            nodeType = comment | text | processingInstruction | node | { _finderSupportEnabled }? folder | { _finderSupportEnabled }? file;
             specificPITest = processingInstruction '('! literal ')';
         abbreviatedStep = '.' | '..';
             
@@ -161,7 +161,6 @@ processingInstruction = 'processing-instruction';
 node = 'node';
 file = 'file';
 folder = 'folder';
-image = 'image';
 
 keyword
     = ancestor
@@ -189,5 +188,4 @@ keyword
     | node
     | file
     | folder
-    | image
     ;

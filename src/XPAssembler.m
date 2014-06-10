@@ -72,6 +72,8 @@
             XPNodeTypeName[XPNodeTypeNamespace] : @(XPNodeTypeNamespace),
             XPNodeTypeName[XPNodeTypeNumberOfTypes] : @(XPNodeTypeNumberOfTypes),
             XPNodeTypeName[XPNodeTypeNone] : @(XPNodeTypeNone),
+            @"file" : @(XPNodeTypeText),
+            @"folder" : @(XPNodeTypeElement),
         };
     }
     return self;
