@@ -90,6 +90,9 @@
 @property (nonatomic, retain) NSMutableDictionary *text_memo;
 @property (nonatomic, retain) NSMutableDictionary *processingInstruction_memo;
 @property (nonatomic, retain) NSMutableDictionary *node_memo;
+@property (nonatomic, retain) NSMutableDictionary *file_memo;
+@property (nonatomic, retain) NSMutableDictionary *folder_memo;
+@property (nonatomic, retain) NSMutableDictionary *image_memo;
 @property (nonatomic, retain) NSMutableDictionary *keyword_memo;
 @end
 
@@ -100,6 +103,7 @@
     if (self) {
         
         self.startRuleName = @"stmt";
+        self.tokenKindTab[@"file"] = @(XPEG_TOKEN_KIND_FILE);
         self.tokenKindTab[@">="] = @(XPEG_TOKEN_KIND_GE_SYM);
         self.tokenKindTab[@"|"] = @(XPEG_TOKEN_KIND_PIPE);
         self.tokenKindTab[@"preceding-sibling"] = @(XPEG_TOKEN_KIND_PRECEDINGSIBLING);
@@ -111,6 +115,7 @@
         self.tokenKindTab[@"text"] = @(XPEG_TOKEN_KIND_TEXT);
         self.tokenKindTab[@"self"] = @(XPEG_TOKEN_KIND_SELF);
         self.tokenKindTab[@"comment"] = @(XPEG_TOKEN_KIND_COMMENT);
+        self.tokenKindTab[@"folder"] = @(XPEG_TOKEN_KIND_FOLDER);
         self.tokenKindTab[@":"] = @(XPEG_TOKEN_KIND_COLON);
         self.tokenKindTab[@"child"] = @(XPEG_TOKEN_KIND_CHILD);
         self.tokenKindTab[@"div"] = @(XPEG_TOKEN_KIND_DIV);
@@ -126,6 +131,7 @@
         self.tokenKindTab[@"::"] = @(XPEG_TOKEN_KIND_DOUBLE_COLON);
         self.tokenKindTab[@"namespace"] = @(XPEG_TOKEN_KIND_NAMESPACE);
         self.tokenKindTab[@"node"] = @(XPEG_TOKEN_KIND_NODE);
+        self.tokenKindTab[@"image"] = @(XPEG_TOKEN_KIND_IMAGE);
         self.tokenKindTab[@"("] = @(XPEG_TOKEN_KIND_OPEN_PAREN);
         self.tokenKindTab[@"@"] = @(XPEG_TOKEN_KIND_ABBREVIATEDAXIS);
         self.tokenKindTab[@")"] = @(XPEG_TOKEN_KIND_CLOSE_PAREN);
@@ -147,6 +153,7 @@
         self.tokenKindTab[@"<="] = @(XPEG_TOKEN_KIND_LE_SYM);
         self.tokenKindTab[@"ancestor-or-self"] = @(XPEG_TOKEN_KIND_ANCESTORORSELF);
 
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_FILE] = @"file";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_GE_SYM] = @">=";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_PIPE] = @"|";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_PRECEDINGSIBLING] = @"preceding-sibling";
@@ -158,6 +165,7 @@
         self.tokenKindNameTab[XPEG_TOKEN_KIND_TEXT] = @"text";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_SELF] = @"self";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_COMMENT] = @"comment";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_FOLDER] = @"folder";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_COLON] = @":";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_CHILD] = @"child";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_DIV] = @"div";
@@ -173,6 +181,7 @@
         self.tokenKindNameTab[XPEG_TOKEN_KIND_DOUBLE_COLON] = @"::";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_NAMESPACE] = @"namespace";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_NODE] = @"node";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_IMAGE] = @"image";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_OPEN_PAREN] = @"(";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_ABBREVIATEDAXIS] = @"@";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_CLOSE_PAREN] = @")";
@@ -280,6 +289,9 @@
         self.text_memo = [NSMutableDictionary dictionary];
         self.processingInstruction_memo = [NSMutableDictionary dictionary];
         self.node_memo = [NSMutableDictionary dictionary];
+        self.file_memo = [NSMutableDictionary dictionary];
+        self.folder_memo = [NSMutableDictionary dictionary];
+        self.image_memo = [NSMutableDictionary dictionary];
         self.keyword_memo = [NSMutableDictionary dictionary];
     }
     return self;
@@ -373,6 +385,9 @@
     self.text_memo = nil;
     self.processingInstruction_memo = nil;
     self.node_memo = nil;
+    self.file_memo = nil;
+    self.folder_memo = nil;
+    self.image_memo = nil;
     self.keyword_memo = nil;
 
     [super dealloc];
@@ -465,6 +480,9 @@
     [_text_memo removeAllObjects];
     [_processingInstruction_memo removeAllObjects];
     [_node_memo removeAllObjects];
+    [_file_memo removeAllObjects];
+    [_folder_memo removeAllObjects];
+    [_image_memo removeAllObjects];
     [_keyword_memo removeAllObjects];
 }
 
@@ -732,7 +750,7 @@
     
     if ([self predicts:XPEG_TOKEN_KIND_MINUS, 0]) {
         [self minusUnionExpr_]; 
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_ABBREVIATEDAXIS, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIV, XPEG_TOKEN_KIND_DOLLAR, XPEG_TOKEN_KIND_DOT, XPEG_TOKEN_KIND_DOT_DOT, XPEG_TOKEN_KIND_DOUBLE_SLASH, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_FORWARD_SLASH, XPEG_TOKEN_KIND_MOD, XPEG_TOKEN_KIND_MULTIPLYOPERATOR, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OPEN_PAREN, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TRUE, 0]) {
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_ABBREVIATEDAXIS, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIV, XPEG_TOKEN_KIND_DOLLAR, XPEG_TOKEN_KIND_DOT, XPEG_TOKEN_KIND_DOT_DOT, XPEG_TOKEN_KIND_DOUBLE_SLASH, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FILE, XPEG_TOKEN_KIND_FOLDER, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_FORWARD_SLASH, XPEG_TOKEN_KIND_IMAGE, XPEG_TOKEN_KIND_MOD, XPEG_TOKEN_KIND_MULTIPLYOPERATOR, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OPEN_PAREN, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TRUE, 0]) {
         [self unionExpr_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'unaryExpr'."];
@@ -845,7 +863,7 @@
 
 - (void)__locationPath {
     
-    if ([self predicts:TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_ABBREVIATEDAXIS, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIV, XPEG_TOKEN_KIND_DOT, XPEG_TOKEN_KIND_DOT_DOT, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_MOD, XPEG_TOKEN_KIND_MULTIPLYOPERATOR, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TRUE, 0]) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_ABBREVIATEDAXIS, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIV, XPEG_TOKEN_KIND_DOT, XPEG_TOKEN_KIND_DOT_DOT, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FILE, XPEG_TOKEN_KIND_FOLDER, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_IMAGE, XPEG_TOKEN_KIND_MOD, XPEG_TOKEN_KIND_MULTIPLYOPERATOR, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TRUE, 0]) {
         [self relativeLocationPath_]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_DOUBLE_SLASH, XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {
         [self absoluteLocationPath_]; 
@@ -1002,7 +1020,7 @@
         [self literal_]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
         [self number_]; 
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIV, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_MOD, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TRUE, 0]) {
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIV, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FILE, XPEG_TOKEN_KIND_FOLDER, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_IMAGE, XPEG_TOKEN_KIND_MOD, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TRUE, 0]) {
         [self functionCall_]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_OPEN_PAREN, 0]) {
         [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:YES]; 
@@ -1105,7 +1123,7 @@
 
 - (void)__functionName {
     
-    [self testAndThrow:(id)^{ return NE(LS(1), @"true") && NE(LS(1), @"false") && NE(LS(1), @"comment") && NE(LS(1), @"text") && NE(LS(1), @"processing-instruction") && NE(LS(1), @"node"); }]; 
+    [self testAndThrow:(id)^{ return NE(LS(1), @"true") && NE(LS(1), @"false") && NE(LS(1), @"comment") && NE(LS(1), @"text") && NE(LS(1), @"processing-instruction") && NE(LS(1), @"node") && (!_finderSupportEnabled || NE(LS(1), @"file") || NE(LS(1), @"folder") || NE(LS(1), @"image")); }]; 
     [self qName_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchFunctionName:)];
@@ -1173,7 +1191,7 @@
     
     if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self matchWord:NO]; 
-    } else if ([self predicts:XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIV, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_MOD, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TRUE, 0]) {
+    } else if ([self predicts:XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIV, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FILE, XPEG_TOKEN_KIND_FOLDER, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_IMAGE, XPEG_TOKEN_KIND_MOD, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TRUE, 0]) {
         [self keyword_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'ncName'."];
@@ -1412,6 +1430,15 @@
         [self processingInstruction_]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_NODE, 0]) {
         [self node_]; 
+    } else if ([self predicts:XPEG_TOKEN_KIND_FOLDER, 0]) {
+        [self testAndThrow:(id)^{ return _finderSupportEnabled; }]; 
+        [self folder_]; 
+    } else if ([self predicts:XPEG_TOKEN_KIND_FILE, 0]) {
+        [self testAndThrow:(id)^{ return _finderSupportEnabled; }]; 
+        [self file_]; 
+    } else if ([self predicts:XPEG_TOKEN_KIND_IMAGE, 0]) {
+        [self testAndThrow:(id)^{ return _finderSupportEnabled; }]; 
+        [self image_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'nodeType'."];
     }
@@ -1707,6 +1734,39 @@
     [self parseRule:@selector(__node) withMemo:_node_memo];
 }
 
+- (void)__file {
+    
+    [self match:XPEG_TOKEN_KIND_FILE discard:NO]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchFile:)];
+}
+
+- (void)file_ {
+    [self parseRule:@selector(__file) withMemo:_file_memo];
+}
+
+- (void)__folder {
+    
+    [self match:XPEG_TOKEN_KIND_FOLDER discard:NO]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchFolder:)];
+}
+
+- (void)folder_ {
+    [self parseRule:@selector(__folder) withMemo:_folder_memo];
+}
+
+- (void)__image {
+    
+    [self match:XPEG_TOKEN_KIND_IMAGE discard:NO]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchImage:)];
+}
+
+- (void)image_ {
+    [self parseRule:@selector(__image) withMemo:_image_memo];
+}
+
 - (void)__keyword {
     
     if ([self predicts:XPEG_TOKEN_KIND_ANCESTOR, 0]) {
@@ -1755,6 +1815,12 @@
         [self processingInstruction_]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_NODE, 0]) {
         [self node_]; 
+    } else if ([self predicts:XPEG_TOKEN_KIND_FILE, 0]) {
+        [self file_]; 
+    } else if ([self predicts:XPEG_TOKEN_KIND_FOLDER, 0]) {
+        [self folder_]; 
+    } else if ([self predicts:XPEG_TOKEN_KIND_IMAGE, 0]) {
+        [self image_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'keyword'."];
     }

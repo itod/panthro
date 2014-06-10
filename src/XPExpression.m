@@ -22,21 +22,24 @@ NSString * const XPathErrorDomain = @"XPathErrorDomain";
 const NSUInteger XPathErrorCodeCompiletime = 1;
 const NSUInteger XPathErrorCodeRuntime = 2;
 
-//static XPEGParser *sParser = nil;
-//static XPAssembler *sAssembler = nil;
+static BOOL sFinderSupportEnabled = NO;
 
 @interface XPExpression ()
++ (void)setFinderSupportEnabled:(BOOL)yn;
 @property (nonatomic, retain, readwrite) id <XPStaticContext>staticContext;
 @end
 
 @implementation XPExpression
 
-+ (void)initialize {
-    if ([XPExpression class] == self) {
-//        sAssembler = [[XPAssembler alloc] init];
-//        sParser = [[XPEGParser alloc] initWithDelegate:sAssembler];
-//        XPAssert(sParser);
-    }
+//+ (void)initialize {
+//    if ([XPExpression class] == self) {
+//
+//    }
+//}
+
+
++ (void)setFinderSupportEnabled:(BOOL)yn {
+    sFinderSupportEnabled = yn;
 }
 
 
@@ -50,6 +53,7 @@ const NSUInteger XPathErrorCodeRuntime = 2;
     @try {
         XPAssembler *ass = [[[XPAssembler alloc] initWithContext:env] autorelease];
         XPEGParser *parser = [[[XPEGParser alloc] initWithDelegate:ass] autorelease];
+        parser.finderSupportEnabled = sFinderSupportEnabled;
         PKAssembly *a = [parser parseString:exprStr error:outErr];
         expr = [a pop];
 
