@@ -19,9 +19,7 @@
 @property (nonatomic, retain) NSMutableArray *args;
 @end
 
-@implementation FNConcat {
-    NSMutableArray *args;
-}
+@implementation FNConcat
 
 + (NSString *)name {
     return @"concat";
@@ -39,7 +37,7 @@
     [self checkArgumentCountForMin:2 max:NSIntegerMax];
 
     BOOL allKnown = YES;
-    NSMutableArray *newArgs = [NSMutableArray arrayWithCapacity:[args count]];
+    NSMutableArray *newArgs = [NSMutableArray arrayWithCapacity:[self.args count]];
     for (XPExpression *arg in self.args) {
         arg = [arg simplify];
         [newArgs addObject:arg];
