@@ -17,6 +17,8 @@
 #import "XPNodeSetValueEnumeration.h"
 #import "XPSingletonNodeSet.h"
 #import "XPLocalOrderComparer.h"
+#import "XPException.h"
+#import "XPEGParser.h"
 
 @interface XPNodeSetValue ()
 @property (nonatomic, retain) NSMutableArray *value; // TODO
@@ -290,6 +292,97 @@
     }
     
     return NO;
+}
+
+
+/**
+ * Test how a nodeset compares to another Value under a relational comparison
+ * @param operator The comparison operator, one of Tokenizer.LE, Tokenizer.LT,
+ * Tokenizer.GE, Tokenizer.GT,
+ */
+
+- (BOOL)compareToValue:(XPValue *)other usingOperator:(NSInteger)op {
+    if ([other isObjectValue]) {
+        return NO;
+    }
+    
+    if ([other isKindOfClass:[XPSingletonNodeSet class]]) {
+        if ([other asBoolean]) {
+            other = [XPStringValue stringValueWithString:[other asString]];
+        } else {
+            return NO;
+        }
+    }
+    
+    if (op == XPEG_TOKEN_KIND_EQUALS) return [self isEqualToValue:other];
+    if (op == XPEG_TOKEN_KIND_NOT_EQUAL) return [self isNotEqualToValue:other];
+    
+    if ([other isNodeSetValue]) {
+        
+        // find the min and max values in this nodeset
+        
+        double thismax = -INFINITY; //Double.NEGATIVE_INFINITY;
+        double thismin = INFINITY; //Double.POSITIVE_INFINITY;
+        BOOL thisIsEmpty = YES;
+        
+        id <XPNodeEnumeration>e1 = [self enumerate];
+        while ([e1 hasMoreObjects]) {
+            double val = XPNumberFromString([[e1 nextObject] stringValue]);
+            if (val < thismin) thismin = val;
+            if (val > thismax) thismax = val;
+            thisIsEmpty = NO;
+        }
+        
+        if (thisIsEmpty) return NO;
+        
+        // find the minimum and maximum values in the other nodeset
+        
+        double othermax = -INFINITY; //Double.NEGATIVE_INFINITY;
+        double othermin = INFINITY; //Double.POSITIVE_INFINITY;
+        BOOL otherIsEmpty = YES;
+        
+        id <XPNodeEnumeration>e2 = [(XPNodeSetValue *)other enumerate];
+        while ([e2 hasMoreObjects]) {
+            double val = XPNumberFromString([[e2 nextObject] stringValue]);
+            if (val < othermin) othermin = val;
+            if (val > othermax) othermax = val;
+            otherIsEmpty = NO;
+        }
+        
+        if (otherIsEmpty) return NO;
+        
+        switch(op) {
+            case XPEG_TOKEN_KIND_LT_SYM:
+                return thismin < othermax;
+            case XPEG_TOKEN_KIND_LE_SYM:
+                return thismin <= othermax;
+            case XPEG_TOKEN_KIND_GT_SYM:
+                return thismax > othermin;
+            case XPEG_TOKEN_KIND_GE_SYM:
+                return thismax >= othermin;
+            default:
+                return NO;
+        }
+        
+    } else {
+        if ([other isNumericValue] || [other isStringValue]) {
+            id <XPNodeEnumeration>e1 = [self enumerate];
+            while ([e1 hasMoreObjects]) {
+                id <XPNodeInfo>node = [e1 nextObject];
+                if ([self compareNumber:XPNumberFromString([node stringValue]) toNumber:[other asNumber] usingOperator:op]) {
+                    return YES;
+                }
+            }
+            return NO;
+        } else if ([other isBooleanValue]) {
+            return [self compareNumber:[[XPBooleanValue booleanValueWithBoolean:[self asBoolean]] asNumber]
+                              toNumber:[[XPBooleanValue booleanValueWithBoolean:[other asBoolean]] asNumber]
+                         usingOperator:op];
+        } else {
+            [XPException raiseIn:self format:@"Unknown data type in a relational expression"];
+            return NO;
+        }
+    }
 }
 
 
