@@ -10,6 +10,7 @@
 #import "XPValue.h"
 #import "XPBooleanValue.h"
 #import "XPPositionRange.h"
+#import "XPEGParser.h"
 
 @implementation XPBooleanExpression
 
@@ -60,10 +61,10 @@
     
     BOOL result = NO;
     switch (self.operator) {
-        case XPTokenTypeAnd:
+        case XPEG_TOKEN_KIND_AND:
             result = b1 && b2;
             break;
-        case XPTokenTypeOr:
+        case XPEG_TOKEN_KIND_OR:
             result = b1 || b2;
             break;
         default:

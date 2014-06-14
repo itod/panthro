@@ -9,6 +9,7 @@
 #import "XPRelationalExpression.h"
 #import "XPValue.h"
 #import "XPBooleanValue.h"
+#import "XPEGParser.h"
 
 @implementation XPRelationalExpression
 
@@ -25,22 +26,22 @@
 - (NSString *)description {
     NSString *opStr = nil;
     switch (self.operator) {
-        case XPTokenTypeEquals:
+        case XPEG_TOKEN_KIND_EQUALS:
             opStr = @"=";
             break;
-        case XPTokenTypeNE:
+        case XPEG_TOKEN_KIND_NOT_EQUAL:
             opStr = @"!=";
             break;
-        case XPTokenTypeLT:
+        case XPEG_TOKEN_KIND_LT_SYM:
             opStr = @"<";
             break;
-        case XPTokenTypeGT:
+        case XPEG_TOKEN_KIND_GT_SYM:
             opStr = @">";
             break;
-        case XPTokenTypeLE:
+        case XPEG_TOKEN_KIND_LE_SYM:
             opStr = @"<=";
             break;
-        case XPTokenTypeGE:
+        case XPEG_TOKEN_KIND_GE_SYM:
             opStr = @">=";
             break;
         default:

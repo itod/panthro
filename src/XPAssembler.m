@@ -7,6 +7,7 @@
 //
 
 #import "XPAssembler.h"
+#import "XPEGParser.h"
 #import <Panthro/Panthro.h>
 #import <PEGKit/PEGKit.h>
 #import <PEGKit/PKParser+Subclass.h>
@@ -103,10 +104,10 @@
     PKToken *opTok = [a pop];
     XPValue *v1 = [a pop];
 
-    NSInteger op = XPTokenTypeAnd;
+    NSInteger op = XPEG_TOKEN_KIND_AND;
 
     if ([@"or" isEqualToString:opTok.stringValue]) {
-        op = XPTokenTypeOr;
+        op = XPEG_TOKEN_KIND_OR;
     }
 
     XPExpression *boolExpr = [XPBooleanExpression booleanExpressionWithOperand:v1 operator:op operand:v2];
@@ -126,19 +127,19 @@
     XPExpression *p1 = [a pop];
     XPAssertExpr(p1);
     
-    NSInteger op = XPTokenTypeEquals;
+    NSInteger op = XPEG_TOKEN_KIND_EQUALS;
     NSString *opStr = opTok.stringValue;
 
     if ([@"!=" isEqualToString:opStr]) {
-        op = XPTokenTypeNE;
+        op = XPEG_TOKEN_KIND_NOT_EQUAL;
     } else if ([@"<" isEqualToString:opStr]) {
-        op = XPTokenTypeLT;
+        op = XPEG_TOKEN_KIND_LT_SYM;
     } else if ([@">" isEqualToString:opStr]) {
-        op = XPTokenTypeGT;
+        op = XPEG_TOKEN_KIND_GT_SYM;
     } else if ([@"<=" isEqualToString:opStr]) {
-        op = XPTokenTypeLE;
+        op = XPEG_TOKEN_KIND_LE_SYM;
     } else if ([@">=" isEqualToString:opStr]) {
-        op = XPTokenTypeGE;
+        op = XPEG_TOKEN_KIND_GE_SYM;
     }
     
     XPExpression *relExpr = [XPRelationalExpression relationalExpressionWithOperand:p1 operator:op operand:p2];
@@ -155,16 +156,16 @@
     PKToken *opTok = [a pop];
     XPValue *v1 = [a pop];
     
-    NSInteger op = XPTokenTypePlus;
+    NSInteger op = XPEG_TOKEN_KIND_PLUS;
     
     if ([@"-" isEqualToString:opTok.stringValue]) {
-        op = XPTokenTypeMinus;
+        op = XPEG_TOKEN_KIND_MINUS;
     } else if ([@"div" isEqualToString:opTok.stringValue]) {
-        op = XPTokenTypeDiv;
+        op = XPEG_TOKEN_KIND_DIV;
     } else if ([@"*" isEqualToString:opTok.stringValue]) {
-        op = XPTokenTypeMult;
+        op = XPEG_TOKEN_KIND_MULTIPLYOPERATOR;
     } else if ([@"mod" isEqualToString:opTok.stringValue]) {
-        op = XPTokenTypeMod;
+        op = XPEG_TOKEN_KIND_MOD;
     }
     
     XPExpression *mathExpr = [XPArithmeticExpression arithmeticExpressionWithOperand:v1 operator:op operand:v2];
@@ -231,7 +232,7 @@
     PKToken *dollarTok = [a pop];
     XPAssertToken(dollarTok);
     XPAssert([dollarTok.stringValue isEqualToString:@"$"]);
-
+    
     NSString *name = nameTok.stringValue;
     XPVariableReference *ref = [[[XPVariableReference alloc] initWithName:name] autorelease];
     NSUInteger offset = dollarTok.offset;

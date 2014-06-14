@@ -10,6 +10,7 @@
 #import "XPValue.h"
 #import "XPNumericValue.h"
 #import "XPException.h"
+#import "XPEGParser.h"
 
 @implementation XPArithmeticExpression
 
@@ -36,18 +37,18 @@
     double n2 = [self.p2 evaluateAsNumberInContext:ctx];
 
     switch (self.operator) {
-        case XPTokenTypePlus:
+        case XPEG_TOKEN_KIND_PLUS:
             return n1 + n2;
-        case XPTokenTypeMinus:
+        case XPEG_TOKEN_KIND_MINUS:
             return n1 - n2;
-        case XPTokenTypeMult:
+        case XPEG_TOKEN_KIND_MULTIPLYOPERATOR:
             return n1 * n2;
-        case XPTokenTypeDiv:
+        case XPEG_TOKEN_KIND_DIV:
             return n1 / n2;
-        case XPTokenTypeMod:
+        case XPEG_TOKEN_KIND_MOD:
             return lrint(n1) % lrint(n2);
-        case XPTokenTypeNegate:
-            return -n2;
+//        case XPEG_TOKEN_KIND_MINUS:
+//            return -n2;
         default:
             [XPException raiseIn:self format:@"invalid operator in arithmetic expr"];
             return NAN;

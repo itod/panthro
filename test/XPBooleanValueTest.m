@@ -70,19 +70,19 @@
 
 
 - (void)testCompareToBoolean {
-    TDTrue ([_b1 compareToValue:_b2 usingOperator:XPTokenTypeEquals]);
-    TDFalse([_b1 compareToValue:_b2 usingOperator:XPTokenTypeNE]);
-    TDFalse([_b1 compareToValue:_b2 usingOperator:XPTokenTypeLT]);
-    TDTrue ([_b1 compareToValue:_b2 usingOperator:XPTokenTypeLE]);
-    TDFalse([_b1 compareToValue:_b2 usingOperator:XPTokenTypeGT]);
-    TDTrue ([_b1 compareToValue:_b2 usingOperator:XPTokenTypeGE]);
+    TDTrue ([_b1 compareToValue:_b2 usingOperator:XPEG_TOKEN_KIND_EQUALS]);
+    TDFalse([_b1 compareToValue:_b2 usingOperator:XPEG_TOKEN_KIND_NOT_EQUAL]);
+    TDFalse([_b1 compareToValue:_b2 usingOperator:XPEG_TOKEN_KIND_LT_SYM]);
+    TDTrue ([_b1 compareToValue:_b2 usingOperator:XPEG_TOKEN_KIND_LE_SYM]);
+    TDFalse([_b1 compareToValue:_b2 usingOperator:XPEG_TOKEN_KIND_GT_SYM]);
+    TDTrue ([_b1 compareToValue:_b2 usingOperator:XPEG_TOKEN_KIND_GE_SYM]);
 
-    TDFalse([_b1 compareToValue:_b3 usingOperator:XPTokenTypeEquals]);
-    TDTrue ([_b1 compareToValue:_b3 usingOperator:XPTokenTypeNE]);
-    TDFalse([_b1 compareToValue:_b3 usingOperator:XPTokenTypeLT]);
-    TDFalse([_b1 compareToValue:_b3 usingOperator:XPTokenTypeLE]);
-    TDTrue ([_b1 compareToValue:_b3 usingOperator:XPTokenTypeGT]);
-    TDTrue ([_b1 compareToValue:_b3 usingOperator:XPTokenTypeGE]);
+    TDFalse([_b1 compareToValue:_b3 usingOperator:XPEG_TOKEN_KIND_EQUALS]);
+    TDTrue ([_b1 compareToValue:_b3 usingOperator:XPEG_TOKEN_KIND_NOT_EQUAL]);
+    TDFalse([_b1 compareToValue:_b3 usingOperator:XPEG_TOKEN_KIND_LT_SYM]);
+    TDFalse([_b1 compareToValue:_b3 usingOperator:XPEG_TOKEN_KIND_LE_SYM]);
+    TDTrue ([_b1 compareToValue:_b3 usingOperator:XPEG_TOKEN_KIND_GT_SYM]);
+    TDTrue ([_b1 compareToValue:_b3 usingOperator:XPEG_TOKEN_KIND_GE_SYM]);
 }
 
 

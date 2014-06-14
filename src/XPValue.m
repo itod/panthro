@@ -12,6 +12,7 @@
 #import "XPStringValue.h"
 #import "XPNodeSetValue.h"
 #import "XPObjectValue.h"
+#import "XPEGParser.h"
 
 double XPNumberFromString(NSString *s) {
 #if 1
@@ -114,8 +115,8 @@ double XPNumberFromString(NSString *s) {
 
 - (BOOL)compareToValue:(XPValue *)other usingOperator:(NSInteger)op {
 
-    if (op == XPTokenTypeEquals) return [self isEqualToValue:other];
-    if (op == XPTokenTypeNE) return [self isNotEqualToValue:other];
+    if (op == XPEG_TOKEN_KIND_EQUALS) return [self isEqualToValue:other];
+    if (op == XPEG_TOKEN_KIND_NOT_EQUAL) return [self isNotEqualToValue:other];
     
     if ([other isNodeSetValue]) {
         return [other compareToValue:self usingOperator:[self inverseOperator:op]];
@@ -127,14 +128,14 @@ double XPNumberFromString(NSString *s) {
 
 - (NSInteger)inverseOperator:(NSInteger)op {
     switch (op) {
-        case XPTokenTypeLT:
-            return XPTokenTypeGT;
-        case XPTokenTypeLE:
-            return XPTokenTypeGE;
-        case XPTokenTypeGT:
-            return XPTokenTypeLT;
-        case XPTokenTypeGE:
-            return XPTokenTypeLE;
+        case XPEG_TOKEN_KIND_LT_SYM:
+            return XPEG_TOKEN_KIND_GT_SYM;
+        case XPEG_TOKEN_KIND_LE_SYM:
+            return XPEG_TOKEN_KIND_GE_SYM;
+        case XPEG_TOKEN_KIND_GT_SYM:
+            return XPEG_TOKEN_KIND_LT_SYM;
+        case XPEG_TOKEN_KIND_GE_SYM:
+            return XPEG_TOKEN_KIND_LE_SYM;
         default:
             return op;
     }
@@ -143,13 +144,13 @@ double XPNumberFromString(NSString *s) {
 
 - (BOOL)compareNumber:(double)x toNumber:(double)y usingOperator:(NSInteger)op {
     switch (op) {
-        case XPTokenTypeLT:
+        case XPEG_TOKEN_KIND_LT_SYM:
             return x < y;
-        case XPTokenTypeLE:
+        case XPEG_TOKEN_KIND_LE_SYM:
             return x <= y;
-        case XPTokenTypeGT:
+        case XPEG_TOKEN_KIND_GT_SYM:
             return x > y;
-        case XPTokenTypeGE:
+        case XPEG_TOKEN_KIND_GE_SYM:
             return x >= y;
         default:
             return NO;
@@ -164,31 +165,26 @@ double XPNumberFromString(NSString *s) {
 
 - (BOOL)isBooleanValue {
     return [self isKindOfClass:[XPBooleanValue class]];
-    //return XPDataTypeBoolean == [self dataType];
 }
 
 
 - (BOOL)isNumericValue {
     return [self isKindOfClass:[XPNumericValue class]];
-    //return XPDataTypeNumber == [self dataType];
 }
 
 
 - (BOOL)isStringValue {
     return [self isKindOfClass:[XPStringValue class]];
-    //return XPDataTypeString == [self dataType];
 }
 
 
 - (BOOL)isNodeSetValue {
     return [self isKindOfClass:[XPNodeSetValue class]];
-    //return XPDataTypeNodeSet == [self dataType];
 }
 
 
 - (BOOL)isObjectValue {
     return [self isKindOfClass:[XPObjectValue class]];
-    //return XPDataTypeNodeSet == [self dataType];
 }
 
 @end
