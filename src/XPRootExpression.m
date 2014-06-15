@@ -11,10 +11,6 @@
 #import "XPNodeInfo.h"
 #import "XPContext.h"
 #import "XPNodeSetValue.h"
-#import "XPLocalOrderComparer.h"
-#import "XPNodeTypeTest.h"
-#import "XPAxis.h"
-#import "XPAxisEnumeration.h"
 #import "XPSingletonNodeSet.h"
 #import "XPSingletonEnumeration.h"
 
@@ -93,10 +89,6 @@
 
 - (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
     return [[[XPSingletonEnumeration alloc] initWithNode:ctx.contextNode.documentRoot] autorelease];
-//    XPNodeTest *nodeTest = [[[XPNodeTypeTest alloc] initWithNodeType:XPNodeTypeNode] autorelease];
-//    id <XPNodeEnumeration>enm = [ctx.contextNode enumerationForAxis:XPAxisSelf nodeTest:nodeTest];
-//    XPAssert(enm);
-//    return enm;
 }
 
 
