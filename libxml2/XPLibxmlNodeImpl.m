@@ -335,6 +335,11 @@ static NSUInteger XPIndexInParent(id <XPNodeInfo>nodeInfo) {
 - (NSString *)attributeValueForURI:(NSString *)nsURI localName:(NSString *)localName {
     XPAssert(XPNodeTypeElement == self.nodeType);
     
+    if (nsURI && 0 == [nsURI length]) {
+        // libxml won't recognize the empty string as the null namepsace.
+        nsURI = nil;
+    }
+    
     NSString *res = XPSTR(xmlGetNsProp(_node, (xmlChar *)[localName UTF8String], (xmlChar *)[nsURI UTF8String]));
     return res;
 }

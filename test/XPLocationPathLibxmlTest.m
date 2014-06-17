@@ -1988,6 +1988,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     
     node = [enm nextObject];
     TDEqualObjects(@"chapter", node.name);
+    TDEqualObjects(@"c2", [node attributeValueForURI:nil localName:@"id"]);
     TDEqualObjects(@"c2", [node attributeValueForURI:@"" localName:@"id"]);
     TDEquals(XPNodeTypeElement, node.nodeType);
     
