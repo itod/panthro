@@ -147,7 +147,7 @@
             }
         }
         
-        if (_count - j > 1) {
+        if (_count - j > 0) {
             [_value removeObjectsInRange:NSMakeRange(j, _count-j)];
         }
         
