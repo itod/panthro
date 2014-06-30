@@ -34,28 +34,6 @@
 
 
 /**
- * Evaluate as a boolean.
- * @param context The context (not used)
- * @return true (always - because the nodeset is never empty)
- */
-
-- (BOOL)evaluateAsBooleanInContext:(XPContext *)ctx {
-    return YES;
-}
-
-
-/**
- * Evaluate as a string
- * @param context The context for evaluation
- * @return The concatenation of all the character data within the document
- */
-
-- (NSString *)evaluateAsStringInContext:(XPContext *)ctx {
-    return [ctx.contextNode.documentRoot stringValue];
-}
-
-
-/**
  * Determine which aspects of the context the expression depends on. The result is
  * a bitwise-or'ed value composed from constants such as Context.VARIABLES and
  * Context.CURRENT_NODE
@@ -84,16 +62,6 @@
     }
     
     return result;
-}
-
-
-- (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
-    return [[[XPSingletonEnumeration alloc] initWithNode:ctx.contextNode.documentRoot] autorelease];
-}
-
-
-- (BOOL)isContextDocumentNodeSet {
-    return YES;
 }
 
 @end

@@ -46,13 +46,8 @@
 }
 
 
-- (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
-    return [[[XPSingletonEnumeration alloc] initWithNode:ctx.contextNode] autorelease];
-}
-
-
-- (BOOL)isContextDocumentNodeSet {
-    return YES;
+- (id <XPNodeInfo>)nodeInContext:(XPContext *)ctx {
+    return ctx.contextNode;
 }
 
 @end
