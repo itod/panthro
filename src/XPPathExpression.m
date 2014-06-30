@@ -19,6 +19,7 @@
 #import "XPFilterEnumerator.h"
 #import "XPLocalOrderComparer.h"
 #import "XPSingletonNodeSet.h"
+#import "XPPathEnumeration.h"
 
 @interface XPExpression ()
 @property (nonatomic, retain, readwrite) id <XPStaticContext>staticContext;
@@ -248,21 +249,18 @@
     // always sort after the curruent step has completed to remove dupes and place nodes in document order.
     id <XPNodeEnumeration>enm = [nodeSet enumerateInContext:ctx sorted:YES];
     
-    
-    
-    
-//    id <XPNodeEnumeration>enm = [[[XPPathEnumeration alloc] initWithPathExpression:self start:_start context:ctx] autorelease];
+//    id <XPNodeEnumeration>enm = [[[XPPathEnumeration alloc] initWithStart:_start step:_step context:ctx] autorelease];
 //    if (sorted && !enm.isSorted) {
 //
 //        id <XPNodeOrderComparer>comparer = nil;
 //        
-//        if ([_start isKindOfClass:[XPSingletonNodeSet class]] || _start.isContextDocumentNodeSet) {
-//            // nodes are all in the same document
-//            comparer = [XPLocalOrderComparer instance];
-//        } else {
-//            comparer = ctx.controller;
-//        }
-//        XPNodeSetExtent *ns = [[[XPNodeSetExtent alloc] initWithNodeEnumeration:enm controller:comparer] autorelease];
+////        if ([_start isKindOfClass:[XPSingletonNodeSet class]] || _start.isContextDocumentNodeSet) {
+////            // nodes are all in the same document
+////            comparer = [XPLocalOrderComparer instance];
+////        } else {
+////            comparer = ctx.controller;
+////        }
+//        XPNodeSetValue *ns = [[[XPNodeSetValue alloc] initWithEnumeration:enm comparer:comparer] autorelease];
 //        [ns sort];
 //        return [ns enumerate];
 //    }
