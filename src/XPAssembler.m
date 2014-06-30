@@ -325,7 +325,6 @@
 
 
 - (void)parser:(PKParser *)p didMatchFirstRelativeStep:(PKAssembly *)a {
-    // ok, we either have a SingletonExpr (. or ..) or a step.
     id obj = [a pop];
     
     XPStep *step = (id)obj;
@@ -333,6 +332,8 @@
     
     XPExpression *startNodeExpr = nil;
     BOOL skipStep = NO;
+
+    // ok, let's produce a `context-node()`, `parent-node()`, or a `context-node()/step`.
 
     BOOL isAnyNodeTypeTest = [step.nodeTest isKindOfClass:[XPNodeTypeTest class]] && XPNodeTypeNode == step.nodeTest.nodeType;
     if (isAnyNodeTypeTest && XPAxisSelf == step.axis) {
