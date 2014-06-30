@@ -10,7 +10,7 @@
 
 @interface XPNodeSetValueEnumeration ()
 @property (nonatomic, assign, getter=isSorted) BOOL sorted;
-@property (nonatomic, assign) NSUInteger idx;
+@property (nonatomic, assign) NSUInteger index;
 @property (nonatomic, assign) NSUInteger lastPosition;
 @end
 
@@ -21,7 +21,7 @@
     if (self) {
         self.nodes = nodes;
         self.lastPosition = [_nodes count];
-        self.idx = 0;
+        self.index = 0;
         self.sorted = sorted;
     }
     return self;
@@ -51,10 +51,10 @@
  */
 
 - (BOOL)hasMoreObjects {
-    XPAssert(NSNotFound != _idx);
+    XPAssert(NSNotFound != _index);
     XPAssert(_nodes);
     
-    return _idx < _lastPosition;
+    return _index < _lastPosition;
 }
 
 /**
@@ -68,7 +68,7 @@
     id <XPNodeInfo>node = nil;
     
     if ([self hasMoreObjects]) {
-        node = _nodes[_idx++];
+        node = _nodes[_index++];
     }
     
     return node;

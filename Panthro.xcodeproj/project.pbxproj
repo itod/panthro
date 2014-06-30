@@ -513,6 +513,8 @@
 		D34BADF3100ABA7C00996341 /* XPBooleanValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBooleanValue.m; path = src/XPBooleanValue.m; sourceTree = "<group>"; };
 		D34BADF7100ABA9300996341 /* XPValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPValue.m; path = src/XPValue.m; sourceTree = "<group>"; };
 		D3539405192FA6A900D6EEA6 /* XPException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPException.m; path = src/XPException.m; sourceTree = "<group>"; };
+		D36036141961D0280047F6A4 /* XPPathEnumeration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPPathEnumeration.h; path = src/XPPathEnumeration.h; sourceTree = "<group>"; };
+		D36036151961D0280047F6A4 /* XPPathEnumeration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPPathEnumeration.m; path = src/XPPathEnumeration.m; sourceTree = "<group>"; };
 		D36712E0192ACC1700B13A63 /* XPSynchronousChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPSynchronousChannel.m; path = src/XPSynchronousChannel.m; sourceTree = "<group>"; };
 		D36712E3192ACC2600B13A63 /* XPSemaphore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPSemaphore.h; path = src/XPSemaphore.h; sourceTree = "<group>"; };
 		D36BC02E101BF52F00D1A6C7 /* XPNodeSetExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNodeSetExpression.m; path = src/XPNodeSetExpression.m; sourceTree = "<group>"; };
@@ -1218,6 +1220,8 @@
 			children = (
 				D33E9F911917040D00BB7DFE /* XPPathExpression.h */,
 				D33E9F921917040D00BB7DFE /* XPPathExpression.m */,
+				D36036141961D0280047F6A4 /* XPPathEnumeration.h */,
+				D36036151961D0280047F6A4 /* XPPathEnumeration.m */,
 				D3F0CC10191EC8590049EC02 /* XPAxis.h */,
 				D3A6C2E31907391200F3EFF3 /* XPAxis.m */,
 				D3A6C2ED1907413800F3EFF3 /* XPStep.h */,
