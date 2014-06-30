@@ -9,10 +9,11 @@
 #import "XPBaseFastEnumeration.h"
 
 @class XPExpression;
+@class XPStep;
 @class XPContext;
 
 @interface XPPathEnumeration : XPBaseFastEnumeration
 
-- (instancetype)initWithStart:(XPExpression *)start context:(XPContext *)ctx;
+- (instancetype)initWithStart:(XPExpression *)start step:(XPStep *)step context:(XPContext *)ctx;
 
 @end

@@ -13,9 +13,11 @@
 #import "XPSingletonNodeSet.h"
 #import "XPSingletonExpression.h"
 #import "XPException.h"
+#import "XPStep.h"
 
 @interface XPPathEnumeration ()
 @property (nonatomic, retain) XPExpression *thisStart;
+@property (nonatomic, retain) XPStep *step;
 @property (nonatomic, retain) id <XPNodeEnumeration>base;
 @property (nonatomic, retain) id <XPNodeEnumeration>thisStep;
 @property (nonatomic, retain) id <XPNodeInfo>next;
@@ -24,7 +26,7 @@
 
 @implementation XPPathEnumeration
 
-- (instancetype)initWithStart:(XPExpression *)start context:(XPContext *)ctx {
+- (instancetype)initWithStart:(XPExpression *)start step:(XPStep *)step context:(XPContext *)ctx {
     self = [super init];
     if (self) {
         if ([start isKindOfClass:[XPSingletonNodeSet class]]) {
@@ -33,6 +35,7 @@
             }
         }
         self.thisStart = start;
+        self.step = step;
         self.context = [[ctx copy] autorelease]; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         self.base = [start enumerateInContext:_context sorted:NO];
         self.next = [self nextNode];
@@ -78,7 +81,7 @@
     while ([_base hasMoreObjects]) {
         id <XPNodeInfo>node = [_base nextObject];
                         //System.err.println("Base.nextElement = " + node);
-        self.thisStep = [step enumerate:node inContext:_context];
+        self.thisStep = [_step enumerate:node inContext:_context];
         if ([_thisStep hasMoreObjects]) {
             return [_thisStep nextObject];
                         //NodeInfo n2 = _thisStep.nextElement();
@@ -98,7 +101,7 @@
 */
 
 - (BOOL)isSorted {
-    XPAxis axis = step.axis;
+    XPAxis axis = _step.axis;
     return XPAxisIsForwards[axis] && (
          ([_thisStart isKindOfClass:[XPSingletonExpression class]]) ||
          (_base.isSorted && _base.isPeer && XPAxisIsSubtreeAxis[axis]) ||
@@ -113,7 +116,7 @@
 */
 
 - (BOOL)isReverseSorted {
-    return [_thisStart isKindOfClass:[XPSingletonExpression class]] && XPAxisIsReverse[step.axis];
+    return [_thisStart isKindOfClass:[XPSingletonExpression class]] && XPAxisIsReverse[_step.axis];
 }
 
 
@@ -123,7 +126,7 @@
 */
 
 - (BOOL)isPeer {
-    return (_base.isPeer && XPAxisIsPeerAxis[step.axis]);
+    return (_base.isPeer && XPAxisIsPeerAxis[_step.axis]);
 }
 
 @end
