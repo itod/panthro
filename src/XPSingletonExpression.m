@@ -40,6 +40,26 @@
 
 
 /**
+ * Perform a partial evaluation of the expression, by eliminating specified dependencies
+ * on the context.
+ * @param dependencies The dependencies to be removed
+ * @param context The context to be used for the partial evaluation
+ * @return a new expression that does not have any of the specified
+ * dependencies
+ */
+
+- (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
+    XPExpression *result = self;
+    
+    if ((self.dependencies & dep) != 0) {
+        result = [[[XPSingletonNodeSet alloc] initWithNode:[self nodeInContext:ctx]] autorelease];
+        result.range = self.range;
+    }
+    
+    return result;
+}
+
+/**
  * Evaluate the expression in a given context to return a Node enumeration
  * @param context the evaluation context
  * @param sort Indicates result must be in document order

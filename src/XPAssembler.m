@@ -25,6 +25,8 @@
 
 #import "XPRootExpression.h"
 #import "XPContextNodeExpression.h"
+#import "XPParentNodeExpression.h"
+
 #import "XPFilterExpression.h"
 #import "XPUnionExpression.h"
 
@@ -323,17 +325,31 @@
 
 
 - (void)parser:(PKParser *)p didMatchFirstRelativeStep:(PKAssembly *)a {
-    XPStep *step = [a pop];
+    // ok, we either have a SingletonExpr (. or ..) or a step.
+    id obj = [a pop];
+    
+    XPStep *step = (id)obj;
     XPAssert([step isKindOfClass:[XPStep class]]);
     
-    XPExpression *ctxNodeExpr = [[[XPContextNodeExpression alloc] init] autorelease];
-    ctxNodeExpr.range = step.range;
-    [a push:ctxNodeExpr];
+    XPExpression *startNodeExpr = nil;
+    BOOL skipStep = NO;
+
+    BOOL isAnyNodeTypeTest = [step.nodeTest isKindOfClass:[XPNodeTypeTest class]] && XPNodeTypeNode == step.nodeTest.nodeType;
+    if (isAnyNodeTypeTest && XPAxisSelf == step.axis) {
+        startNodeExpr = [[[XPContextNodeExpression alloc] init] autorelease];
+        skipStep = YES; // drop redundant self::node() step
+    } else if (isAnyNodeTypeTest && XPAxisParent == step.axis) {
+        startNodeExpr = [[[XPParentNodeExpression alloc] init] autorelease];
+        skipStep = YES; // drop redundant parent::node() step
+    } else {
+        startNodeExpr = [[[XPContextNodeExpression alloc] init] autorelease];
+    }
+
+    startNodeExpr.range = step.range;
+    [a push:startNodeExpr];
     [a push:_dotDotDot];
     
-    if (XPAxisSelf == step.axis && XPNodeTypeNode == step.nodeTest.nodeType) {
-        // drop redundant self::node() step
-    } else {
+    if (!skipStep) {
         [a push:step];
     }
 }
