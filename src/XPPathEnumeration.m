@@ -30,7 +30,7 @@
     self = [super init];
     if (self) {
         if ([start isKindOfClass:[XPSingletonNodeSet class]]) {
-            if (!((XPSingletonNodeSet *)start).isGeneralUseAllowed) {
+            if (!([(XPSingletonNodeSet *)start isGeneralUseAllowed]) {
                 [XPException raiseIn:start format:@"To use a result tree fragment in a path expression, either use exsl:node-set() or specify version='1.1'"];
             }
         }
