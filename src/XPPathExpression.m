@@ -253,19 +253,22 @@
     
 //    id <XPNodeEnumeration>enm = [[[XPPathEnumeration alloc] initWithStart:_start step:_step context:ctx] autorelease];
 //    if (sorted && !enm.isSorted) {
-//
+//        
 //        id <XPNodeOrderComparer>comparer = nil;
 //        
-////        if ([_start isKindOfClass:[XPSingletonNodeSet class]] || [_start isContextDocumentNodeSet]) {
-////            // nodes are all in the same document
-////            comparer = [XPLocalOrderComparer instance];
-////        } else {
-////            comparer = ctx.controller;
-////        }
-//        XPNodeSetValue *ns = [[[XPNodeSetIntent alloc] initWithEnumeration:enm comparer:comparer] autorelease];
+//        if ([_start isKindOfClass:[XPSingletonNodeSet class]] || [_start isContextDocumentNodeSet]) {
+//            // nodes are all in the same document
+//            comparer = [XPLocalOrderComparer instance];
+//        } else {
+//            //comparer = ctx.controller;
+//            XPAssert(0);
+//        }
+//        
+//        XPNodeSetValue *ns = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:comparer] autorelease];
 //        [ns sort];
 //        return [ns enumerate];
 //    }
+
     return enm;
 }
 
