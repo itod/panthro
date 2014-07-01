@@ -62,7 +62,7 @@
 
 
 - (BOOL)isContextDocumentNodeSet {
-    return _nodeSetExpression.isContextDocumentNodeSet;
+    return [_nodeSetExpression isContextDocumentNodeSet];
 }
 
 

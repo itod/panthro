@@ -256,7 +256,7 @@
 //
 //        id <XPNodeOrderComparer>comparer = nil;
 //        
-////        if ([_start isKindOfClass:[XPSingletonNodeSet class]] || _start.isContextDocumentNodeSet) {
+////        if ([_start isKindOfClass:[XPSingletonNodeSet class]] || [_start isContextDocumentNodeSet]) {
 ////            // nodes are all in the same document
 ////            comparer = [XPLocalOrderComparer instance];
 ////        } else {
