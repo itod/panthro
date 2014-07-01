@@ -49,8 +49,9 @@
     } else if ([expr isKindOfClass:[XPNodeSetExpression class]]) {
         
         XPNodeSetIntent *nsi = [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPNodeSetExpression *)expr comparer:nil] autorelease];
-//        nsi.sorted = YES;
-//        [nsi sort];
+#if PAUSE_ENABLED
+        [nsi fix];
+#endif
         result = nsi;
 
     } else {

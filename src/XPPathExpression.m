@@ -186,9 +186,12 @@
     // the corresponding node-set extent if it is used more than thrice).
     
     if (([result isKindOfClass:[XPPathExpression class]]) && [((XPPathExpression *)result).start isKindOfClass:[XPNodeSetValue class]]) {
-        XPNodeSetValue *nsi = [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPPathExpression *)result comparer:nil] autorelease];
+        XPNodeSetIntent *nsi = [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPPathExpression *)result comparer:nil] autorelease];
         nsi.staticContext = self.staticContext;
         nsi.range = result.range;
+#if PAUSE_ENABLED
+        [nsi fix];
+#endif
         return nsi;
     }
     

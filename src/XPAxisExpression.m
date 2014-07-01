@@ -94,6 +94,9 @@
     nsi.sorted = XPAxisIsForwards[_axis];
     nsi.staticContext = self.staticContext;
     nsi.range = self.range;
+#if PAUSE_ENABLED
+    [nsi fix];
+#endif
     return nsi;
 }
 
