@@ -48,11 +48,20 @@
         
     } else if ([expr isKindOfClass:[XPNodeSetExpression class]]) {
         
-        XPNodeSetIntent *nsi = [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPNodeSetExpression *)expr comparer:nil] autorelease];
 #if PAUSE_ENABLED
-        [nsi fix];
-#endif
+        id <XPNodeEnumeration>enm = [(XPNodeSetExpression *)expr enumerateInContext:ctx sorted:NO];
+        
+        if (enm) {
+            XPNodeSetValue *nodeSet = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:nil] autorelease];
+            nodeSet.range = self.range;
+            result = nodeSet;
+        } else {
+            result = [XPEmptyNodeSet emptyNodeSet];
+        }
+#else
+        XPNodeSetIntent *nsi = [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPNodeSetExpression *)expr comparer:nil] autorelease];
         result = nsi;
+#endif
 
     } else {
         result = [expr evaluateInContext:ctx];

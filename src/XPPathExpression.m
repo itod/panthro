@@ -185,16 +185,15 @@
     // (this will evaluate to a NodeSetIntent, which will be replaced by
     // the corresponding node-set extent if it is used more than thrice).
     
+#if !PAUSE_ENABLED
     if (([result isKindOfClass:[XPPathExpression class]]) && [((XPPathExpression *)result).start isKindOfClass:[XPNodeSetValue class]]) {
         XPNodeSetIntent *nsi = [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPPathExpression *)result comparer:nil] autorelease];
         nsi.staticContext = self.staticContext;
         nsi.range = result.range;
-#if PAUSE_ENABLED
-        [nsi fix];
-#endif
         return nsi;
     }
-    
+#endif
+
     return result;
 }
 
@@ -304,16 +303,17 @@
         }
 #endif
 
-        return [ns enumerate];
-    }
-
+        enm = [ns enumerate];
+    } else {
 #if PAUSE_ENABLED
-    if (ctxNode) {
-        XPNodeSetValue *ns = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:nil] autorelease];
-        [ns sort];
-        [ctx.staticContext pauseFrom:self withContextNode:ctxNode result:ns range:_step.range done:NO];
-    }
+        if (ctxNode) {
+            XPNodeSetValue *ns = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:nil] autorelease];
+            [ns sort];
+            [ctx.staticContext pauseFrom:self withContextNode:ctxNode result:ns range:_step.range done:NO];
+            enm = [ns enumerateInContext:ctx sorted:NO];
+        }
 #endif
+    }
 
     return enm;
 }
