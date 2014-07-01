@@ -125,7 +125,7 @@
     
     // collect the remaining nodes from whichever set has a residue
     
-    if (_nextNode1!=nil) {
+    if (_nextNode1) {
         id <XPNodeInfo>next = _nextNode1;
         if ([_e1 hasMoreObjects]) {
             self.nextNode1 = [_e1 nextObject];
@@ -134,7 +134,7 @@
         }
         return next;
     }
-    if (_nextNode2!=nil) {
+    if (_nextNode2) {
         id <XPNodeInfo>next = _nextNode2;
         if ([_e2 hasMoreObjects]) {
             self.nextNode2 = [_e2 nextObject];
