@@ -189,12 +189,6 @@
         XPNodeSetValue *nsi = [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPPathExpression *)result comparer:nil] autorelease];
         nsi.staticContext = self.staticContext;
         nsi.range = result.range;
-        
-        
-        //nsi.sorted = YES;
-        //[nsi sort]; // TODO REMOVE ME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//        // this seems necessary to get reverse axis sorted properly.
-        
         return nsi;
     }
     
