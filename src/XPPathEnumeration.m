@@ -36,7 +36,7 @@
         }
         self.thisStart = start;
         self.step = step;
-        self.context = [[ctx copy] autorelease]; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        self.context = [[ctx copy] autorelease];
         self.base = [start enumerateInContext:_context sorted:NO];
         self.next = [self nextNode];
     }
@@ -85,7 +85,6 @@
     }
 
     return nil;
-
 }
 
 /**

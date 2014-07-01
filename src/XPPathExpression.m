@@ -257,6 +257,11 @@
 //    // always sort after the curruent step has completed to remove dupes and place nodes in document order.
 //    id <XPNodeEnumeration>enm = [nodeSet enumerateInContext:ctx sorted:YES];
     
+//#if PAUSE_ENABLED
+//    id <XPNodeInfo>startingCtxNode = ctx.contextNode;
+//    XPAssert(startingCtxNode);
+//#endif
+
     id <XPNodeEnumeration>enm = [[[XPPathEnumeration alloc] initWithStart:_start step:_step context:ctx] autorelease];
     if (sorted && !enm.isSorted) {
         
@@ -272,6 +277,11 @@
         
         XPNodeSetValue *ns = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:comparer] autorelease];
         [ns sort];
+        
+//#if PAUSE_ENABLED
+//        [ctx.staticContext pauseFrom:self withContextNode:startingCtxNode result:ns range:_step.range done:NO];
+//#endif
+
         return [ns enumerate];
     }
 
