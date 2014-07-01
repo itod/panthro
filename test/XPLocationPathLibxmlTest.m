@@ -743,6 +743,24 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
+- (void)testAncestorOrSelfNodeSlashDot {
+    [self eval:@"ancestor-or-self::node()/."];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
+    
+    node = [enm nextObject];
+    TDEqualObjects([XPLibxmlDocumentImpl class], [node class]);
+    TDEquals(XPNodeTypeRoot, node.nodeType);
+    
+    node = [enm nextObject];
+    TDEqualObjects(@"book", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
 - (void)testAncestorOrSelfNodePredicate1 {
     // This should match the CONTEXT NODE according to Saxon6.5, NSXML, Saxon9.5HE
     [self eval:@"ancestor-or-self::node()[1]"];

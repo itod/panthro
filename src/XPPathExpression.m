@@ -91,13 +91,13 @@
         return expr;
     }
     
-//    if ([_start isKindOfClass:[XPContextNodeExpression class]] &&
-//        0 == _step.numberOfFilters) {
-//        XPExpression *expr = [[[XPAxisExpression alloc] initWithAxis:axis nodeTest:_step.nodeTest] autorelease];
-//        expr.staticContext = self.staticContext;
-//        expr.range = self.range;
-//        return expr;
-//    }
+    if ([_start isKindOfClass:[XPContextNodeExpression class]] &&
+        0 == _step.numberOfFilters) {
+        XPExpression *expr = [[[XPAxisExpression alloc] initWithAxis:axis nodeTest:_step.nodeTest] autorelease];
+        expr.staticContext = self.staticContext;
+        expr.range = self.range;
+        return expr;
+    }
     
     XPAssert(_start);
     XPAssert(_step);
@@ -186,15 +186,16 @@
     // the corresponding node-set extent if it is used more than thrice).
     
     if (([result isKindOfClass:[XPPathExpression class]]) && [((XPPathExpression *)result).start isKindOfClass:[XPNodeSetValue class]]) {
-        XPNodeSetValue *intent = [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPPathExpression *)result comparer:nil] autorelease];
-        intent.staticContext = self.staticContext;
-        intent.range = result.range;
+        XPNodeSetValue *nsi = [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPPathExpression *)result comparer:nil] autorelease];
+        nsi.staticContext = self.staticContext;
+        nsi.range = result.range;
         
         
-        [intent sort]; // TODO REMOVE ME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // this seems necessary to get reverse axis sorted properly.
+        //nsi.sorted = YES;
+        //[nsi sort]; // TODO REMOVE ME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//        // this seems necessary to get reverse axis sorted properly.
         
-        return intent;
+        return nsi;
     }
     
     return result;

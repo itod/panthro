@@ -91,8 +91,9 @@
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
     XPNodeSetExpression *nse = (id)[self reduceDependencies:XPDependenciesContextNode inContext:ctx];
     XPNodeSetIntent *nsi = [[[XPNodeSetIntent alloc] initWithNodeSetExpression:nse comparer:nil] autorelease];
-    BOOL sorted = XPAxisIsForwards[_axis];
-    nsi.sorted = sorted;
+    nsi.sorted = XPAxisIsForwards[_axis];
+    nsi.staticContext = self.staticContext;
+    nsi.range = self.range;
     return nsi;
 }
 

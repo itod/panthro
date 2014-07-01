@@ -18,6 +18,4 @@
 - (instancetype)initWithEnumeration:(id <XPNodeEnumeration>)enm comparer:(id <XPNodeOrderComparer>)comparer;
 
 @property (nonatomic, retain) id <XPNodeOrderComparer>comparer;
-@property (nonatomic, assign, getter=isSorted) BOOL sorted;
-@property (nonatomic, assign, getter=isReverseSorted) BOOL reverseSorted;
 @end
