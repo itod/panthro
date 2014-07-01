@@ -142,7 +142,7 @@
         // arbitrarily, we decide that the third time the expression is used,
         // we will allocate it some memory for faster access on future occasions.
         if (_useCount < 3) {
-            return [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
+            return [_nodeSetExpression enumerateInContext:[self makeContext] sorted:YES]; // TODO !!!!!!!!!!!!!!!!!!!! This is supposed to be NO
         } else {
             [self fix];
             return [_extent enumerate];
