@@ -29,6 +29,7 @@
     if (self = [super init]) {
         self.nodeSetExpression = expr;
         self.comparer = comparer ? comparer : [XPLocalOrderComparer instance];
+        self.sorted = NO;
 
         if ([_nodeSetExpression dependencies]) {
             NSAssert2(0, @"Cannot create intentional node-set with context dependencies: %@:%lu", [expr class], [expr dependencies]);
@@ -48,6 +49,11 @@
 - (XPContext *)makeContext {
     XPContext *ctx = [[[XPContext alloc] initWithStaticContext:[_nodeSetExpression staticContext]] autorelease];
     return ctx;
+}
+
+
+- (void)setSorted:(BOOL)isSorted {
+    _sorted = isSorted;
 }
 
 
@@ -113,8 +119,8 @@
     } else {
         id <XPNodeInfo>first = nil;
         while ([enm hasMoreObjects]) {
-            id <XPNodeInfo>node = nil;
-            if (!first || NSOrderedDescending == [_comparer compare:node to:first]) {
+            id <XPNodeInfo>node = [enm nextObject];
+            if (!first || [_comparer compare:node to:first] < 0) {
                 first = node;
             }
         }
