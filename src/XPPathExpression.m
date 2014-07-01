@@ -8,24 +8,28 @@
 
 #import "XPPathExpression.h"
 #import "XPStaticContext.h"
-#import "XPException.h"
 #import "XPSync.h"
 #import "XPContext.h"
+#import "XPException.h"
 #import "XPStep.h"
 #import "XPAxis.h"
-#import "XPEmptyNodeSet.h"
+#import "XPLocalOrderComparer.h"
+
+#import "XPPathEnumeration.h"
 #import "XPNodeSetValueEnumeration.h"
 #import "XPLookaheadEnumerator.h"
 #import "XPFilterEnumerator.h"
-#import "XPLocalOrderComparer.h"
-#import "XPSingletonNodeSet.h"
-#import "XPPathEnumeration.h"
+
 #import "XPNodeSetIntent.h"
 #import "XPNodeSetExtent.h"
 
-@interface XPExpression ()
-@property (nonatomic, retain, readwrite) id <XPStaticContext>staticContext;
-@end
+#import "XPSingletonNodeSet.h"
+#import "XPEmptyNodeSet.h"
+
+#import "XPRootExpression.h"
+#import "XPContextNodeExpression.h"
+
+#import "XPAxisExpression.h"
 
 @implementation XPPathExpression
 
@@ -75,6 +79,24 @@
         
     if (!_step) {
         return [XPEmptyNodeSet emptyNodeSet];
+    }
+    
+    XPAxis axis = _step.axis;
+    
+    // the expression /.. is sometimes used to represent the empty node-set
+    if ([_start isKindOfClass:[XPRootExpression class]] && axis == XPAxisParent) {
+        XPExpression *expr = [XPEmptyNodeSet emptyNodeSet];
+        expr.staticContext = self.staticContext;
+        expr.range = self.range;
+        return expr;
+    }
+    
+    if ([_start isKindOfClass:[XPContextNodeExpression class]] &&
+        0 == _step.numberOfFilters) {
+        XPExpression *expr = [[[XPAxisExpression alloc] initWithAxis:axis nodeTest:_step.nodeTest] autorelease];
+        expr.staticContext = self.staticContext;
+        expr.range = self.range;
+        return expr;
     }
     
     XPAssert(_start);
@@ -165,11 +187,12 @@
     
     if (([result isKindOfClass:[XPPathExpression class]]) && [((XPPathExpression *)result).start isKindOfClass:[XPNodeSetValue class]]) {
         XPNodeSetValue *intent = [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPPathExpression *)result comparer:nil] autorelease];
+        intent.staticContext = self.staticContext;
         intent.range = result.range;
         
         
-        [intent sort]; // TODO REMOVE ME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // this seems necessary to get reverse axis sorted properly.
+//        [intent sort]; // TODO REMOVE ME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//        // this seems necessary to get reverse axis sorted properly.
         
         return intent;
     }

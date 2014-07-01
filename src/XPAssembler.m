@@ -32,10 +32,6 @@
 
 #import "XPVariableReference.h"
 
-@interface XPExpression ()
-@property (nonatomic, retain, readwrite) id <XPStaticContext>staticContext;
-@end
-
 @interface XPAssembler ()
 @property (nonatomic, retain) id <XPStaticContext>env;
 @property (nonatomic, retain) NSDictionary *nodeTypeTab;

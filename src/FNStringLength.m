@@ -13,7 +13,6 @@
 #import "XPNumericValue.h"
 
 @interface XPExpression ()
-@property (nonatomic, readwrite, retain) id <XPStaticContext>staticContext;
 @property (nonatomic, retain) NSMutableArray *args;
 @end
 

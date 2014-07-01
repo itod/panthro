@@ -7,10 +7,14 @@
 //
 
 #import "XPAxisExpression.h"
+#import "XPAxisEnumeration.h"
+#import "XPNodeSetExtent.h"
+#import "XPNodeSetIntent.h"
 #import "XPNodeInfo.h"
 #import "XPNodeTest.h"
 
 @interface XPAxisExpression ()
+@property (nonatomic, retain) id <XPNodeInfo>contextNode;
 @end
 
 @implementation XPAxisExpression
@@ -52,39 +56,43 @@
 
 
 - (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
+    XPExpression *result = self;
+    
     if (!_contextNode && (dep & XPDependenciesContextNode) != 0) {
-        XPAxisExpression *exp2 = [[[XPAxisExpression alloc] initWithAxis:_axis nodeTest:_test] autorelease];
-        exp2.contextNode = ctx.contextNode;
-        return exp2;
-    } else {
-        return self;
+        XPAxisExpression *expr = [[[XPAxisExpression alloc] initWithAxis:_axis nodeTest:_test] autorelease];
+        expr.contextNode = ctx.contextNode;
+        expr.staticContext = self.staticContext;
+        expr.range = self.range;
+        result = expr;
     }
+    
+    return result;
 }
 
 
-//- (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
-//    id <XPNodeInfo>start = nil;
-//    if (!_contextNode) {
-//        start = ctx.contextNode;
-//    } else {
-//        start = _contextNode;
-//    }
-//
-//    XPAxisEnumeration enm = [start enumerationWithAxis:_axis nodeTest:_test];
-//    if (sorted && ![enm isSorted]) {
-//        XPNodeSetExtent *ns = [[[XPNodeSetExtent alloc] initWithNodeEnumeration:enm controller:[XPLocalOrderComparer instance]]];
-//        [ns sort];
-//        return [ns enumerate];
-//    }
-//    return enm;
-//}
-//
-//
-//- (XPValue *)evaluateInContext:(XPContext *)ctx {
-//    XPNodeSetExpression *nse = (id)[self reduceDependencies:XPDependenciesContextNode inContext:ctx];
-//    XPNodeSetIntent *nsi = [[[XPNodeSetIntent alloc] initWithNodeSetExpression:nse controller:[ctx controller]] autorelease];
-//    [nsi setSorted:[XPAxis isForwards:axis]];
-//    return nsi;
-//}
+- (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
+    id <XPNodeInfo>start = nil;
+    if (!_contextNode) {
+        start = ctx.contextNode;
+    } else {
+        start = _contextNode;
+    }
+
+    id <XPAxisEnumeration>enm = [start enumerationForAxis:_axis nodeTest:_test];
+    if (sorted && ![enm isSorted]) {
+        XPNodeSetExtent *ns = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:nil] autorelease];
+        [ns sort];
+        return [ns enumerate];
+    }
+    return enm;
+}
+
+
+- (XPValue *)evaluateInContext:(XPContext *)ctx {
+    XPNodeSetExpression *nse = (id)[self reduceDependencies:XPDependenciesContextNode inContext:ctx];
+    XPNodeSetIntent *nsi = [[[XPNodeSetIntent alloc] initWithNodeSetExpression:nse comparer:nil] autorelease];
+    [nsi setSorted:XPAxisIsForwards[_axis]];
+    return nsi;
+}
 
 @end

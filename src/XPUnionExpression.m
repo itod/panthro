@@ -16,10 +16,6 @@
 @property (nonatomic, retain) XPExpression *p2;
 @end
 
-@interface XPExpression ()
-@property (nonatomic, readwrite, retain) id <XPStaticContext>staticContext;
-@end
-
 @implementation XPUnionExpression
 
 /**
