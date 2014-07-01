@@ -20,6 +20,7 @@
 #import "XPLocalOrderComparer.h"
 #import "XPSingletonNodeSet.h"
 #import "XPPathEnumeration.h"
+#import "XPNodeSetIntent.h"
 #import "XPNodeSetExtent.h"
 
 @interface XPExpression ()
@@ -241,7 +242,7 @@
 
     }
 
-    XPNodeSetValue *nodeSet = [[[XPNodeSetExtent alloc] initWithNodes:resultUnion comparer:[XPLocalOrderComparer instance]] autorelease];
+    XPNodeSetValue *nodeSet = [[[XPNodeSetExtent alloc] initWithNodes:resultUnion comparer:nil] autorelease];
     
 #if PAUSE_ENABLED
     [ctx.staticContext pauseFrom:self withContextNode:startingCtxNode result:nodeSet range:_step.range done:NO];
@@ -261,7 +262,7 @@
 ////        } else {
 ////            comparer = ctx.controller;
 ////        }
-//        XPNodeSetValue *ns = [[[XPNodeSetValue alloc] initWithEnumeration:enm comparer:comparer] autorelease];
+//        XPNodeSetValue *ns = [[[XPNodeSetIntent alloc] initWithEnumeration:enm comparer:comparer] autorelease];
 //        [ns sort];
 //        return [ns enumerate];
 //    }
