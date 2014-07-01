@@ -146,8 +146,6 @@
 		D34BADF5100ABA7C00996341 /* XPBooleanValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BADF3100ABA7C00996341 /* XPBooleanValue.m */; };
 		D34BADF9100ABA9300996341 /* XPValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BADF7100ABA9300996341 /* XPValue.m */; };
 		D3539407192FA6A900D6EEA6 /* XPException.m in Sources */ = {isa = PBXBuildFile; fileRef = D3539405192FA6A900D6EEA6 /* XPException.m */; };
-		D36036181961D4E10047F6A4 /* XPPathEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D36036151961D0280047F6A4 /* XPPathEnumeration.m */; };
-		D36036191961D4E30047F6A4 /* XPPathEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D36036141961D0280047F6A4 /* XPPathEnumeration.h */; };
 		D360361A1961D74C0047F6A4 /* XPSingletonExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D36BC031101BF52F00D1A6C7 /* XPSingletonExpression.m */; };
 		D360361D1961F3610047F6A4 /* XPParentNodeExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D360361B1961F3610047F6A4 /* XPParentNodeExpression.h */; };
 		D360361E1961F3610047F6A4 /* XPParentNodeExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D360361C1961F3610047F6A4 /* XPParentNodeExpression.m */; };
@@ -1372,7 +1370,6 @@
 				D3F0CC0B191EC8250049EC02 /* XPNodeSetValue.h in Headers */,
 				D3C0F59E19214FE700566524 /* FNTrimSpace.h in Headers */,
 				D339F66C1928EA1100C79A51 /* FNId.h in Headers */,
-				D36036191961D4E30047F6A4 /* XPPathEnumeration.h in Headers */,
 				D3F0CBA6191EC23D0049EC02 /* FNNumber.h in Headers */,
 				D3F0CB9F191EC23D0049EC02 /* FNConcat.h in Headers */,
 				D33930F7191F132D00259939 /* XPVariableReference.h in Headers */,
@@ -1734,7 +1731,6 @@
 				D3BBAE93191DD0CF00766EB4 /* XPSingletonEnumeration.m in Sources */,
 				D3A6C2F41907457500F3EFF3 /* XPNodeTypeTest.m in Sources */,
 				D3C1782F18844C9200F90600 /* XPNodeTest.m in Sources */,
-				D36036181961D4E10047F6A4 /* XPPathEnumeration.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

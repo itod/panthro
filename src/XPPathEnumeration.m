@@ -46,6 +46,7 @@
 
 - (void)dealloc {
     self.thisStart = nil;
+    self.step = nil;
     self.base = nil;
     self.thisStep = nil;
     self.next = nil;
@@ -73,20 +74,13 @@
 
     if (_thisStep && [_thisStep hasMoreObjects]) {
         return [_thisStep nextObject];
-                        //NodeInfo n = _thisStep.nextElement();
-                        //System.err.println("Continuing Step.nextElement() = " + n);
-                        //return n;
     }
 
     while ([_base hasMoreObjects]) {
         id <XPNodeInfo>node = [_base nextObject];
-                        //System.err.println("Base.nextElement = " + node);
         self.thisStep = [_step enumerate:node inContext:_context];
         if ([_thisStep hasMoreObjects]) {
             return [_thisStep nextObject];
-                        //NodeInfo n2 = _thisStep.nextElement();
-                        //System.err.println("Starting Step.nextElement() = " + n2);
-                        //return n2;
         }
     }
 
