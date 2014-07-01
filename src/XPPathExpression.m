@@ -307,6 +307,14 @@
         return [ns enumerate];
     }
 
+#if PAUSE_ENABLED
+    if (ctxNode) {
+        XPNodeSetValue *ns = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:nil] autorelease];
+        [ns sort];
+        [ctx.staticContext pauseFrom:self withContextNode:ctxNode result:ns range:_step.range done:NO];
+    }
+#endif
+
     return enm;
 }
 
