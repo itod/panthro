@@ -153,6 +153,8 @@
 		D360362019622B370047F6A4 /* XPNodeSetExtent.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBEA191EC5880049EC02 /* XPNodeSetExtent.h */; };
 		D36036251962564B0047F6A4 /* XPNodeSetIntent.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBEC191EC5880049EC02 /* XPNodeSetIntent.h */; };
 		D36036261962564B0047F6A4 /* XPNodeSetIntent.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0CBED191EC5880049EC02 /* XPNodeSetIntent.m */; };
+		D36036271962579E0047F6A4 /* XPPathEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D36036141961D0280047F6A4 /* XPPathEnumeration.h */; };
+		D36036281962579E0047F6A4 /* XPPathEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D36036151961D0280047F6A4 /* XPPathEnumeration.m */; };
 		D36235DD19269EE300C88990 /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33097361921BE99004317EA /* PEGKit.framework */; };
 		D36712E2192ACC1700B13A63 /* XPSynchronousChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = D36712E0192ACC1700B13A63 /* XPSynchronousChannel.m */; };
 		D36712E4192ACC2600B13A63 /* XPSemaphore.h in Headers */ = {isa = PBXBuildFile; fileRef = D36712E3192ACC2600B13A63 /* XPSemaphore.h */; };
@@ -1361,6 +1363,7 @@
 				D3F0CBAA191EC23D0049EC02 /* FNString.h in Headers */,
 				D3C0F5891921255C00566524 /* FNLocalName.h in Headers */,
 				D3F0CBAC191EC23D0049EC02 /* FNSubstring.h in Headers */,
+				D36036271962579E0047F6A4 /* XPPathEnumeration.h in Headers */,
 				D3F0CBC5191EC3F60049EC02 /* XPSingletonNodeSet.h in Headers */,
 				D3F0CC0C191EC8250049EC02 /* XPNumericValue.h in Headers */,
 				D3ADFC52193A358900223AB6 /* XPLibxmlNamespaceImpl.h in Headers */,
@@ -1712,6 +1715,7 @@
 				D37A300D10158DE500E936B7 /* FNSubstringAfter.m in Sources */,
 				D37A301110158DEF00E936B7 /* FNSubstringBefore.m in Sources */,
 				D3C0F5A31921555800566524 /* FNNormalizeUnicode.m in Sources */,
+				D36036281962579E0047F6A4 /* XPPathEnumeration.m in Sources */,
 				D339F6731929623700C79A51 /* FNTranslate.m in Sources */,
 				D37A301510158E0100E936B7 /* FNSum.m in Sources */,
 				D339F64E1927B66500C79A51 /* xmlstring.c in Sources */,

@@ -10,6 +10,7 @@
 #import "XPContext.h"
 #import "XPNodeEnumeration.h"
 #import "XPNodeSetExtent.h"
+#import "XPNodeSetIntent.h"
 #import "XPLocalOrderComparer.h"
 #import "XPException.h"
 #import "XPEmptyNodeSet.h"
@@ -46,19 +47,19 @@
 #endif
         
     } else if ([expr isKindOfClass:[XPNodeSetExpression class]]) {
-        id <XPNodeEnumeration>enm = [(XPNodeSetExpression *)expr enumerateInContext:ctx sorted:NO];
+//        id <XPNodeEnumeration>enm = [(XPNodeSetExpression *)expr enumerateInContext:ctx sorted:NO];
+//        
+//        if (enm) {
+//            XPNodeSetValue *nodeSet = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:nil] autorelease];
+//            nodeSet.range = self.range;
+//            result = nodeSet;
+//        } else {
+//            result = [XPEmptyNodeSet emptyNodeSet];
+//        }
         
-        if (enm) {
-            XPNodeSetValue *nodeSet = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:nil] autorelease];
-            nodeSet.range = self.range;
-            result = nodeSet;
-        } else {
-            result = [XPEmptyNodeSet emptyNodeSet];
-        }
-        
-//        XPNodeSetValue *nodeSet = [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPNodeSetExpression *)expr comparer:nil] autorelease];
-//        nodeSet.range = self.range;
-//        result = nodeSet;
+        XPNodeSetValue *nodeSet = [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPNodeSetExpression *)expr comparer:nil] autorelease];
+        nodeSet.range = self.range;
+        result = nodeSet;
 
     } else {
         result = [expr evaluateInContext:ctx];

@@ -159,14 +159,20 @@
         result = [result simplify];
     }
 
-//    // Pre-evaluate an expression if the start is now a constant node-set
-//    // (this will evaluate to a NodeSetIntent, which will be replaced by
-//    // the corresponding node-set extent if it is used more than thrice).
-//    
-//    if (([path isKindOfClass:[XPPathExpression class]]) && [((XPPathExpression *)path).start isKindOfClass:[XPNodeSetValue class]]) {
-//        return ((XPPathExpression *)path).start;
-//        //return [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPPathExpression *)path controller:ctx.controller] autorelease];
-//    }
+    // Pre-evaluate an expression if the start is now a constant node-set
+    // (this will evaluate to a NodeSetIntent, which will be replaced by
+    // the corresponding node-set extent if it is used more than thrice).
+    
+    if (([result isKindOfClass:[XPPathExpression class]]) && [((XPPathExpression *)result).start isKindOfClass:[XPNodeSetValue class]]) {
+        XPNodeSetValue *intent = [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPPathExpression *)result comparer:nil] autorelease];
+        intent.range = result.range;
+        
+        
+        [intent sort]; // TODO REMOVE ME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // this seems necessary to get reverse axis sorted properly.
+        
+        return intent;
+    }
     
     return result;
 }
@@ -199,75 +205,75 @@
         return [temp enumerateInContext:ctx sorted:sorted];
     }
 
-    // ok, here we are.
-    
-    id <XPNodeEnumeration>ctxNodeEnm = [_start enumerateInContext:ctx sorted:sorted];
-    
-    // if this is a blind alley with no possible matches, just bail with nil flag
-    if (![ctxNodeEnm hasMoreObjects]) {
-        return nil;
-    }
-    
-    ctx = [[ctx copy] autorelease];
-    ctx.position = 0;
-    
-    if ([ctxNodeEnm conformsToProtocol:@protocol(XPLastPositionFinder)]) {
-        ctx.lastPositionFinder = (id <XPLastPositionFinder>)ctxNodeEnm;
-    } else {
-        ctx.lastPositionFinder = [[[XPLookaheadEnumerator alloc] initWithBase:ctxNodeEnm] autorelease];
-    }
-    
-    NSMutableArray *resultUnion = [NSMutableArray array];
-    
-#if PAUSE_ENABLED
-    id <XPNodeInfo>startingCtxNode = ctx.contextNode;
-    XPAssert(startingCtxNode);
-#endif
-
-    while ([ctxNodeEnm hasMoreObjects]) {
-        
-        ++ctx.position;
-        ctx.contextNode = [ctxNodeEnm nextObject];
-
-        id <XPNodeEnumeration>enm = [_step enumerate:ctx.contextNode inContext:ctx];
-        
-        for (id <XPNodeInfo>node in enm) {
-#if PAUSE_ENABLED
-            if (1 == ctx.position) {
-                startingCtxNode = ctx.contextNode;
-            }
-#endif
-            [resultUnion addObject:node];
-        }
-
-    }
-
-    XPNodeSetValue *nodeSet = [[[XPNodeSetExtent alloc] initWithNodes:resultUnion comparer:nil] autorelease];
-    
-#if PAUSE_ENABLED
-    [ctx.staticContext pauseFrom:self withContextNode:startingCtxNode result:nodeSet range:_step.range done:NO];
-#endif
-    
-    // always sort after the curruent step has completed to remove dupes and place nodes in document order.
-    id <XPNodeEnumeration>enm = [nodeSet enumerateInContext:ctx sorted:YES];
-    
-//    id <XPNodeEnumeration>enm = [[[XPPathEnumeration alloc] initWithStart:_start step:_step context:ctx] autorelease];
-//    if (sorted && !enm.isSorted) {
-//        
-//        id <XPNodeOrderComparer>comparer = nil;
-//        
-//        if ([_start isKindOfClass:[XPSingletonNodeSet class]] || [_start isContextDocumentNodeSet]) {
-//            // nodes are all in the same document
-//            comparer = [XPLocalOrderComparer instance];
-//        } else {
-//            //comparer = ctx.controller;
-//            XPAssert(0);
-//        }
-//        
-//        XPNodeSetValue *ns = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:comparer] autorelease];
-//        [ns sort];
-//        return [ns enumerate];
+//    // ok, here we are.
+//    
+//    id <XPNodeEnumeration>ctxNodeEnm = [_start enumerateInContext:ctx sorted:sorted];
+//    
+//    // if this is a blind alley with no possible matches, just bail with nil flag
+//    if (![ctxNodeEnm hasMoreObjects]) {
+//        return nil;
 //    }
+//    
+//    ctx = [[ctx copy] autorelease];
+//    ctx.position = 0;
+//    
+//    if ([ctxNodeEnm conformsToProtocol:@protocol(XPLastPositionFinder)]) {
+//        ctx.lastPositionFinder = (id <XPLastPositionFinder>)ctxNodeEnm;
+//    } else {
+//        ctx.lastPositionFinder = [[[XPLookaheadEnumerator alloc] initWithBase:ctxNodeEnm] autorelease];
+//    }
+//    
+//    NSMutableArray *resultUnion = [NSMutableArray array];
+//    
+//#if PAUSE_ENABLED
+//    id <XPNodeInfo>startingCtxNode = ctx.contextNode;
+//    XPAssert(startingCtxNode);
+//#endif
+//
+//    while ([ctxNodeEnm hasMoreObjects]) {
+//        
+//        ++ctx.position;
+//        ctx.contextNode = [ctxNodeEnm nextObject];
+//
+//        id <XPNodeEnumeration>enm = [_step enumerate:ctx.contextNode inContext:ctx];
+//        
+//        for (id <XPNodeInfo>node in enm) {
+//#if PAUSE_ENABLED
+//            if (1 == ctx.position) {
+//                startingCtxNode = ctx.contextNode;
+//            }
+//#endif
+//            [resultUnion addObject:node];
+//        }
+//
+//    }
+//
+//    XPNodeSetValue *nodeSet = [[[XPNodeSetExtent alloc] initWithNodes:resultUnion comparer:nil] autorelease];
+//    
+//#if PAUSE_ENABLED
+//    [ctx.staticContext pauseFrom:self withContextNode:startingCtxNode result:nodeSet range:_step.range done:NO];
+//#endif
+//    
+//    // always sort after the curruent step has completed to remove dupes and place nodes in document order.
+//    id <XPNodeEnumeration>enm = [nodeSet enumerateInContext:ctx sorted:YES];
+    
+    id <XPNodeEnumeration>enm = [[[XPPathEnumeration alloc] initWithStart:_start step:_step context:ctx] autorelease];
+    if (sorted && !enm.isSorted) {
+        
+        id <XPNodeOrderComparer>comparer = nil;
+        
+        if ([_start isKindOfClass:[XPSingletonNodeSet class]] || [_start isContextDocumentNodeSet]) {
+            // nodes are all in the same document
+            comparer = [XPLocalOrderComparer instance];
+        } else {
+            //comparer = ctx.controller;
+            //XPAssert(0);
+        }
+        
+        XPNodeSetValue *ns = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:comparer] autorelease];
+        [ns sort];
+        return [ns enumerate];
+    }
 
     return enm;
 }
