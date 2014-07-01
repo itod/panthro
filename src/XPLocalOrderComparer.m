@@ -24,7 +24,7 @@
 }
 
 
-- (NSComparisonResult)compare:(id <XPNodeInfo>)a to:(id <XPNodeInfo>)b {
+- (NSInteger)compare:(id <XPNodeInfo>)a to:(id <XPNodeInfo>)b {
     return [a compareOrderTo:b];
 }
 

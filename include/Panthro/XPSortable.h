@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @protocol XPSortable <NSObject>
-- (NSComparisonResult)compare:(NSInteger)a to:(NSInteger)b;
+- (NSInteger)compare:(NSInteger)a to:(NSInteger)b;
 - (void)swap:(NSInteger)a with:(NSInteger)b;
 @end

@@ -183,7 +183,7 @@
  * (needed to implement the Sortable interface)
  */
 
-- (NSComparisonResult)compare:(NSInteger)a to:(NSInteger)b {
+- (NSInteger)compare:(NSInteger)a to:(NSInteger)b {
     XPAssert(_comparer);
     return [_comparer compare:_value[a] to:_value[b]];
 }

@@ -88,8 +88,8 @@
     // main merge loop: take a value from whichever set has the lower value
     
     if (_nextNode1 != nil && _nextNode2 != nil) {
-        NSComparisonResult c = [_comparer compare:_nextNode1 to:_nextNode2];
-        if (c<0) {
+        NSComparisonResult res = [_comparer compare:_nextNode1 to:_nextNode2];
+        if (res < 0) {
             id <XPNodeInfo>next = _nextNode1;
             if ([_e1 hasMoreObjects]) {
                 self.nextNode1 = [_e1 nextObject];
@@ -98,7 +98,7 @@
             }
             return next;
             
-        } else if (c>0) {
+        } else if (res > 0) {
             id <XPNodeInfo>next = _nextNode2;
             if ([_e2 hasMoreObjects]) {
                 self.nextNode2 = [_e2 nextObject];

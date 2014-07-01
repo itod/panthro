@@ -22,5 +22,5 @@
  * @return <0 if a<b, 0 if a=b, >0 if a>b
  */
 
-- (NSComparisonResult)compare:(id <XPNodeInfo>)a to:(id <XPNodeInfo>)b;
+- (NSInteger)compare:(id <XPNodeInfo>)a to:(id <XPNodeInfo>)b;
 @end
