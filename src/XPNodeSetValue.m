@@ -8,15 +8,11 @@
 
 #import "XPNodeSetValue.h"
 #import "XPNodeInfo.h"
-#import "XPNodeOrderComparer.h"
 #import "XPBooleanValue.h"
 #import "XPNumericValue.h"
 #import "XPStringValue.h"
-#import "XPObjectValue.h"
 #import "XPNodeEnumeration.h"
-#import "XPNodeSetValueEnumeration.h"
 #import "XPSingletonNodeSet.h"
-#import "XPLocalOrderComparer.h"
 #import "XPException.h"
 #import "XPEGParser.h"
 

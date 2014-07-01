@@ -7,22 +7,15 @@
 //
 
 #import "XPNodeSetExtent.h"
-#import "XPNodeOrderComparer.h"
 #import "XPNodeInfo.h"
-#import "XPBooleanValue.h"
-#import "XPNumericValue.h"
-#import "XPStringValue.h"
-#import "XPObjectValue.h"
-#import "XPNodeEnumeration.h"
 #import "XPNodeSetValueEnumeration.h"
 #import "XPSingletonNodeSet.h"
 #import "XPLocalOrderComparer.h"
 #import "XPException.h"
-#import "XPEGParser.h"
 #import "XPEmptyNodeSet.h"
 
 @interface XPNodeSetExtent ()
-@property (nonatomic, retain) NSMutableArray *value; // TODO
+@property (nonatomic, retain) NSMutableArray *value;
 @property (nonatomic, assign) NSUInteger count;
 @end
 
