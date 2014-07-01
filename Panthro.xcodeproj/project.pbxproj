@@ -153,8 +153,6 @@
 		D360361E1961F3610047F6A4 /* XPParentNodeExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D360361C1961F3610047F6A4 /* XPParentNodeExpression.m */; };
 		D360361F19622B350047F6A4 /* XPNodeSetExtent.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0CBEB191EC5880049EC02 /* XPNodeSetExtent.m */; };
 		D360362019622B370047F6A4 /* XPNodeSetExtent.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBEA191EC5880049EC02 /* XPNodeSetExtent.h */; };
-		D360362119623DAE0047F6A4 /* XPNodeSetIntent.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0CBED191EC5880049EC02 /* XPNodeSetIntent.m */; };
-		D360362219623DB10047F6A4 /* XPNodeSetIntent.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBEC191EC5880049EC02 /* XPNodeSetIntent.h */; };
 		D36235DD19269EE300C88990 /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33097361921BE99004317EA /* PEGKit.framework */; };
 		D36712E2192ACC1700B13A63 /* XPSynchronousChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = D36712E0192ACC1700B13A63 /* XPSynchronousChannel.m */; };
 		D36712E4192ACC2600B13A63 /* XPSemaphore.h in Headers */ = {isa = PBXBuildFile; fileRef = D36712E3192ACC2600B13A63 /* XPSemaphore.h */; };
@@ -1402,7 +1400,6 @@
 				D3F0CB9E191EC23D0049EC02 /* FNCeiling.h in Headers */,
 				D33930F2191EC8D500259939 /* XPStandaloneContext.h in Headers */,
 				D3BBAE92191DD0CF00766EB4 /* XPSingletonEnumeration.h in Headers */,
-				D360362219623DB10047F6A4 /* XPNodeSetIntent.h in Headers */,
 				D3F0CBB7191EC2F70049EC02 /* XPNameTest.h in Headers */,
 				D3A6FCB819465BBA00FCF2C1 /* XPPattern.h in Headers */,
 				D3F0CBE4191EC4F10049EC02 /* XPRelationalExpression.h in Headers */,
@@ -1689,7 +1686,6 @@
 				D37A2FD810158A0600E936B7 /* FNRound.m in Sources */,
 				D360361A1961D74C0047F6A4 /* XPSingletonExpression.m in Sources */,
 				D3C0F593192128E000566524 /* FNNamespaceURI.m in Sources */,
-				D360362119623DAE0047F6A4 /* XPNodeSetIntent.m in Sources */,
 				D37A2FFD10158DA900E936B7 /* FNStartsWith.m in Sources */,
 				D339F6631927B95900C79A51 /* relaxng.c in Sources */,
 				D339F6411927B66500C79A51 /* valid.c in Sources */,
