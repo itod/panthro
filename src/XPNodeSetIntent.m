@@ -32,7 +32,7 @@
 - (instancetype)initWithNodeSetExpression:(XPNodeSetExpression *)expr comparer:(id <XPNodeOrderComparer>)comparer {
     if (self = [super init]) {
         self.nodeSetExpression = expr;
-        self.comparer = comparer;
+        self.comparer = comparer ? comparer : [XPLocalOrderComparer instance];
 
         if ([_nodeSetExpression dependencies]) {
             NSAssert2(0, @"Cannot create intentional node-set with context dependencies: %@:%lu", [expr class], [expr dependencies]);

@@ -9,7 +9,7 @@
 #import "XPNodeSetExpression.h"
 #import "XPContext.h"
 #import "XPNodeEnumeration.h"
-#import "XPNodeSetValue.h"
+#import "XPNodeSetExtent.h"
 #import "XPLocalOrderComparer.h"
 #import "XPException.h"
 #import "XPEmptyNodeSet.h"
@@ -19,7 +19,6 @@
 #import "XPSync.h"
 #import "XPContext.h"
 #import "XPNodeSetValueEnumeration.h"
-#import "XPNodeSetExtent.h"
 #import "XPLocalOrderComparer.h"
 
 @implementation XPNodeSetExpression
@@ -52,10 +51,15 @@
         if (enm) {
             XPNodeSetValue *nodeSet = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:nil] autorelease];
             nodeSet.range = self.range;
-            result = nodeSet; // TODO [XPNodeSetIntent intentWithNodeSetExpression:(XPNodeSetExpression *)expr controller:[ctx controller]];
+            result = nodeSet;
         } else {
             result = [XPEmptyNodeSet emptyNodeSet];
         }
+        
+//        XPNodeSetValue *nodeSet = [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPNodeSetExpression *)expr comparer:nil] autorelease];
+//        nodeSet.range = self.range;
+//        result = nodeSet;
+
     } else {
         result = [expr evaluateInContext:ctx];
         if (![result isKindOfClass:[XPNodeSetValue class]]) {
