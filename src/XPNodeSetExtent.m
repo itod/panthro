@@ -26,10 +26,7 @@
 @property (nonatomic, assign) NSUInteger count;
 @end
 
-@implementation XPNodeSetExtent {
-    BOOL _sorted;
-    NSUInteger _count;
-}
+@implementation XPNodeSetExtent
 
 - (instancetype)initWithNodes:(NSArray *)nodes comparer:(id <XPNodeOrderComparer>)comparer {
     self = [super init];
@@ -208,4 +205,6 @@
     _value[b] = temp;
 }
 
+@synthesize sorted = _sorted;
+@synthesize count = _count;
 @end

@@ -10,33 +10,31 @@
 #import "XPNodeEnumeration.h"
 #import "XPNodeSetExtent.h"
 #import "XPNodeSetExpression.h"
-#import "XPController.h"
+#import "XPLocalOrderComparer.h"
 #import "XPContext.h"
+#import "XPNodeInfo.h"
 #import "XPLastPositionFinder.h"
+
+@interface XPContext ()
+@property (nonatomic, assign) id <XPStaticContext>staticContext;
+@end
 
 @interface XPNodeSetIntent ()
 - (void)fix;
 
-@property (nonatomic, retain) XPController *controller;
+@property (nonatomic, retain) id <XPNodeOrderComparer>comparer;
 @property (nonatomic, retain) XPNodeSetExtent *extent;
+@property (nonatomic, assign) NSUInteger useCount;
 @end
 
-@implementation XPNodeSetIntent {
-    NSInteger _useCount;
-}
+@implementation XPNodeSetIntent
 
-+ (XPNodeSetIntent *)intentWithNodeSetExpression:(XPNodeSetExpression *)expr controller:(XPController *)c {
-    return [[[self alloc] initWithNodeSetExpression:expr controller:c] autorelease];
-}
-
-
-- (instancetype)initWithNodeSetExpression:(XPNodeSetExpression *)expr controller:(XPController *)c {
+- (instancetype)initWithNodeSetExpression:(XPNodeSetExpression *)expr comparer:(id <XPNodeOrderComparer>)comparer {
     if (self = [super init]) {
         self.nodeSetExpression = expr;
-        self.controller = c;
+        self.comparer = comparer;
 
         if ([_nodeSetExpression dependencies]) {
-            [_nodeSetExpression display:10];
             NSAssert2(0, @"Cannot create intentional node-set with context dependencies: %@:%lu", [expr class], [expr dependencies]);
         }
     }
@@ -46,7 +44,7 @@
 
 - (void)dealloc {
     self.nodeSetExpression = nil;
-    self.controller = nil;
+    self.comparer = nil;
     [super dealloc];
 }
 
@@ -64,28 +62,28 @@
 
 
 - (BOOL)isContextDocumentNodeSet {
-    return [_nodeSetExpression isContextDocumentNodeSet];
+    return _nodeSetExpression.isContextDocumentNodeSet;
 }
 
 
 - (NSString *)asString {
-    id first = [self firstNode];
+    id <XPNodeInfo>first = [self firstNode];
     return first ? [first stringValue] : @"";
 }
 
 
 - (BOOL)asBoolean {
-    return nil != [[self enumerate] nextObject];
+    return [[self enumerate] hasMoreObjects];
 }
 
 
 - (NSUInteger)count {
     if (!_extent) {
-        id <XPNodeEnumeration>e = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
-        if ([e conformsToProtocol:@protocol(XPLastPositionFinder)] && [e isSorted]) {
-            return [(id <XPLastPositionFinder>)e lastPosition];
+        id <XPNodeEnumeration>enm = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
+        if ([enm conformsToProtocol:@protocol(XPLastPositionFinder)] && enm.isSorted) {
+            return [(id <XPLastPositionFinder>)enm lastPosition];
         }
-        self.extent = [XPNodeSetExtent extentWithNodeEnumeration:e controller:_controller];
+        self.extent = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:_comparer] autorelease];
     }
     return [_extent count];
 }
@@ -93,8 +91,8 @@
 
 - (void)fix {
     if (!_extent) {
-        id <XPNodeEnumeration>e = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
-        self.extent = [XPNodeSetExtent extentWithNodeEnumeration:e controller:_controller];
+        id <XPNodeEnumeration>enm = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
+        self.extent = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:_comparer] autorelease];
     }
 }
 
@@ -109,15 +107,19 @@
 - (id <XPNodeInfo>)firstNode {
     if (_extent) return [_extent firstNode];
     
-    id <XPNodeEnumeration>e = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
-    if (_sorted || [e isSorted]) {
+    id <XPNodeEnumeration>enm = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
+    if (_sorted || [enm isSorted]) {
         self.sorted = YES;
-        return [e nextObject];
+        if ([enm hasMoreObjects]) {
+            return [enm nextObject];
+        } else {
+            return nil;
+        }
     } else {
-        id first = nil;
-        id node = nil;
-        while (nil != (node = [e nextObject])) {
-            if (!first || NSOrderedDescending == [_controller compare:node to:first]) {
+        id <XPNodeInfo>first = nil;
+        while ([enm hasMoreObjects]) {
+            id <XPNodeInfo>node = nil;
+            if (!first || NSOrderedDescending == [_comparer compare:node to:first]) {
                 first = node;
             }
         }
@@ -135,7 +137,7 @@
     if (_extent) {
         return [_extent enumerate];
     } else {
-        _useCount++;
+        self.useCount++;
         // arbitrarily, we decide that the third time the expression is used,
         // we will allocate it some memory for faster access on future occasions.
         if (_useCount < 3) {
