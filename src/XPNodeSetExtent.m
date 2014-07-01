@@ -170,13 +170,6 @@
     }
 
     return first;
-
-//    id <XPNodeInfo>first = nil;
-//    id <XPNodeEnumeration>enm = [self enumerate];
-//    if ([enm hasMoreObjects]) {
-//        first = [enm nextObject];
-//    }
-//    return first;
 }
 
 
