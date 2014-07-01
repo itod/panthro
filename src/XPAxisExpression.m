@@ -79,7 +79,7 @@
     }
 
     id <XPAxisEnumeration>enm = [start enumerationForAxis:_axis nodeTest:_test];
-    if (sorted && ![enm isSorted]) {
+    if (1 /*sorted && ![enm isSorted]*/) {
         XPNodeSetExtent *ns = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:nil] autorelease];
         [ns sort];
         return [ns enumerate];
