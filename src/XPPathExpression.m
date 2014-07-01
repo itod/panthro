@@ -91,13 +91,13 @@
         return expr;
     }
     
-    if ([_start isKindOfClass:[XPContextNodeExpression class]] &&
-        0 == _step.numberOfFilters) {
-        XPExpression *expr = [[[XPAxisExpression alloc] initWithAxis:axis nodeTest:_step.nodeTest] autorelease];
-        expr.staticContext = self.staticContext;
-        expr.range = self.range;
-        return expr;
-    }
+//    if ([_start isKindOfClass:[XPContextNodeExpression class]] &&
+//        0 == _step.numberOfFilters) {
+//        XPExpression *expr = [[[XPAxisExpression alloc] initWithAxis:axis nodeTest:_step.nodeTest] autorelease];
+//        expr.staticContext = self.staticContext;
+//        expr.range = self.range;
+//        return expr;
+//    }
     
     XPAssert(_start);
     XPAssert(_step);
@@ -191,8 +191,8 @@
         intent.range = result.range;
         
         
-//        [intent sort]; // TODO REMOVE ME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//        // this seems necessary to get reverse axis sorted properly.
+        [intent sort]; // TODO REMOVE ME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // this seems necessary to get reverse axis sorted properly.
         
         return intent;
     }

@@ -47,19 +47,9 @@
 #endif
         
     } else if ([expr isKindOfClass:[XPNodeSetExpression class]]) {
-//        id <XPNodeEnumeration>enm = [(XPNodeSetExpression *)expr enumerateInContext:ctx sorted:NO];
-//        
-//        if (enm) {
-//            XPNodeSetValue *nodeSet = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:nil] autorelease];
-//            nodeSet.range = self.range;
-//            result = nodeSet;
-//        } else {
-//            result = [XPEmptyNodeSet emptyNodeSet];
-//        }
         
-        XPNodeSetValue *nodeSet = [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPNodeSetExpression *)expr comparer:nil] autorelease];
-        nodeSet.range = self.range;
-        result = nodeSet;
+        XPNodeSetValue *nsi = [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPNodeSetExpression *)expr comparer:nil] autorelease];
+        result = nsi;
 
     } else {
         result = [expr evaluateInContext:ctx];
@@ -67,7 +57,8 @@
             [XPException raiseIn:self format:@"Value must be a node-set. it is a %@", [expr class]];
         }
     }
-
+    
+    result.staticContext = self.staticContext;
     result.range = self.range;
     return result;
 }
