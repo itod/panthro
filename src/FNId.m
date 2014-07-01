@@ -12,7 +12,6 @@
 #import "XPContext.h"
 #import "XPNodeSetExtent.h"
 #import "XPNodeEnumeration.h"
-#import "XPLocalOrderComparer.h"
 #import "XPEmptyNodeSet.h"
 #import "XPSingletonNodeSet.h"
 
@@ -154,7 +153,7 @@
     if (1 == [idrefresult count]) {
         return [XPSingletonNodeSet singletonNodeSetWithNode:idrefresult[0]];
     }
-    XPNodeSetValue *nodeSet = [[[XPNodeSetExtent alloc] initWithNodes:idrefresult comparer:[XPLocalOrderComparer instance]] autorelease];
+    XPNodeSetValue *nodeSet = [[[XPNodeSetExtent alloc] initWithNodes:idrefresult comparer:nil] autorelease];
     [nodeSet sort];
     return nodeSet;
 }

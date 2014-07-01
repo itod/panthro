@@ -13,7 +13,6 @@
 #import "XPNodeTest.h"
 #import "XPNodeSetExtent.h"
 #import "XPEmptyNodeSet.h"
-#import "XPLocalOrderComparer.h"
 
 @interface XPNSXMLNodeImpl ()
 @property (nonatomic, retain) id <XPNodeInfo>parent;
@@ -322,7 +321,7 @@
     XPNodeSetValue *nodeSet = nil;
     
     if ([nodes count]) {
-        XPNodeSetExtent *ext = [[[XPNodeSetExtent alloc] initWithNodes:nodes comparer:[XPLocalOrderComparer instance]] autorelease];
+        XPNodeSetExtent *ext = [[[XPNodeSetExtent alloc] initWithNodes:nodes comparer:nil] autorelease];
         ext.sorted = sorted;
         ext.reverseSorted = !sorted;
         nodeSet = ext;

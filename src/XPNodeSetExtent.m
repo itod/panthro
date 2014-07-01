@@ -47,7 +47,7 @@
         
         self.value = nodes;
         self.count = c;
-        self.comparer = comparer;
+        self.comparer = comparer ? comparer : [XPLocalOrderComparer instance];
         self.sorted = enm.isSorted || c < 2;
         self.sorted = enm.isReverseSorted || c < 2;
     }
