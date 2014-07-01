@@ -19,7 +19,7 @@
 #import "XPSync.h"
 #import "XPContext.h"
 #import "XPNodeSetValueEnumeration.h"
-#import "XPNodeSetValue.h"
+#import "XPNodeSetExtent.h"
 #import "XPLocalOrderComparer.h"
 
 @implementation XPNodeSetExpression
@@ -50,7 +50,7 @@
         id <XPNodeEnumeration>enm = [(XPNodeSetExpression *)expr enumerateInContext:ctx sorted:NO];
         
         if (enm) {
-            XPNodeSetValue *nodeSet = [[[XPNodeSetValue alloc] initWithEnumeration:enm comparer:[XPLocalOrderComparer instance]] autorelease];
+            XPNodeSetValue *nodeSet = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:nil] autorelease];
             nodeSet.range = self.range;
             result = nodeSet; // TODO [XPNodeSetIntent intentWithNodeSetExpression:(XPNodeSetExpression *)expr controller:[ctx controller]];
         } else {

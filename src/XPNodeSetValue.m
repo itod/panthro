@@ -7,8 +7,8 @@
 //
 
 #import "XPNodeSetValue.h"
-#import "XPNodeOrderComparer.h"
 #import "XPNodeInfo.h"
+#import "XPNodeOrderComparer.h"
 #import "XPBooleanValue.h"
 #import "XPNumericValue.h"
 #import "XPStringValue.h"
@@ -21,52 +21,12 @@
 #import "XPEGParser.h"
 
 @interface XPNodeSetValue ()
-@property (nonatomic, retain) NSMutableArray *value; // TODO
-@property (nonatomic, assign) NSUInteger count;
 @property (nonatomic, retain) NSDictionary *stringValues;
-@property (nonatomic, assign, readwrite, getter=isSorted) BOOL sorted;
-@property (nonatomic, assign, readwrite, getter=isReverseSorted) BOOL reverseSorted;
 @end
 
 @implementation XPNodeSetValue
 
-- (instancetype)initWithNodes:(NSArray *)nodes comparer:(id <XPNodeOrderComparer>)comparer {
-    self = [super init];
-    if (self) {
-        self.value = [[nodes mutableCopy] autorelease];
-        self.count = [_value count];
-        self.comparer = comparer ? comparer : [XPLocalOrderComparer instance];
-        self.sorted = _count < 2;
-        self.reverseSorted = _count < 2;
-    }
-    return self;
-}
-
-
-- (instancetype)initWithEnumeration:(id <XPNodeEnumeration>)enm comparer:(id <XPNodeOrderComparer>)comparer {
-    self = [super init];
-    if (self) {
-        NSMutableArray *nodes = [NSMutableArray array];
-        
-        NSUInteger c = 0;
-        for (id <XPNodeInfo>node in enm) {
-            [nodes addObject:node];
-            ++c;
-        }
-        
-        self.value = nodes;
-        self.count = c;
-        self.comparer = comparer;
-        self.sorted = enm.isSorted || c < 2;
-        self.sorted = enm.isReverseSorted || c < 2;
-    }
-    return self;
-}
-
-
 - (void)dealloc {
-    self.comparer = nil;
-    self.value = nil;
     self.stringValues = nil;
     [super dealloc];
 }
@@ -90,9 +50,8 @@
 
 
 - (id <XPNodeEnumeration>)enumerate {
-    XPAssert(_value);
-    id <XPNodeEnumeration>enm = [[[XPNodeSetValueEnumeration alloc] initWithNodes:_value isSorted:_sorted] autorelease];
-    return enm;
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return nil;
 }
 
 
@@ -102,8 +61,31 @@
 }
 
 
+- (BOOL)isSorted {
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return NO;
+}
+
+
+- (void)setSorted:(BOOL)sorted {
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+}
+
+
+- (BOOL)isReverseSorted {
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return NO;
+}
+
+
+- (void)setReverseSorted:(BOOL)reverseSorted {
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+}
+
+
 - (NSString *)asString {
-    return [[self firstNode] stringValue];
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return nil;
 }
 
 
@@ -113,60 +95,26 @@
 
 
 - (BOOL)asBoolean {
-    return [self count] > 0;
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return NO;
+}
+
+
+- (NSUInteger)count {
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return 0;
 }
 
 
 - (XPNodeSetValue *)sort {
-    if (_count < 2) self.sorted = YES;
-    if (_sorted) return self;
-    
-    if (_reverseSorted) {
-        
-        NSMutableArray *nodes = [NSMutableArray arrayWithCapacity:[_value count]];
-        for (id obj in [_value reverseObjectEnumerator]) {
-            [nodes addObject:obj];
-        }
-        self.value = nodes;
-        self.sorted = YES;
-        self.reverseSorted = NO;
-        
-    } else {
-        // sort the array
-        
-        XPQuickSort(self, 0, _count-1);
-        
-        // need to eliminate duplicate nodes. Note that we cannot compare the node
-        // objects directly, because with attributes and namespaces there might be
-        // two objects representing the same node.
-        
-        NSUInteger j = 1;
-        for (NSUInteger i = 1; i < _count; i++) {
-            if (![_value[i] isSameNodeInfo:_value[i-1]]) {
-                _value[j++] = _value[i];
-            }
-        }
-        
-        if (_count - j > 0) {
-            [_value removeObjectsInRange:NSMakeRange(j, _count-j)];
-        }
-        
-        self.count = j;
-        self.sorted = YES;
-        self.reverseSorted = NO;
-    }
-    
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return self;
 }
 
 
 - (id <XPNodeInfo>)firstNode {
-    id <XPNodeInfo>first = nil;
-    id <XPNodeEnumeration>enm = [self enumerate];
-    if ([enm hasMoreObjects]) {
-        first = [enm nextObject];
-    }
-    return first;
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return nil;
 }
 
 
@@ -383,30 +331,6 @@
             return NO;
         }
     }
-}
-
-
-#pragma mark -
-#pragma mark XPSortable
-
-/**
- * Compare two nodes in document sequence
- * (needed to implement the Sortable interface)
- */
-
-- (NSComparisonResult)compare:(NSInteger)a to:(NSInteger)b {
-    XPAssert(_comparer);
-    return [_comparer compare:_value[a] to:_value[b]];
-}
-
-/**
- * Swap two nodes (needed to implement the Sortable interface)
- */
-
-- (void)swap:(NSInteger)a with:(NSInteger)b {
-    id <XPNodeInfo>temp = _value[a];
-    _value[a] = _value[b];
-    _value[b] = temp;
 }
 
 @end

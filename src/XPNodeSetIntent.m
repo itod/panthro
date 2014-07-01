@@ -126,7 +126,7 @@
 }
 
 
-- (id)selectFirstInContext:(XPContext *)ctx {
+- (id <XPNodeInfo>)selectFirstInContext:(XPContext *)ctx {
     return [self firstNode];
 }
 

@@ -7,7 +7,7 @@
 //
 
 #import "XPUnionEnumeration.h"
-#import "XPNodeSetValue.h"
+#import "XPNodeSetExtent.h"
 #import "XPLocalOrderComparer.h"
 
 @interface XPUnionEnumeration ()
@@ -35,10 +35,10 @@
         self.e2 = _p2;
         
         if (![_e1 isSorted]) {
-            self.e1 = [[[[[XPNodeSetValue alloc] initWithEnumeration:_e1 comparer:_comparer] autorelease] sort] enumerate];
+            self.e1 = [[[[[XPNodeSetExtent alloc] initWithEnumeration:_e1 comparer:_comparer] autorelease] sort] enumerate];
         }
         if (![_e2 isSorted]) {
-            self.e2 = [[[[[XPNodeSetValue alloc] initWithEnumeration:_e2 comparer:_comparer] autorelease] sort] enumerate];
+            self.e2 = [[[[[XPNodeSetExtent alloc] initWithEnumeration:_e2 comparer:_comparer] autorelease] sort] enumerate];
         }
         
         if ([_e1 hasMoreObjects]) {

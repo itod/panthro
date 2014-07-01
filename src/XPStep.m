@@ -19,7 +19,7 @@
 #import "XPSync.h"
 #import "XPContext.h"
 #import "XPNodeSetValueEnumeration.h"
-#import "XPNodeSetValue.h"
+#import "XPNodeSetExtent.h"
 #import "XPLocalOrderComparer.h"
 
 @interface XPStep ()
@@ -130,7 +130,7 @@
 #if PAUSE_ENABLED
             if (ctx.staticContext.debug && [enm isKindOfClass:[XPNodeSetValueEnumeration class]]) {
                 NSArray *nodes = [(XPNodeSetValueEnumeration *)enm nodes];
-                XPNodeSetValue *result = [[[XPNodeSetValue alloc] initWithNodes:nodes comparer:[XPLocalOrderComparer instance]] autorelease];
+                XPNodeSetValue *result = [[[XPNodeSetExtent alloc] initWithNodes:nodes comparer:nil] autorelease];
                 NSRange range = NSMakeRange(self.range.location, NSMaxRange(self.nodeTest.range) - self.range.location);
                 
                 [ctx.staticContext pauseFrom:filter withContextNode:baseCtxNode result:result range:range done:NO];

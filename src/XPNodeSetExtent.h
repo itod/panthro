@@ -7,13 +7,17 @@
 //
 
 #import "XPNodeSetValue.h"
+#import "XPSortable.h"
 
 @protocol XPNodeEnumeration;
-@class XPController;
+@protocol XPNodeOrderComparer;
 
-@interface XPNodeSetExtent : XPNodeSetValue
+@interface XPNodeSetExtent : XPNodeSetValue <XPSortable>
 
-+ (XPNodeSetExtent *)extentWithNodeEnumeration:(id <XPNodeEnumeration>)e controller:(XPController *)c;
+- (instancetype)initWithNodes:(NSArray *)nodes comparer:(id <XPNodeOrderComparer>)comparer;
+- (instancetype)initWithEnumeration:(id <XPNodeEnumeration>)enm comparer:(id <XPNodeOrderComparer>)comparer;
 
-- (instancetype)initWithNodeEnumeration:(id <XPNodeEnumeration>)e controller:(XPController *)c;
+@property (nonatomic, retain) id <XPNodeOrderComparer>comparer;
+@property (nonatomic, assign, getter=isSorted) BOOL sorted;
+@property (nonatomic, assign, getter=isReverseSorted) BOOL reverseSorted;
 @end

@@ -20,6 +20,7 @@
 #import "XPLocalOrderComparer.h"
 #import "XPSingletonNodeSet.h"
 #import "XPPathEnumeration.h"
+#import "XPNodeSetExtent.h"
 
 @interface XPExpression ()
 @property (nonatomic, retain, readwrite) id <XPStaticContext>staticContext;
@@ -240,7 +241,7 @@
 
     }
 
-    XPNodeSetValue *nodeSet = [[[XPNodeSetValue alloc] initWithNodes:resultUnion comparer:[XPLocalOrderComparer instance]] autorelease];
+    XPNodeSetValue *nodeSet = [[[XPNodeSetExtent alloc] initWithNodes:resultUnion comparer:[XPLocalOrderComparer instance]] autorelease];
     
 #if PAUSE_ENABLED
     [ctx.staticContext pauseFrom:self withContextNode:startingCtxNode result:nodeSet range:_step.range done:NO];

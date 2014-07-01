@@ -11,14 +11,9 @@
 #import "XPAxis.h"
 #import "XPNodeSetValueEnumeration.h"
 #import "XPNodeTest.h"
-#import "XPNodeSetValue.h"
+#import "XPNodeSetExtent.h"
 #import "XPEmptyNodeSet.h"
 #import "XPLocalOrderComparer.h"
-
-@interface XPNodeSetValue ()
-@property (nonatomic, assign, readwrite, getter=isSorted) BOOL sorted;
-@property (nonatomic, assign, readwrite, getter=isReverseSorted) BOOL reverseSorted;
-@end
 
 @interface XPNSXMLNodeImpl ()
 @property (nonatomic, retain) id <XPNodeInfo>parent;
@@ -327,9 +322,10 @@
     XPNodeSetValue *nodeSet = nil;
     
     if ([nodes count]) {
-        nodeSet = [[[XPNodeSetValue alloc] initWithNodes:nodes comparer:[XPLocalOrderComparer instance]] autorelease];
-        nodeSet.sorted = sorted;
-        nodeSet.reverseSorted = !sorted;
+        XPNodeSetExtent *ext = [[[XPNodeSetExtent alloc] initWithNodes:nodes comparer:[XPLocalOrderComparer instance]] autorelease];
+        ext.sorted = sorted;
+        ext.reverseSorted = !sorted;
+        nodeSet = ext;
     } else {
         nodeSet = [XPEmptyNodeSet emptyNodeSet];
     }

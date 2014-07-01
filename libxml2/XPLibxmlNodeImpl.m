@@ -12,16 +12,11 @@
 #import "XPAxis.h"
 #import "XPNodeSetValueEnumeration.h"
 #import "XPNodeTest.h"
-#import "XPNodeSetValue.h"
+#import "XPNodeSetExtent.h"
 #import "XPEmptyNodeSet.h"
 #import "XPLocalOrderComparer.h"
 
 #import <libxml/tree.h>
-
-@interface XPNodeSetValue ()
-@property (nonatomic, assign, readwrite, getter=isSorted) BOOL sorted;
-@property (nonatomic, assign, readwrite, getter=isReverseSorted) BOOL reverseSorted;
-@end
 
 static NSString *XPSTR(const xmlChar *zstr) {
     NSString *res = @"";
@@ -480,9 +475,10 @@ static NSUInteger XPIndexInParent(id <XPNodeInfo>nodeInfo) {
     XPNodeSetValue *nodeSet = nil;
     
     if ([nodes count]) {
-        nodeSet = [[[XPNodeSetValue alloc] initWithNodes:nodes comparer:[XPLocalOrderComparer instance]] autorelease];
-        nodeSet.sorted = sorted;
-        nodeSet.reverseSorted = !sorted;
+        XPNodeSetExtent *ext = [[[XPNodeSetExtent alloc] initWithNodes:nodes comparer:[XPLocalOrderComparer instance]] autorelease];
+        ext.sorted = sorted;
+        ext.reverseSorted = !sorted;
+        nodeSet = ext;
     } else {
         nodeSet = [XPEmptyNodeSet emptyNodeSet];
     }

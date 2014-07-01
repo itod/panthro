@@ -7,26 +7,17 @@
 //
 
 #import "XPValue.h"
-#import "XPSortable.h"
 
 @protocol XPNodeOrderComparer;
 @protocol XPNodeEnumeration;
 @protocol XPNodeInfo;
 
-@interface XPNodeSetValue : XPValue <XPSortable>
-
-- (instancetype)initWithNodes:(NSArray *)nodes comparer:(id <XPNodeOrderComparer>)comparer;
-- (instancetype)initWithEnumeration:(id <XPNodeEnumeration>)enm comparer:(id <XPNodeOrderComparer>)comparer;
+@interface XPNodeSetValue : XPValue
 
 - (id <XPNodeEnumeration>)enumerate;
-
 - (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted;
 
 - (NSUInteger)count;
 - (XPNodeSetValue *)sort;
 - (id <XPNodeInfo>)firstNode;
-
-@property (nonatomic, retain) id <XPNodeOrderComparer>comparer;
-@property (nonatomic, assign, readonly, getter=isSorted) BOOL sorted;
-@property (nonatomic, assign, readonly, getter=isReverseSorted) BOOL reverseSorted;
 @end
