@@ -32,6 +32,10 @@
 
 #import "XPVariableReference.h"
 
+@interface XPExpression ()
+@property (nonatomic, retain, readwrite) id <XPStaticContext>staticContext;
+@end
+
 @interface XPAssembler ()
 @property (nonatomic, retain) id <XPStaticContext>env;
 @property (nonatomic, retain) NSDictionary *nodeTypeTab;
@@ -114,6 +118,7 @@
 
     XPExpression *boolExpr = [XPBooleanExpression booleanExpressionWithOperand:v1 operator:op operand:v2];
     boolExpr.range = NSMakeRange(v1.range.location, NSMaxRange(v2.range));
+    boolExpr.staticContext = _env;
     [a push:boolExpr];
 }
 
@@ -146,6 +151,7 @@
     
     XPExpression *relExpr = [XPRelationalExpression relationalExpressionWithOperand:p1 operator:op operand:p2];
     relExpr.range = NSMakeRange(p1.range.location, NSMaxRange(p2.range));
+    relExpr.staticContext = _env;
     [a push:relExpr];
 }
 
@@ -172,6 +178,7 @@
     
     XPExpression *mathExpr = [XPArithmeticExpression arithmeticExpressionWithOperand:v1 operator:op operand:v2];
     mathExpr.range = NSMakeRange(v1.range.location, NSMaxRange(v2.range));
+    mathExpr.staticContext = _env;
     [a push:mathExpr];
 }
 
@@ -190,6 +197,7 @@
     XPExpression *boolExpr = [XPBooleanValue booleanValueWithBoolean:b];
     NSUInteger offset = nameTok.offset;
     boolExpr.range = NSMakeRange(offset, (closeParenTok.offset+1) - offset);
+    boolExpr.staticContext = _env;
     [a push:boolExpr];
 }
 
@@ -223,6 +231,7 @@
     
     NSUInteger offset = nameTok.offset;
     fn.range = NSMakeRange(offset, (closeParenTok.offset+1) - offset);
+    fn.staticContext = _env;
     [a push:fn];
 }
 
@@ -239,6 +248,7 @@
     XPVariableReference *ref = [[[XPVariableReference alloc] initWithName:name] autorelease];
     NSUInteger offset = dollarTok.offset;
     ref.range = NSMakeRange(offset, (nameTok.offset+name.length) - offset);
+    ref.staticContext = _env;
     [a push:ref];
 }
 
@@ -253,12 +263,14 @@
             NSUInteger offset = filterExpr.range.location;
             filterExpr = [[[XPFilterExpression alloc] initWithStart:filterExpr filter:f] autorelease];
             filterExpr.range = NSMakeRange(offset, NSMaxRange(f.range));
+            filterExpr.staticContext = _env;
             XPAssert(NSNotFound != filterExpr.range.location);
             XPAssert(NSNotFound != filterExpr.range.length);
             XPAssert(filterExpr.range.length);
         }
         
         filterExpr.range = NSMakeRange(filterExpr.range.location, lastBracketMaxOffset - filterExpr.range.location);
+        filterExpr.staticContext = _env;
         [a push:filterExpr];
     }
 }
@@ -288,6 +300,7 @@
         NSUInteger offset = pathExpr.range.location;
         pathExpr = [[[XPPathExpression alloc] initWithStart:pathExpr step:step] autorelease];
         pathExpr.range = NSMakeRange(offset, NSMaxRange(step.range));
+        pathExpr.staticContext = _env;
         XPAssert(NSNotFound != pathExpr.range.location);
         XPAssert(NSNotFound != pathExpr.range.length);
         XPAssert(pathExpr.range.length);
@@ -316,6 +329,7 @@
         
         XPExpression *unionExpr = [[[XPUnionExpression alloc] initWithLhs:lhs rhs:rhs] autorelease];
         unionExpr.range = NSMakeRange(lhs.range.location, NSMaxRange(rhs.range));
+        unionExpr.staticContext = _env;
         [a push:unionExpr];
     } else {
         [a push:peek];
@@ -347,6 +361,8 @@
     }
 
     startNodeExpr.range = step.range;
+    startNodeExpr.staticContext = _env;
+    
     [a push:startNodeExpr];
     [a push:_dotDotDot];
     
@@ -359,8 +375,11 @@
 - (void)parser:(PKParser *)p didMatchRootSlash:(PKAssembly *)a {
     PKToken *slashTok = [a pop];
     XPAssertToken(slashTok);
+    
     XPExpression *rootExpr = [[[XPRootExpression alloc] init] autorelease];
     rootExpr.range = NSMakeRange(slashTok.offset, 1);
+    rootExpr.staticContext = _env;
+    
     [a push:rootExpr];
     [a push:_dotDotDot];
 }
@@ -369,8 +388,11 @@
 - (void)parser:(PKParser *)p didMatchRootDoubleSlash:(PKAssembly *)a {
     PKToken *slashTok = [a pop];
     XPAssertToken(slashTok);
+    
     XPExpression *rootExpr = [[[XPRootExpression alloc] init] autorelease];
     rootExpr.range = NSMakeRange(slashTok.offset, 2);
+    rootExpr.staticContext = _env;
+
     [a push:rootExpr];
     [a push:_dotDotDot];
 
@@ -599,6 +621,7 @@
     XPExpression *numExpr = [XPNumericValue numericValueWithNumber:d];
     XPAssert(NSNotFound != offset);
     numExpr.range = NSMakeRange(offset, NSMaxRange(val.range));
+    numExpr.staticContext = _env;
     [a push:numExpr];
 }
 
@@ -607,6 +630,7 @@
     PKToken *tok = [a pop];
     XPExpression *numExpr = [XPNumericValue numericValueWithNumber:tok.doubleValue];
     numExpr.range = NSMakeRange(tok.offset, [tok.stringValue length]);
+    numExpr.staticContext = _env;
     [a push:numExpr];
 }
 
@@ -627,6 +651,7 @@
 
     XPExpression *strExpr = [XPStringValue stringValueWithString:s];
     strExpr.range = NSMakeRange(tok.offset, len);
+    strExpr.staticContext = _env;
     [a push:strExpr];
 }
 
