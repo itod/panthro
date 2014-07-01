@@ -15,10 +15,6 @@
 #import "XPNodeInfo.h"
 #import "XPLastPositionFinder.h"
 
-@interface XPContext ()
-@property (nonatomic, assign) id <XPStaticContext>staticContext;
-@end
-
 @interface XPNodeSetIntent ()
 - (void)fix;
 
@@ -50,8 +46,7 @@
 
 
 - (XPContext *)makeContext {
-    XPContext *ctx = [[[XPContext alloc] init] autorelease];
-    [ctx setStaticContext:[_nodeSetExpression staticContext]];
+    XPContext *ctx = [[[XPContext alloc] initWithStaticContext:[_nodeSetExpression staticContext]] autorelease];
     return ctx;
 }
 
