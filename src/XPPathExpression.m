@@ -287,7 +287,7 @@
 //#endif
 
     id <XPNodeEnumeration>enm = [[[XPPathEnumeration alloc] initWithStart:_start step:_step context:ctx] autorelease];
-    if (/*sorted &&*/ !enm.isSorted) {
+    if (sorted && !enm.isSorted) {
         
         id <XPNodeOrderComparer>comparer = nil;
         

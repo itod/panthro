@@ -170,7 +170,7 @@
 
 - (id <XPNodeEnumeration>)enumerate {
     XPAssert(_value);
-    id <XPNodeEnumeration>enm = [[[XPNodeSetValueEnumeration alloc] initWithNodes:_value isSorted:_sorted] autorelease];
+    id <XPNodeEnumeration>enm = [[[XPNodeSetValueEnumeration alloc] initWithNodes:_value isSorted:_sorted isReverseSorted:_reverseSorted] autorelease];
     return enm;
 }
 

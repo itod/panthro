@@ -190,12 +190,12 @@
  */
 
 - (BOOL)isSorted {
-    return [_base isSorted];
+    return _base.isSorted;
 }
 
 
 - (BOOL)isReverseSorted {
-    return [_base isReverseSorted];
+    return _base.isReverseSorted;
 }
 
 
@@ -204,7 +204,7 @@
  */
 
 - (BOOL)isPeer {
-    return [_base isPeer];
+    return _base.isPeer;
 }
 
 @end

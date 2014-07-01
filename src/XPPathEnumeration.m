@@ -95,11 +95,12 @@
 
 - (BOOL)isSorted {
     XPAxis axis = _step.axis;
-    return XPAxisIsForwards[axis] && (
+    BOOL res = XPAxisIsForwards[axis] && (
          ([_thisStart isKindOfClass:[XPSingletonExpression class]]) ||
          (_base.isSorted && _base.isPeer && XPAxisIsSubtreeAxis[axis]) ||
          (_base.isSorted && (axis == XPAxisAttribute || axis == XPAxisNamespace))
     );
+    return res;
 }
 
 
@@ -109,7 +110,8 @@
 */
 
 - (BOOL)isReverseSorted {
-    return [_thisStart isKindOfClass:[XPSingletonExpression class]] && XPAxisIsReverse[_step.axis];
+    BOOL res = [_thisStart isKindOfClass:[XPSingletonExpression class]] && XPAxisIsReverse[_step.axis];
+    return res;
 }
 
 

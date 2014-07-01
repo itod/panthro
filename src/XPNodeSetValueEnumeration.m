@@ -10,19 +10,21 @@
 
 @interface XPNodeSetValueEnumeration ()
 @property (nonatomic, assign, getter=isSorted) BOOL sorted;
+@property (nonatomic, assign, getter=isReverseSorted) BOOL reverseSorted;
 @property (nonatomic, assign) NSUInteger index;
 @property (nonatomic, assign) NSUInteger lastPosition;
 @end
 
 @implementation XPNodeSetValueEnumeration
 
-- (instancetype)initWithNodes:(NSArray *)nodes isSorted:(BOOL)sorted {
+- (instancetype)initWithNodes:(NSArray *)nodes isSorted:(BOOL)sorted isReverseSorted:(BOOL)reverseSorted {
     self = [super init];
     if (self) {
         self.nodes = nodes;
         self.lastPosition = [_nodes count];
         self.index = 0;
         self.sorted = sorted;
+        self.reverseSorted = reverseSorted;
     }
     return self;
 }
@@ -38,10 +40,6 @@
     return [NSString stringWithFormat:@"<%@ %p %lu>", [self class], self, [self.nodes count]];
 }
 
-
-- (BOOL)isReverseSorted {
-    return !_sorted;
-}
 
 /**
  * Determine whether there are more nodes to come. <BR>
@@ -77,12 +75,6 @@
 
 - (BOOL)isPeer {
     return NO;
-}
-
-
-- (NSUInteger)lastPosition {
-    XPAssert(_nodes);
-    return [_nodes count];
 }
 
 @end
