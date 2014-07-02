@@ -16,10 +16,10 @@
 #import "XPStep.h"
 
 @interface XPPathEnumeration ()
-@property (nonatomic, retain) XPExpression *thisStart;
+@property (nonatomic, retain) XPExpression *start;
 @property (nonatomic, retain) XPStep *step;
 @property (nonatomic, retain) id <XPNodeEnumeration>base;
-@property (nonatomic, retain) id <XPNodeEnumeration>thisStep;
+@property (nonatomic, retain) id <XPNodeEnumeration>tail;
 @property (nonatomic, retain) id <XPNodeInfo>next;
 @property (nonatomic, retain) XPContext *context;
 @end
@@ -34,7 +34,7 @@
                 [XPException raiseIn:start format:@"To use a result tree fragment in a path expression, either use exsl:node-set() or specify version='1.1'"];
             }
         }
-        self.thisStart = start;
+        self.start = start;
         self.step = step;
         self.context = [[ctx copy] autorelease];
         self.base = [start enumerateInContext:_context sorted:NO];
@@ -45,10 +45,10 @@
 
 
 - (void)dealloc {
-    self.thisStart = nil;
+    self.start = nil;
     self.step = nil;
     self.base = nil;
-    self.thisStep = nil;
+    self.tail = nil;
     self.next = nil;
     self.context = nil;
     [super dealloc];
@@ -72,15 +72,15 @@
     // if we are currently processing a step, we continue with it. Otherwise,
     // we get the next base element, and apply the step to that.
 
-    if (_thisStep && [_thisStep hasMoreObjects]) {
-        return [_thisStep nextObject];
+    if (_tail && [_tail hasMoreObjects]) {
+        return [_tail nextObject];
     }
 
     while ([_base hasMoreObjects]) {
         id <XPNodeInfo>node = [_base nextObject];
-        self.thisStep = [_step enumerate:node inContext:_context];
-        if ([_thisStep hasMoreObjects]) {
-            return [_thisStep nextObject];
+        self.tail = [_step enumerate:node inContext:_context];
+        if ([_tail hasMoreObjects]) {
+            return [_tail nextObject];
         }
     }
 
@@ -96,7 +96,7 @@
 - (BOOL)isSorted {
     XPAxis axis = _step.axis;
     BOOL res = XPAxisIsForwards[axis] && (
-         ([_thisStart isKindOfClass:[XPSingletonExpression class]]) ||
+         ([_start isKindOfClass:[XPSingletonExpression class]]) ||
          (_base.isSorted && _base.isPeer && XPAxisIsSubtreeAxis[axis]) ||
          (_base.isSorted && (axis == XPAxisAttribute || axis == XPAxisNamespace))
     );
@@ -110,7 +110,7 @@
 */
 
 - (BOOL)isReverseSorted {
-    BOOL res = [_thisStart isKindOfClass:[XPSingletonExpression class]] && XPAxisIsReverse[_step.axis];
+    BOOL res = [_start isKindOfClass:[XPSingletonExpression class]] && XPAxisIsReverse[_step.axis];
     return res;
 }
 

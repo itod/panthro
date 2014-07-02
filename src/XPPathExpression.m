@@ -278,7 +278,7 @@
 //    id <XPNodeEnumeration>enm = [nodeSet enumerateInContext:ctx sorted:YES];
     
 #if PAUSE_ENABLED
-    id <XPNodeInfo>ctxNode = [[_start evaluateAsNodeSetInContext:ctx] firstNode];
+    id <XPNodeInfo>ctxNode = ctx.contextNode;
 #endif
 
     id <XPNodeEnumeration>enm = [[[XPPathEnumeration alloc] initWithStart:_start step:_step context:ctx] autorelease];
