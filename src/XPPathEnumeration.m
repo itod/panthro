@@ -29,8 +29,8 @@
 @property (nonatomic, retain) XPContext *context;
 
 #if PAUSE_ENABLED
-@property (nonatomic, retain) NSMutableArray *contextNodeSet;
-@property (nonatomic, retain) NSMutableArray *resultSet;
+@property (nonatomic, retain) NSMutableArray *contextNodes;
+@property (nonatomic, retain) NSMutableArray *resultNodes;
 #endif
 @end
 
@@ -46,8 +46,8 @@
         }
 
 #if PAUSE_ENABLED
-        self.contextNodeSet = [NSMutableArray array];
-        self.resultSet = [NSMutableArray array];
+        self.contextNodes = [NSMutableArray array];
+        self.resultNodes = [NSMutableArray array];
 #endif
 
         self.start = start;
@@ -69,8 +69,8 @@
     self.context = nil;
 
 #if PAUSE_ENABLED
-    self.contextNodeSet = nil;
-    self.resultSet = nil;
+    self.contextNodes = nil;
+    self.resultNodes = nil;
 #endif
     
     [super dealloc];
@@ -116,9 +116,9 @@
         id <XPNodeInfo>node = [_base nextObject];
 
 #if PAUSE_ENABLED
-        XPAssert(_contextNodeSet);
+        XPAssert(_contextNodes);
         XPAssert(node);
-        [_contextNodeSet addObject:node];
+        [_contextNodes addObject:node];
 #endif
 
         self.tail = [_step enumerate:node inContext:_context];
@@ -142,24 +142,24 @@
 - (void)add:(id <XPNodeInfo>)node {
     XPAssert(node);
     
-    XPAssert(_resultSet);
-    [_resultSet addObject:node];
+    XPAssert(_resultNodes);
+    [_resultNodes addObject:node];
 }
 
 
 - (void)pause {
     XPAssert(![_tail hasMoreObjects]);
 
-    if (_resultSet) {
-        XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_contextNodeSet comparer:nil] autorelease];
+    if (_resultNodes) {
+        XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_contextNodes comparer:nil] autorelease];
         [contextNodeSet sort];
         
-        XPNodeSetValue *resultNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_resultSet comparer:nil] autorelease];
+        XPNodeSetValue *resultNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_resultNodes comparer:nil] autorelease];
         [resultNodeSet sort];
         
         [_context.staticContext pauseFrom:_start withContextNodes:contextNodeSet result:resultNodeSet range:_step.range done:NO];
 
-        self.resultSet = nil; // ok, we've blown our load. don't allow another pause.
+        self.resultNodes = nil; // ok, we've blown our load. don't allow another pause.
     }
 }
 #endif
