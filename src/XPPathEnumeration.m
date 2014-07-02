@@ -170,6 +170,7 @@
 }
 #endif
 
+
 /**
 * Determine if we can guarantee that the nodes are in document order. This is true if the
 * start nodes are sorted peer nodes and the step is within the subtree rooted at each node.
