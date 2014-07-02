@@ -42,9 +42,9 @@
     if ([expr isKindOfClass:[XPNodeSetValue class]]) {
         result = (XPValue *)expr;
 
-#if PAUSE_ENABLED
-        [ctx.staticContext pauseFrom:self withContextNode:ctx.contextNode result:result range:result.range done:NO];
-#endif
+//#if PAUSE_ENABLED
+//        [ctx.staticContext pauseFrom:self withContextNode:ctx.contextNode result:result range:result.range done:NO];
+//#endif
         
     } else if ([expr isKindOfClass:[XPNodeSetExpression class]]) {
         

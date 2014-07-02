@@ -11,6 +11,7 @@
 @class XPExpression;
 @class XPStep;
 @class XPContext;
+@protocol XPNodeInfo;
 
 @interface XPPathEnumeration : XPBaseFastEnumeration
 

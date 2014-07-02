@@ -121,21 +121,21 @@
 
     if ([enm hasMoreObjects]) {       // if there are no nodes, there's nothing to filter
         
-#if PAUSE_ENABLED
-        id <XPNodeInfo>baseCtxNode = ctx.contextNode;
-#endif
+//#if PAUSE_ENABLED
+//        id <XPNodeInfo>baseCtxNode = ctx.contextNode;
+//#endif
         
         for (XPExpression *filter in _allFilters) {
             
-#if PAUSE_ENABLED
-            if (ctx.staticContext.debug && [enm isKindOfClass:[XPNodeSetValueEnumeration class]]) {
-                NSArray *nodes = [(XPNodeSetValueEnumeration *)enm nodes];
-                XPNodeSetValue *result = [[[XPNodeSetExtent alloc] initWithNodes:nodes comparer:nil] autorelease];
-                NSRange range = NSMakeRange(self.range.location, NSMaxRange(self.nodeTest.range) - self.range.location);
-                
-                [ctx.staticContext pauseFrom:filter withContextNode:baseCtxNode result:result range:range done:NO];
-            }
-#endif
+//#if PAUSE_ENABLED
+//            if (ctx.staticContext.debug && [enm isKindOfClass:[XPNodeSetValueEnumeration class]]) {
+//                NSArray *nodes = [(XPNodeSetValueEnumeration *)enm nodes];
+//                XPNodeSetValue *result = [[[XPNodeSetExtent alloc] initWithNodes:nodes comparer:nil] autorelease];
+//                NSRange range = NSMakeRange(self.range.location, NSMaxRange(self.nodeTest.range) - self.range.location);
+//                
+//                [ctx.staticContext pauseFrom:filter withContextNode:baseCtxNode result:result range:range done:NO];
+//            }
+//#endif
 
             enm = [[[XPFilterEnumerator alloc] initWithBase:enm filter:filter context:ctx finishAfterReject:NO] autorelease];
         }

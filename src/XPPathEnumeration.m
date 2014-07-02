@@ -15,6 +15,11 @@
 #import "XPException.h"
 #import "XPStep.h"
 
+#if PAUSE_ENABLED
+#import "XPStaticContext.h"
+#import "XPNodeSetExtent.h"
+#endif
+
 @interface XPPathEnumeration ()
 @property (nonatomic, retain) XPExpression *start;
 @property (nonatomic, retain) XPStep *step;
@@ -22,6 +27,13 @@
 @property (nonatomic, retain) id <XPNodeEnumeration>tail;
 @property (nonatomic, retain) id <XPNodeInfo>next;
 @property (nonatomic, retain) XPContext *context;
+
+#if PAUSE_ENABLED
+@property (nonatomic, retain) id <XPNodeInfo>contextNode;
+@property (nonatomic, retain) NSMutableArray *resultSet;
+@property (nonatomic, assign) BOOL virgin;
+@property (nonatomic, assign) BOOL done;
+#endif
 @end
 
 @implementation XPPathEnumeration
@@ -34,6 +46,13 @@
                 [XPException raiseIn:start format:@"To use a result tree fragment in a path expression, either use exsl:node-set() or specify version='1.1'"];
             }
         }
+
+#if PAUSE_ENABLED
+        self.resultSet = [NSMutableArray array];
+        self.virgin = YES;
+        self.done = NO;
+#endif
+
         self.start = start;
         self.step = step;
         self.context = [[ctx copy] autorelease];
@@ -51,18 +70,39 @@
     self.tail = nil;
     self.next = nil;
     self.context = nil;
+
+#if PAUSE_ENABLED
+    self.contextNode = nil;
+    self.resultSet = nil;
+#endif
+    
     [super dealloc];
 }
 
 
 - (BOOL)hasMoreObjects {
-    return _next != nil;
+    BOOL res =  _next != nil;
+    
+//#if PAUSE_ENABLED
+//    if (!res) {
+//        [self pause];
+//    }
+//#endif
+    
+    return res;
 }
 
 
 - (id <XPNodeInfo>)nextObject {
     id <XPNodeInfo>curr = _next;
     self.next = [self nextNode];
+    
+#if PAUSE_ENABLED
+    if (![self hasMoreObjects]) {
+        [self pause];
+    }
+#endif
+
     return curr;
 }
 
@@ -73,19 +113,63 @@
     // we get the next base element, and apply the step to that.
 
     if (_tail && [_tail hasMoreObjects]) {
-        return [_tail nextObject];
-    }
 
+        id <XPNodeInfo>result = [_tail nextObject];
+
+#if PAUSE_ENABLED
+        [self add:result];
+#endif
+
+        return result;
+    }
+    
     while ([_base hasMoreObjects]) {
         id <XPNodeInfo>node = [_base nextObject];
+
+#if PAUSE_ENABLED
+        self.contextNode = node;
+#endif
+
         self.tail = [_step enumerate:node inContext:_context];
         if ([_tail hasMoreObjects]) {
-            return [_tail nextObject];
+
+            id <XPNodeInfo>result = [_tail nextObject];
+
+#if PAUSE_ENABLED
+            [self add:result];
+#endif
+
+            return result;
         }
     }
 
     return nil;
 }
+
+
+#if PAUSE_ENABLED
+- (void)add:(id <XPNodeInfo>)node {
+    XPAssert(node);
+    
+    XPAssert(_resultSet);
+    [_resultSet addObject:node];
+}
+
+
+- (void)pause {
+    XPAssert(![_tail hasMoreObjects]);
+
+    if (_done) return;
+    
+    XPAssert(_resultSet);
+    if ([_resultSet count]) {
+        self.done = YES;
+        XPNodeSetValue *ns = [[[XPNodeSetExtent alloc] initWithNodes:_resultSet comparer:nil] autorelease];
+        [ns sort];
+        [_context.staticContext pauseFrom:_start withContextNode:_contextNode result:ns range:_step.range done:NO];
+    }
+}
+#endif
 
 /**
 * Determine if we can guarantee that the nodes are in document order. This is true if the
