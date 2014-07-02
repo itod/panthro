@@ -41,7 +41,7 @@
 
 #if PAUSE_ENABLED
 // Debugging
-- (void)pauseFrom:(XPExpression *)expr withContextNode:(id <XPNodeInfo>)ctxNode result:(XPValue *)result range:(NSRange)range done:(BOOL)isDone;
+- (void)pauseFrom:(XPExpression *)expr withContextNodes:(XPValue *)ctxNodes result:(XPValue *)result range:(NSRange)range done:(BOOL)isDone;
 @property (assign) BOOL debug;
 #endif
 @end

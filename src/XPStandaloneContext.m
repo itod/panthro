@@ -360,16 +360,16 @@
 
 
 #if PAUSE_ENABLED
-- (void)pauseFrom:(XPExpression *)expr withContextNode:(id <XPNodeInfo>)ctxNode result:(XPValue *)result range:(NSRange)range done:(BOOL)isDone {
+- (void)pauseFrom:(XPExpression *)expr withContextNodes:(XPNodeSetValue *)ctxNodes result:(XPValue *)result range:(NSRange)range done:(BOOL)isDone {
     XPAssert(expr);
-    XPAssert(ctxNode);
+    XPAssert(ctxNodes);
     XPAssert(result);
     XPAssert(NSNotFound != range.location);
     XPAssert(NSNotFound != range.length);
     XPAssert(range.length);
 
     if (self.debug) {
-        id info = @{@"contextNode": ctxNode, @"result": result, @"done": @(isDone), @"mainQueryRange": [NSValue valueWithRange:range]};
+        id info = @{@"contextNodes": ctxNodes, @"result": result, @"done": @(isDone), @"mainQueryRange": [NSValue valueWithRange:range]};
         [self.debugSync pauseWithInfo:info];
         BOOL resume = [[self.debugSync awaitResume] boolValue];
         

@@ -29,7 +29,7 @@
 @property (nonatomic, retain) XPContext *context;
 
 #if PAUSE_ENABLED
-@property (nonatomic, retain) id <XPNodeInfo>contextNode;
+@property (nonatomic, retain) NSMutableArray *contextNodeSet;
 @property (nonatomic, retain) NSMutableArray *resultSet;
 #endif
 @end
@@ -46,6 +46,7 @@
         }
 
 #if PAUSE_ENABLED
+        self.contextNodeSet = [NSMutableArray array];
         self.resultSet = [NSMutableArray array];
 #endif
 
@@ -68,7 +69,7 @@
     self.context = nil;
 
 #if PAUSE_ENABLED
-    self.contextNode = nil;
+    self.contextNodeSet = nil;
     self.resultSet = nil;
 #endif
     
@@ -115,7 +116,9 @@
         id <XPNodeInfo>node = [_base nextObject];
 
 #if PAUSE_ENABLED
-        self.contextNode = node;
+        XPAssert(_contextNodeSet);
+        XPAssert(node);
+        [_contextNodeSet addObject:node];
 #endif
 
         self.tail = [_step enumerate:node inContext:_context];
@@ -148,9 +151,13 @@
     XPAssert(![_tail hasMoreObjects]);
 
     if (_resultSet) {
-        XPNodeSetValue *ns = [[[XPNodeSetExtent alloc] initWithNodes:_resultSet comparer:nil] autorelease];
-        [ns sort];
-        [_context.staticContext pauseFrom:_start withContextNode:_contextNode result:ns range:_step.range done:NO];
+        XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_contextNodeSet comparer:nil] autorelease];
+        [contextNodeSet sort];
+        
+        XPNodeSetValue *resultNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_resultSet comparer:nil] autorelease];
+        [resultNodeSet sort];
+        
+        [_context.staticContext pauseFrom:_start withContextNodes:contextNodeSet result:resultNodeSet range:_step.range done:NO];
 
         self.resultSet = nil; // ok, we've blown our load. don't allow another pause.
     }

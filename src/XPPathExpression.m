@@ -242,20 +242,8 @@
         XPNodeSetValue *ns = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:comparer] autorelease];
         [ns sort];
         
-//#if PAUSE_ENABLED
-//        [ctx.staticContext pauseFrom:self withContextNode:pathEnm.contextNode result:ns range:_step.range done:NO];
-//#endif
-
         enm = [ns enumerate];
     }
-//#if PAUSE_ENABLED
-//    else {
-//        XPNodeSetValue *ns = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:nil] autorelease];
-//        [ns sort];
-//        [ctx.staticContext pauseFrom:self withContextNode:pathEnm.contextNode result:ns range:_step.range done:NO];
-//        enm = [ns enumerateInContext:ctx sorted:NO];
-//    }
-//#endif
 
     return enm;
 }
