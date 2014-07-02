@@ -18,5 +18,4 @@
 
 @property (nonatomic, assign) XPAxis axis;
 @property (nonatomic, retain) XPNodeTest *test;
-@property (nonatomic, retain) id <XPNodeInfo>contextNode;
 @end

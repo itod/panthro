@@ -49,7 +49,7 @@
         self.count = c;
         self.comparer = comparer ? comparer : [XPLocalOrderComparer instance];
         self.sorted = enm.isSorted || c < 2;
-        self.sorted = enm.isReverseSorted || c < 2;
+        self.reverseSorted = enm.isReverseSorted || c < 2;
     }
     return self;
 }
@@ -170,7 +170,7 @@
 
 - (id <XPNodeEnumeration>)enumerate {
     XPAssert(_value);
-    id <XPNodeEnumeration>enm = [[[XPNodeSetValueEnumeration alloc] initWithNodes:_value isSorted:_sorted] autorelease];
+    id <XPNodeEnumeration>enm = [[[XPNodeSetValueEnumeration alloc] initWithNodes:_value isSorted:_sorted isReverseSorted:_reverseSorted] autorelease];
     return enm;
 }
 
@@ -199,5 +199,6 @@
 }
 
 @synthesize sorted = _sorted;
+@synthesize reverseSorted = _reverseSorted;
 @synthesize count = _count;
 @end

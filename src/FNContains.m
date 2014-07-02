@@ -10,10 +10,6 @@
 #import "XPValue.h"
 #import "XPBooleanValue.h"
 
-@interface XPExpression ()
-@property (nonatomic, readwrite, retain) id <XPStaticContext>staticContext;
-@end
-
 @interface XPFunction ()
 - (NSUInteger)checkArgumentCountForMin:(NSUInteger)min max:(NSUInteger)max;
 @property (nonatomic, retain) NSMutableArray *args;

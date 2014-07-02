@@ -13,10 +13,6 @@
 #import "XPSingletonNodeSet.h"
 #import "XPException.h"
 
-@interface XPExpression ()
-@property (nonatomic, readwrite, retain) id <XPStaticContext>staticContext;
-@end
-
 @interface XPFilterExpression ()
 @end
 

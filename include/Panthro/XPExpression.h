@@ -70,5 +70,5 @@ typedef NS_ENUM(NSUInteger, XPDependencies) {
 - (XPDataType)dataType;
 
 @property (nonatomic, assign) NSRange range;
-@property (nonatomic, retain, readonly) id <XPStaticContext>staticContext;
+@property (nonatomic, retain) id <XPStaticContext>staticContext;
 @end

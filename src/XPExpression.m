@@ -22,10 +22,6 @@ NSString * const XPathErrorDomain = @"XPathErrorDomain";
 const NSUInteger XPathErrorCodeCompiletime = 1;
 const NSUInteger XPathErrorCodeRuntime = 2;
 
-@interface XPExpression ()
-@property (nonatomic, retain, readwrite) id <XPStaticContext>staticContext;
-@end
-
 @implementation XPExpression
 
 //+ (void)initialize {
@@ -52,7 +48,7 @@ const NSUInteger XPathErrorCodeRuntime = 2;
             if (simplify) {
                 expr = [expr simplify];
             }
-            [expr setStaticContext:env];
+            expr.staticContext = env;
         }
     }
     @catch (XPException *ex) {

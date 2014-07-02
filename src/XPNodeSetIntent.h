@@ -16,5 +16,4 @@
 - (instancetype)initWithNodeSetExpression:(XPNodeSetExpression *)expr comparer:(id <XPNodeOrderComparer>)comparer;
 
 @property (nonatomic, retain) XPNodeSetExpression *nodeSetExpression;
-@property (nonatomic, getter=isSorted) BOOL sorted;
 @end

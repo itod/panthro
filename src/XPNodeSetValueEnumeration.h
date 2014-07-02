@@ -11,7 +11,7 @@
 
 @interface XPNodeSetValueEnumeration : XPBaseFastEnumeration <XPAxisEnumeration>
 
-- (instancetype)initWithNodes:(NSArray *)nodes isSorted:(BOOL)sorted;
+- (instancetype)initWithNodes:(NSArray *)nodes isSorted:(BOOL)sorted isReverseSorted:(BOOL)reverseSorted;
 
 @property (nonatomic, copy) NSArray *nodes;
 @end

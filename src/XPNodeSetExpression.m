@@ -10,6 +10,7 @@
 #import "XPContext.h"
 #import "XPNodeEnumeration.h"
 #import "XPNodeSetExtent.h"
+//#import "XPNodeSetIntent.h"
 #import "XPLocalOrderComparer.h"
 #import "XPException.h"
 #import "XPEmptyNodeSet.h"
@@ -41,11 +42,8 @@
     if ([expr isKindOfClass:[XPNodeSetValue class]]) {
         result = (XPValue *)expr;
 
-#if PAUSE_ENABLED
-        [ctx.staticContext pauseFrom:self withContextNode:ctx.contextNode result:result range:result.range done:NO];
-#endif
-        
     } else if ([expr isKindOfClass:[XPNodeSetExpression class]]) {
+        
         id <XPNodeEnumeration>enm = [(XPNodeSetExpression *)expr enumerateInContext:ctx sorted:NO];
         
         if (enm) {
@@ -55,10 +53,9 @@
         } else {
             result = [XPEmptyNodeSet emptyNodeSet];
         }
-        
-//        XPNodeSetValue *nodeSet = [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPNodeSetExpression *)expr comparer:nil] autorelease];
-//        nodeSet.range = self.range;
-//        result = nodeSet;
+
+//        XPNodeSetIntent *nsi = [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPNodeSetExpression *)expr comparer:nil] autorelease];
+//        result = nsi;
 
     } else {
         result = [expr evaluateInContext:ctx];
@@ -66,7 +63,8 @@
             [XPException raiseIn:self format:@"Value must be a node-set. it is a %@", [expr class]];
         }
     }
-
+    
+    result.staticContext = self.staticContext;
     result.range = self.range;
     return result;
 }

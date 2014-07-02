@@ -9,10 +9,6 @@
 #import "XPBinaryExpression.h"
 #import "XPValue.h"
 
-@interface XPExpression ()
-@property (nonatomic, retain, readwrite) id <XPStaticContext>staticContext;
-@end
-
 @implementation XPBinaryExpression
 
 + (XPBinaryExpression *)binaryExpression {
