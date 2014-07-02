@@ -106,7 +106,7 @@
         id <XPNodeInfo>result = [_tail nextObject];
 
 #if PAUSE_ENABLED
-        [self add:result];
+        [self addResultNode:result];
 #endif
 
         return result;
@@ -116,9 +116,7 @@
         id <XPNodeInfo>node = [_base nextObject];
 
 #if PAUSE_ENABLED
-        XPAssert(_contextNodes);
-        XPAssert(node);
-        [_contextNodes addObject:node];
+        [self addContextNode:node];
 #endif
 
         self.tail = [_step enumerate:node inContext:_context];
@@ -127,7 +125,7 @@
             id <XPNodeInfo>result = [_tail nextObject];
 
 #if PAUSE_ENABLED
-            [self add:result];
+            [self addResultNode:result];
 #endif
 
             return result;
@@ -139,7 +137,15 @@
 
 
 #if PAUSE_ENABLED
-- (void)add:(id <XPNodeInfo>)node {
+- (void)addContextNode:(id <XPNodeInfo>)node {
+    XPAssert(node);
+
+    XPAssert(_contextNodes);
+    [_contextNodes addObject:node];
+}
+
+
+- (void)addResultNode:(id <XPNodeInfo>)node {
     XPAssert(node);
     
     XPAssert(_resultNodes);
