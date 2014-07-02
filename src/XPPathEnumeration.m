@@ -31,8 +31,6 @@
 #if PAUSE_ENABLED
 @property (nonatomic, retain) id <XPNodeInfo>contextNode;
 @property (nonatomic, retain) NSMutableArray *resultSet;
-@property (nonatomic, assign) BOOL virgin;
-@property (nonatomic, assign) BOOL done;
 #endif
 @end
 
@@ -49,8 +47,6 @@
 
 #if PAUSE_ENABLED
         self.resultSet = [NSMutableArray array];
-        self.virgin = YES;
-        self.done = NO;
 #endif
 
         self.start = start;
@@ -81,15 +77,7 @@
 
 
 - (BOOL)hasMoreObjects {
-    BOOL res =  _next != nil;
-    
-//#if PAUSE_ENABLED
-//    if (!res) {
-//        [self pause];
-//    }
-//#endif
-    
-    return res;
+    return  _next != nil;
 }
 
 
@@ -159,14 +147,12 @@
 - (void)pause {
     XPAssert(![_tail hasMoreObjects]);
 
-    if (_done) return;
-    
-    XPAssert(_resultSet);
-    if ([_resultSet count]) {
-        self.done = YES;
+    if (_resultSet) {
         XPNodeSetValue *ns = [[[XPNodeSetExtent alloc] initWithNodes:_resultSet comparer:nil] autorelease];
         [ns sort];
         [_context.staticContext pauseFrom:_start withContextNode:_contextNode result:ns range:_step.range done:NO];
+
+        self.resultSet = nil; // ok, we've blown our load. don't allow another pause.
     }
 }
 #endif
