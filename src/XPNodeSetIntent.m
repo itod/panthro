@@ -34,6 +34,8 @@
         if ([_nodeSetExpression dependencies]) {
             NSAssert2(0, @"Cannot create intentional node-set with context dependencies: %@:%lu", [expr class], [expr dependencies]);
         }
+        
+        [self fix]; // TODO We are totally working around Intents here, and always falling back to Extents
     }
     return self;
 }
@@ -142,7 +144,7 @@
         // arbitrarily, we decide that the third time the expression is used,
         // we will allocate it some memory for faster access on future occasions.
         if (_useCount < 3) {
-            return [_nodeSetExpression enumerateInContext:[self makeContext] sorted:YES]; // TODO !!!!!!!!!!!!!!!!!!!! This is supposed to be NO
+            return [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
         } else {
             [self fix];
             return [_extent enumerate];

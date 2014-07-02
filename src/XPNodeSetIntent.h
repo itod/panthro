@@ -15,7 +15,5 @@
 
 - (instancetype)initWithNodeSetExpression:(XPNodeSetExpression *)expr comparer:(id <XPNodeOrderComparer>)comparer;
 
-- (void)fix;
-
 @property (nonatomic, retain) XPNodeSetExpression *nodeSetExpression;
 @end

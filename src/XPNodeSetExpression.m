@@ -10,7 +10,7 @@
 #import "XPContext.h"
 #import "XPNodeEnumeration.h"
 #import "XPNodeSetExtent.h"
-#import "XPNodeSetIntent.h"
+//#import "XPNodeSetIntent.h"
 #import "XPLocalOrderComparer.h"
 #import "XPException.h"
 #import "XPEmptyNodeSet.h"
@@ -48,7 +48,6 @@
         
     } else if ([expr isKindOfClass:[XPNodeSetExpression class]]) {
         
-#if PAUSE_ENABLED
         id <XPNodeEnumeration>enm = [(XPNodeSetExpression *)expr enumerateInContext:ctx sorted:NO];
         
         if (enm) {
@@ -58,10 +57,9 @@
         } else {
             result = [XPEmptyNodeSet emptyNodeSet];
         }
-#else
-        XPNodeSetIntent *nsi = [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPNodeSetExpression *)expr comparer:nil] autorelease];
-        result = nsi;
-#endif
+
+//        XPNodeSetIntent *nsi = [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPNodeSetExpression *)expr comparer:nil] autorelease];
+//        result = nsi;
 
     } else {
         result = [expr evaluateInContext:ctx];

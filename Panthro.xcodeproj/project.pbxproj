@@ -151,12 +151,8 @@
 		D360361E1961F3610047F6A4 /* XPParentNodeExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D360361C1961F3610047F6A4 /* XPParentNodeExpression.m */; };
 		D360361F19622B350047F6A4 /* XPNodeSetExtent.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0CBEB191EC5880049EC02 /* XPNodeSetExtent.m */; };
 		D360362019622B370047F6A4 /* XPNodeSetExtent.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBEA191EC5880049EC02 /* XPNodeSetExtent.h */; };
-		D36036251962564B0047F6A4 /* XPNodeSetIntent.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBEC191EC5880049EC02 /* XPNodeSetIntent.h */; };
-		D36036261962564B0047F6A4 /* XPNodeSetIntent.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0CBED191EC5880049EC02 /* XPNodeSetIntent.m */; };
 		D36036271962579E0047F6A4 /* XPPathEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D36036141961D0280047F6A4 /* XPPathEnumeration.h */; };
 		D36036281962579E0047F6A4 /* XPPathEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D36036151961D0280047F6A4 /* XPPathEnumeration.m */; };
-		D360362A196308610047F6A4 /* XPAxisExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBD7191EC4F10049EC02 /* XPAxisExpression.h */; };
-		D360362B196308610047F6A4 /* XPAxisExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C178221884472800F90600 /* XPAxisExpression.m */; };
 		D36235DD19269EE300C88990 /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33097361921BE99004317EA /* PEGKit.framework */; };
 		D36712E2192ACC1700B13A63 /* XPSynchronousChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = D36712E0192ACC1700B13A63 /* XPSynchronousChannel.m */; };
 		D36712E4192ACC2600B13A63 /* XPSemaphore.h in Headers */ = {isa = PBXBuildFile; fileRef = D36712E3192ACC2600B13A63 /* XPSemaphore.h */; };
@@ -1353,7 +1349,6 @@
 				D3BE1428191C3B8400005C81 /* XPPositionRange.h in Headers */,
 				D360362019622B370047F6A4 /* XPNodeSetExtent.h in Headers */,
 				D3F0CBF7191EC7D00049EC02 /* XPSortable.h in Headers */,
-				D36036251962564B0047F6A4 /* XPNodeSetIntent.h in Headers */,
 				D3F0CBA8191EC23D0049EC02 /* FNRound.h in Headers */,
 				D3F0CBA9191EC23D0049EC02 /* FNStartsWith.h in Headers */,
 				D360361D1961F3610047F6A4 /* XPParentNodeExpression.h in Headers */,
@@ -1428,7 +1423,6 @@
 				D339311E1920527200259939 /* FNUpperCase.h in Headers */,
 				D3F0CBFC191EC7F60049EC02 /* XPDocumentInfo.h in Headers */,
 				D33E9FA319170BB900BB7DFE /* XPRootExpression.h in Headers */,
-				D360362A196308610047F6A4 /* XPAxisExpression.h in Headers */,
 				D339312C19211CC900259939 /* FNName.h in Headers */,
 				D3BBAE96191DD9B700766EB4 /* XPUnionEnumeration.h in Headers */,
 				D3F0CC0D191EC8250049EC02 /* XPObjectValue.h in Headers */,
@@ -1615,7 +1609,6 @@
 				D3C1783718844CC500F90600 /* XPNamespaceTest.m in Sources */,
 				D33E9F941917040D00BB7DFE /* XPPathExpression.m in Sources */,
 				D34BADF9100ABA9300996341 /* XPValue.m in Sources */,
-				D360362B196308610047F6A4 /* XPAxisExpression.m in Sources */,
 				D339311719204E9E00259939 /* FNAbs.m in Sources */,
 				D3C0F58A1921255C00566524 /* FNLocalName.m in Sources */,
 				D339F6471927B66500C79A51 /* xmlmemory.c in Sources */,
@@ -1712,7 +1705,6 @@
 				D339F61E1927B66500C79A51 /* list.c in Sources */,
 				D339F65B1927B74B00C79A51 /* trio.c in Sources */,
 				D37A300910158DD700E936B7 /* FNSubstring.m in Sources */,
-				D36036261962564B0047F6A4 /* XPNodeSetIntent.m in Sources */,
 				D3C0F59719214BBD00566524 /* FNCompare.m in Sources */,
 				D37A300D10158DE500E936B7 /* FNSubstringAfter.m in Sources */,
 				D37A301110158DEF00E936B7 /* FNSubstringBefore.m in Sources */,

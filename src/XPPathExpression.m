@@ -20,7 +20,7 @@
 #import "XPLookaheadEnumerator.h"
 #import "XPFilterEnumerator.h"
 
-#import "XPNodeSetIntent.h"
+//#import "XPNodeSetIntent.h"
 #import "XPNodeSetExtent.h"
 
 #import "XPSingletonNodeSet.h"
@@ -185,14 +185,12 @@
     // (this will evaluate to a NodeSetIntent, which will be replaced by
     // the corresponding node-set extent if it is used more than thrice).
     
-#if !PAUSE_ENABLED
-    if (([result isKindOfClass:[XPPathExpression class]]) && [((XPPathExpression *)result).start isKindOfClass:[XPNodeSetValue class]]) {
-        XPNodeSetIntent *nsi = [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPPathExpression *)result comparer:nil] autorelease];
-        nsi.staticContext = self.staticContext;
-        nsi.range = result.range;
-        return nsi;
-    }
-#endif
+//    if (([result isKindOfClass:[XPPathExpression class]]) && [((XPPathExpression *)result).start isKindOfClass:[XPNodeSetValue class]]) {
+//        XPNodeSetIntent *nsi = [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPPathExpression *)result comparer:nil] autorelease];
+//        nsi.staticContext = self.staticContext;
+//        nsi.range = result.range;
+//        return nsi;
+//    }
 
     return result;
 }
@@ -225,62 +223,8 @@
         return [temp enumerateInContext:ctx sorted:sorted];
     }
 
-//    // ok, here we are.
-//    
-//    id <XPNodeEnumeration>ctxNodeEnm = [_start enumerateInContext:ctx sorted:sorted];
-//    
-//    // if this is a blind alley with no possible matches, just bail with nil flag
-//    if (![ctxNodeEnm hasMoreObjects]) {
-//        return nil;
-//    }
-//    
-//    ctx = [[ctx copy] autorelease];
-//    ctx.position = 0;
-//    
-//    if ([ctxNodeEnm conformsToProtocol:@protocol(XPLastPositionFinder)]) {
-//        ctx.lastPositionFinder = (id <XPLastPositionFinder>)ctxNodeEnm;
-//    } else {
-//        ctx.lastPositionFinder = [[[XPLookaheadEnumerator alloc] initWithBase:ctxNodeEnm] autorelease];
-//    }
-//    
-//    NSMutableArray *resultUnion = [NSMutableArray array];
-//    
-//#if PAUSE_ENABLED
-//    id <XPNodeInfo>startingCtxNode = ctx.contextNode;
-//    XPAssert(startingCtxNode);
-//#endif
-//
-//    while ([ctxNodeEnm hasMoreObjects]) {
-//        
-//        ++ctx.position;
-//        ctx.contextNode = [ctxNodeEnm nextObject];
-//
-//        id <XPNodeEnumeration>enm = [_step enumerate:ctx.contextNode inContext:ctx];
-//        
-//        for (id <XPNodeInfo>node in enm) {
-//#if PAUSE_ENABLED
-//            if (1 == ctx.position) {
-//                startingCtxNode = ctx.contextNode;
-//            }
-//#endif
-//            [resultUnion addObject:node];
-//        }
-//
-//    }
-//
-//    XPNodeSetValue *nodeSet = [[[XPNodeSetExtent alloc] initWithNodes:resultUnion comparer:nil] autorelease];
-//    
-//#if PAUSE_ENABLED
-//    [ctx.staticContext pauseFrom:self withContextNode:startingCtxNode result:nodeSet range:_step.range done:NO];
-//#endif
-//    
-//    // always sort after the curruent step has completed to remove dupes and place nodes in document order.
-//    id <XPNodeEnumeration>enm = [nodeSet enumerateInContext:ctx sorted:YES];
+    // ok, here we are.
     
-#if PAUSE_ENABLED
-    id <XPNodeInfo>ctxNode = ctx.contextNode;
-#endif
-
     id <XPNodeEnumeration>enm = [[[XPPathEnumeration alloc] initWithStart:_start step:_step context:ctx] autorelease];
     if (sorted && !enm.isSorted) {
         
@@ -298,22 +242,19 @@
         [ns sort];
         
 #if PAUSE_ENABLED
-        if (ctxNode) {
-            [ctx.staticContext pauseFrom:self withContextNode:ctxNode result:ns range:_step.range done:NO];
-        }
+        [ctx.staticContext pauseFrom:self withContextNode:ctx.contextNode result:ns range:_step.range done:NO];
 #endif
 
         enm = [ns enumerate];
-    } else {
-#if PAUSE_ENABLED
-        if (ctxNode) {
-            XPNodeSetValue *ns = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:nil] autorelease];
-            [ns sort];
-            [ctx.staticContext pauseFrom:self withContextNode:ctxNode result:ns range:_step.range done:NO];
-            enm = [ns enumerateInContext:ctx sorted:NO];
-        }
-#endif
     }
+#if PAUSE_ENABLED
+    else {
+        XPNodeSetValue *ns = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:nil] autorelease];
+        [ns sort];
+        [ctx.staticContext pauseFrom:self withContextNode:ctx.contextNode result:ns range:_step.range done:NO];
+        enm = [ns enumerateInContext:ctx sorted:NO];
+    }
+#endif
 
     return enm;
 }
