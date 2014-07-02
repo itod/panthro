@@ -44,7 +44,7 @@
 
     } else if ([expr isKindOfClass:[XPNodeSetExpression class]]) {
         
-        id <XPNodeEnumeration>enm = [(XPNodeSetExpression *)expr enumerateInContext:ctx sorted:NO];
+        id <XPNodeEnumeration>enm = [(XPNodeSetExpression *)expr enumerateInContext:ctx sorted:YES];
         
         if (enm) {
             XPNodeSetValue *nodeSet = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:nil] autorelease];
