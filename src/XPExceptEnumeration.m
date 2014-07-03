@@ -1,26 +1,27 @@
 //
-//  XPUnionEnumeration.m
+//  XPExceptEnumeration.m
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 5/9/14.
 //
 //
 
-#import "XPUnionEnumeration.h"
+#import "XPExceptEnumeration.h"
 #import "XPNodeSetExtent.h"
 #import "XPLocalOrderComparer.h"
 
-@interface XPUnionEnumeration ()
+@interface XPExceptEnumeration ()
 @property (nonatomic, retain) id <XPNodeEnumeration>p1;
 @property (nonatomic, retain) id <XPNodeEnumeration>p2;
 @property (nonatomic, retain) id <XPNodeEnumeration>e1;
 @property (nonatomic, retain) id <XPNodeEnumeration>e2;
 @property (nonatomic, retain) id <XPNodeInfo>nextNode1;
 @property (nonatomic, retain) id <XPNodeInfo>nextNode2;
+@property (nonatomic, retain) id <XPNodeInfo>nextNode;
 @property (nonatomic, retain) id <XPNodeOrderComparer>comparer;
 @end
 
-@implementation XPUnionEnumeration
+@implementation XPExceptEnumeration
 
 - (instancetype)initWithLhs:(id <XPNodeEnumeration>)lhs rhs:(id <XPNodeEnumeration>)rhs comparer:(id <XPNodeOrderComparer>)comparer {
     XPAssert(lhs);
@@ -47,6 +48,10 @@
         if ([_e2 hasMoreObjects]) {
             self.nextNode2 = [_e2 nextObject];
         }
+        
+        // move to the first node in p1 that isn't in p2
+        [self advance];
+
     }
     return self;
 }
@@ -59,6 +64,7 @@
     self.e2 = nil;
     self.nextNode1 = nil;
     self.nextNode2 = nil;
+    self.nextNode = nil;
     self.comparer = nil;
     [super dealloc];
 }
@@ -80,35 +86,46 @@
 
 
 - (BOOL)hasMoreObjects {
-    return _nextNode1 != nil || _nextNode2 != nil;
+    return _nextNode != nil;
 }
 
 
 - (id <XPNodeInfo>)nextObject {
-    // main merge loop: take a value from whichever set has the lower value
+    id <XPNodeInfo>current = _nextNode;
+    [self advance];
+    return current;
+}
+
+
+- (void)advance {
+    // main merge loop: if the node in p1 has a lower key value that that in p2, return it;
+    // if they are equal, advance both nodesets; if p1 is higher, advance p2.
     
     if (_nextNode1 && _nextNode2) {
         NSInteger res = [_comparer compare:_nextNode1 to:_nextNode2];
-        if (res < 0) {
+        if (res < 0) {                                                  // p1 is lower
             id <XPNodeInfo>next = _nextNode1;
             if ([_e1 hasMoreObjects]) {
                 self.nextNode1 = [_e1 nextObject];
             } else {
                 self.nextNode1 = nil;
+                self.nextNode = nil;
             }
-            return next;
+            self.nextNode = next;
+            return;
             
-        } else if (res > 0) {
+        } else if (res > 0) {                                           // p1 is higher
             id <XPNodeInfo>next = _nextNode2;
             if ([_e2 hasMoreObjects]) {
                 self.nextNode2 = [_e2 nextObject];
             } else {
                 self.nextNode2 = nil;
+                self.nextNode = nil;
             }
-            return next;
+            self.nextNode = next;
+            return;
             
-        } else {
-            id <XPNodeInfo>next = _nextNode2;
+        } else {                                                        // keys are equal
             if ([_e2 hasMoreObjects]) {
                 self.nextNode2 = [_e2 nextObject];
             } else {
@@ -119,31 +136,22 @@
             } else {
                 self.nextNode1 = nil;
             }
-            return next;
         }
     }
     
-    // collect the remaining nodes from whichever set has a residue
+    // collect the remaining nodes from the residue of p1
     
     if (_nextNode1) {
-        id <XPNodeInfo>next = _nextNode1;
+        self.nextNode = _nextNode1;
         if ([_e1 hasMoreObjects]) {
             self.nextNode1 = [_e1 nextObject];
         } else {
             self.nextNode1 = nil;
         }
-        return next;
+        return;
     }
-    if (_nextNode2) {
-        id <XPNodeInfo>next = _nextNode2;
-        if ([_e2 hasMoreObjects]) {
-            self.nextNode2 = [_e2 nextObject];
-        } else {
-            self.nextNode2 = nil;
-        }
-        return next;
-    }
-    return nil;
+    
+    self.nextNode = nil;
 }
 
 @end
