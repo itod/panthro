@@ -2175,6 +2175,22 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     
     id <XPNodeEnumeration>enm = [_res enumerate];
     
+    for (NSUInteger i = 0; i < 1; ++i) {
+        id <XPNodeInfo>node = [enm nextObject];
+        TDEqualObjects(@"title", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+        TDEqualObjects(_titles[i], node.stringValue);
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testChapterIntersectChapterPredicate2 {
+    [self eval:@"chapter/title intersect chapter[2]/title"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
     for (NSUInteger i = 1; i < 2; ++i) {
         id <XPNodeInfo>node = [enm nextObject];
         TDEqualObjects(@"title", node.name);
