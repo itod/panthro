@@ -78,9 +78,11 @@ expr = orExpr;
                             multiplyOperator = '*';
                             unaryExpr = minusUnionExpr | unionExpr;
                                 minusUnionExpr = '-'+ unionExpr;
-                                unionExpr = pathExpr unionTail*;
-                                unionTail = ('|' pathExpr);
-    
+                                unionExpr = intersectExceptExpr unionTail*;
+                                    unionTail = ('|' | 'union') intersectExceptExpr;
+                                intersectExceptExpr = pathExpr intersectExceptTail*;
+                                    intersectExceptTail = ('intersect' | 'except') pathExpr;
+
 
 pathExpr = filterPath | locationPath;
     filterPath = complexFilterPath | filterExpr;

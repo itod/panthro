@@ -11,4 +11,7 @@
 @interface XPUnionExpression : XPNodeSetExpression
 
 - (instancetype)initWithLhs:(XPExpression *)lhs rhs:(XPExpression *)rhs;
+
+- (NSString *)operator;
+- (Class)enumerationClass;
 @end

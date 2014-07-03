@@ -44,7 +44,17 @@
 
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@|%@>", _p1, _p2];
+    return [NSString stringWithFormat:@"%@ %@ %@>", _p1, [self operator], _p2];
+}
+
+
+- (NSString *)operator {
+    return @"union";
+}
+
+
+- (Class)enumerationClass {
+    return [XPUnionEnumeration class];
 }
 
 
@@ -76,9 +86,10 @@
  */
 
 - (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sort {
-    return [[[XPUnionEnumeration alloc] initWithLhs:[_p1 enumerateInContext:ctx sorted:YES]
-                                                rhs:[_p2 enumerateInContext:ctx sorted:YES]
-                                           comparer:[XPLocalOrderComparer instance]] autorelease];
+    Class cls = [self enumerationClass];
+    return [[[cls alloc] initWithLhs:[_p1 enumerateInContext:ctx sorted:YES]
+                                 rhs:[_p2 enumerateInContext:ctx sorted:YES]
+                            comparer:[XPLocalOrderComparer instance]] autorelease];
 }
 
 
@@ -117,8 +128,8 @@
     XPExpression *result = self;
 
     if ((self.dependencies & dep) != 0) {
-        XPExpression *e = [[[XPUnionExpression alloc] initWithLhs:[_p1 reduceDependencies:dep inContext:ctx]
-                                                              rhs:[_p2 reduceDependencies:dep inContext:ctx]] autorelease];
+        XPExpression *e = [[[[self class] alloc] initWithLhs:[_p1 reduceDependencies:dep inContext:ctx]
+                                                         rhs:[_p2 reduceDependencies:dep inContext:ctx]] autorelease];
         e.staticContext = self.staticContext;
         e.range = self.range;
         result = e;

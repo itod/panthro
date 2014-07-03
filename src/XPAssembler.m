@@ -29,6 +29,8 @@
 
 #import "XPFilterExpression.h"
 #import "XPUnionExpression.h"
+#import "XPIntersectExpression.h"
+#import "XPExceptExpression.h"
 
 #import "XPVariableReference.h"
 
@@ -41,6 +43,9 @@
 @property (nonatomic, retain) PKToken *doubleSlash;
 @property (nonatomic, retain) PKToken *dotDotDot;
 @property (nonatomic, retain) PKToken *pipe;
+@property (nonatomic, retain) PKToken *unionSym;
+@property (nonatomic, retain) PKToken *intersectSym;
+@property (nonatomic, retain) PKToken *exceptSym;
 @property (nonatomic, retain) PKToken *closeBracket;
 @property (nonatomic, retain) PKToken *atAxis;
 @property (nonatomic, retain) NSCharacterSet *singleQuoteCharSet;
@@ -59,6 +64,9 @@
         self.doubleSlash = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"//" doubleValue:0.0];
         self.dotDotDot = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"…" doubleValue:0.0];
         self.pipe = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"|" doubleValue:0.0];
+        self.unionSym = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"union" doubleValue:0.0];
+        self.intersectSym = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"intersept" doubleValue:0.0];
+        self.exceptSym = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"except" doubleValue:0.0];
         self.closeBracket = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"]" doubleValue:0.0];
         self.atAxis = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"@" doubleValue:0.0];
         self.singleQuoteCharSet = [NSCharacterSet characterSetWithCharactersInString:@"'"];
@@ -90,6 +98,9 @@
     self.doubleSlash = nil;
     self.dotDotDot = nil;
     self.pipe = nil;
+    self.unionSym = nil;
+    self.intersectSym = nil;
+    self.exceptSym = nil;
     self.closeBracket = nil;
     self.atAxis = nil;
     self.singleQuoteCharSet = nil;
@@ -320,13 +331,38 @@
     XPExpression *rhs = [a pop];
     id peek = [a pop];
     
-    if ([peek isEqualTo:_pipe]) {
+    if ([peek isEqualTo:_pipe] || [peek isEqualTo:_unionSym]) {
         XPExpression *lhs = [a pop];
         
         XPExpression *unionExpr = [[[XPUnionExpression alloc] initWithLhs:lhs rhs:rhs] autorelease];
         unionExpr.range = NSMakeRange(lhs.range.location, NSMaxRange(rhs.range));
         unionExpr.staticContext = _env;
         [a push:unionExpr];
+    } else {
+        [a push:peek];
+        [a push:rhs];
+    }
+}
+
+
+- (void)parser:(PKParser *)p didMatchIntersectExceptTail:(PKAssembly *)a {
+    XPExpression *rhs = [a pop];
+    id peek = [a pop];
+    
+    if ([peek isEqualTo:_intersectSym]) {
+        XPExpression *lhs = [a pop];
+        
+        XPExpression *intersectExpr = [[[XPIntersectExpression alloc] initWithLhs:lhs rhs:rhs] autorelease];
+        intersectExpr.range = NSMakeRange(lhs.range.location, NSMaxRange(rhs.range));
+        intersectExpr.staticContext = _env;
+        [a push:intersectExpr];
+    } else if ([peek isEqualTo:_exceptSym]) {
+        XPExpression *lhs = [a pop];
+        
+        XPExpression *exceptExpr = [[[XPExceptExpression alloc] initWithLhs:lhs rhs:rhs] autorelease];
+        exceptExpr.range = NSMakeRange(lhs.range.location, NSMaxRange(rhs.range));
+        exceptExpr.staticContext = _env;
+        [a push:exceptExpr];
     } else {
         [a push:peek];
         [a push:rhs];
