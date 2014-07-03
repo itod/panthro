@@ -1497,4 +1497,21 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDFalse([enm hasMoreObjects]);
 }
 
+
+- (void)testChapterSlashAtStarDescendantOrSelfNode {
+    [self eval:@"chapter/@id/descendant-or-self::node()"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPNodeInfo>node = nil;
+    
+    for (NSUInteger i = 0; i < 3; ++i) {
+        node = [enm nextObject];
+        TDEqualObjects(@"id", node.name);
+        TDEquals(XPNodeTypeAttribute, node.nodeType);
+        TDEqualObjects(_ids[i], node.stringValue);
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
 @end

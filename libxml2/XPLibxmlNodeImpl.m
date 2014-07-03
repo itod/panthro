@@ -499,18 +499,24 @@ static NSUInteger XPIndexInParent(id <XPNodeInfo>nodeInfo) {
 
 
 - (NSArray *)descendantNodesFromParent:(xmlNodePtr)parent nodeTest:(XPNodeTest *)nodeTest {
-    NSMutableArray *result = [NSMutableArray array];
+    NSMutableArray *result = nil;
     
-    for (xmlNodePtr child = parent->children; NULL != child; child = child->next) {
-        if (XML_DTD_NODE == child->type) continue;
+    // be careful. libxml represents the text value of an attr node as a text node child of the attr node.
+    // That does not match the XPath data model, where only root and element nodes can have children.
+    if (XML_DOCUMENT_NODE == parent->type || XML_ELEMENT_NODE == parent->type) {
+        result = [NSMutableArray array];
         
-        id <XPNodeInfo>node = [[self class] nodeInfoWithNode:child parserContext:_parserCtx];
-        
-        if ([nodeTest matches:node]) {
-            [result addObject:node];
+        for (xmlNodePtr child = parent->children; NULL != child; child = child->next) {
+            if (XML_DTD_NODE == child->type) continue;
+            
+            id <XPNodeInfo>node = [[self class] nodeInfoWithNode:child parserContext:_parserCtx];
+            
+            if ([nodeTest matches:node]) {
+                [result addObject:node];
+            }
+            
+            [result addObjectsFromArray:[self descendantNodesFromParent:child nodeTest:nodeTest]];
         }
-        
-        [result addObjectsFromArray:[self descendantNodesFromParent:child nodeTest:nodeTest]];
     }
     
     return result;
