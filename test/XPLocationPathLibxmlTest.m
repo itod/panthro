@@ -2119,4 +2119,22 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDFalse([enm hasMoreObjects]);
 }
 
+
+- (void)testSlashSlashNamespaceStarSlashSelfNode {
+    [self eval:@"//namespace::*/self::node()"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    TDTrue([enm hasMoreObjects]);
+}
+
+
+- (void)testSlashSlashNamespaceStarSlashSelfStar {
+    [self eval:@"//namespace::*/self::*"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
 @end
