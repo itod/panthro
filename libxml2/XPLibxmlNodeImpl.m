@@ -501,7 +501,7 @@ static NSUInteger XPIndexInParent(id <XPNodeInfo>nodeInfo) {
 - (NSArray *)descendantNodesFromParent:(xmlNodePtr)parent nodeTest:(XPNodeTest *)nodeTest {
     NSMutableArray *result = nil;
     
-    // be careful. libxml represents the text value of an attr node as a text node child of the attr node.
+    // be careful. libxml represents the text value of an attr or ns node as a text node child of the attr or ns node.
     // That does not match the XPath data model, where only root and element nodes can have children.
     if (XML_DOCUMENT_NODE == parent->type || XML_ELEMENT_NODE == parent->type) {
         result = [NSMutableArray array];
@@ -601,17 +601,23 @@ static NSUInteger XPIndexInParent(id <XPNodeInfo>nodeInfo) {
     XPAssert(_node);
     NSMutableArray *result = nil;
     
-    for (xmlNodePtr child = _node->children; NULL != child; child = child->next) {
-        if (XML_DTD_NODE == child->type) continue;
+    // be careful. libxml represents the text value of an attr or ns node as a text node child of the attr or ns node.
+    // That does not match the XPath data model, where only root and element nodes can have children.
+    if (XML_DOCUMENT_NODE == _node->type || XML_ELEMENT_NODE == _node->type) {
         
-        id <XPNodeInfo>node = [[self class] nodeInfoWithNode:child parserContext:_parserCtx];
-        
-        if ([nodeTest matches:node]) {
-            if (!result) {
-                result = [NSMutableArray array];
+        for (xmlNodePtr child = _node->children; NULL != child; child = child->next) {
+            if (XML_DTD_NODE == child->type) continue;
+            
+            id <XPNodeInfo>node = [[self class] nodeInfoWithNode:child parserContext:_parserCtx];
+            
+            if ([nodeTest matches:node]) {
+                if (!result) {
+                    result = [NSMutableArray array];
+                }
+                [result addObject:node];
             }
-            [result addObject:node];
         }
+
     }
     
     return result;

@@ -1514,4 +1514,58 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDFalse([enm hasMoreObjects]);
 }
 
+
+- (void)testChapterSlashAtIdChildNode {
+    [self eval:@"chapter/@id/child::node()"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testChapterSlashAtStarChildNode {
+    [self eval:@"chapter/@*/child::node()"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testChapterSlashAttributeStarChildNode {
+    [self eval:@"chapter/attribute::*/child::node()"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testChapterSlashAttributeNodeChildNode {
+    [self eval:@"chapter/attribute::node()/child::node()"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+//- (void)testChapterSlashNamespaceStarChildNode {
+//    [self eval:@"chapter/namespace::*/child::node()"];
+//    
+//    id <XPNodeEnumeration>enm = [_res enumerate];
+//    
+//    TDFalse([enm hasMoreObjects]);
+//}
+//
+//
+//- (void)testChapterSlashNamespaceNodeChildNode {
+//    [self eval:@"chapter/namespace::node()/child::node()"];
+//    
+//    id <XPNodeEnumeration>enm = [_res enumerate];
+//    
+//    TDFalse([enm hasMoreObjects]);
+//}
+
 @end
