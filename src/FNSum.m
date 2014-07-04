@@ -81,9 +81,9 @@
 }
 
 
-- (double)total:(id <XPNodeEnumeration>)e {
+- (double)total:(id <XPNodeEnumeration>)enm {
     double sum = 0.0;
-    for (id node in e) {
+    for (id node in enm) {
         sum += XPNumberFromString([node stringValue]);
     }
     return sum;

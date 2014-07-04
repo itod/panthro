@@ -10,7 +10,7 @@
 
 @protocol XPItem;
 
-@protocol XPSequenceEnumeration <NSFastEnumeration, NSObject>
+@protocol XPSequenceEnumeration <NSObject>
 
 - (id <XPItem>)nextObject;
 - (BOOL)hasMoreObjects;
