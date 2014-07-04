@@ -75,7 +75,6 @@
 #if PAUSE_ENABLED
         self.contextNodes = [NSMutableArray array];
         self.resultNodes = [NSMutableArray array];
-        [self addContextNode:_filterContext.contextNode];
 #endif
         
         if ([_filter isKindOfClass:[XPNumericValue class]]) {
@@ -164,6 +163,7 @@
         if ([self matches:next]) {
             
 #if PAUSE_ENABLED
+            [self addContextNode:_filterContext.contextNode];
             [self addResultNode:next];
 #endif
             

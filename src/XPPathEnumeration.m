@@ -78,7 +78,7 @@
 
 
 - (BOOL)hasMoreObjects {
-    return  _next != nil;
+    return _next != nil;
 }
 
 
