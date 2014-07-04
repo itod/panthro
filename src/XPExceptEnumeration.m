@@ -115,15 +115,12 @@
             return;
             
         } else if (res > 0) {                                           // p1 is higher
-            id <XPNodeInfo>next = _nextNode2;
             if ([_e2 hasMoreObjects]) {
                 self.nextNode2 = [_e2 nextObject];
             } else {
                 self.nextNode2 = nil;
                 self.nextNode = nil;
             }
-            self.nextNode = next;
-            return;
             
         } else {                                                        // keys are equal
             if ([_e1 hasMoreObjects]) {
