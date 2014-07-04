@@ -16,7 +16,9 @@
 #import "XPLastPositionFinder.h"
 #import "XPLookaheadEnumerator.h"
 
-#if PAUSE_ENABLED
+#define FILTER_PAUSE_ENABLED PAUSE_ENABLED && 1
+
+#if FILTER_PAUSE_ENABLED
 #import "XPStaticContext.h"
 #import "XPNodeSetExtent.h"
 #endif
@@ -38,7 +40,7 @@
 @property (nonatomic, assign) BOOL finished; // allows early finish with a numeric filter
 @property (nonatomic, assign) BOOL finishAfterReject; // causes enumeration to terminate the first time the predicate is false
 
-#if PAUSE_ENABLED
+#if FILTER_PAUSE_ENABLED
 @property (nonatomic, retain) NSMutableArray *contextNodes;
 @property (nonatomic, retain) NSMutableArray *resultNodes;
 #endif
@@ -72,7 +74,7 @@
         
         self.dataType = filter.dataType;
 
-#if PAUSE_ENABLED
+#if FILTER_PAUSE_ENABLED
         self.contextNodes = [NSMutableArray array];
         self.resultNodes = [NSMutableArray array];
 #endif
@@ -114,7 +116,7 @@
     self.current = nil;
     self.filterContext = nil;
 
-#if PAUSE_ENABLED
+#if FILTER_PAUSE_ENABLED
     self.contextNodes = nil;
     self.resultNodes = nil;
 #endif
@@ -142,7 +144,7 @@
     id <XPNodeInfo>node = _current;
     self.current = [self nextMatchingObject];
     
-#if PAUSE_ENABLED
+#if FILTER_PAUSE_ENABLED
     if (![self hasMoreObjects]) {
         [self pause];
     }
@@ -162,7 +164,7 @@
         self.position++;
         if ([self matches:next]) {
             
-#if PAUSE_ENABLED
+#if FILTER_PAUSE_ENABLED
             [self addContextNode:_filterContext.contextNode];
             [self addResultNode:next];
 #endif
@@ -176,7 +178,7 @@
 }
 
 
-#if PAUSE_ENABLED
+#if FILTER_PAUSE_ENABLED
 - (void)addContextNode:(id <XPNodeInfo>)node {
     XPAssert(node);
     
