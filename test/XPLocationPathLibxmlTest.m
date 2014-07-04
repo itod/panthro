@@ -2228,6 +2228,31 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
+- (void)testOpenChapterSlashTitleClosePredicate2ExceptOpenChapterSlashTitleCloasePredicate1 {
+    [self eval:@"(chapter/title)[2] except (chapter/title)[1]"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    for (NSUInteger i = 1; i < 2; ++i) {
+        id <XPNodeInfo>node = [enm nextObject];
+        TDEqualObjects(@"title", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+        TDEqualObjects(_titles[i], node.stringValue);
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testOpenChapterSlashTitleClosePredicate2ExceptOpenChapterSlashTitleCloasePredicate2 {
+    [self eval:@"(chapter/title)[2] except (chapter/title)[2]"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
 - (void)testChapterSlashTitleIntersectChapterPredicate1SlashTitle {
     [self eval:@"chapter/title intersect chapter[1]/title"];
     
