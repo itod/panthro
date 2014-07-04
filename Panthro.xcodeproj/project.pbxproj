@@ -146,11 +146,8 @@
 		D34BADF5100ABA7C00996341 /* XPBooleanValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BADF3100ABA7C00996341 /* XPBooleanValue.m */; };
 		D34BADF9100ABA9300996341 /* XPValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BADF7100ABA9300996341 /* XPValue.m */; };
 		D3539407192FA6A900D6EEA6 /* XPException.m in Sources */ = {isa = PBXBuildFile; fileRef = D3539405192FA6A900D6EEA6 /* XPException.m */; };
-		D360361A1961D74C0047F6A4 /* XPSingletonExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D36BC031101BF52F00D1A6C7 /* XPSingletonExpression.m */; };
 		D360361D1961F3610047F6A4 /* XPParentNodeExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D360361B1961F3610047F6A4 /* XPParentNodeExpression.h */; };
 		D360361E1961F3610047F6A4 /* XPParentNodeExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D360361C1961F3610047F6A4 /* XPParentNodeExpression.m */; };
-		D360361F19622B350047F6A4 /* XPNodeSetExtent.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0CBEB191EC5880049EC02 /* XPNodeSetExtent.m */; };
-		D360362019622B370047F6A4 /* XPNodeSetExtent.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBEA191EC5880049EC02 /* XPNodeSetExtent.h */; };
 		D36036271962579E0047F6A4 /* XPPathEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D36036141961D0280047F6A4 /* XPPathEnumeration.h */; };
 		D36036281962579E0047F6A4 /* XPPathEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D36036151961D0280047F6A4 /* XPPathEnumeration.m */; };
 		D36235DD19269EE300C88990 /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33097361921BE99004317EA /* PEGKit.framework */; };
@@ -170,6 +167,12 @@
 		D372993E1965FC01004B1B7A /* XPIntersectExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D372993C1965FC01004B1B7A /* XPIntersectExpression.m */; };
 		D37299411965FC3A004B1B7A /* XPIntersectEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D372993F1965FC3A004B1B7A /* XPIntersectEnumeration.h */; };
 		D37299421965FC3A004B1B7A /* XPIntersectEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299401965FC3A004B1B7A /* XPIntersectEnumeration.m */; };
+		D372995F19660D22004B1B7A /* XPSingletonExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBDD191EC4F10049EC02 /* XPSingletonExpression.h */; };
+		D372996019660D22004B1B7A /* XPSingletonExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D36BC031101BF52F00D1A6C7 /* XPSingletonExpression.m */; };
+		D372996319660D2B004B1B7A /* XPNodeSetExtent.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBEA191EC5880049EC02 /* XPNodeSetExtent.h */; };
+		D372996419660D2B004B1B7A /* XPNodeSetExtent.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0CBEB191EC5880049EC02 /* XPNodeSetExtent.m */; };
+		D372996519660D2B004B1B7A /* XPNodeSetIntent.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBEC191EC5880049EC02 /* XPNodeSetIntent.h */; };
+		D372996619660D2B004B1B7A /* XPNodeSetIntent.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0CBED191EC5880049EC02 /* XPNodeSetIntent.m */; };
 		D37A27E51012FFA600E936B7 /* XPBooleanExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A27E31012FFA600E936B7 /* XPBooleanExpression.m */; };
 		D37A27F5101304EF00E936B7 /* XPBooleanExprTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A27F4101304EF00E936B7 /* XPBooleanExprTest.m */; };
 		D37A296A1013F39400E936B7 /* XPFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A29681013F39400E936B7 /* XPFunction.m */; };
@@ -346,7 +349,6 @@
 		D3F0CBE2191EC4F10049EC02 /* XPNodeOrderComparer.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBDA191EC4F10049EC02 /* XPNodeOrderComparer.h */; };
 		D3F0CBE3191EC4F10049EC02 /* XPNodeSetExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBDB191EC4F10049EC02 /* XPNodeSetExpression.h */; };
 		D3F0CBE4191EC4F10049EC02 /* XPRelationalExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBDC191EC4F10049EC02 /* XPRelationalExpression.h */; };
-		D3F0CBE5191EC4F10049EC02 /* XPSingletonExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBDD191EC4F10049EC02 /* XPSingletonExpression.h */; };
 		D3F0CBF4191EC7D00049EC02 /* Panthro.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBEE191EC7D00049EC02 /* Panthro.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3F0CBF6191EC7D00049EC02 /* XPContext.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBF0191EC7D00049EC02 /* XPContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3F0CBF7191EC7D00049EC02 /* XPSortable.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBF1191EC7D00049EC02 /* XPSortable.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1371,7 +1373,6 @@
 				D3F0CBE0191EC4F10049EC02 /* XPBinaryExpression.h in Headers */,
 				D383A31F187F748E006AE701 /* XPEGParser.h in Headers */,
 				D3BE1428191C3B8400005C81 /* XPPositionRange.h in Headers */,
-				D360362019622B370047F6A4 /* XPNodeSetExtent.h in Headers */,
 				D3F0CBF7191EC7D00049EC02 /* XPSortable.h in Headers */,
 				D3F0CBA8191EC23D0049EC02 /* FNRound.h in Headers */,
 				D3F0CBA9191EC23D0049EC02 /* FNStartsWith.h in Headers */,
@@ -1386,10 +1387,12 @@
 				D3F0CBC5191EC3F60049EC02 /* XPSingletonNodeSet.h in Headers */,
 				D37299391965F9A6004B1B7A /* XPExceptExpression.h in Headers */,
 				D3F0CC0C191EC8250049EC02 /* XPNumericValue.h in Headers */,
+				D372996519660D2B004B1B7A /* XPNodeSetIntent.h in Headers */,
 				D372993D1965FC01004B1B7A /* XPIntersectExpression.h in Headers */,
 				D3ADFC52193A358900223AB6 /* XPLibxmlNamespaceImpl.h in Headers */,
 				D3F0CBE3191EC4F10049EC02 /* XPNodeSetExpression.h in Headers */,
 				D33E9F931917040D00BB7DFE /* XPPathExpression.h in Headers */,
+				D372996319660D2B004B1B7A /* XPNodeSetExtent.h in Headers */,
 				D3F0CBE1191EC4F10049EC02 /* XPBooleanExpression.h in Headers */,
 				D3F0CC03191EC8180049EC02 /* XPExpression.h in Headers */,
 				D3F0CBAB191EC23D0049EC02 /* FNStringLength.h in Headers */,
@@ -1436,11 +1439,11 @@
 				D3F0CBE2191EC4F10049EC02 /* XPNodeOrderComparer.h in Headers */,
 				D339F1EB19279E4600C79A51 /* XPLibxmlDocumentImpl.h in Headers */,
 				D339311619204E9E00259939 /* FNAbs.h in Headers */,
+				D372995F19660D22004B1B7A /* XPSingletonExpression.h in Headers */,
 				D37299351965F31D004B1B7A /* XPExceptEnumeration.h in Headers */,
 				D3411B59191A87960082A196 /* XPContextNodeExpression.h in Headers */,
 				D3F0CBB6191EC2F70049EC02 /* XPNamespaceTest.h in Headers */,
 				D3F0CBA4191EC23D0049EC02 /* FNLast.h in Headers */,
-				D3F0CBE5191EC4F10049EC02 /* XPSingletonExpression.h in Headers */,
 				D3393102192038EE00259939 /* FNMatches.h in Headers */,
 				D3C0F59619214BBD00566524 /* FNCompare.h in Headers */,
 				D3F0CC0E191EC8250049EC02 /* XPStringValue.h in Headers */,
@@ -1632,6 +1635,8 @@
 				D339F6151927B66500C79A51 /* chvalid.c in Sources */,
 				D3AC84560F60C7EC00392CB4 /* XPExpression.m in Sources */,
 				D3BE1411191AC80400005C81 /* XPFilterExpression.m in Sources */,
+				D372996019660D22004B1B7A /* XPSingletonExpression.m in Sources */,
+				D372996419660D2B004B1B7A /* XPNodeSetExtent.m in Sources */,
 				D339F6651927B96A00C79A51 /* schematron.c in Sources */,
 				D34BADF5100ABA7C00996341 /* XPBooleanValue.m in Sources */,
 				D3C1783718844CC500F90600 /* XPNamespaceTest.m in Sources */,
@@ -1649,7 +1654,6 @@
 				D3A6C2E41907391200F3EFF3 /* XPAxis.m in Sources */,
 				D3C1783318844C9F00F90600 /* XPNameTest.m in Sources */,
 				D3363956100D813500AC4B51 /* XPObjectValue.m in Sources */,
-				D360361F19622B350047F6A4 /* XPNodeSetExtent.m in Sources */,
 				D339F6531927B66500C79A51 /* xzlib.c in Sources */,
 				D33931271920534E00259939 /* FNTitleCase.m in Sources */,
 				D339F6441927B66500C79A51 /* xmlcatalog.c in Sources */,
@@ -1713,9 +1717,9 @@
 				D339F6221927B66500C79A51 /* parserInternals.c in Sources */,
 				D339F6211927B66500C79A51 /* parser.c in Sources */,
 				D37A2FD810158A0600E936B7 /* FNRound.m in Sources */,
-				D360361A1961D74C0047F6A4 /* XPSingletonExpression.m in Sources */,
 				D3C0F593192128E000566524 /* FNNamespaceURI.m in Sources */,
 				D37A2FFD10158DA900E936B7 /* FNStartsWith.m in Sources */,
+				D372996619660D2B004B1B7A /* XPNodeSetIntent.m in Sources */,
 				D339F6631927B95900C79A51 /* relaxng.c in Sources */,
 				D339F6411927B66500C79A51 /* valid.c in Sources */,
 				D339F68A192AA1D000C79A51 /* XPSemaphore.m in Sources */,

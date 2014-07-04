@@ -65,7 +65,7 @@
         self.dotDotDot = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"…" doubleValue:0.0];
         self.pipe = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"|" doubleValue:0.0];
         self.unionSym = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"union" doubleValue:0.0];
-        self.intersectSym = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"intersept" doubleValue:0.0];
+        self.intersectSym = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"intersect" doubleValue:0.0];
         self.exceptSym = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"except" doubleValue:0.0];
         self.closeBracket = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"]" doubleValue:0.0];
         self.atAxis = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"@" doubleValue:0.0];

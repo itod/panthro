@@ -101,7 +101,7 @@
     // main merge loop: iterate whichever set has the lower value, returning when a pair
     // is found that match.
     
-    if (_nextNode1 && _nextNode2) {
+    while (_nextNode1 && _nextNode2) {
         NSInteger res = [_comparer compare:_nextNode1 to:_nextNode2];
         if (res < 0) {
             if ([_e1 hasMoreObjects]) {
@@ -120,16 +120,16 @@
             }
             
         } else {                                                        // keys are equal
-            self.nextNode = _nextNode2; // which is the same as nextNode1
-            if ([_e2 hasMoreObjects]) {
-                self.nextNode2 = [_e2 nextObject];
-            } else {
-                self.nextNode2 = nil;
-            }
+            self.nextNode = _nextNode1; // which is the same as nextNode2
             if ([_e1 hasMoreObjects]) {
                 self.nextNode1 = [_e1 nextObject];
             } else {
                 self.nextNode1 = nil;
+            }
+            if ([_e2 hasMoreObjects]) {
+                self.nextNode2 = [_e2 nextObject];
+            } else {
+                self.nextNode2 = nil;
             }
             
             return;

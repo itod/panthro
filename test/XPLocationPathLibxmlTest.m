@@ -2138,7 +2138,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testChapterExceptChapterPredicate1 {
+- (void)testChapterSlashTitleExceptChapterSlashTitlePredicate1 {
     [self eval:@"chapter/title except chapter[1]/title"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -2154,7 +2154,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testChapterExceptChapterPredicate3 {
+- (void)testChapterSlashTitleExceptChapterSlashTitlePredicate3 {
     [self eval:@"chapter/title except chapter[3]/title"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -2170,7 +2170,16 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testChapterIntersectChapterPredicate1 {
+- (void)testChapterSlashTitleExceptChapterSlashTitle {
+    [self eval:@"chapter/title except chapter/title"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testChapterSlashTitleIntersectChapterPredicate1SlashTitle {
     [self eval:@"chapter/title intersect chapter[1]/title"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -2186,7 +2195,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testChapterIntersectChapterPredicate2 {
+- (void)testChapterSlashTitleIntersectChapterPredicate2SlashTitle {
     [self eval:@"chapter/title intersect chapter[2]/title"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -2202,7 +2211,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testChapterIntersectChapterPredicate3 {
+- (void)testChapterSlashTitleIntersectChapterPredicate3SlashTitle {
     [self eval:@"chapter/title intersect chapter[3]/title"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -2213,6 +2222,31 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         TDEquals(XPNodeTypeElement, node.nodeType);
         TDEqualObjects(_titles[i], node.stringValue);
     }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testChapterSlashTitleIntersectChapterSlashTitle {
+    [self eval:@"chapter/title intersect chapter/title"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    for (NSUInteger i = 0; i < 3; ++i) {
+        id <XPNodeInfo>node = [enm nextObject];
+        TDEqualObjects(@"title", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+        TDEqualObjects(_titles[i], node.stringValue);
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testSlashSlashChapterIntersectSlashSlashPara {
+    [self eval:@"//chapter intersect //para"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
     
     TDFalse([enm hasMoreObjects]);
 }
