@@ -124,7 +124,7 @@
     }
 
     XPExpression *boolExpr = [XPBooleanExpression booleanExpressionWithOperand:v1 operator:op operand:v2];
-    boolExpr.range = NSMakeRange(v1.range.location, NSMaxRange(v2.range));
+    boolExpr.range = NSMakeRange(v1.range.location, NSMaxRange(v2.range) - v1.range.location);
     boolExpr.staticContext = _env;
     [a push:boolExpr];
 }
@@ -157,7 +157,7 @@
     }
     
     XPExpression *relExpr = [XPRelationalExpression relationalExpressionWithOperand:p1 operator:op operand:p2];
-    relExpr.range = NSMakeRange(p1.range.location, NSMaxRange(p2.range));
+    relExpr.range = NSMakeRange(p1.range.location, NSMaxRange(p2.range) - p1.range.location);
     relExpr.staticContext = _env;
     [a push:relExpr];
 }
@@ -167,9 +167,9 @@
 - (void)parser:(PKParser *)p didMatchMultDivOrModUnaryExpr:(PKAssembly *)a { [self parser:p didMatchAnyArithmeticExpr:a]; }
 
 - (void)parser:(PKParser *)p didMatchAnyArithmeticExpr:(PKAssembly *)a {
-    XPValue *v2 = [a pop];
+    XPValue *p2 = [a pop];
     PKToken *opTok = [a pop];
-    XPValue *v1 = [a pop];
+    XPValue *p1 = [a pop];
     
     NSInteger op = XPEG_TOKEN_KIND_PLUS;
     
@@ -183,8 +183,8 @@
         op = XPEG_TOKEN_KIND_MOD;
     }
     
-    XPExpression *mathExpr = [XPArithmeticExpression arithmeticExpressionWithOperand:v1 operator:op operand:v2];
-    mathExpr.range = NSMakeRange(v1.range.location, NSMaxRange(v2.range));
+    XPExpression *mathExpr = [XPArithmeticExpression arithmeticExpressionWithOperand:p1 operator:op operand:p2];
+    mathExpr.range = NSMakeRange(p1.range.location, NSMaxRange(p2.range) - p1.range.location);
     mathExpr.staticContext = _env;
     [a push:mathExpr];
 }
@@ -269,7 +269,7 @@
         for (XPExpression *f in filters) {
             NSUInteger offset = filterExpr.range.location;
             filterExpr = [[[XPFilterExpression alloc] initWithStart:filterExpr filter:f] autorelease];
-            filterExpr.range = NSMakeRange(offset, NSMaxRange(f.range));
+            filterExpr.range = NSMakeRange(offset, NSMaxRange(f.range) - offset);
             filterExpr.staticContext = _env;
             XPAssert(NSNotFound != filterExpr.range.location);
             XPAssert(NSNotFound != filterExpr.range.length);
@@ -306,7 +306,7 @@
         }
         NSUInteger offset = pathExpr.range.location;
         pathExpr = [[[XPPathExpression alloc] initWithStart:pathExpr step:step] autorelease];
-        pathExpr.range = NSMakeRange(offset, NSMaxRange(step.range));
+        pathExpr.range = NSMakeRange(offset, NSMaxRange(step.range) - offset);
         pathExpr.staticContext = _env;
         XPAssert(NSNotFound != pathExpr.range.location);
         XPAssert(NSNotFound != pathExpr.range.length);
@@ -335,7 +335,7 @@
         XPExpression *lhs = [a pop];
         
         XPExpression *unionExpr = [[[XPUnionExpression alloc] initWithLhs:lhs rhs:rhs] autorelease];
-        unionExpr.range = NSMakeRange(lhs.range.location, NSMaxRange(rhs.range));
+        unionExpr.range = NSMakeRange(lhs.range.location, NSMaxRange(rhs.range) - lhs.range.location);
         unionExpr.staticContext = _env;
         [a push:unionExpr];
     } else {
@@ -353,14 +353,14 @@
         XPExpression *lhs = [a pop];
         
         XPExpression *intersectExpr = [[[XPIntersectExpression alloc] initWithLhs:lhs rhs:rhs] autorelease];
-        intersectExpr.range = NSMakeRange(lhs.range.location, NSMaxRange(rhs.range));
+        intersectExpr.range = NSMakeRange(lhs.range.location, NSMaxRange(rhs.range) - lhs.range.location);
         intersectExpr.staticContext = _env;
         [a push:intersectExpr];
     } else if ([peek isEqualTo:_exceptSym]) {
         XPExpression *lhs = [a pop];
         
         XPExpression *exceptExpr = [[[XPExceptExpression alloc] initWithLhs:lhs rhs:rhs] autorelease];
-        exceptExpr.range = NSMakeRange(lhs.range.location, NSMaxRange(rhs.range));
+        exceptExpr.range = NSMakeRange(lhs.range.location, NSMaxRange(rhs.range) - lhs.range.location);
         exceptExpr.staticContext = _env;
         [a push:exceptExpr];
     } else {
@@ -652,7 +652,7 @@
     
     XPExpression *numExpr = [XPNumericValue numericValueWithNumber:d];
     XPAssert(NSNotFound != offset);
-    numExpr.range = NSMakeRange(offset, NSMaxRange(val.range));
+    numExpr.range = NSMakeRange(offset, NSMaxRange(val.range) - offset);
     numExpr.staticContext = _env;
     [a push:numExpr];
 }
