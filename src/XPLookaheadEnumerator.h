@@ -28,5 +28,5 @@
 
 @interface XPLookaheadEnumerator : XPBaseFastEnumeration <XPLastPositionFinder>
 
-- (instancetype)initWithBase:(id <XPNodeEnumeration>)base;
+- (instancetype)initWithBase:(id <XPSequenceEnumeration>)base;
 @end

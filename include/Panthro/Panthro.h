@@ -15,7 +15,7 @@
 #import <Panthro/XPPattern.h>
 #import <Panthro/XPNodeTest.h>
 
-#import <Panthro/XPNodeInfo.h>
+#import <Panthro/XPItem.h>
 #import <Panthro/XPDocumentInfo.h>
 
 #import <Panthro/XPStaticContext.h>
@@ -35,7 +35,7 @@
 
 #import <Panthro/XPException.h>
 #import <Panthro/XPExpression.h>
-#import <Panthro/XPNodeEnumeration.h>
+#import <Panthro/XPSequenceEnumeration.h>
 
 #import <Panthro/XPStandaloneContext.h>
 #import <Panthro/XPSync.h>

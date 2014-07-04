@@ -9,13 +9,13 @@
 #import "XPNodeSetValue.h"
 #import "XPSortable.h"
 
-@protocol XPNodeEnumeration;
+@protocol XPSequenceEnumeration;
 @protocol XPNodeOrderComparer;
 
 @interface XPNodeSetExtent : XPNodeSetValue <XPSortable>
 
 - (instancetype)initWithNodes:(NSArray *)nodes comparer:(id <XPNodeOrderComparer>)comparer;
-- (instancetype)initWithEnumeration:(id <XPNodeEnumeration>)enm comparer:(id <XPNodeOrderComparer>)comparer;
+- (instancetype)initWithEnumeration:(id <XPSequenceEnumeration>)enm comparer:(id <XPNodeOrderComparer>)comparer;
 
 @property (nonatomic, retain) id <XPNodeOrderComparer>comparer;
 @end

@@ -10,7 +10,7 @@
 
 @protocol XPStaticContext;
 @protocol XPSequenceEnumeration;
-@protocol XPNodeEnumeration;
+@protocol XPSequenceEnumeration;
 
 @class XPContext;
 @class XPValue;
@@ -57,8 +57,8 @@ typedef NS_ENUM(NSUInteger, XPDependencies) {
 - (NSString *)evaluateAsStringInContext:(XPContext *)ctx;
 - (XPNodeSetValue *)evaluateAsNodeSetInContext:(XPContext *)ctx;
 
-- (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx;
-- (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted;
+//- (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx;
+- (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted;
 
 - (BOOL)isValue;
 - (BOOL)isContextDocumentNodeSet;

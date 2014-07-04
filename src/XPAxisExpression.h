@@ -10,7 +10,7 @@
 #import "XPNodeSetExpression.h"
 
 @class XPNodeTest;
-@protocol XPNodeInfo;
+@protocol XPItem;
 
 @interface XPAxisExpression : XPNodeSetExpression
 

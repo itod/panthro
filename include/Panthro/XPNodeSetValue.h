@@ -9,13 +9,13 @@
 #import "XPValue.h"
 
 @protocol XPNodeOrderComparer;
-@protocol XPNodeEnumeration;
+@protocol XPSequenceEnumeration;
 @protocol XPNodeInfo;
 
 @interface XPNodeSetValue : XPValue
 
-- (id <XPNodeEnumeration>)enumerate;
-- (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted;
+- (id <XPSequenceEnumeration>)enumerate;
+- (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted;
 
 - (NSUInteger)count;
 - (XPNodeSetValue *)sort;

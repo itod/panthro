@@ -9,7 +9,7 @@
 #import "FNCount.h"
 #import "XPValue.h"
 #import "XPNumericValue.h"
-#import "XPNodeEnumeration.h"
+#import "XPSequenceEnumeration.h"
 #import "XPNodeSetValue.h"
 
 @interface XPExpression ()
@@ -51,7 +51,7 @@
 
 - (double)evaluateAsNumberInContext:(XPContext *)ctx {
     NSInteger n = 0;
-    id <XPNodeEnumeration>enm = [(XPNodeSetValue *)self.args[0] enumerateInContext:ctx sorted:YES];
+    id <XPSequenceEnumeration>enm = [(XPNodeSetValue *)self.args[0] enumerateInContext:ctx sorted:YES];
     while ([enm hasMoreObjects]) {
         [enm nextObject];
         n++;

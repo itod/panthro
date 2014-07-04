@@ -11,10 +11,10 @@
 #import "XPLocalOrderComparer.h"
 
 @interface XPUnionEnumeration ()
-@property (nonatomic, retain) id <XPNodeEnumeration>p1;
-@property (nonatomic, retain) id <XPNodeEnumeration>p2;
-@property (nonatomic, retain) id <XPNodeEnumeration>e1;
-@property (nonatomic, retain) id <XPNodeEnumeration>e2;
+@property (nonatomic, retain) id <XPSequenceEnumeration>p1;
+@property (nonatomic, retain) id <XPSequenceEnumeration>p2;
+@property (nonatomic, retain) id <XPSequenceEnumeration>e1;
+@property (nonatomic, retain) id <XPSequenceEnumeration>e2;
 @property (nonatomic, retain) id <XPNodeInfo>nextNode1;
 @property (nonatomic, retain) id <XPNodeInfo>nextNode2;
 @property (nonatomic, retain) id <XPNodeOrderComparer>comparer;
@@ -22,7 +22,7 @@
 
 @implementation XPUnionEnumeration
 
-- (instancetype)initWithLhs:(id <XPNodeEnumeration>)lhs rhs:(id <XPNodeEnumeration>)rhs comparer:(id <XPNodeOrderComparer>)comparer {
+- (instancetype)initWithLhs:(id <XPSequenceEnumeration>)lhs rhs:(id <XPSequenceEnumeration>)rhs comparer:(id <XPNodeOrderComparer>)comparer {
     XPAssert(lhs);
     XPAssert(rhs);
     XPAssert(comparer);
@@ -42,10 +42,10 @@
         }
         
         if ([_e1 hasMoreObjects]) {
-            self.nextNode1 = [_e1 nextObject];
+            self.nextNode1 = [_e1 nextNodeInfo];
         }
         if ([_e2 hasMoreObjects]) {
-            self.nextNode2 = [_e2 nextObject];
+            self.nextNode2 = [_e2 nextNodeInfo];
         }
     }
     return self;
@@ -92,7 +92,7 @@
         if (res < 0) {
             id <XPNodeInfo>next = _nextNode1;
             if ([_e1 hasMoreObjects]) {
-                self.nextNode1 = [_e1 nextObject];
+                self.nextNode1 = [_e1 nextNodeInfo];
             } else {
                 self.nextNode1 = nil;
             }
@@ -101,7 +101,7 @@
         } else if (res > 0) {
             id <XPNodeInfo>next = _nextNode2;
             if ([_e2 hasMoreObjects]) {
-                self.nextNode2 = [_e2 nextObject];
+                self.nextNode2 = [_e2 nextNodeInfo];
             } else {
                 self.nextNode2 = nil;
             }
@@ -110,12 +110,12 @@
         } else {
             id <XPNodeInfo>next = _nextNode2;
             if ([_e2 hasMoreObjects]) {
-                self.nextNode2 = [_e2 nextObject];
+                self.nextNode2 = [_e2 nextNodeInfo];
             } else {
                 self.nextNode2 = nil;
             }
             if ([_e1 hasMoreObjects]) {
-                self.nextNode1 = [_e1 nextObject];
+                self.nextNode1 = [_e1 nextNodeInfo];
             } else {
                 self.nextNode1 = nil;
             }
@@ -128,7 +128,7 @@
     if (_nextNode1) {
         id <XPNodeInfo>next = _nextNode1;
         if ([_e1 hasMoreObjects]) {
-            self.nextNode1 = [_e1 nextObject];
+            self.nextNode1 = [_e1 nextNodeInfo];
         } else {
             self.nextNode1 = nil;
         }
@@ -137,7 +137,7 @@
     if (_nextNode2) {
         id <XPNodeInfo>next = _nextNode2;
         if ([_e2 hasMoreObjects]) {
-            self.nextNode2 = [_e2 nextObject];
+            self.nextNode2 = [_e2 nextNodeInfo];
         } else {
             self.nextNode2 = nil;
         }

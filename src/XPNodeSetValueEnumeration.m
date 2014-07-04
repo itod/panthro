@@ -62,8 +62,8 @@
  * @return the next NodeInfo
  */
 
-- (id <XPNodeInfo>)nextObject {
-    id <XPNodeInfo>node = nil;
+- (id <XPItem>)nextObject {
+    id <XPItem>node = nil;
     
     if ([self hasMoreObjects]) {
         node = _nodes[_index++];

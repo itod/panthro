@@ -8,7 +8,7 @@
 
 #import "XPNodeTest.h"
 
-@protocol XPNodeInfo;
+@protocol XPItem;
 
 @interface XPNodeTypeTest : XPNodeTest
 

@@ -11,7 +11,7 @@
 #import "XPStaticContext.h"
 #import "XPValue.h"
 #import "XPNodeSetValue.h"
-#import "XPNodeEnumeration.h"
+#import "XPSequenceEnumeration.h"
 #import "XPEGParser.h"
 #import "XPAssembler.h"
 #import "XPException.h"
@@ -109,20 +109,20 @@ const NSUInteger XPathErrorCodeRuntime = 2;
 }
 
 
-- (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx {
-    XPValue *v = [self evaluateInContext:ctx];
-    return [v enumerate];
-}
+//- (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx {
+//    XPValue *v = [self evaluateInContext:ctx];
+//    return [v enumerate];
+//}
 
 
-- (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
+- (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
     XPValue *v = [self evaluateInContext:ctx];
 
     if ([v isNodeSetValue]) {
         if (sorted) {
             [(XPNodeSetValue *)v sort];
         }
-        id <XPNodeEnumeration>e = [(XPNodeSetValue *)v enumerate];
+        id <XPSequenceEnumeration>e = [(XPNodeSetValue *)v enumerate];
         return e;
     }
     [XPException raiseIn:self format:@"The value `%@` is not a node-set", v];

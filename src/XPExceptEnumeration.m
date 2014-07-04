@@ -11,10 +11,10 @@
 #import "XPLocalOrderComparer.h"
 
 @interface XPExceptEnumeration ()
-@property (nonatomic, retain) id <XPNodeEnumeration>p1;
-@property (nonatomic, retain) id <XPNodeEnumeration>p2;
-@property (nonatomic, retain) id <XPNodeEnumeration>e1;
-@property (nonatomic, retain) id <XPNodeEnumeration>e2;
+@property (nonatomic, retain) id <XPSequenceEnumeration>p1;
+@property (nonatomic, retain) id <XPSequenceEnumeration>p2;
+@property (nonatomic, retain) id <XPSequenceEnumeration>e1;
+@property (nonatomic, retain) id <XPSequenceEnumeration>e2;
 @property (nonatomic, retain) id <XPNodeInfo>nextNode1;
 @property (nonatomic, retain) id <XPNodeInfo>nextNode2;
 @property (nonatomic, retain) id <XPNodeInfo>nextNode;
@@ -23,7 +23,7 @@
 
 @implementation XPExceptEnumeration
 
-- (instancetype)initWithLhs:(id <XPNodeEnumeration>)lhs rhs:(id <XPNodeEnumeration>)rhs comparer:(id <XPNodeOrderComparer>)comparer {
+- (instancetype)initWithLhs:(id <XPSequenceEnumeration>)lhs rhs:(id <XPSequenceEnumeration>)rhs comparer:(id <XPNodeOrderComparer>)comparer {
     XPAssert(lhs);
     XPAssert(rhs);
     XPAssert(comparer);
@@ -43,10 +43,10 @@
         }
         
         if ([_e1 hasMoreObjects]) {
-            self.nextNode1 = [_e1 nextObject];
+            self.nextNode1 = [_e1 nextNodeInfo];
         }
         if ([_e2 hasMoreObjects]) {
-            self.nextNode2 = [_e2 nextObject];
+            self.nextNode2 = [_e2 nextNodeInfo];
         }
         
         // move to the first node in p1 that isn't in p2
@@ -106,7 +106,7 @@
         if (res < 0) {                                                  // p1 is lower
             id <XPNodeInfo>next = _nextNode1;
             if ([_e1 hasMoreObjects]) {
-                self.nextNode1 = [_e1 nextObject];
+                self.nextNode1 = [_e1 nextNodeInfo];
             } else {
                 self.nextNode1 = nil;
                 self.nextNode = nil;
@@ -116,7 +116,7 @@
             
         } else if (res > 0) {                                           // p1 is higher
             if ([_e2 hasMoreObjects]) {
-                self.nextNode2 = [_e2 nextObject];
+                self.nextNode2 = [_e2 nextNodeInfo];
             } else {
                 self.nextNode2 = nil;
                 self.nextNode = nil;
@@ -124,12 +124,12 @@
             
         } else {                                                        // keys are equal
             if ([_e1 hasMoreObjects]) {
-                self.nextNode1 = [_e1 nextObject];
+                self.nextNode1 = [_e1 nextNodeInfo];
             } else {
                 self.nextNode1 = nil;
             }
             if ([_e2 hasMoreObjects]) {
-                self.nextNode2 = [_e2 nextObject];
+                self.nextNode2 = [_e2 nextNodeInfo];
             } else {
                 self.nextNode2 = nil;
             }
@@ -141,7 +141,7 @@
     if (_nextNode1) {
         self.nextNode = _nextNode1;
         if ([_e1 hasMoreObjects]) {
-            self.nextNode1 = [_e1 nextObject];
+            self.nextNode1 = [_e1 nextNodeInfo];
         } else {
             self.nextNode1 = nil;
         }

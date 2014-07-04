@@ -34,7 +34,7 @@
  * is empty.
  */
 
-- (id <XPNodeInfo>)selectFirstInContext:(XPContext *)ctx {
+- (id <XPItem>)selectFirstInContext:(XPContext *)ctx {
     return [self nodeInContext:ctx];
 }
 
@@ -65,7 +65,7 @@
  * @param sort Indicates result must be in document order
  */
 
-- (id<XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
+- (id<XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
     return [[[XPSingletonEnumeration alloc] initWithNode:[self nodeInContext:ctx]] autorelease];
 }
 
@@ -88,7 +88,7 @@
  */
 
 - (NSString *)evaluateAsStringInContext:(XPContext *)ctx {
-    id <XPNodeInfo>node = [self nodeInContext:ctx];
+    id <XPItem>node = [self nodeInContext:ctx];
     if (!node) return @"";
     return [node stringValue];
 }

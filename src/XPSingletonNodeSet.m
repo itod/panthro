@@ -186,7 +186,7 @@
         
         @try {
             NSString *value = [_node stringValue];
-            id <XPNodeEnumeration>e2 = [(XPNodeSetValue *)other enumerate];
+            id <XPSequenceEnumeration>e2 = [(XPNodeSetValue *)other enumerate];
             while ([e2 hasMoreObjects]) {
                 if ([[[e2 nextObject] stringValue] isEqualToString:value]) return YES;
             }
@@ -232,7 +232,7 @@
         @try {
             NSString *value = [_node stringValue];
             
-            id <XPNodeEnumeration>e2 = [(XPNodeSetValue *)other enumerate];
+            id <XPSequenceEnumeration>e2 = [(XPNodeSetValue *)other enumerate];
             while ([e2 hasMoreObjects]) {
                 if (![[[e2 nextObject] stringValue] isEqualToString:value]) return YES;
             }
@@ -258,7 +258,7 @@
  * Return an enumeration of this nodeset value.
  */
 
-- (id <XPNodeEnumeration>)enumerate {
+- (id <XPSequenceEnumeration>)enumerate {
     return [[[XPSingletonEnumeration alloc] initWithNode:_node] autorelease];
 }
 

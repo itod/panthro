@@ -8,6 +8,7 @@
 
 #import "XPNodeSetExtent.h"
 #import "XPNodeInfo.h"
+#import "XPNodeInfo.h"
 #import "XPNodeSetValueEnumeration.h"
 #import "XPSingletonNodeSet.h"
 #import "XPLocalOrderComparer.h"
@@ -34,13 +35,13 @@
 }
 
 
-- (instancetype)initWithEnumeration:(id <XPNodeEnumeration>)enm comparer:(id <XPNodeOrderComparer>)comparer {
+- (instancetype)initWithEnumeration:(id <XPSequenceEnumeration>)enm comparer:(id <XPNodeOrderComparer>)comparer {
     self = [super init];
     if (self) {
         NSMutableArray *nodes = [NSMutableArray array];
         
         NSUInteger c = 0;
-        for (id <XPNodeInfo>node in enm) {
+        for (id <XPItem>node in enm) {
             [nodes addObject:node];
             ++c;
         }
@@ -163,14 +164,14 @@
 }
 
 
-- (id <XPNodeInfo>)selectFirstInContext:(XPContext *)ctx {
+- (id <XPItem>)selectFirstInContext:(XPContext *)ctx {
     return [self firstNode];
 }
 
 
-- (id <XPNodeEnumeration>)enumerate {
+- (id <XPSequenceEnumeration>)enumerate {
     XPAssert(_value);
-    id <XPNodeEnumeration>enm = [[[XPNodeSetValueEnumeration alloc] initWithNodes:_value isSorted:_sorted isReverseSorted:_reverseSorted] autorelease];
+    id <XPSequenceEnumeration>enm = [[[XPNodeSetValueEnumeration alloc] initWithNodes:_value isSorted:_sorted isReverseSorted:_reverseSorted] autorelease];
     return enm;
 }
 
@@ -193,7 +194,7 @@
  */
 
 - (void)swap:(NSInteger)a with:(NSInteger)b {
-    id <XPNodeInfo>temp = _value[a];
+    id <XPItem>temp = _value[a];
     _value[a] = _value[b];
     _value[b] = temp;
 }

@@ -14,7 +14,7 @@
 #import "XPNodeTest.h"
 
 @interface XPAxisExpression ()
-@property (nonatomic, retain) id <XPNodeInfo>contextNode;
+@property (nonatomic, retain) id <XPItem>contextNode;
 @end
 
 @implementation XPAxisExpression
@@ -70,8 +70,8 @@
 }
 
 
-- (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
-    id <XPNodeInfo>start = nil;
+- (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
+    id <XPItem>start = nil;
     if (!_contextNode) {
         start = ctx.contextNode;
     } else {

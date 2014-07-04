@@ -23,8 +23,8 @@
 @interface XPPathEnumeration ()
 @property (nonatomic, retain) XPExpression *start;
 @property (nonatomic, retain) XPStep *step;
-@property (nonatomic, retain) id <XPNodeEnumeration>base;
-@property (nonatomic, retain) id <XPNodeEnumeration>tail;
+@property (nonatomic, retain) id <XPSequenceEnumeration>base;
+@property (nonatomic, retain) id <XPSequenceEnumeration>tail;
 @property (nonatomic, retain) id <XPNodeInfo>next;
 @property (nonatomic, retain) XPContext *context;
 
@@ -103,7 +103,7 @@
 
     if (_tail && [_tail hasMoreObjects]) {
 
-        id <XPNodeInfo>result = [_tail nextObject];
+        id <XPNodeInfo>result = [_tail nextNodeInfo];
 
 #if PAUSE_ENABLED
         [self addResultNode:result];
@@ -113,7 +113,7 @@
     }
     
     while ([_base hasMoreObjects]) {
-        id <XPNodeInfo>node = [_base nextObject];
+        id <XPNodeInfo>node = [_base nextNodeInfo];
 
 #if PAUSE_ENABLED
         [self addContextNode:node];
@@ -122,7 +122,7 @@
         self.tail = [_step enumerate:node inContext:_context];
         if ([_tail hasMoreObjects]) {
 
-            id <XPNodeInfo>result = [_tail nextObject];
+            id <XPNodeInfo>result = [_tail nextNodeInfo];
 
 #if PAUSE_ENABLED
             [self addResultNode:result];

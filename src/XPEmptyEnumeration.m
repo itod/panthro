@@ -40,7 +40,7 @@
 }
 
 
-- (id <XPNodeInfo>)nextObject {
+- (id <XPItem>)nextObject {
     return nil;
 }
 

@@ -53,9 +53,9 @@
     self.res = (id)[_expr evaluateInContext:_ctx];
     TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
     
-    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    id <XPNodeInfo>node = [enm nextObject];
+    id <XPNodeInfo>node = [enm nextNodeInfo];
     TDEqualObjects(@"p", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     
@@ -70,9 +70,9 @@
     self.res = (id)[_expr evaluateInContext:_ctx];
     TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
     
-    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    id <XPNodeInfo>node = [enm nextObject];
+    id <XPNodeInfo>node = [enm nextNodeInfo];
     TDEqualObjects(@"a", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     
@@ -87,9 +87,9 @@
     self.res = (id)[_expr evaluateInContext:_ctx];
     TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
     
-    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    id <XPNodeInfo>node = [enm nextObject];
+    id <XPNodeInfo>node = [enm nextNodeInfo];
     TDEqualObjects(@"a", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     
@@ -104,9 +104,9 @@
     self.res = (id)[_expr evaluateInContext:_ctx];
     TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
     
-    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    id <XPNodeInfo>node = [enm nextObject];
+    id <XPNodeInfo>node = [enm nextNodeInfo];
     TDEqualObjects(@"a", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     
@@ -121,9 +121,9 @@
     self.res = (id)[_expr evaluateInContext:_ctx];
     TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
     
-    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    id <XPNodeInfo>node = [enm nextObject];
+    id <XPNodeInfo>node = [enm nextNodeInfo];
     TDEqualObjects(@"p", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     
@@ -138,9 +138,9 @@
     self.res = (id)[_expr evaluateInContext:_ctx];
     TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
     
-    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    id <XPNodeInfo>node = [enm nextObject];
+    id <XPNodeInfo>node = [enm nextNodeInfo];
     TDEqualObjects(@"doc", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     
@@ -154,9 +154,9 @@
     
     self.res = (id)[_expr evaluateInContext:_ctx];
     
-    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    id <XPNodeInfo>node = [enm nextObject];
+    id <XPNodeInfo>node = [enm nextNodeInfo];
     TDEqualObjects(@"", node.name);
     TDEquals(XPNodeTypeRoot, node.nodeType);
     
@@ -170,9 +170,9 @@
     
     self.res = (id)[_expr evaluateInContext:_ctx];
     
-    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    id <XPNodeInfo>node = [enm nextObject];
+    id <XPNodeInfo>node = [enm nextNodeInfo];
     TDEqualObjects(@"", node.name);
     TDEquals(XPNodeTypeRoot, node.nodeType);
     
@@ -186,9 +186,9 @@
     
     self.res = (id)[_expr evaluateInContext:_ctx];
     
-    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    id <XPNodeInfo>node = [enm nextObject];
+    id <XPNodeInfo>node = [enm nextNodeInfo];
     TDEqualObjects(@"", node.name);
     TDEquals(XPNodeTypeRoot, node.nodeType);
     

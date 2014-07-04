@@ -7,10 +7,10 @@
 //
 
 #import "XPLookaheadEnumerator.h"
-#import "XPNodeEnumeration.h"
+#import "XPSequenceEnumeration.h"
 
 @interface XPLookaheadEnumerator ()
-@property (nonatomic, retain) id <XPNodeEnumeration>base;
+@property (nonatomic, retain) id <XPSequenceEnumeration>base;
 @property (nonatomic, retain) NSMutableArray *reservoir;
 @property (nonatomic, assign) NSUInteger reservoirPosition;
 @property (nonatomic, assign) NSUInteger position;
@@ -25,7 +25,7 @@
  * last position count.
  */
 
-- (instancetype)initWithBase:(id <XPNodeEnumeration>)base {
+- (instancetype)initWithBase:(id <XPSequenceEnumeration>)base {
     XPAssert(![base conformsToProtocol:@protocol(XPLastPositionFinder)]);
     self = [super init];
     if (self) {
@@ -59,7 +59,7 @@
  * Hand the next node to the client
  */
 
-- (id <XPNodeInfo>)nextObject {
+- (id <XPItem>)nextObject {
     if (!_reservoir) {
         self.position++;
         return [_base nextObject];

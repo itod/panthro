@@ -7,7 +7,8 @@
 //
 
 #import "XPNodeSetExpression.h"
+#import "XPNodeInfo.h"
 
 @interface XPSingletonExpression : XPNodeSetExpression
-
+- (id <XPNodeInfo>)nodeInContext:(XPContext *)ctx;
 @end

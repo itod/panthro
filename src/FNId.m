@@ -11,7 +11,7 @@
 #import "XPDocumentInfo.h"
 #import "XPContext.h"
 #import "XPNodeSetExtent.h"
-#import "XPNodeEnumeration.h"
+#import "XPSequenceEnumeration.h"
 #import "XPEmptyNodeSet.h"
 #import "XPSingletonNodeSet.h"
 
@@ -115,13 +115,13 @@
     
     if ([arg0 isNodeSetValue] /* && ![arg0 isKindOfClass:[XPFragmentValue class]]*/) {
         
-        id <XPNodeEnumeration>enm = [(XPNodeSetValue *)arg0 enumerate];
+        id <XPSequenceEnumeration>enm = [(XPNodeSetValue *)arg0 enumerate];
         while ([enm hasMoreObjects]) {
-            id <XPNodeInfo>node = [enm nextObject];
+            id <XPItem>node = [enm nextObject];
             NSString *s = node.stringValue;
             NSArray *comps = [s componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             for (NSString *comp in comps) {
-                id <XPNodeInfo>el = [doc selectID:comp];
+                id <XPItem>el = [doc selectID:comp];
                 if (el) {
                     if (!idrefresult) {
                         idrefresult = [NSMutableArray arrayWithCapacity:2];
@@ -136,7 +136,7 @@
         NSString *s = [arg0 asString];
         NSArray *comps = [s componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         for (NSString *comp in comps) {
-            id <XPNodeInfo>el = [doc selectID:comp];
+            id <XPItem>el = [doc selectID:comp];
             if (el) {
                 if (!idrefresult) {
                     idrefresult = [NSMutableArray arrayWithCapacity:2];

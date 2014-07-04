@@ -13,7 +13,7 @@
 @class XPNodeTest;
 @class XPContext;
 
-@protocol XPNodeEnumeration;
+@protocol XPSequenceEnumeration;
 @protocol XPNodeInfo;
 
 @interface XPStep : NSObject
@@ -22,7 +22,7 @@
 
 - (XPStep *)addFilter:(XPExpression *)expr;
 - (XPStep *)simplify;
-- (id <XPNodeEnumeration>)enumerate:(id <XPNodeInfo>)node inContext:(XPContext *)ctx;
+- (id <XPSequenceEnumeration>)enumerate:(id <XPNodeInfo>)node inContext:(XPContext *)ctx;
 
 @property (nonatomic, retain, readonly) NSArray *filters;
 @property (nonatomic, assign, readonly) NSUInteger numberOfFilters;

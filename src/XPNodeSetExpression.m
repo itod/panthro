@@ -8,7 +8,7 @@
 
 #import "XPNodeSetExpression.h"
 #import "XPContext.h"
-#import "XPNodeEnumeration.h"
+#import "XPSequenceEnumeration.h"
 #import "XPNodeSetExtent.h"
 //#import "XPNodeSetIntent.h"
 #import "XPLocalOrderComparer.h"
@@ -29,7 +29,7 @@
 }
 
 
-- (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
+- (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return nil;
 }
@@ -44,7 +44,7 @@
 
     } else if ([expr isKindOfClass:[XPNodeSetExpression class]]) {
         
-        id <XPNodeEnumeration>enm = [(XPNodeSetExpression *)expr enumerateInContext:ctx sorted:YES];
+        id <XPSequenceEnumeration>enm = [(XPNodeSetExpression *)expr enumerateInContext:ctx sorted:YES];
         
         if (enm) {
             XPNodeSetValue *nodeSet = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:nil] autorelease];

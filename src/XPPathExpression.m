@@ -201,7 +201,7 @@
  * @param context the evaluation context
  * @param sort true if the returned nodes must be in document order
  */
-- (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
+- (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
     // if the expression references variables, or depends on other aspects of
     // the XSLT context, then resolve these dependencies now. Also, if the nodes
     // are all known to be in the context document, then any dependency on the
@@ -226,7 +226,7 @@
     // ok, here we are.
     
     XPPathEnumeration *pathEnm = [[[XPPathEnumeration alloc] initWithStart:_start step:_step context:ctx] autorelease];
-    id <XPNodeEnumeration>enm = pathEnm;
+    id <XPSequenceEnumeration>enm = pathEnm;
     if (sorted && !enm.isSorted) {
         
         id <XPNodeOrderComparer>comparer = nil;

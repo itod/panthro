@@ -7,7 +7,7 @@
 //
 
 #import "XPNodeSetIntent.h"
-#import "XPNodeEnumeration.h"
+#import "XPSequenceEnumeration.h"
 #import "XPNodeSetExtent.h"
 #import "XPNodeSetExpression.h"
 #import "XPLocalOrderComparer.h"
@@ -70,7 +70,7 @@
 
 
 - (NSString *)asString {
-    id <XPNodeInfo>first = [self firstNode];
+    id <XPItem>first = [self firstNode];
     return first ? [first stringValue] : @"";
 }
 
@@ -82,7 +82,7 @@
 
 - (NSUInteger)count {
     if (!_extent) {
-        id <XPNodeEnumeration>enm = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
+        id <XPSequenceEnumeration>enm = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
         if ([enm conformsToProtocol:@protocol(XPLastPositionFinder)] && enm.isSorted) {
             return [(id <XPLastPositionFinder>)enm lastPosition];
         }
@@ -94,7 +94,7 @@
 
 - (void)fix {
     if (!_extent) {
-        id <XPNodeEnumeration>enm = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
+        id <XPSequenceEnumeration>enm = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
         self.extent = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:_comparer] autorelease];
     }
 }
@@ -110,18 +110,18 @@
 - (id <XPNodeInfo>)firstNode {
     if (_extent) return [_extent firstNode];
     
-    id <XPNodeEnumeration>enm = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
+    id <XPSequenceEnumeration>enm = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
     if (_sorted || [enm isSorted]) {
         self.sorted = YES;
         if ([enm hasMoreObjects]) {
-            return [enm nextObject];
+            return [enm nextNodeInfo];
         } else {
             return nil;
         }
     } else {
         id <XPNodeInfo>first = nil;
         while ([enm hasMoreObjects]) {
-            id <XPNodeInfo>node = [enm nextObject];
+            id <XPNodeInfo>node = [enm nextNodeInfo];
             if (!first || [_comparer compare:node to:first] < 0) {
                 first = node;
             }
@@ -131,12 +131,12 @@
 }
 
 
-- (id <XPNodeInfo>)selectFirstInContext:(XPContext *)ctx {
+- (id <XPItem>)selectFirstInContext:(XPContext *)ctx {
     return [self firstNode];
 }
 
 
-- (id <XPNodeEnumeration>)enumerate {
+- (id <XPSequenceEnumeration>)enumerate {
     if (_extent) {
         return [_extent enumerate];
     } else {

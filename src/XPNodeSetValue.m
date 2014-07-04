@@ -8,10 +8,11 @@
 
 #import "XPNodeSetValue.h"
 #import "XPNodeInfo.h"
+#import "XPNodeInfo.h"
 #import "XPBooleanValue.h"
 #import "XPNumericValue.h"
 #import "XPStringValue.h"
-#import "XPNodeEnumeration.h"
+#import "XPSequenceEnumeration.h"
 #import "XPSingletonNodeSet.h"
 #import "XPException.h"
 #import "XPEGParser.h"
@@ -45,13 +46,13 @@
 }
 
 
-- (id <XPNodeEnumeration>)enumerate {
+- (id <XPSequenceEnumeration>)enumerate {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return nil;
 }
 
 
-- (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)yn {
+- (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)yn {
     if (yn) [self sort];
     return [self enumerate];
 }
@@ -145,7 +146,7 @@
         } else {
             NSDictionary *table = [self stringValues];
             
-            id <XPNodeEnumeration>e2 = [(XPNodeSetValue *)other enumerate];
+            id <XPSequenceEnumeration>e2 = [(XPNodeSetValue *)other enumerate];
             for (id node in e2) {
                 if ([table objectForKey:[node stringValue]]) return YES;
             }
@@ -199,10 +200,10 @@
             // see if there is a node in A with a different string value as a node in B
             // use a nested loop: it will usually finish very quickly!
             
-            id <XPNodeEnumeration>e1 = [self enumerate];
+            id <XPSequenceEnumeration>e1 = [self enumerate];
             while ([e1 hasMoreObjects]) {
                 NSString *s1 = [[e1 nextObject] stringValue];
-                id <XPNodeEnumeration>e2 = [(XPNodeSetValue *)other enumerate];
+                id <XPSequenceEnumeration>e2 = [(XPNodeSetValue *)other enumerate];
                 while ([e2 hasMoreObjects]) {
                     NSString *s2 = [[e2 nextObject] stringValue];
                     if (![s1 isEqualToString:s2]) return YES;
@@ -269,7 +270,7 @@
         double thismin = INFINITY; //Double.POSITIVE_INFINITY;
         BOOL thisIsEmpty = YES;
         
-        id <XPNodeEnumeration>e1 = [self enumerate];
+        id <XPSequenceEnumeration>e1 = [self enumerate];
         while ([e1 hasMoreObjects]) {
             double val = XPNumberFromString([[e1 nextObject] stringValue]);
             if (val < thismin) thismin = val;
@@ -285,7 +286,7 @@
         double othermin = INFINITY; //Double.POSITIVE_INFINITY;
         BOOL otherIsEmpty = YES;
         
-        id <XPNodeEnumeration>e2 = [(XPNodeSetValue *)other enumerate];
+        id <XPSequenceEnumeration>e2 = [(XPNodeSetValue *)other enumerate];
         while ([e2 hasMoreObjects]) {
             double val = XPNumberFromString([[e2 nextObject] stringValue]);
             if (val < othermin) othermin = val;
@@ -310,9 +311,9 @@
         
     } else {
         if ([other isNumericValue] || [other isStringValue]) {
-            id <XPNodeEnumeration>e1 = [self enumerate];
+            id <XPSequenceEnumeration>e1 = [self enumerate];
             while ([e1 hasMoreObjects]) {
-                id <XPNodeInfo>node = [e1 nextObject];
+                id <XPItem>node = [e1 nextObject];
                 if ([self compareNumber:XPNumberFromString([node stringValue]) toNumber:[other asNumber] usingOperator:op]) {
                     return YES;
                 }

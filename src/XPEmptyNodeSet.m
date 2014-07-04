@@ -102,7 +102,7 @@
  * Return an enumeration of this nodeset value.
  */
 
-- (id <XPNodeEnumeration>)enumerate {
+- (id <XPSequenceEnumeration>)enumerate {
     return [XPEmptyEnumeration instance];
 }
 
