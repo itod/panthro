@@ -522,4 +522,6 @@
     return result;
 }
 
+@synthesize range = _range;
+@synthesize lineNumber = _lineNumber;
 @end

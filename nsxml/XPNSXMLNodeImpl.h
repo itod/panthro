@@ -6,10 +6,9 @@
 //
 //
 
-#import "XPAbstractItem.h"
-#import <Panthro/XPNodeInfo.h>
+#import "XPAbstractNodeWrapper.h"
 
-@interface XPNSXMLNodeImpl : XPAbstractItem <XPNodeInfo>
+@interface XPNSXMLNodeImpl : XPAbstractNodeWrapper
 
 + (id <XPNodeInfo>)nodeInfoWithNode:(void *)node;
 - (id <XPNodeInfo>)initWithNode:(void *)node;
