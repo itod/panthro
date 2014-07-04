@@ -6,10 +6,11 @@
 //
 //
 
+#import "XPAbstractItem.h"
 #import <Panthro/XPNodeInfo.h>
 #import <libxml/parser.h>
 
-@interface XPLibxmlNodeImpl : NSObject <XPNodeInfo>
+@interface XPLibxmlNodeImpl : XPAbstractItem <XPNodeInfo>
 
 + (id <XPNodeInfo>)nodeInfoWithNode:(void *)node parserContext:(xmlParserCtxtPtr)parserCtx;
 - (id <XPNodeInfo>)initWithNode:(void *)node parserContext:(xmlParserCtxtPtr)parserCtx;

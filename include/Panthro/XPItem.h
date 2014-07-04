@@ -1,0 +1,13 @@
+//
+//  XPItem.h
+//  Panthro
+//
+//  Created by Todd Ditchendorf on 7/4/14.
+//
+//
+
+#import <Panthro/XPSequence.h>
+
+@protocol XPItem <XPSequence>
+
+@end

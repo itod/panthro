@@ -6,6 +6,7 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
+#import "XPItem.h"
 #import "XPUtils.h"
 #import "XPAxis.h"
 
@@ -13,7 +14,7 @@
 @protocol XPDocumentInfo;
 @class XPNodeTest;
 
-@protocol XPNodeInfo <NSObject>
+@protocol XPNodeInfo <XPItem>
 
 - (NSComparisonResult)compareOrderTo:(id <XPNodeInfo>)other;
 
