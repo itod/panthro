@@ -88,7 +88,7 @@
         TDEquals(XPNodeTypeElement, node.nodeType);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -103,7 +103,7 @@
         TDEquals(XPNodeTypeElement, node.nodeType);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -118,7 +118,7 @@
         TDEquals(XPNodeTypeElement, node.nodeType);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -133,7 +133,7 @@
         TDEquals(XPNodeTypeElement, node.nodeType);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -149,7 +149,7 @@
         TDEqualObjects(_titles[i], node.stringValue);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -165,7 +165,7 @@
         TDEqualObjects(_titles[i], node.stringValue);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -179,7 +179,7 @@
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_ids[0], [node attributeValueForURI:nil localName:@"id"]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -193,7 +193,7 @@
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_ids[1], [node attributeValueForURI:nil localName:@"id"]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -207,7 +207,7 @@
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_ids[2], [node attributeValueForURI:nil localName:@"id"]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -221,7 +221,7 @@
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_ids[0], [node attributeValueForURI:nil localName:@"id"]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -235,7 +235,7 @@
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_ids[1], [node attributeValueForURI:nil localName:@"id"]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -249,7 +249,7 @@
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_ids[2], [node attributeValueForURI:nil localName:@"id"]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -263,7 +263,7 @@
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_ids[2], [node attributeValueForURI:nil localName:@"id"]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -282,7 +282,7 @@
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_ids[1], [node attributeValueForURI:nil localName:@"id"]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -301,7 +301,7 @@
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_ids[1], [node attributeValueForURI:nil localName:@"id"]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -325,7 +325,7 @@
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_ids[2], [node attributeValueForURI:nil localName:@"id"]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -339,7 +339,7 @@
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_ids[0], [node attributeValueForURI:nil localName:@"id"]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -353,7 +353,7 @@
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_ids[1], [node attributeValueForURI:nil localName:@"id"]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -367,7 +367,7 @@
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_ids[2], [node attributeValueForURI:nil localName:@"id"]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -381,7 +381,7 @@
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_ids[0], [node attributeValueForURI:nil localName:@"id"]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -395,7 +395,7 @@
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_ids[1], [node attributeValueForURI:nil localName:@"id"]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -409,7 +409,7 @@
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_ids[2], [node attributeValueForURI:nil localName:@"id"]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -423,7 +423,7 @@
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_ids[0], [node attributeValueForURI:nil localName:@"id"]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -437,7 +437,7 @@
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_ids[1], [node attributeValueForURI:nil localName:@"id"]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -451,7 +451,7 @@
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_ids[2], [node attributeValueForURI:nil localName:@"id"]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -465,7 +465,7 @@
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_paras[2], [node stringValue]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -484,7 +484,7 @@
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_ids[2], [node attributeValueForURI:nil localName:@"id"]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -498,7 +498,7 @@
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_ids[0], [node attributeValueForURI:nil localName:@"id"]);
 
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -512,7 +512,7 @@
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_ids[0], [node attributeValueForURI:nil localName:@"id"]);
 
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -521,7 +521,7 @@
     
     id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -535,7 +535,7 @@
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_ids[0], [node attributeValueForURI:nil localName:@"id"]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -551,7 +551,7 @@
         TDEqualObjects(_paras[i], node.stringValue);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -567,7 +567,7 @@
         TDEqualObjects(_paras[i], node.stringValue);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -590,7 +590,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_paras[0], [node stringValue]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -604,7 +604,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_paras[0], [node stringValue]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -618,7 +618,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_paras[2], [node stringValue]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -632,7 +632,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_paras[2], [node stringValue]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -648,7 +648,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         TDEqualObjects(_paras[i], node.stringValue);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -662,7 +662,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_paras[1], [node stringValue]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -676,7 +676,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_paras[1], [node stringValue]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -689,7 +689,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEqualObjects([XPNSXMLDocumentImpl class], [node class]);
     TDEquals(XPNodeTypeRoot, node.nodeType);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -707,7 +707,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEqualObjects(@"book", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -722,7 +722,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEqualObjects(@"book", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -737,7 +737,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEqualObjects([XPNSXMLDocumentImpl class], [node class]);
     TDEquals(XPNodeTypeRoot, node.nodeType);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -753,7 +753,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEqualObjects([XPNSXMLDocumentImpl class], [node class]);
     TDEquals(XPNodeTypeRoot, node.nodeType);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -778,7 +778,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         }
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -803,7 +803,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         }
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -828,7 +828,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         }
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -853,7 +853,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         }
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -878,7 +878,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         }
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -898,7 +898,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_paras[0], node.stringValue);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -918,7 +918,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEquals(XPNodeTypeAttribute, node.nodeType);
     TDEqualObjects(_ids[1], [node stringValue]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -938,7 +938,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEquals(XPNodeTypeAttribute, node.nodeType);
     TDEqualObjects(_ids[2], [node stringValue]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -957,7 +957,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_paras[1], node.stringValue);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -971,7 +971,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEqualObjects(@"book", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -984,7 +984,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     node = [enm nextNodeInfo];
     TDEquals(XPNodeTypeRoot, node.nodeType);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1001,7 +1001,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEqualObjects(@"book", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1015,7 +1015,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEqualObjects(@"book", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1036,7 +1036,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         TDEqualObjects(_paras[i], node.stringValue);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1057,7 +1057,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         TDEqualObjects(_paras[i], node.stringValue);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1072,7 +1072,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_paras[0], node.stringValue);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1086,14 +1086,14 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEqualObjects(@"book", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
 
-    TDTrue([enm hasMoreObjects]);
+    TDTrue([enm hasMoreItems]);
 
     node = [enm nextNodeInfo];
     TDEqualObjects(@"para", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_paras[1], node.stringValue);
 
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1107,14 +1107,14 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEqualObjects(@"book", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     
-    TDTrue([enm hasMoreObjects]);
+    TDTrue([enm hasMoreItems]);
     
     node = [enm nextNodeInfo];
     TDEqualObjects(@"para", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_paras[1], node.stringValue);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1131,14 +1131,14 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEqualObjects(@"book", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     
-    TDTrue([enm hasMoreObjects]);
+    TDTrue([enm hasMoreItems]);
     
     node = [enm nextNodeInfo];
     TDEqualObjects(@"para", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_paras[1], node.stringValue);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1195,7 +1195,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         TDEqualObjects(_titles[i], node.stringValue);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1212,7 +1212,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         TDEqualObjects(_titles[i], node.stringValue);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1221,7 +1221,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     
     id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1238,7 +1238,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         TDEqualObjects(_titles[i], node.stringValue);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1255,7 +1255,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         TDEqualObjects(_titles[i], node.stringValue);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1264,7 +1264,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     
     id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1279,7 +1279,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_titles[1], node.stringValue);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1294,7 +1294,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_titles[0], node.stringValue);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1309,7 +1309,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDEqualObjects(_titles[0], node.stringValue);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1326,7 +1326,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         TDEqualObjects(_titles[i], node.stringValue);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1343,7 +1343,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         TDEqualObjects(_titles[i], node.stringValue);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1360,7 +1360,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         TDEqualObjects(_titles[i], node.stringValue);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1377,7 +1377,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         TDEqualObjects(_titles[i], node.stringValue);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1394,7 +1394,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         TDEqualObjects(_titles[i], node.stringValue);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1408,7 +1408,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDTrue([[node stringValue] hasPrefix:_titles[0]]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1422,7 +1422,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDTrue([[node stringValue] hasPrefix:_titles[0]]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1436,7 +1436,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDTrue([[node stringValue] hasPrefix:_titles[0]]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1445,7 +1445,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     
     id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1459,7 +1459,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDTrue([[node stringValue] hasPrefix:_titles[0]]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1473,7 +1473,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDTrue([[node stringValue] hasPrefix:_titles[0]]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1487,7 +1487,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDTrue([[node stringValue] hasPrefix:_titles[0]]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1502,7 +1502,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDTrue([[node stringValue] hasPrefix:_titles[0]]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1516,7 +1516,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDTrue([[node stringValue] hasPrefix:_paras[0]]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1530,7 +1530,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEquals(XPNodeTypeElement, node.nodeType);
     TDTrue([[node stringValue] hasPrefix:_paras[0]]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1544,7 +1544,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDEquals(XPNodeTypeComment, node.nodeType);
     TDEqualObjects(_comments[0], [node stringValue]);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1561,7 +1561,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         TDEqualObjects(_ids[i], node.stringValue);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1570,7 +1570,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     
     id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1579,7 +1579,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     
     id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1588,7 +1588,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     
     id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1597,7 +1597,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     
     id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1606,7 +1606,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 //    
 //    id <XPSequenceEnumeration>enm = [_res enumerate];
 //    
-//    TDFalse([enm hasMoreObjects]);
+//    TDFalse([enm hasMoreItems]);
 //}
 //
 //
@@ -1615,7 +1615,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 //    
 //    id <XPSequenceEnumeration>enm = [_res enumerate];
 //    
-//    TDFalse([enm hasMoreObjects]);
+//    TDFalse([enm hasMoreItems]);
 //}
 
 
@@ -1632,7 +1632,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         TDEqualObjects(_ids[i], node.stringValue);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1641,7 +1641,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     
     id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 - (void)testChapterSlashTitleExceptChapterSlashTitlePredicate1 {
@@ -1656,7 +1656,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         TDEqualObjects(_titles[i], node.stringValue);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1672,7 +1672,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         TDEqualObjects(_titles[i], node.stringValue);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1681,7 +1681,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     
     id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1697,7 +1697,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         TDEqualObjects(_titles[i], node.stringValue);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1713,7 +1713,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         TDEqualObjects(_titles[i], node.stringValue);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1722,7 +1722,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     
     id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1738,7 +1738,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         TDEqualObjects(_titles[i], node.stringValue);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1754,7 +1754,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         TDEqualObjects(_titles[i], node.stringValue);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1770,7 +1770,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         TDEqualObjects(_titles[i], node.stringValue);
     }
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -1779,7 +1779,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     
     id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 @end

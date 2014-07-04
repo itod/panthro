@@ -130,7 +130,7 @@
  * Test whether there are any more nodes available in the enumeration
  */
 
-- (BOOL)hasMoreObjects {
+- (BOOL)hasMoreItems {
     if (_finished) return NO;
     return _current != nil;
 }
@@ -140,13 +140,13 @@
  * Get the next node if there is one
  */
 
-- (id <XPItem>)nextObject {
+- (id <XPItem>)nextItem {
     //XPAssert(_current);
     id <XPItem>node = _current;
     self.current = [self nextMatchingObject];
     
 #if FILTER_PAUSE_ENABLED
-    if (![self hasMoreObjects]) {
+    if (![self hasMoreItems]) {
         [self pause];
     }
 #endif
@@ -160,8 +160,8 @@
  */
 
 - (id <XPItem>)nextMatchingObject {
-    while (!_finished && [_base hasMoreObjects]) {
-        id <XPItem>next = [_base nextObject];
+    while (!_finished && [_base hasMoreItems]) {
+        id <XPItem>next = [_base nextItem];
         self.position++;
         if ([self matches:next]) {
             
@@ -197,7 +197,7 @@
 
 
 - (void)pause {
-    XPAssert(![self hasMoreObjects]);
+    XPAssert(![self hasMoreItems]);
     
     if (_resultNodes) {
         XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_contextNodes comparer:nil] autorelease];

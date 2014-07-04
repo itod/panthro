@@ -155,7 +155,7 @@
     }
     
     id <XPSequenceEnumeration>base = [_start enumerateInContext:ctx sorted:sort];
-    if (![base hasMoreObjects]) {
+    if (![base hasMoreItems]) {
         return base;        // quick exit for an empty node set
     }
     

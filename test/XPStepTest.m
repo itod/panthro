@@ -59,7 +59,7 @@
     TDEqualObjects(@"p", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -76,7 +76,7 @@
     TDEqualObjects(@"a", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -93,7 +93,7 @@
     TDEqualObjects(@"a", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -110,7 +110,7 @@
     TDEqualObjects(@"a", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -127,7 +127,7 @@
     TDEqualObjects(@"p", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -144,7 +144,7 @@
     TDEqualObjects(@"doc", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -160,7 +160,7 @@
     TDEqualObjects(@"", node.name);
     TDEquals(XPNodeTypeRoot, node.nodeType);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -176,7 +176,7 @@
     TDEqualObjects(@"", node.name);
     TDEquals(XPNodeTypeRoot, node.nodeType);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -192,7 +192,7 @@
     TDEqualObjects(@"", node.name);
     TDEquals(XPNodeTypeRoot, node.nodeType);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 @end

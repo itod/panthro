@@ -42,10 +42,10 @@
             self.e2 = [[[[[XPNodeSetExtent alloc] initWithEnumeration:_e2 comparer:_comparer] autorelease] sort] enumerate];
         }
         
-        if ([_e1 hasMoreObjects]) {
+        if ([_e1 hasMoreItems]) {
             self.nextNode1 = [_e1 nextNodeInfo];
         }
-        if ([_e2 hasMoreObjects]) {
+        if ([_e2 hasMoreItems]) {
             self.nextNode2 = [_e2 nextNodeInfo];
         }
         
@@ -85,12 +85,12 @@
 }
 
 
-- (BOOL)hasMoreObjects {
+- (BOOL)hasMoreItems {
     return _nextNode != nil;
 }
 
 
-- (id <XPNodeInfo>)nextObject {
+- (id <XPNodeInfo>)nextItem {
     id <XPNodeInfo>current = _nextNode;
     [self advance];
     return current;
@@ -105,7 +105,7 @@
         NSInteger res = [_comparer compare:_nextNode1 to:_nextNode2];
         if (res < 0) {                                                  // p1 is lower
             id <XPNodeInfo>next = _nextNode1;
-            if ([_e1 hasMoreObjects]) {
+            if ([_e1 hasMoreItems]) {
                 self.nextNode1 = [_e1 nextNodeInfo];
             } else {
                 self.nextNode1 = nil;
@@ -115,7 +115,7 @@
             return;
             
         } else if (res > 0) {                                           // p1 is higher
-            if ([_e2 hasMoreObjects]) {
+            if ([_e2 hasMoreItems]) {
                 self.nextNode2 = [_e2 nextNodeInfo];
             } else {
                 self.nextNode2 = nil;
@@ -123,12 +123,12 @@
             }
             
         } else {                                                        // keys are equal
-            if ([_e1 hasMoreObjects]) {
+            if ([_e1 hasMoreItems]) {
                 self.nextNode1 = [_e1 nextNodeInfo];
             } else {
                 self.nextNode1 = nil;
             }
-            if ([_e2 hasMoreObjects]) {
+            if ([_e2 hasMoreItems]) {
                 self.nextNode2 = [_e2 nextNodeInfo];
             } else {
                 self.nextNode2 = nil;
@@ -140,7 +140,7 @@
     
     if (_nextNode1) {
         self.nextNode = _nextNode1;
-        if ([_e1 hasMoreObjects]) {
+        if ([_e1 hasMoreItems]) {
             self.nextNode1 = [_e1 nextNodeInfo];
         } else {
             self.nextNode1 = nil;

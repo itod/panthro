@@ -76,7 +76,7 @@
 
 
 - (BOOL)asBoolean {
-    return [[self enumerate] hasMoreObjects];
+    return [[self enumerate] hasMoreItems];
 }
 
 
@@ -113,14 +113,14 @@
     id <XPSequenceEnumeration>enm = [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
     if (_sorted || [enm isSorted]) {
         self.sorted = YES;
-        if ([enm hasMoreObjects]) {
+        if ([enm hasMoreItems]) {
             return [enm nextNodeInfo];
         } else {
             return nil;
         }
     } else {
         id <XPNodeInfo>first = nil;
-        while ([enm hasMoreObjects]) {
+        while ([enm hasMoreItems]) {
             id <XPNodeInfo>node = [enm nextNodeInfo];
             if (!first || [_comparer compare:node to:first] < 0) {
                 first = node;

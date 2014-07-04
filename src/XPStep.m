@@ -119,7 +119,7 @@
 - (id <XPSequenceEnumeration>)enumerate:(id <XPNodeInfo>)node inContext:(XPContext *)ctx {
     id <XPSequenceEnumeration>enm = [node enumerationForAxis:_axis nodeTest:_nodeTest];
 
-    if ([enm hasMoreObjects]) {       // if there are no nodes, there's nothing to filter
+    if ([enm hasMoreItems]) {       // if there are no nodes, there's nothing to filter
         
 //#if PAUSE_ENABLED
 //        id <XPItem>baseCtxNode = ctx.contextNode;

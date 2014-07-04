@@ -47,9 +47,9 @@
  * Determine whether there are any more nodes to hand to the client
  */
 
-- (BOOL)hasMoreObjects {
+- (BOOL)hasMoreItems {
     if (!_reservoir) {
-        return [_base hasMoreObjects];
+        return [_base hasMoreItems];
     } else {
         return _reservoirPosition < [_reservoir count];
     }
@@ -59,10 +59,10 @@
  * Hand the next node to the client
  */
 
-- (id <XPItem>)nextObject {
+- (id <XPItem>)nextItem {
     if (!_reservoir) {
         self.position++;
-        return [_base nextObject];
+        return [_base nextItem];
     } else {
         if (_reservoirPosition < [_reservoir count]) {
             self.position++;
@@ -85,8 +85,8 @@
         self.reservoir = [NSMutableArray array];
         self.reservoirPosition = 0;
         self.last = _position;
-        while ([_base hasMoreObjects]) {
-            [_reservoir addObject:[_base nextObject]];
+        while ([_base hasMoreItems]) {
+            [_reservoir addObject:[_base nextItem]];
             self.last++;
         }
         return _last;

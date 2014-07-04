@@ -55,12 +55,12 @@
 }
 
 
-- (BOOL)hasMoreObjects {
+- (BOOL)hasMoreItems {
     return !_gone;
 }
 
 
-- (id <XPItem>)nextObject {
+- (id <XPItem>)nextItem {
     XPAssert(!_gone);
     _gone = true;
     return _node;

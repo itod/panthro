@@ -48,7 +48,7 @@
  * @return true if there are more nodes
  */
 
-- (BOOL)hasMoreObjects {
+- (BOOL)hasMoreItems {
     XPAssert(NSNotFound != _index);
     XPAssert(_nodes);
     
@@ -62,10 +62,10 @@
  * @return the next NodeInfo
  */
 
-- (id <XPItem>)nextObject {
+- (id <XPItem>)nextItem {
     id <XPItem>node = nil;
     
-    if ([self hasMoreObjects]) {
+    if ([self hasMoreItems]) {
         node = _nodes[_index++];
     }
     

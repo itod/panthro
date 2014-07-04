@@ -116,8 +116,8 @@
     if ([arg0 isNodeSetValue] /* && ![arg0 isKindOfClass:[XPFragmentValue class]]*/) {
         
         id <XPSequenceEnumeration>enm = [(XPNodeSetValue *)arg0 enumerate];
-        while ([enm hasMoreObjects]) {
-            id <XPItem>node = [enm nextObject];
+        while ([enm hasMoreItems]) {
+            id <XPItem>node = [enm nextItem];
             NSString *s = node.stringValue;
             NSArray *comps = [s componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             for (NSString *comp in comps) {

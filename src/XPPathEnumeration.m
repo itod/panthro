@@ -77,17 +77,17 @@
 }
 
 
-- (BOOL)hasMoreObjects {
+- (BOOL)hasMoreItems {
     return _next != nil;
 }
 
 
-- (id <XPNodeInfo>)nextObject {
+- (id <XPNodeInfo>)nextItem {
     id <XPNodeInfo>curr = _next;
     self.next = [self nextNode];
     
 #if PAUSE_ENABLED
-    if (![self hasMoreObjects]) {
+    if (![self hasMoreItems]) {
         [self pause];
     }
 #endif
@@ -101,7 +101,7 @@
     // if we are currently processing a step, we continue with it. Otherwise,
     // we get the next base element, and apply the step to that.
 
-    if (_tail && [_tail hasMoreObjects]) {
+    if (_tail && [_tail hasMoreItems]) {
 
         id <XPNodeInfo>result = [_tail nextNodeInfo];
 
@@ -112,7 +112,7 @@
         return result;
     }
     
-    while ([_base hasMoreObjects]) {
+    while ([_base hasMoreItems]) {
         id <XPNodeInfo>node = [_base nextNodeInfo];
 
 #if PAUSE_ENABLED
@@ -120,7 +120,7 @@
 #endif
 
         self.tail = [_step enumerate:node inContext:_context];
-        if ([_tail hasMoreObjects]) {
+        if ([_tail hasMoreItems]) {
 
             id <XPNodeInfo>result = [_tail nextNodeInfo];
 
@@ -154,7 +154,7 @@
 
 
 - (void)pause {
-    XPAssert(![_tail hasMoreObjects]);
+    XPAssert(![_tail hasMoreItems]);
 
     if (_resultNodes) {
         XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_contextNodes comparer:nil] autorelease];

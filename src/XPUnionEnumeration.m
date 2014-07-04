@@ -41,10 +41,10 @@
             self.e2 = [[[[[XPNodeSetExtent alloc] initWithEnumeration:_e2 comparer:_comparer] autorelease] sort] enumerate];
         }
         
-        if ([_e1 hasMoreObjects]) {
+        if ([_e1 hasMoreItems]) {
             self.nextNode1 = [_e1 nextNodeInfo];
         }
-        if ([_e2 hasMoreObjects]) {
+        if ([_e2 hasMoreItems]) {
             self.nextNode2 = [_e2 nextNodeInfo];
         }
     }
@@ -79,19 +79,19 @@
 }
 
 
-- (BOOL)hasMoreObjects {
+- (BOOL)hasMoreItems {
     return _nextNode1 != nil || _nextNode2 != nil;
 }
 
 
-- (id <XPNodeInfo>)nextObject {
+- (id <XPNodeInfo>)nextItem {
     // main merge loop: take a value from whichever set has the lower value
     
     if (_nextNode1 && _nextNode2) {
         NSInteger res = [_comparer compare:_nextNode1 to:_nextNode2];
         if (res < 0) {
             id <XPNodeInfo>next = _nextNode1;
-            if ([_e1 hasMoreObjects]) {
+            if ([_e1 hasMoreItems]) {
                 self.nextNode1 = [_e1 nextNodeInfo];
             } else {
                 self.nextNode1 = nil;
@@ -100,7 +100,7 @@
             
         } else if (res > 0) {
             id <XPNodeInfo>next = _nextNode2;
-            if ([_e2 hasMoreObjects]) {
+            if ([_e2 hasMoreItems]) {
                 self.nextNode2 = [_e2 nextNodeInfo];
             } else {
                 self.nextNode2 = nil;
@@ -109,12 +109,12 @@
             
         } else {
             id <XPNodeInfo>next = _nextNode2;
-            if ([_e2 hasMoreObjects]) {
+            if ([_e2 hasMoreItems]) {
                 self.nextNode2 = [_e2 nextNodeInfo];
             } else {
                 self.nextNode2 = nil;
             }
-            if ([_e1 hasMoreObjects]) {
+            if ([_e1 hasMoreItems]) {
                 self.nextNode1 = [_e1 nextNodeInfo];
             } else {
                 self.nextNode1 = nil;
@@ -127,7 +127,7 @@
     
     if (_nextNode1) {
         id <XPNodeInfo>next = _nextNode1;
-        if ([_e1 hasMoreObjects]) {
+        if ([_e1 hasMoreItems]) {
             self.nextNode1 = [_e1 nextNodeInfo];
         } else {
             self.nextNode1 = nil;
@@ -136,7 +136,7 @@
     }
     if (_nextNode2) {
         id <XPNodeInfo>next = _nextNode2;
-        if ([_e2 hasMoreObjects]) {
+        if ([_e2 hasMoreItems]) {
             self.nextNode2 = [_e2 nextNodeInfo];
         } else {
             self.nextNode2 = nil;

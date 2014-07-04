@@ -22,20 +22,20 @@
 }
 
 
-- (BOOL)hasMoreObjects {
+- (BOOL)hasMoreItems {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return NO;
 }
 
 
-- (id <XPItem>)nextObject {
+- (id <XPItem>)nextItem {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return nil;
 }
 
 
 - (id <XPNodeInfo>)nextNodeInfo {
-    return (id <XPNodeInfo>)[self nextObject];
+    return (id <XPNodeInfo>)[self nextItem];
 }
 
 
@@ -51,14 +51,14 @@
     id <XPItem>node = nil;
     
     if (0 == state->state) {
-        node = [self nextObject];
+        node = [self nextItem];
     } else {
         node = (id <XPItem>)state->state;
     }
     
     while (node && count < len) {
         stackbuf[count] = node;
-        node = [self nextObject];
+        node = [self nextItem];
         count++;
     }
     

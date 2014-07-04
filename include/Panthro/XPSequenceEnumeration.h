@@ -33,14 +33,14 @@
  * @return true if there are more nodes
  */
 
-- (BOOL)hasMoreObjects;
+- (BOOL)hasMoreItems;
 
 /**
  * Get the next node in sequence.
  * @return the next NodeInfo
  */
 
-- (id <XPItem>)nextObject;
+- (id <XPItem>)nextItem;
 - (id <XPNodeInfo>)nextNodeInfo;
 
 /**

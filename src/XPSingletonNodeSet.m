@@ -187,8 +187,8 @@
         @try {
             NSString *value = [_node stringValue];
             id <XPSequenceEnumeration>e2 = [(XPNodeSetValue *)other enumerate];
-            while ([e2 hasMoreObjects]) {
-                if ([[[e2 nextObject] stringValue] isEqualToString:value]) return YES;
+            while ([e2 hasMoreItems]) {
+                if ([[[e2 nextItem] stringValue] isEqualToString:value]) return YES;
             }
             return NO;
         } @catch (NSException *err) {
@@ -233,8 +233,8 @@
             NSString *value = [_node stringValue];
             
             id <XPSequenceEnumeration>e2 = [(XPNodeSetValue *)other enumerate];
-            while ([e2 hasMoreObjects]) {
-                if (![[[e2 nextObject] stringValue] isEqualToString:value]) return YES;
+            while ([e2 hasMoreItems]) {
+                if (![[[e2 nextItem] stringValue] isEqualToString:value]) return YES;
             }
             return NO;
         } @catch (NSException *err) {

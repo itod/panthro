@@ -201,11 +201,11 @@
             // use a nested loop: it will usually finish very quickly!
             
             id <XPSequenceEnumeration>e1 = [self enumerate];
-            while ([e1 hasMoreObjects]) {
-                NSString *s1 = [[e1 nextObject] stringValue];
+            while ([e1 hasMoreItems]) {
+                NSString *s1 = [[e1 nextItem] stringValue];
                 id <XPSequenceEnumeration>e2 = [(XPNodeSetValue *)other enumerate];
-                while ([e2 hasMoreObjects]) {
-                    NSString *s2 = [[e2 nextObject] stringValue];
+                while ([e2 hasMoreItems]) {
+                    NSString *s2 = [[e2 nextItem] stringValue];
                     if (![s1 isEqualToString:s2]) return YES;
                 }
             }
@@ -271,8 +271,8 @@
         BOOL thisIsEmpty = YES;
         
         id <XPSequenceEnumeration>e1 = [self enumerate];
-        while ([e1 hasMoreObjects]) {
-            double val = XPNumberFromString([[e1 nextObject] stringValue]);
+        while ([e1 hasMoreItems]) {
+            double val = XPNumberFromString([[e1 nextItem] stringValue]);
             if (val < thismin) thismin = val;
             if (val > thismax) thismax = val;
             thisIsEmpty = NO;
@@ -287,8 +287,8 @@
         BOOL otherIsEmpty = YES;
         
         id <XPSequenceEnumeration>e2 = [(XPNodeSetValue *)other enumerate];
-        while ([e2 hasMoreObjects]) {
-            double val = XPNumberFromString([[e2 nextObject] stringValue]);
+        while ([e2 hasMoreItems]) {
+            double val = XPNumberFromString([[e2 nextItem] stringValue]);
             if (val < othermin) othermin = val;
             if (val > othermax) othermax = val;
             otherIsEmpty = NO;
@@ -312,8 +312,8 @@
     } else {
         if ([other isNumericValue] || [other isStringValue]) {
             id <XPSequenceEnumeration>e1 = [self enumerate];
-            while ([e1 hasMoreObjects]) {
-                id <XPItem>node = [e1 nextObject];
+            while ([e1 hasMoreItems]) {
+                id <XPItem>node = [e1 nextItem];
                 if ([self compareNumber:XPNumberFromString([node stringValue]) toNumber:[other asNumber] usingOperator:op]) {
                     return YES;
                 }
