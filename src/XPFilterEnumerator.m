@@ -16,6 +16,11 @@
 #import "XPLastPositionFinder.h"
 #import "XPLookaheadEnumerator.h"
 
+#if PAUSE_ENABLED
+#import "XPStaticContext.h"
+#import "XPNodeSetExtent.h"
+#endif
+
 @interface XPFilterEnumerator ()
 @property (nonatomic, retain) id <XPNodeEnumeration>base;
 @property (nonatomic, retain) XPExpression *filter;
@@ -32,6 +37,11 @@
 @property (nonatomic, assign) BOOL positional;
 @property (nonatomic, assign) BOOL finished; // allows early finish with a numeric filter
 @property (nonatomic, assign) BOOL finishAfterReject; // causes enumeration to terminate the first time the predicate is false
+
+#if PAUSE_ENABLED
+@property (nonatomic, retain) NSMutableArray *contextNodes;
+@property (nonatomic, retain) NSMutableArray *resultNodes;
+#endif
 @end
 
 @implementation XPFilterEnumerator
@@ -62,6 +72,12 @@
         
         self.dataType = filter.dataType;
 
+#if PAUSE_ENABLED
+        self.contextNodes = [NSMutableArray array];
+        self.resultNodes = [NSMutableArray array];
+        [self addContextNode:_filterContext.contextNode];
+#endif
+        
         if ([_filter isKindOfClass:[XPNumericValue class]]) {
             // if value is not an integer, it will never match
             double pos = [(XPNumericValue *)_filter asNumber];
@@ -98,6 +114,12 @@
     self.filter = nil;
     self.current = nil;
     self.filterContext = nil;
+
+#if PAUSE_ENABLED
+    self.contextNodes = nil;
+    self.resultNodes = nil;
+#endif
+    
     [super dealloc];
 }
 
@@ -120,6 +142,13 @@
     //XPAssert(_current);
     id <XPNodeInfo>node = _current;
     self.current = [self nextMatchingObject];
+    
+#if PAUSE_ENABLED
+    if (![self hasMoreObjects]) {
+        [self pause];
+    }
+#endif
+    
     return node;
 }
 
@@ -133,6 +162,11 @@
         id <XPNodeInfo>next = [_base nextObject];
         self.position++;
         if ([self matches:next]) {
+            
+#if PAUSE_ENABLED
+            [self addResultNode:next];
+#endif
+            
             return next;
         } else if (_finishAfterReject) {
             return nil;
@@ -140,6 +174,42 @@
     }
     return nil;
 }
+
+
+#if PAUSE_ENABLED
+- (void)addContextNode:(id <XPNodeInfo>)node {
+    XPAssert(node);
+    
+    XPAssert(_contextNodes);
+    [_contextNodes addObject:node];
+}
+
+
+- (void)addResultNode:(id <XPNodeInfo>)node {
+    XPAssert(node);
+    
+    XPAssert(_resultNodes);
+    [_resultNodes addObject:node];
+}
+
+
+- (void)pause {
+    XPAssert(![self hasMoreObjects]);
+    
+    if (_resultNodes) {
+        XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_contextNodes comparer:nil] autorelease];
+        [contextNodeSet sort];
+        
+        XPNodeSetValue *resultNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_resultNodes comparer:nil] autorelease];
+        [resultNodeSet sort];
+        
+        [_filterContext.staticContext pauseFrom:_filter withContextNodes:contextNodeSet result:resultNodeSet range:_filter.range done:NO];
+        
+        self.resultNodes = nil; // ok, we've blown our load. don't allow another pause.
+    }
+}
+#endif
+
 
 /**
  * Determine whether a node matches the filter predicate
