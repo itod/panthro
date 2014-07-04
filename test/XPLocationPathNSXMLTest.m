@@ -757,7 +757,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testSlashSlashChapterUnionSlashSlashPara {
+- (void)testSlashSlashChapterPipeSlashSlashPara {
     [self eval:@"//chapter|//para"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -782,7 +782,32 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testSlashSlashParaUnionSlashSlashChapter {
+- (void)testSlashSlashChapterUnionSlashSlashPara {
+    [self eval:@"//chapter union //para"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    NSUInteger chIdx = 0;
+    NSUInteger paraIdx = 0;
+    for (NSUInteger i = 0; i < 6; ++i) {
+        if (i % 2 == 0) {
+            id <XPNodeInfo>node = [enm nextObject];
+            TDEqualObjects(@"chapter", node.name);
+            TDEquals(XPNodeTypeElement, node.nodeType);
+            TDEqualObjects(_ids[chIdx++], [node attributeValueForURI:nil localName:@"id"]);
+        } else {
+            id <XPNodeInfo>node = [enm nextObject];
+            TDEqualObjects(@"para", node.name);
+            TDEquals(XPNodeTypeElement, node.nodeType);
+            TDEqualObjects(_paras[paraIdx++], node.stringValue);
+        }
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testSlashSlashParaPipeSlashSlashChapter {
     [self eval:@"//para|//chapter"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -807,7 +832,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testSlashSlashParaUnionSlashSlashChapterSlashAtId {
+- (void)testSlashSlashParaPipeSlashSlashChapterSlashAtId {
     [self eval:@"//para|//chapter/@id"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -832,7 +857,32 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testOpenSlashSlashParaClosePredicate1UnionSlashSlashChapterSlashAtIdPredicateStringDotEqC1 {
+- (void)testSlashSlashParaUnionSlashSlashChapterSlashAtId {
+    [self eval:@"//para union //chapter/@id"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    NSUInteger chIdx = 0;
+    NSUInteger paraIdx = 0;
+    for (NSUInteger i = 0; i < 6; ++i) {
+        if (i % 2 == 0) {
+            id <XPNodeInfo>node = [enm nextObject];
+            TDEqualObjects(@"id", node.name);
+            TDEquals(XPNodeTypeAttribute, node.nodeType);
+            TDEqualObjects(_ids[chIdx++], [node stringValue]);
+        } else {
+            id <XPNodeInfo>node = [enm nextObject];
+            TDEqualObjects(@"para", node.name);
+            TDEquals(XPNodeTypeElement, node.nodeType);
+            TDEqualObjects(_paras[paraIdx++], node.stringValue);
+        }
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testOpenSlashSlashParaClosePredicate1PipeSlashSlashChapterSlashAtIdPredicateStringDotEqC1 {
     [self eval:@"(//para)[1]|//chapter/@id[string(.)='c1']"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -852,7 +902,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testOpenSlashSlashParaClosePredicate1UnionSlashSlashChapterSlashAtIdPredicateStringEqC2 {
+- (void)testOpenSlashSlashParaClosePredicate1PipeSlashSlashChapterSlashAtIdPredicateStringEqC2 {
     [self eval:@"(//para)[1]|//chapter/@id[string()='c2']"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -872,7 +922,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testOpenSlashSlashParaClosePredicate2UnionSlashSlashChapterSlashAtIdPredicateDotEqC3 {
+- (void)testOpenSlashSlashParaClosePredicate2PipeSlashSlashChapterSlashAtIdPredicateDotEqC3 {
     [self eval:@"(//para)[2]|//chapter/@id[.='c3']"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -892,7 +942,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testOpenSlashSlashParaClosePredicate2UnionDot {
+- (void)testOpenSlashSlashParaClosePredicate2PipeDot {
     [self eval:@"(//para)[2]|."];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -938,7 +988,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testDotUnionSlash {
+- (void)testDotPipeSlash {
     [self eval:@".|/"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -955,7 +1005,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testDotUnionDot {
+- (void)testDotPipeDot {
     [self eval:@".|."];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -969,7 +1019,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testDotUnionOpenSlashSlashParaClose {
+- (void)testDotPipeOpenSlashSlashParaClose {
     [self eval:@".|(//para)"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -990,7 +1040,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testDotUnionSlashSlashPara {
+- (void)testDotPipeSlashSlashPara {
     [self eval:@".|//para"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1011,7 +1061,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testOpenDotUnionSlashSlashParaClosePredicate2 {
+- (void)testOpenDotPipeSlashSlashParaClosePredicate2 {
     [self eval:@"(.|//para)[2]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1026,7 +1076,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testDotUnionOpenSlashSlashParaClosePredicate2 {
+- (void)testDotPipeOpenSlashSlashParaClosePredicate2 {
     [self eval:@".|(//para)[2]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1047,7 +1097,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testDotUnionOpenOpenSlashSlashParaClosePredicate2Close {
+- (void)testDotPipeOpenOpenSlashSlashParaClosePredicate2Close {
     [self eval:@".|((//para)[2])"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1068,7 +1118,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testDotUnionOpenSlashUnionParaPredicate2 {
+- (void)testDotPipeOpenSlashPipeParaPredicate2 {
     [self eval:@".|/|(//para)[2]"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1594,7 +1644,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDFalse([enm hasMoreObjects]);
 }
 
-- (void)testChapterExceptChapterPredicate1 {
+- (void)testChapterSlashTitleExceptChapterSlashTitlePredicate1 {
     [self eval:@"chapter/title except chapter[1]/title"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1610,7 +1660,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testChapterExceptChapterPredicate3 {
+- (void)testChapterSlashTitleExceptChapterSlashTitlePredicate3 {
     [self eval:@"chapter/title except chapter[3]/title"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1626,7 +1676,16 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testChapterIntersectChapterPredicate1 {
+- (void)testChapterSlashTitleExceptChapterSlashTitle {
+    [self eval:@"chapter/title except chapter/title"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testChapterSlashTitleIntersectChapterPredicate1SlashTitle {
     [self eval:@"chapter/title intersect chapter[1]/title"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1642,7 +1701,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testChapterIntersectChapterPredicate2 {
+- (void)testChapterSlashTitleIntersectChapterPredicate2SlashTitle {
     [self eval:@"chapter/title intersect chapter[2]/title"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1658,7 +1717,7 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
-- (void)testChapterIntersectChapterPredicate3 {
+- (void)testChapterSlashTitleIntersectChapterPredicate3SlashTitle {
     [self eval:@"chapter/title intersect chapter[3]/title"];
     
     id <XPNodeEnumeration>enm = [_res enumerate];
@@ -1669,6 +1728,31 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         TDEquals(XPNodeTypeElement, node.nodeType);
         TDEqualObjects(_titles[i], node.stringValue);
     }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testChapterSlashTitleIntersectChapterSlashTitle {
+    [self eval:@"chapter/title intersect chapter/title"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
+    
+    for (NSUInteger i = 0; i < 3; ++i) {
+        id <XPNodeInfo>node = [enm nextObject];
+        TDEqualObjects(@"title", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+        TDEqualObjects(_titles[i], node.stringValue);
+    }
+    
+    TDFalse([enm hasMoreObjects]);
+}
+
+
+- (void)testSlashSlashChapterIntersectSlashSlashPara {
+    [self eval:@"//chapter intersect //para"];
+    
+    id <XPNodeEnumeration>enm = [_res enumerate];
     
     TDFalse([enm hasMoreObjects]);
 }
