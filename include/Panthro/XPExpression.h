@@ -9,6 +9,7 @@
 #import <Panthro/XPUtils.h>
 
 @protocol XPStaticContext;
+@protocol XPSequenceEnumeration;
 @protocol XPNodeEnumeration;
 
 @class XPContext;
@@ -56,6 +57,7 @@ typedef NS_ENUM(NSUInteger, XPDependencies) {
 - (NSString *)evaluateAsStringInContext:(XPContext *)ctx;
 - (XPNodeSetValue *)evaluateAsNodeSetInContext:(XPContext *)ctx;
 
+- (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx;
 - (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted;
 
 - (BOOL)isValue;

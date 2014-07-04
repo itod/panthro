@@ -50,6 +50,11 @@ double XPNumberFromString(NSString *s) {
 
 @implementation XPValue
 
+- (NSString *)stringValue {
+    return [self asString];
+}
+
+
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
     return self;
 }

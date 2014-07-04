@@ -109,6 +109,12 @@ const NSUInteger XPathErrorCodeRuntime = 2;
 }
 
 
+- (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx {
+    XPValue *v = [self evaluateInContext:ctx];
+    return [v enumerate];
+}
+
+
 - (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
     XPValue *v = [self evaluateInContext:ctx];
 

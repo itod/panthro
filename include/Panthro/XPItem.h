@@ -10,4 +10,6 @@
 
 @protocol XPItem <XPSequence>
 
+@property (nonatomic, copy, readonly) NSString *stringValue;
+
 @end

@@ -60,7 +60,7 @@
 - (id <XPNodeInfo>)parent;
 
 /**
- * Find the value of a given attribute of this node. <BR>
+ * Find the value of a given attribute of this node.
  * This method is defined on all nodes to meet XSL requirements, but for nodes
  * other than elements it will always return null.
  * @param uri the namespace uri of an attribute ("" if no namespace)

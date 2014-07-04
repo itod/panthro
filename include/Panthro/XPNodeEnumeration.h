@@ -28,14 +28,14 @@
 - (BOOL)isReverseSorted;
 
 /**
- * Determine whether there are more nodes to come. <BR>
+ * Determine whether there are more nodes to come.
  * @return true if there are more nodes
  */
 
 - (BOOL)hasMoreObjects;
 
 /**
- * Get the next node in sequence. <BR>
+ * Get the next node in sequence.
  * @return the next NodeInfo
  */
 
