@@ -741,4 +741,5 @@ static NSUInteger XPIndexInParent(id <XPNodeInfo>nodeInfo) {
     return result;
 }
 
+@synthesize range = _range;
 @end

@@ -10,6 +10,12 @@
 
 @implementation XPAbstractItem
 
+- (id <XPItem>)head {
+    XPAssert(0);
+    return nil;
+}
+
+
 - (id <XPSequenceEnumeration>)enumerate {
     XPAssert(0);
     return nil;

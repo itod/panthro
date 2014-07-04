@@ -6,8 +6,9 @@
 //
 //
 
+#import <Panthro/XPExpression.h>
 #import <Panthro/XPItem.h>
 
-@interface XPAbstractItem : NSObject <XPItem>
+@interface XPAbstractItem : XPExpression <XPItem>
 
 @end

@@ -13,5 +13,6 @@
 
 @protocol XPSequence <NSObject>
 
+- (id <XPItem>)head;
 - (id <XPSequenceEnumeration>)enumerate;
 @end
