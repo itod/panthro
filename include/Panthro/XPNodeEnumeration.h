@@ -6,11 +6,11 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "XPSequenceEnumeration.h"
 
 @protocol XPNodeInfo;
 
-@protocol XPNodeEnumeration <NSFastEnumeration, NSObject>
+@protocol XPNodeEnumeration <XPSequenceEnumeration>
 
 /**
  * Determine whether the nodes returned by this enumeration are known to be in document order
