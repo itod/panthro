@@ -116,8 +116,8 @@ const NSUInteger XPathErrorCodeRuntime = 2;
         if (sorted) {
             [(XPNodeSetValue *)v sort];
         }
-        id <XPSequenceEnumeration>e = [(XPNodeSetValue *)v enumerate];
-        return e;
+        id <XPSequenceEnumeration>enm = [(XPNodeSetValue *)v enumerate];
+        return enm;
     }
     [XPException raiseIn:self format:@"The value `%@` is not a node-set", v];
     return nil;

@@ -54,8 +54,8 @@
 
 
 - (double)evaluateAsNumberInContext:(XPContext *)ctx {
-    id <XPSequenceEnumeration>e = [self.args[0] enumerateInContext:ctx sorted:NO];
-    return [self total:e];
+    id <XPSequenceEnumeration>enm = [self.args[0] enumerateInContext:ctx sorted:NO];
+    return [self total:enm];
 }
 
 
