@@ -56,8 +56,9 @@
         [t.commentState setFallbackState:t.symbolState from:':' to:':'];
 }
 
-stmt = expr;
-expr = orExpr;
+xpath = expr;
+expr = exprSingle (',' exprSingle)*;
+exprSingle = orExpr;
     orExpr = andExpr orAndExpr*;
         orAndExpr = (or andExpr);
         andExpr = equalityExpr andEqualityExpr*;
@@ -114,7 +115,7 @@ pathExpr = filterPath | locationPath;
                         prefix = ncName;
                         localPart = ncName;
                             ncName = Word | keyword;
-                argument = expr;
+                argument = exprSingle;
         predicate = '['! predicateExpr ']';
             predicateExpr = expr;
                 

@@ -4,8 +4,9 @@
 
 @interface XPEGParser ()
 
-@property (nonatomic, retain) NSMutableDictionary *stmt_memo;
+@property (nonatomic, retain) NSMutableDictionary *xpath_memo;
 @property (nonatomic, retain) NSMutableDictionary *expr_memo;
+@property (nonatomic, retain) NSMutableDictionary *exprSingle_memo;
 @property (nonatomic, retain) NSMutableDictionary *orExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *orAndExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *andExpr_memo;
@@ -101,7 +102,7 @@
     self = [super initWithDelegate:d];
     if (self) {
         
-        self.startRuleName = @"stmt";
+        self.startRuleName = @"xpath";
         self.tokenKindTab[@">="] = @(XPEG_TOKEN_KIND_GE_SYM);
         self.tokenKindTab[@"|"] = @(XPEG_TOKEN_KIND_PIPE);
         self.tokenKindTab[@"preceding-sibling"] = @(XPEG_TOKEN_KIND_PRECEDINGSIBLING);
@@ -202,8 +203,9 @@
         self.tokenKindNameTab[XPEG_TOKEN_KIND_UNION] = @"union";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_ANCESTORORSELF] = @"ancestor-or-self";
 
-        self.stmt_memo = [NSMutableDictionary dictionary];
+        self.xpath_memo = [NSMutableDictionary dictionary];
         self.expr_memo = [NSMutableDictionary dictionary];
+        self.exprSingle_memo = [NSMutableDictionary dictionary];
         self.orExpr_memo = [NSMutableDictionary dictionary];
         self.orAndExpr_memo = [NSMutableDictionary dictionary];
         self.andExpr_memo = [NSMutableDictionary dictionary];
@@ -297,8 +299,9 @@
 
 - (void)dealloc {
     
-    self.stmt_memo = nil;
+    self.xpath_memo = nil;
     self.expr_memo = nil;
+    self.exprSingle_memo = nil;
     self.orExpr_memo = nil;
     self.orAndExpr_memo = nil;
     self.andExpr_memo = nil;
@@ -391,8 +394,9 @@
 }
 
 - (void)clearMemo {
-    [_stmt_memo removeAllObjects];
+    [_xpath_memo removeAllObjects];
     [_expr_memo removeAllObjects];
+    [_exprSingle_memo removeAllObjects];
     [_orExpr_memo removeAllObjects];
     [_orAndExpr_memo removeAllObjects];
     [_andExpr_memo removeAllObjects];
@@ -518,31 +522,46 @@
 
     }];
 
-    [self stmt_]; 
+    [self xpath_]; 
     [self matchEOF:YES]; 
 
 }
 
-- (void)__stmt {
+- (void)__xpath {
     
     [self expr_]; 
 
-    [self fireDelegateSelector:@selector(parser:didMatchStmt:)];
+    [self fireDelegateSelector:@selector(parser:didMatchXpath:)];
 }
 
-- (void)stmt_ {
-    [self parseRule:@selector(__stmt) withMemo:_stmt_memo];
+- (void)xpath_ {
+    [self parseRule:@selector(__xpath) withMemo:_xpath_memo];
 }
 
 - (void)__expr {
     
-    [self orExpr_]; 
+    [self exprSingle_]; 
+    while ([self speculate:^{ [self match:XPEG_TOKEN_KIND_COMMA discard:NO]; [self exprSingle_]; }]) {
+        [self match:XPEG_TOKEN_KIND_COMMA discard:NO]; 
+        [self exprSingle_]; 
+    }
 
     [self fireDelegateSelector:@selector(parser:didMatchExpr:)];
 }
 
 - (void)expr_ {
     [self parseRule:@selector(__expr) withMemo:_expr_memo];
+}
+
+- (void)__exprSingle {
+    
+    [self orExpr_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchExprSingle:)];
+}
+
+- (void)exprSingle_ {
+    [self parseRule:@selector(__exprSingle) withMemo:_exprSingle_memo];
 }
 
 - (void)__orExpr {
@@ -1240,7 +1259,7 @@
 
 - (void)__argument {
     
-    [self expr_]; 
+    [self exprSingle_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchArgument:)];
 }

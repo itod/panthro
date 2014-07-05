@@ -7,6 +7,7 @@
 //
 
 #import "XPSequenceExpression.h"
+#import "XPAtomicArray.h"
 
 @implementation XPSequenceExpression
 
@@ -16,15 +17,22 @@
 
 
 - (XPExpression *)simplify {
-    XPExpression *result = self;
-    
     self.p1 = [self.p1 simplify];
     self.p2 = [self.p2 simplify];
     
-    // TODO
+    XPAssert([self.p1 isValue]);
+    XPAssert([self.p2 isValue]);
     
-    //result.range = self.range;
-    return result;
+    NSArray *v = @[self.p1, self.p2];
+    XPExpression *seq = [[[XPAtomicArray alloc] initWithContent:v] autorelease];
+    
+    seq.range = self.range;
+    return seq;
 }
+
+
+//- (id <XPSequenceEnumeration>)enumerate {
+//    return nil;
+//}
 
 @end
