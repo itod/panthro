@@ -114,4 +114,27 @@
     TDFalse([enm hasMoreItems]);
 }
 
+
+- (void)testOpen1Comma2Comma3Close {
+    [self eval:@"(1, 2, 3)"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    XPValue *val = nil;
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"1", val.stringValue);
+    TDEquals(1.0, [val asNumber]);
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"2", val.stringValue);
+    TDEquals(2.0, [val asNumber]);
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"3", val.stringValue);
+    TDEquals(3.0, [val asNumber]);
+    
+    TDFalse([enm hasMoreItems]);
+}
+
 @end

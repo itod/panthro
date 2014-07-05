@@ -8,6 +8,7 @@
 
 #import "XPSequenceExpression.h"
 #import "XPAtomicSequence.h"
+#import "XPSequenceEnumeration.h"
 
 @implementation XPSequenceExpression
 
@@ -17,22 +18,38 @@
 
 
 //- (XPExpression *)simplify {
+//    XPExpression *result = self;
+//    
 //    self.p1 = [self.p1 simplify];
 //    self.p2 = [self.p2 simplify];
 //    
-//    XPAssert([self.p1 isValue]);
-//    XPAssert([self.p2 isValue]);
+//    if ([self.p1 isValue] && [(XPValue *)self.p1 isSequenceValue]) {
+//        
+//    }
 //    
-//    NSArray *v = @[self.p1, self.p2];
-//    XPExpression *seq = [[[XPAtomicSequence alloc] initWithContent:v] autorelease];
+//    else if ([self.p1 isValue] && [self.p2 isValue]) {
+//        result = [self evaluateInContext:nil];
+//    }
 //    
-//    seq.range = self.range;
-//    return seq;
+//    result.range = self.range;
+//    return result;
 //}
 
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
-    NSArray *v = @[self.p1, self.p2];
+    NSMutableArray *v = [NSMutableArray array];
+    
+    if ([self.p1 isValue] && [(XPValue *)self.p1 isSequenceValue]) {
+        id <XPSequenceEnumeration>enm = [(XPSequenceValue *)self.p1 enumerateInContext:ctx sorted:NO];
+        while ([enm hasMoreItems]) {
+            [v addObject:[enm nextItem]];
+        }
+    } else {
+        [v addObject:self.p1];
+    }
+
+    [v addObject:self.p2];
+    
     XPValue *seq = [[[XPAtomicSequence alloc] initWithContent:v] autorelease];
     return seq;
 }
