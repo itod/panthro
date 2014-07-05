@@ -11,8 +11,12 @@
 
 @implementation XPEmptyNodeSet
 
-+ (instancetype)emptyNodeSet {
-    return [[[XPEmptyNodeSet alloc] init] autorelease];
++ (instancetype)instance {
+    static XPEmptyNodeSet *sInstance = nil;
+    if (!sInstance) {
+        sInstance = [[XPEmptyNodeSet alloc] init];
+    }
+    return sInstance;
 }
 
 

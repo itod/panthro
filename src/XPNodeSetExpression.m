@@ -51,7 +51,7 @@
             nodeSet.range = self.range;
             result = nodeSet;
         } else {
-            result = [XPEmptyNodeSet emptyNodeSet];
+            result = [XPEmptyNodeSet instance];
         }
 
 //        XPNodeSetIntent *nsi = [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPNodeSetExpression *)expr comparer:nil] autorelease];

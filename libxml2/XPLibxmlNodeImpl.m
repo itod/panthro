@@ -479,7 +479,7 @@ static NSUInteger XPIndexInParent(id <XPNodeInfo>nodeInfo) {
         ext.reverseSorted = !sorted;
         nodeSet = ext;
     } else {
-        nodeSet = [XPEmptyNodeSet emptyNodeSet];
+        nodeSet = [XPEmptyNodeSet instance];
     }
     
     id <XPAxisEnumeration>enm = (id <XPAxisEnumeration>)[nodeSet enumerate];

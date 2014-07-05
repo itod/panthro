@@ -52,7 +52,7 @@
     XPExpression *result = self;
     
     if (!_node) {
-        result = [XPEmptyNodeSet emptyNodeSet];
+        result = [XPEmptyNodeSet instance];
     }
     
     result.range = self.range;

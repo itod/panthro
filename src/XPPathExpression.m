@@ -78,14 +78,14 @@
     }
         
     if (!_step) {
-        return [XPEmptyNodeSet emptyNodeSet];
+        return [XPEmptyNodeSet instance];
     }
     
     XPAxis axis = _step.axis;
     
     // the expression /.. is sometimes used to represent the empty node-set
     if ([_start isKindOfClass:[XPRootExpression class]] && axis == XPAxisParent) {
-        XPExpression *expr = [XPEmptyNodeSet emptyNodeSet];
+        XPExpression *expr = [XPEmptyNodeSet instance];
         expr.staticContext = self.staticContext;
         expr.range = self.range;
         return expr;

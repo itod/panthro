@@ -65,7 +65,7 @@
 
 - (XPExpression *)simplify {
     if (0 == _count) {
-        return [XPEmptyNodeSet emptyNodeSet];
+        return [XPEmptyNodeSet instance];
     } else if (1 == _count) {
         return [XPSingletonNodeSet singletonNodeSetWithNode:_value[0]];
     } else {

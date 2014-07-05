@@ -10,5 +10,5 @@
 
 @interface XPEmptyNodeSet : XPSequenceValue
 
-+ (instancetype)emptyNodeSet;
++ (instancetype)instance;
 @end

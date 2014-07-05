@@ -147,7 +147,7 @@
     }
     
     if (!idrefresult) {
-        return [XPEmptyNodeSet emptyNodeSet];
+        return [XPEmptyNodeSet instance];
     }
     if (1 == [idrefresult count]) {
         return [XPSingletonNodeSet singletonNodeSetWithNode:idrefresult[0]];

@@ -326,7 +326,7 @@
         ext.reverseSorted = !sorted;
         nodeSet = ext;
     } else {
-        nodeSet = [XPEmptyNodeSet emptyNodeSet];
+        nodeSet = [XPEmptyNodeSet instance];
     }
     
     id <XPAxisEnumeration>enm = (id <XPAxisEnumeration>)[nodeSet enumerate];

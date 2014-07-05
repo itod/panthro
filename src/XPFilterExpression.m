@@ -68,7 +68,7 @@
         if (f) {
             result = _start;
         } else {
-            result = [XPEmptyNodeSet emptyNodeSet];
+            result = [XPEmptyNodeSet instance];
         }
     }
     
