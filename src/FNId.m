@@ -37,12 +37,12 @@
 
 
 - (XPDataType)dataType {
-    return XPDataTypeNodeSet;
+    return XPDataTypeSequence;
 }
 
 
 /**
- * Determine, in the case of an expression whose data type is XPDataTypeNodeSet,
+ * Determine, in the case of an expression whose data type is XPDataTypeSequence,
  * whether all the nodes in the node-set are guaranteed to come from the same
  * document as the context node. Used for optimization.
  */

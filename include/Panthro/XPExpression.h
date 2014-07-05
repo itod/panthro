@@ -25,7 +25,7 @@ typedef NS_ENUM(NSUInteger, XPDataType) {
     XPDataTypeBoolean,
     XPDataTypeNumber,
     XPDataTypeString,
-    XPDataTypeNodeSet,
+    XPDataTypeSequence,
     XPDataTypeObject,
     XPDataTypeAny
 };

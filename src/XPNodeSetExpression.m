@@ -25,7 +25,7 @@
 @implementation XPNodeSetExpression
 
 - (XPDataType)dataType {
-    return XPDataTypeNodeSet;
+    return XPDataTypeSequence;
 }
 
 
