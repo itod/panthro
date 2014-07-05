@@ -1184,7 +1184,9 @@
 - (void)__parenthesizedExpr {
     
     [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:NO]; 
-    [self expr_]; 
+    if ([self speculate:^{ [self expr_]; }]) {
+        [self expr_]; 
+    }
     [self match:XPEG_TOKEN_KIND_CLOSE_PAREN discard:YES]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchParenthesizedExpr:)];
