@@ -117,11 +117,11 @@
         
         id <XPSequenceEnumeration>enm = [(XPNodeSetValue *)arg0 enumerate];
         while ([enm hasMoreItems]) {
-            id <XPItem>node = [enm nextItem];
+            id <XPNodeInfo>node = [enm nextNodeInfo];
             NSString *s = node.stringValue;
             NSArray *comps = [s componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             for (NSString *comp in comps) {
-                id <XPItem>el = [doc selectID:comp];
+                id <XPNodeInfo>el = [doc selectID:comp];
                 if (el) {
                     if (!idrefresult) {
                         idrefresult = [NSMutableArray arrayWithCapacity:2];
@@ -136,7 +136,7 @@
         NSString *s = [arg0 asString];
         NSArray *comps = [s componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         for (NSString *comp in comps) {
-            id <XPItem>el = [doc selectID:comp];
+            id <XPNodeInfo>el = [doc selectID:comp];
             if (el) {
                 if (!idrefresult) {
                     idrefresult = [NSMutableArray arrayWithCapacity:2];

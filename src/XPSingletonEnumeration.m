@@ -10,7 +10,7 @@
 #import "XPNodeInfo.h"
 
 @interface XPSingletonEnumeration ()
-@property (nonatomic, retain) id <XPItem>node;
+@property (nonatomic, retain) id <XPNodeInfo>node;
 @property (nonatomic, assign) BOOL gone;
 @property (nonatomic, assign) NSUInteger count;
 @end
@@ -18,12 +18,12 @@
 @implementation XPSingletonEnumeration
 
 - (instancetype)init {
-    self = [self initWithItem:nil];
+    self = [self initWithNode:nil];
     return self;
 }
 
 
-- (instancetype)initWithItem:(id <XPItem>)node {
+- (instancetype)initWithNode:(id <XPNodeInfo>)node {
     self = [super init];
     if (self) {
         self.node = node;

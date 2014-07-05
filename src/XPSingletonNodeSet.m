@@ -259,7 +259,7 @@
  */
 
 - (id <XPSequenceEnumeration>)enumerate {
-    return [[[XPSingletonEnumeration alloc] initWithItem:_node] autorelease];
+    return [[[XPSingletonEnumeration alloc] initWithNode:_node] autorelease];
 }
 
 @end
