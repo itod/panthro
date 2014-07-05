@@ -1,22 +1,22 @@
 //
-//  XPAtomicSequenceEnumeration.m
+//  XPSequenceExtentEnumeration.m
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 7/5/14.
 //
 //
 
-#import "XPAtomicSequenceEnumeration.h"
+#import "XPSequenceExtentEnumeration.h"
 #import "XPSequenceExtent.h"
 
-@interface XPAtomicSequenceEnumeration ()
+@interface XPSequenceExtentEnumeration ()
 @property (nonatomic, retain) XPSequenceExtent *sequence;
 @property (nonatomic, assign) NSUInteger index;
 @end
 
-@implementation XPAtomicSequenceEnumeration
+@implementation XPSequenceExtentEnumeration
 
-- (instancetype)initWithAtomicSequence:(XPSequenceExtent *)seq {
+- (instancetype)initWithSequenceExtent:(XPSequenceExtent *)seq {
     self = [super init];
     if (self) {
         self.sequence = seq;
@@ -40,12 +40,6 @@
     id <XPItem>next = [_sequence itemAt:_index];
     self.index++;
     return next;
-}
-
-
-- (id <XPNodeInfo>)nextNode {
-    XPAssert(0);
-    return nil;
 }
 
 

@@ -1,5 +1,5 @@
 //
-//  XPAtomicSequence.m
+//  XPSequenceExtent.m
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 7/5/14.
@@ -7,7 +7,7 @@
 //
 
 #import "XPSequenceExtent.h"
-#import "XPAtomicSequenceEnumeration.h"
+#import "XPSequenceExtentEnumeration.h"
 
 @interface XPSequenceExtent ()
 @property (nonatomic, retain) NSArray *content;
@@ -95,13 +95,13 @@
 
 
 - (id <XPSequenceEnumeration>)enumerate {
-    id <XPSequenceEnumeration>enm = [[[XPAtomicSequenceEnumeration alloc] initWithAtomicSequence:self] autorelease];
+    id <XPSequenceEnumeration>enm = [[[XPSequenceExtentEnumeration alloc] initWithSequenceExtent:self] autorelease];
     return enm;
 }
 
 
 #pragma mark -
-#pragma mark XPAtomicSequence
+#pragma mark XPSequenceExtent
 
 - (XPValue *)itemAt:(NSUInteger)i {
     XPAssert(_content);

@@ -1,5 +1,5 @@
 //
-//  XPAtomicSequenceTest
+//  XPSequenceExtentTest
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 4/22/14.
@@ -17,7 +17,7 @@
 
 #import <libxml/tree.h>
 
-@interface XPAtomicSequenceTest : XCTestCase
+@interface XPSequenceExtentTest : XCTestCase
 @property (nonatomic, retain) XPStandaloneContext *env;
 @property (nonatomic, assign) xmlNodePtr contextNode;
 @property (nonatomic, assign) xmlParserCtxtPtr parserCtx;
@@ -29,7 +29,7 @@
 @property (nonatomic, retain) NSArray *pis;
 @end
 
-@implementation XPAtomicSequenceTest
+@implementation XPSequenceExtentTest
 
 - (void)setUp {
     [super setUp];
