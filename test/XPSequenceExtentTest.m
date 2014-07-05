@@ -160,4 +160,27 @@
     TDFalse([enm hasMoreItems]);
 }
 
+
+- (void)testOpenChapterCommaChapterClose {
+    [self eval:@"(chapter, chapter)"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = nil;
+    
+    for (NSUInteger i = 0; i < 3; ++i) {
+        node = [enm nextNodeInfo];
+        TDEqualObjects(@"chapter", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+    }
+    
+    for (NSUInteger i = 0; i < 3; ++i) {
+        node = [enm nextNodeInfo];
+        TDEqualObjects(@"chapter", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+    }
+        
+    TDFalse([enm hasMoreItems]);
+}
+
 @end

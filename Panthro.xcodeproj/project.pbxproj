@@ -177,7 +177,7 @@
 		D372998F19674143004B1B7A /* XPItem.h in Headers */ = {isa = PBXBuildFile; fileRef = D372998E19674143004B1B7A /* XPItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D372999D196763FC004B1B7A /* XPAbstractNodeWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = D372999B196763FC004B1B7A /* XPAbstractNodeWrapper.h */; };
 		D372999E196763FC004B1B7A /* XPAbstractNodeWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = D372999C196763FC004B1B7A /* XPAbstractNodeWrapper.m */; };
-		D37299A419684C36004B1B7A /* XPAtomicSequenceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299A319684C36004B1B7A /* XPAtomicSequenceTest.m */; };
+		D37299A419684C36004B1B7A /* XPSequenceExtentTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299A319684C36004B1B7A /* XPSequenceExtentTest.m */; };
 		D37299AA19684E91004B1B7A /* XPSequenceExtent.h in Headers */ = {isa = PBXBuildFile; fileRef = D37299A819684E91004B1B7A /* XPSequenceExtent.h */; };
 		D37299AB19684E91004B1B7A /* XPSequenceExtent.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299A919684E91004B1B7A /* XPSequenceExtent.m */; };
 		D37299AE1968509D004B1B7A /* XPSequenceExtentEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D37299AC1968509D004B1B7A /* XPSequenceExtentEnumeration.h */; };
@@ -567,7 +567,7 @@
 		D372999C196763FC004B1B7A /* XPAbstractNodeWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPAbstractNodeWrapper.m; path = src/XPAbstractNodeWrapper.m; sourceTree = "<group>"; };
 		D372999F1968490F004B1B7A /* XPSequenceExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPSequenceExpression.h; path = src/XPSequenceExpression.h; sourceTree = "<group>"; };
 		D37299A01968490F004B1B7A /* XPSequenceExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPSequenceExpression.m; path = src/XPSequenceExpression.m; sourceTree = "<group>"; };
-		D37299A319684C36004B1B7A /* XPAtomicSequenceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPAtomicSequenceTest.m; path = test/XPAtomicSequenceTest.m; sourceTree = "<group>"; };
+		D37299A319684C36004B1B7A /* XPSequenceExtentTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPSequenceExtentTest.m; path = test/XPSequenceExtentTest.m; sourceTree = "<group>"; };
 		D37299A819684E91004B1B7A /* XPSequenceExtent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPSequenceExtent.h; path = src/XPSequenceExtent.h; sourceTree = "<group>"; };
 		D37299A919684E91004B1B7A /* XPSequenceExtent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPSequenceExtent.m; path = src/XPSequenceExtent.m; sourceTree = "<group>"; };
 		D37299AC1968509D004B1B7A /* XPSequenceExtentEnumeration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPSequenceExtentEnumeration.h; path = src/XPSequenceExtentEnumeration.h; sourceTree = "<group>"; };
@@ -1223,7 +1223,7 @@
 				D3A6C2E919073B4700F3EFF3 /* XPStepTest.m */,
 				D3BE141E191C05D600005C81 /* XPLocationPathNSXMLTest.m */,
 				D339F1E519279DAC00C79A51 /* XPLocationPathLibxmlTest.m */,
-				D37299A319684C36004B1B7A /* XPAtomicSequenceTest.m */,
+				D37299A319684C36004B1B7A /* XPSequenceExtentTest.m */,
 				D3BE1420191C087500005C81 /* book.xml */,
 			);
 			name = Expr;
@@ -1867,7 +1867,7 @@
 				D383A321187F7EA5006AE701 /* XPTestScaffold.m in Sources */,
 				D3ADFC55193B69A500223AB6 /* XPRegexTest.m in Sources */,
 				D339F67B192968C900C79A51 /* FNCompareTest.m in Sources */,
-				D37299A419684C36004B1B7A /* XPAtomicSequenceTest.m in Sources */,
+				D37299A419684C36004B1B7A /* XPSequenceExtentTest.m in Sources */,
 				D37A2B98101418EC00E936B7 /* FNBooleanTest.m in Sources */,
 				D37A2CDA10142EC100E936B7 /* FNCeilingTest.m in Sources */,
 				D339F6801929692C00C79A51 /* FNNormalizeUnicodeTest.m in Sources */,
