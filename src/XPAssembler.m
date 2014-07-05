@@ -13,6 +13,7 @@
 #import <PEGKit/PKParser+Subclass.h>
 
 #import "XPSequenceExpression.h"
+#import "XPRangeExpression.h"
 #import "XPBooleanExpression.h"
 #import "XPRelationalExpression.h"
 #import "XPArithmeticExpression.h"
@@ -124,23 +125,36 @@
 
 
 - (void)parser:(PKParser *)p didMatchOrAndExpr:(PKAssembly *)a { [self parser:p didMatchAnyBooleanExpr:a]; }
-- (void)parser:(PKParser *)p didMatchAndEqualityExpr:(PKAssembly *)a { [self parser:p didMatchAnyBooleanExpr:a]; }
+- (void)parser:(PKParser *)p didMatchAndRangeExpr:(PKAssembly *)a { [self parser:p didMatchAnyBooleanExpr:a]; }
 
 - (void)parser:(PKParser *)p didMatchAnyBooleanExpr:(PKAssembly *)a {
     XPValue *p2 = [a pop];
     PKToken *opTok = [a pop];
     XPValue *p1 = [a pop];
-
+    
     NSInteger op = XPEG_TOKEN_KIND_AND;
-
+    
     if ([@"or" isEqualToString:opTok.stringValue]) {
         op = XPEG_TOKEN_KIND_OR;
     }
-
+    
     XPExpression *boolExpr = [XPBooleanExpression booleanExpressionWithOperand:p1 operator:op operand:p2];
     boolExpr.range = NSMakeRange(p1.range.location, NSMaxRange(p2.range) - p1.range.location);
     boolExpr.staticContext = _env;
     [a push:boolExpr];
+}
+
+
+- (void)parser:(PKParser *)p didMatchToEqualityExpr:(PKAssembly *)a {
+    XPValue *p2 = [a pop];
+    XPValue *p1 = [a pop];
+    
+    NSInteger op = XPEG_TOKEN_KIND_TO;
+    
+    XPExpression *rangeExpr = [XPRangeExpression rangeExpressionWithOperand:p1 operator:op operand:p2];
+    rangeExpr.range = NSMakeRange(p1.range.location, NSMaxRange(p2.range) - p1.range.location);
+    rangeExpr.staticContext = _env;
+    [a push:rangeExpr];
 }
 
 

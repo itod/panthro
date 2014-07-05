@@ -58,12 +58,15 @@
 
 xpath = expr;
 expr = exprSingle exprSingleTail*;
-exprSingleTail = (','! exprSingle);
+    exprSingleTail = (','! exprSingle);
 exprSingle = orExpr;
     orExpr = andExpr orAndExpr*;
         orAndExpr = (or andExpr);
-        andExpr = equalityExpr andEqualityExpr*;
-            andEqualityExpr = (and equalityExpr);
+        andExpr = rangeExpr andRangeExpr*;
+            andRangeExpr = (and rangeExpr);
+
+        rangeExpr = equalityExpr toEqualityExpr?;
+            toEqualityExpr = (to equalityExpr);
 
             equalityExpr = relationalExpr eqRelationalExpr*;
                 eqRelationalExpr = ('=' | '!=') relationalExpr;
@@ -151,6 +154,7 @@ precedingSibling = 'preceding-sibling';
 self = 'self';
 div = 'div';
 mod = 'mod';
+to = 'to'!;
 or = 'or';
 and = 'and';
 true = 'true';

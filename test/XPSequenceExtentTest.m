@@ -179,7 +179,30 @@
         TDEqualObjects(@"chapter", node.name);
         TDEquals(XPNodeTypeElement, node.nodeType);
     }
-        
+    
+    TDFalse([enm hasMoreItems]);
+}
+
+
+- (void)testRange1to3 {
+    [self eval:@"1 to 3"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    XPValue *val = nil;
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"1", val.stringValue);
+    TDEquals(1.0, [val asNumber]);
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"2", val.stringValue);
+    TDEquals(2.0, [val asNumber]);
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"3", val.stringValue);
+    TDEquals(3.0, [val asNumber]);
+    
     TDFalse([enm hasMoreItems]);
 }
 

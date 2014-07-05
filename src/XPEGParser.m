@@ -11,7 +11,9 @@
 @property (nonatomic, retain) NSMutableDictionary *orExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *orAndExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *andExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *andEqualityExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *andRangeExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *rangeExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *toEqualityExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *equalityExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *eqRelationalExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *relationalExpr_memo;
@@ -86,6 +88,7 @@
 @property (nonatomic, retain) NSMutableDictionary *self_memo;
 @property (nonatomic, retain) NSMutableDictionary *div_memo;
 @property (nonatomic, retain) NSMutableDictionary *mod_memo;
+@property (nonatomic, retain) NSMutableDictionary *to_memo;
 @property (nonatomic, retain) NSMutableDictionary *or_memo;
 @property (nonatomic, retain) NSMutableDictionary *and_memo;
 @property (nonatomic, retain) NSMutableDictionary *true_memo;
@@ -152,6 +155,7 @@
         self.tokenKindTab[@"false"] = @(XPEG_TOKEN_KIND_FALSE);
         self.tokenKindTab[@"<="] = @(XPEG_TOKEN_KIND_LE_SYM);
         self.tokenKindTab[@"union"] = @(XPEG_TOKEN_KIND_UNION);
+        self.tokenKindTab[@"to"] = @(XPEG_TOKEN_KIND_TO);
         self.tokenKindTab[@"ancestor-or-self"] = @(XPEG_TOKEN_KIND_ANCESTORORSELF);
 
         self.tokenKindNameTab[XPEG_TOKEN_KIND_GE_SYM] = @">=";
@@ -202,6 +206,7 @@
         self.tokenKindNameTab[XPEG_TOKEN_KIND_FALSE] = @"false";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_LE_SYM] = @"<=";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_UNION] = @"union";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_TO] = @"to";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_ANCESTORORSELF] = @"ancestor-or-self";
 
         self.xpath_memo = [NSMutableDictionary dictionary];
@@ -211,7 +216,9 @@
         self.orExpr_memo = [NSMutableDictionary dictionary];
         self.orAndExpr_memo = [NSMutableDictionary dictionary];
         self.andExpr_memo = [NSMutableDictionary dictionary];
-        self.andEqualityExpr_memo = [NSMutableDictionary dictionary];
+        self.andRangeExpr_memo = [NSMutableDictionary dictionary];
+        self.rangeExpr_memo = [NSMutableDictionary dictionary];
+        self.toEqualityExpr_memo = [NSMutableDictionary dictionary];
         self.equalityExpr_memo = [NSMutableDictionary dictionary];
         self.eqRelationalExpr_memo = [NSMutableDictionary dictionary];
         self.relationalExpr_memo = [NSMutableDictionary dictionary];
@@ -286,6 +293,7 @@
         self.self_memo = [NSMutableDictionary dictionary];
         self.div_memo = [NSMutableDictionary dictionary];
         self.mod_memo = [NSMutableDictionary dictionary];
+        self.to_memo = [NSMutableDictionary dictionary];
         self.or_memo = [NSMutableDictionary dictionary];
         self.and_memo = [NSMutableDictionary dictionary];
         self.true_memo = [NSMutableDictionary dictionary];
@@ -308,7 +316,9 @@
     self.orExpr_memo = nil;
     self.orAndExpr_memo = nil;
     self.andExpr_memo = nil;
-    self.andEqualityExpr_memo = nil;
+    self.andRangeExpr_memo = nil;
+    self.rangeExpr_memo = nil;
+    self.toEqualityExpr_memo = nil;
     self.equalityExpr_memo = nil;
     self.eqRelationalExpr_memo = nil;
     self.relationalExpr_memo = nil;
@@ -383,6 +393,7 @@
     self.self_memo = nil;
     self.div_memo = nil;
     self.mod_memo = nil;
+    self.to_memo = nil;
     self.or_memo = nil;
     self.and_memo = nil;
     self.true_memo = nil;
@@ -404,7 +415,9 @@
     [_orExpr_memo removeAllObjects];
     [_orAndExpr_memo removeAllObjects];
     [_andExpr_memo removeAllObjects];
-    [_andEqualityExpr_memo removeAllObjects];
+    [_andRangeExpr_memo removeAllObjects];
+    [_rangeExpr_memo removeAllObjects];
+    [_toEqualityExpr_memo removeAllObjects];
     [_equalityExpr_memo removeAllObjects];
     [_eqRelationalExpr_memo removeAllObjects];
     [_relationalExpr_memo removeAllObjects];
@@ -479,6 +492,7 @@
     [_self_memo removeAllObjects];
     [_div_memo removeAllObjects];
     [_mod_memo removeAllObjects];
+    [_to_memo removeAllObjects];
     [_or_memo removeAllObjects];
     [_and_memo removeAllObjects];
     [_true_memo removeAllObjects];
@@ -607,9 +621,9 @@
 
 - (void)__andExpr {
     
-    [self equalityExpr_]; 
-    while ([self speculate:^{ [self andEqualityExpr_]; }]) {
-        [self andEqualityExpr_]; 
+    [self rangeExpr_]; 
+    while ([self speculate:^{ [self andRangeExpr_]; }]) {
+        [self andRangeExpr_]; 
     }
 
     [self fireDelegateSelector:@selector(parser:didMatchAndExpr:)];
@@ -619,16 +633,42 @@
     [self parseRule:@selector(__andExpr) withMemo:_andExpr_memo];
 }
 
-- (void)__andEqualityExpr {
+- (void)__andRangeExpr {
     
     [self and_]; 
-    [self equalityExpr_]; 
+    [self rangeExpr_]; 
 
-    [self fireDelegateSelector:@selector(parser:didMatchAndEqualityExpr:)];
+    [self fireDelegateSelector:@selector(parser:didMatchAndRangeExpr:)];
 }
 
-- (void)andEqualityExpr_ {
-    [self parseRule:@selector(__andEqualityExpr) withMemo:_andEqualityExpr_memo];
+- (void)andRangeExpr_ {
+    [self parseRule:@selector(__andRangeExpr) withMemo:_andRangeExpr_memo];
+}
+
+- (void)__rangeExpr {
+    
+    [self equalityExpr_]; 
+    if ([self speculate:^{ [self toEqualityExpr_]; }]) {
+        [self toEqualityExpr_]; 
+    }
+
+    [self fireDelegateSelector:@selector(parser:didMatchRangeExpr:)];
+}
+
+- (void)rangeExpr_ {
+    [self parseRule:@selector(__rangeExpr) withMemo:_rangeExpr_memo];
+}
+
+- (void)__toEqualityExpr {
+    
+    [self to_]; 
+    [self equalityExpr_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchToEqualityExpr:)];
+}
+
+- (void)toEqualityExpr_ {
+    [self parseRule:@selector(__toEqualityExpr) withMemo:_toEqualityExpr_memo];
 }
 
 - (void)__equalityExpr {
@@ -1703,6 +1743,17 @@
 
 - (void)mod_ {
     [self parseRule:@selector(__mod) withMemo:_mod_memo];
+}
+
+- (void)__to {
+    
+    [self match:XPEG_TOKEN_KIND_TO discard:YES]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchTo:)];
+}
+
+- (void)to_ {
+    [self parseRule:@selector(__to) withMemo:_to_memo];
 }
 
 - (void)__or {
