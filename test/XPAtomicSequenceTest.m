@@ -101,19 +101,14 @@
     
     id <XPSequenceEnumeration>enm = [_res enumerate];
 
-    id <XPItem>item = nil;
     XPValue *val = nil;
     
-    item = [enm nextItem];
-    TDEqualObjects(@"1", item.stringValue);
-    
-    val = (id)item;
+    val = [enm nextValue];
+    TDEqualObjects(@"1", val.stringValue);
     TDEquals(1.0, [val asNumber]);
     
-    item = [enm nextItem];
-    TDEqualObjects(@"2", item.stringValue);
-    
-    val = (id)item;
+    val = [enm nextValue];
+    TDEqualObjects(@"2", val.stringValue);
     TDEquals(2.0, [val asNumber]);
     
     TDFalse([enm hasMoreItems]);
