@@ -76,7 +76,7 @@
  * @return the value of the expression, evaluated in the current context
  */
 
-- (XPNodeSetValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
+- (XPSequenceValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
     return self;
 }
 
@@ -145,7 +145,7 @@
  * @return the same NodeSetValue, after sorting. (Historic)
  */
 
-- (XPNodeSetValue *)sort {
+- (XPSequenceValue *)sort {
     return self;
 }
 
@@ -180,13 +180,13 @@
         [other isObjectValue]) {
         return [[_node stringValue] isEqualToString:[other asString]];
         
-    } else if ([other isNodeSetValue]) {
+    } else if ([other isSequenceValue]) {
         
         // see if there is a node in A with the same string value as a node in B
         
         @try {
             NSString *value = [_node stringValue];
-            id <XPSequenceEnumeration>e2 = [(XPNodeSetValue *)other enumerate];
+            id <XPSequenceEnumeration>e2 = [(XPSequenceValue *)other enumerate];
             while ([e2 hasMoreItems]) {
                 if ([[[e2 nextItem] stringValue] isEqualToString:value]) return YES;
             }
@@ -227,12 +227,12 @@
         [other isObjectValue]) {
         return ![[_node stringValue] isEqualToString:[other asString]];
         
-    } else if ([other isNodeSetValue]) {
+    } else if ([other isSequenceValue]) {
         
         @try {
             NSString *value = [_node stringValue];
             
-            id <XPSequenceEnumeration>e2 = [(XPNodeSetValue *)other enumerate];
+            id <XPSequenceEnumeration>e2 = [(XPSequenceValue *)other enumerate];
             while ([e2 hasMoreItems]) {
                 if (![[[e2 nextItem] stringValue] isEqualToString:value]) return YES;
             }

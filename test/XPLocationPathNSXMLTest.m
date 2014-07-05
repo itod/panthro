@@ -17,7 +17,7 @@
 @interface XPLocationPathNSXMLTest : XCTestCase
 @property (nonatomic, retain) XPStandaloneContext *env;
 @property (nonatomic, retain) NSXMLNode *contextNode;
-@property (nonatomic, retain) XPNodeSetValue *res;
+@property (nonatomic, retain) XPSequenceValue *res;
 @property (nonatomic, retain) NSArray *ids;
 @property (nonatomic, retain) NSArray *titles;
 @property (nonatomic, retain) NSArray *paras;

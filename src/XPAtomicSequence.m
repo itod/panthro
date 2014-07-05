@@ -63,10 +63,45 @@
 //}
 
 
-#pragma mark -
-#pragma mark XPAtomicSequence
+- (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)yn {
+    if (yn) [self sort];
+    return [self enumerate];
+}
 
-- (XPValue *)head {
+
+- (BOOL)isSorted {
+    return YES;
+}
+
+
+- (BOOL)isReverseSorted {
+    return NO;
+}
+
+
+- (void)setSorted:(BOOL)sorted {}
+- (void)setReverseSorted:(BOOL)reverseSorted {}
+
+
+- (NSString *)asString {
+    return [[self head] stringValue];
+}
+
+
+- (BOOL)asBoolean {
+    return [self count] > 0;
+}
+
+
+- (XPSequenceValue *)sort {
+    return self;
+}
+
+
+#pragma mark -
+#pragma mark XPSequence
+
+- (id <XPItem>)head {
     return [self itemAt:0];
 }
 
@@ -76,6 +111,9 @@
     return enm;
 }
 
+
+#pragma mark -
+#pragma mark XPAtomicSequence
 
 - (XPValue *)itemAt:(NSUInteger)i {
     XPAssert(_content);

@@ -26,7 +26,7 @@
 }
 
 
-- (XPNodeSetValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
+- (XPSequenceValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
     return self;
 }
 
@@ -59,7 +59,7 @@
 }
 
 
-- (XPNodeSetValue *)sort {
+- (XPSequenceValue *)sort {
     return nil;
 }
 

@@ -360,7 +360,7 @@
 
 
 #if PAUSE_ENABLED
-- (void)pauseFrom:(XPExpression *)expr withContextNodes:(XPNodeSetValue *)ctxNodes result:(XPValue *)result range:(NSRange)range done:(BOOL)isDone {
+- (void)pauseFrom:(XPExpression *)expr withContextNodes:(XPSequenceValue *)ctxNodes result:(XPValue *)result range:(NSRange)range done:(BOOL)isDone {
     XPAssert(expr);
     XPAssert(ctxNodes);
     XPAssert(result);

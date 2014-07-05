@@ -15,7 +15,7 @@
 		D33097381921BE99004317EA /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33097361921BE99004317EA /* PEGKit.framework */; };
 		D330973B1921BED5004317EA /* TDTemplateEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D330973A1921BED5004317EA /* TDTemplateEngine.framework */; };
 		D334BAB4192193AA00A32DD6 /* XPLastPositionFinder.h in Headers */ = {isa = PBXBuildFile; fileRef = D334BAB3192193AA00A32DD6 /* XPLastPositionFinder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3363817100C6E0400AC4B51 /* XPNodeSetValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D3363815100C6E0400AC4B51 /* XPNodeSetValue.m */; };
+		D3363817100C6E0400AC4B51 /* XPSequenceValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D3363815100C6E0400AC4B51 /* XPSequenceValue.m */; };
 		D336381C100C6E2800AC4B51 /* XPNumericValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D336381A100C6E2800AC4B51 /* XPNumericValue.m */; };
 		D3363820100C6E4400AC4B51 /* XPStringValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D336381E100C6E4400AC4B51 /* XPStringValue.m */; };
 		D3363956100D813500AC4B51 /* XPObjectValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D3363954100D813500AC4B51 /* XPObjectValue.m */; };
@@ -370,7 +370,7 @@
 		D3F0CC01191EC8100049EC02 /* XPSequenceEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CC00191EC8100049EC02 /* XPSequenceEnumeration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3F0CC03191EC8180049EC02 /* XPExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CC02191EC8180049EC02 /* XPExpression.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3F0CC0A191EC8250049EC02 /* XPBooleanValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CC04191EC8250049EC02 /* XPBooleanValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3F0CC0B191EC8250049EC02 /* XPNodeSetValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CC05191EC8250049EC02 /* XPNodeSetValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3F0CC0B191EC8250049EC02 /* XPSequenceValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CC05191EC8250049EC02 /* XPSequenceValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3F0CC0C191EC8250049EC02 /* XPNumericValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CC06191EC8250049EC02 /* XPNumericValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3F0CC0D191EC8250049EC02 /* XPObjectValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CC07191EC8250049EC02 /* XPObjectValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3F0CC0E191EC8250049EC02 /* XPStringValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CC08191EC8250049EC02 /* XPStringValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -401,7 +401,7 @@
 		D33097361921BE99004317EA /* PEGKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PEGKit.framework; path = "../../../Library/Developer/Xcode/DerivedData/Panthro-dmvdaloqmsblyzezdvatkwnhfouk/Build/Products/Debug/PEGKit.framework"; sourceTree = "<group>"; };
 		D330973A1921BED5004317EA /* TDTemplateEngine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TDTemplateEngine.framework; path = "../../../Library/Developer/Xcode/DerivedData/Panthro-dmvdaloqmsblyzezdvatkwnhfouk/Build/Products/Debug/TDTemplateEngine.framework"; sourceTree = "<group>"; };
 		D334BAB3192193AA00A32DD6 /* XPLastPositionFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPLastPositionFinder.h; path = include/Panthro/XPLastPositionFinder.h; sourceTree = "<group>"; };
-		D3363815100C6E0400AC4B51 /* XPNodeSetValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNodeSetValue.m; path = src/XPNodeSetValue.m; sourceTree = "<group>"; };
+		D3363815100C6E0400AC4B51 /* XPSequenceValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPSequenceValue.m; path = src/XPSequenceValue.m; sourceTree = "<group>"; };
 		D336381A100C6E2800AC4B51 /* XPNumericValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNumericValue.m; path = src/XPNumericValue.m; sourceTree = "<group>"; };
 		D336381E100C6E4400AC4B51 /* XPStringValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPStringValue.m; path = src/XPStringValue.m; sourceTree = "<group>"; };
 		D336393F100D7EB400AC4B51 /* XPSingletonNodeSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPSingletonNodeSet.m; path = src/XPSingletonNodeSet.m; sourceTree = "<group>"; };
@@ -768,7 +768,7 @@
 		D3F0CC00191EC8100049EC02 /* XPSequenceEnumeration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPSequenceEnumeration.h; path = include/Panthro/XPSequenceEnumeration.h; sourceTree = "<group>"; };
 		D3F0CC02191EC8180049EC02 /* XPExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPExpression.h; path = include/Panthro/XPExpression.h; sourceTree = "<group>"; };
 		D3F0CC04191EC8250049EC02 /* XPBooleanValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPBooleanValue.h; path = include/Panthro/XPBooleanValue.h; sourceTree = "<group>"; };
-		D3F0CC05191EC8250049EC02 /* XPNodeSetValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPNodeSetValue.h; path = include/Panthro/XPNodeSetValue.h; sourceTree = "<group>"; };
+		D3F0CC05191EC8250049EC02 /* XPSequenceValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPSequenceValue.h; path = include/Panthro/XPSequenceValue.h; sourceTree = "<group>"; };
 		D3F0CC06191EC8250049EC02 /* XPNumericValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPNumericValue.h; path = include/Panthro/XPNumericValue.h; sourceTree = "<group>"; };
 		D3F0CC07191EC8250049EC02 /* XPObjectValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPObjectValue.h; path = include/Panthro/XPObjectValue.h; sourceTree = "<group>"; };
 		D3F0CC08191EC8250049EC02 /* XPStringValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPStringValue.h; path = include/Panthro/XPStringValue.h; sourceTree = "<group>"; };
@@ -1324,8 +1324,8 @@
 				D336381A100C6E2800AC4B51 /* XPNumericValue.m */,
 				D3F0CC08191EC8250049EC02 /* XPStringValue.h */,
 				D336381E100C6E4400AC4B51 /* XPStringValue.m */,
-				D3F0CC05191EC8250049EC02 /* XPNodeSetValue.h */,
-				D3363815100C6E0400AC4B51 /* XPNodeSetValue.m */,
+				D3F0CC05191EC8250049EC02 /* XPSequenceValue.h */,
+				D3363815100C6E0400AC4B51 /* XPSequenceValue.m */,
 				D3F0CBEA191EC5880049EC02 /* XPNodeSetExtent.h */,
 				D3F0CBEB191EC5880049EC02 /* XPNodeSetExtent.m */,
 				D3F0CBEC191EC5880049EC02 /* XPNodeSetIntent.h */,
@@ -1441,7 +1441,7 @@
 				D37299A11968490F004B1B7A /* XPSequenceExpression.h in Headers */,
 				D3F0CBAB191EC23D0049EC02 /* FNStringLength.h in Headers */,
 				D3A6C2EF1907413800F3EFF3 /* XPStep.h in Headers */,
-				D3F0CC0B191EC8250049EC02 /* XPNodeSetValue.h in Headers */,
+				D3F0CC0B191EC8250049EC02 /* XPSequenceValue.h in Headers */,
 				D3C0F59E19214FE700566524 /* FNTrimSpace.h in Headers */,
 				D339F66C1928EA1100C79A51 /* FNId.h in Headers */,
 				D3F0CBA6191EC23D0049EC02 /* FNNumber.h in Headers */,
@@ -1692,7 +1692,7 @@
 				D339311719204E9E00259939 /* FNAbs.m in Sources */,
 				D3C0F58A1921255C00566524 /* FNLocalName.m in Sources */,
 				D339F6471927B66500C79A51 /* xmlmemory.c in Sources */,
-				D3363817100C6E0400AC4B51 /* XPNodeSetValue.m in Sources */,
+				D3363817100C6E0400AC4B51 /* XPSequenceValue.m in Sources */,
 				D336381C100C6E2800AC4B51 /* XPNumericValue.m in Sources */,
 				D339F6131927B66500C79A51 /* c14n.c in Sources */,
 				D339F61D1927B66500C79A51 /* legacy.c in Sources */,

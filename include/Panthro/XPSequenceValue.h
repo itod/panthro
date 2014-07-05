@@ -1,5 +1,5 @@
 //
-//  XPNodeSetValue.h
+//  XPSequenceValue.h
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 7/14/09.
@@ -12,14 +12,15 @@
 @protocol XPSequenceEnumeration;
 @protocol XPNodeInfo;
 
-@interface XPNodeSetValue : XPValue
+@interface XPSequenceValue : XPValue
 
 - (id <XPSequenceEnumeration>)enumerate;
 - (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted;
 
 - (NSUInteger)count;
-- (XPNodeSetValue *)sort;
+- (XPSequenceValue *)sort;
 - (id <XPNodeInfo>)firstNode;
+- (XPValue *)firstValue;
 
 @property (nonatomic, assign, getter=isSorted) BOOL sorted;
 @property (nonatomic, assign, getter=isReverseSorted) BOOL reverseSorted;

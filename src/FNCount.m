@@ -10,7 +10,7 @@
 #import "XPValue.h"
 #import "XPNumericValue.h"
 #import "XPSequenceEnumeration.h"
-#import "XPNodeSetValue.h"
+#import "XPSequenceValue.h"
 
 @interface XPExpression ()
 @property (nonatomic, retain) NSMutableArray *args;
@@ -51,7 +51,7 @@
 
 - (double)evaluateAsNumberInContext:(XPContext *)ctx {
     NSInteger n = 0;
-    id <XPSequenceEnumeration>enm = [(XPNodeSetValue *)self.args[0] enumerateInContext:ctx sorted:YES];
+    id <XPSequenceEnumeration>enm = [(XPSequenceValue *)self.args[0] enumerateInContext:ctx sorted:YES];
     while ([enm hasMoreItems]) {
         [enm nextItem];
         n++;

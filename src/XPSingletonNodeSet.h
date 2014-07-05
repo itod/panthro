@@ -6,11 +6,11 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "XPNodeSetValue.h"
+#import "XPSequenceValue.h"
 
 @protocol XPNodeInfo;
 
-@interface XPSingletonNodeSet : XPNodeSetValue
+@interface XPSingletonNodeSet : XPSequenceValue
 
 + (instancetype)singletonNodeSetWithNode:(id <XPNodeInfo>)node;
 - (instancetype)initWithNode:(id <XPNodeInfo>)node;

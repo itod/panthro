@@ -10,7 +10,7 @@
 #import "XPBooleanValue.h"
 #import "XPNumericValue.h"
 #import "XPStringValue.h"
-#import "XPNodeSetValue.h"
+#import "XPSequenceValue.h"
 #import "XPObjectValue.h"
 #import "XPAtomicSequence.h"
 #import "XPEGParser.h"
@@ -112,7 +112,7 @@ double XPNumberFromString(NSString *s) {
 - (BOOL)isEqualToValue:(XPValue *)other {
 
     // if this is a NodeSet value, the method will be handled by the NodeSetValue class
-    if ([other isNodeSetValue]) {
+    if ([other isSequenceValue]) {
         return [other isEqualToValue:self];
     }
     
@@ -131,7 +131,7 @@ double XPNumberFromString(NSString *s) {
 - (BOOL)isNotEqualToValue:(XPValue *)other {
 
     // if this is a NodeSet value, the method will be handled by the NodeSetValue class
-    if ([other isNodeSetValue]) {
+    if ([other isSequenceValue]) {
         return [other isNotEqualToValue:self];
     }
     
@@ -144,7 +144,7 @@ double XPNumberFromString(NSString *s) {
     if (op == XPEG_TOKEN_KIND_EQUALS) return [self isEqualToValue:other];
     if (op == XPEG_TOKEN_KIND_NOT_EQUAL) return [self isNotEqualToValue:other];
     
-    if ([other isNodeSetValue]) {
+    if ([other isSequenceValue]) {
         return [other compareToValue:self usingOperator:[self inverseOperator:op]];
     }
     
@@ -204,8 +204,8 @@ double XPNumberFromString(NSString *s) {
 }
 
 
-- (BOOL)isNodeSetValue {
-    return [self isKindOfClass:[XPNodeSetValue class]];
+- (BOOL)isSequenceValue {
+    return [self isKindOfClass:[XPSequenceValue class]];
 }
 
 

@@ -6,12 +6,12 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "XPNodeSetValue.h"
+#import "XPSequenceValue.h"
 
 @protocol XPNodeOrderComparer;
 @class XPNodeSetExpression;
 
-@interface XPNodeSetIntent : XPNodeSetValue
+@interface XPNodeSetIntent : XPSequenceValue
 
 - (instancetype)initWithNodeSetExpression:(XPNodeSetExpression *)expr comparer:(id <XPNodeOrderComparer>)comparer;
 

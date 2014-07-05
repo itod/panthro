@@ -76,7 +76,7 @@
  * @return the value of the expression, evaluated in the current context
  */
 
-- (XPNodeSetValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
+- (XPSequenceValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
     return [[[XPSingletonNodeSet alloc] initWithNode:[self nodeInContext:ctx]] autorelease];
 }
 

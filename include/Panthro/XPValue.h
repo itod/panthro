@@ -30,6 +30,6 @@ double XPNumberFromString(NSString *s);
 - (BOOL)isBooleanValue;
 - (BOOL)isNumericValue;
 - (BOOL)isStringValue;
-- (BOOL)isNodeSetValue;
+- (BOOL)isSequenceValue;
 - (BOOL)isObjectValue;
 @end

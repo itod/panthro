@@ -1,12 +1,12 @@
 //
-//  XPNodeSetValue.m
+//  XPSequenceValue.m
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 7/14/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "XPNodeSetValue.h"
+#import "XPSequenceValue.h"
 #import "XPNodeInfo.h"
 #import "XPNodeInfo.h"
 #import "XPBooleanValue.h"
@@ -17,11 +17,11 @@
 #import "XPException.h"
 #import "XPEGParser.h"
 
-@interface XPNodeSetValue ()
+@interface XPSequenceValue ()
 @property (nonatomic, retain) NSDictionary *stringValues;
 @end
 
-@implementation XPNodeSetValue
+@implementation XPSequenceValue
 
 - (void)dealloc {
     self.stringValues = nil;
@@ -40,7 +40,7 @@
 }
 
 
-- (XPNodeSetValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
+- (XPSequenceValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
     [self sort];
     return self;
 }
@@ -103,15 +103,27 @@
 }
 
 
-- (XPNodeSetValue *)sort {
+- (XPSequenceValue *)sort {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return self;
 }
 
 
 - (id <XPNodeInfo>)firstNode {
-    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
-    return nil;
+    id <XPItem>item = [self head];
+    if (![item conformsToProtocol:@protocol(XPNodeInfo)]) {
+        [XPException raiseIn:self format:@"Expected node value, found: %@", item];
+    }
+    return (id <XPNodeInfo>)item;
+}
+
+
+- (XPValue *)firstValue {
+    id <XPItem>item = [self head];
+    if (![item isKindOfClass:[XPValue class]]) {
+        [XPException raiseIn:self format:@"Expected atomic value, found: %@", item];
+    }
+    return (XPValue *)item;
 }
 
 
@@ -133,7 +145,7 @@
     if ([other isObjectValue]) {
         return NO;
     
-    } else if ([other isNodeSetValue]) {
+    } else if ([other isSequenceValue]) {
         
         // singleton node-set
         if ([other isKindOfClass:[XPSingletonNodeSet class]]) {
@@ -146,7 +158,7 @@
         } else {
             NSDictionary *table = [self stringValues];
             
-            id <XPSequenceEnumeration>e2 = [(XPNodeSetValue *)other enumerate];
+            id <XPSequenceEnumeration>e2 = [(XPSequenceValue *)other enumerate];
             for (id node in e2) {
                 if ([table objectForKey:[node stringValue]]) return YES;
             }
@@ -185,7 +197,7 @@
     if ([other isObjectValue]) {
         return NO;
         
-    } else if ([other isNodeSetValue]) {
+    } else if ([other isSequenceValue]) {
         
         // singleton node-set
         if ([other isKindOfClass:[XPSingletonNodeSet class]]) {
@@ -203,7 +215,7 @@
             id <XPSequenceEnumeration>e1 = [self enumerate];
             while ([e1 hasMoreItems]) {
                 NSString *s1 = [[e1 nextItem] stringValue];
-                id <XPSequenceEnumeration>e2 = [(XPNodeSetValue *)other enumerate];
+                id <XPSequenceEnumeration>e2 = [(XPSequenceValue *)other enumerate];
                 while ([e2 hasMoreItems]) {
                     NSString *s2 = [[e2 nextItem] stringValue];
                     if (![s1 isEqualToString:s2]) return YES;
@@ -262,7 +274,7 @@
     if (op == XPEG_TOKEN_KIND_EQUALS) return [self isEqualToValue:other];
     if (op == XPEG_TOKEN_KIND_NOT_EQUAL) return [self isNotEqualToValue:other];
     
-    if ([other isNodeSetValue]) {
+    if ([other isSequenceValue]) {
         
         // find the min and max values in this nodeset
         
@@ -286,7 +298,7 @@
         double othermin = INFINITY; //Double.POSITIVE_INFINITY;
         BOOL otherIsEmpty = YES;
         
-        id <XPSequenceEnumeration>e2 = [(XPNodeSetValue *)other enumerate];
+        id <XPSequenceEnumeration>e2 = [(XPSequenceValue *)other enumerate];
         while ([e2 hasMoreItems]) {
             double val = XPNumberFromString([[e2 nextItem] stringValue]);
             if (val < othermin) othermin = val;

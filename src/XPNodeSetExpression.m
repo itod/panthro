@@ -39,7 +39,7 @@
     XPValue *result = nil;
     XPExpression *expr = [self reduceDependencies:XPDependenciesAll inContext:ctx];
     
-    if ([expr isKindOfClass:[XPNodeSetValue class]]) {
+    if ([expr isKindOfClass:[XPSequenceValue class]]) {
         result = (XPValue *)expr;
 
     } else if ([expr isKindOfClass:[XPNodeSetExpression class]]) {
@@ -47,7 +47,7 @@
         id <XPSequenceEnumeration>enm = [(XPNodeSetExpression *)expr enumerateInContext:ctx sorted:YES];
         
         if (enm) {
-            XPNodeSetValue *nodeSet = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:nil] autorelease];
+            XPSequenceValue *nodeSet = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:nil] autorelease];
             nodeSet.range = self.range;
             result = nodeSet;
         } else {
@@ -59,7 +59,7 @@
 
     } else {
         result = [expr evaluateInContext:ctx];
-        if (![result isKindOfClass:[XPNodeSetValue class]]) {
+        if (![result isKindOfClass:[XPSequenceValue class]]) {
             [XPException raiseIn:self format:@"Value must be a node-set. it is a %@", [expr class]];
         }
     }

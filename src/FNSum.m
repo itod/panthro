@@ -9,7 +9,7 @@
 #import "FNSum.h"
 #import "XPValue.h"
 #import "XPNumericValue.h"
-#import "XPNodeSetValue.h"
+#import "XPSequenceValue.h"
 #import "XPSequenceEnumeration.h"
 
 @interface XPExpression ()

@@ -21,7 +21,7 @@
 @property (nonatomic, retain) XPStandaloneContext *env;
 @property (nonatomic, assign) xmlNodePtr contextNode;
 @property (nonatomic, assign) xmlParserCtxtPtr parserCtx;
-@property (nonatomic, retain) XPNodeSetValue *res;
+@property (nonatomic, retain) XPSequenceValue *res;
 @property (nonatomic, retain) NSArray *ids;
 @property (nonatomic, retain) NSArray *titles;
 @property (nonatomic, retain) NSArray *paras;

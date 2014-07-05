@@ -29,7 +29,7 @@
 #import <Panthro/XPBooleanValue.h>
 #import <Panthro/XPNumericValue.h>
 #import <Panthro/XPStringValue.h>
-#import <Panthro/XPNodeSetValue.h>
+//#import <Panthro/XPSequenceValue.h>
 #import <Panthro/XPEmptyNodeSet.h>
 #import <Panthro/XPObjectValue.h>
 

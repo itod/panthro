@@ -10,7 +10,7 @@
 #import "XPNodeInfo.h"
 #import "XPContext.h"
 #import "XPStringValue.h"
-#import "XPNodeSetValue.h"
+#import "XPSequenceValue.h"
 
 @interface XPExpression ()
 @property (nonatomic, retain) NSMutableArray *args;
@@ -47,7 +47,7 @@
 - (NSString *)evaluateAsStringInContext:(XPContext *)ctx {
     id <XPNodeInfo>node = nil;
     if (1 == [self numberOfArguments]) {
-        XPNodeSetValue *nodeSet = [[self.args[0] evaluateAsNodeSetInContext:ctx] sort];
+        XPSequenceValue *nodeSet = [[self.args[0] evaluateAsNodeSetInContext:ctx] sort];
         node = [nodeSet firstNode];
     } else {
         node = ctx.contextNode;

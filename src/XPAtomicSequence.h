@@ -6,10 +6,9 @@
 //
 //
 
-#import <Panthro/XPValue.h>
-#import <Panthro/XPSequence.h>
+#import "XPSequenceValue.h"
 
-@interface XPAtomicSequence : XPValue <XPSequence>
+@interface XPAtomicSequence : XPSequenceValue
 
 - (instancetype)initWithContent:(NSArray *)v;
 

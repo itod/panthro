@@ -18,7 +18,7 @@
 @property (nonatomic, retain) XPExpression *expr;
 @property (nonatomic, retain) id <XPStaticContext>env;
 @property (nonatomic, retain) XPContext *ctx;
-@property (nonatomic, retain) XPNodeSetValue *res;
+@property (nonatomic, retain) XPSequenceValue *res;
 @end
 
 @implementation XPStepTest
@@ -51,7 +51,7 @@
     TDNotNil(_expr);
     
     self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    TDTrue([_res isKindOfClass:[XPSequenceValue class]]);
     
     id <XPSequenceEnumeration>enm = [_res enumerate];
     
@@ -68,7 +68,7 @@
     TDNotNil(_expr);
     
     self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    TDTrue([_res isKindOfClass:[XPSequenceValue class]]);
     
     id <XPSequenceEnumeration>enm = [_res enumerate];
     
@@ -85,7 +85,7 @@
     TDNotNil(_expr);
     
     self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    TDTrue([_res isKindOfClass:[XPSequenceValue class]]);
     
     id <XPSequenceEnumeration>enm = [_res enumerate];
     
@@ -102,7 +102,7 @@
     TDNotNil(_expr);
     
     self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    TDTrue([_res isKindOfClass:[XPSequenceValue class]]);
     
     id <XPSequenceEnumeration>enm = [_res enumerate];
     
@@ -119,7 +119,7 @@
     TDNotNil(_expr);
     
     self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    TDTrue([_res isKindOfClass:[XPSequenceValue class]]);
     
     id <XPSequenceEnumeration>enm = [_res enumerate];
     
@@ -136,7 +136,7 @@
     TDNotNil(_expr);
     
     self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    TDTrue([_res isKindOfClass:[XPSequenceValue class]]);
     
     id <XPSequenceEnumeration>enm = [_res enumerate];
     

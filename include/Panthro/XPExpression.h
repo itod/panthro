@@ -13,7 +13,7 @@
 
 @class XPContext;
 @class XPValue;
-@class XPNodeSetValue;
+@class XPSequenceValue;
 @class XPFunction;
 
 extern NSString * const XPathErrorDomain;
@@ -54,7 +54,7 @@ typedef NS_ENUM(NSUInteger, XPDependencies) {
 - (BOOL)evaluateAsBooleanInContext:(XPContext *)ctx;
 - (double)evaluateAsNumberInContext:(XPContext *)ctx;
 - (NSString *)evaluateAsStringInContext:(XPContext *)ctx;
-- (XPNodeSetValue *)evaluateAsNodeSetInContext:(XPContext *)ctx;
+- (XPSequenceValue *)evaluateAsNodeSetInContext:(XPContext *)ctx;
 
 - (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted;
 

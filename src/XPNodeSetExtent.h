@@ -6,13 +6,13 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "XPNodeSetValue.h"
+#import "XPSequenceValue.h"
 #import "XPSortable.h"
 
 @protocol XPSequenceEnumeration;
 @protocol XPNodeOrderComparer;
 
-@interface XPNodeSetExtent : XPNodeSetValue <XPSortable>
+@interface XPNodeSetExtent : XPSequenceValue <XPSortable>
 
 - (instancetype)initWithNodes:(NSArray *)nodes comparer:(id <XPNodeOrderComparer>)comparer;
 - (instancetype)initWithEnumeration:(id <XPSequenceEnumeration>)enm comparer:(id <XPNodeOrderComparer>)comparer;

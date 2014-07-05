@@ -60,9 +60,9 @@
 }
 
 
-- (XPNodeSetValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
+- (XPSequenceValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
     id arg = [self.args[0] evaluateInContext:ctx];
-    XPNodeSetValue *nodeSet = [self findId:arg inContext:ctx];
+    XPSequenceValue *nodeSet = [self findId:arg inContext:ctx];
     nodeSet.range = self.range;
     return nodeSet;
 }
@@ -103,7 +103,7 @@
  * This method actually evaluates the function
  */
 
-- (XPNodeSetValue *)findId:(XPValue *)arg0 inContext:(XPContext *)ctx {
+- (XPSequenceValue *)findId:(XPValue *)arg0 inContext:(XPContext *)ctx {
     NSMutableArray *idrefresult = nil;
     id <XPDocumentInfo>doc = nil;
     
@@ -113,9 +113,9 @@
         doc = ctx.contextNode.documentRoot;
     }
     
-    if ([arg0 isNodeSetValue] /* && ![arg0 isKindOfClass:[XPFragmentValue class]]*/) {
+    if ([arg0 isSequenceValue] /* && ![arg0 isKindOfClass:[XPFragmentValue class]]*/) {
         
-        id <XPSequenceEnumeration>enm = [(XPNodeSetValue *)arg0 enumerate];
+        id <XPSequenceEnumeration>enm = [(XPSequenceValue *)arg0 enumerate];
         while ([enm hasMoreItems]) {
             id <XPNodeInfo>node = [enm nextNodeInfo];
             NSString *s = node.stringValue;
@@ -152,7 +152,7 @@
     if (1 == [idrefresult count]) {
         return [XPSingletonNodeSet singletonNodeSetWithNode:idrefresult[0]];
     }
-    XPNodeSetValue *nodeSet = [[[XPNodeSetExtent alloc] initWithNodes:idrefresult comparer:nil] autorelease];
+    XPSequenceValue *nodeSet = [[[XPNodeSetExtent alloc] initWithNodes:idrefresult comparer:nil] autorelease];
     [nodeSet sort];
     return nodeSet;
 }
