@@ -66,7 +66,7 @@
  */
 
 - (id<XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
-    return [[[XPSingletonEnumeration alloc] initWithNode:[self nodeInContext:ctx]] autorelease];
+    return [[[XPSingletonEnumeration alloc] initWithItem:[self nodeInContext:ctx]] autorelease];
 }
 
 

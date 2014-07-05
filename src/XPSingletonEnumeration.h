@@ -10,5 +10,5 @@
 #import "XPAxisEnumeration.h"
 
 @interface XPSingletonEnumeration : XPBaseFastEnumeration <XPAxisEnumeration>
-- (instancetype)initWithNode:(id <XPItem>)node;
+- (instancetype)initWithItem:(id <XPItem>)node;
 @end

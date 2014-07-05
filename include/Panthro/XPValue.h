@@ -6,13 +6,14 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "XPAbstractItem.h"
+#import <Panthro/XPExpression.h>
+#import <Panthro/XPItem.h>
 
 @class XPContext;
 
 double XPNumberFromString(NSString *s);
 
-@interface XPValue : XPAbstractItem
+@interface XPValue : XPExpression <XPItem>
 
 - (NSString *)asString;
 - (double)asNumber;

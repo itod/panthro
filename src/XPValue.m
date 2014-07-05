@@ -12,6 +12,7 @@
 #import "XPStringValue.h"
 #import "XPNodeSetValue.h"
 #import "XPObjectValue.h"
+#import "XPSingletonEnumeration.h"
 #import "XPEGParser.h"
 
 double XPNumberFromString(NSString *s) {
@@ -50,10 +51,29 @@ double XPNumberFromString(NSString *s) {
 
 @implementation XPValue
 
+#pragma mark -
+#pragma mark XPSequence
+
+- (id <XPItem>)head {
+    return self;
+}
+
+
+- (id <XPSequenceEnumeration>)enumerate {
+    return [[[XPSingletonEnumeration alloc] initWithItem:self] autorelease];
+}
+
+
+#pragma mark -
+#pragma mark XPItem
+
 - (NSString *)stringValue {
     return [self asString];
 }
 
+
+#pragma mark -
+#pragma mark XPExpression
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
     return self;

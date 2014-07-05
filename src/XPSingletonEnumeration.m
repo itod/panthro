@@ -18,12 +18,12 @@
 @implementation XPSingletonEnumeration
 
 - (instancetype)init {
-    self = [self initWithNode:nil];
+    self = [self initWithItem:nil];
     return self;
 }
 
 
-- (instancetype)initWithNode:(id <XPItem>)node {
+- (instancetype)initWithItem:(id <XPItem>)node {
     self = [super init];
     if (self) {
         self.node = node;
