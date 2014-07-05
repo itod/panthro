@@ -105,10 +105,11 @@ pathExpr = filterPath | locationPath;
             firstRelativeStep = step;
 
     filterExpr = primaryExpr predicate*;
-        primaryExpr = variableReference | literal | number | functionCall | '('! expr ')'!;
+        primaryExpr = variableReference | literal | number | functionCall | parenthesizedExpr;
             variableReference = '$' qName; // note whitespace is not allowed here. also qName is optional
             literal = QuotedString;
             number = Number;
+            parenthesizedExpr = '(' expr ')'!;
             functionCall = actualFunctionCall | booleanLiteralFunctionCall;
                 actualFunctionCall = functionName '(' (argument (','! argument)* )? ')';
                 booleanLiteralFunctionCall = booleanLiteral '('! ')';

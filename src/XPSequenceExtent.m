@@ -8,6 +8,7 @@
 
 #import "XPSequenceExtent.h"
 #import "XPSequenceExtentEnumeration.h"
+#import "XPEmptySequence.h"
 
 @interface XPSequenceExtent ()
 @property (nonatomic, retain) NSArray *content;
@@ -51,14 +52,26 @@
 #pragma mark -
 #pragma mark XPExpression
 
+- (XPExpression *)simplify {
+    XPExpression *result = self;
+
+    if (0 == [self count]) {
+        result = [XPEmptySequence instance];
+        result.staticContext = self.staticContext;
+        result.range = self.range;
+    }
+
+    return result;
+}
+
+
 - (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)yn {
-    if (yn) [self sort];
     return [self enumerate];
 }
 
 
 - (BOOL)isSorted {
-    return YES;
+    return NO;
 }
 
 

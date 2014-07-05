@@ -48,6 +48,7 @@
 @property (nonatomic, retain) NSMutableDictionary *variableReference_memo;
 @property (nonatomic, retain) NSMutableDictionary *literal_memo;
 @property (nonatomic, retain) NSMutableDictionary *number_memo;
+@property (nonatomic, retain) NSMutableDictionary *parenthesizedExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *functionCall_memo;
 @property (nonatomic, retain) NSMutableDictionary *actualFunctionCall_memo;
 @property (nonatomic, retain) NSMutableDictionary *booleanLiteralFunctionCall_memo;
@@ -253,6 +254,7 @@
         self.variableReference_memo = [NSMutableDictionary dictionary];
         self.literal_memo = [NSMutableDictionary dictionary];
         self.number_memo = [NSMutableDictionary dictionary];
+        self.parenthesizedExpr_memo = [NSMutableDictionary dictionary];
         self.functionCall_memo = [NSMutableDictionary dictionary];
         self.actualFunctionCall_memo = [NSMutableDictionary dictionary];
         self.booleanLiteralFunctionCall_memo = [NSMutableDictionary dictionary];
@@ -353,6 +355,7 @@
     self.variableReference_memo = nil;
     self.literal_memo = nil;
     self.number_memo = nil;
+    self.parenthesizedExpr_memo = nil;
     self.functionCall_memo = nil;
     self.actualFunctionCall_memo = nil;
     self.booleanLiteralFunctionCall_memo = nil;
@@ -452,6 +455,7 @@
     [_variableReference_memo removeAllObjects];
     [_literal_memo removeAllObjects];
     [_number_memo removeAllObjects];
+    [_parenthesizedExpr_memo removeAllObjects];
     [_functionCall_memo removeAllObjects];
     [_actualFunctionCall_memo removeAllObjects];
     [_booleanLiteralFunctionCall_memo removeAllObjects];
@@ -1131,9 +1135,7 @@
     } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIV, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_MOD, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TRUE, 0]) {
         [self functionCall_]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_OPEN_PAREN, 0]) {
-        [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:YES]; 
-        [self expr_]; 
-        [self match:XPEG_TOKEN_KIND_CLOSE_PAREN discard:YES]; 
+        [self parenthesizedExpr_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'primaryExpr'."];
     }
@@ -1177,6 +1179,19 @@
 
 - (void)number_ {
     [self parseRule:@selector(__number) withMemo:_number_memo];
+}
+
+- (void)__parenthesizedExpr {
+    
+    [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:NO]; 
+    [self expr_]; 
+    [self match:XPEG_TOKEN_KIND_CLOSE_PAREN discard:YES]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchParenthesizedExpr:)];
+}
+
+- (void)parenthesizedExpr_ {
+    [self parseRule:@selector(__parenthesizedExpr) withMemo:_parenthesizedExpr_memo];
 }
 
 - (void)__functionCall {

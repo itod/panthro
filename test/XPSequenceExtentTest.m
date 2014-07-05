@@ -206,4 +206,13 @@
     TDFalse([enm hasMoreItems]);
 }
 
+
+- (void)testOpenClose {
+    [self eval:@"()"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    TDFalse([enm hasMoreItems]);
+}
+
 @end

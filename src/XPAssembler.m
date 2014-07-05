@@ -14,6 +14,8 @@
 
 #import "XPSequenceExpression.h"
 #import "XPRangeExpression.h"
+#import "XPEmptySequence.h"
+
 #import "XPBooleanExpression.h"
 #import "XPRelationalExpression.h"
 #import "XPArithmeticExpression.h"
@@ -285,6 +287,17 @@
     ref.range = NSMakeRange(offset, (nameTok.offset+name.length) - offset);
     ref.staticContext = _env;
     [a push:ref];
+}
+
+
+- (void)parser:(PKParser *)p didMatchParenthesizedExpr:(PKAssembly *)a {
+    id peek = [a pop];
+    if ([_openParen isEqualTo:peek]) {
+        [a push:[XPEmptySequence instance]];
+    } else {
+        [a pop]; // discard '('
+        [a push:peek];
+    }
 }
 
 
