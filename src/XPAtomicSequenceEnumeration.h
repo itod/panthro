@@ -8,10 +8,10 @@
 
 #import "XPBaseFastEnumeration.h"
 
-@class XPAtomicSequence;
+@class XPSequenceExtent;
 
 @interface XPAtomicSequenceEnumeration : XPBaseFastEnumeration
 
-- (instancetype)initWithAtomicSequence:(XPAtomicSequence *)seq;
+- (instancetype)initWithAtomicSequence:(XPSequenceExtent *)seq;
 
 @end

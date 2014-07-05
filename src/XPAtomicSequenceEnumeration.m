@@ -7,16 +7,16 @@
 //
 
 #import "XPAtomicSequenceEnumeration.h"
-#import "XPAtomicSequence.h"
+#import "XPSequenceExtent.h"
 
 @interface XPAtomicSequenceEnumeration ()
-@property (nonatomic, retain) XPAtomicSequence *sequence;
+@property (nonatomic, retain) XPSequenceExtent *sequence;
 @property (nonatomic, assign) NSUInteger index;
 @end
 
 @implementation XPAtomicSequenceEnumeration
 
-- (instancetype)initWithAtomicSequence:(XPAtomicSequence *)seq {
+- (instancetype)initWithAtomicSequence:(XPSequenceExtent *)seq {
     self = [super init];
     if (self) {
         self.sequence = seq;

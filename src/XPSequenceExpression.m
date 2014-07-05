@@ -7,7 +7,7 @@
 //
 
 #import "XPSequenceExpression.h"
-#import "XPAtomicSequence.h"
+#import "XPSequenceExtent.h"
 #import "XPSequenceEnumeration.h"
 
 @implementation XPSequenceExpression
@@ -20,7 +20,7 @@
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
     NSMutableArray *v = [NSMutableArray array];
     
-    if ([self.p1 isValue] && [(XPValue *)self.p1 isSequenceValue]) {
+    if ([self.p1 dataType] == XPDataTypeSequence) {
         id <XPSequenceEnumeration>enm = [(XPSequenceValue *)self.p1 enumerateInContext:ctx sorted:NO];
         while ([enm hasMoreItems]) {
             [v addObject:[enm nextItem]];
@@ -29,9 +29,16 @@
         [v addObject:self.p1];
     }
 
-    [v addObject:self.p2];
+    if ([self.p2 dataType] == XPDataTypeSequence) {
+        id <XPSequenceEnumeration>enm = [(XPSequenceValue *)self.p2 enumerateInContext:ctx sorted:NO];
+        while ([enm hasMoreItems]) {
+            [v addObject:[enm nextItem]];
+        }
+    } else {
+        [v addObject:self.p2];
+    }
     
-    XPValue *seq = [[[XPAtomicSequence alloc] initWithContent:v] autorelease];
+    XPValue *seq = [[[XPSequenceExtent alloc] initWithContent:v] autorelease];
     return seq;
 }
 

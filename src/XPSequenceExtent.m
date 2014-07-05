@@ -6,14 +6,14 @@
 //
 //
 
-#import "XPAtomicSequence.h"
+#import "XPSequenceExtent.h"
 #import "XPAtomicSequenceEnumeration.h"
 
-@interface XPAtomicSequence ()
+@interface XPSequenceExtent ()
 @property (nonatomic, retain) NSArray *content;
 @end
 
-@implementation XPAtomicSequence
+@implementation XPSequenceExtent
 
 - (instancetype)initWithContent:(NSArray *)v {
     XPAssert(v);
@@ -50,18 +50,6 @@
 
 #pragma mark -
 #pragma mark XPExpression
-
-//- (XPExpression *)simplify {
-//    XPExpression *result = self;
-//    
-//    if (0 == [self count]) {
-//        result = [XPEmptyAtomicSequence instance];
-//        
-//    }
-//    
-//    return result;
-//}
-
 
 - (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)yn {
     if (yn) [self sort];

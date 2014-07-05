@@ -12,7 +12,7 @@
 #import "XPStringValue.h"
 #import "XPSequenceValue.h"
 #import "XPObjectValue.h"
-#import "XPAtomicSequence.h"
+#import "XPSequenceExtent.h"
 #import "XPEGParser.h"
 
 double XPNumberFromString(NSString *s) {
@@ -60,7 +60,7 @@ double XPNumberFromString(NSString *s) {
 
 
 - (id <XPSequenceEnumeration>)enumerate {
-    XPValue *seq = [[[XPAtomicSequence alloc] initWithContent:@[self]] autorelease];
+    XPValue *seq = [[[XPSequenceExtent alloc] initWithContent:@[self]] autorelease];
     return [seq enumerate];
 }
 
