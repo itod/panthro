@@ -10,13 +10,13 @@
 #import "XPAtomicSequence.h"
 
 @interface XPAtomicSequenceEnumeration ()
-@property (nonatomic, retain) id <XPAtomicSequence>sequence;
+@property (nonatomic, retain) XPAtomicSequence *sequence;
 @property (nonatomic, assign) NSUInteger index;
 @end
 
 @implementation XPAtomicSequenceEnumeration
 
-- (instancetype)initWithAtomicSequence:(id <XPAtomicSequence>)seq {
+- (instancetype)initWithAtomicSequence:(XPAtomicSequence *)seq {
     self = [super init];
     if (self) {
         self.sequence = seq;

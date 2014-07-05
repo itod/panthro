@@ -1,19 +1,19 @@
 //
-//  XPAtomicArray.m
+//  XPAtomicSequence.m
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 7/5/14.
 //
 //
 
-#import "XPAtomicArray.h"
+#import "XPAtomicSequence.h"
 #import "XPAtomicSequenceEnumeration.h"
 
-@interface XPAtomicArray ()
+@interface XPAtomicSequence ()
 @property (nonatomic, retain) NSArray *content;
 @end
 
-@implementation XPAtomicArray
+@implementation XPAtomicSequence
 
 - (instancetype)initWithContent:(NSArray *)v {
     XPAssert(v);
@@ -29,6 +29,24 @@
     self.content = nil;
     [super dealloc];
 }
+
+
+- (NSString *)description {
+    NSMutableString *s = [NSMutableString stringWithString:@"("];
+
+    NSUInteger c = [self count];
+    NSString *sep = @", ";
+    for (NSUInteger i = 0; i < c; ++i) {
+        if (i == c - 1) {
+            sep = @"";
+        }
+        [s appendFormat:@"%@%@", [self itemAt:i], sep];
+    }
+    
+    [s appendString:@")"];
+    return s;
+}
+
 
 #pragma mark -
 #pragma mark XPExpression

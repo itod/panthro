@@ -57,7 +57,8 @@
 }
 
 xpath = expr;
-expr = exprSingle (',' exprSingle)*;
+expr = exprSingle exprSingleTail*;
+exprSingleTail = (','! exprSingle);
 exprSingle = orExpr;
     orExpr = andExpr orAndExpr*;
         orAndExpr = (or andExpr);

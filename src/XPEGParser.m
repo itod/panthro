@@ -6,6 +6,7 @@
 
 @property (nonatomic, retain) NSMutableDictionary *xpath_memo;
 @property (nonatomic, retain) NSMutableDictionary *expr_memo;
+@property (nonatomic, retain) NSMutableDictionary *exprSingleTail_memo;
 @property (nonatomic, retain) NSMutableDictionary *exprSingle_memo;
 @property (nonatomic, retain) NSMutableDictionary *orExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *orAndExpr_memo;
@@ -205,6 +206,7 @@
 
         self.xpath_memo = [NSMutableDictionary dictionary];
         self.expr_memo = [NSMutableDictionary dictionary];
+        self.exprSingleTail_memo = [NSMutableDictionary dictionary];
         self.exprSingle_memo = [NSMutableDictionary dictionary];
         self.orExpr_memo = [NSMutableDictionary dictionary];
         self.orAndExpr_memo = [NSMutableDictionary dictionary];
@@ -301,6 +303,7 @@
     
     self.xpath_memo = nil;
     self.expr_memo = nil;
+    self.exprSingleTail_memo = nil;
     self.exprSingle_memo = nil;
     self.orExpr_memo = nil;
     self.orAndExpr_memo = nil;
@@ -396,6 +399,7 @@
 - (void)clearMemo {
     [_xpath_memo removeAllObjects];
     [_expr_memo removeAllObjects];
+    [_exprSingleTail_memo removeAllObjects];
     [_exprSingle_memo removeAllObjects];
     [_orExpr_memo removeAllObjects];
     [_orAndExpr_memo removeAllObjects];
@@ -541,9 +545,8 @@
 - (void)__expr {
     
     [self exprSingle_]; 
-    while ([self speculate:^{ [self match:XPEG_TOKEN_KIND_COMMA discard:NO]; [self exprSingle_]; }]) {
-        [self match:XPEG_TOKEN_KIND_COMMA discard:NO]; 
-        [self exprSingle_]; 
+    while ([self speculate:^{ [self exprSingleTail_]; }]) {
+        [self exprSingleTail_]; 
     }
 
     [self fireDelegateSelector:@selector(parser:didMatchExpr:)];
@@ -551,6 +554,18 @@
 
 - (void)expr_ {
     [self parseRule:@selector(__expr) withMemo:_expr_memo];
+}
+
+- (void)__exprSingleTail {
+    
+    [self match:XPEG_TOKEN_KIND_COMMA discard:YES]; 
+    [self exprSingle_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchExprSingleTail:)];
+}
+
+- (void)exprSingleTail_ {
+    [self parseRule:@selector(__exprSingleTail) withMemo:_exprSingleTail_memo];
 }
 
 - (void)__exprSingle {

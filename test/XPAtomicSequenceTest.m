@@ -12,6 +12,7 @@
 #import "XPLibxmlNodeImpl.h"
 #import "XPPathExpression.h"
 #import "XPNodeInfo.h"
+#import "XPItem.h"
 #import "XPStandaloneContext.h"
 
 #import <libxml/tree.h>
@@ -95,16 +96,25 @@
 }
 
 
-- (void)testImplicitChildAxisNameTestChapter {
-    [self eval:@"chapter"];
+- (void)testOpen1Comma2Close {
+    [self eval:@"(1, 2)"];
     
     id <XPSequenceEnumeration>enm = [_res enumerate];
+
+    id <XPItem>item = nil;
+    XPValue *val = nil;
     
-    for (NSUInteger i = 0; i < 3; ++i) {
-        id <XPNodeInfo>node = [enm nextNodeInfo];
-        TDEqualObjects(@"chapter", node.name);
-        TDEquals(XPNodeTypeElement, node.nodeType);
-    }
+    item = [enm nextItem];
+    TDEqualObjects(@"1", item.stringValue);
+    
+    val = (id)item;
+    TDEquals(1.0, [val asNumber]);
+    
+    item = [enm nextItem];
+    TDEqualObjects(@"2", item.stringValue);
+    
+    val = (id)item;
+    TDEquals(2.0, [val asNumber]);
     
     TDFalse([enm hasMoreItems]);
 }
