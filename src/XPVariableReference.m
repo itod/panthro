@@ -137,9 +137,11 @@
     
     if ([item isKindOfClass:[XPValue class]]) {
         val = (id)item;
-    } else {
+    } else if (item) {
         XPAssert([item conformsToProtocol:@protocol(XPNodeInfo)]);
         val = [XPSingletonNodeSet singletonNodeSetWithNode:(id <XPNodeInfo>)item];
+    } else {
+        [XPException raiseIn:self format:@"Variable `$%@` has not been declared (or its declaration is not in scope)", self.name];
     }
 
     val.range = self.range;
