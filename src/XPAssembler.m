@@ -15,6 +15,7 @@
 #import "XPSequenceExpression.h"
 #import "XPRangeExpression.h"
 #import "XPForExpression.h"
+#import "XPQuantifiedExpression.h"
 #import "XPEmptySequence.h"
 
 #import "XPBooleanExpression.h"
@@ -156,6 +157,38 @@
     NSUInteger offset = peek.offset;
     
     XPExpression *forExpr = [[[XPForExpression alloc] initWithVarNames:varNames sequences:sequences body:bodyExpr] autorelease];
+    forExpr.range = NSMakeRange(offset, NSMaxRange(bodyExpr.range) - offset);
+    forExpr.staticContext = _env;
+    [a push:forExpr];
+}
+
+
+- (void)parser:(PKParser *)p didMatchQuantifiedExpr:(PKAssembly *)a {
+    XPExpression *bodyExpr = [a pop];
+    XPAssertExpr(bodyExpr);
+    
+    NSMutableArray *varNames = [NSMutableArray array];
+    NSMutableArray *sequences = [NSMutableArray array];
+    
+    PKToken *peek = nil;
+    do {
+        XPExpression *seqExpr = [a pop];
+        XPAssertExpr(seqExpr);
+        PKToken *varNameTok = [a pop];
+        XPAssertToken(varNameTok);
+        
+        [varNames insertObject:varNameTok.stringValue atIndex:0];
+        [sequences insertObject:seqExpr atIndex:0];
+        
+        peek = [a pop];
+        
+    } while ([peek isEqual:_comma]);
+    
+    // discard 'some'|'every'
+    XPAssert([peek.stringValue isEqualToString:@"some"] || [peek.stringValue isEqualToString:@"every"]);
+    NSUInteger offset = peek.offset;
+    
+    XPExpression *forExpr = [[[XPQuantifiedExpression alloc] initWithVarNames:varNames sequences:sequences body:bodyExpr] autorelease];
     forExpr.range = NSMakeRange(offset, NSMaxRange(bodyExpr.range) - offset);
     forExpr.staticContext = _env;
     [a push:forExpr];

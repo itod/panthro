@@ -344,4 +344,22 @@
     TDFalse([enm hasMoreItems]);
 }
 
+
+- (void)testSomeXInOpen1Comma2Comma3CloseSatisfiesXEq2 {
+    [self eval:@"some $x in (1, 2, 3) satisfies $x = 2"];
+    
+    BOOL yn = [_res asBoolean];
+    
+    TDTrue(yn);
+}
+
+
+- (void)testSomeXInOpen1Comma2Comma3CloseSatisfiesXEq0 {
+    [self eval:@"some $x in (1, 2, 3) satisfies $x = 0"];
+    
+    BOOL yn = [_res asBoolean];
+    
+    TDFalse(yn);
+}
+
 @end

@@ -190,6 +190,8 @@
 		D37299B919687D0F004B1B7A /* XPEmptySequence.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299B719687D0F004B1B7A /* XPEmptySequence.m */; };
 		D37299BC1968E281004B1B7A /* XPForExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D37299BA1968E281004B1B7A /* XPForExpression.h */; };
 		D37299BD1968E281004B1B7A /* XPForExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299BB1968E281004B1B7A /* XPForExpression.m */; };
+		D37299C019699616004B1B7A /* XPQuantifiedExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D37299BE19699616004B1B7A /* XPQuantifiedExpression.h */; };
+		D37299C119699616004B1B7A /* XPQuantifiedExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299BF19699616004B1B7A /* XPQuantifiedExpression.m */; };
 		D37A27E51012FFA600E936B7 /* XPBooleanExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A27E31012FFA600E936B7 /* XPBooleanExpression.m */; };
 		D37A27F5101304EF00E936B7 /* XPBooleanExprTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A27F4101304EF00E936B7 /* XPBooleanExprTest.m */; };
 		D37A296A1013F39400E936B7 /* XPFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A29681013F39400E936B7 /* XPFunction.m */; };
@@ -584,6 +586,8 @@
 		D37299B719687D0F004B1B7A /* XPEmptySequence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPEmptySequence.m; path = src/XPEmptySequence.m; sourceTree = "<group>"; };
 		D37299BA1968E281004B1B7A /* XPForExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPForExpression.h; path = src/XPForExpression.h; sourceTree = "<group>"; };
 		D37299BB1968E281004B1B7A /* XPForExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPForExpression.m; path = src/XPForExpression.m; sourceTree = "<group>"; };
+		D37299BE19699616004B1B7A /* XPQuantifiedExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPQuantifiedExpression.h; path = src/XPQuantifiedExpression.h; sourceTree = "<group>"; };
+		D37299BF19699616004B1B7A /* XPQuantifiedExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPQuantifiedExpression.m; path = src/XPQuantifiedExpression.m; sourceTree = "<group>"; };
 		D3745D9A192261D500929DE8 /* OkudaKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OkudaKit.framework; path = ../okudakit/build/Release/OkudaKit.framework; sourceTree = "<group>"; };
 		D37A27E31012FFA600E936B7 /* XPBooleanExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBooleanExpression.m; path = src/XPBooleanExpression.m; sourceTree = "<group>"; };
 		D37A27F4101304EF00E936B7 /* XPBooleanExprTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBooleanExprTest.m; path = test/XPBooleanExprTest.m; sourceTree = "<group>"; };
@@ -1125,6 +1129,8 @@
 				D37299AD1968509D004B1B7A /* XPSequenceExtentEnumeration.m */,
 				D37299BA1968E281004B1B7A /* XPForExpression.h */,
 				D37299BB1968E281004B1B7A /* XPForExpression.m */,
+				D37299BE19699616004B1B7A /* XPQuantifiedExpression.h */,
+				D37299BF19699616004B1B7A /* XPQuantifiedExpression.m */,
 			);
 			name = "Sequence Expr";
 			sourceTree = "<group>";
@@ -1501,6 +1507,7 @@
 				D3BBAE8A191D881200766EB4 /* XPLookaheadEnumerator.h in Headers */,
 				D37299AA19684E91004B1B7A /* XPSequenceExtent.h in Headers */,
 				D3F0CBE2191EC4F10049EC02 /* XPNodeOrderComparer.h in Headers */,
+				D37299C019699616004B1B7A /* XPQuantifiedExpression.h in Headers */,
 				D339F1EB19279E4600C79A51 /* XPLibxmlDocumentImpl.h in Headers */,
 				D339311619204E9E00259939 /* FNAbs.h in Headers */,
 				D372995F19660D22004B1B7A /* XPSingletonExpression.h in Headers */,
@@ -1794,6 +1801,7 @@
 				D339F6411927B66500C79A51 /* valid.c in Sources */,
 				D339F68A192AA1D000C79A51 /* XPSemaphore.m in Sources */,
 				D339F6501927B66500C79A51 /* xmlwriter.c in Sources */,
+				D37299C119699616004B1B7A /* XPQuantifiedExpression.m in Sources */,
 				D37299421965FC3A004B1B7A /* XPIntersectEnumeration.m in Sources */,
 				D339F6401927B66500C79A51 /* uri.c in Sources */,
 				D339F61A1927B66500C79A51 /* globals.c in Sources */,

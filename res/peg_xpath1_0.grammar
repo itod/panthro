@@ -59,11 +59,13 @@
 xpath = expr;
 expr = exprSingle exprSingleTail*;
     exprSingleTail = (','! exprSingle);
-exprSingle = orExpr | forExpr;
+exprSingle = orExpr | forExpr | quantifiedExpr;
 
-    forExpr = simpleForClause return exprSingle;
-    simpleForClause = for singleForClause (',' singleForClause)*;
+    forExpr = for simpleForClause return exprSingle;
+    simpleForClause = singleForClause (',' singleForClause)*;
         singleForClause = '$'! qName in exprSingle;
+        
+    quantifiedExpr = ('some' | 'every') simpleForClause satisfies exprSingle;
 
     orExpr = andExpr orAndExpr*;
         orAndExpr = (or andExpr);
@@ -164,6 +166,7 @@ to = 'to'!;
 for = 'for';
 in = 'in'!;
 return = 'return'!;
+satisfies = 'satisfies'!;
 or = 'or';
 and = 'and';
 true = 'true';
