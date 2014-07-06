@@ -342,16 +342,16 @@
 }
 
 
-- (void)setValue:(XPValue *)val forVariable:(NSString *)name {
-    NSParameterAssert(val);
+- (void)setItem:(id <XPItem>)item forVariable:(NSString *)name {
+    NSParameterAssert(item);
     NSParameterAssert(name);
     XPAssert(_variables);
     
-    [_variables setObject:val forKey:name];
+    [_variables setObject:item forKey:name];
 }
 
 
-- (XPValue *)valueForVariable:(NSString *)name {
+- (id <XPItem>)itemForVariable:(NSString *)name {
     NSParameterAssert(name);
     XPAssert(_variables);
     

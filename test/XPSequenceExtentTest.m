@@ -66,7 +66,7 @@
     TDTrue(0 == strcmp((char *)docEl->name, "book"));
     
     self.env = [XPStandaloneContext standaloneContext];
-    [_env setValue:[XPStringValue stringValueWithString:@"hello"] forVariable:@"foo"];
+    [_env setItem:[XPStringValue stringValueWithString:@"hello"] forVariable:@"foo"];
     
     self.contextNode = docEl;
 }
@@ -100,12 +100,42 @@
     [self eval:@"(1, 2)"];
     
     id <XPSequenceEnumeration>enm = [_res enumerate];
-
+    
     XPValue *val = nil;
     
     val = [enm nextValue];
     TDEqualObjects(@"1", val.stringValue);
     TDEquals(1.0, [val asNumber]);
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"2", val.stringValue);
+    TDEquals(2.0, [val asNumber]);
+    
+    TDFalse([enm hasMoreItems]);
+}
+
+
+- (void)testOpen1Comma2ClosePredicate1 {
+    [self eval:@"(1, 2)[1]"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    XPValue *val = nil;
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"1", val.stringValue);
+    TDEquals(1.0, [val asNumber]);
+    
+    TDFalse([enm hasMoreItems]);
+}
+
+
+- (void)testOpen1Comma2ClosePredicate2 {
+    [self eval:@"(1, 2)[2]"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    XPValue *val = nil;
     
     val = [enm nextValue];
     TDEqualObjects(@"2", val.stringValue);
@@ -133,6 +163,21 @@
     val = [enm nextValue];
     TDEqualObjects(@"3", val.stringValue);
     TDEquals(3.0, [val asNumber]);
+    
+    TDFalse([enm hasMoreItems]);
+}
+
+
+- (void)testOpen1Comma2Comma3ClosePredicate2{
+    [self eval:@"(1, 2, 3)[2]"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    XPValue *val = nil;
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"2", val.stringValue);
+    TDEquals(2.0, [val asNumber]);
     
     TDFalse([enm hasMoreItems]);
 }
@@ -231,6 +276,29 @@
     BOOL yn = [_res asBoolean];
     
     TDFalse(yn);
+}
+
+
+- (void)testForXInOpen1Comma2Comma3CloseReturnX {
+    [self eval:@"for $x in (1, 2, 3) return $x"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    XPValue *val = nil;
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"1", val.stringValue);
+    TDEquals(1.0, [val asNumber]);
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"2", val.stringValue);
+    TDEquals(2.0, [val asNumber]);
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"3", val.stringValue);
+    TDEquals(3.0, [val asNumber]);
+    
+    TDFalse([enm hasMoreItems]);
 }
 
 @end

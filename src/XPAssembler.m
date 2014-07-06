@@ -14,6 +14,7 @@
 
 #import "XPSequenceExpression.h"
 #import "XPRangeExpression.h"
+#import "XPForExpression.h"
 #import "XPEmptySequence.h"
 
 #import "XPBooleanExpression.h"
@@ -42,6 +43,7 @@
 @property (nonatomic, retain) id <XPStaticContext>env;
 @property (nonatomic, retain) NSDictionary *nodeTypeTab;
 @property (nonatomic, retain) PKToken *openParen;
+@property (nonatomic, retain) PKToken *comma;
 @property (nonatomic, retain) PKToken *slash;
 @property (nonatomic, retain) PKToken *colon;
 @property (nonatomic, retain) PKToken *doubleSlash;
@@ -63,6 +65,7 @@
     if (self = [super init]) {
         self.env = env;
         self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
+        self.comma = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"," doubleValue:0.0];
         self.slash = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"/" doubleValue:0.0];
         self.colon = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@":" doubleValue:0.0];
         self.doubleSlash = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"//" doubleValue:0.0];
@@ -97,6 +100,7 @@
     self.env = nil;
     self.nodeTypeTab = nil;
     self.openParen = nil;
+    self.comma = nil;
     self.slash = nil;
     self.colon = nil;
     self.doubleSlash = nil;
@@ -123,6 +127,38 @@
     seqExpr.range = NSMakeRange(p1.range.location, NSMaxRange(p2.range) - p1.range.location);
     seqExpr.staticContext = _env;
     [a push:seqExpr];
+}
+
+
+- (void)parser:(PKParser *)p didMatchForExpr:(PKAssembly *)a {
+    XPExpression *bodyExpr = [a pop];
+    XPAssertExpr(bodyExpr);
+    
+    NSMutableArray *varNames = [NSMutableArray array];
+    NSMutableArray *sequences = [NSMutableArray array];
+    
+    PKToken *peek = nil;
+    do {
+        XPExpression *seqExpr = [a pop];
+        XPAssertExpr(seqExpr);
+        PKToken *varNameTok = [a pop];
+        XPAssertToken(varNameTok);
+        
+        [varNames addObject:varNameTok.stringValue];
+        [sequences addObject:seqExpr];
+        
+        peek = [a pop];
+        
+    } while ([peek isEqual:_comma]);
+    
+    // discard 'for'
+    XPAssert([peek.stringValue isEqualToString:@"for"]);
+    NSUInteger offset = peek.offset;
+    
+    XPExpression *forExpr = [[[XPForExpression alloc] initWithVarNames:varNames sequences:sequences body:bodyExpr] autorelease];
+    forExpr.range = NSMakeRange(offset, NSMaxRange(bodyExpr.range) - offset);
+    forExpr.staticContext = _env;
+    [a push:forExpr];
 }
 
 
@@ -292,7 +328,7 @@
 
 - (void)parser:(PKParser *)p didMatchParenthesizedExpr:(PKAssembly *)a {
     id peek = [a pop];
-    if ([_openParen isEqualTo:peek]) {
+    if ([_openParen isEqual:peek]) {
         [a push:[XPEmptySequence instance]];
     } else {
         [a pop]; // discard '('
@@ -334,9 +370,9 @@
     
     for (id part in [pathParts reverseObjectEnumerator]) {
         XPStep *step = nil;
-        if ([_slash isEqualTo:part]) {
+        if ([_slash isEqual:part]) {
             continue;
-        } else if ([_doubleSlash isEqualTo:part]) {
+        } else if ([_doubleSlash isEqual:part]) {
             XPNodeTest *nodeTest = [[[XPNodeTypeTest alloc] initWithNodeType:XPNodeTypeNode] autorelease];
             NSUInteger offset = [part offset];
             nodeTest.range = NSMakeRange(offset+2, 0);
@@ -372,7 +408,7 @@
     XPExpression *rhs = [a pop];
     id peek = [a pop];
     
-    if ([peek isEqualTo:_pipe] || [peek isEqualTo:_unionSym]) {
+    if ([peek isEqual:_pipe] || [peek isEqual:_unionSym]) {
         XPExpression *lhs = [a pop];
         
         XPExpression *unionExpr = [[[XPUnionExpression alloc] initWithLhs:lhs rhs:rhs] autorelease];
@@ -390,14 +426,14 @@
     XPExpression *rhs = [a pop];
     id peek = [a pop];
     
-    if ([peek isEqualTo:_intersectSym]) {
+    if ([peek isEqual:_intersectSym]) {
         XPExpression *lhs = [a pop];
         
         XPExpression *intersectExpr = [[[XPIntersectExpression alloc] initWithLhs:lhs rhs:rhs] autorelease];
         intersectExpr.range = NSMakeRange(lhs.range.location, NSMaxRange(rhs.range) - lhs.range.location);
         intersectExpr.staticContext = _env;
         [a push:intersectExpr];
-    } else if ([peek isEqualTo:_exceptSym]) {
+    } else if ([peek isEqual:_exceptSym]) {
         XPExpression *lhs = [a pop];
         
         XPExpression *exceptExpr = [[[XPExceptExpression alloc] initWithLhs:lhs rhs:rhs] autorelease];
@@ -484,7 +520,7 @@
     NSUInteger lastBracketMaxOffset = NSNotFound;
     
     id peek = [a pop];
-    while ([peek isEqualTo:_closeBracket]) {
+    while ([peek isEqual:_closeBracket]) {
         XPExpression *f = [a pop];
         XPAssertExpr(f);
         
@@ -536,7 +572,7 @@
     XPAssertToken(axisTok);
     
     XPAxis axis;
-    if ([axisTok isEqualTo:_atAxis]) {
+    if ([axisTok isEqual:_atAxis]) {
         axis = XPAxisAttribute;
     } else {
         axis = XPAxisForName(axisTok.stringValue);
@@ -639,7 +675,7 @@
     
     NSString *nsURI = @"";
     id peek = [a pop];
-    if ([_colon isEqualTo:peek]) {
+    if ([_colon isEqual:peek]) {
         PKToken *prefixTok = [a pop];
         XPAssertToken(prefixTok);
         NSString *prefix = prefixTok.stringValue;

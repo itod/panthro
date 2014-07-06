@@ -36,8 +36,8 @@
 
 - (NSString *)version;
 
-- (void)setValue:(XPValue *)val forVariable:(NSString *)name;
-- (XPValue *)valueForVariable:(NSString *)name;
+- (void)setItem:(id <XPItem>)item forVariable:(NSString *)name;
+- (id <XPItem>)itemForVariable:(NSString *)name;
 
 #if PAUSE_ENABLED
 // Debugging

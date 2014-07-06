@@ -129,9 +129,13 @@
 //        }
 //    }
     
-    XPValue *v = [ctx.staticContext valueForVariable:self.name];
-    v.range = self.range;
-    return v;
+    id <XPItem>item = [ctx.staticContext itemForVariable:self.name];
+    
+    if ([item isKindOfClass:[XPValue class]]) {
+        ((XPValue *)item).range = self.range;
+    }
+
+    return item;
 }
 
 

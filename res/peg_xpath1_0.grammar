@@ -59,7 +59,12 @@
 xpath = expr;
 expr = exprSingle exprSingleTail*;
     exprSingleTail = (','! exprSingle);
-exprSingle = orExpr;
+exprSingle = orExpr | forExpr;
+
+    forExpr = simpleForClause return exprSingle;
+    simpleForClause = for singleForClause (',' singleForClause)*;
+        singleForClause = '$'! qName in exprSingle;
+
     orExpr = andExpr orAndExpr*;
         orAndExpr = (or andExpr);
         andExpr = rangeExpr andRangeExpr*;
@@ -156,6 +161,9 @@ self = 'self';
 div = 'div';
 mod = 'mod';
 to = 'to'!;
+for = 'for';
+in = 'in'!;
+return = 'return'!;
 or = 'or';
 and = 'and';
 true = 'true';

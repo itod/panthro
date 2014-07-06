@@ -48,7 +48,7 @@
     TDNotNil(docEl);
     
     self.env = [XPStandaloneContext standaloneContext];
-    [_env setValue:[XPStringValue stringValueWithString:@"hello"] forVariable:@"foo"];
+    [_env setItem:[XPStringValue stringValueWithString:@"hello"] forVariable:@"foo"];
     
     self.contextNode = docEl;
 }
