@@ -6,7 +6,7 @@
 //
 //
 
-#import "XPNodeInfo.h"
+#import <Panthro/XPNodeInfo.h>
 
 @interface XPAbstractNodeWrapper : NSObject <XPNodeInfo>
 
