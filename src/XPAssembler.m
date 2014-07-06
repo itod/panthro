@@ -144,8 +144,8 @@
         PKToken *varNameTok = [a pop];
         XPAssertToken(varNameTok);
         
-        [varNames addObject:varNameTok.stringValue];
-        [sequences addObject:seqExpr];
+        [varNames insertObject:varNameTok.stringValue atIndex:0];
+        [sequences insertObject:seqExpr atIndex:0];
         
         peek = [a pop];
         

@@ -117,7 +117,7 @@ const NSUInteger XPathErrorCodeRuntime = 2;
         if (sorted) {
             [(XPSequenceValue *)v sort];
         }
-        id <XPSequenceEnumeration>enm = [(XPSequenceValue *)v enumerate];
+        id <XPSequenceEnumeration>enm = [(XPSequenceValue *)v enumerateInContext:ctx sorted:sorted];
         return enm;
     }
     

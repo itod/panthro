@@ -16,6 +16,7 @@
 @property (nonatomic, retain) NSArray *varNames;
 @property (nonatomic, retain) NSArray *sequences;
 @property (nonatomic, retain) XPExpression *bodyExpression;
+@property (nonatomic, retain) NSMutableArray *result;
 @end
 
 @implementation XPForExpression
@@ -36,6 +37,7 @@
     self.varNames = nil;
     self.sequences = nil;
     self.bodyExpression = nil;
+    self.result = nil;
     [super dealloc];
 }
 
@@ -47,28 +49,47 @@
     XPAssert([_varNames count] == [_sequences count]);
     XPAssert(_bodyExpression);
     
-    NSMutableArray *result = [NSMutableArray array];
+    self.result = [NSMutableArray array];
 
-    NSUInteger i = 0;
-    for (NSString *varName in _varNames) {
-        XPExpression *seqExpr = _sequences[i++];
-        
-        id <XPSequenceEnumeration>seqEnm = [seqExpr enumerateInContext:ctx sorted:NO];
-        
-        while ([seqEnm hasMoreItems]) {
-            id <XPItem>inItem = [seqEnm nextItem];
-            [ctx.staticContext setItem:inItem forVariable:varName];
-            
+    [self loopInContext:ctx varNames:_varNames sequences:_sequences];
+    
+    XPValue *seq = [[[XPSequenceExtent alloc] initWithContent:[[_result copy] autorelease]] autorelease];
+
+    self.result = nil;
+    return seq;
+}
+
+
+- (void)loopInContext:(XPContext *)ctx varNames:(NSArray *)varNames sequences:(NSArray *)sequences {
+    XPAssert([varNames count] == [sequences count]);
+    XPAssert(_bodyExpression);
+
+    if (![varNames count]) return;
+    
+    NSString *varName = varNames[0];
+    NSArray *varNameTail = [varNames subarrayWithRange:NSMakeRange(1, [varNames count]-1)];
+    
+    XPExpression *seqExpr = sequences[0];
+    NSArray *seqTail = [sequences subarrayWithRange:NSMakeRange(1, [sequences count]-1)];
+    
+    id <XPSequenceEnumeration>seqEnm = [seqExpr enumerateInContext:ctx sorted:NO];
+
+    while ([seqEnm hasMoreItems]) {
+        id <XPItem>inItem = [seqEnm nextItem];
+        [ctx.staticContext setItem:inItem forVariable:varName];
+
+        if ([varNameTail count]) {
+            [self loopInContext:ctx varNames:varNameTail sequences:seqTail];
+        } else {
             id <XPSequenceEnumeration>bodyEnm = [_bodyExpression enumerateInContext:ctx sorted:NO];
             while ([bodyEnm hasMoreItems]) {
                 id <XPItem>bodyItem = [bodyEnm nextItem];
-                [result addObject:bodyItem];
+                [_result addObject:bodyItem];
             }
         }
+
+        [ctx.staticContext setItem:nil forVariable:varName];
     }
-    
-    XPValue *seq = [[[XPSequenceExtent alloc] initWithContent:result] autorelease];
-    return seq;
 }
 
 

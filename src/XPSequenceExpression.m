@@ -26,7 +26,7 @@
             [v addObject:[enm nextItem]];
         }
     } else {
-        [v addObject:self.p1];
+        [v addObject:[self.p1 evaluateInContext:ctx]];
     }
 
     if ([self.p2 dataType] == XPDataTypeSequence) {
@@ -35,7 +35,7 @@
             [v addObject:[enm nextItem]];
         }
     } else {
-        [v addObject:self.p2];
+        [v addObject:[self.p2 evaluateInContext:ctx]];
     }
     
     XPValue *seq = [[[XPSequenceExtent alloc] initWithContent:v] autorelease];

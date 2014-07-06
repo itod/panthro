@@ -343,11 +343,14 @@
 
 
 - (void)setItem:(id <XPItem>)item forVariable:(NSString *)name {
-    NSParameterAssert(item);
     NSParameterAssert(name);
     XPAssert(_variables);
     
-    [_variables setObject:item forKey:name];
+    if (!item) {
+        [_variables removeObjectForKey:name];
+    } else {
+        [_variables setObject:item forKey:name];
+    }
 }
 
 
