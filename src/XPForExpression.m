@@ -42,7 +42,6 @@
 }
 
 
-
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
     XPAssert([_varNames count]);
     XPAssert([_sequences count]);
