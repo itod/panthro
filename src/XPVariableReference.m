@@ -9,6 +9,8 @@
 #import "XPVariableReference.h"
 #import "XPContext.h"
 #import "XPException.h"
+#import "XPSingletonNodeSet.h"
+#import "XPNodeInfo.h"
 //#import "XPBindery.h"
 //#import "XPBinding.h"
 
@@ -130,13 +132,18 @@
 //        }
 //    }
     
+    XPValue *val = nil;
     id <XPItem>item = [ctx itemForVariable:self.name];
     
     if ([item isKindOfClass:[XPValue class]]) {
-        ((XPValue *)item).range = self.range;
+        val = (id)item;
+    } else {
+        XPAssert([item conformsToProtocol:@protocol(XPNodeInfo)]);
+        val = [XPSingletonNodeSet singletonNodeSetWithNode:(id <XPNodeInfo>)item];
     }
 
-    return item;
+    val.range = self.range;
+    return val;
 }
 
 
