@@ -12,6 +12,7 @@
 @property (nonatomic, retain) NSMutableDictionary *simpleForClause_memo;
 @property (nonatomic, retain) NSMutableDictionary *singleForClause_memo;
 @property (nonatomic, retain) NSMutableDictionary *quantifiedExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *ifExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *orExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *orAndExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *andExpr_memo;
@@ -129,6 +130,7 @@
         self.tokenKindTab[@"+"] = @(XPEG_TOKEN_KIND_PLUS);
         self.tokenKindTab[@"//"] = @(XPEG_TOKEN_KIND_DOUBLE_SLASH);
         self.tokenKindTab[@","] = @(XPEG_TOKEN_KIND_COMMA);
+        self.tokenKindTab[@"if"] = @(XPEG_TOKEN_KIND_IF);
         self.tokenKindTab[@"self"] = @(XPEG_TOKEN_KIND_SELF);
         self.tokenKindTab[@"-"] = @(XPEG_TOKEN_KIND_MINUS);
         self.tokenKindTab[@"descendant"] = @(XPEG_TOKEN_KIND_DESCENDANT);
@@ -156,10 +158,12 @@
         self.tokenKindTab[@"every"] = @(XPEG_TOKEN_KIND_EVERY);
         self.tokenKindTab[@"<"] = @(XPEG_TOKEN_KIND_LT_SYM);
         self.tokenKindTab[@"text"] = @(XPEG_TOKEN_KIND_TEXT);
-        self.tokenKindTab[@"comment"] = @(XPEG_TOKEN_KIND_COMMENT);
         self.tokenKindTab[@"="] = @(XPEG_TOKEN_KIND_EQUALS);
+        self.tokenKindTab[@"comment"] = @(XPEG_TOKEN_KIND_COMMENT);
         self.tokenKindTab[@">"] = @(XPEG_TOKEN_KIND_GT_SYM);
         self.tokenKindTab[@"@"] = @(XPEG_TOKEN_KIND_ABBREVIATEDAXIS);
+        self.tokenKindTab[@"then"] = @(XPEG_TOKEN_KIND_THEN);
+        self.tokenKindTab[@"else"] = @(XPEG_TOKEN_KIND_ELSE);
         self.tokenKindTab[@"node"] = @(XPEG_TOKEN_KIND_NODE);
         self.tokenKindTab[@"to"] = @(XPEG_TOKEN_KIND_TO);
         self.tokenKindTab[@"::"] = @(XPEG_TOKEN_KIND_DOUBLE_COLON);
@@ -186,6 +190,7 @@
         self.tokenKindNameTab[XPEG_TOKEN_KIND_PLUS] = @"+";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_DOUBLE_SLASH] = @"//";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_COMMA] = @",";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_IF] = @"if";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_SELF] = @"self";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_MINUS] = @"-";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_DESCENDANT] = @"descendant";
@@ -213,10 +218,12 @@
         self.tokenKindNameTab[XPEG_TOKEN_KIND_EVERY] = @"every";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_LT_SYM] = @"<";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_TEXT] = @"text";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_COMMENT] = @"comment";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_EQUALS] = @"=";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_COMMENT] = @"comment";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_GT_SYM] = @">";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_ABBREVIATEDAXIS] = @"@";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_THEN] = @"then";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_ELSE] = @"else";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_NODE] = @"node";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_TO] = @"to";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_DOUBLE_COLON] = @"::";
@@ -238,6 +245,7 @@
         self.simpleForClause_memo = [NSMutableDictionary dictionary];
         self.singleForClause_memo = [NSMutableDictionary dictionary];
         self.quantifiedExpr_memo = [NSMutableDictionary dictionary];
+        self.ifExpr_memo = [NSMutableDictionary dictionary];
         self.orExpr_memo = [NSMutableDictionary dictionary];
         self.orAndExpr_memo = [NSMutableDictionary dictionary];
         self.andExpr_memo = [NSMutableDictionary dictionary];
@@ -347,6 +355,7 @@
     self.simpleForClause_memo = nil;
     self.singleForClause_memo = nil;
     self.quantifiedExpr_memo = nil;
+    self.ifExpr_memo = nil;
     self.orExpr_memo = nil;
     self.orAndExpr_memo = nil;
     self.andExpr_memo = nil;
@@ -455,6 +464,7 @@
     [_simpleForClause_memo removeAllObjects];
     [_singleForClause_memo removeAllObjects];
     [_quantifiedExpr_memo removeAllObjects];
+    [_ifExpr_memo removeAllObjects];
     [_orExpr_memo removeAllObjects];
     [_orAndExpr_memo removeAllObjects];
     [_andExpr_memo removeAllObjects];
@@ -638,6 +648,8 @@
         [self forExpr_]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_EVERY, XPEG_TOKEN_KIND_SOME, 0]) {
         [self quantifiedExpr_]; 
+    } else if ([self predicts:XPEG_TOKEN_KIND_IF, 0]) {
+        [self ifExpr_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'exprSingle'."];
     }
@@ -710,6 +722,24 @@
 
 - (void)quantifiedExpr_ {
     [self parseRule:@selector(__quantifiedExpr) withMemo:_quantifiedExpr_memo];
+}
+
+- (void)__ifExpr {
+    
+    [self match:XPEG_TOKEN_KIND_IF discard:NO]; 
+    [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:YES]; 
+    [self expr_]; 
+    [self match:XPEG_TOKEN_KIND_CLOSE_PAREN discard:YES]; 
+    [self match:XPEG_TOKEN_KIND_THEN discard:NO]; 
+    [self exprSingle_]; 
+    [self match:XPEG_TOKEN_KIND_ELSE discard:NO]; 
+    [self exprSingle_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchIfExpr:)];
+}
+
+- (void)ifExpr_ {
+    [self parseRule:@selector(__ifExpr) withMemo:_ifExpr_memo];
 }
 
 - (void)__orExpr {

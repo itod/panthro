@@ -389,4 +389,20 @@
     TDFalse(yn);
 }
 
+
+- (void)testIfOpenTrueCloseThen1Else2 {
+    [self eval:@"if (true()) then 1 else 2"];
+    
+    double d = [_res asNumber];
+    TDEquals(1.0, d);
+}
+
+
+- (void)testIfOpenFalseCloseThen1Else2 {
+    [self eval:@"if (false()) then 1 else 2"];
+    
+    double d = [_res asNumber];
+    TDEquals(2.0, d);
+}
+
 @end

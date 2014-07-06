@@ -16,6 +16,7 @@
 #import "XPRangeExpression.h"
 #import "XPForExpression.h"
 #import "XPQuantifiedExpression.h"
+#import "XPIfExpression.h"
 #import "XPEmptySequence.h"
 
 #import "XPBooleanExpression.h"
@@ -45,6 +46,7 @@
 @property (nonatomic, retain) NSDictionary *nodeTypeTab;
 @property (nonatomic, retain) PKToken *openParen;
 @property (nonatomic, retain) PKToken *comma;
+@property (nonatomic, retain) PKToken *then;
 @property (nonatomic, retain) PKToken *slash;
 @property (nonatomic, retain) PKToken *colon;
 @property (nonatomic, retain) PKToken *doubleSlash;
@@ -67,6 +69,7 @@
         self.env = env;
         self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
         self.comma = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"," doubleValue:0.0];
+        self.then = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"then" doubleValue:0.0];
         self.slash = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"/" doubleValue:0.0];
         self.colon = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@":" doubleValue:0.0];
         self.doubleSlash = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"//" doubleValue:0.0];
@@ -193,6 +196,39 @@
     forExpr.range = NSMakeRange(offset, NSMaxRange(bodyExpr.range) - offset);
     forExpr.staticContext = _env;
     [a push:forExpr];
+}
+
+
+- (void)parser:(PKParser *)p didMatchIfExpr:(PKAssembly *)a {
+    XPExpression *lastExpr = [a pop];
+    XPAssertExpr(lastExpr);
+
+    XPExpression *thenExpr = nil;
+    XPExpression *elseExpr = nil;
+
+    PKToken *peek = [a pop];
+    XPAssert([peek.stringValue isEqualToString:@"then"] || [peek.stringValue isEqualToString:@"else"]);
+    if ([peek isEqual:_then]) {
+        thenExpr = lastExpr;
+    } else {
+        elseExpr = lastExpr;
+        thenExpr = [a pop];
+        XPAssertExpr(thenExpr);
+        [a pop]; // discard 'then'
+    }
+    
+    XPExpression *testExpr = [a pop];
+    XPAssertExpr(testExpr);
+    
+    peek = [a pop];
+    XPAssert([peek.stringValue isEqualToString:@"if"]);
+
+    NSUInteger offset = peek.offset;
+    
+    XPExpression *ifExpr = [[[XPIfExpression alloc] initWithTest:testExpr then:thenExpr else:elseExpr] autorelease];
+    ifExpr.range = NSMakeRange(offset, NSMaxRange(lastExpr.range) - offset);
+    ifExpr.staticContext = _env;
+    [a push:ifExpr];
 }
 
 
