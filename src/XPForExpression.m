@@ -8,7 +8,6 @@
 
 #import "XPForExpression.h"
 #import "XPContext.h"
-#import "XPStaticContext.h"
 #import "XPSequenceEnumeration.h"
 #import "XPSequenceExtent.h"
 
@@ -75,7 +74,7 @@
 
     while ([seqEnm hasMoreItems]) {
         id <XPItem>inItem = [seqEnm nextItem];
-        [ctx.staticContext setItem:inItem forVariable:varName];
+        [ctx setItem:inItem forVariable:varName];
 
         if ([varNameTail count]) {
             [self loopInContext:ctx varNames:varNameTail sequences:seqTail];
@@ -87,7 +86,7 @@
             }
         }
 
-        [ctx.staticContext setItem:nil forVariable:varName];
+        //[ctx setItem:nil forVariable:varName];
     }
 }
 

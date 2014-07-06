@@ -18,6 +18,7 @@
 #import <Panthro/XPItem.h>
 #import <Panthro/XPDocumentInfo.h>
 
+#import <Panthro/XPScope.h>
 #import <Panthro/XPStaticContext.h>
 #import <Panthro/XPContext.h>
 #import <Panthro/XPSortable.h>

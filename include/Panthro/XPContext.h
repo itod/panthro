@@ -8,12 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "XPLastPositionFinder.h"
+#import <Panthro/XPScope.h>
 
 @protocol XPStaticContext;
 @protocol XPLastPositionFinder;
 @protocol XPNodeInfo;
 
-@interface XPContext : NSObject <NSCopying, XPLastPositionFinder>
+@interface XPContext : NSObject <NSCopying, XPLastPositionFinder, XPScope>
 
 - (instancetype)initWithStaticContext:(id <XPStaticContext>)env;
 

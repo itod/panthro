@@ -81,6 +81,7 @@
  */
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
+    XPAssert(ctx);
     
 //    id <XPBindery>b = [c bindery];
 //    XPValue *v = [b value:_binding];
@@ -129,7 +130,7 @@
 //        }
 //    }
     
-    id <XPItem>item = [ctx.staticContext itemForVariable:self.name];
+    id <XPItem>item = [ctx itemForVariable:self.name];
     
     if ([item isKindOfClass:[XPValue class]]) {
         ((XPValue *)item).range = self.range;

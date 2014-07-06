@@ -8,7 +8,6 @@
 
 #import "XPQuantifiedExpression.h"
 #import "XPContext.h"
-#import "XPStaticContext.h"
 #import "XPSequenceEnumeration.h"
 #import "XPBooleanValue.h"
 
@@ -74,7 +73,7 @@
 
     while ([seqEnm hasMoreItems]) {
         id <XPItem>inItem = [seqEnm nextItem];
-        [ctx.staticContext setItem:inItem forVariable:varName];
+        [ctx setItem:inItem forVariable:varName];
 
         BOOL stop = NO;
 
@@ -95,7 +94,7 @@
             }
         }
 
-        [ctx.staticContext setItem:nil forVariable:varName];
+        [ctx setItem:nil forVariable:varName];
 
         if (stop) break;
     }

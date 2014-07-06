@@ -6,7 +6,7 @@
 //
 //
 
-#import "XPStaticContext.h"
+#import <Panthro/XPStaticContext.h>
 
 @class XPExpression;
 @class XPFunction;
