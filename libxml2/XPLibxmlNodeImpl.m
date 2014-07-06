@@ -128,7 +128,7 @@ static NSUInteger XPIndexInParent(id <XPNodeInfo>nodeInfo) {
 }
 
 
-- (NSComparisonResult)compareOrderTo:(id <XPNodeInfo>)other {
+- (NSInteger)compareOrderTo:(id <XPNodeInfo>)other {
     XPAssert([other isKindOfClass:[XPLibxmlNodeImpl class]]);
     
     NSComparisonResult result = NSOrderedSame;

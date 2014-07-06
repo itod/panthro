@@ -14,7 +14,7 @@
 + (instancetype)instance {
     static XPEmptySequence *sInstance = nil;
     if (!sInstance) {
-        sInstance = [[[XPEmptySequence alloc] init] autorelease];
+        sInstance = [[XPEmptySequence alloc] init];
     }
     return sInstance;
 }

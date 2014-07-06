@@ -40,7 +40,7 @@
 }
 
 
-- (NSComparisonResult)compareOrderTo:(id <XPNodeInfo>)other {
+- (NSInteger)compareOrderTo:(id <XPNodeInfo>)other {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return NSOrderedSame;
 }

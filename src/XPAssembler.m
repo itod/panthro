@@ -21,6 +21,7 @@
 
 #import "XPBooleanExpression.h"
 #import "XPRelationalExpression.h"
+#import "XPNodeComparisonExpression.h"
 #import "XPArithmeticExpression.h"
 
 #import "XPStep.h"
@@ -279,20 +280,42 @@
     
     NSInteger op = XPEG_TOKEN_KIND_EQUALS;
     NSString *opStr = opTok.stringValue;
+    
+    Class cls = nil;
 
-    if ([@"!=" isEqualToString:opStr]) {
+    if ([@"=" isEqualToString:opStr]) {
+        op = XPEG_TOKEN_KIND_EQUALS;
+        cls = [XPRelationalExpression class];
+    } else if ([@"!=" isEqualToString:opStr]) {
         op = XPEG_TOKEN_KIND_NOT_EQUAL;
+        cls = [XPRelationalExpression class];
     } else if ([@"<" isEqualToString:opStr]) {
         op = XPEG_TOKEN_KIND_LT_SYM;
+        cls = [XPRelationalExpression class];
     } else if ([@">" isEqualToString:opStr]) {
         op = XPEG_TOKEN_KIND_GT_SYM;
+        cls = [XPRelationalExpression class];
     } else if ([@"<=" isEqualToString:opStr]) {
         op = XPEG_TOKEN_KIND_LE_SYM;
+        cls = [XPRelationalExpression class];
     } else if ([@">=" isEqualToString:opStr]) {
         op = XPEG_TOKEN_KIND_GE_SYM;
+        cls = [XPRelationalExpression class];
+    } else if ([@"is" isEqualToString:opStr]) {
+        op = XPEG_TOKEN_KIND_IS;
+        cls = [XPNodeComparisonExpression class];
+    } else if ([@"<<" isEqualToString:opStr]) {
+        op = XPEG_TOKEN_KIND_SHIFT_LEFT;
+        cls = [XPNodeComparisonExpression class];
+    } else if ([@">>" isEqualToString:opStr]) {
+        op = XPEG_TOKEN_KIND_SHIFT_RIGHT;
+        cls = [XPNodeComparisonExpression class];
+    } else {
+        XPAssert(0);
     }
     
-    XPExpression *relExpr = [XPRelationalExpression relationalExpressionWithOperand:p1 operator:op operand:p2];
+    XPAssert(cls);
+    XPExpression *relExpr = [cls relationalExpressionWithOperand:p1 operator:op operand:p2];
     relExpr.range = NSMakeRange(p1.range.location, NSMaxRange(p2.range) - p1.range.location);
     relExpr.staticContext = _env;
     [a push:relExpr];

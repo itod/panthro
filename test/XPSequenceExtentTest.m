@@ -266,7 +266,6 @@
     [self eval:@"()=()"];
     
     BOOL yn = [_res asBoolean];
-    
     TDFalse(yn);
 }
 
@@ -275,7 +274,6 @@
     [self eval:@"()!=()"];
     
     BOOL yn = [_res asBoolean];
-    
     TDFalse(yn);
 }
 
@@ -431,6 +429,70 @@
     
     NSString *s = [_res asString];
     TDEqualObjects(@"hello", s);
+}
+
+
+- (void)testChapterPredicate1IsChapterPredicate1 {
+    [self eval:@"chapter[1] is chapter[1]"];
+    
+    BOOL yn = [_res asBoolean];
+    TDTrue(yn);
+}
+
+
+- (void)testChapterPredicate1IsChapterPredicate2 {
+    [self eval:@"chapter[1] is chapter[2]"];
+    
+    BOOL yn = [_res asBoolean];
+    TDFalse(yn);
+}
+
+
+- (void)testChapterPredicate1ShiftLeftChapterPredicate1 {
+    [self eval:@"chapter[1] << chapter[1]"];
+    
+    BOOL yn = [_res asBoolean];
+    TDFalse(yn);
+}
+
+
+- (void)testChapterPredicate1ShiftRightChapterPredicate1 {
+    [self eval:@"chapter[1] >> chapter[1]"];
+    
+    BOOL yn = [_res asBoolean];
+    TDFalse(yn);
+}
+
+
+- (void)testChapterPredicate1ShiftLeftChapterPredicate2 {
+    [self eval:@"chapter[1] << chapter[2]"];
+    
+    BOOL yn = [_res asBoolean];
+    TDTrue(yn);
+}
+
+
+- (void)testChapterPredicate1ShiftRightChapterPredicate2 {
+    [self eval:@"chapter[1] >> chapter[2]"];
+    
+    BOOL yn = [_res asBoolean];
+    TDFalse(yn);
+}
+
+
+- (void)testChapterPredicate2ShiftLeftChapterPredicate1 {
+    [self eval:@"chapter[2] << chapter[1]"];
+    
+    BOOL yn = [_res asBoolean];
+    TDFalse(yn);
+}
+
+
+- (void)testChapterPredicate2ShiftRightChapterPredicate1 {
+    [self eval:@"chapter[2] >> chapter[1]"];
+    
+    BOOL yn = [_res asBoolean];
+    TDTrue(yn);
 }
 
 @end

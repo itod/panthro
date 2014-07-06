@@ -52,7 +52,7 @@
 }
 
 
-- (NSComparisonResult)compareOrderTo:(id <XPNodeInfo>)other {
+- (NSInteger)compareOrderTo:(id <XPNodeInfo>)other {
     XPAssert([other isKindOfClass:[XPNSXMLNodeImpl class]]);
     
     NSComparisonResult result = NSOrderedSame;

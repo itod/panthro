@@ -136,8 +136,9 @@
         self.tokenKindTab[@"descendant"] = @(XPEG_TOKEN_KIND_DESCENDANT);
         self.tokenKindTab[@"preceding-sibling"] = @(XPEG_TOKEN_KIND_PRECEDINGSIBLING);
         self.tokenKindTab[@"."] = @(XPEG_TOKEN_KIND_DOT);
-        self.tokenKindTab[@"false"] = @(XPEG_TOKEN_KIND_FALSE);
+        self.tokenKindTab[@"<<"] = @(XPEG_TOKEN_KIND_SHIFT_LEFT);
         self.tokenKindTab[@"/"] = @(XPEG_TOKEN_KIND_FORWARD_SLASH);
+        self.tokenKindTab[@"false"] = @(XPEG_TOKEN_KIND_FALSE);
         self.tokenKindTab[@"<="] = @(XPEG_TOKEN_KIND_LE_SYM);
         self.tokenKindTab[@"div"] = @(XPEG_TOKEN_KIND_DIV);
         self.tokenKindTab[@"["] = @(XPEG_TOKEN_KIND_OPEN_BRACKET);
@@ -155,14 +156,16 @@
         self.tokenKindTab[@"in"] = @(XPEG_TOKEN_KIND_IN);
         self.tokenKindTab[@"ancestor"] = @(XPEG_TOKEN_KIND_ANCESTOR);
         self.tokenKindTab[@"for"] = @(XPEG_TOKEN_KIND_FOR);
-        self.tokenKindTab[@"every"] = @(XPEG_TOKEN_KIND_EVERY);
+        self.tokenKindTab[@">>"] = @(XPEG_TOKEN_KIND_SHIFT_RIGHT);
         self.tokenKindTab[@"<"] = @(XPEG_TOKEN_KIND_LT_SYM);
+        self.tokenKindTab[@"every"] = @(XPEG_TOKEN_KIND_EVERY);
         self.tokenKindTab[@"text"] = @(XPEG_TOKEN_KIND_TEXT);
         self.tokenKindTab[@"="] = @(XPEG_TOKEN_KIND_EQUALS);
         self.tokenKindTab[@"comment"] = @(XPEG_TOKEN_KIND_COMMENT);
         self.tokenKindTab[@">"] = @(XPEG_TOKEN_KIND_GT_SYM);
         self.tokenKindTab[@"@"] = @(XPEG_TOKEN_KIND_ABBREVIATEDAXIS);
         self.tokenKindTab[@"then"] = @(XPEG_TOKEN_KIND_THEN);
+        self.tokenKindTab[@"is"] = @(XPEG_TOKEN_KIND_IS);
         self.tokenKindTab[@"else"] = @(XPEG_TOKEN_KIND_ELSE);
         self.tokenKindTab[@"node"] = @(XPEG_TOKEN_KIND_NODE);
         self.tokenKindTab[@"to"] = @(XPEG_TOKEN_KIND_TO);
@@ -196,8 +199,9 @@
         self.tokenKindNameTab[XPEG_TOKEN_KIND_DESCENDANT] = @"descendant";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_PRECEDINGSIBLING] = @"preceding-sibling";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_DOT] = @".";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_FALSE] = @"false";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_SHIFT_LEFT] = @"<<";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_FORWARD_SLASH] = @"/";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_FALSE] = @"false";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_LE_SYM] = @"<=";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_DIV] = @"div";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_OPEN_BRACKET] = @"[";
@@ -215,14 +219,16 @@
         self.tokenKindNameTab[XPEG_TOKEN_KIND_IN] = @"in";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_ANCESTOR] = @"ancestor";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_FOR] = @"for";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_EVERY] = @"every";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_SHIFT_RIGHT] = @">>";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_LT_SYM] = @"<";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_EVERY] = @"every";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_TEXT] = @"text";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_EQUALS] = @"=";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_COMMENT] = @"comment";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_GT_SYM] = @">";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_ABBREVIATEDAXIS] = @"@";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_THEN] = @"then";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_IS] = @"is";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_ELSE] = @"else";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_NODE] = @"node";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_TO] = @"to";
@@ -574,6 +580,8 @@
         [t.symbolState add:@"::"];
         [t.symbolState add:@"<="];
         [t.symbolState add:@"=>"];
+        [t.symbolState add:@"<<"];
+        [t.symbolState add:@">>"];
         [t.symbolState add:@"(:"];
         [t.symbolState add:@":)"];
 
@@ -840,6 +848,8 @@
         [self match:XPEG_TOKEN_KIND_EQUALS discard:NO]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_NOT_EQUAL, 0]) {
         [self match:XPEG_TOKEN_KIND_NOT_EQUAL discard:NO]; 
+    } else if ([self predicts:XPEG_TOKEN_KIND_IS, 0]) {
+        [self match:XPEG_TOKEN_KIND_IS discard:NO]; 
     } else {
         [self raise:@"No viable alternative found in rule 'eqRelationalExpr'."];
     }
@@ -876,6 +886,10 @@
         [self match:XPEG_TOKEN_KIND_LE_SYM discard:NO]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_GE_SYM, 0]) {
         [self match:XPEG_TOKEN_KIND_GE_SYM discard:NO]; 
+    } else if ([self predicts:XPEG_TOKEN_KIND_SHIFT_LEFT, 0]) {
+        [self match:XPEG_TOKEN_KIND_SHIFT_LEFT discard:NO]; 
+    } else if ([self predicts:XPEG_TOKEN_KIND_SHIFT_RIGHT, 0]) {
+        [self match:XPEG_TOKEN_KIND_SHIFT_RIGHT discard:NO]; 
     } else {
         [self raise:@"No viable alternative found in rule 'compareAdditiveExpr'."];
     }

@@ -33,6 +33,8 @@
         [t.symbolState add:@"::"];
         [t.symbolState add:@"<="];
         [t.symbolState add:@"=>"];
+        [t.symbolState add:@"<<"];
+        [t.symbolState add:@">>"];
         [t.symbolState add:@"(:"];
         [t.symbolState add:@":)"];
 
@@ -78,10 +80,10 @@ exprSingle = orExpr | forExpr | quantifiedExpr | ifExpr;
             toEqualityExpr = (to equalityExpr);
 
             equalityExpr = relationalExpr eqRelationalExpr*;
-                eqRelationalExpr = ('=' | '!=') relationalExpr;
+                eqRelationalExpr = ('=' | '!=' | 'is') relationalExpr;
 
                 relationalExpr = additiveExpr compareAdditiveExpr*;
-                    compareAdditiveExpr = ('<' | '>' | '<=' | '>=') additiveExpr;
+                    compareAdditiveExpr = ('<' | '>' | '<=' | '>=' | '<<' | '>>') additiveExpr;
                     
                     additiveExpr = multiplicativeExpr plusOrMinusMultiExpr*;
                         plusOrMinusMultiExpr  = (('+' | '-') multiplicativeExpr);

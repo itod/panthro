@@ -16,7 +16,7 @@
 
 @protocol XPNodeInfo <XPItem>
 
-- (NSComparisonResult)compareOrderTo:(id <XPNodeInfo>)other;
+- (NSInteger)compareOrderTo:(id <XPNodeInfo>)other;
 
 /**
  * Return the type of node.
