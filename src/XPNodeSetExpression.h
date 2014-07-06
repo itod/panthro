@@ -8,7 +8,7 @@
 
 #import "XPExpression.h"
 
-@protocol XPNodeEnumeration;
+@protocol XPSequenceEnumeration;
 
 @interface XPNodeSetExpression : XPExpression
 
@@ -21,6 +21,6 @@
  * @param sorted True if the nodes must be returned in document order
  */
 
-- (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted;
+- (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted;
 
 @end

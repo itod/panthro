@@ -12,11 +12,12 @@
 
 @interface XPContext ()
 @property (nonatomic, assign) id <XPStaticContext>staticContext;
+@property (nonatomic, retain) NSMutableDictionary *variables;
 @end
 
 @implementation XPContext {
     NSUInteger _last;
-    id <XPNodeInfo>_stepContextNode;
+    id <XPItem>_stepContextNode;
 }
 
 - (instancetype)init {
@@ -44,6 +45,7 @@
     self.contextNode = nil;
     self.currentNode = nil;
     self.lastPositionFinder = nil;
+    self.variables = nil;
     [super dealloc];
 }
 
@@ -59,6 +61,7 @@
     c.last = _last;
     c.currentNode = _currentNode;
     c.lastPositionFinder = _lastPositionFinder;
+    c.variables = [[_variables mutableCopy] autorelease];
 //    c.currentTemplate = _currentTemplate;
 //    //c.bindery = bindery;
 //    c.groupActivationStack = _groupActivationStack;
@@ -98,28 +101,49 @@
 }
 
 
-- (void)setStepContextNode:(id <XPNodeInfo>)node {
-    if (node != _stepContextNode) {
-        [_stepContextNode release];
-        _stepContextNode = [node retain];
-    }
-}
-
-
-- (id <XPNodeInfo>)stepContextNode {
-    id <XPNodeInfo>result = _stepContextNode;
-    if (!result) {
-        result = self.contextNode;
-    }
-    return result;
-}
-
-
 #pragma mark -
 #pragma mark XPLastPositionFinder
 
 - (NSUInteger)lastPosition {
     return _last;
+}
+
+
+#pragma mark -
+#pragma mark XPScope
+
+- (void)setItem:(id <XPItem>)item forVariable:(NSString *)name {
+    NSParameterAssert(name);
+
+    if (!_variables) {
+        self.variables = [NSMutableDictionary dictionary];
+    }
+
+    XPAssert(_variables);
+    
+    if (!item) {
+        [_variables removeObjectForKey:name];
+    } else {
+        [_variables setObject:item forKey:name];
+    }
+}
+
+
+- (id <XPItem>)itemForVariable:(NSString *)name {
+    NSParameterAssert(name);
+    
+    id <XPItem>item = [_variables objectForKey:name];
+    if (!item) {
+        item = [self.enclosingScope itemForVariable:name];
+    }
+    
+    return item;
+}
+
+
+- (id <XPScope>)enclosingScope {
+    XPAssert(_staticContext);
+    return _staticContext;
 }
 
 @end

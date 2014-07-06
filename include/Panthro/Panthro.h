@@ -15,9 +15,10 @@
 #import <Panthro/XPPattern.h>
 #import <Panthro/XPNodeTest.h>
 
-#import <Panthro/XPNodeInfo.h>
+#import <Panthro/XPItem.h>
 #import <Panthro/XPDocumentInfo.h>
 
+#import <Panthro/XPScope.h>
 #import <Panthro/XPStaticContext.h>
 #import <Panthro/XPContext.h>
 #import <Panthro/XPSortable.h>
@@ -29,13 +30,13 @@
 #import <Panthro/XPBooleanValue.h>
 #import <Panthro/XPNumericValue.h>
 #import <Panthro/XPStringValue.h>
-#import <Panthro/XPNodeSetValue.h>
+//#import <Panthro/XPSequenceValue.h>
 #import <Panthro/XPEmptyNodeSet.h>
 #import <Panthro/XPObjectValue.h>
 
 #import <Panthro/XPException.h>
 #import <Panthro/XPExpression.h>
-#import <Panthro/XPNodeEnumeration.h>
+#import <Panthro/XPSequenceEnumeration.h>
 
 #import <Panthro/XPStandaloneContext.h>
 #import <Panthro/XPSync.h>

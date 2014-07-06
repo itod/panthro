@@ -6,6 +6,7 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
+#import "XPItem.h"
 #import "XPUtils.h"
 #import "XPAxis.h"
 
@@ -13,9 +14,9 @@
 @protocol XPDocumentInfo;
 @class XPNodeTest;
 
-@protocol XPNodeInfo <NSObject>
+@protocol XPNodeInfo <XPItem>
 
-- (NSComparisonResult)compareOrderTo:(id <XPNodeInfo>)other;
+- (NSInteger)compareOrderTo:(id <XPNodeInfo>)other;
 
 /**
  * Return the type of node.
@@ -59,7 +60,7 @@
 - (id <XPNodeInfo>)parent;
 
 /**
- * Find the value of a given attribute of this node. <BR>
+ * Find the value of a given attribute of this node.
  * This method is defined on all nodes to meet XSL requirements, but for nodes
  * other than elements it will always return null.
  * @param uri the namespace uri of an attribute ("" if no namespace)

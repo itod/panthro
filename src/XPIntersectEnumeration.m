@@ -11,10 +11,10 @@
 #import "XPLocalOrderComparer.h"
 
 @interface XPIntersectEnumeration ()
-@property (nonatomic, retain) id <XPNodeEnumeration>p1;
-@property (nonatomic, retain) id <XPNodeEnumeration>p2;
-@property (nonatomic, retain) id <XPNodeEnumeration>e1;
-@property (nonatomic, retain) id <XPNodeEnumeration>e2;
+@property (nonatomic, retain) id <XPSequenceEnumeration>p1;
+@property (nonatomic, retain) id <XPSequenceEnumeration>p2;
+@property (nonatomic, retain) id <XPSequenceEnumeration>e1;
+@property (nonatomic, retain) id <XPSequenceEnumeration>e2;
 @property (nonatomic, retain) id <XPNodeInfo>nextNode1;
 @property (nonatomic, retain) id <XPNodeInfo>nextNode2;
 @property (nonatomic, retain) id <XPNodeInfo>nextNode;
@@ -23,7 +23,7 @@
 
 @implementation XPIntersectEnumeration
 
-- (instancetype)initWithLhs:(id <XPNodeEnumeration>)lhs rhs:(id <XPNodeEnumeration>)rhs comparer:(id <XPNodeOrderComparer>)comparer {
+- (instancetype)initWithLhs:(id <XPSequenceEnumeration>)lhs rhs:(id <XPSequenceEnumeration>)rhs comparer:(id <XPNodeOrderComparer>)comparer {
     XPAssert(lhs);
     XPAssert(rhs);
     XPAssert(comparer);
@@ -42,11 +42,11 @@
             self.e2 = [[[[[XPNodeSetExtent alloc] initWithEnumeration:_e2 comparer:_comparer] autorelease] sort] enumerate];
         }
         
-        if ([_e1 hasMoreObjects]) {
-            self.nextNode1 = [_e1 nextObject];
+        if ([_e1 hasMoreItems]) {
+            self.nextNode1 = [_e1 nextNodeInfo];
         }
-        if ([_e2 hasMoreObjects]) {
-            self.nextNode2 = [_e2 nextObject];
+        if ([_e2 hasMoreItems]) {
+            self.nextNode2 = [_e2 nextNodeInfo];
         }
         
         // move to the first node in p1 that isn't in p2
@@ -85,12 +85,12 @@
 }
 
 
-- (BOOL)hasMoreObjects {
+- (BOOL)hasMoreItems {
     return _nextNode != nil;
 }
 
 
-- (id <XPNodeInfo>)nextObject {
+- (id <XPNodeInfo>)nextItem {
     id <XPNodeInfo>current = _nextNode;
     [self advance];
     return current;
@@ -104,16 +104,16 @@
     while (_nextNode1 && _nextNode2) {
         NSInteger res = [_comparer compare:_nextNode1 to:_nextNode2];
         if (res < 0) {
-            if ([_e1 hasMoreObjects]) {
-                self.nextNode1 = [_e1 nextObject];
+            if ([_e1 hasMoreItems]) {
+                self.nextNode1 = [_e1 nextNodeInfo];
             } else {
                 self.nextNode1 = nil;
                 self.nextNode = nil;
             }
             
         } else if (res > 0) {
-            if ([_e2 hasMoreObjects]) {
-                self.nextNode2 = [_e2 nextObject];
+            if ([_e2 hasMoreItems]) {
+                self.nextNode2 = [_e2 nextNodeInfo];
             } else {
                 self.nextNode2 = nil;
                 self.nextNode = nil;
@@ -121,13 +121,13 @@
             
         } else {                                                        // keys are equal
             self.nextNode = _nextNode1; // which is the same as nextNode2
-            if ([_e1 hasMoreObjects]) {
-                self.nextNode1 = [_e1 nextObject];
+            if ([_e1 hasMoreItems]) {
+                self.nextNode1 = [_e1 nextNodeInfo];
             } else {
                 self.nextNode1 = nil;
             }
-            if ([_e2 hasMoreObjects]) {
-                self.nextNode2 = [_e2 nextObject];
+            if ([_e2 hasMoreItems]) {
+                self.nextNode2 = [_e2 nextNodeInfo];
             } else {
                 self.nextNode2 = nil;
             }

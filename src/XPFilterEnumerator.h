@@ -7,7 +7,7 @@
 //
 
 #import "XPBaseFastEnumeration.h"
-#import "XPNodeEnumeration.h"
+#import "XPSequenceEnumeration.h"
 
 @class XPExpression;
 @class XPContext;
@@ -20,6 +20,6 @@
 
 @interface XPFilterEnumerator : XPBaseFastEnumeration
 
-- (instancetype)initWithBase:(id <XPNodeEnumeration>)base filter:(XPExpression *)filter context:(XPContext *)ctx finishAfterReject:(BOOL)finishAfterReject;
+- (instancetype)initWithBase:(id <XPSequenceEnumeration>)base filter:(XPExpression *)filter context:(XPContext *)ctx finishAfterReject:(BOOL)finishAfterReject;
 @property (nonatomic, retain) XPContext *filterContext;
 @end

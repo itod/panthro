@@ -68,7 +68,7 @@
         if (f) {
             result = _start;
         } else {
-            result = [XPEmptyNodeSet emptyNodeSet];
+            result = [XPEmptyNodeSet instance];
         }
     }
     
@@ -117,7 +117,7 @@
  * @param sort true if the result must be in document order
  */
 
-- (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sort {
+- (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sort {
     
     // if the expression references variables, or depends on other aspects
     // of the XSLT context, then fix up these dependencies now. If the expression
@@ -154,8 +154,8 @@
         }
     }
     
-    id <XPNodeEnumeration>base = [_start enumerateInContext:ctx sorted:sort];
-    if (![base hasMoreObjects]) {
+    id <XPSequenceEnumeration>base = [_start enumerateInContext:ctx sorted:sort];
+    if (![base hasMoreItems]) {
         return base;        // quick exit for an empty node set
     }
     

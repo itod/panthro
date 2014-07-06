@@ -78,14 +78,14 @@
     }
         
     if (!_step) {
-        return [XPEmptyNodeSet emptyNodeSet];
+        return [XPEmptyNodeSet instance];
     }
     
     XPAxis axis = _step.axis;
     
     // the expression /.. is sometimes used to represent the empty node-set
     if ([_start isKindOfClass:[XPRootExpression class]] && axis == XPAxisParent) {
-        XPExpression *expr = [XPEmptyNodeSet emptyNodeSet];
+        XPExpression *expr = [XPEmptyNodeSet instance];
         expr.staticContext = self.staticContext;
         expr.range = self.range;
         return expr;
@@ -201,7 +201,7 @@
  * @param context the evaluation context
  * @param sort true if the returned nodes must be in document order
  */
-- (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
+- (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
     // if the expression references variables, or depends on other aspects of
     // the XSLT context, then resolve these dependencies now. Also, if the nodes
     // are all known to be in the context document, then any dependency on the
@@ -226,7 +226,7 @@
     // ok, here we are.
     
     XPPathEnumeration *pathEnm = [[[XPPathEnumeration alloc] initWithStart:_start step:_step context:ctx] autorelease];
-    id <XPNodeEnumeration>enm = pathEnm;
+    id <XPSequenceEnumeration>enm = pathEnm;
     if (sorted && !enm.isSorted) {
         
         id <XPNodeOrderComparer>comparer = nil;
@@ -239,7 +239,7 @@
             //XPAssert(0);
         }
         
-        XPNodeSetValue *ns = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:comparer] autorelease];
+        XPSequenceValue *ns = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:comparer] autorelease];
         [ns sort];
         
         enm = [ns enumerate];
@@ -250,7 +250,7 @@
 
 
 - (XPDataType)dataType {
-    return XPDataTypeNodeSet;
+    return XPDataTypeSequence;
 }
 
 @end

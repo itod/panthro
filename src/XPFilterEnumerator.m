@@ -7,8 +7,9 @@
 //
 
 #import "XPFilterEnumerator.h"
-#import "XPNodeEnumeration.h"
+#import "XPSequenceEnumeration.h"
 #import "XPExpression.h"
+#import "XPNodeInfo.h"
 #import "XPNodeInfo.h"
 #import "XPContext.h"
 #import "XPNumericValue.h"
@@ -24,7 +25,7 @@
 #endif
 
 @interface XPFilterEnumerator ()
-@property (nonatomic, retain) id <XPNodeEnumeration>base;
+@property (nonatomic, retain) id <XPSequenceEnumeration>base;
 @property (nonatomic, retain) XPExpression *filter;
 
 @property (nonatomic, assign) NSUInteger position;
@@ -33,7 +34,7 @@
 @property (nonatomic, assign) NSUInteger min;
 @property (nonatomic, assign) NSUInteger max;
 
-@property (nonatomic, retain) id <XPNodeInfo>current;
+@property (nonatomic, retain) id <XPItem>current;
 
 @property (nonatomic, assign) XPDataType dataType;
 @property (nonatomic, assign) BOOL positional;
@@ -57,7 +58,7 @@
  * @param finishAfterReject: terminate enumeration on first failure
  */
 
-- (instancetype)initWithBase:(id <XPNodeEnumeration>)base filter:(XPExpression *)filter context:(XPContext *)ctx finishAfterReject:(BOOL)finishAfterReject {
+- (instancetype)initWithBase:(id <XPSequenceEnumeration>)base filter:(XPExpression *)filter context:(XPContext *)ctx finishAfterReject:(BOOL)finishAfterReject {
     self = [super init];
     if (self) {
         self.position = 0;
@@ -129,7 +130,7 @@
  * Test whether there are any more nodes available in the enumeration
  */
 
-- (BOOL)hasMoreObjects {
+- (BOOL)hasMoreItems {
     if (_finished) return NO;
     return _current != nil;
 }
@@ -139,13 +140,13 @@
  * Get the next node if there is one
  */
 
-- (id <XPNodeInfo>)nextObject {
+- (id <XPItem>)nextItem {
     //XPAssert(_current);
-    id <XPNodeInfo>node = _current;
+    id <XPItem>node = _current;
     self.current = [self nextMatchingObject];
     
 #if FILTER_PAUSE_ENABLED
-    if (![self hasMoreObjects]) {
+    if (![self hasMoreItems]) {
         [self pause];
     }
 #endif
@@ -158,9 +159,9 @@
  * Get the next node that matches the filter predicate if there is one
  */
 
-- (id <XPNodeInfo>)nextMatchingObject {
-    while (!_finished && [_base hasMoreObjects]) {
-        id <XPNodeInfo>next = [_base nextObject];
+- (id <XPItem>)nextMatchingObject {
+    while (!_finished && [_base hasMoreItems]) {
+        id <XPItem>next = [_base nextItem];
         self.position++;
         if ([self matches:next]) {
             
@@ -179,7 +180,7 @@
 
 
 #if FILTER_PAUSE_ENABLED
-- (void)addContextNode:(id <XPNodeInfo>)node {
+- (void)addContextNode:(id <XPItem>)node {
     XPAssert(node);
     
     XPAssert(_contextNodes);
@@ -187,7 +188,7 @@
 }
 
 
-- (void)addResultNode:(id <XPNodeInfo>)node {
+- (void)addResultNode:(id <XPItem>)node {
     XPAssert(node);
     
     XPAssert(_resultNodes);
@@ -196,13 +197,13 @@
 
 
 - (void)pause {
-    XPAssert(![self hasMoreObjects]);
+    XPAssert(![self hasMoreItems]);
     
     if (_resultNodes) {
-        XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_contextNodes comparer:nil] autorelease];
+        XPSequenceValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_contextNodes comparer:nil] autorelease];
         [contextNodeSet sort];
         
-        XPNodeSetValue *resultNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_resultNodes comparer:nil] autorelease];
+        XPSequenceValue *resultNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_resultNodes comparer:nil] autorelease];
         [resultNodeSet sort];
         
         [_filterContext.staticContext pauseFrom:_filter withContextNodes:contextNodeSet result:resultNodeSet range:_filter.range done:NO];
@@ -217,7 +218,7 @@
  * Determine whether a node matches the filter predicate
  */
 
-- (BOOL)matches:(id <XPNodeInfo>)node {
+- (BOOL)matches:(id <XPItem>)node {
     if (_positional) {
         if (_position < _min) {
             return NO;
@@ -229,7 +230,7 @@
         }
     }
     _filterContext.position = _position;
-    _filterContext.contextNode = node;
+    _filterContext.contextNode = (id)node;
     
     // If the data type is known at compile time, and cannot be numeric,
     // evaluate the expression directly as a boolean. This avoids expanding

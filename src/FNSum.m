@@ -9,8 +9,8 @@
 #import "FNSum.h"
 #import "XPValue.h"
 #import "XPNumericValue.h"
-#import "XPNodeSetValue.h"
-#import "XPNodeEnumeration.h"
+#import "XPSequenceValue.h"
+#import "XPSequenceEnumeration.h"
 
 @interface XPExpression ()
 @property (nonatomic, retain) NSMutableArray *args;
@@ -21,7 +21,7 @@
 @end
 
 @interface FNSum ()
-- (double)total:(id <XPNodeEnumeration>)e;
+- (double)total:(id <XPSequenceEnumeration>)e;
 @end
 
 @implementation FNSum
@@ -54,8 +54,8 @@
 
 
 - (double)evaluateAsNumberInContext:(XPContext *)ctx {
-    id <XPNodeEnumeration>e = [self.args[0] enumerateInContext:ctx sorted:NO];
-    return [self total:e];
+    id <XPSequenceEnumeration>enm = [self.args[0] enumerateInContext:ctx sorted:NO];
+    return [self total:enm];
 }
 
 
@@ -81,9 +81,9 @@
 }
 
 
-- (double)total:(id <XPNodeEnumeration>)e {
+- (double)total:(id <XPSequenceEnumeration>)enm {
     double sum = 0.0;
-    for (id node in e) {
+    for (id node in enm) {
         sum += XPNumberFromString([node stringValue]);
     }
     return sum;

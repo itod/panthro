@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "XPNodeEnumeration.h"
+#import "XPSequenceEnumeration.h"
 
-@interface XPBaseFastEnumeration : NSObject <XPNodeEnumeration, NSFastEnumeration>
+@interface XPBaseFastEnumeration : NSObject <XPSequenceEnumeration, NSFastEnumeration>
 
 @end

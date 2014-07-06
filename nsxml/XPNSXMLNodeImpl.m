@@ -52,7 +52,7 @@
 }
 
 
-- (NSComparisonResult)compareOrderTo:(id <XPNodeInfo>)other {
+- (NSInteger)compareOrderTo:(id <XPNodeInfo>)other {
     XPAssert([other isKindOfClass:[XPNSXMLNodeImpl class]]);
     
     NSComparisonResult result = NSOrderedSame;
@@ -318,7 +318,7 @@
             break;
     }
     
-    XPNodeSetValue *nodeSet = nil;
+    XPSequenceValue *nodeSet = nil;
     
     if ([nodes count]) {
         XPNodeSetExtent *ext = [[[XPNodeSetExtent alloc] initWithNodes:nodes comparer:nil] autorelease];
@@ -326,7 +326,7 @@
         ext.reverseSorted = !sorted;
         nodeSet = ext;
     } else {
-        nodeSet = [XPEmptyNodeSet emptyNodeSet];
+        nodeSet = [XPEmptyNodeSet instance];
     }
     
     id <XPAxisEnumeration>enm = (id <XPAxisEnumeration>)[nodeSet enumerate];
@@ -522,4 +522,6 @@
     return result;
 }
 
+@synthesize range = _range;
+@synthesize lineNumber = _lineNumber;
 @end

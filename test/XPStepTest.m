@@ -18,7 +18,7 @@
 @property (nonatomic, retain) XPExpression *expr;
 @property (nonatomic, retain) id <XPStaticContext>env;
 @property (nonatomic, retain) XPContext *ctx;
-@property (nonatomic, retain) XPNodeSetValue *res;
+@property (nonatomic, retain) XPSequenceValue *res;
 @end
 
 @implementation XPStepTest
@@ -51,15 +51,15 @@
     TDNotNil(_expr);
     
     self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    TDTrue([_res isKindOfClass:[XPSequenceValue class]]);
     
-    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    id <XPNodeInfo>node = [enm nextObject];
+    id <XPNodeInfo>node = [enm nextNodeInfo];
     TDEqualObjects(@"p", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -68,15 +68,15 @@
     TDNotNil(_expr);
     
     self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    TDTrue([_res isKindOfClass:[XPSequenceValue class]]);
     
-    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    id <XPNodeInfo>node = [enm nextObject];
+    id <XPNodeInfo>node = [enm nextNodeInfo];
     TDEqualObjects(@"a", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -85,15 +85,15 @@
     TDNotNil(_expr);
     
     self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    TDTrue([_res isKindOfClass:[XPSequenceValue class]]);
     
-    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    id <XPNodeInfo>node = [enm nextObject];
+    id <XPNodeInfo>node = [enm nextNodeInfo];
     TDEqualObjects(@"a", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -102,15 +102,15 @@
     TDNotNil(_expr);
     
     self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    TDTrue([_res isKindOfClass:[XPSequenceValue class]]);
     
-    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    id <XPNodeInfo>node = [enm nextObject];
+    id <XPNodeInfo>node = [enm nextNodeInfo];
     TDEqualObjects(@"a", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -119,15 +119,15 @@
     TDNotNil(_expr);
     
     self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    TDTrue([_res isKindOfClass:[XPSequenceValue class]]);
     
-    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    id <XPNodeInfo>node = [enm nextObject];
+    id <XPNodeInfo>node = [enm nextNodeInfo];
     TDEqualObjects(@"p", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -136,15 +136,15 @@
     TDNotNil(_expr);
     
     self.res = (id)[_expr evaluateInContext:_ctx];
-    TDTrue([_res isKindOfClass:[XPNodeSetValue class]]);
+    TDTrue([_res isKindOfClass:[XPSequenceValue class]]);
     
-    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    id <XPNodeInfo>node = [enm nextObject];
+    id <XPNodeInfo>node = [enm nextNodeInfo];
     TDEqualObjects(@"doc", node.name);
     TDEquals(XPNodeTypeElement, node.nodeType);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -154,13 +154,13 @@
     
     self.res = (id)[_expr evaluateInContext:_ctx];
     
-    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    id <XPNodeInfo>node = [enm nextObject];
+    id <XPNodeInfo>node = [enm nextNodeInfo];
     TDEqualObjects(@"", node.name);
     TDEquals(XPNodeTypeRoot, node.nodeType);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -170,13 +170,13 @@
     
     self.res = (id)[_expr evaluateInContext:_ctx];
     
-    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    id <XPNodeInfo>node = [enm nextObject];
+    id <XPNodeInfo>node = [enm nextNodeInfo];
     TDEqualObjects(@"", node.name);
     TDEquals(XPNodeTypeRoot, node.nodeType);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -186,13 +186,13 @@
     
     self.res = (id)[_expr evaluateInContext:_ctx];
     
-    id <XPNodeEnumeration>enm = [_res enumerate];
+    id <XPSequenceEnumeration>enm = [_res enumerate];
     
-    id <XPNodeInfo>node = [enm nextObject];
+    id <XPNodeInfo>node = [enm nextNodeInfo];
     TDEqualObjects(@"", node.name);
     TDEquals(XPNodeTypeRoot, node.nodeType);
     
-    TDFalse([enm hasMoreObjects]);
+    TDFalse([enm hasMoreItems]);
 }
 
 @end

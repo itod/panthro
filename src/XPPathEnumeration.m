@@ -23,8 +23,8 @@
 @interface XPPathEnumeration ()
 @property (nonatomic, retain) XPExpression *start;
 @property (nonatomic, retain) XPStep *step;
-@property (nonatomic, retain) id <XPNodeEnumeration>base;
-@property (nonatomic, retain) id <XPNodeEnumeration>tail;
+@property (nonatomic, retain) id <XPSequenceEnumeration>base;
+@property (nonatomic, retain) id <XPSequenceEnumeration>tail;
 @property (nonatomic, retain) id <XPNodeInfo>next;
 @property (nonatomic, retain) XPContext *context;
 
@@ -77,17 +77,17 @@
 }
 
 
-- (BOOL)hasMoreObjects {
+- (BOOL)hasMoreItems {
     return _next != nil;
 }
 
 
-- (id <XPNodeInfo>)nextObject {
+- (id <XPNodeInfo>)nextItem {
     id <XPNodeInfo>curr = _next;
     self.next = [self nextNode];
     
 #if PAUSE_ENABLED
-    if (![self hasMoreObjects]) {
+    if (![self hasMoreItems]) {
         [self pause];
     }
 #endif
@@ -101,9 +101,9 @@
     // if we are currently processing a step, we continue with it. Otherwise,
     // we get the next base element, and apply the step to that.
 
-    if (_tail && [_tail hasMoreObjects]) {
+    if (_tail && [_tail hasMoreItems]) {
 
-        id <XPNodeInfo>result = [_tail nextObject];
+        id <XPNodeInfo>result = [_tail nextNodeInfo];
 
 #if PAUSE_ENABLED
         [self addResultNode:result];
@@ -112,17 +112,17 @@
         return result;
     }
     
-    while ([_base hasMoreObjects]) {
-        id <XPNodeInfo>node = [_base nextObject];
+    while ([_base hasMoreItems]) {
+        id <XPNodeInfo>node = [_base nextNodeInfo];
 
 #if PAUSE_ENABLED
         [self addContextNode:node];
 #endif
 
         self.tail = [_step enumerate:node inContext:_context];
-        if ([_tail hasMoreObjects]) {
+        if ([_tail hasMoreItems]) {
 
-            id <XPNodeInfo>result = [_tail nextObject];
+            id <XPNodeInfo>result = [_tail nextNodeInfo];
 
 #if PAUSE_ENABLED
             [self addResultNode:result];
@@ -154,13 +154,13 @@
 
 
 - (void)pause {
-    XPAssert(![_tail hasMoreObjects]);
+    XPAssert(![_tail hasMoreItems]);
 
     if (_resultNodes) {
-        XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_contextNodes comparer:nil] autorelease];
+        XPSequenceValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_contextNodes comparer:nil] autorelease];
         [contextNodeSet sort];
         
-        XPNodeSetValue *resultNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_resultNodes comparer:nil] autorelease];
+        XPSequenceValue *resultNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_resultNodes comparer:nil] autorelease];
         [resultNodeSet sort];
         
         [_context.staticContext pauseFrom:_start withContextNodes:contextNodeSet result:resultNodeSet range:_step.range done:NO];

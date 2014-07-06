@@ -6,7 +6,7 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <Panthro/XPScope.h>
 
 @class XPExpression;
 @class XPValue;
@@ -14,12 +14,12 @@
 @class XPNameTest;
 @class XPNamespaceTest;
 
-@protocol XPNodeInfo;
+@protocol XPItem;
 
 #define XPNamespaceXML @"http://www.w3.org/XML/1998/namespace"
 #define XPNamespaceXSLT @"http://www.w3.org/1999/XSL/Transform"
 
-@protocol XPStaticContext <NSObject>
+@protocol XPStaticContext <XPScope>
 
 - (NSString *)systemId;
 - (NSUInteger)lineNumber;
@@ -35,9 +35,6 @@
 - (BOOL)isFunctionAvailable:(NSString *)qname;
 
 - (NSString *)version;
-
-- (void)setValue:(XPValue *)val forVariable:(NSString *)name;
-- (XPValue *)valueForVariable:(NSString *)name;
 
 #if PAUSE_ENABLED
 // Debugging

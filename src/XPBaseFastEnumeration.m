@@ -22,15 +22,25 @@
 }
 
 
-- (BOOL)hasMoreObjects {
+- (BOOL)hasMoreItems {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return NO;
 }
 
 
-- (id <XPNodeInfo>)nextObject {
+- (id <XPItem>)nextItem {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return nil;
+}
+
+
+- (id <XPNodeInfo>)nextNodeInfo {
+    return (id <XPNodeInfo>)[self nextItem];
+}
+
+
+- (XPValue *)nextValue {
+    return (XPValue *)[self nextItem];
 }
 
 
@@ -43,17 +53,17 @@
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id *)stackbuf count:(NSUInteger)len {
     NSUInteger count = 0;
     
-    id <XPNodeInfo>node = nil;
+    id <XPItem>node = nil;
     
     if (0 == state->state) {
-        node = [self nextObject];
+        node = [self nextItem];
     } else {
-        node = (id <XPNodeInfo>)state->state;
+        node = (id <XPItem>)state->state;
     }
     
     while (node && count < len) {
         stackbuf[count] = node;
-        node = [self nextObject];
+        node = [self nextItem];
         count++;
     }
     

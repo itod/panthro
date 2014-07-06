@@ -8,7 +8,7 @@
 
 #import "XPNodeSetExpression.h"
 #import "XPContext.h"
-#import "XPNodeEnumeration.h"
+#import "XPSequenceEnumeration.h"
 #import "XPNodeSetExtent.h"
 //#import "XPNodeSetIntent.h"
 #import "XPLocalOrderComparer.h"
@@ -25,11 +25,11 @@
 @implementation XPNodeSetExpression
 
 - (XPDataType)dataType {
-    return XPDataTypeNodeSet;
+    return XPDataTypeSequence;
 }
 
 
-- (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
+- (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return nil;
 }
@@ -39,19 +39,19 @@
     XPValue *result = nil;
     XPExpression *expr = [self reduceDependencies:XPDependenciesAll inContext:ctx];
     
-    if ([expr isKindOfClass:[XPNodeSetValue class]]) {
+    if ([expr isKindOfClass:[XPSequenceValue class]]) {
         result = (XPValue *)expr;
 
     } else if ([expr isKindOfClass:[XPNodeSetExpression class]]) {
         
-        id <XPNodeEnumeration>enm = [(XPNodeSetExpression *)expr enumerateInContext:ctx sorted:YES];
+        id <XPSequenceEnumeration>enm = [(XPNodeSetExpression *)expr enumerateInContext:ctx sorted:YES];
         
         if (enm) {
-            XPNodeSetValue *nodeSet = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:nil] autorelease];
+            XPSequenceValue *nodeSet = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:nil] autorelease];
             nodeSet.range = self.range;
             result = nodeSet;
         } else {
-            result = [XPEmptyNodeSet emptyNodeSet];
+            result = [XPEmptyNodeSet instance];
         }
 
 //        XPNodeSetIntent *nsi = [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPNodeSetExpression *)expr comparer:nil] autorelease];
@@ -59,7 +59,7 @@
 
     } else {
         result = [expr evaluateInContext:ctx];
-        if (![result isKindOfClass:[XPNodeSetValue class]]) {
+        if (![result isKindOfClass:[XPSequenceValue class]]) {
             [XPException raiseIn:self format:@"Value must be a node-set. it is a %@", [expr class]];
         }
     }

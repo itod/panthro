@@ -116,13 +116,13 @@
  * @return: an enumeration of nodes that result from applying this step
  */
 
-- (id <XPNodeEnumeration>)enumerate:(id <XPNodeInfo>)node inContext:(XPContext *)ctx {
-    id <XPNodeEnumeration>enm = [node enumerationForAxis:_axis nodeTest:_nodeTest];
+- (id <XPSequenceEnumeration>)enumerate:(id <XPNodeInfo>)node inContext:(XPContext *)ctx {
+    id <XPSequenceEnumeration>enm = [node enumerationForAxis:_axis nodeTest:_nodeTest];
 
-    if ([enm hasMoreObjects]) {       // if there are no nodes, there's nothing to filter
+    if ([enm hasMoreItems]) {       // if there are no nodes, there's nothing to filter
         
 //#if PAUSE_ENABLED
-//        id <XPNodeInfo>baseCtxNode = ctx.contextNode;
+//        id <XPItem>baseCtxNode = ctx.contextNode;
 //        XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:@[baseCtxNode] comparer:nil] autorelease];
 //#endif
         

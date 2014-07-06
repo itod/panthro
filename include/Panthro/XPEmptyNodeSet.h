@@ -6,9 +6,9 @@
 //
 //
 
-#import "XPNodeSetValue.h"
+#import "XPSequenceValue.h"
 
-@interface XPEmptyNodeSet : XPNodeSetValue
+@interface XPEmptyNodeSet : XPSequenceValue
 
-+ (instancetype)emptyNodeSet;
++ (instancetype)instance;
 @end

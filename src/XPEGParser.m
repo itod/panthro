@@ -4,12 +4,21 @@
 
 @interface XPEGParser ()
 
-@property (nonatomic, retain) NSMutableDictionary *stmt_memo;
+@property (nonatomic, retain) NSMutableDictionary *xpath_memo;
 @property (nonatomic, retain) NSMutableDictionary *expr_memo;
+@property (nonatomic, retain) NSMutableDictionary *exprSingleTail_memo;
+@property (nonatomic, retain) NSMutableDictionary *exprSingle_memo;
+@property (nonatomic, retain) NSMutableDictionary *forExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *simpleForClause_memo;
+@property (nonatomic, retain) NSMutableDictionary *singleForClause_memo;
+@property (nonatomic, retain) NSMutableDictionary *quantifiedExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *ifExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *orExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *orAndExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *andExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *andEqualityExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *andRangeExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *rangeExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *toEqualityExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *equalityExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *eqRelationalExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *relationalExpr_memo;
@@ -44,6 +53,7 @@
 @property (nonatomic, retain) NSMutableDictionary *variableReference_memo;
 @property (nonatomic, retain) NSMutableDictionary *literal_memo;
 @property (nonatomic, retain) NSMutableDictionary *number_memo;
+@property (nonatomic, retain) NSMutableDictionary *parenthesizedExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *functionCall_memo;
 @property (nonatomic, retain) NSMutableDictionary *actualFunctionCall_memo;
 @property (nonatomic, retain) NSMutableDictionary *booleanLiteralFunctionCall_memo;
@@ -84,6 +94,11 @@
 @property (nonatomic, retain) NSMutableDictionary *self_memo;
 @property (nonatomic, retain) NSMutableDictionary *div_memo;
 @property (nonatomic, retain) NSMutableDictionary *mod_memo;
+@property (nonatomic, retain) NSMutableDictionary *to_memo;
+@property (nonatomic, retain) NSMutableDictionary *for_memo;
+@property (nonatomic, retain) NSMutableDictionary *in_memo;
+@property (nonatomic, retain) NSMutableDictionary *return_memo;
+@property (nonatomic, retain) NSMutableDictionary *satisfies_memo;
 @property (nonatomic, retain) NSMutableDictionary *or_memo;
 @property (nonatomic, retain) NSMutableDictionary *and_memo;
 @property (nonatomic, retain) NSMutableDictionary *true_memo;
@@ -101,113 +116,148 @@
     self = [super initWithDelegate:d];
     if (self) {
         
-        self.startRuleName = @"stmt";
-        self.tokenKindTab[@">="] = @(XPEG_TOKEN_KIND_GE_SYM);
+        self.startRuleName = @"xpath";
         self.tokenKindTab[@"|"] = @(XPEG_TOKEN_KIND_PIPE);
-        self.tokenKindTab[@"preceding-sibling"] = @(XPEG_TOKEN_KIND_PRECEDINGSIBLING);
-        self.tokenKindTab[@"true"] = @(XPEG_TOKEN_KIND_TRUE);
-        self.tokenKindTab[@"parent"] = @(XPEG_TOKEN_KIND_PARENT);
-        self.tokenKindTab[@"except"] = @(XPEG_TOKEN_KIND_EXCEPT);
-        self.tokenKindTab[@"attribute"] = @(XPEG_TOKEN_KIND_ATTR);
         self.tokenKindTab[@"!="] = @(XPEG_TOKEN_KIND_NOT_EQUAL);
-        self.tokenKindTab[@"mod"] = @(XPEG_TOKEN_KIND_MOD);
-        self.tokenKindTab[@"text"] = @(XPEG_TOKEN_KIND_TEXT);
-        self.tokenKindTab[@"self"] = @(XPEG_TOKEN_KIND_SELF);
-        self.tokenKindTab[@"comment"] = @(XPEG_TOKEN_KIND_COMMENT);
-        self.tokenKindTab[@":"] = @(XPEG_TOKEN_KIND_COLON);
-        self.tokenKindTab[@"child"] = @(XPEG_TOKEN_KIND_CHILD);
-        self.tokenKindTab[@"div"] = @(XPEG_TOKEN_KIND_DIV);
-        self.tokenKindTab[@"preceding"] = @(XPEG_TOKEN_KIND_PRECEDING);
-        self.tokenKindTab[@"$"] = @(XPEG_TOKEN_KIND_DOLLAR);
-        self.tokenKindTab[@"<"] = @(XPEG_TOKEN_KIND_LT_SYM);
-        self.tokenKindTab[@"following"] = @(XPEG_TOKEN_KIND_FOLLOWING);
-        self.tokenKindTab[@"descendant"] = @(XPEG_TOKEN_KIND_DESCENDANT);
-        self.tokenKindTab[@"="] = @(XPEG_TOKEN_KIND_EQUALS);
-        self.tokenKindTab[@".."] = @(XPEG_TOKEN_KIND_DOT_DOT);
-        self.tokenKindTab[@"following-sibling"] = @(XPEG_TOKEN_KIND_FOLLOWINGSIBLING);
-        self.tokenKindTab[@">"] = @(XPEG_TOKEN_KIND_GT_SYM);
-        self.tokenKindTab[@"::"] = @(XPEG_TOKEN_KIND_DOUBLE_COLON);
-        self.tokenKindTab[@"namespace"] = @(XPEG_TOKEN_KIND_NAMESPACE);
-        self.tokenKindTab[@"node"] = @(XPEG_TOKEN_KIND_NODE);
         self.tokenKindTab[@"("] = @(XPEG_TOKEN_KIND_OPEN_PAREN);
-        self.tokenKindTab[@"@"] = @(XPEG_TOKEN_KIND_ABBREVIATEDAXIS);
-        self.tokenKindTab[@"intersect"] = @(XPEG_TOKEN_KIND_INTERSECT);
+        self.tokenKindTab[@"satisfies"] = @(XPEG_TOKEN_KIND_SATISFIES);
+        self.tokenKindTab[@"return"] = @(XPEG_TOKEN_KIND_RETURN);
         self.tokenKindTab[@")"] = @(XPEG_TOKEN_KIND_CLOSE_PAREN);
-        self.tokenKindTab[@"//"] = @(XPEG_TOKEN_KIND_DOUBLE_SLASH);
-        self.tokenKindTab[@"*"] = @(XPEG_TOKEN_KIND_MULTIPLYOPERATOR);
-        self.tokenKindTab[@"or"] = @(XPEG_TOKEN_KIND_OR);
-        self.tokenKindTab[@"+"] = @(XPEG_TOKEN_KIND_PLUS);
-        self.tokenKindTab[@"processing-instruction"] = @(XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION);
-        self.tokenKindTab[@"["] = @(XPEG_TOKEN_KIND_OPEN_BRACKET);
-        self.tokenKindTab[@","] = @(XPEG_TOKEN_KIND_COMMA);
-        self.tokenKindTab[@"and"] = @(XPEG_TOKEN_KIND_AND);
-        self.tokenKindTab[@"-"] = @(XPEG_TOKEN_KIND_MINUS);
-        self.tokenKindTab[@"ancestor"] = @(XPEG_TOKEN_KIND_ANCESTOR);
-        self.tokenKindTab[@"."] = @(XPEG_TOKEN_KIND_DOT);
-        self.tokenKindTab[@"]"] = @(XPEG_TOKEN_KIND_CLOSE_BRACKET);
         self.tokenKindTab[@"descendant-or-self"] = @(XPEG_TOKEN_KIND_DESCENDANTORSELF);
+        self.tokenKindTab[@"parent"] = @(XPEG_TOKEN_KIND_PARENT);
+        self.tokenKindTab[@"*"] = @(XPEG_TOKEN_KIND_MULTIPLYOPERATOR);
+        self.tokenKindTab[@"and"] = @(XPEG_TOKEN_KIND_AND);
+        self.tokenKindTab[@"+"] = @(XPEG_TOKEN_KIND_PLUS);
+        self.tokenKindTab[@"//"] = @(XPEG_TOKEN_KIND_DOUBLE_SLASH);
+        self.tokenKindTab[@","] = @(XPEG_TOKEN_KIND_COMMA);
+        self.tokenKindTab[@"if"] = @(XPEG_TOKEN_KIND_IF);
+        self.tokenKindTab[@"self"] = @(XPEG_TOKEN_KIND_SELF);
+        self.tokenKindTab[@"-"] = @(XPEG_TOKEN_KIND_MINUS);
+        self.tokenKindTab[@"descendant"] = @(XPEG_TOKEN_KIND_DESCENDANT);
+        self.tokenKindTab[@"preceding-sibling"] = @(XPEG_TOKEN_KIND_PRECEDINGSIBLING);
+        self.tokenKindTab[@"."] = @(XPEG_TOKEN_KIND_DOT);
+        self.tokenKindTab[@"<<"] = @(XPEG_TOKEN_KIND_SHIFT_LEFT);
         self.tokenKindTab[@"/"] = @(XPEG_TOKEN_KIND_FORWARD_SLASH);
         self.tokenKindTab[@"false"] = @(XPEG_TOKEN_KIND_FALSE);
         self.tokenKindTab[@"<="] = @(XPEG_TOKEN_KIND_LE_SYM);
+        self.tokenKindTab[@"div"] = @(XPEG_TOKEN_KIND_DIV);
+        self.tokenKindTab[@"["] = @(XPEG_TOKEN_KIND_OPEN_BRACKET);
+        self.tokenKindTab[@"]"] = @(XPEG_TOKEN_KIND_CLOSE_BRACKET);
         self.tokenKindTab[@"union"] = @(XPEG_TOKEN_KIND_UNION);
+        self.tokenKindTab[@"except"] = @(XPEG_TOKEN_KIND_EXCEPT);
+        self.tokenKindTab[@"namespace"] = @(XPEG_TOKEN_KIND_NAMESPACE);
+        self.tokenKindTab[@"or"] = @(XPEG_TOKEN_KIND_OR);
+        self.tokenKindTab[@"child"] = @(XPEG_TOKEN_KIND_CHILD);
+        self.tokenKindTab[@"attribute"] = @(XPEG_TOKEN_KIND_ATTR);
+        self.tokenKindTab[@"preceding"] = @(XPEG_TOKEN_KIND_PRECEDING);
+        self.tokenKindTab[@">="] = @(XPEG_TOKEN_KIND_GE_SYM);
+        self.tokenKindTab[@":"] = @(XPEG_TOKEN_KIND_COLON);
+        self.tokenKindTab[@"some"] = @(XPEG_TOKEN_KIND_SOME);
+        self.tokenKindTab[@"in"] = @(XPEG_TOKEN_KIND_IN);
+        self.tokenKindTab[@"ancestor"] = @(XPEG_TOKEN_KIND_ANCESTOR);
+        self.tokenKindTab[@"for"] = @(XPEG_TOKEN_KIND_FOR);
+        self.tokenKindTab[@">>"] = @(XPEG_TOKEN_KIND_SHIFT_RIGHT);
+        self.tokenKindTab[@"<"] = @(XPEG_TOKEN_KIND_LT_SYM);
+        self.tokenKindTab[@"every"] = @(XPEG_TOKEN_KIND_EVERY);
+        self.tokenKindTab[@"text"] = @(XPEG_TOKEN_KIND_TEXT);
+        self.tokenKindTab[@"="] = @(XPEG_TOKEN_KIND_EQUALS);
+        self.tokenKindTab[@"comment"] = @(XPEG_TOKEN_KIND_COMMENT);
+        self.tokenKindTab[@">"] = @(XPEG_TOKEN_KIND_GT_SYM);
+        self.tokenKindTab[@"@"] = @(XPEG_TOKEN_KIND_ABBREVIATEDAXIS);
+        self.tokenKindTab[@"then"] = @(XPEG_TOKEN_KIND_THEN);
+        self.tokenKindTab[@"is"] = @(XPEG_TOKEN_KIND_IS);
+        self.tokenKindTab[@"else"] = @(XPEG_TOKEN_KIND_ELSE);
+        self.tokenKindTab[@"node"] = @(XPEG_TOKEN_KIND_NODE);
+        self.tokenKindTab[@"to"] = @(XPEG_TOKEN_KIND_TO);
+        self.tokenKindTab[@"::"] = @(XPEG_TOKEN_KIND_DOUBLE_COLON);
+        self.tokenKindTab[@"true"] = @(XPEG_TOKEN_KIND_TRUE);
+        self.tokenKindTab[@"processing-instruction"] = @(XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION);
+        self.tokenKindTab[@"$"] = @(XPEG_TOKEN_KIND_DOLLAR);
+        self.tokenKindTab[@"following-sibling"] = @(XPEG_TOKEN_KIND_FOLLOWINGSIBLING);
+        self.tokenKindTab[@"mod"] = @(XPEG_TOKEN_KIND_MOD);
+        self.tokenKindTab[@".."] = @(XPEG_TOKEN_KIND_DOT_DOT);
+        self.tokenKindTab[@"intersect"] = @(XPEG_TOKEN_KIND_INTERSECT);
         self.tokenKindTab[@"ancestor-or-self"] = @(XPEG_TOKEN_KIND_ANCESTORORSELF);
+        self.tokenKindTab[@"following"] = @(XPEG_TOKEN_KIND_FOLLOWING);
 
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_GE_SYM] = @">=";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_PIPE] = @"|";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_PRECEDINGSIBLING] = @"preceding-sibling";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_TRUE] = @"true";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_PARENT] = @"parent";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_EXCEPT] = @"except";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_ATTR] = @"attribute";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_NOT_EQUAL] = @"!=";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_MOD] = @"mod";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_TEXT] = @"text";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_SELF] = @"self";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_COMMENT] = @"comment";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_COLON] = @":";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_CHILD] = @"child";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_DIV] = @"div";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_PRECEDING] = @"preceding";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_DOLLAR] = @"$";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_LT_SYM] = @"<";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_FOLLOWING] = @"following";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_DESCENDANT] = @"descendant";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_EQUALS] = @"=";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_DOT_DOT] = @"..";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_FOLLOWINGSIBLING] = @"following-sibling";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_GT_SYM] = @">";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_DOUBLE_COLON] = @"::";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_NAMESPACE] = @"namespace";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_NODE] = @"node";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_OPEN_PAREN] = @"(";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_ABBREVIATEDAXIS] = @"@";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_INTERSECT] = @"intersect";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_SATISFIES] = @"satisfies";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_RETURN] = @"return";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_CLOSE_PAREN] = @")";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_DOUBLE_SLASH] = @"//";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_MULTIPLYOPERATOR] = @"*";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_OR] = @"or";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_PLUS] = @"+";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION] = @"processing-instruction";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_OPEN_BRACKET] = @"[";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_COMMA] = @",";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_AND] = @"and";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_MINUS] = @"-";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_ANCESTOR] = @"ancestor";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_DOT] = @".";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_CLOSE_BRACKET] = @"]";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_DESCENDANTORSELF] = @"descendant-or-self";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_PARENT] = @"parent";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_MULTIPLYOPERATOR] = @"*";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_AND] = @"and";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_PLUS] = @"+";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_DOUBLE_SLASH] = @"//";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_COMMA] = @",";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_IF] = @"if";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_SELF] = @"self";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_MINUS] = @"-";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_DESCENDANT] = @"descendant";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_PRECEDINGSIBLING] = @"preceding-sibling";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_DOT] = @".";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_SHIFT_LEFT] = @"<<";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_FORWARD_SLASH] = @"/";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_FALSE] = @"false";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_LE_SYM] = @"<=";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_DIV] = @"div";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_OPEN_BRACKET] = @"[";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_CLOSE_BRACKET] = @"]";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_UNION] = @"union";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_EXCEPT] = @"except";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_NAMESPACE] = @"namespace";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_OR] = @"or";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_CHILD] = @"child";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_ATTR] = @"attribute";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_PRECEDING] = @"preceding";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_GE_SYM] = @">=";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_COLON] = @":";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_SOME] = @"some";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_IN] = @"in";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_ANCESTOR] = @"ancestor";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_FOR] = @"for";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_SHIFT_RIGHT] = @">>";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_LT_SYM] = @"<";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_EVERY] = @"every";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_TEXT] = @"text";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_EQUALS] = @"=";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_COMMENT] = @"comment";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_GT_SYM] = @">";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_ABBREVIATEDAXIS] = @"@";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_THEN] = @"then";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_IS] = @"is";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_ELSE] = @"else";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_NODE] = @"node";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_TO] = @"to";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_DOUBLE_COLON] = @"::";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_TRUE] = @"true";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION] = @"processing-instruction";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_DOLLAR] = @"$";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_FOLLOWINGSIBLING] = @"following-sibling";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_MOD] = @"mod";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_DOT_DOT] = @"..";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_INTERSECT] = @"intersect";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_ANCESTORORSELF] = @"ancestor-or-self";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_FOLLOWING] = @"following";
 
-        self.stmt_memo = [NSMutableDictionary dictionary];
+        self.xpath_memo = [NSMutableDictionary dictionary];
         self.expr_memo = [NSMutableDictionary dictionary];
+        self.exprSingleTail_memo = [NSMutableDictionary dictionary];
+        self.exprSingle_memo = [NSMutableDictionary dictionary];
+        self.forExpr_memo = [NSMutableDictionary dictionary];
+        self.simpleForClause_memo = [NSMutableDictionary dictionary];
+        self.singleForClause_memo = [NSMutableDictionary dictionary];
+        self.quantifiedExpr_memo = [NSMutableDictionary dictionary];
+        self.ifExpr_memo = [NSMutableDictionary dictionary];
         self.orExpr_memo = [NSMutableDictionary dictionary];
         self.orAndExpr_memo = [NSMutableDictionary dictionary];
         self.andExpr_memo = [NSMutableDictionary dictionary];
-        self.andEqualityExpr_memo = [NSMutableDictionary dictionary];
+        self.andRangeExpr_memo = [NSMutableDictionary dictionary];
+        self.rangeExpr_memo = [NSMutableDictionary dictionary];
+        self.toEqualityExpr_memo = [NSMutableDictionary dictionary];
         self.equalityExpr_memo = [NSMutableDictionary dictionary];
         self.eqRelationalExpr_memo = [NSMutableDictionary dictionary];
         self.relationalExpr_memo = [NSMutableDictionary dictionary];
@@ -242,6 +292,7 @@
         self.variableReference_memo = [NSMutableDictionary dictionary];
         self.literal_memo = [NSMutableDictionary dictionary];
         self.number_memo = [NSMutableDictionary dictionary];
+        self.parenthesizedExpr_memo = [NSMutableDictionary dictionary];
         self.functionCall_memo = [NSMutableDictionary dictionary];
         self.actualFunctionCall_memo = [NSMutableDictionary dictionary];
         self.booleanLiteralFunctionCall_memo = [NSMutableDictionary dictionary];
@@ -282,6 +333,11 @@
         self.self_memo = [NSMutableDictionary dictionary];
         self.div_memo = [NSMutableDictionary dictionary];
         self.mod_memo = [NSMutableDictionary dictionary];
+        self.to_memo = [NSMutableDictionary dictionary];
+        self.for_memo = [NSMutableDictionary dictionary];
+        self.in_memo = [NSMutableDictionary dictionary];
+        self.return_memo = [NSMutableDictionary dictionary];
+        self.satisfies_memo = [NSMutableDictionary dictionary];
         self.or_memo = [NSMutableDictionary dictionary];
         self.and_memo = [NSMutableDictionary dictionary];
         self.true_memo = [NSMutableDictionary dictionary];
@@ -297,12 +353,21 @@
 
 - (void)dealloc {
     
-    self.stmt_memo = nil;
+    self.xpath_memo = nil;
     self.expr_memo = nil;
+    self.exprSingleTail_memo = nil;
+    self.exprSingle_memo = nil;
+    self.forExpr_memo = nil;
+    self.simpleForClause_memo = nil;
+    self.singleForClause_memo = nil;
+    self.quantifiedExpr_memo = nil;
+    self.ifExpr_memo = nil;
     self.orExpr_memo = nil;
     self.orAndExpr_memo = nil;
     self.andExpr_memo = nil;
-    self.andEqualityExpr_memo = nil;
+    self.andRangeExpr_memo = nil;
+    self.rangeExpr_memo = nil;
+    self.toEqualityExpr_memo = nil;
     self.equalityExpr_memo = nil;
     self.eqRelationalExpr_memo = nil;
     self.relationalExpr_memo = nil;
@@ -337,6 +402,7 @@
     self.variableReference_memo = nil;
     self.literal_memo = nil;
     self.number_memo = nil;
+    self.parenthesizedExpr_memo = nil;
     self.functionCall_memo = nil;
     self.actualFunctionCall_memo = nil;
     self.booleanLiteralFunctionCall_memo = nil;
@@ -377,6 +443,11 @@
     self.self_memo = nil;
     self.div_memo = nil;
     self.mod_memo = nil;
+    self.to_memo = nil;
+    self.for_memo = nil;
+    self.in_memo = nil;
+    self.return_memo = nil;
+    self.satisfies_memo = nil;
     self.or_memo = nil;
     self.and_memo = nil;
     self.true_memo = nil;
@@ -391,12 +462,21 @@
 }
 
 - (void)clearMemo {
-    [_stmt_memo removeAllObjects];
+    [_xpath_memo removeAllObjects];
     [_expr_memo removeAllObjects];
+    [_exprSingleTail_memo removeAllObjects];
+    [_exprSingle_memo removeAllObjects];
+    [_forExpr_memo removeAllObjects];
+    [_simpleForClause_memo removeAllObjects];
+    [_singleForClause_memo removeAllObjects];
+    [_quantifiedExpr_memo removeAllObjects];
+    [_ifExpr_memo removeAllObjects];
     [_orExpr_memo removeAllObjects];
     [_orAndExpr_memo removeAllObjects];
     [_andExpr_memo removeAllObjects];
-    [_andEqualityExpr_memo removeAllObjects];
+    [_andRangeExpr_memo removeAllObjects];
+    [_rangeExpr_memo removeAllObjects];
+    [_toEqualityExpr_memo removeAllObjects];
     [_equalityExpr_memo removeAllObjects];
     [_eqRelationalExpr_memo removeAllObjects];
     [_relationalExpr_memo removeAllObjects];
@@ -431,6 +511,7 @@
     [_variableReference_memo removeAllObjects];
     [_literal_memo removeAllObjects];
     [_number_memo removeAllObjects];
+    [_parenthesizedExpr_memo removeAllObjects];
     [_functionCall_memo removeAllObjects];
     [_actualFunctionCall_memo removeAllObjects];
     [_booleanLiteralFunctionCall_memo removeAllObjects];
@@ -471,6 +552,11 @@
     [_self_memo removeAllObjects];
     [_div_memo removeAllObjects];
     [_mod_memo removeAllObjects];
+    [_to_memo removeAllObjects];
+    [_for_memo removeAllObjects];
+    [_in_memo removeAllObjects];
+    [_return_memo removeAllObjects];
+    [_satisfies_memo removeAllObjects];
     [_or_memo removeAllObjects];
     [_and_memo removeAllObjects];
     [_true_memo removeAllObjects];
@@ -494,6 +580,8 @@
         [t.symbolState add:@"::"];
         [t.symbolState add:@"<="];
         [t.symbolState add:@"=>"];
+        [t.symbolState add:@"<<"];
+        [t.symbolState add:@">>"];
         [t.symbolState add:@"(:"];
         [t.symbolState add:@":)"];
 
@@ -518,31 +606,148 @@
 
     }];
 
-    [self stmt_]; 
+    [self xpath_]; 
     [self matchEOF:YES]; 
 
 }
 
-- (void)__stmt {
+- (void)__xpath {
     
     [self expr_]; 
 
-    [self fireDelegateSelector:@selector(parser:didMatchStmt:)];
+    [self fireDelegateSelector:@selector(parser:didMatchXpath:)];
 }
 
-- (void)stmt_ {
-    [self parseRule:@selector(__stmt) withMemo:_stmt_memo];
+- (void)xpath_ {
+    [self parseRule:@selector(__xpath) withMemo:_xpath_memo];
 }
 
 - (void)__expr {
     
-    [self orExpr_]; 
+    [self exprSingle_]; 
+    while ([self speculate:^{ [self exprSingleTail_]; }]) {
+        [self exprSingleTail_]; 
+    }
 
     [self fireDelegateSelector:@selector(parser:didMatchExpr:)];
 }
 
 - (void)expr_ {
     [self parseRule:@selector(__expr) withMemo:_expr_memo];
+}
+
+- (void)__exprSingleTail {
+    
+    [self match:XPEG_TOKEN_KIND_COMMA discard:YES]; 
+    [self exprSingle_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchExprSingleTail:)];
+}
+
+- (void)exprSingleTail_ {
+    [self parseRule:@selector(__exprSingleTail) withMemo:_exprSingleTail_memo];
+}
+
+- (void)__exprSingle {
+    
+    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_ABBREVIATEDAXIS, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIV, XPEG_TOKEN_KIND_DOLLAR, XPEG_TOKEN_KIND_DOT, XPEG_TOKEN_KIND_DOT_DOT, XPEG_TOKEN_KIND_DOUBLE_SLASH, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_FORWARD_SLASH, XPEG_TOKEN_KIND_MINUS, XPEG_TOKEN_KIND_MOD, XPEG_TOKEN_KIND_MULTIPLYOPERATOR, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OPEN_PAREN, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TRUE, 0]) {
+        [self orExpr_]; 
+    } else if ([self predicts:XPEG_TOKEN_KIND_FOR, 0]) {
+        [self forExpr_]; 
+    } else if ([self predicts:XPEG_TOKEN_KIND_EVERY, XPEG_TOKEN_KIND_SOME, 0]) {
+        [self quantifiedExpr_]; 
+    } else if ([self predicts:XPEG_TOKEN_KIND_IF, 0]) {
+        [self ifExpr_]; 
+    } else {
+        [self raise:@"No viable alternative found in rule 'exprSingle'."];
+    }
+
+    [self fireDelegateSelector:@selector(parser:didMatchExprSingle:)];
+}
+
+- (void)exprSingle_ {
+    [self parseRule:@selector(__exprSingle) withMemo:_exprSingle_memo];
+}
+
+- (void)__forExpr {
+    
+    [self for_]; 
+    [self simpleForClause_]; 
+    [self return_]; 
+    [self exprSingle_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchForExpr:)];
+}
+
+- (void)forExpr_ {
+    [self parseRule:@selector(__forExpr) withMemo:_forExpr_memo];
+}
+
+- (void)__simpleForClause {
+    
+    [self singleForClause_]; 
+    while ([self speculate:^{ [self match:XPEG_TOKEN_KIND_COMMA discard:NO]; [self singleForClause_]; }]) {
+        [self match:XPEG_TOKEN_KIND_COMMA discard:NO]; 
+        [self singleForClause_]; 
+    }
+
+    [self fireDelegateSelector:@selector(parser:didMatchSimpleForClause:)];
+}
+
+- (void)simpleForClause_ {
+    [self parseRule:@selector(__simpleForClause) withMemo:_simpleForClause_memo];
+}
+
+- (void)__singleForClause {
+    
+    [self match:XPEG_TOKEN_KIND_DOLLAR discard:YES]; 
+    [self qName_]; 
+    [self in_]; 
+    [self exprSingle_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchSingleForClause:)];
+}
+
+- (void)singleForClause_ {
+    [self parseRule:@selector(__singleForClause) withMemo:_singleForClause_memo];
+}
+
+- (void)__quantifiedExpr {
+    
+    if ([self predicts:XPEG_TOKEN_KIND_SOME, 0]) {
+        [self match:XPEG_TOKEN_KIND_SOME discard:NO]; 
+    } else if ([self predicts:XPEG_TOKEN_KIND_EVERY, 0]) {
+        [self match:XPEG_TOKEN_KIND_EVERY discard:NO]; 
+    } else {
+        [self raise:@"No viable alternative found in rule 'quantifiedExpr'."];
+    }
+    [self simpleForClause_]; 
+    [self satisfies_]; 
+    [self exprSingle_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchQuantifiedExpr:)];
+}
+
+- (void)quantifiedExpr_ {
+    [self parseRule:@selector(__quantifiedExpr) withMemo:_quantifiedExpr_memo];
+}
+
+- (void)__ifExpr {
+    
+    [self match:XPEG_TOKEN_KIND_IF discard:NO]; 
+    [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:YES]; 
+    [self expr_]; 
+    [self match:XPEG_TOKEN_KIND_CLOSE_PAREN discard:YES]; 
+    [self match:XPEG_TOKEN_KIND_THEN discard:NO]; 
+    [self exprSingle_]; 
+    [self match:XPEG_TOKEN_KIND_ELSE discard:NO]; 
+    [self exprSingle_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchIfExpr:)];
+}
+
+- (void)ifExpr_ {
+    [self parseRule:@selector(__ifExpr) withMemo:_ifExpr_memo];
 }
 
 - (void)__orExpr {
@@ -573,9 +778,9 @@
 
 - (void)__andExpr {
     
-    [self equalityExpr_]; 
-    while ([self speculate:^{ [self andEqualityExpr_]; }]) {
-        [self andEqualityExpr_]; 
+    [self rangeExpr_]; 
+    while ([self speculate:^{ [self andRangeExpr_]; }]) {
+        [self andRangeExpr_]; 
     }
 
     [self fireDelegateSelector:@selector(parser:didMatchAndExpr:)];
@@ -585,16 +790,42 @@
     [self parseRule:@selector(__andExpr) withMemo:_andExpr_memo];
 }
 
-- (void)__andEqualityExpr {
+- (void)__andRangeExpr {
     
     [self and_]; 
-    [self equalityExpr_]; 
+    [self rangeExpr_]; 
 
-    [self fireDelegateSelector:@selector(parser:didMatchAndEqualityExpr:)];
+    [self fireDelegateSelector:@selector(parser:didMatchAndRangeExpr:)];
 }
 
-- (void)andEqualityExpr_ {
-    [self parseRule:@selector(__andEqualityExpr) withMemo:_andEqualityExpr_memo];
+- (void)andRangeExpr_ {
+    [self parseRule:@selector(__andRangeExpr) withMemo:_andRangeExpr_memo];
+}
+
+- (void)__rangeExpr {
+    
+    [self equalityExpr_]; 
+    if ([self speculate:^{ [self toEqualityExpr_]; }]) {
+        [self toEqualityExpr_]; 
+    }
+
+    [self fireDelegateSelector:@selector(parser:didMatchRangeExpr:)];
+}
+
+- (void)rangeExpr_ {
+    [self parseRule:@selector(__rangeExpr) withMemo:_rangeExpr_memo];
+}
+
+- (void)__toEqualityExpr {
+    
+    [self to_]; 
+    [self equalityExpr_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchToEqualityExpr:)];
+}
+
+- (void)toEqualityExpr_ {
+    [self parseRule:@selector(__toEqualityExpr) withMemo:_toEqualityExpr_memo];
 }
 
 - (void)__equalityExpr {
@@ -617,6 +848,8 @@
         [self match:XPEG_TOKEN_KIND_EQUALS discard:NO]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_NOT_EQUAL, 0]) {
         [self match:XPEG_TOKEN_KIND_NOT_EQUAL discard:NO]; 
+    } else if ([self predicts:XPEG_TOKEN_KIND_IS, 0]) {
+        [self match:XPEG_TOKEN_KIND_IS discard:NO]; 
     } else {
         [self raise:@"No viable alternative found in rule 'eqRelationalExpr'."];
     }
@@ -653,6 +886,10 @@
         [self match:XPEG_TOKEN_KIND_LE_SYM discard:NO]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_GE_SYM, 0]) {
         [self match:XPEG_TOKEN_KIND_GE_SYM discard:NO]; 
+    } else if ([self predicts:XPEG_TOKEN_KIND_SHIFT_LEFT, 0]) {
+        [self match:XPEG_TOKEN_KIND_SHIFT_LEFT discard:NO]; 
+    } else if ([self predicts:XPEG_TOKEN_KIND_SHIFT_RIGHT, 0]) {
+        [self match:XPEG_TOKEN_KIND_SHIFT_RIGHT discard:NO]; 
     } else {
         [self raise:@"No viable alternative found in rule 'compareAdditiveExpr'."];
     }
@@ -1057,9 +1294,7 @@
     } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIV, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_MOD, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TRUE, 0]) {
         [self functionCall_]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_OPEN_PAREN, 0]) {
-        [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:YES]; 
-        [self expr_]; 
-        [self match:XPEG_TOKEN_KIND_CLOSE_PAREN discard:YES]; 
+        [self parenthesizedExpr_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'primaryExpr'."];
     }
@@ -1103,6 +1338,21 @@
 
 - (void)number_ {
     [self parseRule:@selector(__number) withMemo:_number_memo];
+}
+
+- (void)__parenthesizedExpr {
+    
+    [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:NO]; 
+    if ([self speculate:^{ [self expr_]; }]) {
+        [self expr_]; 
+    }
+    [self match:XPEG_TOKEN_KIND_CLOSE_PAREN discard:YES]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchParenthesizedExpr:)];
+}
+
+- (void)parenthesizedExpr_ {
+    [self parseRule:@selector(__parenthesizedExpr) withMemo:_parenthesizedExpr_memo];
 }
 
 - (void)__functionCall {
@@ -1240,7 +1490,7 @@
 
 - (void)__argument {
     
-    [self expr_]; 
+    [self exprSingle_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchArgument:)];
 }
@@ -1669,6 +1919,61 @@
 
 - (void)mod_ {
     [self parseRule:@selector(__mod) withMemo:_mod_memo];
+}
+
+- (void)__to {
+    
+    [self match:XPEG_TOKEN_KIND_TO discard:YES]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchTo:)];
+}
+
+- (void)to_ {
+    [self parseRule:@selector(__to) withMemo:_to_memo];
+}
+
+- (void)__for {
+    
+    [self match:XPEG_TOKEN_KIND_FOR discard:NO]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchFor:)];
+}
+
+- (void)for_ {
+    [self parseRule:@selector(__for) withMemo:_for_memo];
+}
+
+- (void)__in {
+    
+    [self match:XPEG_TOKEN_KIND_IN discard:YES]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchIn:)];
+}
+
+- (void)in_ {
+    [self parseRule:@selector(__in) withMemo:_in_memo];
+}
+
+- (void)__return {
+    
+    [self match:XPEG_TOKEN_KIND_RETURN discard:YES]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchReturn:)];
+}
+
+- (void)return_ {
+    [self parseRule:@selector(__return) withMemo:_return_memo];
+}
+
+- (void)__satisfies {
+    
+    [self match:XPEG_TOKEN_KIND_SATISFIES discard:YES]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchSatisfies:)];
+}
+
+- (void)satisfies_ {
+    [self parseRule:@selector(__satisfies) withMemo:_satisfies_memo];
 }
 
 - (void)__or {

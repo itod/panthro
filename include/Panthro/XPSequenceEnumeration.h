@@ -1,16 +1,18 @@
 //
-//  XPNodeEnumeration.h
+//  XPSequenceEnumeration.h
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 7/14/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "XPSequenceEnumeration.h"
 
+@protocol XPItem;
 @protocol XPNodeInfo;
+@class XPValue;
 
-@protocol XPNodeEnumeration <NSFastEnumeration, NSObject>
+@protocol XPSequenceEnumeration <NSFastEnumeration, NSObject>
 
 /**
  * Determine whether the nodes returned by this enumeration are known to be in document order
@@ -28,18 +30,20 @@
 - (BOOL)isReverseSorted;
 
 /**
- * Determine whether there are more nodes to come. <BR>
+ * Determine whether there are more nodes to come.
  * @return true if there are more nodes
  */
 
-- (BOOL)hasMoreObjects;
+- (BOOL)hasMoreItems;
 
 /**
- * Get the next node in sequence. <BR>
+ * Get the next node in sequence.
  * @return the next NodeInfo
  */
 
-- (id <XPNodeInfo>)nextObject;
+- (id <XPItem>)nextItem;
+- (id <XPNodeInfo>)nextNodeInfo;
+- (XPValue *)nextValue;
 
 /**
  * Determine whether the nodes returned by this enumeration are known to be peers, that is,

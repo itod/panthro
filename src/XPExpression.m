@@ -10,8 +10,9 @@
 #import "XPContext.h"
 #import "XPStaticContext.h"
 #import "XPValue.h"
-#import "XPNodeSetValue.h"
-#import "XPNodeEnumeration.h"
+#import "XPSequenceValue.h"
+#import "XPSequenceExtent.h"
+#import "XPSequenceEnumeration.h"
 #import "XPEGParser.h"
 #import "XPAssembler.h"
 #import "XPException.h"
@@ -97,30 +98,32 @@ const NSUInteger XPathErrorCodeRuntime = 2;
 }
 
 
-- (XPNodeSetValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
+- (XPSequenceValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
     XPValue *v = [self evaluateInContext:ctx];
     v.range = self.range;
     
-    if (![v isNodeSetValue]) {
+    if (![v isSequenceValue]) {
         [XPException raiseIn:self format:@"The value `%@` is not a node-set", v];
     }
 
-    return (XPNodeSetValue *)v;
+    return (XPSequenceValue *)v;
 }
 
 
-- (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
+- (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
     XPValue *v = [self evaluateInContext:ctx];
 
-    if ([v isNodeSetValue]) {
+    if ([v isSequenceValue]) {
         if (sorted) {
-            [(XPNodeSetValue *)v sort];
+            [(XPSequenceValue *)v sort];
         }
-        id <XPNodeEnumeration>e = [(XPNodeSetValue *)v enumerate];
-        return e;
+        id <XPSequenceEnumeration>enm = [(XPSequenceValue *)v enumerateInContext:ctx sorted:sorted];
+        return enm;
     }
-    [XPException raiseIn:self format:@"The value `%@` is not a node-set", v];
-    return nil;
+    
+    XPSequenceValue *seq = [[[XPSequenceExtent alloc] initWithContent:@[v]] autorelease];
+    if (sorted) [seq sort];
+    return [seq enumerate];
 }
 
 

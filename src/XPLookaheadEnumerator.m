@@ -7,10 +7,10 @@
 //
 
 #import "XPLookaheadEnumerator.h"
-#import "XPNodeEnumeration.h"
+#import "XPSequenceEnumeration.h"
 
 @interface XPLookaheadEnumerator ()
-@property (nonatomic, retain) id <XPNodeEnumeration>base;
+@property (nonatomic, retain) id <XPSequenceEnumeration>base;
 @property (nonatomic, retain) NSMutableArray *reservoir;
 @property (nonatomic, assign) NSUInteger reservoirPosition;
 @property (nonatomic, assign) NSUInteger position;
@@ -25,7 +25,7 @@
  * last position count.
  */
 
-- (instancetype)initWithBase:(id <XPNodeEnumeration>)base {
+- (instancetype)initWithBase:(id <XPSequenceEnumeration>)base {
     XPAssert(![base conformsToProtocol:@protocol(XPLastPositionFinder)]);
     self = [super init];
     if (self) {
@@ -47,9 +47,9 @@
  * Determine whether there are any more nodes to hand to the client
  */
 
-- (BOOL)hasMoreObjects {
+- (BOOL)hasMoreItems {
     if (!_reservoir) {
-        return [_base hasMoreObjects];
+        return [_base hasMoreItems];
     } else {
         return _reservoirPosition < [_reservoir count];
     }
@@ -59,10 +59,10 @@
  * Hand the next node to the client
  */
 
-- (id <XPNodeInfo>)nextObject {
+- (id <XPItem>)nextItem {
     if (!_reservoir) {
         self.position++;
-        return [_base nextObject];
+        return [_base nextItem];
     } else {
         if (_reservoirPosition < [_reservoir count]) {
             self.position++;
@@ -85,8 +85,8 @@
         self.reservoir = [NSMutableArray array];
         self.reservoirPosition = 0;
         self.last = _position;
-        while ([_base hasMoreObjects]) {
-            [_reservoir addObject:[_base nextObject]];
+        while ([_base hasMoreItems]) {
+            [_reservoir addObject:[_base nextItem]];
             self.last++;
         }
         return _last;

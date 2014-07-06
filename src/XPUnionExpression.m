@@ -85,7 +85,7 @@
  * @return a NodeSetValue representing the union of the two operands
  */
 
-- (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sort {
+- (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sort {
     Class cls = [self enumerationClass];
     return [[[cls alloc] initWithLhs:[_p1 enumerateInContext:ctx sorted:YES]
                                  rhs:[_p2 enumerateInContext:ctx sorted:YES]

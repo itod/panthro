@@ -342,25 +342,8 @@
 }
 
 
-- (void)setValue:(XPValue *)val forVariable:(NSString *)name {
-    NSParameterAssert(val);
-    NSParameterAssert(name);
-    XPAssert(_variables);
-    
-    [_variables setObject:val forKey:name];
-}
-
-
-- (XPValue *)valueForVariable:(NSString *)name {
-    NSParameterAssert(name);
-    XPAssert(_variables);
-    
-    return [_variables objectForKey:name];
-}
-
-
 #if PAUSE_ENABLED
-- (void)pauseFrom:(XPExpression *)expr withContextNodes:(XPNodeSetValue *)ctxNodes result:(XPValue *)result range:(NSRange)range done:(BOOL)isDone {
+- (void)pauseFrom:(XPExpression *)expr withContextNodes:(XPSequenceValue *)ctxNodes result:(XPValue *)result range:(NSRange)range done:(BOOL)isDone {
     XPAssert(expr);
     XPAssert(ctxNodes);
     XPAssert(result);
@@ -379,5 +362,33 @@
     }
 }
 #endif
+
+
+#pragma mark -
+#pragma mark XPScope
+
+- (void)setItem:(id <XPItem>)item forVariable:(NSString *)name {
+    NSParameterAssert(name);
+    XPAssert(_variables);
+    
+    if (!item) {
+        [_variables removeObjectForKey:name];
+    } else {
+        [_variables setObject:item forKey:name];
+    }
+}
+
+
+- (id <XPItem>)itemForVariable:(NSString *)name {
+    NSParameterAssert(name);
+    XPAssert(_variables);
+    
+    return [_variables objectForKey:name];
+}
+
+
+- (id <XPScope>)enclosingScope {
+    return nil;
+}
 
 @end

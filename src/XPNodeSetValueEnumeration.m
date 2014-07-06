@@ -42,13 +42,13 @@
 
 
 /**
- * Determine whether there are more nodes to come. <BR>
+ * Determine whether there are more nodes to come.
  * (Note the term "Element" is used here in the sense of the standard Java Enumeration class,
  * it has nothing to do with XML elements).
  * @return true if there are more nodes
  */
 
-- (BOOL)hasMoreObjects {
+- (BOOL)hasMoreItems {
     XPAssert(NSNotFound != _index);
     XPAssert(_nodes);
     
@@ -56,16 +56,16 @@
 }
 
 /**
- * Get the next node in sequence. <BR>
+ * Get the next node in sequence.
  * (Note the term "Element" is used here in the sense of the standard Java Enumeration class,
  * it has nothing to do with XML elements).
  * @return the next NodeInfo
  */
 
-- (id <XPNodeInfo>)nextObject {
-    id <XPNodeInfo>node = nil;
+- (id <XPItem>)nextItem {
+    id <XPItem>node = nil;
     
-    if ([self hasMoreObjects]) {
+    if ([self hasMoreItems]) {
         node = _nodes[_index++];
     }
     

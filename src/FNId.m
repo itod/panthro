@@ -11,7 +11,7 @@
 #import "XPDocumentInfo.h"
 #import "XPContext.h"
 #import "XPNodeSetExtent.h"
-#import "XPNodeEnumeration.h"
+#import "XPSequenceEnumeration.h"
 #import "XPEmptyNodeSet.h"
 #import "XPSingletonNodeSet.h"
 
@@ -37,12 +37,12 @@
 
 
 - (XPDataType)dataType {
-    return XPDataTypeNodeSet;
+    return XPDataTypeSequence;
 }
 
 
 /**
- * Determine, in the case of an expression whose data type is XPDataTypeNodeSet,
+ * Determine, in the case of an expression whose data type is XPDataTypeSequence,
  * whether all the nodes in the node-set are guaranteed to come from the same
  * document as the context node. Used for optimization.
  */
@@ -60,9 +60,9 @@
 }
 
 
-- (XPNodeSetValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
+- (XPSequenceValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
     id arg = [self.args[0] evaluateInContext:ctx];
-    XPNodeSetValue *nodeSet = [self findId:arg inContext:ctx];
+    XPSequenceValue *nodeSet = [self findId:arg inContext:ctx];
     nodeSet.range = self.range;
     return nodeSet;
 }
@@ -103,7 +103,7 @@
  * This method actually evaluates the function
  */
 
-- (XPNodeSetValue *)findId:(XPValue *)arg0 inContext:(XPContext *)ctx {
+- (XPSequenceValue *)findId:(XPValue *)arg0 inContext:(XPContext *)ctx {
     NSMutableArray *idrefresult = nil;
     id <XPDocumentInfo>doc = nil;
     
@@ -113,11 +113,11 @@
         doc = ctx.contextNode.documentRoot;
     }
     
-    if ([arg0 isNodeSetValue] /* && ![arg0 isKindOfClass:[XPFragmentValue class]]*/) {
+    if ([arg0 isSequenceValue] /* && ![arg0 isKindOfClass:[XPFragmentValue class]]*/) {
         
-        id <XPNodeEnumeration>enm = [(XPNodeSetValue *)arg0 enumerate];
-        while ([enm hasMoreObjects]) {
-            id <XPNodeInfo>node = [enm nextObject];
+        id <XPSequenceEnumeration>enm = [(XPSequenceValue *)arg0 enumerate];
+        while ([enm hasMoreItems]) {
+            id <XPNodeInfo>node = [enm nextNodeInfo];
             NSString *s = node.stringValue;
             NSArray *comps = [s componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             for (NSString *comp in comps) {
@@ -147,12 +147,12 @@
     }
     
     if (!idrefresult) {
-        return [XPEmptyNodeSet emptyNodeSet];
+        return [XPEmptyNodeSet instance];
     }
     if (1 == [idrefresult count]) {
         return [XPSingletonNodeSet singletonNodeSetWithNode:idrefresult[0]];
     }
-    XPNodeSetValue *nodeSet = [[[XPNodeSetExtent alloc] initWithNodes:idrefresult comparer:nil] autorelease];
+    XPSequenceValue *nodeSet = [[[XPNodeSetExtent alloc] initWithNodes:idrefresult comparer:nil] autorelease];
     [nodeSet sort];
     return nodeSet;
 }

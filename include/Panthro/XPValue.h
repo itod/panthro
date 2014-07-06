@@ -6,13 +6,14 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "XPExpression.h"
+#import <Panthro/XPExpression.h>
+#import <Panthro/XPItem.h>
 
 @class XPContext;
 
 double XPNumberFromString(NSString *s);
 
-@interface XPValue : XPExpression
+@interface XPValue : XPExpression <XPItem>
 
 - (NSString *)asString;
 - (double)asNumber;
@@ -29,6 +30,6 @@ double XPNumberFromString(NSString *s);
 - (BOOL)isBooleanValue;
 - (BOOL)isNumericValue;
 - (BOOL)isStringValue;
-- (BOOL)isNodeSetValue;
+- (BOOL)isSequenceValue;
 - (BOOL)isObjectValue;
 @end

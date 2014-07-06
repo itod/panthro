@@ -35,12 +35,12 @@
 }
 
 
-- (BOOL)hasMoreObjects {
+- (BOOL)hasMoreItems {
     return NO;
 }
 
 
-- (id <XPNodeInfo>)nextObject {
+- (id <XPItem>)nextItem {
     return nil;
 }
 

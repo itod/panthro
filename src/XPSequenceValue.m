@@ -1,26 +1,27 @@
 //
-//  XPNodeSetValue.m
+//  XPSequenceValue.m
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 7/14/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "XPNodeSetValue.h"
+#import "XPSequenceValue.h"
+#import "XPNodeInfo.h"
 #import "XPNodeInfo.h"
 #import "XPBooleanValue.h"
 #import "XPNumericValue.h"
 #import "XPStringValue.h"
-#import "XPNodeEnumeration.h"
+#import "XPSequenceEnumeration.h"
 #import "XPSingletonNodeSet.h"
 #import "XPException.h"
 #import "XPEGParser.h"
 
-@interface XPNodeSetValue ()
+@interface XPSequenceValue ()
 @property (nonatomic, retain) NSDictionary *stringValues;
 @end
 
-@implementation XPNodeSetValue
+@implementation XPSequenceValue
 
 - (void)dealloc {
     self.stringValues = nil;
@@ -29,7 +30,7 @@
 
 
 - (XPDataType)dataType {
-    return XPDataTypeNodeSet;
+    return XPDataTypeSequence;
 }
 
 
@@ -39,19 +40,19 @@
 }
 
 
-- (XPNodeSetValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
+- (XPSequenceValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
     [self sort];
     return self;
 }
 
 
-- (id <XPNodeEnumeration>)enumerate {
+- (id <XPSequenceEnumeration>)enumerate {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return nil;
 }
 
 
-- (id <XPNodeEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)yn {
+- (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)yn {
     if (yn) [self sort];
     return [self enumerate];
 }
@@ -102,15 +103,27 @@
 }
 
 
-- (XPNodeSetValue *)sort {
+- (XPSequenceValue *)sort {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return self;
 }
 
 
 - (id <XPNodeInfo>)firstNode {
-    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
-    return nil;
+    id <XPItem>item = [self head];
+    if (![item conformsToProtocol:@protocol(XPNodeInfo)]) {
+        [XPException raiseIn:self format:@"Expected node value, found: %@", item];
+    }
+    return (id <XPNodeInfo>)item;
+}
+
+
+- (XPValue *)firstValue {
+    id <XPItem>item = [self head];
+    if (![item isKindOfClass:[XPValue class]]) {
+        [XPException raiseIn:self format:@"Expected atomic value, found: %@", item];
+    }
+    return (XPValue *)item;
 }
 
 
@@ -132,7 +145,7 @@
     if ([other isObjectValue]) {
         return NO;
     
-    } else if ([other isNodeSetValue]) {
+    } else if ([other isSequenceValue]) {
         
         // singleton node-set
         if ([other isKindOfClass:[XPSingletonNodeSet class]]) {
@@ -145,7 +158,7 @@
         } else {
             NSDictionary *table = [self stringValues];
             
-            id <XPNodeEnumeration>e2 = [(XPNodeSetValue *)other enumerate];
+            id <XPSequenceEnumeration>e2 = [(XPSequenceValue *)other enumerate];
             for (id node in e2) {
                 if ([table objectForKey:[node stringValue]]) return YES;
             }
@@ -184,7 +197,7 @@
     if ([other isObjectValue]) {
         return NO;
         
-    } else if ([other isNodeSetValue]) {
+    } else if ([other isSequenceValue]) {
         
         // singleton node-set
         if ([other isKindOfClass:[XPSingletonNodeSet class]]) {
@@ -199,12 +212,12 @@
             // see if there is a node in A with a different string value as a node in B
             // use a nested loop: it will usually finish very quickly!
             
-            id <XPNodeEnumeration>e1 = [self enumerate];
-            while ([e1 hasMoreObjects]) {
-                NSString *s1 = [[e1 nextObject] stringValue];
-                id <XPNodeEnumeration>e2 = [(XPNodeSetValue *)other enumerate];
-                while ([e2 hasMoreObjects]) {
-                    NSString *s2 = [[e2 nextObject] stringValue];
+            id <XPSequenceEnumeration>e1 = [self enumerate];
+            while ([e1 hasMoreItems]) {
+                NSString *s1 = [[e1 nextItem] stringValue];
+                id <XPSequenceEnumeration>e2 = [(XPSequenceValue *)other enumerate];
+                while ([e2 hasMoreItems]) {
+                    NSString *s2 = [[e2 nextItem] stringValue];
                     if (![s1 isEqualToString:s2]) return YES;
                 }
             }
@@ -261,7 +274,7 @@
     if (op == XPEG_TOKEN_KIND_EQUALS) return [self isEqualToValue:other];
     if (op == XPEG_TOKEN_KIND_NOT_EQUAL) return [self isNotEqualToValue:other];
     
-    if ([other isNodeSetValue]) {
+    if ([other isSequenceValue]) {
         
         // find the min and max values in this nodeset
         
@@ -269,9 +282,9 @@
         double thismin = INFINITY; //Double.POSITIVE_INFINITY;
         BOOL thisIsEmpty = YES;
         
-        id <XPNodeEnumeration>e1 = [self enumerate];
-        while ([e1 hasMoreObjects]) {
-            double val = XPNumberFromString([[e1 nextObject] stringValue]);
+        id <XPSequenceEnumeration>e1 = [self enumerate];
+        while ([e1 hasMoreItems]) {
+            double val = XPNumberFromString([[e1 nextItem] stringValue]);
             if (val < thismin) thismin = val;
             if (val > thismax) thismax = val;
             thisIsEmpty = NO;
@@ -285,9 +298,9 @@
         double othermin = INFINITY; //Double.POSITIVE_INFINITY;
         BOOL otherIsEmpty = YES;
         
-        id <XPNodeEnumeration>e2 = [(XPNodeSetValue *)other enumerate];
-        while ([e2 hasMoreObjects]) {
-            double val = XPNumberFromString([[e2 nextObject] stringValue]);
+        id <XPSequenceEnumeration>e2 = [(XPSequenceValue *)other enumerate];
+        while ([e2 hasMoreItems]) {
+            double val = XPNumberFromString([[e2 nextItem] stringValue]);
             if (val < othermin) othermin = val;
             if (val > othermax) othermax = val;
             otherIsEmpty = NO;
@@ -310,9 +323,9 @@
         
     } else {
         if ([other isNumericValue] || [other isStringValue]) {
-            id <XPNodeEnumeration>e1 = [self enumerate];
-            while ([e1 hasMoreObjects]) {
-                id <XPNodeInfo>node = [e1 nextObject];
+            id <XPSequenceEnumeration>e1 = [self enumerate];
+            while ([e1 hasMoreItems]) {
+                id <XPItem>node = [e1 nextItem];
                 if ([self compareNumber:XPNumberFromString([node stringValue]) toNumber:[other asNumber] usingOperator:op]) {
                     return YES;
                 }

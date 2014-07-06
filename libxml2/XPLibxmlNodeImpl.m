@@ -128,7 +128,7 @@ static NSUInteger XPIndexInParent(id <XPNodeInfo>nodeInfo) {
 }
 
 
-- (NSComparisonResult)compareOrderTo:(id <XPNodeInfo>)other {
+- (NSInteger)compareOrderTo:(id <XPNodeInfo>)other {
     XPAssert([other isKindOfClass:[XPLibxmlNodeImpl class]]);
     
     NSComparisonResult result = NSOrderedSame;
@@ -471,7 +471,7 @@ static NSUInteger XPIndexInParent(id <XPNodeInfo>nodeInfo) {
             break;
     }
     
-    XPNodeSetValue *nodeSet = nil;
+    XPSequenceValue *nodeSet = nil;
     
     if ([nodes count]) {
         XPNodeSetExtent *ext = [[[XPNodeSetExtent alloc] initWithNodes:nodes comparer:nil] autorelease];
@@ -479,7 +479,7 @@ static NSUInteger XPIndexInParent(id <XPNodeInfo>nodeInfo) {
         ext.reverseSorted = !sorted;
         nodeSet = ext;
     } else {
-        nodeSet = [XPEmptyNodeSet emptyNodeSet];
+        nodeSet = [XPEmptyNodeSet instance];
     }
     
     id <XPAxisEnumeration>enm = (id <XPAxisEnumeration>)[nodeSet enumerate];
@@ -741,4 +741,6 @@ static NSUInteger XPIndexInParent(id <XPNodeInfo>nodeInfo) {
     return result;
 }
 
+@synthesize range = _range;
+@synthesize lineNumber = _lineNumber;
 @end

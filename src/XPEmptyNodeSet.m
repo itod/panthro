@@ -11,13 +11,17 @@
 
 @implementation XPEmptyNodeSet
 
-+ (instancetype)emptyNodeSet {
-    return [[[XPEmptyNodeSet alloc] init] autorelease];
++ (instancetype)instance {
+    static XPEmptyNodeSet *sInstance = nil;
+    if (!sInstance) {
+        sInstance = [[XPEmptyNodeSet alloc] init];
+    }
+    return sInstance;
 }
 
 
 - (XPDataType)dataType {
-    return XPDataTypeNodeSet;
+    return XPDataTypeSequence;
 }
 
 
@@ -26,7 +30,7 @@
 }
 
 
-- (XPNodeSetValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
+- (XPSequenceValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
     return self;
 }
 
@@ -59,7 +63,7 @@
 }
 
 
-- (XPNodeSetValue *)sort {
+- (XPSequenceValue *)sort {
     return nil;
 }
 
@@ -102,7 +106,7 @@
  * Return an enumeration of this nodeset value.
  */
 
-- (id <XPNodeEnumeration>)enumerate {
+- (id <XPSequenceEnumeration>)enumerate {
     return [XPEmptyEnumeration instance];
 }
 

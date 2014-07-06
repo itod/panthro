@@ -33,6 +33,8 @@
         [t.symbolState add:@"::"];
         [t.symbolState add:@"<="];
         [t.symbolState add:@"=>"];
+        [t.symbolState add:@"<<"];
+        [t.symbolState add:@">>"];
         [t.symbolState add:@"(:"];
         [t.symbolState add:@":)"];
 
@@ -56,18 +58,32 @@
         [t.commentState setFallbackState:t.symbolState from:':' to:':'];
 }
 
-stmt = expr;
-expr = orExpr;
+xpath = expr;
+expr = exprSingle exprSingleTail*;
+    exprSingleTail = (','! exprSingle);
+exprSingle = orExpr | forExpr | quantifiedExpr | ifExpr;
+
+    forExpr = for simpleForClause return exprSingle;
+    simpleForClause = singleForClause (',' singleForClause)*;
+        singleForClause = '$'! qName in exprSingle;
+        
+    quantifiedExpr = ('some' | 'every') simpleForClause satisfies exprSingle;
+    
+    ifExpr = 'if' '('! expr ')'! 'then' exprSingle 'else' exprSingle;
+
     orExpr = andExpr orAndExpr*;
         orAndExpr = (or andExpr);
-        andExpr = equalityExpr andEqualityExpr*;
-            andEqualityExpr = (and equalityExpr);
+        andExpr = rangeExpr andRangeExpr*;
+            andRangeExpr = (and rangeExpr);
+
+        rangeExpr = equalityExpr toEqualityExpr?;
+            toEqualityExpr = (to equalityExpr);
 
             equalityExpr = relationalExpr eqRelationalExpr*;
-                eqRelationalExpr = ('=' | '!=') relationalExpr;
+                eqRelationalExpr = ('=' | '!=' | 'is') relationalExpr;
 
                 relationalExpr = additiveExpr compareAdditiveExpr*;
-                    compareAdditiveExpr = ('<' | '>' | '<=' | '>=') additiveExpr;
+                    compareAdditiveExpr = ('<' | '>' | '<=' | '>=' | '<<' | '>>') additiveExpr;
                     
                     additiveExpr = multiplicativeExpr plusOrMinusMultiExpr*;
                         plusOrMinusMultiExpr  = (('+' | '-') multiplicativeExpr);
@@ -100,10 +116,11 @@ pathExpr = filterPath | locationPath;
             firstRelativeStep = step;
 
     filterExpr = primaryExpr predicate*;
-        primaryExpr = variableReference | literal | number | functionCall | '('! expr ')'!;
+        primaryExpr = variableReference | literal | number | functionCall | parenthesizedExpr;
             variableReference = '$' qName; // note whitespace is not allowed here. also qName is optional
             literal = QuotedString;
             number = Number;
+            parenthesizedExpr = '(' expr? ')'!;
             functionCall = actualFunctionCall | booleanLiteralFunctionCall;
                 actualFunctionCall = functionName '(' (argument (','! argument)* )? ')';
                 booleanLiteralFunctionCall = booleanLiteral '('! ')';
@@ -114,7 +131,7 @@ pathExpr = filterPath | locationPath;
                         prefix = ncName;
                         localPart = ncName;
                             ncName = Word | keyword;
-                argument = expr;
+                argument = exprSingle;
         predicate = '['! predicateExpr ']';
             predicateExpr = expr;
                 
@@ -149,6 +166,11 @@ precedingSibling = 'preceding-sibling';
 self = 'self';
 div = 'div';
 mod = 'mod';
+to = 'to'!;
+for = 'for';
+in = 'in'!;
+return = 'return'!;
+satisfies = 'satisfies'!;
 or = 'or';
 and = 'and';
 true = 'true';
