@@ -43,6 +43,14 @@
 
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
+    BOOL b = [self evaluateAsBooleanInContext:ctx];
+    XPValue *val = [XPBooleanValue booleanValueWithBoolean:b];
+    val.range = self.range;
+    return val;
+}
+
+
+- (BOOL)evaluateAsBooleanInContext:(XPContext *)ctx {
     XPAssert([_varNames count]);
     XPAssert([_sequences count]);
     XPAssert([_varNames count] == [_sequences count]);
@@ -53,7 +61,7 @@
     
     [self loopInContext:ctx varNames:_varNames sequences:_sequences];
     
-    return [XPBooleanValue booleanValueWithBoolean:_result];
+    return _result;
 }
 
 

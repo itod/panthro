@@ -195,6 +195,8 @@
 		D37299C41969B441004B1B7A /* XPIfExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D37299C21969B441004B1B7A /* XPIfExpression.h */; };
 		D37299C51969B441004B1B7A /* XPIfExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299C31969B441004B1B7A /* XPIfExpression.m */; };
 		D37299C71969E587004B1B7A /* XPScope.h in Headers */ = {isa = PBXBuildFile; fileRef = D37299C61969E587004B1B7A /* XPScope.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D37299CA1969EA0E004B1B7A /* XPIsExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D37299C81969EA0E004B1B7A /* XPIsExpression.h */; };
+		D37299CB1969EA0E004B1B7A /* XPIsExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299C91969EA0E004B1B7A /* XPIsExpression.m */; };
 		D37A27E51012FFA600E936B7 /* XPBooleanExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A27E31012FFA600E936B7 /* XPBooleanExpression.m */; };
 		D37A27F5101304EF00E936B7 /* XPBooleanExprTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A27F4101304EF00E936B7 /* XPBooleanExprTest.m */; };
 		D37A296A1013F39400E936B7 /* XPFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A29681013F39400E936B7 /* XPFunction.m */; };
@@ -594,6 +596,8 @@
 		D37299C21969B441004B1B7A /* XPIfExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPIfExpression.h; path = src/XPIfExpression.h; sourceTree = "<group>"; };
 		D37299C31969B441004B1B7A /* XPIfExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPIfExpression.m; path = src/XPIfExpression.m; sourceTree = "<group>"; };
 		D37299C61969E587004B1B7A /* XPScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPScope.h; path = include/Panthro/XPScope.h; sourceTree = "<group>"; };
+		D37299C81969EA0E004B1B7A /* XPIsExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPIsExpression.h; path = src/XPIsExpression.h; sourceTree = "<group>"; };
+		D37299C91969EA0E004B1B7A /* XPIsExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPIsExpression.m; path = src/XPIsExpression.m; sourceTree = "<group>"; };
 		D3745D9A192261D500929DE8 /* OkudaKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OkudaKit.framework; path = ../okudakit/build/Release/OkudaKit.framework; sourceTree = "<group>"; };
 		D37A27E31012FFA600E936B7 /* XPBooleanExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBooleanExpression.m; path = src/XPBooleanExpression.m; sourceTree = "<group>"; };
 		D37A27F4101304EF00E936B7 /* XPBooleanExprTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBooleanExprTest.m; path = test/XPBooleanExprTest.m; sourceTree = "<group>"; };
@@ -1382,6 +1386,8 @@
 				D37A27E31012FFA600E936B7 /* XPBooleanExpression.m */,
 				D3F0CBDC191EC4F10049EC02 /* XPRelationalExpression.h */,
 				D36C679810106874000361A0 /* XPRelationalExpression.m */,
+				D37299C81969EA0E004B1B7A /* XPIsExpression.h */,
+				D37299C91969EA0E004B1B7A /* XPIsExpression.m */,
 				D3F0CBD6191EC4F10049EC02 /* XPArithmeticExpression.h */,
 				D36C68111010E0FE000361A0 /* XPArithmeticExpression.m */,
 			);
@@ -1557,6 +1563,7 @@
 				D3A6FCB719465BBA00FCF2C1 /* XPNodeTest.h in Headers */,
 				D3F0CBBE191EC3A50049EC02 /* XPNSXMLDocumentImpl.h in Headers */,
 				D339F1ED19279E4600C79A51 /* XPLibxmlNodeImpl.h in Headers */,
+				D37299CA1969EA0E004B1B7A /* XPIsExpression.h in Headers */,
 				D3BE1424191C193900005C81 /* XPFilterEnumerator.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1840,6 +1847,7 @@
 				D339F6731929623700C79A51 /* FNTranslate.m in Sources */,
 				D37A301510158E0100E936B7 /* FNSum.m in Sources */,
 				D339F64E1927B66500C79A51 /* xmlstring.c in Sources */,
+				D37299CB1969EA0E004B1B7A /* XPIsExpression.m in Sources */,
 				D339312D19211CC900259939 /* FNName.m in Sources */,
 				D3479561193FDEA100181E56 /* FNLang.m in Sources */,
 				D37A30701015952F00E936B7 /* FNEndsWith.m in Sources */,

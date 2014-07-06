@@ -42,6 +42,11 @@
 
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
+    return [self evaluateAsNodeSetInContext:ctx];
+}
+
+
+- (XPSequenceValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
     XPAssert([_varNames count]);
     XPAssert([_sequences count]);
     XPAssert([_varNames count] == [_sequences count]);
@@ -51,8 +56,7 @@
 
     [self loopInContext:ctx varNames:_varNames sequences:_sequences];
     
-    XPValue *seq = [[[XPSequenceExtent alloc] initWithContent:[[_result copy] autorelease]] autorelease];
-
+    XPSequenceValue *seq = [[[XPSequenceExtent alloc] initWithContent:_result] autorelease];
     self.result = nil;
     return seq;
 }
@@ -86,7 +90,7 @@
             }
         }
 
-        //[ctx setItem:nil forVariable:varName];
+        [ctx setItem:nil forVariable:varName];
     }
 }
 

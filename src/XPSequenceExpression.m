@@ -18,6 +18,11 @@
 
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
+    return [self evaluateAsNodeSetInContext:ctx];
+}
+
+
+- (XPSequenceValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
     NSMutableArray *v = [NSMutableArray array];
     
     if ([self.p1 dataType] == XPDataTypeSequence) {
@@ -38,7 +43,7 @@
         [v addObject:[self.p2 evaluateInContext:ctx]];
     }
     
-    XPValue *seq = [[[XPSequenceExtent alloc] initWithContent:v] autorelease];
+    XPSequenceValue *seq = [[[XPSequenceExtent alloc] initWithContent:v] autorelease];
     return seq;
 }
 
