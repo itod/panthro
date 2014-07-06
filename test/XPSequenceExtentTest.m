@@ -349,7 +349,6 @@
     [self eval:@"some $x in (1, 2, 3) satisfies $x = 2"];
     
     BOOL yn = [_res asBoolean];
-    
     TDTrue(yn);
 }
 
@@ -358,7 +357,6 @@
     [self eval:@"some $x in (1, 2, 3) satisfies $x = 0"];
     
     BOOL yn = [_res asBoolean];
-    
     TDFalse(yn);
 }
 
@@ -367,7 +365,6 @@
     [self eval:@"every $x in (2, 2, 2) satisfies $x = 2"];
     
     BOOL yn = [_res asBoolean];
-    
     TDTrue(yn);
 }
 
@@ -376,8 +373,15 @@
     [self eval:@"every $x in (1, 2, 3) satisfies $x = 0"];
     
     BOOL yn = [_res asBoolean];
-    
     TDFalse(yn);
+}
+
+
+- (void)testEveryXInOpen0Comma0Comma0CloseSatisfiesXEq0 {
+    [self eval:@"every $x in (0, 0, 0) satisfies $x = 0"];
+    
+    BOOL yn = [_res asBoolean];
+    TDTrue(yn);
 }
 
 
@@ -385,7 +389,6 @@
     [self eval:@"every $x in (1, 2, 3) satisfies $x = 2"];
     
     BOOL yn = [_res asBoolean];
-    
     TDFalse(yn);
 }
 
@@ -400,6 +403,22 @@
 
 - (void)testIfOpenFalseCloseThen1Else2 {
     [self eval:@"if (false()) then 1 else 2"];
+    
+    double d = [_res asNumber];
+    TDEquals(2.0, d);
+}
+
+
+- (void)testIfOpenEveryXInOpen0Comma0Comma0CloseSatisfiesXEq0CloseThen1Else2 {
+    [self eval:@"if (every $x in (0, 0, 0) satisfies $x = 0) then 1 else 2"];
+    
+    double d = [_res asNumber];
+    TDEquals(1.0, d);
+}
+
+
+- (void)testIfOpenEveryXInOpen0Comma0Comma0CloseSatisfiesXEq2CloseThen1Else2 {
+    [self eval:@"if (every $x in (0, 0, 0) satisfies $x = 2) then 1 else 2"];
     
     double d = [_res asNumber];
     TDEquals(2.0, d);
