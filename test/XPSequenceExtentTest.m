@@ -215,4 +215,22 @@
     TDFalse([enm hasMoreItems]);
 }
 
+
+- (void)testOpenCloseEqOpenClose {
+    [self eval:@"()=()"];
+    
+    BOOL yn = [_res asBoolean];
+    
+    TDFalse(yn);
+}
+
+
+- (void)testOpenCloseNeOpenClose {
+    [self eval:@"()!=()"];
+    
+    BOOL yn = [_res asBoolean];
+    
+    TDFalse(yn);
+}
+
 @end

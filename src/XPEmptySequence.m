@@ -62,6 +62,21 @@
 }
 
 
+//- (BOOL)isEqualToValue:(XPValue *)other {
+//    return NO;
+//}
+//
+//
+//- (BOOL)isNotEqualToValue:(XPValue *)other {
+//    return NO;
+//}
+//
+//
+//- (BOOL)compareToValue:(XPValue *)other usingOperator:(NSInteger)op {
+//    return NSOrderedAscending;
+//}
+
+
 #pragma mark -
 #pragma mark XPSequence
 
