@@ -67,6 +67,7 @@
     
     self.env = [XPStandaloneContext standaloneContext];
     [_env setItem:[XPStringValue stringValueWithString:@"hello"] forVariable:@"foo"];
+    [_env setItem:[XPStringValue stringValueWithString:@"bye"] forVariable:@"bar"];
     
     self.contextNode = docEl;
 }
@@ -422,6 +423,14 @@
     
     double d = [_res asNumber];
     TDEquals(2.0, d);
+}
+
+
+- (void)testIfOpenSomeFooInOpen1CloseSatisfiesFooEq1CloseThenFooElseBar {
+    [self eval:@"if (some $foo in (1) satisfies $foo = 1) then $foo else $bar"];
+    
+    NSString *s = [_res asString];
+    TDEqualObjects(@"hello", s);
 }
 
 @end
