@@ -13,6 +13,7 @@
 #import "XPBooleanValue.h"
 
 @interface XPQuantifiedExpression ()
+@property (nonatomic, assign) BOOL every;
 @property (nonatomic, retain) NSArray *varNames;
 @property (nonatomic, retain) NSArray *sequences;
 @property (nonatomic, retain) XPExpression *bodyExpression;
@@ -21,10 +22,11 @@
 
 @implementation XPQuantifiedExpression
 
-- (instancetype)initWithVarNames:(NSArray *)varNames sequences:(NSArray *)sequences body:(XPExpression *)bodyExpr {
+- (instancetype)initWithEvery:(BOOL)isEvery varNames:(NSArray *)varNames sequences:(NSArray *)sequences body:(XPExpression *)bodyExpr {
     XPAssert([varNames count] == [sequences count]);
     self = [super init];
     if (self) {
+        self.every = isEvery;
         self.varNames = varNames;
         self.sequences = sequences;
         self.bodyExpression = bodyExpr;
@@ -47,7 +49,8 @@
     XPAssert([_varNames count] == [_sequences count]);
     XPAssert(_bodyExpression);
     
-    self.result = NO;
+    BOOL start = _every ? YES : NO;
+    self.result = start;
     
     [self loopInContext:ctx varNames:_varNames sequences:_sequences];
     
@@ -73,17 +76,28 @@
         id <XPItem>inItem = [seqEnm nextItem];
         [ctx.staticContext setItem:inItem forVariable:varName];
 
+        BOOL stop = NO;
+
         if ([varNameTail count]) {
             [self loopInContext:ctx varNames:varNameTail sequences:seqTail];
         } else {
             BOOL yn = [_bodyExpression evaluateAsBooleanInContext:ctx];
-            if (yn) {
-                self.result = YES;
-                break;
+            if (_every) {
+                if (!yn) {
+                    self.result = NO;
+                    stop = YES;
+                }
+            } else {
+                if (yn) {
+                    self.result = YES;
+                    stop = YES;
+                }
             }
         }
 
         [ctx.staticContext setItem:nil forVariable:varName];
+
+        if (stop) break;
     }
 }
 

@@ -10,5 +10,5 @@
 
 @interface XPQuantifiedExpression : XPExpression
 
-- (instancetype)initWithVarNames:(NSArray *)varNames sequences:(NSArray *)sequences body:(XPExpression *)bodyExpr;
+- (instancetype)initWithEvery:(BOOL)isEvery varNames:(NSArray *)varNames sequences:(NSArray *)sequences body:(XPExpression *)bodyExpr;
 @end

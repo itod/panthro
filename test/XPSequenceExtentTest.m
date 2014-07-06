@@ -362,4 +362,31 @@
     TDFalse(yn);
 }
 
+
+- (void)testEveryXInOpen2Comma2Comma2CloseSatisfiesXEq2 {
+    [self eval:@"every $x in (2, 2, 2) satisfies $x = 2"];
+    
+    BOOL yn = [_res asBoolean];
+    
+    TDTrue(yn);
+}
+
+
+- (void)testEveryXInOpen1Comma2Comma3CloseSatisfiesXEq0 {
+    [self eval:@"every $x in (1, 2, 3) satisfies $x = 0"];
+    
+    BOOL yn = [_res asBoolean];
+    
+    TDFalse(yn);
+}
+
+
+- (void)testEveryXInOpen1Comma2Comma3CloseSatisfiesXEq2 {
+    [self eval:@"every $x in (1, 2, 3) satisfies $x = 2"];
+    
+    BOOL yn = [_res asBoolean];
+    
+    TDFalse(yn);
+}
+
 @end

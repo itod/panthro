@@ -188,7 +188,8 @@
     XPAssert([peek.stringValue isEqualToString:@"some"] || [peek.stringValue isEqualToString:@"every"]);
     NSUInteger offset = peek.offset;
     
-    XPExpression *forExpr = [[[XPQuantifiedExpression alloc] initWithVarNames:varNames sequences:sequences body:bodyExpr] autorelease];
+    BOOL isEvery = [peek.stringValue isEqualToString:@"every"];
+    XPExpression *forExpr = [[[XPQuantifiedExpression alloc] initWithEvery:isEvery varNames:varNames sequences:sequences body:bodyExpr] autorelease];
     forExpr.range = NSMakeRange(offset, NSMaxRange(bodyExpr.range) - offset);
     forExpr.staticContext = _env;
     [a push:forExpr];
