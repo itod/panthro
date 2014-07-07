@@ -462,6 +462,60 @@
 }
 
 
+- (void)testForXInOpen1Comma2CloseCommaLetAEqXYInOpen3Comma4CloseLetBEqYWhereAGt1ReturnOpenACommaBClose {
+    [self eval:@"for $x in (1, 2) let $a := $x for $y in (3, 4) let $b := $y where $a > 1 return ($a, $b)"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    XPValue *val = nil;
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"2", val.stringValue);
+    TDEquals(2.0, [val asNumber]);
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"3", val.stringValue);
+    TDEquals(3.0, [val asNumber]);
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"2", val.stringValue);
+    TDEquals(2.0, [val asNumber]);
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"4", val.stringValue);
+    TDEquals(4.0, [val asNumber]);
+    
+    TDFalse([enm hasMoreItems]);
+}
+
+
+- (void)testForXInOpen1Comma2CloseCommaLetAEqXYInOpen3Comma4CloseLetBEqYWhereAGt1ReturnForFooInOpenACommaBCloseReturnB {
+    [self eval:@"for $x in (1, 2) let $a := $x for $y in (3, 4) let $b := $y where $a > 1 return for $foo in ($a, $b) return $b"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    XPValue *val = nil;
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"3", val.stringValue);
+    TDEquals(3.0, [val asNumber]);
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"3", val.stringValue);
+    TDEquals(3.0, [val asNumber]);
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"4", val.stringValue);
+    TDEquals(4.0, [val asNumber]);
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"4", val.stringValue);
+    TDEquals(4.0, [val asNumber]);
+    
+    TDFalse([enm hasMoreItems]);
+}
+
+
 - (void)testEveryNInChapterSatisfiesNSlashTitle {
     [self eval:@"every $n in chapter satisfies $n/title"];
     
