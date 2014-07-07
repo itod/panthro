@@ -11,6 +11,7 @@
 #import "XPSequenceEnumeration.h"
 #import "XPSequenceExtent.h"
 #import "XPForClause.h"
+#import "XPLetClause.h"
 #import "XPNumericValue.h"
 
 @interface XPForExpression ()
@@ -71,7 +72,7 @@
     XPForClause *curClause = forClauses[0];
     NSArray *forClausesTail = [forClauses subarrayWithRange:NSMakeRange(1, [forClauses count]-1)];
     
-    id <XPSequenceEnumeration>seqEnm = [curClause.sequenceExpression enumerateInContext:ctx sorted:NO];
+    id <XPSequenceEnumeration>seqEnm = [curClause.expression enumerateInContext:ctx sorted:NO];
 
     NSUInteger idx = 1;
     while ([seqEnm hasMoreItems]) {
@@ -84,6 +85,11 @@
         if ([forClausesTail count]) {
             [self loopInContext:ctx forClauses:forClausesTail];
         } else {
+            
+            for (XPLetClause *letClause in _letClauses) {
+                id <XPItem>letItem = [letClause.expression evaluateInContext:ctx];
+                [ctx setItem:letItem forVariable:letClause.variableName];
+            }
             
             BOOL whereTest = YES;
             if (_whereExpression) {
@@ -99,9 +105,17 @@
             }
         }
 
+        // remove for var
         [ctx setItem:nil forVariable:curClause.variableName];
+        
+        // remove at var
         if (curClause.positionName) {
             [ctx setItem:nil forVariable:curClause.positionName];
+        }
+        
+        // remove let vars
+        for (XPLetClause *letClause in _letClauses) {
+            [ctx setItem:nil forVariable:letClause.variableName];
         }
     }
 }

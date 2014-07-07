@@ -29,6 +29,7 @@
         PKTokenizer *t = self.tokenizer;
         [t.symbolState add:@"//"];
         [t.symbolState add:@".."];
+        [t.symbolState add:@":="];
         [t.symbolState add:@"!="];
         [t.symbolState add:@"::"];
         [t.symbolState add:@"<="];
@@ -63,10 +64,12 @@ expr = exprSingle exprSingleTail*;
     exprSingleTail = (','! exprSingle);
 exprSingle = orExpr | forExpr | quantifiedExpr | ifExpr;
 
-    forExpr = for forClause whereClause? return exprSingle;
+    forExpr = (for forClause | let letClause)+ whereClause? return exprSingle;
         forClause = singleForClause (',' singleForClause)*;
             singleForClause = '$'! qName positionalVar? in exprSingle;
                 positionalVar = 'at'! '$'! qName;
+        letClause = singleLetClause (',' singleLetClause)*;
+            singleLetClause = '$'! qName ':='! exprSingle;
         whereClause = 'where'! exprSingle;
         
     quantifiedExpr = ('some' | 'every') forClause satisfies exprSingle;
@@ -170,6 +173,7 @@ div = 'div';
 mod = 'mod';
 to = 'to'!;
 for = 'for';
+let = 'let'!;
 in = 'in'!;
 return = 'return'!;
 satisfies = 'satisfies'!;

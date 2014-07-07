@@ -12,6 +12,8 @@
 @property (nonatomic, retain) NSMutableDictionary *forClause_memo;
 @property (nonatomic, retain) NSMutableDictionary *singleForClause_memo;
 @property (nonatomic, retain) NSMutableDictionary *positionalVar_memo;
+@property (nonatomic, retain) NSMutableDictionary *letClause_memo;
+@property (nonatomic, retain) NSMutableDictionary *singleLetClause_memo;
 @property (nonatomic, retain) NSMutableDictionary *whereClause_memo;
 @property (nonatomic, retain) NSMutableDictionary *quantifiedExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *ifExpr_memo;
@@ -98,6 +100,7 @@
 @property (nonatomic, retain) NSMutableDictionary *mod_memo;
 @property (nonatomic, retain) NSMutableDictionary *to_memo;
 @property (nonatomic, retain) NSMutableDictionary *for_memo;
+@property (nonatomic, retain) NSMutableDictionary *let_memo;
 @property (nonatomic, retain) NSMutableDictionary *in_memo;
 @property (nonatomic, retain) NSMutableDictionary *return_memo;
 @property (nonatomic, retain) NSMutableDictionary *satisfies_memo;
@@ -149,6 +152,7 @@
         self.tokenKindTab[@"except"] = @(XPEG_TOKEN_KIND_EXCEPT);
         self.tokenKindTab[@"namespace"] = @(XPEG_TOKEN_KIND_NAMESPACE);
         self.tokenKindTab[@"or"] = @(XPEG_TOKEN_KIND_OR);
+        self.tokenKindTab[@"let"] = @(XPEG_TOKEN_KIND_LET);
         self.tokenKindTab[@"child"] = @(XPEG_TOKEN_KIND_CHILD);
         self.tokenKindTab[@"attribute"] = @(XPEG_TOKEN_KIND_ATTR);
         self.tokenKindTab[@"preceding"] = @(XPEG_TOKEN_KIND_PRECEDING);
@@ -157,10 +161,10 @@
         self.tokenKindTab[@"some"] = @(XPEG_TOKEN_KIND_SOME);
         self.tokenKindTab[@"ancestor"] = @(XPEG_TOKEN_KIND_ANCESTOR);
         self.tokenKindTab[@"in"] = @(XPEG_TOKEN_KIND_IN);
-        self.tokenKindTab[@"for"] = @(XPEG_TOKEN_KIND_FOR);
         self.tokenKindTab[@">>"] = @(XPEG_TOKEN_KIND_SHIFT_RIGHT);
-        self.tokenKindTab[@"<"] = @(XPEG_TOKEN_KIND_LT_SYM);
         self.tokenKindTab[@"every"] = @(XPEG_TOKEN_KIND_EVERY);
+        self.tokenKindTab[@"<"] = @(XPEG_TOKEN_KIND_LT_SYM);
+        self.tokenKindTab[@"for"] = @(XPEG_TOKEN_KIND_FOR);
         self.tokenKindTab[@"text"] = @(XPEG_TOKEN_KIND_TEXT);
         self.tokenKindTab[@"="] = @(XPEG_TOKEN_KIND_EQUALS);
         self.tokenKindTab[@"comment"] = @(XPEG_TOKEN_KIND_COMMENT);
@@ -180,6 +184,7 @@
         self.tokenKindTab[@"following-sibling"] = @(XPEG_TOKEN_KIND_FOLLOWINGSIBLING);
         self.tokenKindTab[@"mod"] = @(XPEG_TOKEN_KIND_MOD);
         self.tokenKindTab[@".."] = @(XPEG_TOKEN_KIND_DOT_DOT);
+        self.tokenKindTab[@":="] = @(XPEG_TOKEN_KIND_ASSIGN);
         self.tokenKindTab[@"intersect"] = @(XPEG_TOKEN_KIND_INTERSECT);
         self.tokenKindTab[@"ancestor-or-self"] = @(XPEG_TOKEN_KIND_ANCESTORORSELF);
         self.tokenKindTab[@"following"] = @(XPEG_TOKEN_KIND_FOLLOWING);
@@ -214,6 +219,7 @@
         self.tokenKindNameTab[XPEG_TOKEN_KIND_EXCEPT] = @"except";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_NAMESPACE] = @"namespace";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_OR] = @"or";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_LET] = @"let";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_CHILD] = @"child";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_ATTR] = @"attribute";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_PRECEDING] = @"preceding";
@@ -222,10 +228,10 @@
         self.tokenKindNameTab[XPEG_TOKEN_KIND_SOME] = @"some";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_ANCESTOR] = @"ancestor";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_IN] = @"in";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_FOR] = @"for";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_SHIFT_RIGHT] = @">>";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_LT_SYM] = @"<";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_EVERY] = @"every";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_LT_SYM] = @"<";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_FOR] = @"for";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_TEXT] = @"text";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_EQUALS] = @"=";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_COMMENT] = @"comment";
@@ -245,6 +251,7 @@
         self.tokenKindNameTab[XPEG_TOKEN_KIND_FOLLOWINGSIBLING] = @"following-sibling";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_MOD] = @"mod";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_DOT_DOT] = @"..";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_ASSIGN] = @":=";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_INTERSECT] = @"intersect";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_ANCESTORORSELF] = @"ancestor-or-self";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_FOLLOWING] = @"following";
@@ -257,6 +264,8 @@
         self.forClause_memo = [NSMutableDictionary dictionary];
         self.singleForClause_memo = [NSMutableDictionary dictionary];
         self.positionalVar_memo = [NSMutableDictionary dictionary];
+        self.letClause_memo = [NSMutableDictionary dictionary];
+        self.singleLetClause_memo = [NSMutableDictionary dictionary];
         self.whereClause_memo = [NSMutableDictionary dictionary];
         self.quantifiedExpr_memo = [NSMutableDictionary dictionary];
         self.ifExpr_memo = [NSMutableDictionary dictionary];
@@ -343,6 +352,7 @@
         self.mod_memo = [NSMutableDictionary dictionary];
         self.to_memo = [NSMutableDictionary dictionary];
         self.for_memo = [NSMutableDictionary dictionary];
+        self.let_memo = [NSMutableDictionary dictionary];
         self.in_memo = [NSMutableDictionary dictionary];
         self.return_memo = [NSMutableDictionary dictionary];
         self.satisfies_memo = [NSMutableDictionary dictionary];
@@ -369,6 +379,8 @@
     self.forClause_memo = nil;
     self.singleForClause_memo = nil;
     self.positionalVar_memo = nil;
+    self.letClause_memo = nil;
+    self.singleLetClause_memo = nil;
     self.whereClause_memo = nil;
     self.quantifiedExpr_memo = nil;
     self.ifExpr_memo = nil;
@@ -455,6 +467,7 @@
     self.mod_memo = nil;
     self.to_memo = nil;
     self.for_memo = nil;
+    self.let_memo = nil;
     self.in_memo = nil;
     self.return_memo = nil;
     self.satisfies_memo = nil;
@@ -480,6 +493,8 @@
     [_forClause_memo removeAllObjects];
     [_singleForClause_memo removeAllObjects];
     [_positionalVar_memo removeAllObjects];
+    [_letClause_memo removeAllObjects];
+    [_singleLetClause_memo removeAllObjects];
     [_whereClause_memo removeAllObjects];
     [_quantifiedExpr_memo removeAllObjects];
     [_ifExpr_memo removeAllObjects];
@@ -566,6 +581,7 @@
     [_mod_memo removeAllObjects];
     [_to_memo removeAllObjects];
     [_for_memo removeAllObjects];
+    [_let_memo removeAllObjects];
     [_in_memo removeAllObjects];
     [_return_memo removeAllObjects];
     [_satisfies_memo removeAllObjects];
@@ -588,6 +604,7 @@
         PKTokenizer *t = self.tokenizer;
         [t.symbolState add:@"//"];
         [t.symbolState add:@".."];
+        [t.symbolState add:@":="];
         [t.symbolState add:@"!="];
         [t.symbolState add:@"::"];
         [t.symbolState add:@"<="];
@@ -664,7 +681,7 @@
     
     if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_ABBREVIATEDAXIS, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIV, XPEG_TOKEN_KIND_DOLLAR, XPEG_TOKEN_KIND_DOT, XPEG_TOKEN_KIND_DOT_DOT, XPEG_TOKEN_KIND_DOUBLE_SLASH, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_FORWARD_SLASH, XPEG_TOKEN_KIND_MINUS, XPEG_TOKEN_KIND_MOD, XPEG_TOKEN_KIND_MULTIPLYOPERATOR, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OPEN_PAREN, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TRUE, 0]) {
         [self orExpr_]; 
-    } else if ([self predicts:XPEG_TOKEN_KIND_FOR, 0]) {
+    } else if ([self predicts:XPEG_TOKEN_KIND_FOR, XPEG_TOKEN_KIND_LET, 0]) {
         [self forExpr_]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_EVERY, XPEG_TOKEN_KIND_SOME, 0]) {
         [self quantifiedExpr_]; 
@@ -683,8 +700,17 @@
 
 - (void)__forExpr {
     
-    [self for_]; 
-    [self forClause_]; 
+    do {
+        if ([self predicts:XPEG_TOKEN_KIND_FOR, 0]) {
+            [self for_]; 
+            [self forClause_]; 
+        } else if ([self predicts:XPEG_TOKEN_KIND_LET, 0]) {
+            [self let_]; 
+            [self letClause_]; 
+        } else {
+            [self raise:@"No viable alternative found in rule 'forExpr'."];
+        }
+    } while ([self speculate:^{ if ([self predicts:XPEG_TOKEN_KIND_FOR, 0]) {[self for_]; [self forClause_]; } else if ([self predicts:XPEG_TOKEN_KIND_LET, 0]) {[self let_]; [self letClause_]; } else {[self raise:@"No viable alternative found in rule 'forExpr'."];}}]);
     if ([self speculate:^{ [self whereClause_]; }]) {
         [self whereClause_]; 
     }
@@ -741,6 +767,35 @@
 
 - (void)positionalVar_ {
     [self parseRule:@selector(__positionalVar) withMemo:_positionalVar_memo];
+}
+
+- (void)__letClause {
+    
+    [self singleLetClause_]; 
+    while ([self speculate:^{ [self match:XPEG_TOKEN_KIND_COMMA discard:NO]; [self singleLetClause_]; }]) {
+        [self match:XPEG_TOKEN_KIND_COMMA discard:NO]; 
+        [self singleLetClause_]; 
+    }
+
+    [self fireDelegateSelector:@selector(parser:didMatchLetClause:)];
+}
+
+- (void)letClause_ {
+    [self parseRule:@selector(__letClause) withMemo:_letClause_memo];
+}
+
+- (void)__singleLetClause {
+    
+    [self match:XPEG_TOKEN_KIND_DOLLAR discard:YES]; 
+    [self qName_]; 
+    [self match:XPEG_TOKEN_KIND_ASSIGN discard:YES]; 
+    [self exprSingle_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchSingleLetClause:)];
+}
+
+- (void)singleLetClause_ {
+    [self parseRule:@selector(__singleLetClause) withMemo:_singleLetClause_memo];
 }
 
 - (void)__whereClause {
@@ -1984,6 +2039,17 @@
 
 - (void)for_ {
     [self parseRule:@selector(__for) withMemo:_for_memo];
+}
+
+- (void)__let {
+    
+    [self match:XPEG_TOKEN_KIND_LET discard:YES]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchLet:)];
+}
+
+- (void)let_ {
+    [self parseRule:@selector(__let) withMemo:_let_memo];
 }
 
 - (void)__in {

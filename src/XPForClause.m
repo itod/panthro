@@ -10,19 +10,24 @@
 
 @implementation XPForClause
 
-+ (instancetype)forClauseWithVariableName:(NSString *)varName positionName:(NSString *)posName sequenceExpression:(XPExpression *)seqExpr {
++ (instancetype)forClauseWithVariableName:(NSString *)varName positionName:(NSString *)posName expression:(XPExpression *)collExpr {
     XPForClause *fc = [[[XPForClause alloc] init] autorelease];
     fc.variableName = varName;
     fc.positionName = posName;
-    fc.sequenceExpression = seqExpr;
+    fc.expression = collExpr;
     return fc;
+}
+
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"for $%@ at %@ in %@", _variableName, _positionName, _expression];
 }
 
 
 - (void)dealloc {
     self.variableName = nil;
     self.positionName = nil;
-    self.sequenceExpression = nil;
+    self.expression = nil;
     [super dealloc];
 }
 

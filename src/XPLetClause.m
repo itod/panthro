@@ -18,6 +18,11 @@
 }
 
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"let $%@ := %@", _variableName, _expression];
+}
+
+
 - (void)dealloc {
     self.variableName = nil;
     self.expression = nil;

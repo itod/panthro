@@ -301,6 +301,29 @@
 }
 
 
+- (void)testForXInOpen1Comma2Comma3CloseLetYEqXTimesXReturnX {
+    [self eval:@"for $x in (1, 2, 3) let $y := $x*$x return $y"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    XPValue *val = nil;
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"1", val.stringValue);
+    TDEquals(1.0, [val asNumber]);
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"4", val.stringValue);
+    TDEquals(4.0, [val asNumber]);
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"9", val.stringValue);
+    TDEquals(9.0, [val asNumber]);
+    
+    TDFalse([enm hasMoreItems]);
+}
+
+
 - (void)testForXInOpen1Comma2Comma3CloseWhereXGt1ReturnX {
     [self eval:@"for $x in (1, 2, 3) where $x > 1 return $x"];
     

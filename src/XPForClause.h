@@ -12,9 +12,9 @@
 
 @interface XPForClause : NSObject
 
-+ (instancetype)forClauseWithVariableName:(NSString *)varName positionName:(NSString *)posName sequenceExpression:(XPExpression *)seqExpr;
++ (instancetype)forClauseWithVariableName:(NSString *)varName positionName:(NSString *)posName expression:(XPExpression *)collExpr;
 
 @property (nonatomic, retain) NSString *variableName;
 @property (nonatomic, retain) NSString *positionName;
-@property (nonatomic, retain) XPExpression *sequenceExpression;
+@property (nonatomic, retain) XPExpression *expression;
 @end

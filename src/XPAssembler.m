@@ -165,25 +165,27 @@
             peek = [a pop];
         }
 
-        XPExpression *seqExpr = peek;
-        XPAssertExpr(seqExpr);
-        
-        peek = [a pop];
-        while (peek == _let) {
-            XPExpression *letExpr = [a pop];
-            XPAssertExpr(letExpr);
-            PKToken *letVarNameTok = [a pop];
-            XPAssertToken(letVarNameTok);
-            
-            XPLetClause *letClause = [XPLetClause letClauseWithVariableName:letVarNameTok.stringValue expression:letExpr];
-            [letClauses insertObject:letClause atIndex:0];
-            
-            peek = [a pop];
+        if (peek == _let) {
+            do {
+                XPExpression *letExpr = [a pop];
+                XPAssertExpr(letExpr);
+                PKToken *letVarNameTok = [a pop];
+                XPAssertToken(letVarNameTok);
+                
+                XPLetClause *letClause = [XPLetClause letClauseWithVariableName:letVarNameTok.stringValue expression:letExpr];
+                [letClauses insertObject:letClause atIndex:0];
+
+                peek = [a pop];
+            } while ([peek isEqual:_comma]);
         }
+        
+        XPExpression *collExpr = peek;
+        XPAssertExpr(collExpr);
         
         PKToken *posNameTok = nil;
         PKToken *varNameTok = nil;
         
+        peek = [a pop];
         if (peek == _at) {
             posNameTok = [a pop];
             varNameTok = [a pop];
@@ -193,7 +195,7 @@
         }
         XPAssertToken(varNameTok);
         
-        XPForClause *forClause = [XPForClause forClauseWithVariableName:varNameTok.stringValue positionName:posNameTok.stringValue sequenceExpression:seqExpr];
+        XPForClause *forClause = [XPForClause forClauseWithVariableName:varNameTok.stringValue positionName:posNameTok.stringValue expression:collExpr];
         [forClauses insertObject:forClause atIndex:0];
         
         peek = [a pop];
@@ -213,6 +215,11 @@
 
 - (void)parser:(PKParser *)p didMatchPositionalVar:(PKAssembly *)a {
     [a push:_at];
+}
+
+
+- (void)parser:(PKParser *)p didMatchLetClause:(PKAssembly *)a {
+    [a push:_let];
 }
 
 
