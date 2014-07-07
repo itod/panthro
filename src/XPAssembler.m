@@ -180,7 +180,7 @@
                 [letClauses insertObject:letClause atIndex:0];
 
                 peek = [a pop];
-            } while ([peek isEqual:_comma]);
+            } while (peek == _let);
             
             // discard 'let'
             XPAssert([peek isEqual:_let]);
@@ -191,7 +191,7 @@
         
         XPForClause *forClause = nil;
         
-        if ([peek isEqual:_forTok]) {
+        if (peek == _forTok) {
             peek = [a pop];
             
             XPExpression *collExpr = peek;
@@ -216,18 +216,19 @@
             forClause = [XPForClause emptyForClause];
         }
         
+        // discard 'for'
+        if (peek != _forTok && [peek isEqual:_forTok]) {
+            offset = [peek offset];
+            peek = [a pop];
+        }
+
         XPAssert(forClause);
         forClause.letClauses = letClauses;
         [forClauses insertObject:forClause atIndex:0];
         
-    } while (peek == _forTok);
+    } while (peek == _forTok || peek == _let);
     
-    // discard 'for'
-    if ([peek isEqual:_forTok]) {
-        offset = [peek offset];
-    } else {
-        [a push:peek];
-    }
+    [a push:peek];
     
     XPExpression *forExpr = [[[XPForExpression alloc] initWithForClauses:forClauses where:whereExpr body:bodyExpr] autorelease];
     forExpr.range = NSMakeRange(offset, NSMaxRange(bodyExpr.range) - offset);

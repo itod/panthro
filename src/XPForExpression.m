@@ -79,14 +79,14 @@
             [ctx setItem:[XPNumericValue numericValueWithNumber:idx++] forVariable:curForClause.positionName];
         }
 
+        for (XPLetClause *letClause in curForClause.letClauses) {
+            id <XPItem>letItem = [letClause.expression evaluateInContext:ctx];
+            [ctx setItem:letItem forVariable:letClause.variableName];
+        }
+        
         if ([forClausesTail count]) {
             [self loopInContext:ctx forClauses:forClausesTail];
         } else {
-            
-            for (XPLetClause *letClause in curForClause.letClauses) {
-                id <XPItem>letItem = [letClause.expression evaluateInContext:ctx];
-                [ctx setItem:letItem forVariable:letClause.variableName];
-            }
             
             BOOL whereTest = YES;
             if (_whereExpression) {

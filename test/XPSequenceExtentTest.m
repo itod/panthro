@@ -419,6 +419,49 @@
 }
 
 
+- (void)testForXInOpen1Comma2CloseCommaLetAEqXYInOpen3Comma4CloseLetBEqYReturnOpenXCommaYClose {
+    [self eval:@"for $x in (1, 2) let $a := $x for $y in (3, 4) let $b := $y return ($a, $b)"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    XPValue *val = nil;
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"1", val.stringValue);
+    TDEquals(1.0, [val asNumber]);
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"3", val.stringValue);
+    TDEquals(3.0, [val asNumber]);
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"1", val.stringValue);
+    TDEquals(1.0, [val asNumber]);
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"4", val.stringValue);
+    TDEquals(4.0, [val asNumber]);
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"2", val.stringValue);
+    TDEquals(2.0, [val asNumber]);
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"3", val.stringValue);
+    TDEquals(3.0, [val asNumber]);
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"2", val.stringValue);
+    TDEquals(2.0, [val asNumber]);
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"4", val.stringValue);
+    TDEquals(4.0, [val asNumber]);
+    
+    TDFalse([enm hasMoreItems]);
+}
+
+
 - (void)testEveryNInChapterSatisfiesNSlashTitle {
     [self eval:@"every $n in chapter satisfies $n/title"];
     
