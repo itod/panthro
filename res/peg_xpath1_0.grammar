@@ -72,8 +72,9 @@ exprSingle = orExpr | forExpr | quantifiedExpr | ifExpr;
             singleLetClause = '$'! qName ':='! exprSingle;
         whereClause = 'where'! exprSingle;
         
-    quantifiedExpr = ('some' | 'every') forClause satisfies exprSingle;
-    
+    quantifiedExpr = ('some' | 'every') inClause satisfies exprSingle;
+        inClause = singleForClause (',' singleForClause)*;
+
     ifExpr = 'if' '('! expr ')'! 'then' exprSingle 'else' exprSingle;
 
     orExpr = andExpr orAndExpr*;
@@ -173,7 +174,7 @@ div = 'div';
 mod = 'mod';
 to = 'to'!;
 for = 'for';
-let = 'let'!;
+let = 'let';
 in = 'in'!;
 return = 'return'!;
 satisfies = 'satisfies'!;

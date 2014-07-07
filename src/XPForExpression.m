@@ -16,7 +16,6 @@
 
 @interface XPForExpression ()
 @property (nonatomic, retain) NSArray *forClauses;
-@property (nonatomic, retain) NSArray *letClauses;
 @property (nonatomic, retain) XPExpression *whereExpression;
 @property (nonatomic, retain) XPExpression *bodyExpression;
 @property (nonatomic, retain) NSMutableArray *result;
@@ -24,11 +23,10 @@
 
 @implementation XPForExpression
 
-- (instancetype)initWithForClauses:(NSArray *)forClauses letClauses:(NSArray *)letClauses where:(XPExpression *)whereExpr body:(XPExpression *)bodyExpr {
+- (instancetype)initWithForClauses:(NSArray *)forClauses where:(XPExpression *)whereExpr body:(XPExpression *)bodyExpr {
     self = [super init];
     if (self) {
         self.forClauses = forClauses;
-        self.letClauses = letClauses;
         self.whereExpression = whereExpr;
         self.bodyExpression = bodyExpr;
     }
@@ -38,7 +36,6 @@
 
 - (void)dealloc {
     self.forClauses = nil;
-    self.letClauses = nil;
     self.whereExpression = nil;
     self.bodyExpression = nil;
     self.result = nil;
@@ -69,24 +66,24 @@
     XPAssert([forClauses count]);
     XPAssert(_bodyExpression);
     
-    XPForClause *curClause = forClauses[0];
+    XPForClause *curForClause = forClauses[0];
     NSArray *forClausesTail = [forClauses subarrayWithRange:NSMakeRange(1, [forClauses count]-1)];
     
-    id <XPSequenceEnumeration>seqEnm = [curClause.expression enumerateInContext:ctx sorted:NO];
+    id <XPSequenceEnumeration>seqEnm = [curForClause.expression enumerateInContext:ctx sorted:NO];
 
     NSUInteger idx = 1;
     while ([seqEnm hasMoreItems]) {
         id <XPItem>inItem = [seqEnm nextItem];
-        [ctx setItem:inItem forVariable:curClause.variableName];
-        if (curClause.positionName) {
-            [ctx setItem:[XPNumericValue numericValueWithNumber:idx++] forVariable:curClause.positionName];
+        [ctx setItem:inItem forVariable:curForClause.variableName];
+        if (curForClause.positionName) {
+            [ctx setItem:[XPNumericValue numericValueWithNumber:idx++] forVariable:curForClause.positionName];
         }
 
         if ([forClausesTail count]) {
             [self loopInContext:ctx forClauses:forClausesTail];
         } else {
             
-            for (XPLetClause *letClause in _letClauses) {
+            for (XPLetClause *letClause in curForClause.letClauses) {
                 id <XPItem>letItem = [letClause.expression evaluateInContext:ctx];
                 [ctx setItem:letItem forVariable:letClause.variableName];
             }
@@ -104,19 +101,18 @@
                 }
             }
         }
-
-        // remove for var
-        [ctx setItem:nil forVariable:curClause.variableName];
-        
-        // remove at var
-        if (curClause.positionName) {
-            [ctx setItem:nil forVariable:curClause.positionName];
-        }
         
         // remove let vars
-        for (XPLetClause *letClause in _letClauses) {
+        for (XPLetClause *letClause in curForClause.letClauses) {
             [ctx setItem:nil forVariable:letClause.variableName];
         }
+        // remove at var
+        if (curForClause.positionName) {
+            [ctx setItem:nil forVariable:curForClause.positionName];
+        }
+
+        // remove for var
+        [ctx setItem:nil forVariable:curForClause.variableName];
     }
 }
 

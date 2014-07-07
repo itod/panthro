@@ -50,6 +50,7 @@
 @property (nonatomic, retain) PKToken *openParen;
 @property (nonatomic, retain) PKToken *comma;
 @property (nonatomic, retain) PKToken *at;
+@property (nonatomic, retain) PKToken *forTok;
 @property (nonatomic, retain) PKToken *let;
 @property (nonatomic, retain) PKToken *where;
 @property (nonatomic, retain) PKToken *then;
@@ -76,6 +77,7 @@
         self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
         self.comma = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"," doubleValue:0.0];
         self.at = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"at" doubleValue:0.0];
+        self.forTok = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"for" doubleValue:0.0];
         self.let = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"let" doubleValue:0.0];
         self.where = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"where" doubleValue:0.0];
         self.then = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"then" doubleValue:0.0];
@@ -115,6 +117,7 @@
     self.openParen = nil;
     self.comma = nil;
     self.at = nil;
+    self.forTok = nil;
     self.let = nil;
     self.where = nil;
     self.then = nil;
@@ -152,12 +155,12 @@
     XPAssertExpr(bodyExpr);
     
     NSMutableArray *forClauses = [NSMutableArray array];
-    NSMutableArray *letClauses = [NSMutableArray array];
-    
+    NSUInteger offset = NSNotFound;
     XPExpression *whereExpr = nil;
     id peek = nil;
     do {
-        
+        NSMutableArray *letClauses = nil;
+
         peek = [a pop];
         if (peek == _where) {
             whereExpr = [a pop];
@@ -166,6 +169,8 @@
         }
 
         if (peek == _let) {
+            letClauses = [NSMutableArray array];
+            
             do {
                 XPExpression *letExpr = [a pop];
                 XPAssertExpr(letExpr);
@@ -177,25 +182,42 @@
 
                 peek = [a pop];
             } while ([peek isEqual:_comma]);
+            
+            // discard 'let'
+            XPAssert([peek isEqual:_let]);
+            offset = [peek offset];
+            
+            peek = [a pop];
         }
         
-        XPExpression *collExpr = peek;
-        XPAssertExpr(collExpr);
+        XPForClause *forClause = nil;
         
-        PKToken *posNameTok = nil;
-        PKToken *varNameTok = nil;
-        
-        peek = [a pop];
-        if (peek == _at) {
-            posNameTok = [a pop];
-            varNameTok = [a pop];
-            XPAssertToken(posNameTok);
+        if (peek == _forTok) {
+            peek = [a pop];
+            
+            XPExpression *collExpr = peek;
+            XPAssertExpr(collExpr);
+            
+            PKToken *posNameTok = nil;
+            PKToken *varNameTok = nil;
+            
+            peek = [a pop];
+            if (peek == _at) {
+                posNameTok = [a pop];
+                varNameTok = [a pop];
+                XPAssertToken(posNameTok);
+            } else {
+                varNameTok = peek;
+            }
+            XPAssertToken(varNameTok);
+            
+            forClause = [XPForClause forClauseWithVariableName:varNameTok.stringValue positionName:posNameTok.stringValue expression:collExpr];
         } else {
-            varNameTok = peek;
+            forClause = [XPForClause emptyForClause];
         }
-        XPAssertToken(varNameTok);
         
-        XPForClause *forClause = [XPForClause forClauseWithVariableName:varNameTok.stringValue positionName:posNameTok.stringValue expression:collExpr];
+        XPAssert(forClause);
+        forClause.letClauses = letClauses;
         [forClauses insertObject:forClause atIndex:0];
         
         peek = [a pop];
@@ -203,10 +225,13 @@
     } while ([peek isEqual:_comma]);
     
     // discard 'for'
-    XPAssert([[peek stringValue] isEqualToString:@"for"]);
-    NSUInteger offset = [peek offset];
+    if ([peek isEqual:_forTok]) {
+        offset = [peek offset];
+    } else {
+        [a push:peek];
+    }
     
-    XPExpression *forExpr = [[[XPForExpression alloc] initWithForClauses:forClauses letClauses:letClauses where:whereExpr body:bodyExpr] autorelease];
+    XPExpression *forExpr = [[[XPForExpression alloc] initWithForClauses:forClauses where:whereExpr body:bodyExpr] autorelease];
     forExpr.range = NSMakeRange(offset, NSMaxRange(bodyExpr.range) - offset);
     forExpr.staticContext = _env;
     [a push:forExpr];
@@ -215,6 +240,11 @@
 
 - (void)parser:(PKParser *)p didMatchPositionalVar:(PKAssembly *)a {
     [a push:_at];
+}
+
+
+- (void)parser:(PKParser *)p didMatchForClause:(PKAssembly *)a {
+    [a push:_forTok];
 }
 
 

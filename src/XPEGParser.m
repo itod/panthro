@@ -16,6 +16,7 @@
 @property (nonatomic, retain) NSMutableDictionary *singleLetClause_memo;
 @property (nonatomic, retain) NSMutableDictionary *whereClause_memo;
 @property (nonatomic, retain) NSMutableDictionary *quantifiedExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *inClause_memo;
 @property (nonatomic, retain) NSMutableDictionary *ifExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *orExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *orAndExpr_memo;
@@ -268,6 +269,7 @@
         self.singleLetClause_memo = [NSMutableDictionary dictionary];
         self.whereClause_memo = [NSMutableDictionary dictionary];
         self.quantifiedExpr_memo = [NSMutableDictionary dictionary];
+        self.inClause_memo = [NSMutableDictionary dictionary];
         self.ifExpr_memo = [NSMutableDictionary dictionary];
         self.orExpr_memo = [NSMutableDictionary dictionary];
         self.orAndExpr_memo = [NSMutableDictionary dictionary];
@@ -383,6 +385,7 @@
     self.singleLetClause_memo = nil;
     self.whereClause_memo = nil;
     self.quantifiedExpr_memo = nil;
+    self.inClause_memo = nil;
     self.ifExpr_memo = nil;
     self.orExpr_memo = nil;
     self.orAndExpr_memo = nil;
@@ -497,6 +500,7 @@
     [_singleLetClause_memo removeAllObjects];
     [_whereClause_memo removeAllObjects];
     [_quantifiedExpr_memo removeAllObjects];
+    [_inClause_memo removeAllObjects];
     [_ifExpr_memo removeAllObjects];
     [_orExpr_memo removeAllObjects];
     [_orAndExpr_memo removeAllObjects];
@@ -819,7 +823,7 @@
     } else {
         [self raise:@"No viable alternative found in rule 'quantifiedExpr'."];
     }
-    [self forClause_]; 
+    [self inClause_]; 
     [self satisfies_]; 
     [self exprSingle_]; 
 
@@ -828,6 +832,21 @@
 
 - (void)quantifiedExpr_ {
     [self parseRule:@selector(__quantifiedExpr) withMemo:_quantifiedExpr_memo];
+}
+
+- (void)__inClause {
+    
+    [self singleForClause_]; 
+    while ([self speculate:^{ [self match:XPEG_TOKEN_KIND_COMMA discard:NO]; [self singleForClause_]; }]) {
+        [self match:XPEG_TOKEN_KIND_COMMA discard:NO]; 
+        [self singleForClause_]; 
+    }
+
+    [self fireDelegateSelector:@selector(parser:didMatchInClause:)];
+}
+
+- (void)inClause_ {
+    [self parseRule:@selector(__inClause) withMemo:_inClause_memo];
 }
 
 - (void)__ifExpr {
@@ -2043,7 +2062,7 @@
 
 - (void)__let {
     
-    [self match:XPEG_TOKEN_KIND_LET discard:YES]; 
+    [self match:XPEG_TOKEN_KIND_LET discard:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchLet:)];
 }
