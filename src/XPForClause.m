@@ -7,6 +7,7 @@
 //
 
 #import "XPForClause.h"
+#import "XPBooleanValue.h"
 
 @interface XPForClause ()
 @end
@@ -15,6 +16,9 @@
 
 + (instancetype)emptyForClause {
     XPForClause *fc = [[[XPForClause alloc] init] autorelease];
+    fc.variableName = @"$__DUMMY__";
+    fc.positionName = nil;
+    fc.expression = [XPBooleanValue booleanValueWithBoolean:YES];
     return fc;
 }
 
