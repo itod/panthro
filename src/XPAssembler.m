@@ -16,6 +16,7 @@
 #import "XPRangeExpression.h"
 #import "XPForExpression.h"
 #import "XPForClause.h"
+#import "XPLetClause.h"
 #import "XPQuantifiedExpression.h"
 #import "XPIfExpression.h"
 #import "XPEmptySequence.h"
@@ -49,6 +50,7 @@
 @property (nonatomic, retain) PKToken *openParen;
 @property (nonatomic, retain) PKToken *comma;
 @property (nonatomic, retain) PKToken *at;
+@property (nonatomic, retain) PKToken *let;
 @property (nonatomic, retain) PKToken *where;
 @property (nonatomic, retain) PKToken *then;
 @property (nonatomic, retain) PKToken *slash;
@@ -74,6 +76,7 @@
         self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
         self.comma = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"," doubleValue:0.0];
         self.at = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"at" doubleValue:0.0];
+        self.let = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"let" doubleValue:0.0];
         self.where = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"where" doubleValue:0.0];
         self.then = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"then" doubleValue:0.0];
         self.slash = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"/" doubleValue:0.0];
@@ -112,6 +115,7 @@
     self.openParen = nil;
     self.comma = nil;
     self.at = nil;
+    self.let = nil;
     self.where = nil;
     self.then = nil;
     self.slash = nil;
@@ -148,6 +152,7 @@
     XPAssertExpr(bodyExpr);
     
     NSMutableArray *forClauses = [NSMutableArray array];
+    NSMutableArray *letClauses = [NSMutableArray array];
     
     XPExpression *whereExpr = nil;
     id peek = nil;
@@ -164,6 +169,18 @@
         XPAssertExpr(seqExpr);
         
         peek = [a pop];
+        while (peek == _let) {
+            XPExpression *letExpr = [a pop];
+            XPAssertExpr(letExpr);
+            PKToken *letVarNameTok = [a pop];
+            XPAssertToken(letVarNameTok);
+            
+            XPLetClause *letClause = [XPLetClause letClauseWithVariableName:letVarNameTok.stringValue expression:letExpr];
+            [letClauses insertObject:letClause atIndex:0];
+            
+            peek = [a pop];
+        }
+        
         PKToken *posNameTok = nil;
         PKToken *varNameTok = nil;
         
@@ -187,7 +204,7 @@
     XPAssert([[peek stringValue] isEqualToString:@"for"]);
     NSUInteger offset = [peek offset];
     
-    XPExpression *forExpr = [[[XPForExpression alloc] initWithForClauses:forClauses where:whereExpr body:bodyExpr] autorelease];
+    XPExpression *forExpr = [[[XPForExpression alloc] initWithForClauses:forClauses letClauses:letClauses where:whereExpr body:bodyExpr] autorelease];
     forExpr.range = NSMakeRange(offset, NSMaxRange(bodyExpr.range) - offset);
     forExpr.staticContext = _env;
     [a push:forExpr];

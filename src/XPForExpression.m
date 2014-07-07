@@ -15,6 +15,7 @@
 
 @interface XPForExpression ()
 @property (nonatomic, retain) NSArray *forClauses;
+@property (nonatomic, retain) NSArray *letClauses;
 @property (nonatomic, retain) XPExpression *whereExpression;
 @property (nonatomic, retain) XPExpression *bodyExpression;
 @property (nonatomic, retain) NSMutableArray *result;
@@ -22,10 +23,11 @@
 
 @implementation XPForExpression
 
-- (instancetype)initWithForClauses:(NSArray *)forClauses where:(XPExpression *)whereExpr body:(XPExpression *)bodyExpr {
+- (instancetype)initWithForClauses:(NSArray *)forClauses letClauses:(NSArray *)letClauses where:(XPExpression *)whereExpr body:(XPExpression *)bodyExpr {
     self = [super init];
     if (self) {
         self.forClauses = forClauses;
+        self.letClauses = letClauses;
         self.whereExpression = whereExpr;
         self.bodyExpression = bodyExpr;
     }
@@ -35,6 +37,7 @@
 
 - (void)dealloc {
     self.forClauses = nil;
+    self.letClauses = nil;
     self.whereExpression = nil;
     self.bodyExpression = nil;
     self.result = nil;
