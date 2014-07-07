@@ -43,6 +43,11 @@
 }
 
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"$%@", self.name];
+}
+
+
 /**
  * Determine which aspects of the context the expression depends on. The result is
  * a bitwise-or'ed value composed from constants such as XPDependenciesVariables and

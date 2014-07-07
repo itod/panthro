@@ -9,9 +9,10 @@
 @property (nonatomic, retain) NSMutableDictionary *exprSingleTail_memo;
 @property (nonatomic, retain) NSMutableDictionary *exprSingle_memo;
 @property (nonatomic, retain) NSMutableDictionary *forExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *simpleForClause_memo;
+@property (nonatomic, retain) NSMutableDictionary *forClause_memo;
 @property (nonatomic, retain) NSMutableDictionary *singleForClause_memo;
 @property (nonatomic, retain) NSMutableDictionary *positionalVar_memo;
+@property (nonatomic, retain) NSMutableDictionary *whereClause_memo;
 @property (nonatomic, retain) NSMutableDictionary *quantifiedExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *ifExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *orExpr_memo;
@@ -154,8 +155,8 @@
         self.tokenKindTab[@">="] = @(XPEG_TOKEN_KIND_GE_SYM);
         self.tokenKindTab[@":"] = @(XPEG_TOKEN_KIND_COLON);
         self.tokenKindTab[@"some"] = @(XPEG_TOKEN_KIND_SOME);
-        self.tokenKindTab[@"in"] = @(XPEG_TOKEN_KIND_IN);
         self.tokenKindTab[@"ancestor"] = @(XPEG_TOKEN_KIND_ANCESTOR);
+        self.tokenKindTab[@"in"] = @(XPEG_TOKEN_KIND_IN);
         self.tokenKindTab[@"for"] = @(XPEG_TOKEN_KIND_FOR);
         self.tokenKindTab[@">>"] = @(XPEG_TOKEN_KIND_SHIFT_RIGHT);
         self.tokenKindTab[@"<"] = @(XPEG_TOKEN_KIND_LT_SYM);
@@ -174,6 +175,7 @@
         self.tokenKindTab[@"::"] = @(XPEG_TOKEN_KIND_DOUBLE_COLON);
         self.tokenKindTab[@"true"] = @(XPEG_TOKEN_KIND_TRUE);
         self.tokenKindTab[@"processing-instruction"] = @(XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION);
+        self.tokenKindTab[@"where"] = @(XPEG_TOKEN_KIND_WHERE);
         self.tokenKindTab[@"$"] = @(XPEG_TOKEN_KIND_DOLLAR);
         self.tokenKindTab[@"following-sibling"] = @(XPEG_TOKEN_KIND_FOLLOWINGSIBLING);
         self.tokenKindTab[@"mod"] = @(XPEG_TOKEN_KIND_MOD);
@@ -218,8 +220,8 @@
         self.tokenKindNameTab[XPEG_TOKEN_KIND_GE_SYM] = @">=";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_COLON] = @":";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_SOME] = @"some";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_IN] = @"in";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_ANCESTOR] = @"ancestor";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_IN] = @"in";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_FOR] = @"for";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_SHIFT_RIGHT] = @">>";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_LT_SYM] = @"<";
@@ -238,6 +240,7 @@
         self.tokenKindNameTab[XPEG_TOKEN_KIND_DOUBLE_COLON] = @"::";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_TRUE] = @"true";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION] = @"processing-instruction";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_WHERE] = @"where";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_DOLLAR] = @"$";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_FOLLOWINGSIBLING] = @"following-sibling";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_MOD] = @"mod";
@@ -251,9 +254,10 @@
         self.exprSingleTail_memo = [NSMutableDictionary dictionary];
         self.exprSingle_memo = [NSMutableDictionary dictionary];
         self.forExpr_memo = [NSMutableDictionary dictionary];
-        self.simpleForClause_memo = [NSMutableDictionary dictionary];
+        self.forClause_memo = [NSMutableDictionary dictionary];
         self.singleForClause_memo = [NSMutableDictionary dictionary];
         self.positionalVar_memo = [NSMutableDictionary dictionary];
+        self.whereClause_memo = [NSMutableDictionary dictionary];
         self.quantifiedExpr_memo = [NSMutableDictionary dictionary];
         self.ifExpr_memo = [NSMutableDictionary dictionary];
         self.orExpr_memo = [NSMutableDictionary dictionary];
@@ -362,9 +366,10 @@
     self.exprSingleTail_memo = nil;
     self.exprSingle_memo = nil;
     self.forExpr_memo = nil;
-    self.simpleForClause_memo = nil;
+    self.forClause_memo = nil;
     self.singleForClause_memo = nil;
     self.positionalVar_memo = nil;
+    self.whereClause_memo = nil;
     self.quantifiedExpr_memo = nil;
     self.ifExpr_memo = nil;
     self.orExpr_memo = nil;
@@ -472,9 +477,10 @@
     [_exprSingleTail_memo removeAllObjects];
     [_exprSingle_memo removeAllObjects];
     [_forExpr_memo removeAllObjects];
-    [_simpleForClause_memo removeAllObjects];
+    [_forClause_memo removeAllObjects];
     [_singleForClause_memo removeAllObjects];
     [_positionalVar_memo removeAllObjects];
+    [_whereClause_memo removeAllObjects];
     [_quantifiedExpr_memo removeAllObjects];
     [_ifExpr_memo removeAllObjects];
     [_orExpr_memo removeAllObjects];
@@ -678,7 +684,10 @@
 - (void)__forExpr {
     
     [self for_]; 
-    [self simpleForClause_]; 
+    [self forClause_]; 
+    if ([self speculate:^{ [self whereClause_]; }]) {
+        [self whereClause_]; 
+    }
     [self return_]; 
     [self exprSingle_]; 
 
@@ -689,7 +698,7 @@
     [self parseRule:@selector(__forExpr) withMemo:_forExpr_memo];
 }
 
-- (void)__simpleForClause {
+- (void)__forClause {
     
     [self singleForClause_]; 
     while ([self speculate:^{ [self match:XPEG_TOKEN_KIND_COMMA discard:NO]; [self singleForClause_]; }]) {
@@ -697,11 +706,11 @@
         [self singleForClause_]; 
     }
 
-    [self fireDelegateSelector:@selector(parser:didMatchSimpleForClause:)];
+    [self fireDelegateSelector:@selector(parser:didMatchForClause:)];
 }
 
-- (void)simpleForClause_ {
-    [self parseRule:@selector(__simpleForClause) withMemo:_simpleForClause_memo];
+- (void)forClause_ {
+    [self parseRule:@selector(__forClause) withMemo:_forClause_memo];
 }
 
 - (void)__singleForClause {
@@ -734,6 +743,18 @@
     [self parseRule:@selector(__positionalVar) withMemo:_positionalVar_memo];
 }
 
+- (void)__whereClause {
+    
+    [self match:XPEG_TOKEN_KIND_WHERE discard:YES]; 
+    [self exprSingle_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchWhereClause:)];
+}
+
+- (void)whereClause_ {
+    [self parseRule:@selector(__whereClause) withMemo:_whereClause_memo];
+}
+
 - (void)__quantifiedExpr {
     
     if ([self predicts:XPEG_TOKEN_KIND_SOME, 0]) {
@@ -743,7 +764,7 @@
     } else {
         [self raise:@"No viable alternative found in rule 'quantifiedExpr'."];
     }
-    [self simpleForClause_]; 
+    [self forClause_]; 
     [self satisfies_]; 
     [self exprSingle_]; 
 

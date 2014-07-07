@@ -63,12 +63,13 @@ expr = exprSingle exprSingleTail*;
     exprSingleTail = (','! exprSingle);
 exprSingle = orExpr | forExpr | quantifiedExpr | ifExpr;
 
-    forExpr = for simpleForClause return exprSingle;
-    simpleForClause = singleForClause (',' singleForClause)*;
-        singleForClause = '$'! qName positionalVar? in exprSingle;
-            positionalVar = 'at'! '$'! qName;
+    forExpr = for forClause whereClause? return exprSingle;
+        forClause = singleForClause (',' singleForClause)*;
+            singleForClause = '$'! qName positionalVar? in exprSingle;
+                positionalVar = 'at'! '$'! qName;
+        whereClause = 'where'! exprSingle;
         
-    quantifiedExpr = ('some' | 'every') simpleForClause satisfies exprSingle;
+    quantifiedExpr = ('some' | 'every') forClause satisfies exprSingle;
     
     ifExpr = 'if' '('! expr ')'! 'then' exprSingle 'else' exprSingle;
 

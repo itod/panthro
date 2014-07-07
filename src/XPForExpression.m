@@ -15,16 +15,18 @@
 
 @interface XPForExpression ()
 @property (nonatomic, retain) NSArray *forClauses;
+@property (nonatomic, retain) XPExpression *whereExpression;
 @property (nonatomic, retain) XPExpression *bodyExpression;
 @property (nonatomic, retain) NSMutableArray *result;
 @end
 
 @implementation XPForExpression
 
-- (instancetype)initWithForClauses:(NSArray *)forClauses body:(XPExpression *)bodyExpr {
+- (instancetype)initWithForClauses:(NSArray *)forClauses where:(XPExpression *)whereExpr body:(XPExpression *)bodyExpr {
     self = [super init];
     if (self) {
         self.forClauses = forClauses;
+        self.whereExpression = whereExpr;
         self.bodyExpression = bodyExpr;
     }
     return self;
@@ -33,6 +35,7 @@
 
 - (void)dealloc {
     self.forClauses = nil;
+    self.whereExpression = nil;
     self.bodyExpression = nil;
     self.result = nil;
     [super dealloc];
@@ -78,10 +81,18 @@
         if ([forClausesTail count]) {
             [self loopInContext:ctx forClauses:forClausesTail];
         } else {
-            id <XPSequenceEnumeration>bodyEnm = [_bodyExpression enumerateInContext:ctx sorted:NO];
-            while ([bodyEnm hasMoreItems]) {
-                id <XPItem>bodyItem = [bodyEnm nextItem];
-                [_result addObject:bodyItem];
+            
+            BOOL whereTest = YES;
+            if (_whereExpression) {
+                whereTest = [_whereExpression evaluateAsBooleanInContext:ctx];
+            }
+            
+            if (whereTest) {
+                id <XPSequenceEnumeration>bodyEnm = [_bodyExpression enumerateInContext:ctx sorted:NO];
+                while ([bodyEnm hasMoreItems]) {
+                    id <XPItem>bodyItem = [bodyEnm nextItem];
+                    [_result addObject:bodyItem];
+                }
             }
         }
 
