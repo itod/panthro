@@ -201,6 +201,9 @@
 		D37299D7196AE26C004B1B7A /* XPForClause.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299D5196AE26C004B1B7A /* XPForClause.m */; };
 		D37299DA196AF091004B1B7A /* XPLetClause.h in Headers */ = {isa = PBXBuildFile; fileRef = D37299D8196AF091004B1B7A /* XPLetClause.h */; };
 		D37299DB196AF091004B1B7A /* XPLetClause.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299D9196AF091004B1B7A /* XPLetClause.m */; };
+		D37299DE196B575D004B1B7A /* FNExists.h in Headers */ = {isa = PBXBuildFile; fileRef = D37299DC196B575D004B1B7A /* FNExists.h */; };
+		D37299DF196B575D004B1B7A /* FNExists.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299DD196B575D004B1B7A /* FNExists.m */; };
+		D37299E2196B5982004B1B7A /* FNExistsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299E0196B5934004B1B7A /* FNExistsTest.m */; };
 		D37A27E51012FFA600E936B7 /* XPBooleanExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A27E31012FFA600E936B7 /* XPBooleanExpression.m */; };
 		D37A27F5101304EF00E936B7 /* XPBooleanExprTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A27F4101304EF00E936B7 /* XPBooleanExprTest.m */; };
 		D37A296A1013F39400E936B7 /* XPFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A29681013F39400E936B7 /* XPFunction.m */; };
@@ -606,6 +609,9 @@
 		D37299D5196AE26C004B1B7A /* XPForClause.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPForClause.m; path = src/XPForClause.m; sourceTree = "<group>"; };
 		D37299D8196AF091004B1B7A /* XPLetClause.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPLetClause.h; path = src/XPLetClause.h; sourceTree = "<group>"; };
 		D37299D9196AF091004B1B7A /* XPLetClause.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPLetClause.m; path = src/XPLetClause.m; sourceTree = "<group>"; };
+		D37299DC196B575D004B1B7A /* FNExists.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNExists.h; path = src/FNExists.h; sourceTree = "<group>"; };
+		D37299DD196B575D004B1B7A /* FNExists.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNExists.m; path = src/FNExists.m; sourceTree = "<group>"; };
+		D37299E0196B5934004B1B7A /* FNExistsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNExistsTest.m; path = test/FNExistsTest.m; sourceTree = "<group>"; };
 		D3745D9A192261D500929DE8 /* OkudaKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OkudaKit.framework; path = ../okudakit/build/Release/OkudaKit.framework; sourceTree = "<group>"; };
 		D37A27E31012FFA600E936B7 /* XPBooleanExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBooleanExpression.m; path = src/XPBooleanExpression.m; sourceTree = "<group>"; };
 		D37A27F4101304EF00E936B7 /* XPBooleanExprTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBooleanExprTest.m; path = test/XPBooleanExprTest.m; sourceTree = "<group>"; };
@@ -1200,6 +1206,8 @@
 				D37A2D621014393D00E936B7 /* FNCount.m */,
 				D3F0CB8F191EC23D0049EC02 /* FNEndsWith.h */,
 				D37A306E1015952F00E936B7 /* FNEndsWith.m */,
+				D37299DC196B575D004B1B7A /* FNExists.h */,
+				D37299DD196B575D004B1B7A /* FNExists.m */,
 				D3F0CB90191EC23D0049EC02 /* FNFloor.h */,
 				D37A2F0B101574B200E936B7 /* FNFloor.m */,
 				D339F66A1928EA1100C79A51 /* FNId.h */,
@@ -1288,6 +1296,7 @@
 				D37A2D24101436CE00E936B7 /* FNConcatTest.m */,
 				D37A2EAB10156F5700E936B7 /* FNContainsTest.m */,
 				D37A3074101595F400E936B7 /* FNEndsWithTest.m */,
+				D37299E0196B5934004B1B7A /* FNExistsTest.m */,
 				D37A2ED61015724700E936B7 /* FNFloorTest.m */,
 				D339F6741929684D00C79A51 /* FNLowerCaseTest.m */,
 				D339F67C192968F700C79A51 /* FNNormalizeSpaceTest.m */,
@@ -1560,6 +1569,7 @@
 				D339312C19211CC900259939 /* FNName.h in Headers */,
 				D3BBAE96191DD9B700766EB4 /* XPUnionEnumeration.h in Headers */,
 				D3F0CC0D191EC8250049EC02 /* XPObjectValue.h in Headers */,
+				D37299DE196B575D004B1B7A /* FNExists.h in Headers */,
 				D3BE142E191C40E500005C81 /* XPBaseFastEnumeration.h in Headers */,
 				D3F0CBC0191EC3A50049EC02 /* XPNSXMLNodeImpl.h in Headers */,
 				D3BE1410191AC80400005C81 /* XPFilterExpression.h in Headers */,
@@ -1774,6 +1784,7 @@
 				D3539407192FA6A900D6EEA6 /* XPException.m in Sources */,
 				D339F65C1927B74B00C79A51 /* trionan.c in Sources */,
 				D339F6121927B66500C79A51 /* buf.c in Sources */,
+				D37299DF196B575D004B1B7A /* FNExists.m in Sources */,
 				D33E9F841916E0E000BB7DFE /* XPStandaloneContext.m in Sources */,
 				D339F61B1927B66500C79A51 /* HTMLparser.c in Sources */,
 				D36C679A10106874000361A0 /* XPRelationalExpression.m in Sources */,
@@ -1952,6 +1963,7 @@
 				D37A31201015A74D00E936B7 /* FNNumberTest.m in Sources */,
 				D3A6C2EA19073B4700F3EFF3 /* XPStepTest.m in Sources */,
 				D3411B5C191A8C470082A196 /* XPEGParserTest.m in Sources */,
+				D37299E2196B5982004B1B7A /* FNExistsTest.m in Sources */,
 				D37A31851016A34C00E936B7 /* FNStringLengthTest.m in Sources */,
 				D37A31BF1016A7B000E936B7 /* FNSubstringTest.m in Sources */,
 				D37A320C1016C37400E936B7 /* FNSubstringAfterTest.m in Sources */,

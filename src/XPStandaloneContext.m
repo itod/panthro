@@ -27,6 +27,7 @@
 #import "FNContains.h"
 #import "FNCount.h"
 #import "FNEndsWith.h"
+#import "FNExists.h"
 #import "FNFloor.h"
 #import "FNId.h"
 #import "FNLang.h"
@@ -91,6 +92,7 @@
         [self declareSystemFunction:[FNContains class] forName:[FNContains name]];
         [self declareSystemFunction:[FNCount class] forName:[FNCount name]];
         [self declareSystemFunction:[FNEndsWith class] forName:[FNEndsWith name]];
+        [self declareSystemFunction:[FNExists class] forName:[FNExists name]];
         [self declareSystemFunction:[FNFloor class] forName:[FNFloor name]];
         [self declareSystemFunction:[FNId class] forName:[FNId name]];
         [self declareSystemFunction:[FNLang class] forName:[FNLang name]];
