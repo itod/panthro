@@ -368,7 +368,7 @@
 #pragma mark XPScope
 
 - (void)setItem:(id <XPItem>)item forVariable:(NSString *)name {
-    NSParameterAssert(name);
+    NSParameterAssert([name length]);
     XPAssert(_variables);
     
     if (!item) {

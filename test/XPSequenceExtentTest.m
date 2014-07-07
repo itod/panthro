@@ -301,6 +301,39 @@
 }
 
 
+- (void)testForXAtIInOpen1Comma2Comma3CloseReturnOpenXCommaIClose {
+    [self eval:@"for $x at $i in ('a', 'b', 'c') return ($x, $i)"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    XPValue *val = nil;
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"a", val.stringValue);
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"1", val.stringValue);
+    TDEquals(1.0, [val asNumber]);
+
+    val = [enm nextValue];
+    TDEqualObjects(@"b", val.stringValue);
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"2", val.stringValue);
+    TDEquals(2.0, [val asNumber]);
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"c", val.stringValue);
+    
+    val = [enm nextValue];
+    TDEqualObjects(@"3", val.stringValue);
+    TDEquals(3.0, [val asNumber]);
+    TDFalse([enm hasMoreItems]);
+    
+    TDFalse([enm hasMoreItems]);
+}
+
+
 - (void)testForXInOpen1Comma2CloseCommaYInOpen3Comma4CloseReturnOpenXCommaYClose {
     [self eval:@"for $x in (1, 2), $y in (3, 4) return ($x, $y)"];
     

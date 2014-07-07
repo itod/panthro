@@ -48,6 +48,7 @@
 @property (nonatomic, retain) NSDictionary *nodeTypeTab;
 @property (nonatomic, retain) PKToken *openParen;
 @property (nonatomic, retain) PKToken *comma;
+@property (nonatomic, retain) PKToken *at;
 @property (nonatomic, retain) PKToken *then;
 @property (nonatomic, retain) PKToken *slash;
 @property (nonatomic, retain) PKToken *colon;
@@ -71,6 +72,7 @@
         self.env = env;
         self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
         self.comma = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"," doubleValue:0.0];
+        self.at = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"at" doubleValue:0.0];
         self.then = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"then" doubleValue:0.0];
         self.slash = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"/" doubleValue:0.0];
         self.colon = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@":" doubleValue:0.0];
@@ -107,6 +109,8 @@
     self.nodeTypeTab = nil;
     self.openParen = nil;
     self.comma = nil;
+    self.at = nil;
+    self.then = nil;
     self.slash = nil;
     self.colon = nil;
     self.doubleSlash = nil;
@@ -146,10 +150,21 @@
     do {
         XPExpression *seqExpr = [a pop];
         XPAssertExpr(seqExpr);
-        PKToken *varNameTok = [a pop];
+        
+        PKToken *posNameTok = nil;
+        PKToken *varNameTok = nil;
+        
+        peek = [a pop];
+        if (peek == _at) {
+            posNameTok = [a pop];
+            varNameTok = [a pop];
+            XPAssertToken(posNameTok);
+        } else {
+            varNameTok = peek;
+        }
         XPAssertToken(varNameTok);
         
-        XPForClause *forClause = [XPForClause forClauseWithVariableName:varNameTok.stringValue positionName:nil sequenceExpression:seqExpr];        
+        XPForClause *forClause = [XPForClause forClauseWithVariableName:varNameTok.stringValue positionName:posNameTok.stringValue sequenceExpression:seqExpr];
         [forClauses insertObject:forClause atIndex:0];
         
         peek = [a pop];
@@ -164,6 +179,11 @@
     forExpr.range = NSMakeRange(offset, NSMaxRange(bodyExpr.range) - offset);
     forExpr.staticContext = _env;
     [a push:forExpr];
+}
+
+
+- (void)parser:(PKParser *)p didMatchPositionalVar:(PKAssembly *)a {
+    [a push:_at];
 }
 
 

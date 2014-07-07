@@ -113,7 +113,7 @@
 #pragma mark XPScope
 
 - (void)setItem:(id <XPItem>)item forVariable:(NSString *)name {
-    NSParameterAssert(name);
+    NSParameterAssert([name length]);
 
     if (!_variables) {
         self.variables = [NSMutableDictionary dictionary];

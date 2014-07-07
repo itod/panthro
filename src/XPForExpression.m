@@ -11,6 +11,7 @@
 #import "XPSequenceEnumeration.h"
 #import "XPSequenceExtent.h"
 #import "XPForClause.h"
+#import "XPNumericValue.h"
 
 @interface XPForExpression ()
 @property (nonatomic, retain) NSArray *forClauses;
@@ -66,9 +67,13 @@
     
     id <XPSequenceEnumeration>seqEnm = [curClause.sequenceExpression enumerateInContext:ctx sorted:NO];
 
+    NSUInteger idx = 1;
     while ([seqEnm hasMoreItems]) {
         id <XPItem>inItem = [seqEnm nextItem];
         [ctx setItem:inItem forVariable:curClause.variableName];
+        if (curClause.positionName) {
+            [ctx setItem:[XPNumericValue numericValueWithNumber:idx++] forVariable:curClause.positionName];
+        }
 
         if ([forClausesTail count]) {
             [self loopInContext:ctx forClauses:forClausesTail];
@@ -81,6 +86,9 @@
         }
 
         [ctx setItem:nil forVariable:curClause.variableName];
+        if (curClause.positionName) {
+            [ctx setItem:nil forVariable:curClause.positionName];
+        }
     }
 }
 

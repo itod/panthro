@@ -65,7 +65,8 @@ exprSingle = orExpr | forExpr | quantifiedExpr | ifExpr;
 
     forExpr = for simpleForClause return exprSingle;
     simpleForClause = singleForClause (',' singleForClause)*;
-        singleForClause = '$'! qName in exprSingle;
+        singleForClause = '$'! qName positionalVar? in exprSingle;
+            positionalVar = 'at'! '$'! qName;
         
     quantifiedExpr = ('some' | 'every') simpleForClause satisfies exprSingle;
     
