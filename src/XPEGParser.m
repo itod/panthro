@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSMutableDictionary *whereClause_memo;
 @property (nonatomic, retain) NSMutableDictionary *quantifiedExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *inClause_memo;
+@property (nonatomic, retain) NSMutableDictionary *singleInClause_memo;
 @property (nonatomic, retain) NSMutableDictionary *ifExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *orExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *orAndExpr_memo;
@@ -270,6 +271,7 @@
         self.whereClause_memo = [NSMutableDictionary dictionary];
         self.quantifiedExpr_memo = [NSMutableDictionary dictionary];
         self.inClause_memo = [NSMutableDictionary dictionary];
+        self.singleInClause_memo = [NSMutableDictionary dictionary];
         self.ifExpr_memo = [NSMutableDictionary dictionary];
         self.orExpr_memo = [NSMutableDictionary dictionary];
         self.orAndExpr_memo = [NSMutableDictionary dictionary];
@@ -386,6 +388,7 @@
     self.whereClause_memo = nil;
     self.quantifiedExpr_memo = nil;
     self.inClause_memo = nil;
+    self.singleInClause_memo = nil;
     self.ifExpr_memo = nil;
     self.orExpr_memo = nil;
     self.orAndExpr_memo = nil;
@@ -501,6 +504,7 @@
     [_whereClause_memo removeAllObjects];
     [_quantifiedExpr_memo removeAllObjects];
     [_inClause_memo removeAllObjects];
+    [_singleInClause_memo removeAllObjects];
     [_ifExpr_memo removeAllObjects];
     [_orExpr_memo removeAllObjects];
     [_orAndExpr_memo removeAllObjects];
@@ -731,8 +735,8 @@
 - (void)__forClause {
     
     [self singleForClause_]; 
-    while ([self speculate:^{ [self match:XPEG_TOKEN_KIND_COMMA discard:NO]; [self singleForClause_]; }]) {
-        [self match:XPEG_TOKEN_KIND_COMMA discard:NO]; 
+    while ([self speculate:^{ [self match:XPEG_TOKEN_KIND_COMMA discard:YES]; [self singleForClause_]; }]) {
+        [self match:XPEG_TOKEN_KIND_COMMA discard:YES]; 
         [self singleForClause_]; 
     }
 
@@ -776,8 +780,8 @@
 - (void)__letClause {
     
     [self singleLetClause_]; 
-    while ([self speculate:^{ [self match:XPEG_TOKEN_KIND_COMMA discard:NO]; [self singleLetClause_]; }]) {
-        [self match:XPEG_TOKEN_KIND_COMMA discard:NO]; 
+    while ([self speculate:^{ [self match:XPEG_TOKEN_KIND_COMMA discard:YES]; [self singleLetClause_]; }]) {
+        [self match:XPEG_TOKEN_KIND_COMMA discard:YES]; 
         [self singleLetClause_]; 
     }
 
@@ -836,10 +840,10 @@
 
 - (void)__inClause {
     
-    [self singleForClause_]; 
-    while ([self speculate:^{ [self match:XPEG_TOKEN_KIND_COMMA discard:NO]; [self singleForClause_]; }]) {
+    [self singleInClause_]; 
+    while ([self speculate:^{ [self match:XPEG_TOKEN_KIND_COMMA discard:NO]; [self singleInClause_]; }]) {
         [self match:XPEG_TOKEN_KIND_COMMA discard:NO]; 
-        [self singleForClause_]; 
+        [self singleInClause_]; 
     }
 
     [self fireDelegateSelector:@selector(parser:didMatchInClause:)];
@@ -847,6 +851,23 @@
 
 - (void)inClause_ {
     [self parseRule:@selector(__inClause) withMemo:_inClause_memo];
+}
+
+- (void)__singleInClause {
+    
+    [self match:XPEG_TOKEN_KIND_DOLLAR discard:YES]; 
+    [self qName_]; 
+    if ([self speculate:^{ [self positionalVar_]; }]) {
+        [self positionalVar_]; 
+    }
+    [self in_]; 
+    [self exprSingle_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchSingleInClause:)];
+}
+
+- (void)singleInClause_ {
+    [self parseRule:@selector(__singleInClause) withMemo:_singleInClause_memo];
 }
 
 - (void)__ifExpr {

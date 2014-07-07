@@ -65,15 +65,16 @@ expr = exprSingle exprSingleTail*;
 exprSingle = orExpr | forExpr | quantifiedExpr | ifExpr;
 
     forExpr = (for forClause | let letClause)+ whereClause? return exprSingle;
-        forClause = singleForClause (',' singleForClause)*;
+        forClause = singleForClause (','! singleForClause)*;
             singleForClause = '$'! qName positionalVar? in exprSingle;
                 positionalVar = 'at'! '$'! qName;
-        letClause = singleLetClause (',' singleLetClause)*;
+        letClause = singleLetClause (','! singleLetClause)*;
             singleLetClause = '$'! qName ':='! exprSingle;
         whereClause = 'where'! exprSingle;
         
     quantifiedExpr = ('some' | 'every') inClause satisfies exprSingle;
-        inClause = singleForClause (',' singleForClause)*;
+        inClause = singleInClause (',' singleInClause)*;
+            singleInClause = '$'! qName positionalVar? in exprSingle;
 
     ifExpr = 'if' '('! expr ')'! 'then' exprSingle 'else' exprSingle;
 

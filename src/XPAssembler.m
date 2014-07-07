@@ -157,11 +157,10 @@
     NSMutableArray *forClauses = [NSMutableArray array];
     NSUInteger offset = NSNotFound;
     XPExpression *whereExpr = nil;
-    id peek = nil;
+    id peek = [a pop];
     do {
         NSMutableArray *letClauses = nil;
 
-        peek = [a pop];
         if (peek == _where) {
             whereExpr = [a pop];
             XPAssertExpr(whereExpr);
@@ -192,7 +191,7 @@
         
         XPForClause *forClause = nil;
         
-        if (peek == _forTok) {
+        if ([peek isEqual:_forTok]) {
             peek = [a pop];
             
             XPExpression *collExpr = peek;
@@ -212,6 +211,7 @@
             XPAssertToken(varNameTok);
             
             forClause = [XPForClause forClauseWithVariableName:varNameTok.stringValue positionName:posNameTok.stringValue expression:collExpr];
+            peek = [a pop];
         } else {
             forClause = [XPForClause emptyForClause];
         }
@@ -220,9 +220,7 @@
         forClause.letClauses = letClauses;
         [forClauses insertObject:forClause atIndex:0];
         
-        peek = [a pop];
-        
-    } while ([peek isEqual:_comma]);
+    } while (peek == _forTok);
     
     // discard 'for'
     if ([peek isEqual:_forTok]) {
@@ -243,12 +241,12 @@
 }
 
 
-- (void)parser:(PKParser *)p didMatchForClause:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchSingleForClause:(PKAssembly *)a {
     [a push:_forTok];
 }
 
 
-- (void)parser:(PKParser *)p didMatchLetClause:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchSingleLetClause:(PKAssembly *)a {
     [a push:_let];
 }
 
