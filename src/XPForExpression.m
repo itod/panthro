@@ -10,22 +10,20 @@
 #import "XPContext.h"
 #import "XPSequenceEnumeration.h"
 #import "XPSequenceExtent.h"
+#import "XPForClause.h"
 
 @interface XPForExpression ()
-@property (nonatomic, retain) NSArray *varNames;
-@property (nonatomic, retain) NSArray *sequences;
+@property (nonatomic, retain) NSArray *forClauses;
 @property (nonatomic, retain) XPExpression *bodyExpression;
 @property (nonatomic, retain) NSMutableArray *result;
 @end
 
 @implementation XPForExpression
 
-- (instancetype)initWithVarNames:(NSArray *)varNames sequences:(NSArray *)sequences body:(XPExpression *)bodyExpr {
-    XPAssert([varNames count] == [sequences count]);
+- (instancetype)initWithForClauses:(NSArray *)forClauses body:(XPExpression *)bodyExpr {
     self = [super init];
     if (self) {
-        self.varNames = varNames;
-        self.sequences = sequences;
+        self.forClauses = forClauses;
         self.bodyExpression = bodyExpr;
     }
     return self;
@@ -33,8 +31,7 @@
 
 
 - (void)dealloc {
-    self.varNames = nil;
-    self.sequences = nil;
+    self.forClauses = nil;
     self.bodyExpression = nil;
     self.result = nil;
     [super dealloc];
@@ -47,14 +44,12 @@
 
 
 - (XPSequenceValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
-    XPAssert([_varNames count]);
-    XPAssert([_sequences count]);
-    XPAssert([_varNames count] == [_sequences count]);
+    XPAssert([_forClauses count]);
     XPAssert(_bodyExpression);
     
     self.result = [NSMutableArray array];
 
-    [self loopInContext:ctx varNames:_varNames sequences:_sequences];
+    [self loopInContext:ctx forClauses:_forClauses];
     
     XPSequenceValue *seq = [[[XPSequenceExtent alloc] initWithContent:_result] autorelease];
     self.result = nil;
@@ -62,26 +57,21 @@
 }
 
 
-- (void)loopInContext:(XPContext *)ctx varNames:(NSArray *)varNames sequences:(NSArray *)sequences {
-    XPAssert([varNames count] == [sequences count]);
+- (void)loopInContext:(XPContext *)ctx forClauses:(NSArray *)forClauses {
+    XPAssert([forClauses count]);
     XPAssert(_bodyExpression);
-
-    if (![varNames count]) return;
     
-    NSString *varName = varNames[0];
-    NSArray *varNameTail = [varNames subarrayWithRange:NSMakeRange(1, [varNames count]-1)];
+    XPForClause *curClause = forClauses[0];
+    NSArray *forClausesTail = [forClauses subarrayWithRange:NSMakeRange(1, [forClauses count]-1)];
     
-    XPExpression *seqExpr = sequences[0];
-    NSArray *seqTail = [sequences subarrayWithRange:NSMakeRange(1, [sequences count]-1)];
-    
-    id <XPSequenceEnumeration>seqEnm = [seqExpr enumerateInContext:ctx sorted:NO];
+    id <XPSequenceEnumeration>seqEnm = [curClause.sequenceExpression enumerateInContext:ctx sorted:NO];
 
     while ([seqEnm hasMoreItems]) {
         id <XPItem>inItem = [seqEnm nextItem];
-        [ctx setItem:inItem forVariable:varName];
+        [ctx setItem:inItem forVariable:curClause.variableName];
 
-        if ([varNameTail count]) {
-            [self loopInContext:ctx varNames:varNameTail sequences:seqTail];
+        if ([forClausesTail count]) {
+            [self loopInContext:ctx forClauses:forClausesTail];
         } else {
             id <XPSequenceEnumeration>bodyEnm = [_bodyExpression enumerateInContext:ctx sorted:NO];
             while ([bodyEnm hasMoreItems]) {
@@ -90,7 +80,7 @@
             }
         }
 
-        [ctx setItem:nil forVariable:varName];
+        [ctx setItem:nil forVariable:curClause.variableName];
     }
 }
 

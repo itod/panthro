@@ -15,6 +15,7 @@
 #import "XPSequenceExpression.h"
 #import "XPRangeExpression.h"
 #import "XPForExpression.h"
+#import "XPForClause.h"
 #import "XPQuantifiedExpression.h"
 #import "XPIfExpression.h"
 #import "XPEmptySequence.h"
@@ -139,8 +140,7 @@
     XPExpression *bodyExpr = [a pop];
     XPAssertExpr(bodyExpr);
     
-    NSMutableArray *varNames = [NSMutableArray array];
-    NSMutableArray *sequences = [NSMutableArray array];
+    NSMutableArray *forClauses = [NSMutableArray array];
     
     PKToken *peek = nil;
     do {
@@ -149,8 +149,8 @@
         PKToken *varNameTok = [a pop];
         XPAssertToken(varNameTok);
         
-        [varNames insertObject:varNameTok.stringValue atIndex:0];
-        [sequences insertObject:seqExpr atIndex:0];
+        XPForClause *forClause = [XPForClause forClauseWithVariableName:varNameTok.stringValue positionName:nil sequenceExpression:seqExpr];        
+        [forClauses insertObject:forClause atIndex:0];
         
         peek = [a pop];
         
@@ -160,7 +160,7 @@
     XPAssert([peek.stringValue isEqualToString:@"for"]);
     NSUInteger offset = peek.offset;
     
-    XPExpression *forExpr = [[[XPForExpression alloc] initWithVarNames:varNames sequences:sequences body:bodyExpr] autorelease];
+    XPExpression *forExpr = [[[XPForExpression alloc] initWithForClauses:forClauses body:bodyExpr] autorelease];
     forExpr.range = NSMakeRange(offset, NSMaxRange(bodyExpr.range) - offset);
     forExpr.staticContext = _env;
     [a push:forExpr];

@@ -10,5 +10,5 @@
 
 @interface XPForExpression : XPExpression
 
-- (instancetype)initWithVarNames:(NSArray *)varNames sequences:(NSArray *)sequences body:(XPExpression *)bodyExpr;
+- (instancetype)initWithForClauses:(NSArray *)forClauses body:(XPExpression *)bodyExpr;
 @end
