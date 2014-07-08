@@ -33,9 +33,10 @@ XPValue *XPAtomize(id <XPItem>inItem) {
                 id <XPItem>currItem = [enm nextItem];
                 
                 if ([currItem isAtomized]) {
-                    assert([currItem isKindOfClass:[XPValue class]]);
                     [v addObject:currItem];
                 } else {
+                    // atomize the node
+                    assert([currItem conformsToProtocol:@protocol(XPNodeInfo)]);
                     // don't have to recurse here, as sequences cannot nest
                     [v addObject:[XPStringValue stringValueWithString:[currItem stringValue]]];
                 }

@@ -99,13 +99,7 @@
     
     NSMutableArray *result = [NSMutableArray array];
     for (XPTuple *t in _tuples) {
-        for (id <XPItem>item in t.resultItems) {
-            // YIKES. This is for XPSingletonNodeSet-wrapped NodeInfos
-            if (![item isAtomic]) {
-                item = [item head];
-            }
-            [result addObject:item];
-        }
+        [result addObjectsFromArray:t.resultItems];
     }
     
     XPSequenceValue *seq = [[[XPSequenceExtent alloc] initWithContent:result] autorelease];
@@ -153,12 +147,14 @@
                 NSMutableArray *tupleOrderSpecs = [NSMutableArray array];
                 
                 while ([bodyEnm hasMoreItems]) {
-                    id <XPItem>bodyItem = [bodyEnm nextItem];
+                    // YIKES. This call to -head is for XPSingletonNodeSet-wrapped NodeInfos
+                    id <XPItem>bodyItem = [[bodyEnm nextItem] head];
                     
                     [tupleResItems addObject:bodyItem];
                     
                     for (XPOrderClause *orderClause in _orderClauses) {
-                        XPValue *specVal = XPAtomize([orderClause.expression evaluateInContext:ctx]);
+                        // calling -head here for force a single atomic value. but supposed to throw and exception if it's a sequence with more than 1 item
+                        XPValue *specVal = [XPAtomize([orderClause.expression evaluateInContext:ctx]) head];
                         XPOrderSpec *spec = [XPOrderSpec orderSpecWithValue:specVal modifier:orderClause.modifier];
                         [tupleOrderSpecs addObject:spec];
                     }
