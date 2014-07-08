@@ -11,6 +11,12 @@
 
 @implementation XPNodeSetValue
 
+- (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)yn {
+    if (yn) [self sort];
+    return [self enumerate];
+}
+
+
 - (id <XPNodeInfo>)firstNode {
     id <XPItem>item = [self head];
     if (![item conformsToProtocol:@protocol(XPNodeInfo)]) {

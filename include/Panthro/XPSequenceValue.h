@@ -15,12 +15,11 @@
 @interface XPSequenceValue : XPValue
 
 - (id <XPSequenceEnumeration>)enumerate;
-- (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted;
 
 - (NSUInteger)count;
-- (XPSequenceValue *)sort;
 - (XPValue *)firstValue;
 
+- (XPSequenceValue *)sort;
 @property (nonatomic, assign, getter=isSorted) BOOL sorted;
 @property (nonatomic, assign, getter=isReverseSorted) BOOL reverseSorted;
 @end
