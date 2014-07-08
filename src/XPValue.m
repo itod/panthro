@@ -190,11 +190,12 @@ double XPNumberFromString(NSString *s) {
     if ([other isSequenceValue]) {
         return [other compareToValue:self usingOperator:[self inverseOperator:op]];
     }
-    
-//    if ([self isStringValue] && [other isStringValue]) {
-//        return [self compareString:[self asString] toString:[other asString] usingOperator:op];
-//    }
-    
+
+#ifndef COMPATABILITY_MODE
+    if ([self isStringValue] && [other isStringValue]) {
+        return [self compareString:[self asString] toString:[other asString] usingOperator:op];
+    }
+#endif
     return [self compareNumber:[self asNumber] toNumber:[other asNumber] usingOperator:op];
 }
 
@@ -245,6 +246,39 @@ double XPNumberFromString(NSString *s) {
         default:
             return NO;
     }
+}
+
+
+- (NSComparisonResult)compare:(id)other {
+    if ([other isKindOfClass:[XPValue class]]) {
+        return [self compareToValue:other];
+    } else {
+        XPAssert(0);
+        return NSOrderedSame;
+    }
+}
+
+
+- (NSComparisonResult)compareToValue:(XPValue *)other {
+    XPAssert([other isKindOfClass:[XPValue class]]);
+    
+    NSComparisonResult res = NSOrderedSame;
+    
+    if ([self isStringValue] && [other isStringValue]) {
+        if ([self compareString:[self asString] toString:[other asString] usingOperator:XPEG_TOKEN_KIND_LT_SYM]) {
+            res = NSOrderedAscending;
+        } else {
+            res = NSOrderedDescending;
+        }
+    } else {
+        if ([self compareNumber:[self asNumber] toNumber:[other asNumber] usingOperator:XPEG_TOKEN_KIND_LT_SYM]) {
+            res = NSOrderedAscending;
+        } else {
+            res = NSOrderedDescending;
+        }
+    }
+    
+    return res;
 }
 
 

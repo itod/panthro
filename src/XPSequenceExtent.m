@@ -90,7 +90,12 @@
 
 
 - (BOOL)asBoolean {
-    return [self count] > 0;
+    if (1 == [self count]) {
+        XPValue *val = [self itemAt:0];
+        return [val asBoolean];
+    }
+    
+    return YES;
 }
 
 

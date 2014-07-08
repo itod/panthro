@@ -27,6 +27,7 @@
 #import "FNContains.h"
 #import "FNCount.h"
 #import "FNData.h"
+#import "FNDistinctValues.h"
 #import "FNEmpty.h"
 #import "FNEndsWith.h"
 #import "FNExists.h"
@@ -94,6 +95,7 @@
         [self declareSystemFunction:[FNContains class] forName:[FNContains name]];
         [self declareSystemFunction:[FNCount class] forName:[FNCount name]];
         [self declareSystemFunction:[FNData class] forName:[FNData name]];
+        [self declareSystemFunction:[FNDistinctValues class] forName:[FNDistinctValues name]];
         [self declareSystemFunction:[FNEmpty class] forName:[FNEmpty name]];
         [self declareSystemFunction:[FNEndsWith class] forName:[FNEndsWith name]];
         [self declareSystemFunction:[FNExists class] forName:[FNExists name]];

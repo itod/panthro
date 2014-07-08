@@ -1,5 +1,5 @@
 //
-//  FNExists.m
+//  FNDataTest.m
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 7/20/09.
@@ -48,40 +48,50 @@
     TDEqualObjects(@"bar", [[_res itemAt:1] asString]);
     
     self.expr = [XPExpression expressionFromString:@"data(0)" inContext:[XPStandaloneContext standaloneContext] error:nil];
-    self.res = [_expr evaluateInContext:nil];
-    TDEquals(0, [_res asNumber]);
+    TDEquals(0.0, [_expr evaluateAsNumberInContext:nil]);
     
     self.expr = [XPExpression expressionFromString:@"data(-1)" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateInContext:nil];
     TDEquals(-1, [_res asNumber]);
     
     self.expr = [XPExpression expressionFromString:@"data(number('asdf'))" inContext:[XPStandaloneContext standaloneContext] error:nil];
-    self.res = [_expr evaluateInContext:nil];
-    TDTrue(isnan([_res asNumber]));
+    TDTrue(isnan([_expr evaluateAsNumberInContext:nil]));
     
     self.expr = [XPExpression expressionFromString:@"data(number(''))" inContext:[XPStandaloneContext standaloneContext] error:nil];
-    self.res = [_expr evaluateInContext:nil];
-    TDTrue(isnan([_res asNumber]));
+    TDTrue(isnan([_expr evaluateAsNumberInContext:nil]));
     
     self.expr = [XPExpression expressionFromString:@"data('')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsStringInContext:nil];
     TDEqualObjects(@"", _res);
     
     self.expr = [XPExpression expressionFromString:@"data((0))" inContext:[XPStandaloneContext standaloneContext] error:nil];
-    self.res = [_expr evaluateInContext:nil];
-    TDEquals(0, [_res asNumber]);
+    TDEquals(0.0, [_expr evaluateAsNumberInContext:nil]);
     
     self.expr = [XPExpression expressionFromString:@"data(false())" inContext:[XPStandaloneContext standaloneContext] error:nil];
-    self.res = [_expr evaluateInContext:nil];
-    TDEquals(NO, [_res asBoolean]);
+    TDEquals(NO, [_expr evaluateAsBooleanInContext:nil]);
     
     self.expr = [XPExpression expressionFromString:@"data((false()))" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    TDEquals(NO, [_expr evaluateAsBooleanInContext:nil]);
+    
+    self.expr = [XPExpression expressionFromString:@"data(true())" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    TDEquals(YES, [_expr evaluateAsBooleanInContext:nil]);
+    
+    self.expr = [XPExpression expressionFromString:@"data((true()))" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    TDEquals(YES, [_expr evaluateAsBooleanInContext:nil]);
+    
+    self.expr = [XPExpression expressionFromString:@"data((false(), true()))" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNodeSetInContext:nil];
+    TDEquals(NO, [[_res itemAt:0] asBoolean]);
+    TDEquals(YES, [[_res itemAt:1] asBoolean]);
+    
+    self.expr = [XPExpression expressionFromString:@"data((false(), true()))" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateInContext:nil];
-    TDEquals(NO, [_res asBoolean]);
+    TDEquals(NO, [[_res itemAt:0] asBoolean]);
+    TDEquals(YES, [[_res itemAt:1] asBoolean]);
     
     self.expr = [XPExpression expressionFromString:@"data(())" inContext:[XPStandaloneContext standaloneContext] error:nil];
-    self.res = [_expr evaluateInContext:nil];
-    TDTrue([XPEmptySequence instance] == _res);
+    TDTrue([XPEmptySequence instance] == [_expr evaluateAsNodeSetInContext:nil]);
+    TDTrue([XPEmptySequence instance] == [_expr evaluateInContext:nil]);
 }
 
 @end

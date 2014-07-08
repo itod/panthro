@@ -24,6 +24,7 @@ extern double XPNumberFromString(NSString *s);
 - (BOOL)isEqualToValue:(XPValue *)other;
 - (BOOL)isNotEqualToValue:(XPValue *)other;
 
+- (NSComparisonResult)compareToValue:(XPValue *)other;
 - (BOOL)compareToValue:(XPValue *)other usingOperator:(NSInteger)op;
 - (NSInteger)inverseOperator:(NSInteger)op;
 - (BOOL)compareNumber:(double)x toNumber:(double)y usingOperator:(NSInteger)op;

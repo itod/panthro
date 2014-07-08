@@ -1,5 +1,5 @@
 //
-//  FNExists.m
+//  FNExistsTest.m
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 7/20/09.
