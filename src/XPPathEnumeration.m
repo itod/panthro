@@ -157,10 +157,10 @@
     XPAssert(![_tail hasMoreItems]);
 
     if (_resultNodes) {
-        XPSequenceValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_contextNodes comparer:nil] autorelease];
+        XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_contextNodes comparer:nil] autorelease];
         [contextNodeSet sort];
         
-        XPSequenceValue *resultNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_resultNodes comparer:nil] autorelease];
+        XPNodeSetValue *resultNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_resultNodes comparer:nil] autorelease];
         [resultNodeSet sort];
         
         [_context.staticContext pauseFrom:_start withContextNodes:contextNodeSet result:resultNodeSet range:_step.range done:NO];

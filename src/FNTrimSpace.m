@@ -10,7 +10,6 @@
 #import "XPNodeInfo.h"
 #import "XPContext.h"
 #import "XPStringValue.h"
-#import "XPSequenceValue.h"
 
 @interface XPExpression ()
 @property (nonatomic, retain) NSMutableArray *args;

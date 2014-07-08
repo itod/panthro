@@ -19,7 +19,6 @@
 
 - (NSUInteger)count;
 - (XPSequenceValue *)sort;
-- (id <XPNodeInfo>)firstNode;
 - (XPValue *)firstValue;
 
 @property (nonatomic, assign, getter=isSorted) BOOL sorted;

@@ -318,7 +318,7 @@
             break;
     }
     
-    XPSequenceValue *nodeSet = nil;
+    XPNodeSetValue *nodeSet = nil;
     
     if ([nodes count]) {
         XPNodeSetExtent *ext = [[[XPNodeSetExtent alloc] initWithNodes:nodes comparer:nil] autorelease];

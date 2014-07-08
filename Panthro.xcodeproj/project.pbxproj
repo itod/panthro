@@ -413,6 +413,8 @@
 		D3F0CC0E191EC8250049EC02 /* XPStringValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CC08191EC8250049EC02 /* XPStringValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3F0CC0F191EC8250049EC02 /* XPValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CC09191EC8250049EC02 /* XPValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3F0CC11191EC8590049EC02 /* XPAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CC10191EC8590049EC02 /* XPAxis.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3F45868196CA45400F05EA0 /* XPNodeSetValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F45866196CA45400F05EA0 /* XPNodeSetValue.h */; };
+		D3F45869196CA45400F05EA0 /* XPNodeSetValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F45867196CA45400F05EA0 /* XPNodeSetValue.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -848,6 +850,8 @@
 		D3F0CC08191EC8250049EC02 /* XPStringValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPStringValue.h; path = include/Panthro/XPStringValue.h; sourceTree = "<group>"; };
 		D3F0CC09191EC8250049EC02 /* XPValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPValue.h; path = include/Panthro/XPValue.h; sourceTree = "<group>"; };
 		D3F0CC10191EC8590049EC02 /* XPAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPAxis.h; path = include/Panthro/XPAxis.h; sourceTree = "<group>"; };
+		D3F45866196CA45400F05EA0 /* XPNodeSetValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPNodeSetValue.h; path = src/XPNodeSetValue.h; sourceTree = "<group>"; };
+		D3F45867196CA45400F05EA0 /* XPNodeSetValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNodeSetValue.m; path = src/XPNodeSetValue.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1435,6 +1439,8 @@
 				D336381E100C6E4400AC4B51 /* XPStringValue.m */,
 				D3F0CC05191EC8250049EC02 /* XPSequenceValue.h */,
 				D3363815100C6E0400AC4B51 /* XPSequenceValue.m */,
+				D3F45866196CA45400F05EA0 /* XPNodeSetValue.h */,
+				D3F45867196CA45400F05EA0 /* XPNodeSetValue.m */,
 				D3F0CBEA191EC5880049EC02 /* XPNodeSetExtent.h */,
 				D3F0CBEB191EC5880049EC02 /* XPNodeSetExtent.m */,
 				D3F0CBEC191EC5880049EC02 /* XPNodeSetIntent.h */,
@@ -1645,6 +1651,7 @@
 				D37299DA196AF091004B1B7A /* XPLetClause.h in Headers */,
 				D3729A07196C431C004B1B7A /* FNData.h in Headers */,
 				D339F1ED19279E4600C79A51 /* XPLibxmlNodeImpl.h in Headers */,
+				D3F45868196CA45400F05EA0 /* XPNodeSetValue.h in Headers */,
 				D37299CA1969EA0E004B1B7A /* XPNodeComparisonExpression.h in Headers */,
 				D3BE1424191C193900005C81 /* XPFilterEnumerator.h in Headers */,
 			);
@@ -1871,6 +1878,7 @@
 				D33E9F8C1916E60C00BB7DFE /* XPUtils.m in Sources */,
 				D339F1EE19279E4600C79A51 /* XPLibxmlNodeImpl.m in Sources */,
 				D339F6481927B66500C79A51 /* xmlmodule.c in Sources */,
+				D3F45869196CA45400F05EA0 /* XPNodeSetValue.m in Sources */,
 				D3393123192052C600259939 /* FNLowerCase.m in Sources */,
 				D37A2CAC10142D8E00E936B7 /* FNCeiling.m in Sources */,
 				D3BE141B191BCB5A00005C81 /* XPLocalOrderComparer.m in Sources */,

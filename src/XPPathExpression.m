@@ -239,7 +239,7 @@
             //XPAssert(0);
         }
         
-        XPSequenceValue *ns = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:comparer] autorelease];
+        XPNodeSetValue *ns = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:comparer] autorelease];
         [ns sort];
         
         enm = [ns enumerate];

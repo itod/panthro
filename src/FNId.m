@@ -10,8 +10,9 @@
 #import "XPNodeInfo.h"
 #import "XPDocumentInfo.h"
 #import "XPContext.h"
-#import "XPNodeSetExtent.h"
 #import "XPSequenceEnumeration.h"
+#import "XPNodeSetValue.h"
+#import "XPNodeSetExtent.h"
 #import "XPEmptyNodeSet.h"
 #import "XPSingletonNodeSet.h"
 
@@ -62,7 +63,7 @@
 
 - (XPSequenceValue *)evaluateAsSequenceInContext:(XPContext *)ctx {
     id arg = [self.args[0] evaluateInContext:ctx];
-    XPSequenceValue *nodeSet = [self findId:arg inContext:ctx];
+    XPNodeSetValue *nodeSet = [self findId:arg inContext:ctx];
     nodeSet.range = self.range;
     return nodeSet;
 }
@@ -103,7 +104,7 @@
  * This method actually evaluates the function
  */
 
-- (XPSequenceValue *)findId:(XPValue *)arg0 inContext:(XPContext *)ctx {
+- (XPNodeSetValue *)findId:(XPValue *)arg0 inContext:(XPContext *)ctx {
     NSMutableArray *idrefresult = nil;
     id <XPDocumentInfo>doc = nil;
     
@@ -152,7 +153,7 @@
     if (1 == [idrefresult count]) {
         return [XPSingletonNodeSet singletonNodeSetWithNode:idrefresult[0]];
     }
-    XPSequenceValue *nodeSet = [[[XPNodeSetExtent alloc] initWithNodes:idrefresult comparer:nil] autorelease];
+    XPNodeSetValue *nodeSet = [[[XPNodeSetExtent alloc] initWithNodes:idrefresult comparer:nil] autorelease];
     [nodeSet sort];
     return nodeSet;
 }

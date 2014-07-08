@@ -47,7 +47,7 @@
         id <XPSequenceEnumeration>enm = [(XPNodeSetExpression *)expr enumerateInContext:ctx sorted:YES];
         
         if (enm) {
-            XPSequenceValue *nodeSet = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:nil] autorelease];
+            XPNodeSetValue *nodeSet = [[[XPNodeSetExtent alloc] initWithEnumeration:enm comparer:nil] autorelease];
             nodeSet.range = self.range;
             result = nodeSet;
         } else {

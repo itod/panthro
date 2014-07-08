@@ -8,7 +8,6 @@
 
 #import "XPContextNodeExpression.h"
 #import "XPContext.h"
-#import "XPSequenceValue.h"
 #import "XPNodeInfo.h"
 
 @implementation XPContextNodeExpression

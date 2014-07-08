@@ -131,15 +131,6 @@
 }
 
 
-- (id <XPNodeInfo>)firstNode {
-    id <XPItem>item = [self head];
-    if (![item conformsToProtocol:@protocol(XPNodeInfo)]) {
-        [XPException raiseIn:self format:@"Expected node value, found: %@", item];
-    }
-    return (id <XPNodeInfo>)item;
-}
-
-
 - (XPValue *)firstValue {
     id <XPItem>item = [self head];
     if (![item isKindOfClass:[XPValue class]]) {
