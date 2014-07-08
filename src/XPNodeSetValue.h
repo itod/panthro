@@ -6,7 +6,7 @@
 //
 //
 
-#import "XPSequenceValue.h"
+#import <Panthro/XPSequenceValue.h>
 
 @protocol XPNodeInfo;
 

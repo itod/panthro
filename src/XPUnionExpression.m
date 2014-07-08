@@ -87,11 +87,6 @@
  */
 
 - (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sort {
-    
-//    if (![_p1 isKindOfClass:[XPNodeSetExpression class]] || ![_p2 isKindOfClass:[XPNodeSetExpression class]]) {
-//        [XPException raiseIn:self format:@"Node-set %@ operator requires node-set arguments", self.operator];
-//    }
-    
     Class cls = [self enumerationClass];
     return [[[cls alloc] initWithLhs:[_p1 enumerateInContext:ctx sorted:YES]
                                  rhs:[_p2 enumerateInContext:ctx sorted:YES]
