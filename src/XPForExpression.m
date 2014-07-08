@@ -113,11 +113,19 @@
                     XPAssert(NSOrderedSame != orderClause.modifier);
                     
                     NSComparisonResult res = NSOrderedSame;
-                    BOOL isLT = [val1 compareToValue:val2 usingOperator:XPEG_TOKEN_KIND_LT_SYM];
-                    if (NSOrderedAscending == orderClause.modifier) {
-                        res = isLT ? NSOrderedAscending : NSOrderedDescending;
+                    if ([val1 isStringValue] && [val2 isStringValue]) {
+                        if (NSOrderedAscending == orderClause.modifier) {
+                            res = [[val1 asString] compare:[val2 asString]];
+                        } else {
+                            res = [[val2 asString] compare:[val1 asString]];
+                        }
                     } else {
-                        res = isLT ? NSOrderedDescending : NSOrderedAscending;
+                        BOOL isLT = [val1 compareToValue:val2 usingOperator:XPEG_TOKEN_KIND_LT_SYM];
+                        if (NSOrderedAscending == orderClause.modifier) {
+                            res = isLT ? NSOrderedAscending : NSOrderedDescending;
+                        } else {
+                            res = isLT ? NSOrderedDescending : NSOrderedAscending;
+                        }
                     }
                     
                     return res;
