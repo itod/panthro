@@ -48,6 +48,31 @@
 }
 
 
+#pragma mark -
+#pragma mark XPSequence
+
+- (id <XPItem>)head {
+    return [self firstNode];
+}
+
+
+- (id <XPSequenceEnumeration>)enumerate {
+    if (_extent) {
+        return [_extent enumerate];
+    } else {
+        self.useCount++;
+        // arbitrarily, we decide that the third time the expression is used,
+        // we will allocate it some memory for faster access on future occasions.
+        if (_useCount < 3) {
+            return [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
+        } else {
+            [self fix];
+            return [_extent enumerate];
+        }
+    }
+}
+
+
 - (XPContext *)makeContext {
     XPContext *ctx = [[[XPContext alloc] initWithStaticContext:[_nodeSetExpression staticContext]] autorelease];
     return ctx;
@@ -133,23 +158,6 @@
 
 - (id <XPItem>)selectFirstInContext:(XPContext *)ctx {
     return [self firstNode];
-}
-
-
-- (id <XPSequenceEnumeration>)enumerate {
-    if (_extent) {
-        return [_extent enumerate];
-    } else {
-        self.useCount++;
-        // arbitrarily, we decide that the third time the expression is used,
-        // we will allocate it some memory for faster access on future occasions.
-        if (_useCount < 3) {
-            return [_nodeSetExpression enumerateInContext:[self makeContext] sorted:NO];
-        } else {
-            [self fix];
-            return [_extent enumerate];
-        }
-    }
 }
 
 @synthesize sorted = _sorted;

@@ -44,6 +44,19 @@
 }
 
 
+#pragma mark -
+#pragma mark XPSequence
+
+- (id <XPItem>)head {
+    return [self firstNode];
+}
+
+
+- (id <XPSequenceEnumeration>)enumerate {
+    return [[[XPSingletonEnumeration alloc] initWithNode:_node] autorelease];
+}
+
+
 /**
  * Simplify the expression
  */
@@ -251,15 +264,6 @@
         [NSException raise:@"InternalError" format:@"Unknown data type in a relational expression"];
         
     }
-}
-
-
-/**
- * Return an enumeration of this nodeset value.
- */
-
-- (id <XPSequenceEnumeration>)enumerate {
-    return [[[XPSingletonEnumeration alloc] initWithNode:_node] autorelease];
 }
 
 @end

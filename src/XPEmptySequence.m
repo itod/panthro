@@ -86,7 +86,7 @@
 #pragma mark XPSequence
 
 - (id <XPItem>)head {
-    return nil;
+    return self;
 }
 
 

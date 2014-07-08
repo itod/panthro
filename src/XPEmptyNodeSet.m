@@ -20,6 +20,19 @@
 }
 
 
+#pragma mark -
+#pragma mark XPSequence
+
+- (id <XPItem>)head {
+    return self;
+}
+
+
+- (id <XPSequenceEnumeration>)enumerate {
+    return [XPEmptyEnumeration instance];
+}
+
+
 - (XPDataType)dataType {
     return XPDataTypeSequence;
 }
@@ -99,15 +112,6 @@
 
 - (BOOL)isContextDocumentNodeSet {
     return YES;
-}
-
-
-/**
- * Return an enumeration of this nodeset value.
- */
-
-- (id <XPSequenceEnumeration>)enumerate {
-    return [XPEmptyEnumeration instance];
 }
 
 @end

@@ -30,6 +30,21 @@
 
 
 #pragma mark -
+#pragma mark XPSequence
+
+- (id <XPItem>)head {
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return nil;
+}
+
+
+- (id <XPSequenceEnumeration>)enumerate {
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return nil;
+}
+
+
+#pragma mark -
 #pragma mark XPItem
 
 - (BOOL)isAtomized {
@@ -56,12 +71,6 @@
 - (XPSequenceValue *)evaluateAsSequenceInContext:(XPContext *)ctx {
     [self sort];
     return self;
-}
-
-
-- (id <XPSequenceEnumeration>)enumerate {
-    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
-    return nil;
 }
 
 

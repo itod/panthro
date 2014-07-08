@@ -50,6 +50,29 @@
 }
 
 
+- (XPDependencies)dependencies {
+    NSUInteger dep = 0;
+    for (XPForClause *forClause in _forClauses) {
+        dep |= [forClause.expression dependencies];
+    }
+    
+    dep |= [_whereExpression dependencies];
+
+    for (XPOrderClause *orderClause in _orderClauses) {
+        dep |= [orderClause.expression dependencies];
+    }
+
+    dep |= [_bodyExpression dependencies];
+
+    return dep;
+}
+
+
+- (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
+    return self; // TODO
+}
+
+
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
     return [self evaluateAsSequenceInContext:ctx];
 }

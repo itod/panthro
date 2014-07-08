@@ -63,6 +63,21 @@
 }
 
 
+#pragma mark -
+#pragma mark XPSequence
+
+- (id <XPItem>)head {
+    return [self firstNode];
+}
+
+
+- (id <XPSequenceEnumeration>)enumerate {
+    XPAssert(_value);
+    id <XPSequenceEnumeration>enm = [[[XPNodeSetValueEnumeration alloc] initWithNodes:_value isSorted:_sorted isReverseSorted:_reverseSorted] autorelease];
+    return enm;
+}
+
+
 - (XPExpression *)simplify {
     if (0 == _count) {
         return [XPEmptyNodeSet instance];
@@ -166,13 +181,6 @@
 
 - (id <XPItem>)selectFirstInContext:(XPContext *)ctx {
     return [self firstNode];
-}
-
-
-- (id <XPSequenceEnumeration>)enumerate {
-    XPAssert(_value);
-    id <XPSequenceEnumeration>enm = [[[XPNodeSetValueEnumeration alloc] initWithNodes:_value isSorted:_sorted isReverseSorted:_reverseSorted] autorelease];
-    return enm;
 }
 
 
