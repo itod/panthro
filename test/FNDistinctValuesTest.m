@@ -34,6 +34,13 @@
 
 
 - (void)testDistinct {
+    self.expr = [XPExpression expressionFromString:@"distinct-values((1, 'foobar', 'bar', 1, 1))" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNodeSetInContext:nil];
+    TDEquals(1.0, [[_res itemAt:0] asNumber]);
+    TDEqualObjects(@"bar", [[_res itemAt:1] asString]);
+    TDEqualObjects(@"foobar", [[_res itemAt:2] asString]);
+    TDEquals(3, [_res count]);
+    
     self.expr = [XPExpression expressionFromString:@"distinct-values(('foobar', 'bar'))" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsNodeSetInContext:nil];
     TDEqualObjects(@"bar", [[_res itemAt:0] asString]);

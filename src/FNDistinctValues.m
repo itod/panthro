@@ -87,6 +87,15 @@
     if ([item isKindOfClass:[XPEmptySequence class]]) {
         result = (XPEmptySequence *)item;
     } else {
+//        NSMutableSet *set = [NSMutableSet set];
+//        
+//        id <XPSequenceEnumeration>enm = [item enumerate];
+//        while ([enm hasMoreItems]) {
+//            [set addObject:[enm nextItem]];
+//        }
+//        
+//        result = [[[XPAtomicSequence alloc] initWithContent:[set allObjects]] autorelease];
+
         NSMutableArray *set = [NSMutableArray array];
 
         NSUInteger c = 0;

@@ -161,8 +161,20 @@ double XPNumberFromString(NSString *s) {
 }
 
 
-- (BOOL)isEqualToValue:(XPValue *)other {
+- (BOOL)isNotEqualToValue:(XPValue *)other {
 
+    // if this is a NodeSet value, the method will be handled by the NodeSetValue class
+    if ([other isSequenceValue]) {
+        return [other isNotEqualToValue:self];
+    }
+    
+    return ![self isEqualToValue:other];
+}
+
+
+#ifdef COMPATABILITY_MODE
+- (BOOL)isEqualToValue:(XPValue *)other {
+    
     // if this is a NodeSet value, the method will be handled by the NodeSetValue class
     if ([other isSequenceValue]) {
         return [other isEqualToValue:self];
@@ -180,33 +192,52 @@ double XPNumberFromString(NSString *s) {
 }
 
 
-- (BOOL)isNotEqualToValue:(XPValue *)other {
-
-    // if this is a NodeSet value, the method will be handled by the NodeSetValue class
-    if ([other isSequenceValue]) {
-        return [other isNotEqualToValue:self];
-    }
-    
-    return ![self isEqualToValue:other];
-}
-
-
 - (BOOL)compareToValue:(XPValue *)other usingOperator:(NSInteger)op {
-
+    
     if (op == XPEG_TOKEN_KIND_EQUALS) return [self isEqualToValue:other];
     if (op == XPEG_TOKEN_KIND_NOT_EQUAL) return [self isNotEqualToValue:other];
     
     if ([other isSequenceValue]) {
         return [other compareToValue:self usingOperator:[self inverseOperator:op]];
     }
+    
+    return [self compareNumber:[self asNumber] toNumber:[other asNumber] usingOperator:op];
+}
+#else
+- (BOOL)isEqualToValue:(XPValue *)other {
+    
+    // if this is a NodeSet value, the method will be handled by the NodeSetValue class
+    if ([other isSequenceValue]) {
+        return [other isEqualToValue:self];
+    }
+    
+    if ([self isBooleanValue] || [other isBooleanValue]) {
+        return [self asBoolean] == [other asBoolean];
+    }
+    
+    if ([self isNumericValue] || [other isNumericValue]) {
+        return [self asNumber] == [other asNumber];
+    }
+    
+    return [[self asString] isEqualToString:[other asString]];
+}
 
-#ifndef COMPATABILITY_MODE
+
+- (BOOL)compareToValue:(XPValue *)other usingOperator:(NSInteger)op {
+    
+    if (op == XPEG_TOKEN_KIND_EQUALS) return [self isEqualToValue:other];
+    if (op == XPEG_TOKEN_KIND_NOT_EQUAL) return [self isNotEqualToValue:other];
+    
+    if ([other isSequenceValue]) {
+        return [other compareToValue:self usingOperator:[self inverseOperator:op]];
+    }
+    
     if ([self isStringValue] && [other isStringValue]) {
         return [self compareString:[self asString] toString:[other asString] usingOperator:op];
     }
-#endif
     return [self compareNumber:[self asNumber] toNumber:[other asNumber] usingOperator:op];
 }
+#endif
 
 
 - (NSInteger)inverseOperator:(NSInteger)op {

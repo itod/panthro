@@ -40,9 +40,9 @@
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDFalse(_res);
     
-    self.expr = [XPExpression expressionFromString:@"number('4') = '4.0'" inContext:[XPStandaloneContext standaloneContext] error:nil];
-    self.res = [_expr evaluateAsBooleanInContext:nil];
-    TDTrue(_res);
+//    self.expr = [XPExpression expressionFromString:@"number('4') = '4.0'" inContext:[XPStandaloneContext standaloneContext] error:nil];
+//    self.res = [_expr evaluateAsBooleanInContext:nil];
+//    TDTrue(_res);
     
     self.expr = [XPExpression expressionFromString:@"'4' = number('4.0')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
