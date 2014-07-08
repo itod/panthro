@@ -148,9 +148,9 @@ double XPNumberFromString(NSString *s) {
         return [other compareToValue:self usingOperator:[self inverseOperator:op]];
     }
     
-    if ([self isStringValue] && [other isStringValue]) {
-        return [self compareString:[self asString] toString:[other asString] usingOperator:op];
-    }
+//    if ([self isStringValue] && [other isStringValue]) {
+//        return [self compareString:[self asString] toString:[other asString] usingOperator:op];
+//    }
     
     return [self compareNumber:[self asNumber] toNumber:[other asNumber] usingOperator:op];
 }
