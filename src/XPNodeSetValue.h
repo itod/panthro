@@ -8,6 +8,8 @@
 
 #import "XPSequenceValue.h"
 
+@protocol XPNodeInfo;
+
 @interface XPNodeSetValue : XPSequenceValue
 - (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted;
 - (id <XPNodeInfo>)firstNode;

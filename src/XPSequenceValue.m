@@ -125,15 +125,6 @@
 }
 
 
-- (XPValue *)firstValue {
-    id <XPItem>item = [self head];
-    if (![item isKindOfClass:[XPValue class]]) {
-        [XPException raiseIn:self format:@"Expected atomic value, found: %@", item];
-    }
-    return (XPValue *)item;
-}
-
-
 - (NSDictionary *)stringValues {
     if (!_stringValues) {
         NSMutableDictionary *d = [NSMutableDictionary dictionary];

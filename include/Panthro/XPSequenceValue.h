@@ -8,14 +8,9 @@
 
 #import "XPValue.h"
 
-@protocol XPNodeOrderComparer;
-@protocol XPSequenceEnumeration;
-@protocol XPNodeInfo;
-
 @interface XPSequenceValue : XPValue
 
 - (NSUInteger)count;
-- (XPValue *)firstValue;
 
 - (XPSequenceValue *)sort;
 @property (nonatomic, assign, getter=isSorted) BOOL sorted;
