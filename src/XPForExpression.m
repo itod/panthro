@@ -78,24 +78,16 @@
                 XPValue *val1 = spec1.value;
                 XPValue *val2 = spec2.value;
                 
+                XPAssert([val1 isKindOfClass:[XPValue class]]);
+                XPAssert([val2 isKindOfClass:[XPValue class]]);
+                
                 NSComparisonResult mod = spec1.modifier;
                 XPAssert(NSOrderedSame != mod);
                 
-                if ([val1 isKindOfClass:[XPValue class]] && [val2 isKindOfClass:[XPValue class]]) {
-                    if ([val1 isStringValue] && [val2 isStringValue]) {
-                        if (NSOrderedAscending == mod) {
-                            res = [[val1 stringValue] compare:[val2 stringValue]];
-                        } else {
-                            res = [[val2 stringValue] compare:[val1 stringValue]];
-                        }
-                    } else {
-                        BOOL isLT = [val1 compareToValue:val2 usingOperator:XPEG_TOKEN_KIND_LT_SYM];
-                        if (NSOrderedAscending == mod) {
-                            res = isLT ? NSOrderedAscending : NSOrderedDescending;
-                        } else {
-                            res = isLT ? NSOrderedDescending : NSOrderedAscending;
-                        }
-                    }
+                if (NSOrderedAscending == mod) {
+                    res = [val1 compareToValue:val2];
+                } else {
+                    res = [val2 compareToValue:val1];
                 }
                 
                 ++orderSpecIdx;
