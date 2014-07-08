@@ -47,7 +47,7 @@
 - (NSString *)evaluateAsStringInContext:(XPContext *)ctx {
     id <XPNodeInfo>node = nil;
     if (1 == [self numberOfArguments]) {
-        XPNodeSetValue *nodeSet = (id)[[self.args[0] evaluateAsSequenceInContext:ctx] sort];
+        XPNodeSetValue *nodeSet = [(XPNodeSetValue *)[self.args[0] evaluateAsSequenceInContext:ctx] sort];
         node = [nodeSet firstNode];
     } else {
         node = ctx.contextNode;

@@ -12,7 +12,4 @@
 
 - (NSUInteger)count;
 
-- (XPSequenceValue *)sort;
-@property (nonatomic, assign, getter=isSorted) BOOL sorted;
-@property (nonatomic, assign, getter=isReverseSorted) BOOL reverseSorted;
 @end

@@ -99,11 +99,6 @@
 }
 
 
-- (XPSequenceValue *)sort {
-    return self;
-}
-
-
 #pragma mark -
 #pragma mark XPSequence
 

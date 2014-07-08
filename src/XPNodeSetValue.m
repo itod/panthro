@@ -25,4 +25,44 @@
     return (id <XPNodeInfo>)item;
 }
 
+
+- (XPValue *)evaluateInContext:(XPContext *)ctx {
+    [self sort];
+    return self;
+}
+
+
+- (XPSequenceValue *)evaluateAsSequenceInContext:(XPContext *)ctx {
+    [self sort];
+    return self;
+}
+
+
+- (BOOL)isSorted {
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return NO;
+}
+
+
+- (void)setSorted:(BOOL)sorted {
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+}
+
+
+- (BOOL)isReverseSorted {
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return NO;
+}
+
+
+- (void)setReverseSorted:(BOOL)reverseSorted {
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+}
+
+
+- (XPNodeSetValue *)sort {
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return self;
+}
+
 @end

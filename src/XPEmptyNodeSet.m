@@ -76,7 +76,7 @@
 }
 
 
-- (XPSequenceValue *)sort {
+- (XPNodeSetValue *)sort {
     return nil;
 }
 

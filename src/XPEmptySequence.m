@@ -62,11 +62,6 @@
 }
 
 
-- (XPSequenceValue *)sort {
-    return self;
-}
-
-
 //- (BOOL)isEqualToValue:(XPValue *)other {
 //    return NO;
 //}

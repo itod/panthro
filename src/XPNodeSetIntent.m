@@ -125,7 +125,7 @@
 }
 
 
-- (XPSequenceValue *)sort {
+- (XPNodeSetValue *)sort {
     if (_sorted) return self;
     [self fix];
     return [_extent sort];

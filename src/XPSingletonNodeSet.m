@@ -158,7 +158,7 @@
  * @return the same NodeSetValue, after sorting. (Historic)
  */
 
-- (XPSequenceValue *)sort {
+- (XPNodeSetValue *)sort {
     return self;
 }
 

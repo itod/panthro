@@ -120,7 +120,7 @@
 }
 
 
-- (XPSequenceValue *)sort {
+- (XPNodeSetValue *)sort {
     if (_count < 2) self.sorted = YES;
     if (_sorted) return self;
     

@@ -114,9 +114,6 @@ const NSUInteger XPathErrorCodeRuntime = 2;
     XPValue *v = [self evaluateInContext:ctx];
 
     if ([v isSequenceValue]) {
-        if (sorted) {
-            [(XPSequenceValue *)v sort];
-        }
         id <XPSequenceEnumeration>enm = [(XPSequenceValue *)v enumerateInContext:ctx sorted:sorted];
         return enm;
     }
@@ -124,7 +121,6 @@ const NSUInteger XPathErrorCodeRuntime = 2;
     XPAssert([v isAtomized]);
     XPAssert([v isAtomic]);
     XPSequenceValue *seq = [[[XPAtomicSequence alloc] initWithContent:@[v]] autorelease];
-    if (sorted) [seq sort];
     return [seq enumerate];
 }
 
