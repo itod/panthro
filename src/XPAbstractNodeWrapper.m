@@ -11,13 +11,7 @@
 @implementation XPAbstractNodeWrapper
 
 #pragma mark -
-#pragma mark XPItem
-
-- (NSString *)stringValue {
-    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
-    return nil;
-}
-
+#pragma mark XPSequence
 
 - (id <XPItem>)head {
     return self;
@@ -28,6 +22,20 @@
     XPAssert(0);
     return nil;
     //return SingletonIterator.makeIterator((NodeInfo)this);
+}
+
+
+#pragma mark -
+#pragma mark XPItem
+
+- (NSString *)stringValue {
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return nil;
+}
+
+
+- (BOOL)isAtomized {
+    return NO;
 }
 
 

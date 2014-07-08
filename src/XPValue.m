@@ -12,8 +12,40 @@
 #import "XPStringValue.h"
 #import "XPSequenceValue.h"
 #import "XPObjectValue.h"
-#import "XPSequenceExtent.h"
+#import "XPAtomicSequence.h"
+#import "XPSequenceEnumeration.h"
 #import "XPEGParser.h"
+
+XPValue *XPAtomize(id <XPItem>inItem) {
+    XPValue *result = nil;
+    
+    if ([inItem isAtomized]) {
+        result = (XPValue *)inItem;
+    } else if ([inItem isKindOfClass:[XPSequenceValue class]]) {
+        NSMutableArray *v = [NSMutableArray array];
+
+        id <XPSequenceEnumeration>enm = [inItem enumerate];
+        
+        while ([enm hasMoreItems]) {
+            id <XPItem>currItem = [enm nextItem];
+            
+            if ([currItem isAtomized]) {
+                assert([currItem isKindOfClass:[XPValue class]]);
+                [v addObject:currItem];
+            } else {
+                [v addObject:[XPStringValue stringValueWithString:[currItem stringValue]]];
+            }
+        }
+        
+        result = [[[XPAtomicSequence alloc] initWithContent:v] autorelease];
+    } else {
+        assert([inItem conformsToProtocol:@protocol(XPNodeInfo)]);
+        result = [XPStringValue stringValueWithString:[inItem stringValue]];
+    }
+    
+    return result;
+}
+
 
 double XPNumberFromString(NSString *s) {
 #if 1
@@ -60,7 +92,7 @@ double XPNumberFromString(NSString *s) {
 
 
 - (id <XPSequenceEnumeration>)enumerate {
-    XPValue *seq = [[[XPSequenceExtent alloc] initWithContent:@[self]] autorelease];
+    XPValue *seq = [[[XPAtomicSequence alloc] initWithContent:@[self]] autorelease];
     return [seq enumerate];
 }
 
@@ -70,6 +102,11 @@ double XPNumberFromString(NSString *s) {
 
 - (NSString *)stringValue {
     return [self asString];
+}
+
+
+- (BOOL)isAtomized {
+    return YES;
 }
 
 

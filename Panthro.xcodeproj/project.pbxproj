@@ -209,6 +209,8 @@
 		D37299E8196B5AB7004B1B7A /* FNEmptyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299E7196B5AB7004B1B7A /* FNEmptyTest.m */; };
 		D37299F3196B8457004B1B7A /* XPOrderClause.h in Headers */ = {isa = PBXBuildFile; fileRef = D37299F1196B8457004B1B7A /* XPOrderClause.h */; };
 		D37299F4196B8457004B1B7A /* XPOrderClause.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299F2196B8457004B1B7A /* XPOrderClause.m */; };
+		D37299F7196C34CE004B1B7A /* XPAtomicSequence.h in Headers */ = {isa = PBXBuildFile; fileRef = D37299F5196C34CE004B1B7A /* XPAtomicSequence.h */; };
+		D37299F8196C34CE004B1B7A /* XPAtomicSequence.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299F6196C34CE004B1B7A /* XPAtomicSequence.m */; };
 		D37A27E51012FFA600E936B7 /* XPBooleanExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A27E31012FFA600E936B7 /* XPBooleanExpression.m */; };
 		D37A27F5101304EF00E936B7 /* XPBooleanExprTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A27F4101304EF00E936B7 /* XPBooleanExprTest.m */; };
 		D37A296A1013F39400E936B7 /* XPFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A29681013F39400E936B7 /* XPFunction.m */; };
@@ -622,6 +624,8 @@
 		D37299E7196B5AB7004B1B7A /* FNEmptyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNEmptyTest.m; path = test/FNEmptyTest.m; sourceTree = "<group>"; };
 		D37299F1196B8457004B1B7A /* XPOrderClause.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPOrderClause.h; path = src/XPOrderClause.h; sourceTree = "<group>"; };
 		D37299F2196B8457004B1B7A /* XPOrderClause.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPOrderClause.m; path = src/XPOrderClause.m; sourceTree = "<group>"; };
+		D37299F5196C34CE004B1B7A /* XPAtomicSequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPAtomicSequence.h; path = src/XPAtomicSequence.h; sourceTree = "<group>"; };
+		D37299F6196C34CE004B1B7A /* XPAtomicSequence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPAtomicSequence.m; path = src/XPAtomicSequence.m; sourceTree = "<group>"; };
 		D3745D9A192261D500929DE8 /* OkudaKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OkudaKit.framework; path = ../okudakit/build/Release/OkudaKit.framework; sourceTree = "<group>"; };
 		D37A27E31012FFA600E936B7 /* XPBooleanExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBooleanExpression.m; path = src/XPBooleanExpression.m; sourceTree = "<group>"; };
 		D37A27F4101304EF00E936B7 /* XPBooleanExprTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBooleanExprTest.m; path = test/XPBooleanExprTest.m; sourceTree = "<group>"; };
@@ -1158,6 +1162,8 @@
 				D37299B31968747F004B1B7A /* XPRangeExpression.m */,
 				D37299A819684E91004B1B7A /* XPSequenceExtent.h */,
 				D37299A919684E91004B1B7A /* XPSequenceExtent.m */,
+				D37299F5196C34CE004B1B7A /* XPAtomicSequence.h */,
+				D37299F6196C34CE004B1B7A /* XPAtomicSequence.m */,
 				D37299B619687D0F004B1B7A /* XPEmptySequence.h */,
 				D37299B719687D0F004B1B7A /* XPEmptySequence.m */,
 				D37299AC1968509D004B1B7A /* XPSequenceExtentEnumeration.h */,
@@ -1522,6 +1528,7 @@
 				D3C0F59E19214FE700566524 /* FNTrimSpace.h in Headers */,
 				D339F66C1928EA1100C79A51 /* FNId.h in Headers */,
 				D3F0CBA6191EC23D0049EC02 /* FNNumber.h in Headers */,
+				D37299F7196C34CE004B1B7A /* XPAtomicSequence.h in Headers */,
 				D3F0CB9F191EC23D0049EC02 /* FNConcat.h in Headers */,
 				D33930F7191F132D00259939 /* XPVariableReference.h in Headers */,
 				D324A1A8192AF16D0093C4B5 /* XPSynchronousChannel.h in Headers */,
@@ -1805,6 +1812,7 @@
 				D33E9F841916E0E000BB7DFE /* XPStandaloneContext.m in Sources */,
 				D339F61B1927B66500C79A51 /* HTMLparser.c in Sources */,
 				D36C679A10106874000361A0 /* XPRelationalExpression.m in Sources */,
+				D37299F8196C34CE004B1B7A /* XPAtomicSequence.m in Sources */,
 				D339F6451927B66500C79A51 /* xmlIO.c in Sources */,
 				D33E9FA0191706E100BB7DFE /* XPEmptyEnumeration.m in Sources */,
 				D3BE140D191AC7A200005C81 /* XPUnionExpression.m in Sources */,

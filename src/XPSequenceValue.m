@@ -29,6 +29,14 @@
 }
 
 
+#pragma mark -
+#pragma mark XPItem
+
+- (BOOL)isAtomized {
+    return NO;
+}
+
+
 - (XPDataType)dataType {
     return XPDataTypeSequence;
 }

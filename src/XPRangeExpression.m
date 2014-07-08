@@ -7,7 +7,7 @@
 //
 
 #import "XPRangeExpression.h"
-#import "XPSequenceExtent.h"
+#import "XPAtomicSequence.h"
 #import "XPNumericValue.h"
 
 @implementation XPRangeExpression
@@ -51,7 +51,7 @@
         }
     }
     
-    XPSequenceValue *seq = [[[XPSequenceExtent alloc] initWithContent:v] autorelease];
+    XPSequenceValue *seq = [[[XPAtomicSequence alloc] initWithContent:v] autorelease];
     return seq;
 }
 

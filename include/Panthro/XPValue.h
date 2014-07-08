@@ -10,8 +10,10 @@
 #import <Panthro/XPItem.h>
 
 @class XPContext;
+@class XPValue;
 
-double XPNumberFromString(NSString *s);
+extern XPValue *XPAtomize(id <XPItem>item);
+extern double XPNumberFromString(NSString *s);
 
 @interface XPValue : XPExpression <XPItem>
 
