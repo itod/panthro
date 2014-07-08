@@ -22,7 +22,7 @@ XPValue *XPAtomize(id <XPItem>inItem) {
     
     if ([inItem isAtomized]) {
         result = (XPValue *)inItem;
-    } else {
+    } else if ([inItem isKindOfClass:[XPSequenceValue class]]) {
         id <XPSequenceEnumeration>enm = [inItem enumerate];
 
         if ([enm hasMoreItems]) {
@@ -46,6 +46,10 @@ XPValue *XPAtomize(id <XPItem>inItem) {
         } else {
             result = [XPEmptySequence instance];
         }
+        
+    } else {
+        assert([inItem conformsToProtocol:@protocol(XPNodeInfo)]);
+        result = [XPStringValue stringValueWithString:[inItem stringValue]];
     }
     
     return result;
