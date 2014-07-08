@@ -8,8 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol XPNodeInfo <NSObject>
-@end
+@protocol XPNodeInfo;
 
 /**
  * A Comparer used for comparing nodes in document order
