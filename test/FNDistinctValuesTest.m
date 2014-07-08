@@ -38,14 +38,29 @@
     self.res = [_expr evaluateAsNodeSetInContext:nil];
     TDEqualObjects(@"bar", [[_res itemAt:0] asString]);
     TDEqualObjects(@"foobar", [[_res itemAt:1] asString]);
-
-
+    TDEquals(2, [_res count]);
+    
+    self.expr = [XPExpression expressionFromString:@"distinct-values(('foobar', 'foobar', 'bar', 'foobar', 'bar'))" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNodeSetInContext:nil];
+    TDEqualObjects(@"bar", [[_res itemAt:0] asString]);
+    TDEqualObjects(@"foobar", [[_res itemAt:1] asString]);
+    TDEquals(2, [_res count]);
+    
     self.expr = [XPExpression expressionFromString:@"distinct-values((2,4,3,1))" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsNodeSetInContext:nil];
     TDEquals(1.0, [[_res itemAt:0] asNumber]);
     TDEquals(2.0, [[_res itemAt:1] asNumber]);
     TDEquals(3.0, [[_res itemAt:2] asNumber]);
     TDEquals(4.0, [[_res itemAt:3] asNumber]);
+    TDEquals(4, [_res count]);
+    
+    self.expr = [XPExpression expressionFromString:@"distinct-values((2,4,3,4,4,2,1))" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNodeSetInContext:nil];
+    TDEquals(1.0, [[_res itemAt:0] asNumber]);
+    TDEquals(2.0, [[_res itemAt:1] asNumber]);
+    TDEquals(3.0, [[_res itemAt:2] asNumber]);
+    TDEquals(4.0, [[_res itemAt:3] asNumber]);
+    TDEquals(4, [_res count]);
 }
 
 

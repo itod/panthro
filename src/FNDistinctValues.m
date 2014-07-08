@@ -96,7 +96,7 @@
             c++;
         }
         
-        [set sortedArrayUsingSelector:@selector(compareToValue:)];
+        [set sortUsingSelector:@selector(compareToValue:)];
         
         // need to eliminate duplicate nodes. Note that we cannot compare the node
         // objects directly, because with attributes and namespaces there might be
@@ -104,7 +104,7 @@
         
         NSUInteger j = 1;
         for (NSUInteger i = 1; i < c; i++) {
-            if (![set[i] isEqual:set[i-1]]) {
+            if (![set[i] isEqualToValue:set[i-1]]) {
                 set[j++] = set[i];
             }
         }

@@ -152,6 +152,15 @@ double XPNumberFromString(NSString *s) {
 }
 
 
+- (BOOL)isEqual:(id)other {
+    if ([other isKindOfClass:[XPValue class]]) {
+        return [self isEqualToValue:other];
+    } else {
+        return NO;
+    }
+}
+
+
 - (BOOL)isEqualToValue:(XPValue *)other {
 
     // if this is a NodeSet value, the method will be handled by the NodeSetValue class
