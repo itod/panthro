@@ -114,9 +114,11 @@
                     
                     NSComparisonResult res = NSOrderedSame;
                     if (NSOrderedAscending == orderClause.modifier) {
-                        res = [val1 compareToValue:val2 usingOperator:XPEG_TOKEN_KIND_GT_SYM];
+                        BOOL isLT = [val1 compareToValue:val2 usingOperator:XPEG_TOKEN_KIND_LT_SYM];
+                        res = isLT ? NSOrderedAscending : NSOrderedDescending;
                     } else {
-                        res = [val2 compareToValue:val1 usingOperator:XPEG_TOKEN_KIND_GT_SYM];
+                        BOOL isGT = [val1 compareToValue:val2 usingOperator:XPEG_TOKEN_KIND_GT_SYM];
+                        res = isGT ? NSOrderedDescending : NSOrderedAscending;
                     }
                     
                     return res;

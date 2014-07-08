@@ -148,6 +148,10 @@ double XPNumberFromString(NSString *s) {
         return [other compareToValue:self usingOperator:[self inverseOperator:op]];
     }
     
+    if ([self isStringValue] && [other isStringValue]) {
+        return [self compareString:[self asString] toString:[other asString] usingOperator:op];
+    }
+    
     return [self compareNumber:[self asNumber] toNumber:[other asNumber] usingOperator:op];
 }
 
@@ -164,6 +168,23 @@ double XPNumberFromString(NSString *s) {
             return XPEG_TOKEN_KIND_LE_SYM;
         default:
             return op;
+    }
+}
+
+
+- (BOOL)compareString:(NSString *)a toString:(NSString *)b usingOperator:(NSInteger)op {
+    NSComparisonResult res = [a compare:b];
+    switch (op) {
+        case XPEG_TOKEN_KIND_LT_SYM:
+            return NSOrderedAscending == res;
+        case XPEG_TOKEN_KIND_LE_SYM:
+            return NSOrderedAscending == res || NSOrderedSame == res;
+        case XPEG_TOKEN_KIND_GT_SYM:
+            return NSOrderedDescending;
+        case XPEG_TOKEN_KIND_GE_SYM:
+            return NSOrderedDescending == res || NSOrderedSame == res;
+        default:
+            return NO;
     }
 }
 
