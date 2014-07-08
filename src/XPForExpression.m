@@ -16,6 +16,7 @@
 #import "XPTuple.h"
 #import "XPOrderSpec.h"
 #import "XPEGParser.h"
+#import "XPSingletonNodeSet.h"
 #import "XPNumericValue.h"
 
 @interface XPForExpression ()
@@ -64,7 +65,8 @@
     [self loopInContext:ctx forClauses:_forClauses];
     
     // order by
-    if ([_orderClauses count]) {
+    NSUInteger orderClauseCount = [_orderClauses count];
+    if (orderClauseCount > 0) {
         [_tuples sortUsingComparator:^NSComparisonResult(XPTuple *t1, XPTuple *t2) {
             NSComparisonResult res = NSOrderedSame;
             NSUInteger orderSpecIdx = 0;
@@ -98,7 +100,7 @@
                 }
                 
                 ++orderSpecIdx;
-            } while (NSOrderedSame == res);
+            } while (NSOrderedSame == res && orderSpecIdx < orderClauseCount);
                 
             return res;
         }];
@@ -106,7 +108,13 @@
     
     NSMutableArray *result = [NSMutableArray array];
     for (XPTuple *t in _tuples) {
-        [result addObjectsFromArray:t.resultItems];
+        for (id <XPItem>item in t.resultItems) {
+            // YIKES.
+            if ([item isKindOfClass:[XPSingletonNodeSet class]]) {
+                item = (id)[(XPSingletonNodeSet *)item firstNode];
+            }
+            [result addObject:item];
+        }
     }
     
     XPSequenceValue *seq = [[[XPSequenceExtent alloc] initWithContent:result] autorelease];
