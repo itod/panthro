@@ -13,5 +13,4 @@
 - (instancetype)initWithContent:(NSArray *)v;
 
 - (XPValue *)itemAt:(NSUInteger)i;
-- (NSUInteger)count;
 @end

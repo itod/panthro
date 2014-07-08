@@ -14,8 +14,6 @@
 
 @interface XPSequenceValue : XPValue
 
-- (id <XPSequenceEnumeration>)enumerate;
-
 - (NSUInteger)count;
 - (XPValue *)firstValue;
 
