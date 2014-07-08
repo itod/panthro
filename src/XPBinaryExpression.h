@@ -10,9 +10,6 @@
 
 @interface XPBinaryExpression : XPExpression
 
-+ (instancetype)binaryExpression;
-+ (instancetype)binaryExpressionWithOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs;
-
 - (instancetype)initWithOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs;
 
 - (void)setOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs;

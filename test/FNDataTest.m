@@ -55,9 +55,9 @@
     self.res = [_expr evaluateInContext:nil];
     TDEquals(-1, [_res asNumber]);
     
-//    self.expr = [XPExpression expressionFromString:@"data(number('asdf'))" inContext:[XPStandaloneContext standaloneContext] error:nil];
-//    self.res = [_expr evaluateInContext:nil];
-//    TDTrue(isnan([_res asNumber]));
+    self.expr = [XPExpression expressionFromString:@"data(number('asdf'))" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateInContext:nil];
+    TDTrue(isnan([_res asNumber]));
     
     self.expr = [XPExpression expressionFromString:@"data(number(''))" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateInContext:nil];

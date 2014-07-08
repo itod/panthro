@@ -11,18 +11,9 @@
 
 @implementation XPBinaryExpression
 
-+ (XPBinaryExpression *)binaryExpression {
-    return [[[self alloc] init] autorelease];
-}
-
-
-+ (XPBinaryExpression *)binaryExpressionWithOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs {
-    return [[[self alloc] initWithOperand:lhs operator:op operand:rhs] autorelease];
-}
-
-
 - (instancetype)init {
-    return [self initWithOperand:nil operator:-1 operand:nil];
+    NSAssert1(0, @"call -[%@ initWithOperand:operator:operand:] instead", [self class]);
+    return nil;
 }
 
 

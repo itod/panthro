@@ -56,8 +56,8 @@ XPValue *XPAtomize(id <XPItem>inItem) {
 
 
 double XPNumberFromString(NSString *s) {
-#if 1
     s = [s stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+#if 0
 
     double n;
     if ([s length]) {
@@ -67,13 +67,11 @@ double XPNumberFromString(NSString *s) {
     }
     return n;
 #else
-    if ([s rangeOfString:@"+"].length ||
-        [s rangeOfString:@"e"].length ||
-        [s rangeOfString:@"E"].length) {
-        return NAN;
-    }
-    
-    s = [s stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+//    if ([s rangeOfString:@"+"].length ||
+//        [s rangeOfString:@"e"].length ||
+//        [s rangeOfString:@"E"].length) {
+//        return NAN;
+//    }
     
     NSScanner *scanner = [NSScanner scannerWithString:s];
     double n = 0;
