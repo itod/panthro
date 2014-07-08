@@ -64,13 +64,17 @@ expr = exprSingle exprSingleTail*;
     exprSingleTail = (','! exprSingle);
 exprSingle = orExpr | forExpr | quantifiedExpr | ifExpr;
 
-    forExpr = (for forClause | let letClause)+ whereClause? return exprSingle;
+    forExpr = (for forClause | let letClause)+ whereClause? orderByClause? return exprSingle;
         forClause = singleForClause (','! singleForClause)*;
             singleForClause = '$'! qName positionalVar? in exprSingle;
                 positionalVar = 'at'! '$'! qName;
         letClause = singleLetClause (','! singleLetClause)*;
             singleLetClause = '$'! qName ':='! exprSingle;
         whereClause = 'where'! exprSingle;
+        orderByClause = 'order'! 'by'! orderSpecList;
+            orderSpecList = orderSpec (','! orderSpec)*;
+            orderSpec = exprSingle orderModifier;
+            orderModifier = ('ascending' | 'descending')?; // ('empty' ('greatest' | 'least'))? ('collation' uriLiteral)?
         
     quantifiedExpr = ('some' | 'every') inClause satisfies exprSingle;
         inClause = singleInClause (',' singleInClause)*;

@@ -10,5 +10,5 @@
 
 @interface XPForExpression : XPExpression
 
-- (instancetype)initWithForClauses:(NSArray *)forClauses where:(XPExpression *)whereExpr body:(XPExpression *)bodyExpr;
+- (instancetype)initWithForClauses:(NSArray *)forClauses where:(XPExpression *)whereExpr orderClauses:(NSArray *)orderClauses body:(XPExpression *)bodyExpr;
 @end

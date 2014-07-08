@@ -17,6 +17,7 @@
 #import "XPForExpression.h"
 #import "XPForClause.h"
 #import "XPLetClause.h"
+#import "XPOrderClause.h"
 #import "XPQuantifiedExpression.h"
 #import "XPIfExpression.h"
 #import "XPEmptySequence.h"
@@ -53,6 +54,7 @@
 @property (nonatomic, retain) PKToken *forTok;
 @property (nonatomic, retain) PKToken *let;
 @property (nonatomic, retain) PKToken *where;
+@property (nonatomic, retain) PKToken *order;
 @property (nonatomic, retain) PKToken *then;
 @property (nonatomic, retain) PKToken *slash;
 @property (nonatomic, retain) PKToken *colon;
@@ -80,6 +82,7 @@
         self.forTok = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"for" doubleValue:0.0];
         self.let = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"let" doubleValue:0.0];
         self.where = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"where" doubleValue:0.0];
+        self.order = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"order" doubleValue:0.0];
         self.then = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"then" doubleValue:0.0];
         self.slash = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"/" doubleValue:0.0];
         self.colon = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@":" doubleValue:0.0];
@@ -120,6 +123,7 @@
     self.forTok = nil;
     self.let = nil;
     self.where = nil;
+    self.order = nil;
     self.then = nil;
     self.slash = nil;
     self.colon = nil;
@@ -154,19 +158,43 @@
     XPExpression *bodyExpr = [a pop];
     XPAssertExpr(bodyExpr);
     
-    NSMutableArray *forClauses = [NSMutableArray array];
     NSUInteger offset = NSNotFound;
+
+    NSMutableArray *forClauses = [NSMutableArray array];
+    NSMutableArray *orderClauses = [NSMutableArray array];
+    
     XPExpression *whereExpr = nil;
     id peek = [a pop];
     do {
         NSMutableArray *letClauses = nil;
 
+        while (peek == _order) {
+
+            NSComparisonResult mod = NSOrderedAscending;
+            peek = [a pop];
+            if ([peek isKindOfClass:[PKToken class]]) {
+                XPAssert([[peek stringValue] isEqualToString:@"ascending"] || [[peek stringValue] isEqualToString:@"descending"]);
+                if ([[peek stringValue] isEqualToString:@"descending"]) {
+                    mod = NSOrderedDescending;
+                }
+                peek = [a pop];
+            }
+            
+            XPExpression *orderExpr = peek;
+            XPAssertExpr(orderExpr);
+            
+            XPOrderClause *orderClause = [XPOrderClause orderClauseExpression:orderExpr modifier:mod];
+            [orderClauses insertObject:orderClause atIndex:0];
+            
+            peek = [a pop];
+        }
+        
         if (peek == _where) {
             whereExpr = [a pop];
             XPAssertExpr(whereExpr);
             peek = [a pop];
         }
-
+        
         if (peek == _let) {
             letClauses = [NSMutableArray array];
             
@@ -230,31 +258,18 @@
     
     [a push:peek];
     
-    XPExpression *forExpr = [[[XPForExpression alloc] initWithForClauses:forClauses where:whereExpr body:bodyExpr] autorelease];
+    XPExpression *forExpr = [[[XPForExpression alloc] initWithForClauses:forClauses where:whereExpr orderClauses:orderClauses body:bodyExpr] autorelease];
     forExpr.range = NSMakeRange(offset, NSMaxRange(bodyExpr.range) - offset);
     forExpr.staticContext = _env;
     [a push:forExpr];
 }
 
 
-- (void)parser:(PKParser *)p didMatchPositionalVar:(PKAssembly *)a {
-    [a push:_at];
-}
-
-
-- (void)parser:(PKParser *)p didMatchSingleForClause:(PKAssembly *)a {
-    [a push:_forTok];
-}
-
-
-- (void)parser:(PKParser *)p didMatchSingleLetClause:(PKAssembly *)a {
-    [a push:_let];
-}
-
-
-- (void)parser:(PKParser *)p didMatchWhereClause:(PKAssembly *)a {
-    [a push:_where];
-}
+- (void)parser:(PKParser *)p didMatchPositionalVar:(PKAssembly *)a { [a push:_at]; }
+- (void)parser:(PKParser *)p didMatchSingleForClause:(PKAssembly *)a { [a push:_forTok]; }
+- (void)parser:(PKParser *)p didMatchSingleLetClause:(PKAssembly *)a { [a push:_let]; }
+- (void)parser:(PKParser *)p didMatchWhereClause:(PKAssembly *)a { [a push:_where]; }
+- (void)parser:(PKParser *)p didMatchOrderSpec:(PKAssembly *)a { [a push:_order]; }
 
 
 - (void)parser:(PKParser *)p didMatchQuantifiedExpr:(PKAssembly *)a {

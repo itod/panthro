@@ -207,6 +207,8 @@
 		D37299E5196B5A5B004B1B7A /* FNEmpty.h in Headers */ = {isa = PBXBuildFile; fileRef = D37299E3196B5A5B004B1B7A /* FNEmpty.h */; };
 		D37299E6196B5A5B004B1B7A /* FNEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299E4196B5A5B004B1B7A /* FNEmpty.m */; };
 		D37299E8196B5AB7004B1B7A /* FNEmptyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299E7196B5AB7004B1B7A /* FNEmptyTest.m */; };
+		D37299F3196B8457004B1B7A /* XPOrderClause.h in Headers */ = {isa = PBXBuildFile; fileRef = D37299F1196B8457004B1B7A /* XPOrderClause.h */; };
+		D37299F4196B8457004B1B7A /* XPOrderClause.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299F2196B8457004B1B7A /* XPOrderClause.m */; };
 		D37A27E51012FFA600E936B7 /* XPBooleanExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A27E31012FFA600E936B7 /* XPBooleanExpression.m */; };
 		D37A27F5101304EF00E936B7 /* XPBooleanExprTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A27F4101304EF00E936B7 /* XPBooleanExprTest.m */; };
 		D37A296A1013F39400E936B7 /* XPFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A29681013F39400E936B7 /* XPFunction.m */; };
@@ -618,6 +620,8 @@
 		D37299E3196B5A5B004B1B7A /* FNEmpty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNEmpty.h; path = src/FNEmpty.h; sourceTree = "<group>"; };
 		D37299E4196B5A5B004B1B7A /* FNEmpty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNEmpty.m; path = src/FNEmpty.m; sourceTree = "<group>"; };
 		D37299E7196B5AB7004B1B7A /* FNEmptyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNEmptyTest.m; path = test/FNEmptyTest.m; sourceTree = "<group>"; };
+		D37299F1196B8457004B1B7A /* XPOrderClause.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPOrderClause.h; path = src/XPOrderClause.h; sourceTree = "<group>"; };
+		D37299F2196B8457004B1B7A /* XPOrderClause.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPOrderClause.m; path = src/XPOrderClause.m; sourceTree = "<group>"; };
 		D3745D9A192261D500929DE8 /* OkudaKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OkudaKit.framework; path = ../okudakit/build/Release/OkudaKit.framework; sourceTree = "<group>"; };
 		D37A27E31012FFA600E936B7 /* XPBooleanExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBooleanExpression.m; path = src/XPBooleanExpression.m; sourceTree = "<group>"; };
 		D37A27F4101304EF00E936B7 /* XPBooleanExprTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBooleanExprTest.m; path = test/XPBooleanExprTest.m; sourceTree = "<group>"; };
@@ -1164,6 +1168,8 @@
 				D37299D5196AE26C004B1B7A /* XPForClause.m */,
 				D37299D8196AF091004B1B7A /* XPLetClause.h */,
 				D37299D9196AF091004B1B7A /* XPLetClause.m */,
+				D37299F1196B8457004B1B7A /* XPOrderClause.h */,
+				D37299F2196B8457004B1B7A /* XPOrderClause.m */,
 				D37299BE19699616004B1B7A /* XPQuantifiedExpression.h */,
 				D37299BF19699616004B1B7A /* XPQuantifiedExpression.m */,
 				D37299C21969B441004B1B7A /* XPIfExpression.h */,
@@ -1580,6 +1586,7 @@
 				D3F0CC0D191EC8250049EC02 /* XPObjectValue.h in Headers */,
 				D37299DE196B575D004B1B7A /* FNExists.h in Headers */,
 				D3BE142E191C40E500005C81 /* XPBaseFastEnumeration.h in Headers */,
+				D37299F3196B8457004B1B7A /* XPOrderClause.h in Headers */,
 				D3F0CBC0191EC3A50049EC02 /* XPNSXMLNodeImpl.h in Headers */,
 				D3BE1410191AC80400005C81 /* XPFilterExpression.h in Headers */,
 				D383A31C187F6ECB006AE701 /* XPAssembler.h in Headers */,
@@ -1852,6 +1859,7 @@
 				D37299D7196AE26C004B1B7A /* XPForClause.m in Sources */,
 				D3C0F593192128E000566524 /* FNNamespaceURI.m in Sources */,
 				D37A2FFD10158DA900E936B7 /* FNStartsWith.m in Sources */,
+				D37299F4196B8457004B1B7A /* XPOrderClause.m in Sources */,
 				D372996619660D2B004B1B7A /* XPNodeSetIntent.m in Sources */,
 				D339F6631927B95900C79A51 /* relaxng.c in Sources */,
 				D339F6411927B66500C79A51 /* valid.c in Sources */,

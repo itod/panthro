@@ -11,10 +11,10 @@
 @implementation XPLetClause
 
 + (instancetype)letClauseWithVariableName:(NSString *)varName expression:(XPExpression *)expr {
-    XPLetClause *fc = [[[XPLetClause alloc] init] autorelease];
-    fc.variableName = varName;
-    fc.expression = expr;
-    return fc;
+    XPLetClause *lc = [[[XPLetClause alloc] init] autorelease];
+    lc.variableName = varName;
+    lc.expression = expr;
+    return lc;
 }
 
 
