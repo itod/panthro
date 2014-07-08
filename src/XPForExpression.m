@@ -113,21 +113,28 @@
                     XPAssert(NSOrderedSame != orderClause.modifier);
                     
                     NSComparisonResult res = NSOrderedSame;
-                    if ([val1 isStringValue] && [val2 isStringValue]) {
-                        if (NSOrderedAscending == orderClause.modifier) {
-                            res = [[val1 asString] compare:[val2 asString]];
+                    if ([val1 isKindOfClass:[XPValue class]] && [val2 isKindOfClass:[XPValue class]]) {
+                        if ([val1 isStringValue] && [val2 isStringValue]) {
+                            if (NSOrderedAscending == orderClause.modifier) {
+                                res = [[val1 stringValue] compare:[val2 stringValue]];
+                            } else {
+                                res = [[val2 stringValue] compare:[val1 stringValue]];
+                            }
                         } else {
-                            res = [[val2 asString] compare:[val1 asString]];
+                            BOOL isLT = [val1 compareToValue:val2 usingOperator:XPEG_TOKEN_KIND_LT_SYM];
+                            if (NSOrderedAscending == orderClause.modifier) {
+                                res = isLT ? NSOrderedAscending : NSOrderedDescending;
+                            } else {
+                                res = isLT ? NSOrderedDescending : NSOrderedAscending;
+                            }
                         }
                     } else {
-                        BOOL isLT = [val1 compareToValue:val2 usingOperator:XPEG_TOKEN_KIND_LT_SYM];
                         if (NSOrderedAscending == orderClause.modifier) {
-                            res = isLT ? NSOrderedAscending : NSOrderedDescending;
+                            res = [[val1 stringValue] compare:[val2 stringValue]];
                         } else {
-                            res = isLT ? NSOrderedDescending : NSOrderedAscending;
+                            res = [[val2 stringValue] compare:[val1 stringValue]];
                         }
                     }
-                    
                     return res;
                 }];
             }
