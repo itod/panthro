@@ -25,6 +25,8 @@
 
 
 - (NSInteger)compare:(id <XPNodeInfo>)a to:(id <XPNodeInfo>)b {
+    XPAssert([a conformsToProtocol:@protocol(XPNodeInfo)]);
+    XPAssert([b conformsToProtocol:@protocol(XPNodeInfo)]);
     return [a compareOrderTo:b];
 }
 
