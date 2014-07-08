@@ -25,6 +25,11 @@
 }
 
 
+- (BOOL)isAtomized {
+    return YES;
+}
+
+
 #pragma mark -
 #pragma mark XPExpression
 

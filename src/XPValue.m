@@ -13,6 +13,7 @@
 #import "XPSequenceValue.h"
 #import "XPObjectValue.h"
 #import "XPAtomicSequence.h"
+#import "XPEmptySequence.h"
 #import "XPSequenceEnumeration.h"
 #import "XPEGParser.h"
 
@@ -22,22 +23,29 @@ XPValue *XPAtomize(id <XPItem>inItem) {
     if ([inItem isAtomized]) {
         result = (XPValue *)inItem;
     } else if ([inItem isKindOfClass:[XPSequenceValue class]]) {
-        NSMutableArray *v = [NSMutableArray array];
+        NSMutableArray *v = nil;
 
         id <XPSequenceEnumeration>enm = [inItem enumerate];
         
-        while ([enm hasMoreItems]) {
-            id <XPItem>currItem = [enm nextItem];
-            
-            if ([currItem isAtomized]) {
-                assert([currItem isKindOfClass:[XPValue class]]);
-                [v addObject:currItem];
-            } else {
-                [v addObject:[XPStringValue stringValueWithString:[currItem stringValue]]];
+        if ([enm hasMoreItems]) {
+            v = [NSMutableArray array];
+            while ([enm hasMoreItems]) {
+                id <XPItem>currItem = [enm nextItem];
+                
+                if ([currItem isAtomized]) {
+                    assert([currItem isKindOfClass:[XPValue class]]);
+                    [v addObject:currItem];
+                } else {
+                    [v addObject:[XPStringValue stringValueWithString:[currItem stringValue]]];
+                }
             }
+            
+            assert([v count]);
+            result = [[[XPAtomicSequence alloc] initWithContent:v] autorelease];
+        } else {
+            result = [XPEmptySequence instance];
         }
         
-        result = [[[XPAtomicSequence alloc] initWithContent:v] autorelease];
     } else {
         assert([inItem conformsToProtocol:@protocol(XPNodeInfo)]);
         result = [XPStringValue stringValueWithString:[inItem stringValue]];

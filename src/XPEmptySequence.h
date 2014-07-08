@@ -6,9 +6,9 @@
 //
 //
 
-#import <Panthro/Panthro.h>
+#import "XPAtomicSequence.h"
 
-@interface XPEmptySequence : XPSequenceValue
+@interface XPEmptySequence : XPAtomicSequence
 
 + (instancetype)instance;
 @end
