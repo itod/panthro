@@ -22,13 +22,12 @@ XPValue *XPAtomize(id <XPItem>inItem) {
     
     if ([inItem isAtomized]) {
         result = (XPValue *)inItem;
-    } else if ([inItem isKindOfClass:[XPSequenceValue class]]) {
-        NSMutableArray *v = nil;
-
+    } else {
         id <XPSequenceEnumeration>enm = [inItem enumerate];
-        
+
         if ([enm hasMoreItems]) {
-            v = [NSMutableArray array];
+            NSMutableArray *v = [NSMutableArray array];
+            
             while ([enm hasMoreItems]) {
                 id <XPItem>currItem = [enm nextItem];
                 
@@ -47,10 +46,6 @@ XPValue *XPAtomize(id <XPItem>inItem) {
         } else {
             result = [XPEmptySequence instance];
         }
-        
-    } else {
-        assert([inItem conformsToProtocol:@protocol(XPNodeInfo)]);
-        result = [XPStringValue stringValueWithString:[inItem stringValue]];
     }
     
     return result;
