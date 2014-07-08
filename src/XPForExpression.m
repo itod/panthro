@@ -13,15 +13,17 @@
 #import "XPForClause.h"
 #import "XPLetClause.h"
 #import "XPOrderClause.h"
-#import "XPNumericValue.h"
+#import "XPTuple.h"
+#import "XPOrderSpec.h"
 #import "XPEGParser.h"
+#import "XPNumericValue.h"
 
 @interface XPForExpression ()
 @property (nonatomic, retain) NSArray *forClauses;
 @property (nonatomic, retain) XPExpression *whereExpression;
 @property (nonatomic, retain) NSArray *orderClauses;
 @property (nonatomic, retain) XPExpression *bodyExpression;
-@property (nonatomic, retain) NSMutableArray *result;
+@property (nonatomic, retain) NSMutableArray *tuples;
 @end
 
 @implementation XPForExpression
@@ -43,7 +45,7 @@
     self.whereExpression = nil;
     self.orderClauses = nil;
     self.bodyExpression = nil;
-    self.result = nil;
+    self.tuples = nil;
     [super dealloc];
 }
 
@@ -57,12 +59,58 @@
     XPAssert([_forClauses count]);
     XPAssert(_bodyExpression);
     
-    self.result = [NSMutableArray array];
+    self.tuples = [NSMutableArray array];
 
     [self loopInContext:ctx forClauses:_forClauses];
     
-    XPSequenceValue *seq = [[[XPSequenceExtent alloc] initWithContent:_result] autorelease];
-    self.result = nil;
+    // order by
+    if ([_orderClauses count]) {
+        [_tuples sortUsingComparator:^NSComparisonResult(XPTuple *t1, XPTuple *t2) {
+            NSComparisonResult res = NSOrderedSame;
+            NSUInteger orderSpecIdx = 0;
+
+            do {
+                XPOrderSpec *spec1 = t1.orderSpecs[orderSpecIdx];
+                XPOrderSpec *spec2 = t2.orderSpecs[orderSpecIdx];
+                XPAssert(spec1.modifier == spec2.modifier);
+                
+                XPValue *val1 = spec1.value;
+                XPValue *val2 = spec2.value;
+                
+                NSComparisonResult mod = spec1.modifier;
+                XPAssert(NSOrderedSame != mod);
+                
+                if ([val1 isKindOfClass:[XPValue class]] && [val2 isKindOfClass:[XPValue class]]) {
+                    if ([val1 isStringValue] && [val2 isStringValue]) {
+                        if (NSOrderedAscending == mod) {
+                            res = [[val1 stringValue] compare:[val2 stringValue]];
+                        } else {
+                            res = [[val2 stringValue] compare:[val1 stringValue]];
+                        }
+                    } else {
+                        BOOL isLT = [val1 compareToValue:val2 usingOperator:XPEG_TOKEN_KIND_LT_SYM];
+                        if (NSOrderedAscending == mod) {
+                            res = isLT ? NSOrderedAscending : NSOrderedDescending;
+                        } else {
+                            res = isLT ? NSOrderedDescending : NSOrderedAscending;
+                        }
+                    }
+                }
+                
+                ++orderSpecIdx;
+            } while (NSOrderedSame == res);
+                
+            return res;
+        }];
+    }
+    
+    NSMutableArray *result = [NSMutableArray array];
+    for (XPTuple *t in _tuples) {
+        [result addObjectsFromArray:t.resultItems];
+    }
+    
+    XPSequenceValue *seq = [[[XPSequenceExtent alloc] initWithContent:result] autorelease];
+    self.tuples = nil;
     return seq;
 }
 
@@ -90,67 +138,37 @@
         }
         
         if ([forClausesTail count]) {
-            [self loopInContext:ctx forClauses:forClausesTail];
+            [self loopInContext:[[ctx copy] autorelease] forClauses:forClausesTail];
         } else {
             
+            // where test
             BOOL whereTest = YES;
             if (_whereExpression) {
                 whereTest = [_whereExpression evaluateAsBooleanInContext:ctx];
             }
             
-            // where test
             if (whereTest) {
                 id <XPSequenceEnumeration>bodyEnm = [_bodyExpression enumerateInContext:ctx sorted:NO];
+                
+                NSMutableArray *tupleResItems = [NSMutableArray array];
+                NSMutableArray *tupleOrderSpecs = [NSMutableArray array];
+                
                 while ([bodyEnm hasMoreItems]) {
                     id <XPItem>bodyItem = [bodyEnm nextItem];
-                    [_result addObject:bodyItem];
-                }
-            }
-            
-            // order by
-            for (XPOrderClause *orderClause in _orderClauses) {
-                [_result sortUsingComparator:^NSComparisonResult(XPValue *val1, XPValue *val2) {
-                    XPAssert(NSOrderedSame != orderClause.modifier);
                     
-                    NSComparisonResult res = NSOrderedSame;
-                    if ([val1 isKindOfClass:[XPValue class]] && [val2 isKindOfClass:[XPValue class]]) {
-                        if ([val1 isStringValue] && [val2 isStringValue]) {
-                            if (NSOrderedAscending == orderClause.modifier) {
-                                res = [[val1 stringValue] compare:[val2 stringValue]];
-                            } else {
-                                res = [[val2 stringValue] compare:[val1 stringValue]];
-                            }
-                        } else {
-                            BOOL isLT = [val1 compareToValue:val2 usingOperator:XPEG_TOKEN_KIND_LT_SYM];
-                            if (NSOrderedAscending == orderClause.modifier) {
-                                res = isLT ? NSOrderedAscending : NSOrderedDescending;
-                            } else {
-                                res = isLT ? NSOrderedDescending : NSOrderedAscending;
-                            }
-                        }
-                    } else {
-                        if (NSOrderedAscending == orderClause.modifier) {
-                            res = [[val1 stringValue] compare:[val2 stringValue]];
-                        } else {
-                            res = [[val2 stringValue] compare:[val1 stringValue]];
-                        }
+                    [tupleResItems addObject:bodyItem];
+                    
+                    for (XPOrderClause *orderClause in _orderClauses) {
+                        XPValue *specVal = XPAtomize([orderClause.expression evaluateInContext:ctx]);
+                        XPOrderSpec *spec = [XPOrderSpec orderSpecWithValue:specVal modifier:orderClause.modifier];
+                        [tupleOrderSpecs addObject:spec];
                     }
-                    return res;
-                }];
+                }
+
+                XPTuple *t = [XPTuple tupeWithResultItems:tupleResItems orderSpecs:tupleOrderSpecs];
+                [_tuples addObject:t];
             }
         }
-        
-        // remove let vars
-        for (XPLetClause *letClause in curForClause.letClauses) {
-            [ctx setItem:nil forVariable:letClause.variableName];
-        }
-        // remove at var
-        if (curForClause.positionName) {
-            [ctx setItem:nil forVariable:curForClause.positionName];
-        }
-
-        // remove for var
-        [ctx setItem:nil forVariable:curForClause.variableName];
     }
 }
 
