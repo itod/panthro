@@ -39,6 +39,11 @@
 }
 
 
+- (BOOL)isAtomic {
+    return NO;
+}
+
+
 #pragma mark -
 #pragma mark XPNodeInfo
 

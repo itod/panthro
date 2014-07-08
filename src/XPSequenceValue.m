@@ -37,6 +37,11 @@
 }
 
 
+- (BOOL)isAtomic {
+    return NO;
+}
+
+
 - (XPDataType)dataType {
     return XPDataTypeSequence;
 }

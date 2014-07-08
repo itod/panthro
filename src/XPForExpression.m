@@ -16,7 +16,6 @@
 #import "XPTuple.h"
 #import "XPOrderSpec.h"
 #import "XPEGParser.h"
-#import "XPSingletonNodeSet.h"
 #import "XPNumericValue.h"
 
 @interface XPForExpression ()
@@ -109,9 +108,9 @@
     NSMutableArray *result = [NSMutableArray array];
     for (XPTuple *t in _tuples) {
         for (id <XPItem>item in t.resultItems) {
-            // YIKES.
-            if ([item isKindOfClass:[XPSingletonNodeSet class]]) {
-                item = (id)[(XPSingletonNodeSet *)item firstNode];
+            // YIKES. This is for XPSingletonNodeSet-wrapped NodeInfos
+            if (![item isAtomic]) {
+                item = [item head];
             }
             [result addObject:item];
         }

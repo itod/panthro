@@ -36,6 +36,7 @@ XPValue *XPAtomize(id <XPItem>inItem) {
                     assert([currItem isKindOfClass:[XPValue class]]);
                     [v addObject:currItem];
                 } else {
+                    // don't have to recurse here, as sequences cannot nest
                     [v addObject:[XPStringValue stringValueWithString:[currItem stringValue]]];
                 }
             }
@@ -112,6 +113,11 @@ double XPNumberFromString(NSString *s) {
 
 
 - (BOOL)isAtomized {
+    return YES;
+}
+
+
+- (BOOL)isAtomic {
     return YES;
 }
 

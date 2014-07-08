@@ -11,7 +11,7 @@
 #import "XPStaticContext.h"
 #import "XPValue.h"
 #import "XPSequenceValue.h"
-#import "XPSequenceExtent.h"
+#import "XPAtomicSequence.h"
 #import "XPSequenceEnumeration.h"
 #import "XPEGParser.h"
 #import "XPAssembler.h"
@@ -120,8 +120,10 @@ const NSUInteger XPathErrorCodeRuntime = 2;
         id <XPSequenceEnumeration>enm = [(XPSequenceValue *)v enumerateInContext:ctx sorted:sorted];
         return enm;
     }
-    
-    XPSequenceValue *seq = [[[XPSequenceExtent alloc] initWithContent:@[v]] autorelease];
+
+    XPAssert([v isAtomized]);
+    XPAssert([v isAtomic]);
+    XPSequenceValue *seq = [[[XPAtomicSequence alloc] initWithContent:@[v]] autorelease];
     if (sorted) [seq sort];
     return [seq enumerate];
 }

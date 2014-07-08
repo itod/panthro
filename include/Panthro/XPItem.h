@@ -11,6 +11,8 @@
 @protocol XPItem <XPSequence>
 
 @property (nonatomic, copy, readonly) NSString *stringValue;
+
 @property (nonatomic, assign, readonly) BOOL isAtomized;
+@property (nonatomic, assign, readonly) BOOL isAtomic;
 
 @end
