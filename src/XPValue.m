@@ -203,7 +203,23 @@ double XPNumberFromString(NSString *s) {
     
     return [self compareNumber:[self asNumber] toNumber:[other asNumber] usingOperator:op];
 }
+
+
+- (NSComparisonResult)compareToValue:(XPValue *)other {
+    XPAssert([other isKindOfClass:[XPValue class]]);
+    
+    NSComparisonResult res = NSOrderedSame;
+    if ([self compareNumber:[self asNumber] toNumber:[other asNumber] usingOperator:XPEG_TOKEN_KIND_LT_SYM]) {
+        res = NSOrderedAscending;
+    } else {
+        res = NSOrderedDescending;
+    }
+    
+    return res;
+}
+
 #else
+
 - (BOOL)isEqualToValue:(XPValue *)other {
     
     // if this is a NodeSet value, the method will be handled by the NodeSetValue class
@@ -215,11 +231,11 @@ double XPNumberFromString(NSString *s) {
         return [self asBoolean] == [other asBoolean];
     }
     
-    if ([self isNumericValue] || [other isNumericValue]) {
-        return [self asNumber] == [other asNumber];
+    if ([self isStringValue] || [other isStringValue]) {
+        return [[self asString] isEqualToString:[other asString]];
     }
-    
-    return [[self asString] isEqualToString:[other asString]];
+
+    return [self asNumber] == [other asNumber];
 }
 
 
@@ -237,6 +253,29 @@ double XPNumberFromString(NSString *s) {
     }
     
     return [self compareNumber:[self asNumber] toNumber:[other asNumber] usingOperator:op];
+}
+
+
+- (NSComparisonResult)compareToValue:(XPValue *)other {
+    XPAssert([other isKindOfClass:[XPValue class]]);
+    
+    NSComparisonResult res = NSOrderedSame;
+    
+    if ([self isStringValue] || [other isStringValue]) {
+        if ([self compareString:[self asString] toString:[other asString] usingOperator:XPEG_TOKEN_KIND_LT_SYM]) {
+            res = NSOrderedAscending;
+        } else {
+            res = NSOrderedDescending;
+        }
+    } else {
+        if ([self compareNumber:[self asNumber] toNumber:[other asNumber] usingOperator:XPEG_TOKEN_KIND_LT_SYM]) {
+            res = NSOrderedAscending;
+        } else {
+            res = NSOrderedDescending;
+        }
+    }
+    
+    return res;
 }
 #endif
 
@@ -297,29 +336,6 @@ double XPNumberFromString(NSString *s) {
         XPAssert(0);
         return NSOrderedSame;
     }
-}
-
-
-- (NSComparisonResult)compareToValue:(XPValue *)other {
-    XPAssert([other isKindOfClass:[XPValue class]]);
-    
-    NSComparisonResult res = NSOrderedSame;
-    
-    if ([self isStringValue] || [other isStringValue]) {
-        if ([self compareString:[self asString] toString:[other asString] usingOperator:XPEG_TOKEN_KIND_LT_SYM]) {
-            res = NSOrderedAscending;
-        } else {
-            res = NSOrderedDescending;
-        }
-    } else {
-        if ([self compareNumber:[self asNumber] toNumber:[other asNumber] usingOperator:XPEG_TOKEN_KIND_LT_SYM]) {
-            res = NSOrderedAscending;
-        } else {
-            res = NSOrderedDescending;
-        }
-    }
-    
-    return res;
 }
 
 
