@@ -232,9 +232,10 @@ double XPNumberFromString(NSString *s) {
         return [other compareToValue:self usingOperator:[self inverseOperator:op]];
     }
     
-    if ([self isStringValue] && [other isStringValue]) {
+    if ([self isStringValue] || [other isStringValue]) {
         return [self compareString:[self asString] toString:[other asString] usingOperator:op];
     }
+    
     return [self compareNumber:[self asNumber] toNumber:[other asNumber] usingOperator:op];
 }
 #endif
@@ -304,7 +305,7 @@ double XPNumberFromString(NSString *s) {
     
     NSComparisonResult res = NSOrderedSame;
     
-    if ([self isStringValue] && [other isStringValue]) {
+    if ([self isStringValue] || [other isStringValue]) {
         if ([self compareString:[self asString] toString:[other asString] usingOperator:XPEG_TOKEN_KIND_LT_SYM]) {
             res = NSOrderedAscending;
         } else {
