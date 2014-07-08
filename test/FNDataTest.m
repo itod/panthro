@@ -43,7 +43,7 @@
     TDEqualObjects(@"bar", _res);
 
     self.expr = [XPExpression expressionFromString:@"data(('foobar', 'bar'))" inContext:[XPStandaloneContext standaloneContext] error:nil];
-    self.res = [_expr evaluateAsNodeSetInContext:nil];
+    self.res = [_expr evaluateAsSequenceInContext:nil];
     TDEqualObjects(@"foobar", [[_res itemAt:0] asString]);
     TDEqualObjects(@"bar", [[_res itemAt:1] asString]);
     
@@ -80,7 +80,7 @@
     TDEquals(YES, [_expr evaluateAsBooleanInContext:nil]);
     
     self.expr = [XPExpression expressionFromString:@"data((false(), true()))" inContext:[XPStandaloneContext standaloneContext] error:nil];
-    self.res = [_expr evaluateAsNodeSetInContext:nil];
+    self.res = [_expr evaluateAsSequenceInContext:nil];
     TDEquals(NO, [[_res itemAt:0] asBoolean]);
     TDEquals(YES, [[_res itemAt:1] asBoolean]);
     
@@ -90,7 +90,7 @@
     TDEquals(YES, [[_res itemAt:1] asBoolean]);
     
     self.expr = [XPExpression expressionFromString:@"data(())" inContext:[XPStandaloneContext standaloneContext] error:nil];
-    TDTrue([XPEmptySequence instance] == [_expr evaluateAsNodeSetInContext:nil]);
+    TDTrue([XPEmptySequence instance] == [_expr evaluateAsSequenceInContext:nil]);
     TDTrue([XPEmptySequence instance] == [_expr evaluateInContext:nil]);
 }
 

@@ -98,7 +98,7 @@ const NSUInteger XPathErrorCodeRuntime = 2;
 }
 
 
-- (XPSequenceValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
+- (XPSequenceValue *)evaluateAsSequenceInContext:(XPContext *)ctx {
     XPValue *v = [self evaluateInContext:ctx];
     v.range = self.range;
     

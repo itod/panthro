@@ -53,7 +53,7 @@
 }
 
 
-- (XPSequenceValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
+- (XPSequenceValue *)evaluateAsSequenceInContext:(XPContext *)ctx {
     [self sort];
     return self;
 }

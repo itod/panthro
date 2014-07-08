@@ -76,7 +76,7 @@
  * @return the value of the expression, evaluated in the current context
  */
 
-- (XPSequenceValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
+- (XPSequenceValue *)evaluateAsSequenceInContext:(XPContext *)ctx {
     return self;
 }
 

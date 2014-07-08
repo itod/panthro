@@ -51,11 +51,11 @@
 
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
-    return [self evaluateAsNodeSetInContext:ctx];
+    return [self evaluateAsSequenceInContext:ctx];
 }
 
 
-- (XPSequenceValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
+- (XPSequenceValue *)evaluateAsSequenceInContext:(XPContext *)ctx {
     XPAssert([_forClauses count]);
     XPAssert(_bodyExpression);
     

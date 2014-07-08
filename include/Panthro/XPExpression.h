@@ -54,7 +54,7 @@ typedef NS_ENUM(NSUInteger, XPDependencies) {
 - (BOOL)evaluateAsBooleanInContext:(XPContext *)ctx;
 - (double)evaluateAsNumberInContext:(XPContext *)ctx;
 - (NSString *)evaluateAsStringInContext:(XPContext *)ctx;
-- (XPSequenceValue *)evaluateAsNodeSetInContext:(XPContext *)ctx;
+- (XPSequenceValue *)evaluateAsSequenceInContext:(XPContext *)ctx;
 
 - (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted;
 

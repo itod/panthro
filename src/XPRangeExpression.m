@@ -27,11 +27,11 @@
 //    Otherwise, the result is a sequence containing the two integer operands and every integer between the two operands, in increasing order.
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
-    return [self evaluateAsNodeSetInContext:ctx];
+    return [self evaluateAsSequenceInContext:ctx];
 }
 
 
-- (XPSequenceValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
+- (XPSequenceValue *)evaluateAsSequenceInContext:(XPContext *)ctx {
     NSMutableArray *v = [NSMutableArray array];
     
     double d1 = [self.p1 evaluateAsNumberInContext:ctx];

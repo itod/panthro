@@ -45,7 +45,7 @@
 }
 
 
-- (XPSequenceValue *)evaluateAsNodeSetInContext:(XPContext *)ctx {
+- (XPSequenceValue *)evaluateAsSequenceInContext:(XPContext *)ctx {
     id <XPItem>arg = [self.args[0] evaluateInContext:ctx];
     XPSequenceValue *seq = [self distinct:arg];
     seq.range = self.range;
@@ -54,7 +54,7 @@
 
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
-    XPValue *val = [self evaluateAsNodeSetInContext:ctx];
+    XPValue *val = [self evaluateAsSequenceInContext:ctx];
     return val;
 }
 
