@@ -1379,6 +1379,8 @@
 			children = (
 				D33E9F911917040D00BB7DFE /* XPPathExpression.h */,
 				D33E9F921917040D00BB7DFE /* XPPathExpression.m */,
+				D3BE142C191C40E500005C81 /* XPBaseFastEnumeration.h */,
+				D3BE142D191C40E500005C81 /* XPBaseFastEnumeration.m */,
 				D36036141961D0280047F6A4 /* XPPathEnumeration.h */,
 				D36036151961D0280047F6A4 /* XPPathEnumeration.m */,
 				D3F0CBD7191EC4F10049EC02 /* XPAxisExpression.h */,
@@ -1395,8 +1397,6 @@
 				D3411B58191A87960082A196 /* XPContextNodeExpression.m */,
 				D360361B1961F3610047F6A4 /* XPParentNodeExpression.h */,
 				D360361C1961F3610047F6A4 /* XPParentNodeExpression.m */,
-				D3BE142C191C40E500005C81 /* XPBaseFastEnumeration.h */,
-				D3BE142D191C40E500005C81 /* XPBaseFastEnumeration.m */,
 				D33E9F9D191706E100BB7DFE /* XPEmptyEnumeration.h */,
 				D33E9F9E191706E100BB7DFE /* XPEmptyEnumeration.m */,
 				D3BBAE90191DD0CF00766EB4 /* XPSingletonEnumeration.h */,

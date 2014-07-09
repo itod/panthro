@@ -7,7 +7,6 @@
 //
 
 #import "XPEmptyEnumeration.h"
-#import "XPNodeInfo.h"
 
 @implementation XPEmptyEnumeration
 
