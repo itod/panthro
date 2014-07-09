@@ -41,8 +41,8 @@
         NSMutableArray *nodes = [NSMutableArray array];
         
         NSUInteger c = 0;
-        for (id <XPItem>node in enm) {
-            [nodes addObject:node];
+        while ([enm hasMoreItems]) {
+            [nodes addObject:[enm nextItem]];
             ++c;
         }
         

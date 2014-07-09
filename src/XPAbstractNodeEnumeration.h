@@ -6,9 +6,9 @@
 //
 //
 
-#import "XPBaseFastEnumeration.h"
+#import "XPBaseEnumeration.h"
 
 // This abstract base class is a placeholder type so you can easily determine if a given Enumeration contains only NodeInfos
-@interface XPAbstractNodeEnumeration : XPBaseFastEnumeration
+@interface XPAbstractNodeEnumeration : XPBaseEnumeration
 
 @end

@@ -6,7 +6,7 @@
 //
 //
 
-#import "XPBaseFastEnumeration.h"
+#import "XPBaseEnumeration.h"
 #import "XPLastPositionFinder.h"
 
 // The way this class works is that all calls to hasMoreElements() and nextElement() are
@@ -26,7 +26,7 @@
  * determine the last() position for itself, i.e. one that is not a LastPositionFinder.
  */
 
-@interface XPLookaheadEnumerator : XPBaseFastEnumeration <XPLastPositionFinder>
+@interface XPLookaheadEnumerator : XPBaseEnumeration <XPLastPositionFinder>
 
 - (instancetype)initWithBase:(id <XPSequenceEnumeration>)base;
 @end

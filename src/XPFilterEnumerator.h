@@ -6,7 +6,7 @@
 //
 //
 
-#import "XPBaseFastEnumeration.h"
+#import "XPBaseEnumeration.h"
 #import "XPSequenceEnumeration.h"
 
 @class XPExpression;
@@ -18,7 +18,7 @@
  * which requires a lookahead.
  */
 
-@interface XPFilterEnumerator : XPBaseFastEnumeration
+@interface XPFilterEnumerator : XPBaseEnumeration
 
 - (instancetype)initWithBase:(id <XPSequenceEnumeration>)base filter:(XPExpression *)filter context:(XPContext *)ctx finishAfterReject:(BOOL)finishAfterReject;
 @property (nonatomic, retain) XPContext *filterContext;

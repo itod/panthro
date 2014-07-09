@@ -1,16 +1,16 @@
 //
-//  XPBaseFastEnumeration.m
+//  XPBaseEnumeration.m
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 5/8/14.
 //
 //
 
-#import "XPBaseFastEnumeration.h"
+#import "XPBaseEnumeration.h"
 #import "XPItem.h"
 #import "XPException.h"
 
-@implementation XPBaseFastEnumeration
+@implementation XPBaseEnumeration
 
 - (BOOL)isSorted {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
@@ -56,28 +56,28 @@
 }
 
 
-- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id *)stackbuf count:(NSUInteger)len {
-    NSUInteger count = 0;
-    
-    id <XPItem>node = nil;
-    
-    if (0 == state->state) {
-        node = [self nextItem];
-    } else {
-        node = (id <XPItem>)state->state;
-    }
-    
-    while (node && count < len) {
-        stackbuf[count] = node;
-        node = [self nextItem];
-        count++;
-    }
-    
-    state->state = (unsigned long)node;
-    state->itemsPtr = stackbuf;
-    state->mutationsPtr = (unsigned long *)self;
-    
-    return count;
-}
+//- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id *)stackbuf count:(NSUInteger)len {
+//    NSUInteger count = 0;
+//    
+//    id <XPItem>node = nil;
+//    
+//    if (0 == state->state) {
+//        node = [self nextItem];
+//    } else {
+//        node = (id <XPItem>)state->state;
+//    }
+//    
+//    while (node && count < len) {
+//        stackbuf[count] = node;
+//        node = [self nextItem];
+//        count++;
+//    }
+//    
+//    state->state = (unsigned long)node;
+//    state->itemsPtr = stackbuf;
+//    state->mutationsPtr = (unsigned long *)self;
+//    
+//    return count;
+//}
 
 @end

@@ -6,11 +6,11 @@
 //
 //
 
-#import "XPBaseFastEnumeration.h"
+#import "XPBaseEnumeration.h"
 
 @class XPSequenceExtent;
 
-@interface XPSequenceExtentEnumeration : XPBaseFastEnumeration
+@interface XPSequenceExtentEnumeration : XPBaseEnumeration
 
 - (instancetype)initWithSequenceExtent:(XPSequenceExtent *)seq;
 

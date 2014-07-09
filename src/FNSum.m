@@ -83,8 +83,8 @@
 
 - (double)total:(id <XPSequenceEnumeration>)enm {
     double sum = 0.0;
-    for (id node in enm) {
-        sum += XPNumberFromString([node stringValue]);
+    while ([enm hasMoreItems]) {
+        sum += XPNumberFromString([[enm nextItem] stringValue]);
     }
     return sum;
 }
