@@ -10,11 +10,14 @@
 #import "XPNodeSetExtent.h"
 #import "XPLocalOrderComparer.h"
 
-@interface XPIntersectEnumeration ()
+@interface XPUnionEnumeration ()
 @property (nonatomic, retain) id <XPNodeInfo>nextNode1;
 @property (nonatomic, retain) id <XPNodeInfo>nextNode2;
-@property (nonatomic, retain) id <XPNodeInfo>nextNode;
 @property (nonatomic, retain) id <XPNodeOrderComparer>comparer;
+@end
+
+@interface XPIntersectEnumeration ()
+@property (nonatomic, retain) id <XPNodeInfo>nextNode;
 @end
 
 @implementation XPIntersectEnumeration
@@ -23,28 +26,9 @@
     XPAssert(lhs);
     XPAssert(rhs);
     XPAssert(comparer);
-    self = [super init];
+    self = [super initWithLhs:lhs rhs:rhs comparer:comparer];
     if (self) {
         self.operator = @"intersect";
-        self.p1 = lhs;
-        self.p2 = rhs;
-        self.comparer = comparer;
-        self.e1 = self.p1;
-        self.e2 = self.p2;
-        
-        if (![self.e1 isSorted]) {
-            self.e1 = [[[[[XPNodeSetExtent alloc] initWithEnumeration:self.e1 comparer:_comparer] autorelease] sort] enumerate];
-        }
-        if (![self.e2 isSorted]) {
-            self.e2 = [[[[[XPNodeSetExtent alloc] initWithEnumeration:self.e2 comparer:_comparer] autorelease] sort] enumerate];
-        }
-        
-        if ([self.e1 hasMoreItems]) {
-            self.nextNode1 = [self nextNodeFromLhs];
-        }
-        if ([self.e2 hasMoreItems]) {
-            self.nextNode2 = [self nextNodeFromRhs];
-        }
         
         // move to the first node in p1 that isn't in p2
         [self advance];
@@ -55,25 +39,18 @@
 
 
 - (void)dealloc {
-    self.p1 = nil;
-    self.p2 = nil;
-    self.e1 = nil;
-    self.e2 = nil;
-    self.nextNode1 = nil;
-    self.nextNode2 = nil;
     self.nextNode = nil;
-    self.comparer = nil;
     [super dealloc];
 }
 
 
 - (BOOL)hasMoreItems {
-    return _nextNode != nil;
+    return self.nextNode != nil;
 }
 
 
 - (id <XPNodeInfo>)nextItem {
-    id <XPNodeInfo>current = _nextNode;
+    id <XPNodeInfo>current = self.nextNode;
     [self advance];
     return current;
 }
@@ -83,8 +60,8 @@
     // main merge loop: iterate whichever set has the lower value, returning when a pair
     // is found that match.
     
-    while (_nextNode1 && _nextNode2) {
-        NSInteger res = [_comparer compare:_nextNode1 to:_nextNode2];
+    while (self.nextNode1 && self.nextNode2) {
+        NSInteger res = [self.comparer compare:self.nextNode1 to:self.nextNode2];
         if (res < 0) {
             if ([self.e1 hasMoreItems]) {
                 self.nextNode1 = [self nextNodeFromLhs];
@@ -102,7 +79,7 @@
             }
             
         } else {                                                        // keys are equal
-            self.nextNode = _nextNode1; // which is the same as nextNode2
+            self.nextNode = self.nextNode1; // which is the same as nextNode2
             if ([self.e1 hasMoreItems]) {
                 self.nextNode1 = [self nextNodeFromLhs];
             } else {

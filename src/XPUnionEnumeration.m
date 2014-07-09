@@ -20,7 +20,7 @@
 
 @implementation XPUnionEnumeration
 
-- (instancetype)initWithLhs:(id <XPSequenceEnumeration>)lhs rhs:(id <XPSequenceEnumeration>)rhs comparer:(id <XPNodeOrderComparer>)comparer; {
+- (instancetype)initWithLhs:(id <XPSequenceEnumeration>)lhs rhs:(id <XPSequenceEnumeration>)rhs comparer:(id <XPNodeOrderComparer>)comparer {
     XPAssert(lhs);
     XPAssert(rhs);
     XPAssert(comparer);
