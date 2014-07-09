@@ -65,7 +65,7 @@
  * @param sort Indicates result must be in document order
  */
 
-- (id<XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
+- (id <XPSequenceEnumeration>)enumerateInContext:(XPContext *)ctx sorted:(BOOL)sorted {
     return [[[XPSingletonEnumeration alloc] initWithNode:[self nodeInContext:ctx]] autorelease];
 }
 

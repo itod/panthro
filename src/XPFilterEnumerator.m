@@ -198,6 +198,7 @@
 
 
 - (void)pause {
+    return;
     if (_resultNodes && _filterContext.staticContext.debug) {
         XPSequenceValue *contextNodeSet = [[[[XPNodeSetExtent alloc] initWithNodes:_contextNodes comparer:nil] autorelease] sort];
         

@@ -18,6 +18,8 @@
 #if PAUSE_ENABLED
 #import "XPStaticContext.h"
 #import "XPNodeSetExtent.h"
+#import "XPNodeSetValueEnumeration.h"
+#import "XPSingletonEnumeration.h"
 #endif
 
 @interface XPPathEnumeration ()
@@ -113,9 +115,9 @@
 
         id <XPNodeInfo>result = [_tail nextNodeInfo];
 
-#if PAUSE_ENABLED
-        [self addResultNode:result];
-#endif
+//#if PAUSE_ENABLED
+//        [self addResultNode:result];
+//#endif
 
         return result;
     }
@@ -123,18 +125,31 @@
     while ([_base hasMoreItems]) {
         id <XPNodeInfo>node = [_base nextNodeInfo];
 
-#if PAUSE_ENABLED
-        [self addContextNode:node];
-#endif
-
         self.tail = [_step enumerate:node inContext:_context];
+
+#if PAUSE_ENABLED
+        if (_context.staticContext.debug) {
+            [self addContextNode:node];
+            
+            if ([_tail isKindOfClass:[XPNodeSetValueEnumeration class]]) {
+                NSArray *nodes = [(XPNodeSetValueEnumeration *)_tail nodes];
+                self.resultNodes = [[nodes mutableCopy] autorelease];
+                [self pause];
+            } else if ([_tail isKindOfClass:[XPSingletonEnumeration class]]) {
+                self.resultNodes = [NSMutableArray arrayWithObject:[(XPSingletonEnumeration *)_tail node]];
+                [self pause];
+            }
+        }
+        
+#endif
+        
         if ([_tail hasMoreItems]) {
 
             id <XPNodeInfo>result = [_tail nextNodeInfo];
 
-#if PAUSE_ENABLED
-            [self addResultNode:result];
-#endif
+//#if PAUSE_ENABLED
+//            [self addResultNode:result];
+//#endif
 
             return result;
         }
@@ -153,12 +168,12 @@
 }
 
 
-- (void)addResultNode:(id <XPNodeInfo>)node {
-    XPAssert(node);
-    
-    XPAssert(_resultNodes);
-    [_resultNodes addObject:node];
-}
+//- (void)addResultNode:(id <XPNodeInfo>)node {
+//    XPAssert(node);
+//    
+//    XPAssert(_resultNodes);
+//    [_resultNodes addObject:node];
+//}
 
 
 - (void)pause {

@@ -10,7 +10,6 @@
 #import "XPNodeInfo.h"
 
 @interface XPSingletonEnumeration ()
-@property (nonatomic, retain) id <XPNodeInfo>node;
 @property (nonatomic, assign) BOOL gone;
 @property (nonatomic, assign) NSUInteger count;
 @end
