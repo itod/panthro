@@ -9,8 +9,11 @@
 #import "XPUnionEnumeration.h"
 #import "XPNodeSetExtent.h"
 #import "XPLocalOrderComparer.h"
+#import "XPNodeInfo.h"
+#import "XPException.h"
 
 @interface XPUnionEnumeration ()
+@property (nonatomic, retain) NSString *operator;
 @property (nonatomic, retain) id <XPSequenceEnumeration>p1;
 @property (nonatomic, retain) id <XPSequenceEnumeration>p2;
 @property (nonatomic, retain) id <XPSequenceEnumeration>e1;
@@ -22,12 +25,13 @@
 
 @implementation XPUnionEnumeration
 
-- (instancetype)initWithLhs:(id <XPSequenceEnumeration>)lhs rhs:(id <XPSequenceEnumeration>)rhs comparer:(id <XPNodeOrderComparer>)comparer {
+- (instancetype)initWithOperator:(NSString *)op lhs:(id <XPSequenceEnumeration>)lhs rhs:(id <XPSequenceEnumeration>)rhs comparer:(id <XPNodeOrderComparer>)comparer {
     XPAssert(lhs);
     XPAssert(rhs);
     XPAssert(comparer);
     self = [super init];
     if (self) {
+        self.operator = op;
         self.p1 = lhs;
         self.p2 = rhs;
         self.comparer = comparer;
@@ -42,10 +46,10 @@
         }
         
         if ([_e1 hasMoreItems]) {
-            self.nextNode1 = [_e1 nextNodeInfo];
+            self.nextNode1 = [self nextNodeFromLhs];
         }
         if ([_e2 hasMoreItems]) {
-            self.nextNode2 = [_e2 nextNodeInfo];
+            self.nextNode2 = [self nextNodeFromRhs];
         }
     }
     return self;
@@ -53,6 +57,7 @@
 
 
 - (void)dealloc {
+    self.operator = nil;
     self.p1 = nil;
     self.p2 = nil;
     self.e1 = nil;
@@ -84,7 +89,23 @@
 }
 
 
-- (id <XPNodeInfo>)nextItem {
+- (id <XPNodeInfo>)nextNodeFromLhs { return [self nextNodeFrom:_e1]; }
+- (id <XPNodeInfo>)nextNodeFromRhs { return [self nextNodeFrom:_e2]; }
+
+
+- (id <XPNodeInfo>)nextNodeFrom:(id <XPSequenceEnumeration>)enm {
+    id <XPNodeInfo>node = nil;
+    @try {
+        node = [enm nextNodeInfo];
+    }
+    @catch (XPException *ex) {
+        [XPException raiseWithFormat:@"The %@ operator requires Node-Set arguments. %@", self.operator, [ex reason]];
+    }
+    return node;
+}
+
+
+- (id <XPItem>)nextItem {
     // main merge loop: take a value from whichever set has the lower value
     
     if (_nextNode1 && _nextNode2) {
@@ -92,7 +113,7 @@
         if (res < 0) {
             id <XPNodeInfo>next = _nextNode1;
             if ([_e1 hasMoreItems]) {
-                self.nextNode1 = [_e1 nextNodeInfo];
+                self.nextNode1 = [self nextNodeFromLhs];
             } else {
                 self.nextNode1 = nil;
             }
@@ -101,7 +122,7 @@
         } else if (res > 0) {
             id <XPNodeInfo>next = _nextNode2;
             if ([_e2 hasMoreItems]) {
-                self.nextNode2 = [_e2 nextNodeInfo];
+                self.nextNode2 = [self nextNodeFromRhs];
             } else {
                 self.nextNode2 = nil;
             }
@@ -110,12 +131,12 @@
         } else {
             id <XPNodeInfo>next = _nextNode2;
             if ([_e2 hasMoreItems]) {
-                self.nextNode2 = [_e2 nextNodeInfo];
+                self.nextNode2 = [self nextNodeFromRhs];
             } else {
                 self.nextNode2 = nil;
             }
             if ([_e1 hasMoreItems]) {
-                self.nextNode1 = [_e1 nextNodeInfo];
+                self.nextNode1 = [self nextNodeFromLhs];
             } else {
                 self.nextNode1 = nil;
             }
@@ -128,7 +149,7 @@
     if (_nextNode1) {
         id <XPNodeInfo>next = _nextNode1;
         if ([_e1 hasMoreItems]) {
-            self.nextNode1 = [_e1 nextNodeInfo];
+            self.nextNode1 = [self nextNodeFromLhs];
         } else {
             self.nextNode1 = nil;
         }
@@ -137,7 +158,7 @@
     if (_nextNode2) {
         id <XPNodeInfo>next = _nextNode2;
         if ([_e2 hasMoreItems]) {
-            self.nextNode2 = [_e2 nextNodeInfo];
+            self.nextNode2 = [self nextNodeFromRhs];
         } else {
             self.nextNode2 = nil;
         }

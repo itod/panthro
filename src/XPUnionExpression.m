@@ -96,7 +96,7 @@
 //        [XPException raiseIn:self format:@"The %@ operator accepts only node-set arguments", self.operator];
 //    }
     
-    return [[[cls alloc] initWithLhs:enm1 rhs:enm2 comparer:[XPLocalOrderComparer instance]] autorelease];
+    return [[[cls alloc] initWithOperator:self.operator lhs:enm1 rhs:enm2 comparer:[XPLocalOrderComparer instance]] autorelease];
 }
 
 
