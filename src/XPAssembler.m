@@ -14,7 +14,7 @@
 
 #import "XPSequenceExpression.h"
 #import "XPRangeExpression.h"
-#import "XPForExpression.h"
+#import "XPFlworExpression.h"
 #import "XPForClause.h"
 #import "XPLetClause.h"
 #import "XPOrderClause.h"
@@ -258,7 +258,7 @@
     
     [a push:peek];
     
-    XPExpression *forExpr = [[[XPForExpression alloc] initWithForClauses:forClauses where:whereExpr orderClauses:orderClauses body:bodyExpr] autorelease];
+    XPExpression *forExpr = [[[XPFlworExpression alloc] initWithForClauses:forClauses where:whereExpr orderClauses:orderClauses body:bodyExpr] autorelease];
     forExpr.range = NSMakeRange(offset, NSMaxRange(bodyExpr.range) - offset);
     forExpr.staticContext = _env;
     [a push:forExpr];

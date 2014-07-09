@@ -6,7 +6,7 @@
 //
 //
 
-#import "XPForExpression.h"
+#import "XPFlworExpression.h"
 #import "XPContext.h"
 #import "XPSequenceEnumeration.h"
 #import "XPSequenceExtent.h"
@@ -18,7 +18,7 @@
 #import "XPEGParser.h"
 #import "XPNumericValue.h"
 
-@interface XPForExpression ()
+@interface XPFlworExpression ()
 @property (nonatomic, retain) NSArray *forClauses;
 @property (nonatomic, retain) XPExpression *whereExpression;
 @property (nonatomic, retain) NSArray *orderClauses;
@@ -26,7 +26,7 @@
 @property (nonatomic, retain) NSMutableArray *tuples;
 @end
 
-@implementation XPForExpression
+@implementation XPFlworExpression
 
 - (instancetype)initWithForClauses:(NSArray *)forClauses where:(XPExpression *)whereExpr orderClauses:(NSArray *)orderClauses body:(XPExpression *)bodyExpr {
     self = [super init];

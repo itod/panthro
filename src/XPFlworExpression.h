@@ -8,7 +8,7 @@
 
 #import <Panthro/XPExpression.h>
 
-@interface XPForExpression : XPExpression
+@interface XPFlworExpression : XPExpression
 
 - (instancetype)initWithForClauses:(NSArray *)forClauses where:(XPExpression *)whereExpr orderClauses:(NSArray *)orderClauses body:(XPExpression *)bodyExpr;
 @end
