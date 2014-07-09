@@ -6,10 +6,10 @@
 //
 //
 
-#import "XPBaseFastEnumeration.h"
+#import "XPAbstractNodeEnumeration.h"
 #import "XPAxisEnumeration.h"
 
-@interface XPNodeSetValueEnumeration : XPBaseFastEnumeration <XPAxisEnumeration>
+@interface XPNodeSetValueEnumeration : XPAbstractNodeEnumeration <XPAxisEnumeration>
 
 - (instancetype)initWithNodes:(NSArray *)nodes isSorted:(BOOL)sorted isReverseSorted:(BOOL)reverseSorted;
 

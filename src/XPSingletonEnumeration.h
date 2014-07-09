@@ -6,9 +6,9 @@
 //
 //
 
-#import "XPBaseFastEnumeration.h"
+#import "XPAbstractNodeEnumeration.h"
 #import "XPAxisEnumeration.h"
 
-@interface XPSingletonEnumeration : XPBaseFastEnumeration <XPAxisEnumeration>
+@interface XPSingletonEnumeration : XPAbstractNodeEnumeration <XPAxisEnumeration>
 - (instancetype)initWithNode:(id <XPNodeInfo>)node;
 @end

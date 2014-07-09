@@ -6,13 +6,13 @@
 //
 //
 
-#import "XPBaseFastEnumeration.h"
+#import "XPAbstractNodeEnumeration.h"
 
 @class XPExpression;
 @class XPStep;
 @class XPContext;
 
-@interface XPPathEnumeration : XPBaseFastEnumeration
+@interface XPPathEnumeration : XPAbstractNodeEnumeration
 
 - (instancetype)initWithStart:(XPExpression *)start step:(XPStep *)step context:(XPContext *)ctx;
 

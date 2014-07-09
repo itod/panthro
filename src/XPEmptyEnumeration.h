@@ -6,10 +6,10 @@
 //
 //
 
-#import "XPBaseFastEnumeration.h"
+#import "XPAbstractNodeEnumeration.h"
 #import "XPAxisEnumeration.h"
 
-@interface XPEmptyEnumeration : XPBaseFastEnumeration <XPAxisEnumeration>
+@interface XPEmptyEnumeration : XPAbstractNodeEnumeration <XPAxisEnumeration>
 
 + (instancetype)instance;
 

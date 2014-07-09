@@ -6,11 +6,11 @@
 //
 //
 
-#import "XPBaseFastEnumeration.h"
+#import "XPAbstractNodeEnumeration.h"
 
 @protocol XPNodeOrderComparer;
 
-@interface XPIntersectEnumeration : XPBaseFastEnumeration
+@interface XPIntersectEnumeration : XPAbstractNodeEnumeration
 
 - (instancetype)initWithLhs:(id <XPSequenceEnumeration>)lhs rhs:(id <XPSequenceEnumeration>)rhs comparer:(id <XPNodeOrderComparer>)comparer;
 @end

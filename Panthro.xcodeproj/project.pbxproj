@@ -415,6 +415,8 @@
 		D3F0CC11191EC8590049EC02 /* XPAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CC10191EC8590049EC02 /* XPAxis.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3F45868196CA45400F05EA0 /* XPNodeSetValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F45866196CA45400F05EA0 /* XPNodeSetValue.h */; };
 		D3F45869196CA45400F05EA0 /* XPNodeSetValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F45867196CA45400F05EA0 /* XPNodeSetValue.m */; };
+		D3F4586D196DE28300F05EA0 /* XPAbstractNodeEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F4586B196DE28300F05EA0 /* XPAbstractNodeEnumeration.h */; };
+		D3F4586E196DE28300F05EA0 /* XPAbstractNodeEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4586C196DE28300F05EA0 /* XPAbstractNodeEnumeration.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -852,6 +854,8 @@
 		D3F0CC10191EC8590049EC02 /* XPAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPAxis.h; path = include/Panthro/XPAxis.h; sourceTree = "<group>"; };
 		D3F45866196CA45400F05EA0 /* XPNodeSetValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPNodeSetValue.h; path = src/XPNodeSetValue.h; sourceTree = "<group>"; };
 		D3F45867196CA45400F05EA0 /* XPNodeSetValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNodeSetValue.m; path = src/XPNodeSetValue.m; sourceTree = "<group>"; };
+		D3F4586B196DE28300F05EA0 /* XPAbstractNodeEnumeration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPAbstractNodeEnumeration.h; path = src/XPAbstractNodeEnumeration.h; sourceTree = "<group>"; };
+		D3F4586C196DE28300F05EA0 /* XPAbstractNodeEnumeration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPAbstractNodeEnumeration.m; path = src/XPAbstractNodeEnumeration.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1381,6 +1385,8 @@
 				D33E9F921917040D00BB7DFE /* XPPathExpression.m */,
 				D3BE142C191C40E500005C81 /* XPBaseFastEnumeration.h */,
 				D3BE142D191C40E500005C81 /* XPBaseFastEnumeration.m */,
+				D3F4586B196DE28300F05EA0 /* XPAbstractNodeEnumeration.h */,
+				D3F4586C196DE28300F05EA0 /* XPAbstractNodeEnumeration.m */,
 				D36036141961D0280047F6A4 /* XPPathEnumeration.h */,
 				D36036151961D0280047F6A4 /* XPPathEnumeration.m */,
 				D3F0CBD7191EC4F10049EC02 /* XPAxisExpression.h */,
@@ -1568,6 +1574,7 @@
 				D3F0CC03191EC8180049EC02 /* XPExpression.h in Headers */,
 				D3F0CBAB191EC23D0049EC02 /* FNStringLength.h in Headers */,
 				D3A6C2EF1907413800F3EFF3 /* XPStep.h in Headers */,
+				D3F4586D196DE28300F05EA0 /* XPAbstractNodeEnumeration.h in Headers */,
 				D3F0CC0B191EC8250049EC02 /* XPSequenceValue.h in Headers */,
 				D3C0F59E19214FE700566524 /* FNTrimSpace.h in Headers */,
 				D339F66C1928EA1100C79A51 /* FNId.h in Headers */,
@@ -1850,6 +1857,7 @@
 				D339F6141927B66500C79A51 /* catalog.c in Sources */,
 				D339F6271927B66500C79A51 /* SAX.c in Sources */,
 				D36712E2192ACC1700B13A63 /* XPSynchronousChannel.m in Sources */,
+				D3F4586E196DE28300F05EA0 /* XPAbstractNodeEnumeration.m in Sources */,
 				D33930F8191F132D00259939 /* XPVariableReference.m in Sources */,
 				D339F64B1927B66500C79A51 /* xmlsave.c in Sources */,
 				D339311F1920527200259939 /* FNUpperCase.m in Sources */,
