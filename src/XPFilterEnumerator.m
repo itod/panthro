@@ -133,13 +133,6 @@
 - (BOOL)hasMoreItems {
     if (_finished) return NO;
     BOOL res = _current != nil;
-
-#if FILTER_PAUSE_ENABLED
-    if (!res) {
-        //[self pause];
-    }
-#endif
-
     return res;;
 }
 
@@ -153,11 +146,11 @@
     id <XPItem>node = _current;
     self.current = [self nextMatchingObject];
     
-//#if FILTER_PAUSE_ENABLED
-//    if (![self hasMoreItems]) {
-//        [self pause];
-//    }
-//#endif
+#if FILTER_PAUSE_ENABLED
+    if (![self hasMoreItems]) {
+        [self pause];
+    }
+#endif
     
     return node;
 }

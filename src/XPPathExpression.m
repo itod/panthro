@@ -225,8 +225,7 @@
 
     // ok, here we are.
     
-    XPPathEnumeration *pathEnm = [[[XPPathEnumeration alloc] initWithStart:_start step:_step context:ctx] autorelease];
-    id <XPSequenceEnumeration>enm = pathEnm;
+    id <XPSequenceEnumeration>enm = [[[XPPathEnumeration alloc] initWithStart:_start step:_step context:ctx] autorelease];
     if (sorted && !enm.isSorted) {
         
         id <XPNodeOrderComparer>comparer = nil;
