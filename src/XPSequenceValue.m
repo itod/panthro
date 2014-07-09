@@ -98,8 +98,9 @@
 - (NSDictionary *)stringValues {
     if (!_stringValues) {
         NSMutableDictionary *d = [NSMutableDictionary dictionary];
-        for (id node in [self enumerate]) {
-            [d setObject:[NSNull null] forKey:[node stringValue]];
+        id <XPSequenceEnumeration>enm = [self enumerate];
+        while ([enm hasMoreItems]) {
+            [d setObject:[NSNull null] forKey:[[enm nextItem] stringValue]];
         }
 
         self.stringValues = [[d copy] autorelease];
@@ -127,22 +128,24 @@
             NSDictionary *table = [self stringValues];
             
             id <XPSequenceEnumeration>e2 = [(XPSequenceValue *)other enumerate];
-            for (id node in e2) {
-                if ([table objectForKey:[node stringValue]]) return YES;
+            while ([e2 hasMoreItems]) {
+                if ([table objectForKey:[[e2 nextItem] stringValue]]) return YES;
             }
             return NO;
         }
 
     } else if ([other isNumericValue]) {
-        for (id node in [self enumerate]) {
-            if (XPNumberFromString([node stringValue]) == [other asNumber]) return YES;
+        id <XPSequenceEnumeration>enm = [self enumerate];
+        while ([enm hasMoreItems]) {
+            if (XPNumberFromString([[enm nextItem] stringValue]) == [other asNumber]) return YES;
         }
         return NO;
 
     } else if ([other isStringValue]) {
         if (!_stringValues) {
-            for (id node in [self enumerate]) {
-                if ([[node stringValue] isEqualToString:[other asString]]) return YES;
+            id <XPSequenceEnumeration>enm = [self enumerate];
+            while ([enm hasMoreItems]) {
+                if ([[[enm nextItem] stringValue] isEqualToString:[other asString]]) return YES;
             }
             return NO;
         } else {
@@ -194,15 +197,17 @@
         }
         
     } else if ([other isNumericValue]) {
-        for (id node in [self enumerate]) {
-            if (XPNumberFromString([node stringValue]) != [other asNumber]) return YES;
+        id <XPSequenceEnumeration>enm = [self enumerate];
+        while ([enm hasMoreItems]) {
+            if (XPNumberFromString([[enm nextItem] stringValue]) != [other asNumber]) return YES;
         }
         return NO;
         
     } else if ([other isStringValue]) {
         if (!_stringValues) {
-            for (id node in [self enumerate]) {
-                if (![[node stringValue] isEqualToString:[other asString]]) return YES;
+            id <XPSequenceEnumeration>enm = [self enumerate];
+            while ([enm hasMoreItems]) {
+                if (![[[enm nextItem] stringValue] isEqualToString:[other asString]]) return YES;
             }
             return NO;
         } else {

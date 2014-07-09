@@ -12,7 +12,7 @@
 @protocol XPNodeInfo;
 @class XPValue;
 
-@protocol XPSequenceEnumeration <NSFastEnumeration, NSObject>
+@protocol XPSequenceEnumeration <NSObject>
 
 /**
  * Determine whether the nodes returned by this enumeration are known to be in document order
