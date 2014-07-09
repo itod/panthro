@@ -26,7 +26,6 @@
     XPAssert(comparer);
     self = [super init];
     if (self) {
-        self.operator = @"union";
         self.p1 = lhs;
         self.p2 = rhs;
         self.comparer = comparer;
@@ -52,7 +51,6 @@
 
 
 - (void)dealloc {
-    self.operator = nil;
     self.p1 = nil;
     self.p2 = nil;
     self.e1 = nil;
@@ -61,6 +59,11 @@
     self.nextNode2 = nil;
     self.comparer = nil;
     [super dealloc];
+}
+
+
+- (NSString *)operator {
+    return @"union";
 }
 
 

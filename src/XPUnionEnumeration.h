@@ -22,5 +22,5 @@
 @property (nonatomic, retain) id <XPSequenceEnumeration>e1;
 @property (nonatomic, retain) id <XPSequenceEnumeration>e2;
 
-@property (nonatomic, retain) NSString *operator;
+@property (nonatomic, retain, readonly) NSString *operator;
 @end

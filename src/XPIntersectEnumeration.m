@@ -28,7 +28,6 @@
     XPAssert(comparer);
     self = [super initWithLhs:lhs rhs:rhs comparer:comparer];
     if (self) {
-        self.operator = @"intersect";
         
         // move to the first node in p1 that isn't in p2
         [self advance];
@@ -41,6 +40,11 @@
 - (void)dealloc {
     self.nextNode = nil;
     [super dealloc];
+}
+
+
+- (NSString *)operator {
+    return @"intersect";
 }
 
 
