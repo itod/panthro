@@ -78,7 +78,15 @@
 
 
 - (BOOL)hasMoreItems {
-    return _next != nil;
+    BOOL res = _next != nil;
+    
+#if PAUSE_ENABLED
+    if (!res) {
+        [self pause];
+    }
+#endif
+
+    return res;
 }
 
 
@@ -86,11 +94,11 @@
     id <XPNodeInfo>curr = _next;
     self.next = [self nextNode];
     
-#if PAUSE_ENABLED
-    if (![self hasMoreItems]) {
-        [self pause];
-    }
-#endif
+//#if PAUSE_ENABLED
+//    if (![self hasMoreItems]) {
+//        [self pause];
+//    }
+//#endif
 
     return curr;
 }
@@ -154,9 +162,7 @@
 
 
 - (void)pause {
-    XPAssert(![_tail hasMoreItems]);
-
-    if (_resultNodes) {
+    if (_resultNodes && _context.staticContext.debug) {
         XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_contextNodes comparer:nil] autorelease];
         [contextNodeSet sort];
         

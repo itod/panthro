@@ -132,7 +132,15 @@
 
 - (BOOL)hasMoreItems {
     if (_finished) return NO;
-    return _current != nil;
+    BOOL res = _current != nil;
+
+#if FILTER_PAUSE_ENABLED
+    if (!res) {
+        //[self pause];
+    }
+#endif
+
+    return res;;
 }
 
 
@@ -145,11 +153,11 @@
     id <XPItem>node = _current;
     self.current = [self nextMatchingObject];
     
-#if FILTER_PAUSE_ENABLED
-    if (![self hasMoreItems]) {
-        [self pause];
-    }
-#endif
+//#if FILTER_PAUSE_ENABLED
+//    if (![self hasMoreItems]) {
+//        [self pause];
+//    }
+//#endif
     
     return node;
 }
@@ -197,9 +205,7 @@
 
 
 - (void)pause {
-    XPAssert(![self hasMoreItems]);
-    
-    if (_resultNodes) {
+    if (_resultNodes && _filterContext.staticContext.debug) {
         XPSequenceValue *contextNodeSet = [[[[XPNodeSetExtent alloc] initWithNodes:_contextNodes comparer:nil] autorelease] sort];
         
         XPSequenceValue *resultNodeSet = [[[[XPNodeSetExtent alloc] initWithNodes:_resultNodes comparer:nil] autorelease] sort];

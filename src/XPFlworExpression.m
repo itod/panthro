@@ -142,8 +142,8 @@
 
     NSUInteger idx = 1;
     while ([seqEnm hasMoreItems]) {
-        id <XPItem>inItem = [seqEnm nextItem];
-        [ctx setItem:inItem forVariable:curForClause.variableName];
+        id <XPItem>forItem = [seqEnm nextItem];
+        [ctx setItem:forItem forVariable:curForClause.variableName];
         if (curForClause.positionName) {
             [ctx setItem:[XPNumericValue numericValueWithNumber:idx++] forVariable:curForClause.positionName];
         }
