@@ -43,7 +43,6 @@
 
 - (id <XPItem>)nextItem;
 - (id <XPNodeInfo>)nextNodeInfo;
-- (XPValue *)nextValue;
 
 /**
  * Determine whether the nodes returned by this enumeration are known to be peers, that is,

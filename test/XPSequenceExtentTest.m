@@ -104,11 +104,11 @@
     
     XPValue *val = nil;
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"1", val.stringValue);
     TDEquals(1.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"2", val.stringValue);
     TDEquals(2.0, [val asNumber]);
     
@@ -123,7 +123,7 @@
     
     XPValue *val = nil;
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"1", val.stringValue);
     TDEquals(1.0, [val asNumber]);
     
@@ -138,7 +138,7 @@
     
     XPValue *val = nil;
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"2", val.stringValue);
     TDEquals(2.0, [val asNumber]);
     
@@ -153,15 +153,15 @@
     
     XPValue *val = nil;
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"1", val.stringValue);
     TDEquals(1.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"2", val.stringValue);
     TDEquals(2.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"3", val.stringValue);
     TDEquals(3.0, [val asNumber]);
     
@@ -176,7 +176,7 @@
     
     XPValue *val = nil;
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"2", val.stringValue);
     TDEquals(2.0, [val asNumber]);
     
@@ -237,15 +237,15 @@
     
     XPValue *val = nil;
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"1", val.stringValue);
     TDEquals(1.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"2", val.stringValue);
     TDEquals(2.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"3", val.stringValue);
     TDEquals(3.0, [val asNumber]);
     
@@ -285,15 +285,15 @@
     
     XPValue *val = nil;
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"1", val.stringValue);
     TDEquals(1.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"2", val.stringValue);
     TDEquals(2.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"3", val.stringValue);
     TDEquals(3.0, [val asNumber]);
     
@@ -308,15 +308,15 @@
     
     XPValue *val = nil;
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"1", val.stringValue);
     TDEquals(1.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"2", val.stringValue);
     TDEquals(2.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"3", val.stringValue);
     TDEquals(3.0, [val asNumber]);
     
@@ -331,15 +331,15 @@
     
     XPValue *val = nil;
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"3", val.stringValue);
     TDEquals(3.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"2", val.stringValue);
     TDEquals(2.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"1", val.stringValue);
     TDEquals(1.0, [val asNumber]);
     
@@ -354,15 +354,15 @@
     
     XPValue *val = nil;
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"1", val.stringValue);
     TDEquals(1.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"2", val.stringValue);
     TDEquals(2.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"3", val.stringValue);
     TDEquals(3.0, [val asNumber]);
     
@@ -377,15 +377,15 @@
     
     XPValue *val = nil;
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"1", val.stringValue);
     TDEquals(1.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"4", val.stringValue);
     TDEquals(4.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"9", val.stringValue);
     TDEquals(9.0, [val asNumber]);
     
@@ -400,11 +400,11 @@
     
     XPValue *val = nil;
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"2", val.stringValue);
     TDEquals(2.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"3", val.stringValue);
     TDEquals(3.0, [val asNumber]);
     
@@ -419,24 +419,24 @@
     
     XPValue *val = nil;
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"a", val.stringValue);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"1", val.stringValue);
     TDEquals(1.0, [val asNumber]);
 
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"b", val.stringValue);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"2", val.stringValue);
     TDEquals(2.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"c", val.stringValue);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"3", val.stringValue);
     TDEquals(3.0, [val asNumber]);
     TDFalse([enm hasMoreItems]);
@@ -452,35 +452,35 @@
     
     XPValue *val = nil;
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"1", val.stringValue);
     TDEquals(1.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"3", val.stringValue);
     TDEquals(3.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"1", val.stringValue);
     TDEquals(1.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"4", val.stringValue);
     TDEquals(4.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"2", val.stringValue);
     TDEquals(2.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"3", val.stringValue);
     TDEquals(3.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"2", val.stringValue);
     TDEquals(2.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"4", val.stringValue);
     TDEquals(4.0, [val asNumber]);
     
@@ -495,35 +495,35 @@
     
     XPValue *val = nil;
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"1", val.stringValue);
     TDEquals(1.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"3", val.stringValue);
     TDEquals(3.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"1", val.stringValue);
     TDEquals(1.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"4", val.stringValue);
     TDEquals(4.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"2", val.stringValue);
     TDEquals(2.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"3", val.stringValue);
     TDEquals(3.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"2", val.stringValue);
     TDEquals(2.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"4", val.stringValue);
     TDEquals(4.0, [val asNumber]);
     
@@ -538,19 +538,19 @@
     
     XPValue *val = nil;
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"2", val.stringValue);
     TDEquals(2.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"3", val.stringValue);
     TDEquals(3.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"2", val.stringValue);
     TDEquals(2.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"4", val.stringValue);
     TDEquals(4.0, [val asNumber]);
     
@@ -565,19 +565,19 @@
     
     XPValue *val = nil;
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"3", val.stringValue);
     TDEquals(3.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"3", val.stringValue);
     TDEquals(3.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"4", val.stringValue);
     TDEquals(4.0, [val asNumber]);
     
-    val = [enm nextValue];
+    val = [enm nextItem];
     TDEqualObjects(@"4", val.stringValue);
     TDEquals(4.0, [val asNumber]);
     

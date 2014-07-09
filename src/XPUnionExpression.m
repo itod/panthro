@@ -92,9 +92,9 @@
     id <XPSequenceEnumeration>enm1 = [_p1 enumerateInContext:ctx sorted:YES];
     id <XPSequenceEnumeration>enm2 = [_p2 enumerateInContext:ctx sorted:YES];
     
-    if (![enm1 isKindOfClass:[XPAbstractNodeEnumeration class]] || ![enm2 isKindOfClass:[XPAbstractNodeEnumeration class]]) {
-        [XPException raiseIn:self format:@"The %@ operator accepts only node-set arguments", self.operator];
-    }
+//    if (![enm1 isKindOfClass:[XPAbstractNodeEnumeration class]] || ![enm2 isKindOfClass:[XPAbstractNodeEnumeration class]]) {
+//        [XPException raiseIn:self format:@"The %@ operator accepts only node-set arguments", self.operator];
+//    }
     
     return [[[cls alloc] initWithLhs:enm1 rhs:enm2 comparer:[XPLocalOrderComparer instance]] autorelease];
 }

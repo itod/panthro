@@ -7,6 +7,8 @@
 //
 
 #import "XPBaseFastEnumeration.h"
+#import "XPItem.h"
+#import "XPException.h"
 
 @implementation XPBaseFastEnumeration
 
@@ -35,12 +37,16 @@
 
 
 - (id <XPNodeInfo>)nextNodeInfo {
-    return (id <XPNodeInfo>)[self nextItem];
-}
+    id <XPItem>item = [self nextItem];
 
-
-- (XPValue *)nextValue {
-    return (XPValue *)[self nextItem];
+    id <XPNodeInfo>node = nil;
+    if ([item conformsToProtocol:@protocol(XPNodeInfo)]) {
+        node = (id)item;
+    } else {
+        [XPException raiseWithFormat:@"Expecting a Node but found an Atomic Value instead: %@", item];
+    }
+    
+    return node;
 }
 
 
