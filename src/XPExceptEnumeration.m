@@ -11,10 +11,6 @@
 #import "XPLocalOrderComparer.h"
 
 @interface XPExceptEnumeration ()
-@property (nonatomic, retain) id <XPSequenceEnumeration>p1;
-@property (nonatomic, retain) id <XPSequenceEnumeration>p2;
-@property (nonatomic, retain) id <XPSequenceEnumeration>e1;
-@property (nonatomic, retain) id <XPSequenceEnumeration>e2;
 @property (nonatomic, retain) id <XPNodeInfo>nextNode1;
 @property (nonatomic, retain) id <XPNodeInfo>nextNode2;
 @property (nonatomic, retain) id <XPNodeInfo>nextNode;
@@ -29,24 +25,25 @@
     XPAssert(comparer);
     self = [super init];
     if (self) {
+        self.operator = @"except";
         self.p1 = lhs;
         self.p2 = rhs;
         self.comparer = comparer;
-        self.e1 = _p1;
-        self.e2 = _p2;
+        self.e1 = self.p1;
+        self.e2 = self.p2;
         
-        if (![_e1 isSorted]) {
-            self.e1 = [[[[[XPNodeSetExtent alloc] initWithEnumeration:_e1 comparer:_comparer] autorelease] sort] enumerate];
+        if (![self.e1 isSorted]) {
+            self.e1 = [[[[[XPNodeSetExtent alloc] initWithEnumeration:self.e1 comparer:_comparer] autorelease] sort] enumerate];
         }
-        if (![_e2 isSorted]) {
-            self.e2 = [[[[[XPNodeSetExtent alloc] initWithEnumeration:_e2 comparer:_comparer] autorelease] sort] enumerate];
+        if (![self.e2 isSorted]) {
+            self.e2 = [[[[[XPNodeSetExtent alloc] initWithEnumeration:self.e2 comparer:_comparer] autorelease] sort] enumerate];
         }
         
-        if ([_e1 hasMoreItems]) {
-            self.nextNode1 = [_e1 nextNodeInfo];
+        if ([self.e1 hasMoreItems]) {
+            self.nextNode1 = [self nextNodeFromLhs];
         }
-        if ([_e2 hasMoreItems]) {
-            self.nextNode2 = [_e2 nextNodeInfo];
+        if ([self.e2 hasMoreItems]) {
+            self.nextNode2 = [self nextNodeFromRhs];
         }
         
         // move to the first node in p1 that isn't in p2
@@ -70,21 +67,6 @@
 }
 
 
-- (BOOL)isSorted {
-    return YES;
-}
-
-
-- (BOOL)isReverseSorted {
-    return NO;
-}
-
-
-- (BOOL)isPeer {
-    return NO;
-}
-
-
 - (BOOL)hasMoreItems {
     return _nextNode != nil;
 }
@@ -105,8 +87,8 @@
         NSInteger res = [_comparer compare:_nextNode1 to:_nextNode2];
         if (res < 0) {                                                  // p1 is lower
             id <XPNodeInfo>next = _nextNode1;
-            if ([_e1 hasMoreItems]) {
-                self.nextNode1 = [_e1 nextNodeInfo];
+            if ([self.e1 hasMoreItems]) {
+                self.nextNode1 = [self nextNodeFromLhs];
             } else {
                 self.nextNode1 = nil;
                 self.nextNode = nil;
@@ -115,21 +97,21 @@
             return;
             
         } else if (res > 0) {                                           // p1 is higher
-            if ([_e2 hasMoreItems]) {
-                self.nextNode2 = [_e2 nextNodeInfo];
+            if ([self.e2 hasMoreItems]) {
+                self.nextNode2 = [self nextNodeFromRhs];
             } else {
                 self.nextNode2 = nil;
                 self.nextNode = nil;
             }
             
         } else {                                                        // keys are equal
-            if ([_e1 hasMoreItems]) {
-                self.nextNode1 = [_e1 nextNodeInfo];
+            if ([self.e1 hasMoreItems]) {
+                self.nextNode1 = [self nextNodeFromLhs];
             } else {
                 self.nextNode1 = nil;
             }
-            if ([_e2 hasMoreItems]) {
-                self.nextNode2 = [_e2 nextNodeInfo];
+            if ([self.e2 hasMoreItems]) {
+                self.nextNode2 = [self nextNodeFromRhs];
             } else {
                 self.nextNode2 = nil;
             }
@@ -140,8 +122,8 @@
     
     if (_nextNode1) {
         self.nextNode = _nextNode1;
-        if ([_e1 hasMoreItems]) {
-            self.nextNode1 = [_e1 nextNodeInfo];
+        if ([self.e1 hasMoreItems]) {
+            self.nextNode1 = [self nextNodeFromLhs];
         } else {
             self.nextNode1 = nil;
         }

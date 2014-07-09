@@ -12,5 +12,15 @@
 
 @interface XPUnionEnumeration : XPAbstractNodeEnumeration
 
-- (instancetype)initWithOperator:(NSString *)op lhs:(id <XPSequenceEnumeration>)lhs rhs:(id <XPSequenceEnumeration>)rhs comparer:(id <XPNodeOrderComparer>)comparer;
+- (instancetype)initWithLhs:(id <XPSequenceEnumeration>)lhs rhs:(id <XPSequenceEnumeration>)rhs comparer:(id <XPNodeOrderComparer>)comparer;
+
+- (id <XPNodeInfo>)nextNodeFromLhs;
+- (id <XPNodeInfo>)nextNodeFromRhs;
+
+@property (nonatomic, retain) id <XPSequenceEnumeration>p1;
+@property (nonatomic, retain) id <XPSequenceEnumeration>p2;
+@property (nonatomic, retain) id <XPSequenceEnumeration>e1;
+@property (nonatomic, retain) id <XPSequenceEnumeration>e2;
+
+@property (nonatomic, retain) NSString *operator;
 @end

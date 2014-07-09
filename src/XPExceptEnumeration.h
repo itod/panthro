@@ -6,11 +6,11 @@
 //
 //
 
-#import "XPAbstractNodeEnumeration.h"
+#import "XPUnionEnumeration.h"
 
 @protocol XPNodeOrderComparer;
 
-@interface XPExceptEnumeration : XPAbstractNodeEnumeration
+@interface XPExceptEnumeration : XPUnionEnumeration
 
 - (instancetype)initWithLhs:(id <XPSequenceEnumeration>)lhs rhs:(id <XPSequenceEnumeration>)rhs comparer:(id <XPNodeOrderComparer>)comparer;
 @end

@@ -13,11 +13,6 @@
 #import "XPException.h"
 
 @interface XPUnionEnumeration ()
-@property (nonatomic, retain) NSString *operator;
-@property (nonatomic, retain) id <XPSequenceEnumeration>p1;
-@property (nonatomic, retain) id <XPSequenceEnumeration>p2;
-@property (nonatomic, retain) id <XPSequenceEnumeration>e1;
-@property (nonatomic, retain) id <XPSequenceEnumeration>e2;
 @property (nonatomic, retain) id <XPNodeInfo>nextNode1;
 @property (nonatomic, retain) id <XPNodeInfo>nextNode2;
 @property (nonatomic, retain) id <XPNodeOrderComparer>comparer;
@@ -25,13 +20,13 @@
 
 @implementation XPUnionEnumeration
 
-- (instancetype)initWithOperator:(NSString *)op lhs:(id <XPSequenceEnumeration>)lhs rhs:(id <XPSequenceEnumeration>)rhs comparer:(id <XPNodeOrderComparer>)comparer {
+- (instancetype)initWithLhs:(id <XPSequenceEnumeration>)lhs rhs:(id <XPSequenceEnumeration>)rhs comparer:(id <XPNodeOrderComparer>)comparer; {
     XPAssert(lhs);
     XPAssert(rhs);
     XPAssert(comparer);
     self = [super init];
     if (self) {
-        self.operator = op;
+        self.operator = @"union";
         self.p1 = lhs;
         self.p2 = rhs;
         self.comparer = comparer;
