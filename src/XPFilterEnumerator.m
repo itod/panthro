@@ -150,11 +150,11 @@
     id <XPItem>node = _current;
     self.current = [self nextMatchingItem];
     
-#if PAUSE_ENABLED
-    if (![self hasMoreItems]) {
-        [self pause];
-    }
-#endif
+//#if PAUSE_ENABLED
+//    if (![self hasMoreItems]) {
+//        [self pause];
+//    }
+//#endif
     
     return node;
 }
@@ -200,16 +200,16 @@
 }
 
 
-#if PAUSE_ENABLED
-- (void)pause {
-    XPAssert(_pauseState);
-    XPSequenceValue *contextNodeSet = [[[[XPNodeSetExtent alloc] initWithNodes:[_pauseState contextNodes] comparer:nil] autorelease] sort];
-    
-    XPSequenceValue *resultNodeSet = [[[[XPNodeSetExtent alloc] initWithNodes:[_pauseState resultNodes] comparer:nil] autorelease] sort];
-    
-    [_filterContext.staticContext pauseFrom:_filter withContextNodes:contextNodeSet result:resultNodeSet range:_filter.range done:NO];
-}
-#endif
+//#if PAUSE_ENABLED
+//- (void)pause {
+//    XPAssert(_pauseState);
+//    XPSequenceValue *contextNodeSet = [[[[XPNodeSetExtent alloc] initWithNodes:[_pauseState contextNodes] comparer:nil] autorelease] sort];
+//    
+//    XPSequenceValue *resultNodeSet = [[[[XPNodeSetExtent alloc] initWithNodes:[_pauseState resultNodes] comparer:nil] autorelease] sort];
+//    
+//    [_filterContext.staticContext pauseFrom:_filter withContextNodes:contextNodeSet result:resultNodeSet range:_filter.range done:NO];
+//}
+//#endif
 
 
 /**

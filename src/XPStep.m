@@ -82,6 +82,15 @@
     }
     XPAssert(_allFilters);
     [_allFilters addObject:expr];
+    
+    XPPauseState *state = [[[XPPauseState alloc] init] autorelease];
+    state.expression = expr;
+
+    XPAssert(_filterPauseStates);
+    [_filterPauseStates addObject:state];
+    
+    XPAssert([_filterPauseStates count] == [_allFilters count]);
+    
     return self;
 }
 
@@ -143,23 +152,54 @@
 
 #if PAUSE_ENABLED
         if (ctx.staticContext.debug) {
-            [self addContextNode:node];
+            [_pauseState addContextNode:node];
             
             if ([enm conformsToProtocol:@protocol(XPPauseHandler)]) {
-                [self addResultNodes:[(id <XPPauseHandler>)enm currentResultNodes]];
-                [self pause:ctx parent:expr];
+                [_pauseState addResultNodes:[(id <XPPauseHandler>)enm currentResultNodes]];
             }
         }
 #endif
         
+        NSUInteger i = 0;
         for (XPExpression *filter in _allFilters) {
             XPFilterEnumerator *fe = [[[XPFilterEnumerator alloc] initWithBase:enm filter:filter context:ctx finishAfterReject:NO] autorelease];
+#if PAUSE_ENABLED
+            if (ctx.staticContext.debug) {
+                XPPauseState *total = _filterPauseStates[i];
+                [total addContextNodes:[fe.pauseState contextNodes]];
+                [total addResultNodes:[fe.pauseState resultNodes]];
+            }
+            ++i;
+#endif
             enm = fe;
         }
     }
 
+#if PAUSE_ENABLED
+    XPAssert([_filterPauseStates count] == [_allFilters count]);
+    if (ctx.staticContext.debug && ![_filterPauseStates count]) {
+        [self pause:_pauseState context:ctx parent:expr range:self.subRange];
+        self.pauseState = nil;
+    }
+#endif
+    
     return enm;
 }
+
+
+#if PAUSE_ENABLED
+- (void)pause:(XPPauseState *)state context:(XPContext *)ctx parent:(XPExpression *)expr range:(NSRange)range {
+    XPAssert(state);
+    
+    XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:[state contextNodes] comparer:nil] autorelease];
+    [contextNodeSet sort];
+    
+    XPNodeSetValue *resultNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:[state resultNodes] comparer:nil] autorelease];
+    [resultNodeSet sort];
+    
+    [ctx.staticContext pauseFrom:expr withContextNodes:contextNodeSet result:resultNodeSet range:range done:NO];
+}
+#endif
 
 
 - (NSArray *)filters {
@@ -170,37 +210,5 @@
 - (NSUInteger)numberOfFilters {
     return [_allFilters count];
 }
-
-
-#if PAUSE_ENABLED
-- (void)addContextNode:(id <XPNodeInfo>)node {
-    XPAssert(node);
-    
-    XPAssert(_pauseState);
-    self.pauseState = [[[XPPauseState alloc] init] autorelease];
-    [_pauseState addContextNode:node];
-}
-
-
-- (void)addResultNodes:(NSArray *)nodes {
-    XPAssert(nodes);
-    
-    XPAssert(_pauseState);
-    [_pauseState addResultNodes:nodes];
-}
-
-
-- (void)pause:(XPContext *)ctx parent:(XPExpression *)expr {
-    XPAssert(_pauseState);
-    
-    XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:[_pauseState contextNodes] comparer:nil] autorelease];
-    [contextNodeSet sort];
-    
-    XPNodeSetValue *resultNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:[_pauseState resultNodes] comparer:nil] autorelease];
-    [resultNodeSet sort];
-    
-    [ctx.staticContext pauseFrom:expr withContextNodes:contextNodeSet result:resultNodeSet range:self.subRange done:NO];
-}
-#endif
 
 @end

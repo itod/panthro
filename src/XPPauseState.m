@@ -28,13 +28,25 @@
 - (void)dealloc {
     self.allContextNodes = nil;
     self.allResultNodes = nil;
+    self.expression = nil;
     [super dealloc];
+}
+
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%@ \nContextNodes:\n    %@\nResultNodes:\n    %@>", [self class], _allContextNodes, _allResultNodes];
 }
 
 
 - (void)addContextNode:(id <XPNodeInfo>)node {
     XPAssert(_allContextNodes);
     [_allContextNodes addObject:node];
+}
+
+
+- (void)addContextNodes:(NSArray *)nodes {
+    XPAssert(_allContextNodes);
+    [_allContextNodes addObjectsFromArray:nodes];
 }
 
 
