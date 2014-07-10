@@ -8,6 +8,7 @@
 
 #import "XPBaseEnumeration.h"
 #import "XPSequenceEnumeration.h"
+#import "XPPauseHandler.h"
 
 @class XPExpression;
 @class XPContext;
@@ -18,8 +19,9 @@
  * which requires a lookahead.
  */
 
-@interface XPFilterEnumerator : XPBaseEnumeration
+@interface XPFilterEnumerator : XPBaseEnumeration <XPPauseHandler>
 
 - (instancetype)initWithBase:(id <XPSequenceEnumeration>)base filter:(XPExpression *)filter context:(XPContext *)ctx finishAfterReject:(BOOL)finishAfterReject;
+
 @property (nonatomic, retain) XPContext *filterContext;
 @end

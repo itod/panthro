@@ -41,6 +41,14 @@
 }
 
 
+#pragma mark -
+#pragma mark XPPauseHandler
+
+- (NSArray *)currentResultNodes {
+    return _nodes;
+}
+
+
 /**
  * Determine whether there are more nodes to come.
  * (Note the term "Element" is used here in the sense of the standard Java Enumeration class,

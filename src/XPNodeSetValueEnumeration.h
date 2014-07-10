@@ -8,8 +8,9 @@
 
 #import "XPAbstractNodeEnumeration.h"
 #import "XPAxisEnumeration.h"
+#import "XPPauseHandler.h"
 
-@interface XPNodeSetValueEnumeration : XPAbstractNodeEnumeration <XPAxisEnumeration>
+@interface XPNodeSetValueEnumeration : XPAbstractNodeEnumeration <XPAxisEnumeration, XPPauseHandler>
 
 - (instancetype)initWithNodes:(NSArray *)nodes isSorted:(BOOL)sorted isReverseSorted:(BOOL)reverseSorted;
 

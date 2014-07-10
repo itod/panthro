@@ -121,23 +121,7 @@
 
     if ([enm hasMoreItems]) {       // if there are no nodes, there's nothing to filter
         
-//#if PAUSE_ENABLED
-//        id <XPItem>baseCtxNode = ctx.contextNode;
-//        XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:@[baseCtxNode] comparer:nil] autorelease];
-//#endif
-        
         for (XPExpression *filter in _allFilters) {
-            
-//#if PAUSE_ENABLED
-//            if (ctx.staticContext.debug && [enm isKindOfClass:[XPNodeSetValueEnumeration class]]) {
-//                NSArray *nodes = [(XPNodeSetValueEnumeration *)enm nodes];
-//                XPNodeSetValue *resultNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:nodes comparer:nil] autorelease];
-//                NSRange range = NSMakeRange(self.range.location, NSMaxRange(self.nodeTest.range) - self.range.location);
-//                
-//                [ctx.staticContext pauseFrom:filter withContextNodes:contextNodeSet result:resultNodeSet range:range done:NO];
-//            }
-//#endif
-
             enm = [[[XPFilterEnumerator alloc] initWithBase:enm filter:filter context:ctx finishAfterReject:NO] autorelease];
         }
     }

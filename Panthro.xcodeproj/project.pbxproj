@@ -856,6 +856,7 @@
 		D3F45867196CA45400F05EA0 /* XPNodeSetValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNodeSetValue.m; path = src/XPNodeSetValue.m; sourceTree = "<group>"; };
 		D3F4586B196DE28300F05EA0 /* XPAbstractNodeEnumeration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPAbstractNodeEnumeration.h; path = src/XPAbstractNodeEnumeration.h; sourceTree = "<group>"; };
 		D3F4586C196DE28300F05EA0 /* XPAbstractNodeEnumeration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPAbstractNodeEnumeration.m; path = src/XPAbstractNodeEnumeration.m; sourceTree = "<group>"; };
+		D3F45877196E186600F05EA0 /* XPPauseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = XPPauseHandler.h; path = src/XPPauseHandler.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1476,6 +1477,7 @@
 				D3BE140F191AC80400005C81 /* XPFilterExpression.m */,
 				D3BE1422191C193900005C81 /* XPFilterEnumerator.h */,
 				D3BE1423191C193900005C81 /* XPFilterEnumerator.m */,
+				D3F45877196E186600F05EA0 /* XPPauseHandler.h */,
 				D3BE140A191AC7A200005C81 /* XPUnionExpression.h */,
 				D3BE140B191AC7A200005C81 /* XPUnionExpression.m */,
 				D372993B1965FC01004B1B7A /* XPIntersectExpression.h */,

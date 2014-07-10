@@ -38,7 +38,15 @@
     [super dealloc];
 }
 
-    
+
+#pragma mark -
+#pragma mark XPPauseHandler
+
+- (NSArray *)currentResultNodes {
+    return @[_node];
+}
+
+
 - (BOOL)isSorted {
     return YES;
 }

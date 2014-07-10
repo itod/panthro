@@ -104,7 +104,7 @@
             [_filterContext setLastPositionFinder:(id <XPLastPositionFinder>)_base];
         }
         
-        self.current = [self nextMatchingObject];
+        self.current = [self nextMatchingItem];
 
     }
     return self;
@@ -126,6 +126,18 @@
 }
 
 
+#pragma mark -
+#pragma mark XPPauseHandler
+
+- (NSArray *)currentResultNodes {
+    NSArray *result = nil;
+    if ([_base conformsToProtocol:@protocol(XPPauseHandler)]) {
+        result = [(id <XPPauseHandler>)_base currentResultNodes];
+    }
+    return result;
+}
+
+
 /**
  * Test whether there are any more nodes available in the enumeration
  */
@@ -144,7 +156,7 @@
 - (id <XPItem>)nextItem {
     //XPAssert(_current);
     id <XPItem>node = _current;
-    self.current = [self nextMatchingObject];
+    self.current = [self nextMatchingItem];
     
 #if FILTER_PAUSE_ENABLED
     if (![self hasMoreItems]) {
@@ -160,7 +172,14 @@
  * Get the next node that matches the filter predicate if there is one
  */
 
-- (id <XPItem>)nextMatchingObject {
+- (id <XPItem>)nextMatchingItem {
+    id <XPItem>result = nil;
+
+#if FILTER_PAUSE_ENABLED
+    BOOL debug = _filterContext.staticContext.debug;
+    _filterContext.staticContext.debug = NO;
+#endif
+    
     while (!_finished && [_base hasMoreItems]) {
         id <XPItem>next = [_base nextItem];
         self.position++;
@@ -171,12 +190,19 @@
             [self addResultNode:next];
 #endif
             
-            return next;
+            result = next;
+            break;
         } else if (_finishAfterReject) {
-            return nil;
+            result = nil;
+            break;
         }
     }
-    return nil;
+
+#if FILTER_PAUSE_ENABLED
+    _filterContext.staticContext.debug = debug;
+#endif
+
+    return result;
 }
 
 
@@ -185,6 +211,7 @@
     XPAssert(node);
     
     XPAssert(_contextNodes);
+    [_contextNodes removeAllObjects];
     [_contextNodes addObject:node];
 }
 
@@ -198,7 +225,6 @@
 
 
 - (void)pause {
-    return;
     if (_resultNodes && _filterContext.staticContext.debug) {
         XPSequenceValue *contextNodeSet = [[[[XPNodeSetExtent alloc] initWithNodes:_contextNodes comparer:nil] autorelease] sort];
         

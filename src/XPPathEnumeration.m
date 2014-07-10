@@ -32,7 +32,7 @@
 
 #if PAUSE_ENABLED
 @property (nonatomic, retain) NSMutableArray *contextNodes;
-@property (nonatomic, retain) NSMutableArray *resultNodes;
+@property (nonatomic, retain) NSArray *resultNodes;
 #endif
 @end
 
@@ -81,13 +81,6 @@
 
 - (BOOL)hasMoreItems {
     BOOL res = _next != nil;
-    
-#if PAUSE_ENABLED
-    if (!res) {
-        [self pause];
-    }
-#endif
-
     return res;
 }
 
@@ -95,13 +88,6 @@
 - (id <XPNodeInfo>)nextItem {
     id <XPNodeInfo>curr = _next;
     self.next = [self nextNode];
-    
-//#if PAUSE_ENABLED
-//    if (![self hasMoreItems]) {
-//        [self pause];
-//    }
-//#endif
-
     return curr;
 }
 
@@ -112,13 +98,7 @@
     // we get the next base element, and apply the step to that.
 
     if (_tail && [_tail hasMoreItems]) {
-
         id <XPNodeInfo>result = [_tail nextNodeInfo];
-
-//#if PAUSE_ENABLED
-//        [self addResultNode:result];
-//#endif
-
         return result;
     }
     
@@ -131,12 +111,8 @@
         if (_context.staticContext.debug) {
             [self addContextNode:node];
             
-            if ([_tail isKindOfClass:[XPNodeSetValueEnumeration class]]) {
-                NSArray *nodes = [(XPNodeSetValueEnumeration *)_tail nodes];
-                self.resultNodes = [[nodes mutableCopy] autorelease];
-                [self pause];
-            } else if ([_tail isKindOfClass:[XPSingletonEnumeration class]]) {
-                self.resultNodes = [NSMutableArray arrayWithObject:[(XPSingletonEnumeration *)_tail node]];
+            if ([_tail conformsToProtocol:@protocol(XPPauseHandler)]) {
+                self.resultNodes = [(id <XPPauseHandler>)_tail currentResultNodes];
                 [self pause];
             }
         }
@@ -146,11 +122,6 @@
         if ([_tail hasMoreItems]) {
 
             id <XPNodeInfo>result = [_tail nextNodeInfo];
-
-//#if PAUSE_ENABLED
-//            [self addResultNode:result];
-//#endif
-
             return result;
         }
     }
@@ -164,16 +135,9 @@
     XPAssert(node);
 
     XPAssert(_contextNodes);
+    [_contextNodes removeAllObjects];
     [_contextNodes addObject:node];
 }
-
-
-//- (void)addResultNode:(id <XPNodeInfo>)node {
-//    XPAssert(node);
-//    
-//    XPAssert(_resultNodes);
-//    [_resultNodes addObject:node];
-//}
 
 
 - (void)pause {
