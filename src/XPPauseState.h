@@ -8,14 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol XPNodeInfo;
+@protocol XPItem;
 @class XPExpression;
 
 @interface XPPauseState : NSObject
 
-- (void)addContextNode:(id <XPNodeInfo>)node;
+- (void)addContextNode:(id <XPItem>)node;
 - (void)addContextNodes:(NSArray *)nodes;
+
+- (void)addResultNode:(id <XPItem>)node;
 - (void)addResultNodes:(NSArray *)nodes;
+
 - (void)addPauseState:(XPPauseState *)state;
 
 @property (nonatomic, retain, readonly) NSArray *contextNodes;

@@ -38,7 +38,7 @@
 }
 
 
-- (void)addContextNode:(id <XPNodeInfo>)node {
+- (void)addContextNode:(id <XPItem>)node {
     XPAssert(_allContextNodes);
     [_allContextNodes addObject:node];
 }
@@ -47,6 +47,12 @@
 - (void)addContextNodes:(NSArray *)nodes {
     XPAssert(_allContextNodes);
     [_allContextNodes addObjectsFromArray:nodes];
+}
+
+
+- (void)addResultNode:(id <XPItem>)node {
+    XPAssert(_allResultNodes);
+    [_allResultNodes addObject:node];
 }
 
 

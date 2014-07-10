@@ -173,7 +173,7 @@
 #if PAUSE_ENABLED
             if (debug) {
                 [_pauseState addContextNode:_filterContext.contextNode];
-                [_pauseState addResultNodes:@[next]];
+                [_pauseState addResultNode:next];
             }
 #endif
             
