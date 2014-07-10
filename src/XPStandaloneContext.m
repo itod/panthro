@@ -359,7 +359,7 @@
     XPAssert(NSNotFound != range.length);
     XPAssert(range.length);
 
-    if (self.debug) {
+    //if (self.debug) {
         id info = @{@"contextNodes": ctxNodes, @"result": result, @"done": @(isDone), @"mainQueryRange": [NSValue valueWithRange:range]};
         [self.debugSync pauseWithInfo:info];
         BOOL resume = [[self.debugSync awaitResume] boolValue];
@@ -367,7 +367,7 @@
         if (!resume) {
             [XPException raiseIn:expr format:@"User Terminated"];
         }
-    }
+    //}
 }
 #endif
 

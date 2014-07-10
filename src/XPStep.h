@@ -22,7 +22,7 @@
 
 - (XPStep *)addFilter:(XPExpression *)expr;
 - (XPStep *)simplify;
-- (id <XPSequenceEnumeration>)enumerate:(id <XPNodeInfo>)node inContext:(XPContext *)ctx;
+- (id <XPSequenceEnumeration>)enumerate:(id <XPNodeInfo>)node inContext:(XPContext *)ctx parent:(XPExpression *)expr;
 
 @property (nonatomic, retain, readonly) NSArray *filters;
 @property (nonatomic, assign, readonly) NSUInteger numberOfFilters;

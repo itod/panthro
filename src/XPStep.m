@@ -22,8 +22,19 @@
 #import "XPNodeSetExtent.h"
 #import "XPLocalOrderComparer.h"
 
+#if PAUSE_ENABLED
+#import "XPStaticContext.h"
+#import "XPNodeSetExtent.h"
+#import "XPNodeSetValueEnumeration.h"
+#import "XPSingletonEnumeration.h"
+#endif
+
 @interface XPStep ()
 @property (nonatomic, retain) NSMutableArray *allFilters;
+#if PAUSE_ENABLED
+@property (nonatomic, retain) NSMutableArray *contextNodes;
+@property (nonatomic, retain) NSArray *resultNodes;
+#endif
 @end
 
 @implementation XPStep
@@ -33,6 +44,12 @@
     if (self) {
         self.axis = axis;
         self.nodeTest = nodeTest;
+        
+#if PAUSE_ENABLED
+        self.contextNodes = [NSMutableArray array];
+        self.resultNodes = [NSMutableArray array];
+#endif
+
     }
     return self;
 }
@@ -42,6 +59,12 @@
     self.nodeTest = nil;
     self.allFilters = nil;
     self.filterRanges = nil;
+
+#if PAUSE_ENABLED
+    self.contextNodes = nil;
+    self.resultNodes = nil;
+#endif
+
     [super dealloc];
 }
 
@@ -116,14 +139,51 @@
  * @return: an enumeration of nodes that result from applying this step
  */
 
-- (id <XPSequenceEnumeration>)enumerate:(id <XPNodeInfo>)node inContext:(XPContext *)ctx {
+- (id <XPSequenceEnumeration>)enumerate:(id <XPNodeInfo>)node inContext:(XPContext *)ctx parent:(XPExpression *)expr {
     id <XPSequenceEnumeration>enm = [node enumerationForAxis:_axis nodeTest:_nodeTest];
 
     if ([enm hasMoreItems]) {       // if there are no nodes, there's nothing to filter
+
+#if PAUSE_ENABLED
+        if (ctx.staticContext.debug) {
+            [self addContextNode:node];
+            
+            if ([enm conformsToProtocol:@protocol(XPPauseHandler)]) {
+                self.resultNodes = [(id <XPPauseHandler>)enm currentResultNodes];
+                [self pause:ctx parent:expr];
+            }
+        }
+
+//        BOOL debug = ctx.staticContext.debug;
+//        ctx.staticContext.debug = NO;
+
+#endif
+
         
         for (XPExpression *filter in _allFilters) {
             enm = [[[XPFilterEnumerator alloc] initWithBase:enm filter:filter context:ctx finishAfterReject:NO] autorelease];
+
+//#if PAUSE_ENABLED
+//            if (debug) {
+//                [self addContextNode:node];
+//                
+//                if ([enm conformsToProtocol:@protocol(XPPauseHandler)]) {
+//                    self.resultNodes = [(id <XPPauseHandler>)enm currentResultNodes];
+////                    NSLog(@"ctx %@", self.contextNodes);
+////                    NSLog(@"%@", self.resultNodes);
+//                    [self pause:ctx parent:filter];
+//                }
+//            }
+//            
+//#endif
+            
         }
+
+        
+//#if PAUSE_ENABLED
+//        ctx.staticContext.debug = debug;
+//#endif
+
     }
 
     return enm;
@@ -138,5 +198,31 @@
 - (NSUInteger)numberOfFilters {
     return [_allFilters count];
 }
+
+
+#if PAUSE_ENABLED
+- (void)addContextNode:(id <XPNodeInfo>)node {
+    XPAssert(node);
+    
+    XPAssert(_contextNodes);
+    [_contextNodes removeAllObjects];
+    [_contextNodes addObject:node];
+}
+
+
+- (void)pause:(XPContext *)ctx parent:(XPExpression *)expr {
+    if (_resultNodes) {
+        XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_contextNodes comparer:nil] autorelease];
+        [contextNodeSet sort];
+        
+        XPNodeSetValue *resultNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_resultNodes comparer:nil] autorelease];
+        [resultNodeSet sort];
+        
+        [ctx.staticContext pauseFrom:expr withContextNodes:contextNodeSet result:resultNodeSet range:self.subRange done:NO];
+        
+        self.resultNodes = nil; // ok, we've blown our load. don't allow another pause.
+    }
+}
+#endif
 
 @end

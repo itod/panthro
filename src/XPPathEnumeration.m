@@ -15,12 +15,12 @@
 #import "XPException.h"
 #import "XPStep.h"
 
-#if PAUSE_ENABLED
-#import "XPStaticContext.h"
-#import "XPNodeSetExtent.h"
-#import "XPNodeSetValueEnumeration.h"
-#import "XPSingletonEnumeration.h"
-#endif
+//#if PAUSE_ENABLED
+//#import "XPStaticContext.h"
+//#import "XPNodeSetExtent.h"
+//#import "XPNodeSetValueEnumeration.h"
+//#import "XPSingletonEnumeration.h"
+//#endif
 
 @interface XPPathEnumeration ()
 @property (nonatomic, retain) XPExpression *start;
@@ -30,10 +30,10 @@
 @property (nonatomic, retain) id <XPNodeInfo>next;
 @property (nonatomic, retain) XPContext *context;
 
-#if PAUSE_ENABLED
-@property (nonatomic, retain) NSMutableArray *contextNodes;
-@property (nonatomic, retain) NSArray *resultNodes;
-#endif
+//#if PAUSE_ENABLED
+//@property (nonatomic, retain) NSMutableArray *contextNodes;
+//@property (nonatomic, retain) NSArray *resultNodes;
+//#endif
 @end
 
 @implementation XPPathEnumeration
@@ -47,10 +47,10 @@
             }
         }
 
-#if PAUSE_ENABLED
-        self.contextNodes = [NSMutableArray array];
-        self.resultNodes = [NSMutableArray array];
-#endif
+//#if PAUSE_ENABLED
+//        self.contextNodes = [NSMutableArray array];
+//        self.resultNodes = [NSMutableArray array];
+//#endif
 
         self.start = start;
         self.step = step;
@@ -70,10 +70,10 @@
     self.next = nil;
     self.context = nil;
 
-#if PAUSE_ENABLED
-    self.contextNodes = nil;
-    self.resultNodes = nil;
-#endif
+//#if PAUSE_ENABLED
+//    self.contextNodes = nil;
+//    self.resultNodes = nil;
+//#endif
     
     [super dealloc];
 }
@@ -105,19 +105,19 @@
     while ([_base hasMoreItems]) {
         id <XPNodeInfo>node = [_base nextNodeInfo];
 
-        self.tail = [_step enumerate:node inContext:_context];
+        self.tail = [_step enumerate:node inContext:_context parent:_start];
 
-#if PAUSE_ENABLED
-        if (_context.staticContext.debug) {
-            [self addContextNode:node];
-            
-            if ([_tail conformsToProtocol:@protocol(XPPauseHandler)]) {
-                self.resultNodes = [(id <XPPauseHandler>)_tail currentResultNodes];
-                [self pause];
-            }
-        }
-        
-#endif
+//#if PAUSE_ENABLED
+//        if (_context.staticContext.debug) {
+//            [self addContextNode:node];
+//            
+//            if ([_tail conformsToProtocol:@protocol(XPPauseHandler)]) {
+//                self.resultNodes = [(id <XPPauseHandler>)_tail currentResultNodes];
+//                [self pause];
+//            }
+//        }
+//        
+//#endif
         
         if ([_tail hasMoreItems]) {
 
@@ -130,30 +130,30 @@
 }
 
 
-#if PAUSE_ENABLED
-- (void)addContextNode:(id <XPNodeInfo>)node {
-    XPAssert(node);
-
-    XPAssert(_contextNodes);
-    [_contextNodes removeAllObjects];
-    [_contextNodes addObject:node];
-}
-
-
-- (void)pause {
-    if (_resultNodes && _context.staticContext.debug) {
-        XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_contextNodes comparer:nil] autorelease];
-        [contextNodeSet sort];
-        
-        XPNodeSetValue *resultNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_resultNodes comparer:nil] autorelease];
-        [resultNodeSet sort];
-        
-        [_context.staticContext pauseFrom:_start withContextNodes:contextNodeSet result:resultNodeSet range:_step.subRange done:NO];
-
-        self.resultNodes = nil; // ok, we've blown our load. don't allow another pause.
-    }
-}
-#endif
+//#if PAUSE_ENABLED
+//- (void)addContextNode:(id <XPNodeInfo>)node {
+//    XPAssert(node);
+//
+//    XPAssert(_contextNodes);
+//    [_contextNodes removeAllObjects];
+//    [_contextNodes addObject:node];
+//}
+//
+//
+//- (void)pause {
+//    if (_resultNodes && _context.staticContext.debug) {
+//        XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_contextNodes comparer:nil] autorelease];
+//        [contextNodeSet sort];
+//        
+//        XPNodeSetValue *resultNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_resultNodes comparer:nil] autorelease];
+//        [resultNodeSet sort];
+//        
+//        [_context.staticContext pauseFrom:_start withContextNodes:contextNodeSet result:resultNodeSet range:_step.subRange done:NO];
+//
+//        self.resultNodes = nil; // ok, we've blown our load. don't allow another pause.
+//    }
+//}
+//#endif
 
 
 /**
@@ -179,7 +179,7 @@
 */
 
 - (BOOL)isReverseSorted {
-    BOOL res = [_start isKindOfClass:[XPSingletonExpression class]] && XPAxisIsReverse[_step.axis];
+    BOOL res = ([_start isKindOfClass:[XPSingletonExpression class]] || [_start isKindOfClass:[XPSingletonNodeSet class]]) && XPAxisIsReverse[_step.axis];
     return res;
 }
 
