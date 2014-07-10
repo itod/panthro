@@ -153,7 +153,8 @@
 #endif
         
         for (XPExpression *filter in _allFilters) {
-            enm = [[[XPFilterEnumerator alloc] initWithBase:enm filter:filter context:ctx finishAfterReject:NO] autorelease];
+            XPFilterEnumerator *fe = [[[XPFilterEnumerator alloc] initWithBase:enm filter:filter context:ctx finishAfterReject:NO] autorelease];
+            enm = fe;
         }
     }
 

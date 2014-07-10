@@ -17,11 +17,10 @@
 #import "XPLastPositionFinder.h"
 #import "XPLookaheadEnumerator.h"
 
-#define FILTER_PAUSE_ENABLED PAUSE_ENABLED && 1
-
-#if FILTER_PAUSE_ENABLED
+#if PAUSE_ENABLED
 #import "XPStaticContext.h"
 #import "XPNodeSetExtent.h"
+#import "XPPauseState.h"
 #endif
 
 @interface XPFilterEnumerator ()
@@ -40,11 +39,6 @@
 @property (nonatomic, assign) BOOL positional;
 @property (nonatomic, assign) BOOL finished; // allows early finish with a numeric filter
 @property (nonatomic, assign) BOOL finishAfterReject; // causes enumeration to terminate the first time the predicate is false
-
-#if FILTER_PAUSE_ENABLED
-@property (nonatomic, retain) NSMutableArray *contextNodes;
-@property (nonatomic, retain) NSMutableArray *resultNodes;
-#endif
 @end
 
 @implementation XPFilterEnumerator
@@ -75,13 +69,10 @@
         
         self.dataType = filter.dataType;
 
-#if FILTER_PAUSE_ENABLED
-        if (ctx.staticContext.debug) {
-            self.contextNodes = [NSMutableArray array];
-            self.resultNodes = [NSMutableArray array];
-        }
+#if PAUSE_ENABLED
+        self.pauseState = [[[XPPauseState alloc] init] autorelease];
 #endif
-        
+
         if ([_filter isKindOfClass:[XPNumericValue class]]) {
             // if value is not an integer, it will never match
             double pos = [(XPNumericValue *)_filter asNumber];
@@ -119,9 +110,8 @@
     self.current = nil;
     self.filterContext = nil;
 
-#if FILTER_PAUSE_ENABLED
-    self.contextNodes = nil;
-    self.resultNodes = nil;
+#if PAUSE_ENABLED
+    self.pauseState = nil;
 #endif
     
     [super dealloc];
@@ -160,7 +150,7 @@
     id <XPItem>node = _current;
     self.current = [self nextMatchingItem];
     
-#if FILTER_PAUSE_ENABLED
+#if PAUSE_ENABLED
     if (![self hasMoreItems]) {
         [self pause];
     }
@@ -177,7 +167,7 @@
 - (id <XPItem>)nextMatchingItem {
     id <XPItem>result = nil;
 
-#if FILTER_PAUSE_ENABLED
+#if PAUSE_ENABLED
     BOOL debug = _filterContext.staticContext.debug;
     _filterContext.staticContext.debug = NO;
 #endif
@@ -187,10 +177,10 @@
         self.position++;
         if ([self matches:next]) {
             
-#if FILTER_PAUSE_ENABLED
+#if PAUSE_ENABLED
             if (debug) {
-                [self addContextNode:_filterContext.contextNode];
-                [self addResultNode:next];
+                [_pauseState addContextNode:_filterContext.contextNode];
+                [_pauseState addResultNodes:@[next]];
             }
 #endif
             
@@ -202,7 +192,7 @@
         }
     }
 
-#if FILTER_PAUSE_ENABLED
+#if PAUSE_ENABLED
     _filterContext.staticContext.debug = debug;
 #endif
 
@@ -210,33 +200,14 @@
 }
 
 
-#if FILTER_PAUSE_ENABLED
-- (void)addContextNode:(id <XPItem>)node {
-    XPAssert(node);
-    
-    XPAssert(_contextNodes);
-    [_contextNodes addObject:node];
-}
-
-
-- (void)addResultNode:(id <XPItem>)node {
-    XPAssert(node);
-    
-    XPAssert(_resultNodes);
-    [_resultNodes addObject:node];
-}
-
-
+#if PAUSE_ENABLED
 - (void)pause {
-    if (_resultNodes) {
-        XPSequenceValue *contextNodeSet = [[[[XPNodeSetExtent alloc] initWithNodes:_contextNodes comparer:nil] autorelease] sort];
-        
-        XPSequenceValue *resultNodeSet = [[[[XPNodeSetExtent alloc] initWithNodes:_resultNodes comparer:nil] autorelease] sort];
-        
-        [_filterContext.staticContext pauseFrom:_filter withContextNodes:contextNodeSet result:resultNodeSet range:_filter.range done:NO];
-        
-        self.resultNodes = nil; // ok, we've blown our load. don't allow another pause.
-    }
+    XPAssert(_pauseState);
+    XPSequenceValue *contextNodeSet = [[[[XPNodeSetExtent alloc] initWithNodes:[_pauseState contextNodes] comparer:nil] autorelease] sort];
+    
+    XPSequenceValue *resultNodeSet = [[[[XPNodeSetExtent alloc] initWithNodes:[_pauseState resultNodes] comparer:nil] autorelease] sort];
+    
+    [_filterContext.staticContext pauseFrom:_filter withContextNodes:contextNodeSet result:resultNodeSet range:_filter.range done:NO];
 }
 #endif
 

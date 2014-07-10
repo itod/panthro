@@ -24,4 +24,8 @@
 - (instancetype)initWithBase:(id <XPSequenceEnumeration>)base filter:(XPExpression *)filter context:(XPContext *)ctx finishAfterReject:(BOOL)finishAfterReject;
 
 @property (nonatomic, retain) XPContext *filterContext;
+
+#if PAUSE_ENABLED
+@property (nonatomic, retain) id pauseState;
+#endif
 @end
