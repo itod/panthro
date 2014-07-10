@@ -88,6 +88,13 @@
 - (id <XPNodeInfo>)nextItem {
     id <XPNodeInfo>curr = _next;
     self.next = [self nextNode];
+
+//#if PAUSE_ENABLED
+//    if (_context.staticContext.debug && ![self hasMoreItems]) {
+//        [self pause];
+//    }
+//#endif
+    
     return curr;
 }
 
@@ -105,20 +112,17 @@
             id <XPNodeInfo>node = [_base nextNodeInfo];
             
             self.tail = [_step enumerate:node inContext:_context parent:_start];
-            
-            //#if PAUSE_ENABLED
-            //        if (_context.staticContext.debug) {
-            //            [self addContextNode:node];
-            //
-            //            if ([_tail conformsToProtocol:@protocol(XPPauseHandler)]) {
-            //                self.resultNodes = [(id <XPPauseHandler>)_tail currentResultNodes];
-            //                [self pause];
-            //            }
-            //        }
-            //
-            //#endif
-            
+
             if ([_tail hasMoreItems]) {
+//#if PAUSE_ENABLED
+//                if (_context.staticContext.debug) {
+//                    [self addContextNode:node];
+//                    
+//                    if ([_tail conformsToProtocol:@protocol(XPPauseHandler)]) {
+//                        [self addResultNodes:[(id <XPPauseHandler>)_tail currentResultNodes]];
+//                    }
+//                }
+//#endif
                 result = [_tail nextNodeInfo];
                 break;
             }
@@ -134,13 +138,20 @@
 //    XPAssert(node);
 //
 //    XPAssert(_contextNodes);
-//    [_contextNodes removeAllObjects];
 //    [_contextNodes addObject:node];
 //}
 //
 //
+//- (void)addResultNodes:(NSArray *)nodes {
+//    XPAssert(nodes);
+//    
+//    XPAssert(_resultNodes);
+//    [_resultNodes addObjectsFromArray:nodes];
+//}
+//
+//
 //- (void)pause {
-//    if (_resultNodes && _context.staticContext.debug) {
+//    if ([_resultNodes count] && _context.staticContext.debug) {
 //        XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_contextNodes comparer:nil] autorelease];
 //        [contextNodeSet sort];
 //        
