@@ -93,40 +93,39 @@
 
 
 - (id <XPNodeInfo>)nextNode {
+    id <XPNodeInfo>result = nil;
 
     // if we are currently processing a step, we continue with it. Otherwise,
     // we get the next base element, and apply the step to that.
 
     if (_tail && [_tail hasMoreItems]) {
-        id <XPNodeInfo>result = [_tail nextNodeInfo];
-        return result;
-    }
-    
-    while ([_base hasMoreItems]) {
-        id <XPNodeInfo>node = [_base nextNodeInfo];
-
-        self.tail = [_step enumerate:node inContext:_context parent:_start];
-
-//#if PAUSE_ENABLED
-//        if (_context.staticContext.debug) {
-//            [self addContextNode:node];
-//            
-//            if ([_tail conformsToProtocol:@protocol(XPPauseHandler)]) {
-//                self.resultNodes = [(id <XPPauseHandler>)_tail currentResultNodes];
-//                [self pause];
-//            }
-//        }
-//        
-//#endif
-        
-        if ([_tail hasMoreItems]) {
-
-            id <XPNodeInfo>result = [_tail nextNodeInfo];
-            return result;
+        result = [_tail nextNodeInfo];
+    } else {
+        while ([_base hasMoreItems]) {
+            id <XPNodeInfo>node = [_base nextNodeInfo];
+            
+            self.tail = [_step enumerate:node inContext:_context parent:_start];
+            
+            //#if PAUSE_ENABLED
+            //        if (_context.staticContext.debug) {
+            //            [self addContextNode:node];
+            //
+            //            if ([_tail conformsToProtocol:@protocol(XPPauseHandler)]) {
+            //                self.resultNodes = [(id <XPPauseHandler>)_tail currentResultNodes];
+            //                [self pause];
+            //            }
+            //        }
+            //
+            //#endif
+            
+            if ([_tail hasMoreItems]) {
+                result = [_tail nextNodeInfo];
+                break;
+            }
         }
     }
 
-    return nil;
+    return result;
 }
 
 
