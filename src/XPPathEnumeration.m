@@ -32,7 +32,7 @@
 
 //#if PAUSE_ENABLED
 //@property (nonatomic, retain) NSMutableArray *contextNodes;
-//@property (nonatomic, retain) NSArray *resultNodes;
+//@property (nonatomic, retain) NSMutableArray *resultNodes;
 //#endif
 @end
 
