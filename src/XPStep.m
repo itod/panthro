@@ -33,7 +33,7 @@
 @property (nonatomic, retain) NSMutableArray *allFilters;
 #if PAUSE_ENABLED
 @property (nonatomic, retain) NSMutableArray *contextNodes;
-@property (nonatomic, retain) NSArray *resultNodes;
+@property (nonatomic, retain) NSMutableArray *resultNodes;
 #endif
 @end
 
@@ -149,7 +149,7 @@
             [self addContextNode:node];
             
             if ([enm conformsToProtocol:@protocol(XPPauseHandler)]) {
-                self.resultNodes = [(id <XPPauseHandler>)enm currentResultNodes];
+                [self addResultNodes:[(id <XPPauseHandler>)enm currentResultNodes]];
                 [self pause:ctx parent:expr];
             }
         }
@@ -184,6 +184,15 @@
 }
 
 
+- (void)addResultNodes:(NSArray *)nodes {
+    XPAssert(nodes);
+    
+    XPAssert(_resultNodes);
+    [_resultNodes removeAllObjects];
+    [_resultNodes addObjectsFromArray:nodes];
+}
+
+
 - (void)pause:(XPContext *)ctx parent:(XPExpression *)expr {
     XPAssert(_resultNodes);
     
@@ -194,8 +203,6 @@
     [resultNodeSet sort];
     
     [ctx.staticContext pauseFrom:expr withContextNodes:contextNodeSet result:resultNodeSet range:self.subRange done:NO];
-    
-    self.resultNodes = nil; // ok, we've blown our load. don't allow another pause.
 }
 #endif
 
