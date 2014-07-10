@@ -142,18 +142,19 @@
 - (id <XPSequenceEnumeration>)enumerate:(id <XPNodeInfo>)node inContext:(XPContext *)ctx parent:(XPExpression *)expr {
     id <XPSequenceEnumeration>enm = [node enumerationForAxis:_axis nodeTest:_nodeTest];
 
-#if PAUSE_ENABLED
-    if (ctx.staticContext.debug) {
-        [self addContextNode:node];
-        
-        if ([enm conformsToProtocol:@protocol(XPPauseHandler)]) {
-            self.resultNodes = [(id <XPPauseHandler>)enm currentResultNodes];
-            [self pause:ctx parent:expr];
-        }
-    }
-#endif
-    
     if ([enm hasMoreItems]) {       // if there are no nodes, there's nothing to filter
+
+#if PAUSE_ENABLED
+        if (ctx.staticContext.debug) {
+            [self addContextNode:node];
+            
+            if ([enm conformsToProtocol:@protocol(XPPauseHandler)]) {
+                self.resultNodes = [(id <XPPauseHandler>)enm currentResultNodes];
+                [self pause:ctx parent:expr];
+            }
+        }
+#endif
+        
         for (XPExpression *filter in _allFilters) {
             enm = [[[XPFilterEnumerator alloc] initWithBase:enm filter:filter context:ctx finishAfterReject:NO] autorelease];
         }
