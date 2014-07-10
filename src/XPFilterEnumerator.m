@@ -76,8 +76,10 @@
         self.dataType = filter.dataType;
 
 #if FILTER_PAUSE_ENABLED
-        self.contextNodes = [NSMutableArray array];
-        self.resultNodes = [NSMutableArray array];
+        if (ctx.staticContext.debug) {
+            self.contextNodes = [NSMutableArray array];
+            self.resultNodes = [NSMutableArray array];
+        }
 #endif
         
         if ([_filter isKindOfClass:[XPNumericValue class]]) {
@@ -186,8 +188,10 @@
         if ([self matches:next]) {
             
 #if FILTER_PAUSE_ENABLED
-            [self addContextNode:_filterContext.contextNode];
-            [self addResultNode:next];
+            if (debug) {
+                [self addContextNode:_filterContext.contextNode];
+                [self addResultNode:next];
+            }
 #endif
             
             result = next;
@@ -224,7 +228,7 @@
 
 
 - (void)pause {
-    if (_resultNodes && _filterContext.staticContext.debug) {
+    if (_filterContext.staticContext.debug && _resultNodes) {
         XPSequenceValue *contextNodeSet = [[[[XPNodeSetExtent alloc] initWithNodes:_contextNodes comparer:nil] autorelease] sort];
         
         XPSequenceValue *resultNodeSet = [[[[XPNodeSetExtent alloc] initWithNodes:_resultNodes comparer:nil] autorelease] sort];
