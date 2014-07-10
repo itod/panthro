@@ -142,19 +142,18 @@
 - (id <XPSequenceEnumeration>)enumerate:(id <XPNodeInfo>)node inContext:(XPContext *)ctx parent:(XPExpression *)expr {
     id <XPSequenceEnumeration>enm = [node enumerationForAxis:_axis nodeTest:_nodeTest];
 
-    if ([enm hasMoreItems]) {       // if there are no nodes, there's nothing to filter
-
 #if PAUSE_ENABLED
-        if (ctx.staticContext.debug) {
-            [self addContextNode:node];
-            
-            if ([enm conformsToProtocol:@protocol(XPPauseHandler)]) {
-                self.resultNodes = [(id <XPPauseHandler>)enm currentResultNodes];
-                [self pause:ctx parent:expr];
-            }
-        }
-#endif
+    if (ctx.staticContext.debug) {
+        [self addContextNode:node];
         
+        if ([enm conformsToProtocol:@protocol(XPPauseHandler)]) {
+            self.resultNodes = [(id <XPPauseHandler>)enm currentResultNodes];
+            [self pause:ctx parent:expr];
+        }
+    }
+#endif
+    
+    if ([enm hasMoreItems]) {       // if there are no nodes, there's nothing to filter
         for (XPExpression *filter in _allFilters) {
             enm = [[[XPFilterEnumerator alloc] initWithBase:enm filter:filter context:ctx finishAfterReject:NO] autorelease];
         }
@@ -185,7 +184,7 @@
 
 
 - (void)pause:(XPContext *)ctx parent:(XPExpression *)expr {
-    if (_resultNodes) {
+    if ([_resultNodes count]) {
         XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_contextNodes comparer:nil] autorelease];
         [contextNodeSet sort];
         

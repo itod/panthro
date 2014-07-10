@@ -19,6 +19,14 @@
 }
 
 
+#pragma mark -
+#pragma mark XPPauseHandler
+
+- (NSArray *)currentResultNodes {
+    return [NSArray array];
+}
+
+
 - (BOOL)isSorted {
     return YES;
 }

@@ -8,8 +8,9 @@
 
 #import "XPAbstractNodeEnumeration.h"
 #import "XPAxisEnumeration.h"
+#import "XPPauseHandler.h"
 
-@interface XPEmptyEnumeration : XPAbstractNodeEnumeration <XPAxisEnumeration>
+@interface XPEmptyEnumeration : XPAbstractNodeEnumeration <XPAxisEnumeration, XPPauseHandler>
 
 + (instancetype)instance;
 
