@@ -211,7 +211,6 @@
     XPAssert(node);
     
     XPAssert(_contextNodes);
-    [_contextNodes removeAllObjects];
     [_contextNodes addObject:node];
 }
 
