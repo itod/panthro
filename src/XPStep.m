@@ -150,24 +150,24 @@
 - (id <XPSequenceEnumeration>)enumerate:(id <XPNodeInfo>)node inContext:(XPContext *)ctx parent:(XPExpression *)expr {
     id <XPSequenceEnumeration>enm = [node enumerationForAxis:_axis nodeTest:_nodeTest];
 
-    if ([enm hasMoreItems]) {       // if there are no nodes, there's nothing to filter
-
 #if PAUSE_ENABLED
-        if (ctx.staticContext.debug) {
-            [_pauseState addContextNode:node];
-            
-            if ([enm conformsToProtocol:@protocol(XPPauseHandler)]) {
-                [_pauseState addResultNodes:[(id <XPPauseHandler>)enm currentResultNodes]];
-            }
-        }
-        NSUInteger i = 0;
-#endif
+    if (ctx.staticContext.debug) {
+        [_pauseState addContextNode:node];
         
+        if ([enm conformsToProtocol:@protocol(XPPauseHandler)]) {
+            [_pauseState addResultNodes:[(id <XPPauseHandler>)enm currentResultNodes]];
+        }
+    }
+    NSUInteger i = 0;
+#endif
+
+    if ([enm hasMoreItems]) {       // if there are no nodes, there's nothing to filter
         for (XPExpression *filter in _allFilters) {
             XPFilterEnumerator *fe = [[[XPFilterEnumerator alloc] initWithBase:enm filter:filter context:ctx finishAfterReject:NO] autorelease];
 #if PAUSE_ENABLED
             if (ctx.staticContext.debug) {
                 XPPauseState *total = _filterPauseStates[i];
+                total.expression = filter;
                 [total addPauseState:fe.pauseState];
                 ++i;
             }
@@ -178,7 +178,7 @@
 
 #if PAUSE_ENABLED
     // if no filters on this step, must pause now, as this expr will be simplified, and will not have anoter chance to pause.
-    if (ctx.staticContext.debug && ![_filterPauseStates count]) {
+    if (ctx.staticContext.debug && 0 == i) {
         _pauseState.expression = expr;
         _pauseState.range = self.subRange;
         [self pause:_pauseState context:ctx];
