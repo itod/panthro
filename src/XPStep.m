@@ -44,7 +44,6 @@
         
 #if PAUSE_ENABLED
         self.pauseState = [[[XPPauseState alloc] init] autorelease];
-        self.filterPauseStates = [NSMutableArray array];
 #endif
 
     }
@@ -80,16 +79,19 @@
     if (!_allFilters) {
         self.allFilters = [NSMutableArray arrayWithCapacity:2];
     }
-    XPAssert(_allFilters);
     [_allFilters addObject:expr];
     
     XPPauseState *state = [[[XPPauseState alloc] init] autorelease];
     state.expression = expr;
 
-    XPAssert(_filterPauseStates);
+#if PAUSE_ENABLED
+    if (!_filterPauseStates) {
+        self.filterPauseStates = [NSMutableArray arrayWithCapacity:2];
+    }
     [_filterPauseStates addObject:state];
     
     XPAssert([_filterPauseStates count] == [_allFilters count]);
+#endif
     
     return self;
 }
@@ -158,27 +160,28 @@
                 [_pauseState addResultNodes:[(id <XPPauseHandler>)enm currentResultNodes]];
             }
         }
+        NSUInteger i = 0;
 #endif
         
-        NSUInteger i = 0;
         for (XPExpression *filter in _allFilters) {
             XPFilterEnumerator *fe = [[[XPFilterEnumerator alloc] initWithBase:enm filter:filter context:ctx finishAfterReject:NO] autorelease];
 #if PAUSE_ENABLED
             if (ctx.staticContext.debug) {
                 XPPauseState *total = _filterPauseStates[i];
-                [total addContextNodes:[fe.pauseState contextNodes]];
-                [total addResultNodes:[fe.pauseState resultNodes]];
+                [total addPauseState:fe.pauseState];
+                ++i;
             }
-            ++i;
 #endif
             enm = fe;
         }
     }
 
 #if PAUSE_ENABLED
-    XPAssert([_filterPauseStates count] == [_allFilters count]);
+    // if no filters on this step, must pause now, as this expr will be simplified, and will not have anoter chance to pause.
     if (ctx.staticContext.debug && ![_filterPauseStates count]) {
-        [self pause:_pauseState context:ctx parent:expr range:self.subRange];
+        _pauseState.expression = expr;
+        _pauseState.range = self.subRange;
+        [self pause:_pauseState context:ctx];
         self.pauseState = nil;
     }
 #endif
@@ -188,16 +191,19 @@
 
 
 #if PAUSE_ENABLED
-- (void)pause:(XPPauseState *)state context:(XPContext *)ctx parent:(XPExpression *)expr range:(NSRange)range {
+- (void)pause:(XPPauseState *)state context:(XPContext *)ctx {
     XPAssert(state);
+
+    NSArray *ctxNodes = [state contextNodes];
+    if (![ctxNodes count]) return;
     
-    XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:[state contextNodes] comparer:nil] autorelease];
+    XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:ctxNodes comparer:nil] autorelease];
     [contextNodeSet sort];
     
     XPNodeSetValue *resultNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:[state resultNodes] comparer:nil] autorelease];
     [resultNodeSet sort];
     
-    [ctx.staticContext pauseFrom:expr withContextNodes:contextNodeSet result:resultNodeSet range:range done:NO];
+    [ctx.staticContext pauseFrom:state.expression withContextNodes:contextNodeSet result:resultNodeSet range:state.range done:NO];
 }
 #endif
 

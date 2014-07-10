@@ -16,6 +16,10 @@
 @protocol XPSequenceEnumeration;
 @protocol XPNodeInfo;
 
+#if PAUSE_ENABLED
+@class XPPauseState;
+#endif
+
 @interface XPStep : NSObject
 
 - (instancetype)initWithAxis:(XPAxis)axis nodeTest:(XPNodeTest *)nodeTest;
@@ -34,7 +38,7 @@
 @property (nonatomic, retain) NSArray *filterRanges;
 
 #if PAUSE_ENABLED
-@property (nonatomic, retain) id pauseState;
+@property (nonatomic, retain) XPPauseState *pauseState;
 @property (nonatomic, retain) NSMutableArray *filterPauseStates;
 #endif
 @end

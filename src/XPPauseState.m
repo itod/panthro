@@ -56,6 +56,13 @@
 }
 
 
+- (void)addPauseState:(XPPauseState *)state {
+    XPAssert(state);
+    [self addContextNodes:state.contextNodes];
+    [self addResultNodes:state.resultNodes];
+}
+
+
 - (NSArray *)contextNodes {
     return [[_allContextNodes copy] autorelease];
 }

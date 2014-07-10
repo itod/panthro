@@ -63,17 +63,16 @@
         
 #if PAUSE_ENABLED
         if (ctx.staticContext.debug && [expr isKindOfClass:[XPPathExpression class]]) {
-            XPPathExpression *pathExpr = (XPPathExpression *)expr;
-            XPStep *step = [pathExpr step];
-            
+            XPStep *step = [(XPPathExpression *)expr step];
             XPAssert(step.pauseState);
             if (step.pauseState) {
-                [self pause:step.pauseState context:ctx parent:expr range:step.subRange];
+                step.pauseState.expression = expr;
+                step.pauseState.range = step.subRange;
+                [self pause:step.pauseState context:ctx];
                 
                 for (XPPauseState *state in step.filterPauseStates) {
-                    if ([[state contextNodes] count]) {
-                        [self pause:state context:ctx parent:state.expression range:state.expression.range];
-                    }
+                    state.range = state.expression.range;
+                    [self pause:state context:ctx];
                 }
             }
         }
@@ -96,16 +95,19 @@
 
 
 #if PAUSE_ENABLED
-- (void)pause:(XPPauseState *)state context:(XPContext *)ctx parent:(XPExpression *)expr range:(NSRange)range {
+- (void)pause:(XPPauseState *)state context:(XPContext *)ctx {
     XPAssert(state);
     
-    XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:[state contextNodes] comparer:nil] autorelease];
+    NSArray *ctxNodes = [state contextNodes];
+    if (![ctxNodes count]) return;
+    
+    XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:ctxNodes comparer:nil] autorelease];
     [contextNodeSet sort];
     
     XPNodeSetValue *resultNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:[state resultNodes] comparer:nil] autorelease];
     [resultNodeSet sort];
     
-    [ctx.staticContext pauseFrom:expr withContextNodes:contextNodeSet result:resultNodeSet range:range done:NO];
+    [ctx.staticContext pauseFrom:state.expression withContextNodes:contextNodeSet result:resultNodeSet range:state.range done:NO];
 }
 #endif
 

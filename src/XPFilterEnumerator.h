@@ -13,6 +13,10 @@
 @class XPExpression;
 @class XPContext;
 
+#if PAUSE_ENABLED
+@class XPPauseState;
+#endif
+
 /**
  * A FilterEnumerator filters an input NodeEnumeration using a filter expression.
  * The complication is that on request, it must determine the value of the last() position,
@@ -26,6 +30,6 @@
 @property (nonatomic, retain) XPContext *filterContext;
 
 #if PAUSE_ENABLED
-@property (nonatomic, retain) id pauseState;
+@property (nonatomic, retain) XPPauseState *pauseState;
 #endif
 @end
