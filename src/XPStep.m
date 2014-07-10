@@ -27,14 +27,11 @@
 #import "XPNodeSetExtent.h"
 #import "XPNodeSetValueEnumeration.h"
 #import "XPSingletonEnumeration.h"
+#import "XPPauseState.h"
 #endif
 
 @interface XPStep ()
 @property (nonatomic, retain) NSMutableArray *allFilters;
-#if PAUSE_ENABLED
-@property (nonatomic, retain) NSMutableArray *contextNodes;
-@property (nonatomic, retain) NSMutableArray *resultNodes;
-#endif
 @end
 
 @implementation XPStep
@@ -46,8 +43,8 @@
         self.nodeTest = nodeTest;
         
 #if PAUSE_ENABLED
-        self.contextNodes = [NSMutableArray array];
-        self.resultNodes = [NSMutableArray array];
+        self.pauseState = [[[XPPauseState alloc] init] autorelease];
+        self.filterPauseStates = [NSMutableArray array];
 #endif
 
     }
@@ -61,8 +58,8 @@
     self.filterRanges = nil;
 
 #if PAUSE_ENABLED
-    self.contextNodes = nil;
-    self.resultNodes = nil;
+    self.pauseState = nil;
+    self.filterPauseStates = nil;
 #endif
 
     [super dealloc];
@@ -178,28 +175,27 @@
 - (void)addContextNode:(id <XPNodeInfo>)node {
     XPAssert(node);
     
-    XPAssert(_contextNodes);
-    [_contextNodes removeAllObjects];
-    [_contextNodes addObject:node];
+    XPAssert(_pauseState);
+    self.pauseState = [[[XPPauseState alloc] init] autorelease];
+    [_pauseState addContextNode:node];
 }
 
 
 - (void)addResultNodes:(NSArray *)nodes {
     XPAssert(nodes);
     
-    XPAssert(_resultNodes);
-    [_resultNodes removeAllObjects];
-    [_resultNodes addObjectsFromArray:nodes];
+    XPAssert(_pauseState);
+    [_pauseState addResultNodes:nodes];
 }
 
 
 - (void)pause:(XPContext *)ctx parent:(XPExpression *)expr {
-    XPAssert(_resultNodes);
+    XPAssert(_pauseState);
     
-    XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_contextNodes comparer:nil] autorelease];
+    XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:[_pauseState contextNodes] comparer:nil] autorelease];
     [contextNodeSet sort];
     
-    XPNodeSetValue *resultNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_resultNodes comparer:nil] autorelease];
+    XPNodeSetValue *resultNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:[_pauseState resultNodes] comparer:nil] autorelease];
     [resultNodeSet sort];
     
     [ctx.staticContext pauseFrom:expr withContextNodes:contextNodeSet result:resultNodeSet range:self.subRange done:NO];

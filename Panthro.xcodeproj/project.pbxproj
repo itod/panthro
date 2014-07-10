@@ -364,6 +364,8 @@
 		D3C1782F18844C9200F90600 /* XPNodeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C1782D18844C9200F90600 /* XPNodeTest.m */; };
 		D3C1783318844C9F00F90600 /* XPNameTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C1783118844C9F00F90600 /* XPNameTest.m */; };
 		D3C1783718844CC500F90600 /* XPNamespaceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C1783518844CC500F90600 /* XPNamespaceTest.m */; };
+		D3D20AEF196F32B500741F3B /* XPPauseState.h in Headers */ = {isa = PBXBuildFile; fileRef = D3D20AED196F32B500741F3B /* XPPauseState.h */; };
+		D3D20AF0196F32B500741F3B /* XPPauseState.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D20AEE196F32B500741F3B /* XPPauseState.m */; };
 		D3F0CB9D191EC23D0049EC02 /* FNBoolean.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB8A191EC23D0049EC02 /* FNBoolean.h */; };
 		D3F0CB9E191EC23D0049EC02 /* FNCeiling.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB8B191EC23D0049EC02 /* FNCeiling.h */; };
 		D3F0CB9F191EC23D0049EC02 /* FNConcat.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB8C191EC23D0049EC02 /* FNConcat.h */; };
@@ -792,6 +794,8 @@
 		D3C1782D18844C9200F90600 /* XPNodeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNodeTest.m; path = src/XPNodeTest.m; sourceTree = "<group>"; };
 		D3C1783118844C9F00F90600 /* XPNameTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNameTest.m; path = src/XPNameTest.m; sourceTree = "<group>"; };
 		D3C1783518844CC500F90600 /* XPNamespaceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNamespaceTest.m; path = src/XPNamespaceTest.m; sourceTree = "<group>"; };
+		D3D20AED196F32B500741F3B /* XPPauseState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPPauseState.h; path = src/XPPauseState.h; sourceTree = "<group>"; };
+		D3D20AEE196F32B500741F3B /* XPPauseState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPPauseState.m; path = src/XPPauseState.m; sourceTree = "<group>"; };
 		D3F0CB8A191EC23D0049EC02 /* FNBoolean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNBoolean.h; path = src/FNBoolean.h; sourceTree = "<group>"; };
 		D3F0CB8B191EC23D0049EC02 /* FNCeiling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNCeiling.h; path = src/FNCeiling.h; sourceTree = "<group>"; };
 		D3F0CB8C191EC23D0049EC02 /* FNConcat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNConcat.h; path = src/FNConcat.h; sourceTree = "<group>"; };
@@ -1396,6 +1400,8 @@
 				D3A6C2E31907391200F3EFF3 /* XPAxis.m */,
 				D3A6C2ED1907413800F3EFF3 /* XPStep.h */,
 				D3A6C2EE1907413800F3EFF3 /* XPStep.m */,
+				D3D20AED196F32B500741F3B /* XPPauseState.h */,
+				D3D20AEE196F32B500741F3B /* XPPauseState.m */,
 				D3F0CBDD191EC4F10049EC02 /* XPSingletonExpression.h */,
 				D36BC031101BF52F00D1A6C7 /* XPSingletonExpression.m */,
 				D33E9FA119170BB900BB7DFE /* XPRootExpression.h */,
@@ -1643,6 +1649,7 @@
 				D339311E1920527200259939 /* FNUpperCase.h in Headers */,
 				D3F0CBFC191EC7F60049EC02 /* XPDocumentInfo.h in Headers */,
 				D33E9FA319170BB900BB7DFE /* XPRootExpression.h in Headers */,
+				D3D20AEF196F32B500741F3B /* XPPauseState.h in Headers */,
 				D339312C19211CC900259939 /* FNName.h in Headers */,
 				D3729A03196C3AD0004B1B7A /* XPOrderSpec.h in Headers */,
 				D3BBAE96191DD9B700766EB4 /* XPUnionEnumeration.h in Headers */,
@@ -1905,6 +1912,7 @@
 				D339F6511927B66500C79A51 /* xpath.c in Sources */,
 				D37A2D641014393D00E936B7 /* FNCount.m in Sources */,
 				D339F6201927B66500C79A51 /* nanohttp.c in Sources */,
+				D3D20AF0196F32B500741F3B /* XPPauseState.m in Sources */,
 				D339F6161927B66500C79A51 /* debugXML.c in Sources */,
 				D3BE142F191C40E500005C81 /* XPBaseEnumeration.m in Sources */,
 				D37A2E7D10156BF000E936B7 /* FNContains.m in Sources */,

@@ -159,6 +159,8 @@
     if ((self.dependencies & dep) != 0) {
         XPExpression *newstart = [_start reduceDependencies:dep inContext:ctx];
         XPStep *newstep = [[[XPStep alloc] initWithAxis:_step.axis nodeTest:_step.nodeTest] autorelease];
+        newstep.pauseState = _step.pauseState;
+        newstep.filterPauseStates = _step.filterPauseStates;
         newstep.range = _step.range;
         newstep.subRange = _step.subRange;
 

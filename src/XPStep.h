@@ -32,4 +32,9 @@
 @property (nonatomic, assign) NSRange range;
 @property (nonatomic, assign) NSRange subRange;
 @property (nonatomic, retain) NSArray *filterRanges;
+
+#if PAUSE_ENABLED
+@property (nonatomic, retain) id pauseState;
+@property (nonatomic, retain) NSMutableArray *filterPauseStates;
+#endif
 @end
