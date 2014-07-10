@@ -185,17 +185,17 @@
 
 
 - (void)pause:(XPContext *)ctx parent:(XPExpression *)expr {
-    if ([_resultNodes count]) {
-        XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_contextNodes comparer:nil] autorelease];
-        [contextNodeSet sort];
-        
-        XPNodeSetValue *resultNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_resultNodes comparer:nil] autorelease];
-        [resultNodeSet sort];
-        
-        [ctx.staticContext pauseFrom:expr withContextNodes:contextNodeSet result:resultNodeSet range:self.subRange done:NO];
-        
-        self.resultNodes = nil; // ok, we've blown our load. don't allow another pause.
-    }
+    XPAssert(_resultNodes);
+    
+    XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_contextNodes comparer:nil] autorelease];
+    [contextNodeSet sort];
+    
+    XPNodeSetValue *resultNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_resultNodes comparer:nil] autorelease];
+    [resultNodeSet sort];
+    
+    [ctx.staticContext pauseFrom:expr withContextNodes:contextNodeSet result:resultNodeSet range:self.subRange done:NO];
+    
+    self.resultNodes = nil; // ok, we've blown our load. don't allow another pause.
 }
 #endif
 
