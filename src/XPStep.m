@@ -153,37 +153,11 @@
                 [self pause:ctx parent:expr];
             }
         }
-
-//        BOOL debug = ctx.staticContext.debug;
-//        ctx.staticContext.debug = NO;
-
 #endif
-
         
         for (XPExpression *filter in _allFilters) {
             enm = [[[XPFilterEnumerator alloc] initWithBase:enm filter:filter context:ctx finishAfterReject:NO] autorelease];
-
-//#if PAUSE_ENABLED
-//            if (debug) {
-//                [self addContextNode:node];
-//                
-//                if ([enm conformsToProtocol:@protocol(XPPauseHandler)]) {
-//                    self.resultNodes = [(id <XPPauseHandler>)enm currentResultNodes];
-////                    NSLog(@"ctx %@", self.contextNodes);
-////                    NSLog(@"%@", self.resultNodes);
-//                    [self pause:ctx parent:filter];
-//                }
-//            }
-//            
-//#endif
-            
         }
-
-        
-//#if PAUSE_ENABLED
-//        ctx.staticContext.debug = debug;
-//#endif
-
     }
 
     return enm;
