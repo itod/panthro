@@ -30,5 +30,6 @@
 @property (nonatomic, retain) XPNodeTest *nodeTest;
 
 @property (nonatomic, assign) NSRange range;
+@property (nonatomic, assign) NSRange subRange;
 @property (nonatomic, retain) NSArray *filterRanges;
 @end

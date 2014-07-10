@@ -148,7 +148,7 @@
         XPNodeSetValue *resultNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_resultNodes comparer:nil] autorelease];
         [resultNodeSet sort];
         
-        [_context.staticContext pauseFrom:_start withContextNodes:contextNodeSet result:resultNodeSet range:_step.range done:NO];
+        [_context.staticContext pauseFrom:_start withContextNodes:contextNodeSet result:resultNodeSet range:_step.subRange done:NO];
 
         self.resultNodes = nil; // ok, we've blown our load. don't allow another pause.
     }
