@@ -103,7 +103,8 @@ const NSUInteger XPathErrorCodeRuntime = 2;
     v.range = self.range;
     
     if (![v isSequenceValue]) {
-        [XPException raiseIn:self format:@"The value `%@` is not a node-set", v];
+        //[XPException raiseIn:self format:@"The value `%@` is not a node-set", v];
+        v = [[[XPSequenceExtent alloc] initWithContent:@[v]] autorelease];
     }
 
     return (XPSequenceValue *)v;
@@ -114,7 +115,7 @@ const NSUInteger XPathErrorCodeRuntime = 2;
     XPValue *v = [self evaluateInContext:ctx];
 
     if ([v isSequenceValue]) {
-        id <XPSequenceEnumeration>enm = [(XPSequenceValue *)v enumerateInContext:ctx sorted:sorted];
+        id <XPSequenceEnumeration>enm = [v enumerateInContext:ctx sorted:sorted];
         return enm;
     }
 

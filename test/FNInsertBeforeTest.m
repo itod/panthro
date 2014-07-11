@@ -47,6 +47,24 @@
 }
 
 
+- (void)testSingleSeq {
+    self.expr = [XPExpression expressionFromString:@"insert-before(('2'), 1, '1')" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateInContext:nil];
+    TDEquals(1.0, [[_res itemAt:0] asNumber]);
+    TDEquals(2.0, [[_res itemAt:1] asNumber]);
+    TDEquals(2, [_res count]);
+}
+
+
+- (void)testSingleSeqSeq {
+    self.expr = [XPExpression expressionFromString:@"insert-before(('2'), 1, ('1'))" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateInContext:nil];
+    TDEquals(1.0, [[_res itemAt:0] asNumber]);
+    TDEquals(2.0, [[_res itemAt:1] asNumber]);
+    TDEquals(2, [_res count]);
+}
+
+
 - (void)testSingleEmpty {
     self.expr = [XPExpression expressionFromString:@"insert-before((), 1, '1')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateInContext:nil];
