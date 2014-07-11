@@ -12,6 +12,15 @@
 #import <Panthro/XPUtils.h>
 #import <Panthro/XPAxis.h>
 
+#import <Panthro/XPValue.h>
+#import <Panthro/XPBooleanValue.h>
+#import <Panthro/XPNumericValue.h>
+#import <Panthro/XPStringValue.h>
+#import <Panthro/XPSequenceValue.h>
+#import <Panthro/XPEmptySequence.h>
+#import <Panthro/XPEmptyNodeSet.h>
+#import <Panthro/XPObjectValue.h>
+
 #import <Panthro/XPPattern.h>
 #import <Panthro/XPNodeTest.h>
 
@@ -25,15 +34,6 @@
 #import <Panthro/XPLastPositionFinder.h>
 
 #import <Panthro/XPFunction.h>
-
-#import <Panthro/XPValue.h>
-#import <Panthro/XPBooleanValue.h>
-#import <Panthro/XPNumericValue.h>
-#import <Panthro/XPStringValue.h>
-#import <Panthro/XPSequenceValue.h>
-#import <Panthro/XPEmptySequence.h>
-#import <Panthro/XPEmptyNodeSet.h>
-#import <Panthro/XPObjectValue.h>
 
 #import <Panthro/XPException.h>
 #import <Panthro/XPExpression.h>
