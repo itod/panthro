@@ -57,10 +57,59 @@
 
 
 - (XPSequenceValue *)evaluateAsSequenceInContext:(XPContext *)ctx {
-    //id <XPItem>arg = [self.args[0] evaluateInContext:ctx];
-    XPSequenceValue *seq = nil;
-    seq.range = self.range;
-    return seq;
+    XPSequenceValue *result = nil;
+
+    XPSequenceValue *target = [self.args[0] evaluateAsSequenceInContext:ctx];
+    XPSequenceValue *inserts = [self.args[2] evaluateAsSequenceInContext:ctx];
+
+    NSUInteger targetLen = [target count];
+    NSUInteger insertsLen = [inserts count];
+    
+    // If $target is the empty sequence, $inserts is returned. If $inserts is the empty sequence, $target is returned.
+    if (0 == targetLen) {
+        XPAssert([XPEmptySequence instance] == target);
+        result = inserts;
+    } else if (0 == insertsLen) {
+        XPAssert([XPEmptySequence instance] == inserts);
+        result = target;
+    } else {
+        // If $position is less than one (1), the first position, the effective value of $position is one (1).
+        // If $position is greater than the number of items in $target, then the effective value of $position is equal to the number of items in $target plus 1.
+        double d = [self.args[1] evaluateAsNumberInContext:ctx];
+
+        NSUInteger insertIdx;
+        if (d < 1) {
+            insertIdx = 1;
+        } else if (d > targetLen) {
+            insertIdx = targetLen + 1;
+        } else {
+            insertIdx = d;
+        }
+        
+        NSUInteger totalLen = targetLen + insertsLen;
+        XPAssert(totalLen > 0);
+        
+        NSMutableArray *content = [NSMutableArray arrayWithCapacity:totalLen];
+
+        NSUInteger j = 1;
+        id <XPSequenceEnumeration>targetEnm = [target enumerate];
+        while ([targetEnm hasMoreItems]) {
+            if (insertIdx == j) {
+                id <XPSequenceEnumeration>insertsEnm = [inserts enumerate];
+                while ([insertsEnm hasMoreItems]) {
+                    [content addObject:[insertsEnm nextItem]];
+                }
+            }
+            [content addObject:[targetEnm nextItem]];
+            ++j;
+        }
+        
+        result = [[[XPSequenceExtent alloc] initWithContent:content] autorelease];
+    }
+
+    XPAssert([result isKindOfClass:[XPSequenceValue class]]);
+    result.range = self.range;
+    return result;
 }
 
 
