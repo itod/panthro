@@ -172,4 +172,21 @@
     TDFalse([enm hasMoreItems]);
 }
 
+
+- (void)testOpenForCInChapterLetIdEqCSlashIdCommaTxtEqStringOpenCCloseWhereIdNeC3OrderByIdAscendingReturnC {
+    [self eval:@"for $c in chapter, $p in $c/para let $id := $c/@id, $txt := string($p) where $id != 'c3' order by $id ascending return $txt"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    id <XPItem>item = nil;
+    
+    item = [enm nextItem];
+    TDEqualObjects(_paras[0], item.stringValue);
+    
+    item = [enm nextItem];
+    TDEqualObjects(_paras[1], item.stringValue);
+    
+    TDFalse([enm hasMoreItems]);
+}
+
 @end
