@@ -37,4 +37,18 @@
     TDEquals(2.0, _res);
 }
 
+
+- (void)testEmpty {
+    self.expr = [XPExpression expressionFromString:@"count(())" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(0.0, _res);
+}
+
+
+- (void)testOne {
+    self.expr = [XPExpression expressionFromString:@"count((1))" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(1.0, _res);
+}
+
 @end
