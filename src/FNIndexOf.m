@@ -77,7 +77,7 @@
         NSMutableArray *content = [NSMutableArray array];
         XPValue *target = [self.args[1] evaluateInContext:ctx];
         
-        NSUInteger n = 0;
+        NSUInteger n = 1;
         id <XPSequenceEnumeration>enm = [self.args[0] enumerateInContext:ctx sorted:YES];
         while ([enm hasMoreItems]) {
             id <XPItem>item = [enm nextItem];

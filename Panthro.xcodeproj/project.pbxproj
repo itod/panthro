@@ -14,6 +14,8 @@
 		D324A1AA192BFA5B0093C4B5 /* XPRangeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D324A1A9192BFA5B0093C4B5 /* XPRangeTest.m */; };
 		D32A3B34197031EE00DA9E39 /* FNIndexOf.h in Headers */ = {isa = PBXBuildFile; fileRef = D32A3B32197031EE00DA9E39 /* FNIndexOf.h */; };
 		D32A3B35197031EE00DA9E39 /* FNIndexOf.m in Sources */ = {isa = PBXBuildFile; fileRef = D32A3B33197031EE00DA9E39 /* FNIndexOf.m */; };
+		D32A3B3A1970369500DA9E39 /* FNCountTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D32A3B361970365500DA9E39 /* FNCountTest.m */; };
+		D32A3B3B1970369500DA9E39 /* FNIndexOfTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D32A3B371970365500DA9E39 /* FNIndexOfTest.m */; };
 		D33097381921BE99004317EA /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33097361921BE99004317EA /* PEGKit.framework */; };
 		D330973B1921BED5004317EA /* TDTemplateEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D330973A1921BED5004317EA /* TDTemplateEngine.framework */; };
 		D334BAB4192193AA00A32DD6 /* XPLastPositionFinder.h in Headers */ = {isa = PBXBuildFile; fileRef = D334BAB3192193AA00A32DD6 /* XPLastPositionFinder.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -445,6 +447,8 @@
 		D324A1A9192BFA5B0093C4B5 /* XPRangeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPRangeTest.m; path = test/XPRangeTest.m; sourceTree = "<group>"; };
 		D32A3B32197031EE00DA9E39 /* FNIndexOf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNIndexOf.h; path = src/FNIndexOf.h; sourceTree = "<group>"; };
 		D32A3B33197031EE00DA9E39 /* FNIndexOf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNIndexOf.m; path = src/FNIndexOf.m; sourceTree = "<group>"; };
+		D32A3B361970365500DA9E39 /* FNCountTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNCountTest.m; path = test/FNCountTest.m; sourceTree = "<group>"; };
+		D32A3B371970365500DA9E39 /* FNIndexOfTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNIndexOfTest.m; path = test/FNIndexOfTest.m; sourceTree = "<group>"; };
 		D33097361921BE99004317EA /* PEGKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PEGKit.framework; path = "../../../Library/Developer/Xcode/DerivedData/Panthro-dmvdaloqmsblyzezdvatkwnhfouk/Build/Products/Debug/PEGKit.framework"; sourceTree = "<group>"; };
 		D330973A1921BED5004317EA /* TDTemplateEngine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TDTemplateEngine.framework; path = "../../../Library/Developer/Xcode/DerivedData/Panthro-dmvdaloqmsblyzezdvatkwnhfouk/Build/Products/Debug/TDTemplateEngine.framework"; sourceTree = "<group>"; };
 		D334BAB3192193AA00A32DD6 /* XPLastPositionFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPLastPositionFinder.h; path = include/Panthro/XPLastPositionFinder.h; sourceTree = "<group>"; };
@@ -1351,12 +1355,14 @@
 				D339F67A192968C900C79A51 /* FNCompareTest.m */,
 				D37A2D24101436CE00E936B7 /* FNConcatTest.m */,
 				D37A2EAB10156F5700E936B7 /* FNContainsTest.m */,
+				D32A3B361970365500DA9E39 /* FNCountTest.m */,
 				D3729A09196C4417004B1B7A /* FNDataTest.m */,
 				D3729A10196C58E6004B1B7A /* FNDistinctValuesTest.m */,
 				D37299E7196B5AB7004B1B7A /* FNEmptyTest.m */,
 				D37A3074101595F400E936B7 /* FNEndsWithTest.m */,
 				D37299E0196B5934004B1B7A /* FNExistsTest.m */,
 				D37A2ED61015724700E936B7 /* FNFloorTest.m */,
+				D32A3B371970365500DA9E39 /* FNIndexOfTest.m */,
 				D339F6741929684D00C79A51 /* FNLowerCaseTest.m */,
 				D339F67C192968F700C79A51 /* FNNormalizeSpaceTest.m */,
 				D339F67E1929692C00C79A51 /* FNNormalizeUnicodeTest.m */,
@@ -2039,6 +2045,7 @@
 				D3411BE0191A8E140082A196 /* PGOptionalNode.m in Sources */,
 				D3411BE1191A8E140082A196 /* PGPatternNode.m in Sources */,
 				D3411BE2191A8E140082A196 /* PGReferenceNode.m in Sources */,
+				D32A3B3B1970369500DA9E39 /* FNIndexOfTest.m in Sources */,
 				D3411BE3191A8E140082A196 /* PGParserFactory.m in Sources */,
 				D33639D9100DAB5700AC4B51 /* XPBooleanValueTest.m in Sources */,
 				D33639F6100DB15700AC4B51 /* XPValueTest.m in Sources */,
@@ -2060,6 +2067,7 @@
 				D339F6801929692C00C79A51 /* FNNormalizeUnicodeTest.m in Sources */,
 				D339F685192969FE00C79A51 /* FNTranslateTest.m in Sources */,
 				D3729A11196C58E6004B1B7A /* FNDistinctValuesTest.m in Sources */,
+				D32A3B3A1970369500DA9E39 /* FNCountTest.m in Sources */,
 				D37A2D25101436CE00E936B7 /* FNConcatTest.m in Sources */,
 				D37A2EAC10156F5700E936B7 /* FNContainsTest.m in Sources */,
 				D3172237190D8FE6005C633B /* XPEqualityExprTest.m in Sources */,

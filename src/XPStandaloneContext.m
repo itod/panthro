@@ -38,6 +38,7 @@
 #import "FNExists.h"
 #import "FNFloor.h"
 #import "FNId.h"
+#import "FNIndexOf.h"
 #import "FNLang.h"
 #import "FNLast.h"
 #import "FNLocalName.h"
@@ -106,6 +107,7 @@
         [self declareSystemFunction:[FNExists class] forName:[FNExists name]];
         [self declareSystemFunction:[FNFloor class] forName:[FNFloor name]];
         [self declareSystemFunction:[FNId class] forName:[FNId name]];
+        [self declareSystemFunction:[FNIndexOf class] forName:[FNIndexOf name]];
         [self declareSystemFunction:[FNLang class] forName:[FNLang name]];
         [self declareSystemFunction:[FNLast class] forName:[FNLast name]];
         [self declareSystemFunction:[FNLocalName class] forName:[FNLocalName name]];
