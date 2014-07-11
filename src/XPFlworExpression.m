@@ -15,6 +15,7 @@
 #import "XPGroupClause.h"
 #import "XPOrderClause.h"
 #import "XPTuple.h"
+#import "XPGroupSpec.h"
 #import "XPOrderSpec.h"
 #import "XPEGParser.h"
 #import "XPNumericValue.h"
@@ -171,6 +172,7 @@
                 id <XPSequenceEnumeration>bodyEnm = [_bodyExpression enumerateInContext:ctx sorted:NO];
                 
                 NSMutableArray *tupleResItems = [NSMutableArray array];
+                NSMutableArray *tupleGroupSpecs = [NSMutableArray array];
                 NSMutableArray *tupleOrderSpecs = [NSMutableArray array];
                 
                 while ([bodyEnm hasMoreItems]) {
@@ -179,10 +181,12 @@
                     
                     [tupleResItems addObject:bodyItem];
                     
-//                    for (XPGroupClause *groupClause in _groupClauses) {
-//                        // calling -head here for force a single atomic value. but supposed to throw and exception if it's a sequence with more than 1 item
-//                        XPValue *groupVal = [XPAtomize([groupClause.expression evaluateInContext:ctx]) head];
-//                    }
+                    for (XPGroupClause *groupClause in _groupClauses) {
+                        // calling -head here for force a single atomic value. but supposed to throw and exception if it's a sequence with more than 1 item
+                        XPValue *specVal = [XPAtomize([groupClause.expression evaluateInContext:ctx]) head];
+                        XPGroupSpec *spec = [XPGroupSpec groupSpecWithValue:specVal];
+                        [tupleGroupSpecs addObject:spec];
+                    }
                     
                     for (XPOrderClause *orderClause in _orderClauses) {
                         // calling -head here for force a single atomic value. but supposed to throw and exception if it's a sequence with more than 1 item
@@ -192,7 +196,7 @@
                     }
                 }
 
-                XPTuple *t = [XPTuple tupeWithResultItems:tupleResItems orderSpecs:tupleOrderSpecs];
+                XPTuple *t = [XPTuple tupeWithResultItems:tupleResItems groupSpecs:tupleGroupSpecs orderSpecs:tupleOrderSpecs];
                 [_tuples addObject:t];
             }
         }

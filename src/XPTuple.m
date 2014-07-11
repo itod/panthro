@@ -10,16 +10,18 @@
 
 @implementation XPTuple
 
-+ (instancetype)tupeWithResultItems:(NSArray *)res orderSpecs:(NSArray *)specs {
++ (instancetype)tupeWithResultItems:(NSArray *)res groupSpecs:(NSArray *)groupSpecs orderSpecs:(NSArray *)orderSpecs {
     XPTuple *t = [[[XPTuple alloc] init] autorelease];
     t.resultItems = res;
-    t.orderSpecs = specs;
+    t.orderSpecs = groupSpecs;
+    t.orderSpecs = orderSpecs;
     return t;
 }
 
 
 - (void)dealloc {
     self.resultItems = nil;
+    self.groupSpecs = nil;
     self.orderSpecs = nil;
     [super dealloc];
 }
