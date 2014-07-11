@@ -41,12 +41,21 @@
     id arg0 = [self.args[0] simplify];
     self.args[0] = arg0;
     
+    BOOL isArg1Value = YES;
+    
     // ignoring collation arg for now
     if ([self numberOfArguments] > 1) {
         id arg1 = [self.args[1] simplify];
         self.args[1] = arg1;
+        
+        isArg1Value = [arg1 isValue];
     }
     
+    if ([arg0 isValue] && isArg1Value) {
+        result = [self evaluateAsSequenceInContext:nil];
+    }
+    
+    result.range = self.range;
     return result;
 }
 

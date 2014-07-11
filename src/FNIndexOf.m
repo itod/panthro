@@ -68,7 +68,8 @@
 
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
-    return [self evaluateAsSequenceInContext:ctx];
+    XPValue *val = [self evaluateAsSequenceInContext:ctx];
+    return val;
 }
 
 
