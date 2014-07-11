@@ -134,4 +134,42 @@
     TDFalse([enm hasMoreItems]);
 }
 
+
+- (void)testOpenForCInChapterLetIdEqCSlashIdWhereIdNeC2OrderByIdDescendingReturnC {
+    [self eval:@"for $c in chapter let $id := $c/@id where $id != 'c2' order by $id descending return $id"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = nil;
+    
+    node = [enm nextNodeInfo];
+    TDEqualObjects(@"id", node.name);
+    TDEqualObjects(_ids[2], node.stringValue);
+    TDEquals(XPNodeTypeAttribute, node.nodeType);
+    
+    node = [enm nextNodeInfo];
+    TDEqualObjects(@"id", node.name);
+    TDEqualObjects(_ids[0], node.stringValue);
+    TDEquals(XPNodeTypeAttribute, node.nodeType);
+    
+    TDFalse([enm hasMoreItems]);
+}
+
+
+- (void)testOpenForCInChapterLetIdEqCSlashIdCommaTxtEqStringOpenCCloseWhereIdNeC1OrderByIdDescendingReturnC {
+    [self eval:@"for $c in chapter, $p in $c/para let $id := $c/@id, $txt := string($p) where $id != 'c1' order by $id descending return $txt"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    id <XPItem>item = nil;
+    
+    item = [enm nextItem];
+    TDEqualObjects(_paras[2], item.stringValue);
+    
+    item = [enm nextItem];
+    TDEqualObjects(_paras[1], item.stringValue);
+    
+    TDFalse([enm hasMoreItems]);
+}
+
 @end
