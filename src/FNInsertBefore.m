@@ -103,6 +103,12 @@
             [content addObject:[targetEnm nextItem]];
             ++j;
         }
+        if (insertIdx == j) {
+            id <XPSequenceEnumeration>insertsEnm = [inserts enumerate];
+            while ([insertsEnm hasMoreItems]) {
+                [content addObject:[insertsEnm nextItem]];
+            }
+        }
         
         result = [[[XPSequenceExtent alloc] initWithContent:content] autorelease];
     }

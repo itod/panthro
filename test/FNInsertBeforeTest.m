@@ -47,6 +47,42 @@
 }
 
 
+- (void)testSingle0 {
+    self.expr = [XPExpression expressionFromString:@"insert-before('2', 0, '1')" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateInContext:nil];
+    TDEquals(1.0, [[_res itemAt:0] asNumber]);
+    TDEquals(2.0, [[_res itemAt:1] asNumber]);
+    TDEquals(2, [_res count]);
+}
+
+
+- (void)testSingleNeg {
+    self.expr = [XPExpression expressionFromString:@"insert-before('2', -1, '1')" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateInContext:nil];
+    TDEquals(1.0, [[_res itemAt:0] asNumber]);
+    TDEquals(2.0, [[_res itemAt:1] asNumber]);
+    TDEquals(2, [_res count]);
+}
+
+
+- (void)testSingle2 {
+    self.expr = [XPExpression expressionFromString:@"insert-before('2', 2, '1')" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateInContext:nil];
+    TDEquals(2.0, [[_res itemAt:0] asNumber]);
+    TDEquals(1.0, [[_res itemAt:1] asNumber]);
+    TDEquals(2, [_res count]);
+}
+
+
+- (void)testSingle3 {
+    self.expr = [XPExpression expressionFromString:@"insert-before('2', 3, '1')" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateInContext:nil];
+    TDEquals(2.0, [[_res itemAt:0] asNumber]);
+    TDEquals(1.0, [[_res itemAt:1] asNumber]);
+    TDEquals(2, [_res count]);
+}
+
+
 - (void)testSingleSeq {
     self.expr = [XPExpression expressionFromString:@"insert-before(('2'), 1, '1')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateInContext:nil];
@@ -89,6 +125,18 @@
     TDEquals(3.0, [[_res itemAt:2] asNumber]);
     TDEquals(4.0, [[_res itemAt:3] asNumber]);
     TDEquals(4, [_res count]);
+}
+
+
+- (void)test5SeqAt1 {
+    self.expr = [XPExpression expressionFromString:@"insert-before((2, 3, 4), 1, (1, 2))" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateInContext:nil];
+    TDEquals(1.0, [[_res itemAt:0] asNumber]);
+    TDEquals(2.0, [[_res itemAt:1] asNumber]);
+    TDEquals(2.0, [[_res itemAt:2] asNumber]);
+    TDEquals(3.0, [[_res itemAt:3] asNumber]);
+    TDEquals(4.0, [[_res itemAt:4] asNumber]);
+    TDEquals(5, [_res count]);
 }
 
 
