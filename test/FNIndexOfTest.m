@@ -59,10 +59,20 @@
 }
 
 
-- (void)testEmptySequence2 {
+- (void)testStringTwice {
     self.expr = [XPExpression expressionFromString:@"index-of(('2', '3', '4', '2'), '2')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateInContext:nil];
     TDEquals(1.0, [[_res itemAt:0] asNumber]);
+    TDEquals(4.0, [[_res itemAt:1] asNumber]);
+    TDEquals(2, [_res count]);
+}
+
+
+- (void)testNumberTwice {
+    self.expr = [XPExpression expressionFromString:@"index-of((2, 3, 4, 2), 2)" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateInContext:nil];
+    TDEquals(1.0, [[_res itemAt:0] asNumber]);
+    TDEquals(4.0, [[_res itemAt:1] asNumber]);
     TDEquals(2, [_res count]);
 }
 
