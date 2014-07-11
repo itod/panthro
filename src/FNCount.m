@@ -51,7 +51,7 @@
 
 - (double)evaluateAsNumberInContext:(XPContext *)ctx {
     NSInteger n = 0;
-    id <XPSequenceEnumeration>enm = [(XPSequenceValue *)self.args[0] enumerateInContext:ctx sorted:YES];
+    id <XPSequenceEnumeration>enm = [self.args[0] enumerateInContext:ctx sorted:YES];
     while ([enm hasMoreItems]) {
         [enm nextItem];
         n++;

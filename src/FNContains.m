@@ -41,7 +41,7 @@
     if ([arg0 isValue] && [arg1 isValue]) {
         result = [self evaluateInContext:nil];
     } else if ([arg1 isValue] && [[arg1 asString] isEqualToString:@""]) {
-        result =[XPBooleanValue booleanValueWithBoolean:YES];
+        result = [XPBooleanValue booleanValueWithBoolean:YES];
     }
     
     result.range = self.range;
