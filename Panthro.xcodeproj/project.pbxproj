@@ -17,6 +17,9 @@
 		D32A3B3A1970369500DA9E39 /* FNCountTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D32A3B361970365500DA9E39 /* FNCountTest.m */; };
 		D32A3B3B1970369500DA9E39 /* FNIndexOfTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D32A3B371970365500DA9E39 /* FNIndexOfTest.m */; };
 		D32A3B3D197037B400DA9E39 /* XPEmptySequence.h in Headers */ = {isa = PBXBuildFile; fileRef = D32A3B3C197037B400DA9E39 /* XPEmptySequence.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D32A3B4019703B7800DA9E39 /* FNInsertBefore.h in Headers */ = {isa = PBXBuildFile; fileRef = D32A3B3E19703B7800DA9E39 /* FNInsertBefore.h */; };
+		D32A3B4119703B7800DA9E39 /* FNInsertBefore.m in Sources */ = {isa = PBXBuildFile; fileRef = D32A3B3F19703B7800DA9E39 /* FNInsertBefore.m */; };
+		D32A3B4319703B9500DA9E39 /* FNInsertBeforeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D32A3B4219703B9500DA9E39 /* FNInsertBeforeTest.m */; };
 		D33097381921BE99004317EA /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33097361921BE99004317EA /* PEGKit.framework */; };
 		D330973B1921BED5004317EA /* TDTemplateEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D330973A1921BED5004317EA /* TDTemplateEngine.framework */; };
 		D334BAB4192193AA00A32DD6 /* XPLastPositionFinder.h in Headers */ = {isa = PBXBuildFile; fileRef = D334BAB3192193AA00A32DD6 /* XPLastPositionFinder.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -450,6 +453,9 @@
 		D32A3B361970365500DA9E39 /* FNCountTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNCountTest.m; path = test/FNCountTest.m; sourceTree = "<group>"; };
 		D32A3B371970365500DA9E39 /* FNIndexOfTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNIndexOfTest.m; path = test/FNIndexOfTest.m; sourceTree = "<group>"; };
 		D32A3B3C197037B400DA9E39 /* XPEmptySequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPEmptySequence.h; path = include/Panthro/XPEmptySequence.h; sourceTree = "<group>"; };
+		D32A3B3E19703B7800DA9E39 /* FNInsertBefore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNInsertBefore.h; path = src/FNInsertBefore.h; sourceTree = "<group>"; };
+		D32A3B3F19703B7800DA9E39 /* FNInsertBefore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNInsertBefore.m; path = src/FNInsertBefore.m; sourceTree = "<group>"; };
+		D32A3B4219703B9500DA9E39 /* FNInsertBeforeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNInsertBeforeTest.m; path = test/FNInsertBeforeTest.m; sourceTree = "<group>"; };
 		D33097361921BE99004317EA /* PEGKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PEGKit.framework; path = "../../../Library/Developer/Xcode/DerivedData/Panthro-dmvdaloqmsblyzezdvatkwnhfouk/Build/Products/Debug/PEGKit.framework"; sourceTree = "<group>"; };
 		D330973A1921BED5004317EA /* TDTemplateEngine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TDTemplateEngine.framework; path = "../../../Library/Developer/Xcode/DerivedData/Panthro-dmvdaloqmsblyzezdvatkwnhfouk/Build/Products/Debug/TDTemplateEngine.framework"; sourceTree = "<group>"; };
 		D334BAB3192193AA00A32DD6 /* XPLastPositionFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPLastPositionFinder.h; path = include/Panthro/XPLastPositionFinder.h; sourceTree = "<group>"; };
@@ -1272,6 +1278,8 @@
 				D339F66B1928EA1100C79A51 /* FNId.m */,
 				D32A3B32197031EE00DA9E39 /* FNIndexOf.h */,
 				D32A3B33197031EE00DA9E39 /* FNIndexOf.m */,
+				D32A3B3E19703B7800DA9E39 /* FNInsertBefore.h */,
+				D32A3B3F19703B7800DA9E39 /* FNInsertBefore.m */,
 				D347955E193FDEA100181E56 /* FNLang.h */,
 				D347955F193FDEA100181E56 /* FNLang.m */,
 				D3F0CB91191EC23D0049EC02 /* FNLast.h */,
@@ -1363,6 +1371,7 @@
 				D37299E0196B5934004B1B7A /* FNExistsTest.m */,
 				D37A2ED61015724700E936B7 /* FNFloorTest.m */,
 				D32A3B371970365500DA9E39 /* FNIndexOfTest.m */,
+				D32A3B4219703B9500DA9E39 /* FNInsertBeforeTest.m */,
 				D339F6741929684D00C79A51 /* FNLowerCaseTest.m */,
 				D339F67C192968F700C79A51 /* FNNormalizeSpaceTest.m */,
 				D339F67E1929692C00C79A51 /* FNNormalizeUnicodeTest.m */,
@@ -1690,6 +1699,7 @@
 				D339F1ED19279E4600C79A51 /* XPLibxmlNodeImpl.h in Headers */,
 				D3F45868196CA45400F05EA0 /* XPNodeSetValue.h in Headers */,
 				D37299CA1969EA0E004B1B7A /* XPNodeComparisonExpression.h in Headers */,
+				D32A3B4019703B7800DA9E39 /* FNInsertBefore.h in Headers */,
 				D3BE1424191C193900005C81 /* XPFilterEnumerator.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1988,6 +1998,7 @@
 				D339F64E1927B66500C79A51 /* xmlstring.c in Sources */,
 				D37299CB1969EA0E004B1B7A /* XPNodeComparisonExpression.m in Sources */,
 				D339312D19211CC900259939 /* FNName.m in Sources */,
+				D32A3B4119703B7800DA9E39 /* FNInsertBefore.m in Sources */,
 				D3479561193FDEA100181E56 /* FNLang.m in Sources */,
 				D37A30701015952F00E936B7 /* FNEndsWith.m in Sources */,
 				D3A6C2F01907413800F3EFF3 /* XPStep.m in Sources */,
@@ -2050,6 +2061,7 @@
 				D33639D9100DAB5700AC4B51 /* XPBooleanValueTest.m in Sources */,
 				D33639F6100DB15700AC4B51 /* XPValueTest.m in Sources */,
 				D3366B04188051D6008C4144 /* XPEGParserStepTest.m in Sources */,
+				D32A3B4319703B9500DA9E39 /* FNInsertBeforeTest.m in Sources */,
 				D36C6771101059CE000361A0 /* XPNumericValueTest.m in Sources */,
 				D36C678310105EBE000361A0 /* XPStringValueTest.m in Sources */,
 				D37A27F5101304EF00E936B7 /* XPBooleanExprTest.m in Sources */,

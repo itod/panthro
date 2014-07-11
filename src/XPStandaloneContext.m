@@ -39,6 +39,7 @@
 #import "FNFloor.h"
 #import "FNId.h"
 #import "FNIndexOf.h"
+#import "FNInsertBefore.h"
 #import "FNLang.h"
 #import "FNLast.h"
 #import "FNLocalName.h"
@@ -52,7 +53,9 @@
 #import "FNNumber.h"
 #import "FNPosition.h"
 #import "FNRound.h"
+//#import "FNRemove.h"
 #import "FNReplace.h"
+//#import "FNReverse.h"
 #import "FNStartsWith.h"
 #import "FNString.h"
 #import "FNStringLength.h"
@@ -108,6 +111,7 @@
         [self declareSystemFunction:[FNFloor class] forName:[FNFloor name]];
         [self declareSystemFunction:[FNId class] forName:[FNId name]];
         [self declareSystemFunction:[FNIndexOf class] forName:[FNIndexOf name]];
+        [self declareSystemFunction:[FNInsertBefore class] forName:[FNInsertBefore name]];
         [self declareSystemFunction:[FNLang class] forName:[FNLang name]];
         [self declareSystemFunction:[FNLast class] forName:[FNLast name]];
         [self declareSystemFunction:[FNLocalName class] forName:[FNLocalName name]];
@@ -121,7 +125,9 @@
         [self declareSystemFunction:[FNNumber class] forName:[FNNumber name]];
         [self declareSystemFunction:[FNPosition class] forName:[FNPosition name]];
         [self declareSystemFunction:[FNRound class] forName:[FNRound name]];
+//        [self declareSystemFunction:[FNRemove class] forName:[FNRemove name]];
         [self declareSystemFunction:[FNReplace class] forName:[FNReplace name]];
+//        [self declareSystemFunction:[FNReverse class] forName:[FNReverse name]];
         [self declareSystemFunction:[FNStartsWith class] forName:[FNStartsWith name]];
         [self declareSystemFunction:[FNString class] forName:[FNString name]];
         [self declareSystemFunction:[FNStringLength class] forName:[FNStringLength name]];

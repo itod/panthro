@@ -58,7 +58,7 @@
         if (arg0 == [XPEmptySequence instance]) {
             result = [XPEmptySequence instance];
         } else if ([arg1 isValue] && isArg2Value) {
-            result = [self evaluateInContext:nil];
+            result = [self evaluateAsSequenceInContext:nil];
         }
     }
     
@@ -68,7 +68,12 @@
 
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
-    XPValue *result = [XPEmptySequence instance];
+    return [self evaluateAsSequenceInContext:ctx];
+}
+
+
+- (XPSequenceValue *)evaluateAsSequenceInContext:(XPContext *)ctx {
+    XPSequenceValue *result = [XPEmptySequence instance];
     
     XPValue *seq = [self.args[0] evaluateInContext:ctx];
 
