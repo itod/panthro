@@ -10,7 +10,7 @@
 
 @implementation XPGroupClause
 
-+ (instancetype)letClauseWithVariableName:(NSString *)varName expression:(XPExpression *)expr {
++ (instancetype)groupClauseWithVariableName:(NSString *)varName expression:(XPExpression *)expr {
     XPGroupClause *gc = [[[XPGroupClause alloc] init] autorelease];
     gc.variableName = varName;
     gc.expression = expr;

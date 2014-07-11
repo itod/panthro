@@ -12,7 +12,7 @@
 
 @interface XPGroupClause : NSObject
 
-+ (instancetype)letClauseWithVariableName:(NSString *)varName expression:(XPExpression *)expr;
++ (instancetype)groupClauseWithVariableName:(NSString *)varName expression:(XPExpression *)expr;
 
 @property (nonatomic, retain) NSString *variableName;
 @property (nonatomic, retain) XPExpression *expression;

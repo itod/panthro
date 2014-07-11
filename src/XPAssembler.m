@@ -17,6 +17,7 @@
 #import "XPFlworExpression.h"
 #import "XPForClause.h"
 #import "XPLetClause.h"
+#import "XPGroupClause.h"
 #import "XPOrderClause.h"
 #import "XPQuantifiedExpression.h"
 #import "XPIfExpression.h"
@@ -54,6 +55,8 @@
 @property (nonatomic, retain) PKToken *forTok;
 @property (nonatomic, retain) PKToken *let;
 @property (nonatomic, retain) PKToken *where;
+@property (nonatomic, retain) PKToken *group;
+@property (nonatomic, retain) PKToken *eq;
 @property (nonatomic, retain) PKToken *order;
 @property (nonatomic, retain) PKToken *then;
 @property (nonatomic, retain) PKToken *slash;
@@ -82,6 +85,8 @@
         self.forTok = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"for" doubleValue:0.0];
         self.let = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"let" doubleValue:0.0];
         self.where = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"where" doubleValue:0.0];
+        self.group = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"group" doubleValue:0.0];
+        self.eq = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@":=" doubleValue:0.0];
         self.order = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"order" doubleValue:0.0];
         self.then = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"then" doubleValue:0.0];
         self.slash = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"/" doubleValue:0.0];
@@ -123,6 +128,8 @@
     self.forTok = nil;
     self.let = nil;
     self.where = nil;
+    self.group = nil;
+    self.eq = nil;
     self.order = nil;
     self.then = nil;
     self.slash = nil;
@@ -167,6 +174,7 @@
     id peek = [a pop];
     do {
         NSMutableArray *letClauses = nil;
+        NSMutableArray *groupClauses = nil;
 
         while (peek == _order) {
 
@@ -195,6 +203,31 @@
             peek = [a pop];
         }
         
+        if (peek == _group) {
+            groupClauses = [NSMutableArray array];
+            
+            do {
+                id groupExpr = [a pop];
+                PKToken *groupVarTok = nil;
+
+                peek = [a pop];
+                if ([peek isEqual:_eq]) {
+                    groupVarTok = [a pop];
+                    peek = [a pop];
+                } else {
+                    groupVarTok = groupExpr;
+                    groupExpr = nil;
+                }
+                
+                NSAssert(!groupExpr || [groupExpr isKindOfClass:[XPExpression class]], @"");
+                XPAssertToken(groupVarTok);
+                
+                XPGroupClause *groupClause = [XPGroupClause groupClauseWithVariableName:groupVarTok.stringValue expression:groupExpr];
+                [groupClauses insertObject:groupClause atIndex:0];
+                
+            } while (peek == _group);
+        }
+
         if (peek == _let) {
             letClauses = [NSMutableArray array];
             
@@ -274,6 +307,7 @@
 - (void)parser:(PKParser *)p didMatchSingleForClause:(PKAssembly *)a { [a push:_forTok]; }
 - (void)parser:(PKParser *)p didMatchSingleLetClause:(PKAssembly *)a { [a push:_let]; }
 - (void)parser:(PKParser *)p didMatchWhereClause:(PKAssembly *)a { [a push:_where]; }
+- (void)parser:(PKParser *)p didMatchSingleGroupClause:(PKAssembly *)a { [a push:_group]; }
 - (void)parser:(PKParser *)p didMatchOrderSpec:(PKAssembly *)a { [a push:_order]; }
 
 

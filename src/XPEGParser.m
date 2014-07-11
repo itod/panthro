@@ -876,8 +876,8 @@
     
     [self match:XPEG_TOKEN_KIND_DOLLAR discard:YES]; 
     [self qName_]; 
-    if ([self speculate:^{ [self match:XPEG_TOKEN_KIND_ASSIGN discard:YES]; [self exprSingle_]; }]) {
-        [self match:XPEG_TOKEN_KIND_ASSIGN discard:YES]; 
+    if ([self speculate:^{ [self match:XPEG_TOKEN_KIND_ASSIGN discard:NO]; [self exprSingle_]; }]) {
+        [self match:XPEG_TOKEN_KIND_ASSIGN discard:NO]; 
         [self exprSingle_]; 
     }
 
