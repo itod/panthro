@@ -36,11 +36,17 @@
 - (XPExpression *)simplify {
     XPExpression *result = self;
     
-    [self checkArgumentCountForMin:1 max:1];
+    [self checkArgumentCountForMin:1 max:2];
     
     id arg0 = [self.args[0] simplify];
     self.args[0] = arg0;
-
+    
+    // ignoring collation arg for now
+    if ([self numberOfArguments] > 0) {
+        id arg1 = [self.args[1] simplify];
+        self.args[1] = arg1;
+    }
+    
     return result;
 }
 
