@@ -91,6 +91,18 @@
 
     [self loopInContext:ctx forClauses:_forClauses];
     
+    // group by
+//    NSUInteger groupClauseCount = [_groupClauses count];
+//    if (groupClauseCount > 0) {
+//        NSMutableArray *newGroupedTuples = [NSMutableArray array];
+//        
+//        for (XPTuple *t in _tuples) {
+//            
+//        }
+//        
+//        self.tuples = newGroupedTuples;
+//    }
+    
     // order by
     NSUInteger orderClauseCount = [_orderClauses count];
     if (orderClauseCount > 0) {
