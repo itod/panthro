@@ -97,7 +97,6 @@
 #if PAUSE_ENABLED
 - (void)pause:(XPPauseState *)state context:(XPContext *)ctx {
     XPAssert(state);
-    
     [ctx.staticContext pauseFrom:state done:NO];
 }
 #endif
