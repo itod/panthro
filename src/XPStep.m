@@ -96,9 +96,6 @@
         self.allFilters = [NSMutableArray arrayWithCapacity:2];
     }
     [_allFilters addObject:expr];
-    
-    XPPauseState *state = [[[XPPauseState alloc] init] autorelease];
-    state.expression = expr;
 
     return self;
 }
