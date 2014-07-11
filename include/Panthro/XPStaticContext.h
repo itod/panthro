@@ -16,6 +16,10 @@
 
 @protocol XPItem;
 
+#if PAUSE_ENABLED
+@class XPPauseState;
+#endif
+
 #define XPNamespaceXML @"http://www.w3.org/XML/1998/namespace"
 #define XPNamespaceXSLT @"http://www.w3.org/1999/XSL/Transform"
 
@@ -38,7 +42,7 @@
 
 #if PAUSE_ENABLED
 // Debugging
-- (void)pauseFrom:(XPExpression *)expr withContextNodes:(XPValue *)ctxNodes result:(XPValue *)result range:(NSRange)range done:(BOOL)isDone;
+- (void)pauseFrom:(XPPauseState *)state done:(BOOL)isDone;
 @property (assign) BOOL debug;
 #endif
 @end

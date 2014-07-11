@@ -10,7 +10,12 @@
 #import "XPUtils.h"
 #import "XPException.h"
 
+#if PAUSE_ENABLED
 #import "XPSync.h"
+#import "XPNodeSetExtent.h"
+#import "XPPauseState.h"
+#endif
+
 #import "XPContext.h"
 #import "XPExpression.h"
 #import "XPFunction.h"
@@ -351,20 +356,28 @@
 
 
 #if PAUSE_ENABLED
-- (void)pauseFrom:(XPExpression *)expr withContextNodes:(XPSequenceValue *)ctxNodes result:(XPValue *)result range:(NSRange)range done:(BOOL)isDone {
-    XPAssert(expr);
-    XPAssert(ctxNodes);
-    XPAssert(result);
-    XPAssert(NSNotFound != range.location);
-    XPAssert(NSNotFound != range.length);
-    XPAssert(range.length);
+- (void)pauseFrom:(XPPauseState *)state done:(BOOL)isDone {
+    XPAssert(state);
+    XPAssert(state.expression);
+    XPAssert(state.contextNodes);
+    XPAssert(state.resultNodes);
+    XPAssert(NSNotFound != state.range.location);
+    XPAssert(NSNotFound != state.range.length);
+    XPAssert(state.range.length);
 
-    id info = @{@"contextNodes": ctxNodes, @"result": result, @"done": @(isDone), @"mainQueryRange": [NSValue valueWithRange:range]};
+    NSArray *ctxNodes = state.contextNodes;
+    if (![ctxNodes count]) return;
+    
+    XPNodeSetValue *contextNodeSet = [[[[XPNodeSetExtent alloc] initWithNodes:ctxNodes comparer:nil] sort] autorelease];
+    
+    XPNodeSetValue *resultNodeSet = [[[[XPNodeSetExtent alloc] initWithNodes:state.resultNodes comparer:nil] sort] autorelease];
+
+    id info = @{@"contextNodes": contextNodeSet, @"result": resultNodeSet, @"done": @(isDone), @"mainQueryRange": [NSValue valueWithRange:state.range]};
     [self.debugSync pauseWithInfo:info];
     BOOL resume = [[self.debugSync awaitResume] boolValue];
     
     if (!resume) {
-        [XPException raiseIn:expr format:@"User Terminated"];
+        [XPException raiseIn:state.expression format:@"User Terminated"];
     }
 }
 #endif

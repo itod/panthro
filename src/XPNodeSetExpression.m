@@ -98,16 +98,7 @@
 - (void)pause:(XPPauseState *)state context:(XPContext *)ctx {
     XPAssert(state);
     
-    NSArray *ctxNodes = [state contextNodes];
-    if (![ctxNodes count]) return;
-    
-    XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:ctxNodes comparer:nil] autorelease];
-    [contextNodeSet sort];
-    
-    XPNodeSetValue *resultNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:[state resultNodes] comparer:nil] autorelease];
-    [resultNodeSet sort];
-    
-    [ctx.staticContext pauseFrom:state.expression withContextNodes:contextNodeSet result:resultNodeSet range:state.range done:NO];
+    [ctx.staticContext pauseFrom:state done:NO];
 }
 #endif
 
