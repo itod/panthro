@@ -16,11 +16,7 @@
 @protocol XPSequenceEnumeration;
 @protocol XPNodeInfo;
 
-#if PAUSE_ENABLED
-@class XPPauseState;
-#endif
-
-@interface XPStep : NSObject
+@interface XPStep : NSObject <NSCopying>
 
 - (instancetype)initWithAxis:(XPAxis)axis nodeTest:(XPNodeTest *)nodeTest;
 
@@ -34,11 +30,5 @@
 @property (nonatomic, retain) XPNodeTest *nodeTest;
 
 @property (nonatomic, assign) NSRange range;
-@property (nonatomic, assign) NSRange subRange;
-@property (nonatomic, retain) NSArray *filterRanges;
-
-#if PAUSE_ENABLED
-@property (nonatomic, retain) XPPauseState *pauseState;
-@property (nonatomic, retain) NSMutableArray *filterPauseStates;
-#endif
+@property (nonatomic, assign) NSRange baseRange;
 @end

@@ -755,10 +755,10 @@
     XPAssert(NSNotFound != step.range.length);
     XPAssert(step.range.length);
 
-    step.subRange = NSMakeRange(startOffset, NSMaxRange(nodeTest.range) - startOffset);
-    XPAssert(NSNotFound != step.subRange.location);
-    XPAssert(NSNotFound != step.subRange.length);
-    XPAssert(step.subRange.length);
+    step.baseRange = NSMakeRange(startOffset, NSMaxRange(nodeTest.range) - startOffset);
+    XPAssert(NSNotFound != step.baseRange.location);
+    XPAssert(NSNotFound != step.baseRange.length);
+    XPAssert(step.baseRange.length);
     return step;
 }
 

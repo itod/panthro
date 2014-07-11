@@ -15,13 +15,6 @@
 #import "XPException.h"
 #import "XPStep.h"
 
-//#if PAUSE_ENABLED
-//#import "XPStaticContext.h"
-//#import "XPNodeSetExtent.h"
-//#import "XPNodeSetValueEnumeration.h"
-//#import "XPSingletonEnumeration.h"
-//#endif
-
 @interface XPPathEnumeration ()
 @property (nonatomic, retain) XPExpression *start;
 @property (nonatomic, retain) XPStep *step;
@@ -29,11 +22,6 @@
 @property (nonatomic, retain) id <XPSequenceEnumeration>tail;
 @property (nonatomic, retain) id <XPNodeInfo>next;
 @property (nonatomic, retain) XPContext *context;
-
-//#if PAUSE_ENABLED
-//@property (nonatomic, retain) NSMutableArray *contextNodes;
-//@property (nonatomic, retain) NSMutableArray *resultNodes;
-//#endif
 @end
 
 @implementation XPPathEnumeration
@@ -46,11 +34,6 @@
                 [XPException raiseIn:start format:@"To use a result tree fragment in a path expression, either use exsl:node-set() or specify version='1.1'"];
             }
         }
-
-//#if PAUSE_ENABLED
-//        self.contextNodes = [NSMutableArray array];
-//        self.resultNodes = [NSMutableArray array];
-//#endif
 
         self.start = start;
         self.step = step;
@@ -69,12 +52,6 @@
     self.tail = nil;
     self.next = nil;
     self.context = nil;
-
-//#if PAUSE_ENABLED
-//    self.contextNodes = nil;
-//    self.resultNodes = nil;
-//#endif
-    
     [super dealloc];
 }
 
@@ -88,13 +65,6 @@
 - (id <XPNodeInfo>)nextItem {
     id <XPNodeInfo>curr = _next;
     self.next = [self nextNode];
-
-//#if PAUSE_ENABLED
-//    if (_context.staticContext.debug && ![self hasMoreItems]) {
-//        [self pause];
-//    }
-//#endif
-    
     return curr;
 }
 
@@ -114,15 +84,6 @@
             self.tail = [_step enumerate:node inContext:_context parent:_start];
 
             if ([_tail hasMoreItems]) {
-//#if PAUSE_ENABLED
-//                if (_context.staticContext.debug) {
-//                    [self addContextNode:node];
-//                    
-//                    if ([_tail conformsToProtocol:@protocol(XPPauseHandler)]) {
-//                        [self addResultNodes:[(id <XPPauseHandler>)_tail currentResultNodes]];
-//                    }
-//                }
-//#endif
                 result = [_tail nextNodeInfo];
                 break;
             }
@@ -131,39 +92,6 @@
 
     return result;
 }
-
-
-//#if PAUSE_ENABLED
-//- (void)addContextNode:(id <XPNodeInfo>)node {
-//    XPAssert(node);
-//
-//    XPAssert(_contextNodes);
-//    [_contextNodes addObject:node];
-//}
-//
-//
-//- (void)addResultNodes:(NSArray *)nodes {
-//    XPAssert(nodes);
-//    
-//    XPAssert(_resultNodes);
-//    [_resultNodes addObjectsFromArray:nodes];
-//}
-//
-//
-//- (void)pause {
-//    if ([_resultNodes count] && _context.staticContext.debug) {
-//        XPNodeSetValue *contextNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_contextNodes comparer:nil] autorelease];
-//        [contextNodeSet sort];
-//        
-//        XPNodeSetValue *resultNodeSet = [[[XPNodeSetExtent alloc] initWithNodes:_resultNodes comparer:nil] autorelease];
-//        [resultNodeSet sort];
-//        
-//        [_context.staticContext pauseFrom:_start withContextNodes:contextNodeSet result:resultNodeSet range:_step.subRange done:NO];
-//
-//        self.resultNodes = nil; // ok, we've blown our load. don't allow another pause.
-//    }
-//}
-//#endif
 
 
 /**

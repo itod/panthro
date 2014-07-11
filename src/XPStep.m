@@ -31,6 +31,9 @@
 
 @interface XPStep ()
 @property (nonatomic, retain) NSMutableArray *allFilters;
+#if PAUSE_ENABLED
+@property (nonatomic, retain) XPPauseState *pauseState;
+#endif
 @end
 
 @implementation XPStep
@@ -53,14 +56,28 @@
 - (void)dealloc {
     self.nodeTest = nil;
     self.allFilters = nil;
-    self.filterRanges = nil;
 
 #if PAUSE_ENABLED
     self.pauseState = nil;
-    self.filterPauseStates = nil;
 #endif
 
     [super dealloc];
+}
+
+
+- (id)copyWithZone:(NSZone *)zone {
+    XPStep *step = [[XPStep allocWithZone:zone] init];
+    step.axis = _axis;
+    step.nodeTest = _nodeTest;
+    step.range = _range;
+    step.baseRange = _baseRange;
+    
+#if PAUSE_ENABLED
+    step.pauseState = _pauseState;
+#endif
+    
+    // don't copy filters.
+    return step;
 }
 
 
@@ -83,15 +100,6 @@
     XPPauseState *state = [[[XPPauseState alloc] init] autorelease];
     state.expression = expr;
 
-#if PAUSE_ENABLED
-    if (!_filterPauseStates) {
-        self.filterPauseStates = [NSMutableArray arrayWithCapacity:2];
-    }
-    [_filterPauseStates addObject:state];
-    
-    XPAssert([_filterPauseStates count] == [_allFilters count]);
-#endif
-    
     return self;
 }
 
@@ -158,36 +166,17 @@
         }
 
         _pauseState.expression = expr;
-        _pauseState.range = self.subRange;
+        _pauseState.range = self.baseRange;
         [self pause:_pauseState context:ctx];
     }
-//    NSUInteger i = 0;
 #endif
 
     if ([enm hasMoreItems]) {       // if there are no nodes, there's nothing to filter
         for (XPExpression *filter in _allFilters) {
-            XPFilterEnumerator *fe = [[[XPFilterEnumerator alloc] initWithBase:enm filter:filter context:ctx finishAfterReject:NO] autorelease];
-//#if PAUSE_ENABLED
-//            if (ctx.staticContext.debug) {
-//                XPPauseState *total = _filterPauseStates[i];
-//                total.expression = filter;
-//                [total addPauseState:fe.pauseState];
-//                ++i;
-//            }
-//#endif
-            enm = fe;
+            enm = [[[XPFilterEnumerator alloc] initWithBase:enm filter:filter context:ctx finishAfterReject:NO] autorelease];
         }
     }
 
-//#if PAUSE_ENABLED
-//    // if no filters on this step, must pause now, as this expr will be simplified, and will not have anoter chance to pause.
-//    if (ctx.staticContext.debug && 0 == i) {
-//        _pauseState.expression = expr;
-//        _pauseState.range = self.subRange;
-//        [self pause:_pauseState context:ctx];
-//    }
-//#endif
-    
     return enm;
 }
 

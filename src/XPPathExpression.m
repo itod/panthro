@@ -158,10 +158,7 @@
     XPExpression *result = self;
     if ((self.dependencies & dep) != 0) {
         XPExpression *newstart = [_start reduceDependencies:dep inContext:ctx];
-        XPStep *newstep = [[[XPStep alloc] initWithAxis:_step.axis nodeTest:_step.nodeTest] autorelease];
-        newstep.pauseState = _step.pauseState;
-        newstep.range = _step.range;
-        newstep.subRange = _step.subRange;
+        XPStep *newstep = [[_step copy] autorelease];
 
         NSUInteger removedep = dep & XPDependenciesXSLTContext;
         if (_start.isContextDocumentNodeSet && ((dep & XPDependenciesContextDocument) != 0)) {

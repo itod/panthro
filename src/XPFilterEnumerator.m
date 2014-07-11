@@ -39,6 +39,10 @@
 @property (nonatomic, assign) BOOL positional;
 @property (nonatomic, assign) BOOL finished; // allows early finish with a numeric filter
 @property (nonatomic, assign) BOOL finishAfterReject; // causes enumeration to terminate the first time the predicate is false
+
+#if PAUSE_ENABLED
+@property (nonatomic, retain) XPPauseState *pauseState;
+#endif
 @end
 
 @implementation XPFilterEnumerator
