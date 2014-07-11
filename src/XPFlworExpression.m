@@ -12,6 +12,7 @@
 #import "XPSequenceExtent.h"
 #import "XPForClause.h"
 #import "XPLetClause.h"
+#import "XPGroupClause.h"
 #import "XPOrderClause.h"
 #import "XPTuple.h"
 #import "XPOrderSpec.h"
@@ -21,6 +22,7 @@
 @interface XPFlworExpression ()
 @property (nonatomic, retain) NSArray *forClauses;
 @property (nonatomic, retain) XPExpression *whereExpression;
+@property (nonatomic, retain) NSArray *groupClauses;
 @property (nonatomic, retain) NSArray *orderClauses;
 @property (nonatomic, retain) XPExpression *bodyExpression;
 @property (nonatomic, retain) NSMutableArray *tuples;
@@ -28,11 +30,12 @@
 
 @implementation XPFlworExpression
 
-- (instancetype)initWithForClauses:(NSArray *)forClauses where:(XPExpression *)whereExpr orderClauses:(NSArray *)orderClauses body:(XPExpression *)bodyExpr {
+- (instancetype)initWithForClauses:(NSArray *)forClauses where:(XPExpression *)whereExpr groupClauses:(NSArray *)groupClauses orderClauses:(NSArray *)orderClauses body:(XPExpression *)bodyExpr {
     self = [super init];
     if (self) {
         self.forClauses = forClauses;
         self.whereExpression = whereExpr;
+        self.groupClauses = groupClauses;
         self.orderClauses = orderClauses;
         self.bodyExpression = bodyExpr;
     }
@@ -43,6 +46,7 @@
 - (void)dealloc {
     self.forClauses = nil;
     self.whereExpression = nil;
+    self.groupClauses = nil;
     self.orderClauses = nil;
     self.bodyExpression = nil;
     self.tuples = nil;
@@ -174,6 +178,11 @@
                     id <XPItem>bodyItem = [[bodyEnm nextItem] head];
                     
                     [tupleResItems addObject:bodyItem];
+                    
+//                    for (XPGroupClause *groupClause in _groupClauses) {
+//                        // calling -head here for force a single atomic value. but supposed to throw and exception if it's a sequence with more than 1 item
+//                        XPValue *groupVal = [XPAtomize([groupClause.expression evaluateInContext:ctx]) head];
+//                    }
                     
                     for (XPOrderClause *orderClause in _orderClauses) {
                         // calling -head here for force a single atomic value. but supposed to throw and exception if it's a sequence with more than 1 item

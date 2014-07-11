@@ -258,7 +258,12 @@
     
     [a push:peek];
     
-    XPExpression *forExpr = [[[XPFlworExpression alloc] initWithForClauses:forClauses where:whereExpr orderClauses:orderClauses body:bodyExpr] autorelease];
+    XPExpression *forExpr = [[[XPFlworExpression alloc] initWithForClauses:forClauses
+                                                                     where:whereExpr
+                                                              groupClauses:nil
+                                                              orderClauses:orderClauses
+                                                                      body:bodyExpr] autorelease];
+    
     forExpr.range = NSMakeRange(offset, NSMaxRange(bodyExpr.range) - offset);
     forExpr.staticContext = _env;
     [a push:forExpr];
