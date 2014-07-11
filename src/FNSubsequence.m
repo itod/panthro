@@ -59,58 +59,60 @@
 - (XPSequenceValue *)evaluateAsSequenceInContext:(XPContext *)ctx {
     XPSequenceValue *result = nil;
 
-    XPSequenceValue *target = [self.args[0] evaluateAsSequenceInContext:ctx];
-    XPSequenceValue *inserts = [self.args[2] evaluateAsSequenceInContext:ctx];
+    XPSequenceValue *source = [self.args[0] evaluateAsSequenceInContext:ctx];
 
-    NSUInteger targetLen = [target count];
-    NSUInteger insertsLen = [inserts count];
+    NSUInteger srcLen = [source count];
     
     // If $target is the empty sequence, $inserts is returned. If $inserts is the empty sequence, $target is returned.
-    if (0 == targetLen) {
-        XPAssert([XPEmptySequence instance] == target);
-        result = inserts;
-    } else if (0 == insertsLen) {
-        XPAssert([XPEmptySequence instance] == inserts);
-        result = target;
+    if (0 == srcLen) {
+        XPAssert([XPEmptySequence instance] == source);
+        result = [XPEmptySequence instance];
     } else {
-        // If $position is less than one (1), the first position, the effective value of $position is one (1).
-        // If $position is greater than the number of items in $target, then the effective value of $position is equal to the number of items in $target plus 1.
+        // Returns the contiguous sequence of items in the value of $sourceSeq beginning at the position indicated by the value of $startingLoc and continuing for the number of items indicated by the value of $length.
+        // If $sourceSeq is the empty sequence, the empty sequence is returned.
+        // If $startingLoc is zero or negative, the subsequence includes items from the beginning of the $sourceSeq.
+        // If $length is not specified, the subsequence includes items to the end of $sourceSeq.
+        // If $length is greater than the number of items in the value of $sourceSeq following $startingLoc, the subsequence includes items to the end of $sourceSeq.
+        // The first item of a sequence is located at position 1, not position 0.
+        
         double d = [self.args[1] evaluateAsNumberInContext:ctx];
+        NSUInteger loc = 1;
+        if (d > 1) {
+            loc = d;
+        }
+        
+        NSUInteger len = srcLen;
+        if ([self numberOfArguments] > 2) {
+            double d = [self.args[2] evaluateAsNumberInContext:ctx];
+            if (d < 1) {
+                len = 0;
+            } else {
+                len = d;
+            }
+        }
+        
+        XPAssert(NSNotFound != loc);
+        XPAssert(NSNotFound != len);
+        XPAssert(loc > 0);
 
-        NSUInteger insertIdx;
-        if (d < 1) {
-            insertIdx = 1;
-        } else if (d > targetLen) {
-            insertIdx = targetLen + 1;
+        if (loc > srcLen || len == 0) {
+            result = [XPEmptySequence instance];
         } else {
-            insertIdx = d;
-        }
-        
-        NSUInteger totalLen = targetLen + insertsLen;
-        XPAssert(totalLen > 0);
-        
-        NSMutableArray *content = [NSMutableArray arrayWithCapacity:totalLen];
-
-        NSUInteger j = 1;
-        id <XPSequenceEnumeration>targetEnm = [target enumerateInContext:ctx sorted:NO];
-        while ([targetEnm hasMoreItems]) {
-            if (insertIdx == j) {
-                id <XPSequenceEnumeration>insertsEnm = [inserts enumerateInContext:ctx sorted:NO];
-                while ([insertsEnm hasMoreItems]) {
-                    [content addObject:[insertsEnm nextItem]];
+            NSMutableArray *content = [NSMutableArray arrayWithCapacity:len];
+            
+            NSUInteger j = 1;
+            id <XPSequenceEnumeration>enm = [source enumerateInContext:ctx sorted:NO];
+            while ([enm hasMoreItems]) {
+                id <XPItem>item = [enm nextItem];
+                
+                if (j >= loc && j < loc+len) {
+                    [content addObject:item];
                 }
+                ++j;
             }
-            [content addObject:[targetEnm nextItem]];
-            ++j;
+            
+            result = [[[XPSequenceExtent alloc] initWithContent:content] autorelease];
         }
-        if (insertIdx == j) {
-            id <XPSequenceEnumeration>insertsEnm = [inserts enumerate];
-            while ([insertsEnm hasMoreItems]) {
-                [content addObject:[insertsEnm nextItem]];
-            }
-        }
-        
-        result = [[[XPSequenceExtent alloc] initWithContent:content] autorelease];
     }
 
     XPAssert([result isKindOfClass:[XPSequenceValue class]]);

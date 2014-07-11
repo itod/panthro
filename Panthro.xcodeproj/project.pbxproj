@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D303722E197057EB0096D466 /* FNReverseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D303722D197057EB0096D466 /* FNReverseTest.m */; };
+		D303723019705B3C0096D466 /* FNSubsequenceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D303722F19705B3C0096D466 /* FNSubsequenceTest.m */; };
 		D3172237190D8FE6005C633B /* XPEqualityExprTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3172236190D8FE6005C633B /* XPEqualityExprTest.m */; };
 		D324A1A4192AE4D90093C4B5 /* XPSync.m in Sources */ = {isa = PBXBuildFile; fileRef = D324A1A2192AE4D90093C4B5 /* XPSync.m */; };
 		D324A1A6192AE5550093C4B5 /* XPSync.h in Headers */ = {isa = PBXBuildFile; fileRef = D324A1A5192AE5550093C4B5 /* XPSync.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -450,6 +451,7 @@
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* Panthro.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Panthro.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D303722D197057EB0096D466 /* FNReverseTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNReverseTest.m; path = test/FNReverseTest.m; sourceTree = "<group>"; };
+		D303722F19705B3C0096D466 /* FNSubsequenceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNSubsequenceTest.m; path = test/FNSubsequenceTest.m; sourceTree = "<group>"; };
 		D30D9697191862E300627D41 /* XPLocalOrderComparer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPLocalOrderComparer.h; path = src/XPLocalOrderComparer.h; sourceTree = "<group>"; };
 		D30D9698191862E300627D41 /* XPLocalOrderComparer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPLocalOrderComparer.m; path = src/XPLocalOrderComparer.m; sourceTree = "<group>"; };
 		D3172236190D8FE6005C633B /* XPEqualityExprTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPEqualityExprTest.m; path = test/XPEqualityExprTest.m; sourceTree = "<group>"; };
@@ -1405,6 +1407,7 @@
 				D37A3077101595FD00E936B7 /* FNStartsWithTest.m */,
 				D37A30C510159A5400E936B7 /* FNStringTest.m */,
 				D37A31841016A34C00E936B7 /* FNStringLengthTest.m */,
+				D303722F19705B3C0096D466 /* FNSubsequenceTest.m */,
 				D37A31BE1016A7B000E936B7 /* FNSubstringTest.m */,
 				D37A320B1016C37400E936B7 /* FNSubstringAfterTest.m */,
 				D37A320E1016C38000E936B7 /* FNSubstringBeforeTest.m */,
@@ -2128,6 +2131,7 @@
 				D37299E2196B5982004B1B7A /* FNExistsTest.m in Sources */,
 				D37A31851016A34C00E936B7 /* FNStringLengthTest.m in Sources */,
 				D37A31BF1016A7B000E936B7 /* FNSubstringTest.m in Sources */,
+				D303723019705B3C0096D466 /* FNSubsequenceTest.m in Sources */,
 				D37A320C1016C37400E936B7 /* FNSubstringAfterTest.m in Sources */,
 				D37A320F1016C38000E936B7 /* FNSubstringBeforeTest.m in Sources */,
 			);
