@@ -42,7 +42,7 @@
     self.args[0] = arg0;
     
     // ignoring collation arg for now
-    if ([self numberOfArguments] > 0) {
+    if ([self numberOfArguments] > 1) {
         id arg1 = [self.args[1] simplify];
         self.args[1] = arg1;
     }
