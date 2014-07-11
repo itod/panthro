@@ -20,6 +20,19 @@
 }
 
 
+#if !NDEBUG
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        static NSUInteger sInstanceCount = 0;
+        XPAssert(sInstanceCount == 0);
+        sInstanceCount++;
+    }
+    return self;
+}
+#endif
+
+
 - (NSString *)description {
     return @"()";
 }
@@ -62,19 +75,19 @@
 }
 
 
-//- (BOOL)isEqualToValue:(XPValue *)other {
-//    return NO;
-//}
-//
-//
-//- (BOOL)isNotEqualToValue:(XPValue *)other {
-//    return NO;
-//}
-//
-//
-//- (BOOL)compareToValue:(XPValue *)other usingOperator:(NSInteger)op {
-//    return NSOrderedAscending;
-//}
+- (BOOL)isEqualToValue:(XPValue *)other {
+    return NO;
+}
+
+
+- (BOOL)isNotEqualToValue:(XPValue *)other {
+    return NO;
+}
+
+
+- (NSComparisonResult)compareToValue:(XPValue *)other {
+    return NSOrderedAscending;
+}
 
 
 #pragma mark -

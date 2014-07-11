@@ -68,14 +68,14 @@
 
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
-    XPValue *result = nil;
+    XPValue *result = [XPEmptySequence instance];
     
     XPValue *seq = [self.args[0] evaluateInContext:ctx];
-    if (seq == [XPEmptySequence instance]) {
-        result = [XPEmptySequence instance];
-    } else {
+
+    if (seq != [XPEmptySequence instance]) {
         NSMutableArray *content = [NSMutableArray array];
-        XPValue *target = [self.args[1] evaluateInContext:ctx];
+        
+        XPValue *target = [[self.args[1] evaluateInContext:ctx] head];
         
         NSUInteger n = 1;
         id <XPSequenceEnumeration>enm = [self.args[0] enumerateInContext:ctx sorted:YES];
@@ -87,7 +87,9 @@
             n++;
         }
         
-        result = [[[XPSequenceExtent alloc] initWithContent:content] autorelease];
+        if ([content count]) {
+            result = [[[XPSequenceExtent alloc] initWithContent:content] autorelease];
+        }
     }
 
     result.range = self.range;

@@ -7,11 +7,12 @@
 //
 
 #import "XPTestScaffold.h"
+#import "XPSequenceExtent.h"
 
 @interface FNIndexOfTest : XCTestCase
 @property (nonatomic, retain) XPExpression *expr;
 @property (nonatomic, retain) XPFunction *fn;
-@property (nonatomic, assign) XPValue *res;
+@property (nonatomic, assign) id res;
 @end
 
 @implementation FNIndexOfTest
@@ -34,10 +35,35 @@
 }
 
 
-- (void)testFoo {
+- (void)testSingle {
     self.expr = [XPExpression expressionFromString:@"index-of('1', '1')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateInContext:nil];
-    TDEquals(1.0, [(id)[_res head] asNumber]);
+    TDEquals(1.0, [[_res itemAt:0] asNumber]);
+    TDEquals(1, [_res count]);
+}
+
+
+- (void)testEmptySequence {
+    self.expr = [XPExpression expressionFromString:@"index-of((), '1')" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateInContext:nil];
+    TDEqualObjects([XPEmptySequence instance], _res);
+    TDEquals(0, [_res count]);
+}
+
+
+- (void)testEmptySequence1 {
+    self.expr = [XPExpression expressionFromString:@"index-of(('2', '3', '4'), '1')" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateInContext:nil];
+    TDEqualObjects([XPEmptySequence instance], _res);
+    TDEquals(0, [_res count]);
+}
+
+
+- (void)testEmptySequence2 {
+    self.expr = [XPExpression expressionFromString:@"index-of(('2', '3', '4', '2'), '2')" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateInContext:nil];
+    TDEquals(1.0, [[_res itemAt:0] asNumber]);
+    TDEquals(2, [_res count]);
 }
 
 @end
