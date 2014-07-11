@@ -65,12 +65,19 @@ expr = exprSingle exprSingleTail*;
 exprSingle = orExpr | forExpr | quantifiedExpr | ifExpr;
 
     forExpr = (for forClause | let letClause)+ whereClause? orderByClause? return exprSingle;
+
         forClause = singleForClause (','! singleForClause)*;
             singleForClause = '$'! qName positionalVar? in exprSingle;
                 positionalVar = 'at'! '$'! qName;
+
         letClause = singleLetClause (','! singleLetClause)*;
             singleLetClause = '$'! qName ':='! exprSingle;
+
         whereClause = 'where'! exprSingle;
+
+        groupClause = 'group'! 'by'! singleGroupClause (','! singleGroupClause)*;
+            singleGroupClause = '$'! qName (':='! exprSingle)?; // ('collation' uriLiteral)?
+
         orderByClause = 'order'! 'by'! orderSpecList;
             orderSpecList = orderSpec (','! orderSpec)*;
             orderSpec = exprSingle orderModifier;
