@@ -1,12 +1,12 @@
 //
-//  FNIndexOf.m
+//  FNReverse.m
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 7/19/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "FNIndexOf.h"
+#import "FNReverse.h"
 #import "XPValue.h"
 #import "XPNumericValue.h"
 #import "XPSequenceEnumeration.h"
@@ -21,10 +21,10 @@
 - (NSUInteger)checkArgumentCountForMin:(NSUInteger)min max:(NSUInteger)max;
 @end
 
-@implementation FNIndexOf
+@implementation FNReverse
 
 + (NSString *)name {
-    return @"index-of";
+    return @"reverse";
 }
 
 
@@ -36,30 +36,13 @@
 - (XPExpression *)simplify {
     XPExpression *result = self;
     
-    [self checkArgumentCountForMin:2 max:3];
+    [self checkArgumentCountForMin:1 max:1];
     
     id arg0 = [self.args[0] simplify];
     self.args[0] = arg0;
     
-    id arg1 = [self.args[1] simplify];
-    self.args[1] = arg1;
-    
-    BOOL isArg2Value = YES;
-
-    // ignoring collation arg for now
-    if ([self numberOfArguments] > 2) {
-        id arg2 = [self.args[2] simplify];
-        self.args[2] = arg2;
-        
-        isArg2Value = [arg2 isValue];
-    }
-
     if ([arg0 isValue]) {
-        if (arg0 == [XPEmptySequence instance]) {
-            result = [XPEmptySequence instance];
-        } else if ([arg1 isValue] && isArg2Value) {
-            result = [self evaluateAsSequenceInContext:nil];
-        }
+        result = [self evaluateAsSequenceInContext:nil];
     }
     
     result.range = self.range;
@@ -79,22 +62,22 @@
     XPValue *seq = [self.args[0] evaluateInContext:ctx];
 
     if (seq != [XPEmptySequence instance]) {
-        NSMutableArray *content = [NSMutableArray array];
+        NSMutableArray *fwd = [NSMutableArray array];
         
-        XPValue *target = [[self.args[1] evaluateInContext:ctx] head];
-        
-        NSUInteger n = 1;
-        id <XPSequenceEnumeration>enm = [seq enumerateInContext:ctx sorted:NO];
+        id <XPSequenceEnumeration>enm = [seq enumerateInContext:ctx sorted:YES];
         while ([enm hasMoreItems]) {
             id <XPItem>item = [enm nextItem];
-            if ([target isEqualToValue:item]) {
-                [content addObject:[XPNumericValue numericValueWithNumber:n]];
-            }
-            n++;
+            [fwd addObject:item];
         }
         
-        if ([content count]) {
-            result = [[[XPSequenceExtent alloc] initWithContent:content] autorelease];
+        NSUInteger c = [fwd count];
+        if (c) {
+            NSMutableArray *rev = [NSMutableArray arrayWithCapacity:c];
+            for (id obj in [fwd reverseObjectEnumerator]) {
+                [rev addObject:obj];
+            }
+            
+            result = [[[XPSequenceExtent alloc] initWithContent:rev] autorelease];
         }
     }
 
@@ -104,19 +87,13 @@
 
 
 - (XPDependencies)dependencies {
-    NSUInteger dep = 0;
-    for (XPExpression *arg in self.args) {
-        dep |= [arg dependencies];
-    }
-    return dep;
+    return [(XPExpression *)self.args[0] dependencies];
 }
 
 
 - (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
-    FNIndexOf *f = [[[FNIndexOf alloc] init] autorelease];
-    for (XPExpression *arg in self.args) {
-        [f addArgument:[arg reduceDependencies:dep inContext:ctx]];
-    }
+    FNReverse *f = [[[FNReverse alloc] init] autorelease];
+    [f addArgument:[self.args[0] reduceDependencies:dep inContext:ctx]];
     f.staticContext = self.staticContext;
     f.range = self.range;
     return [f simplify];

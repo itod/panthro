@@ -1,12 +1,12 @@
 //
-//  FNInsertBefore.m
+//  FNRemove.m
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 7/20/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "FNInsertBefore.h"
+#import "FNRemove.h"
 #import "XPValue.h"
 #import "XPAtomicSequence.h"
 #import "XPEmptySequence.h"
@@ -21,10 +21,10 @@
 - (NSUInteger)checkArgumentCountForMin:(NSUInteger)min max:(NSUInteger)max;
 @end
 
-@implementation FNInsertBefore
+@implementation FNRemove
 
 + (NSString *)name {
-    return @"insert-before";
+    return @"remove";
 }
 
 
@@ -36,18 +36,15 @@
 - (XPExpression *)simplify {
     XPExpression *result = self;
     
-    [self checkArgumentCountForMin:3 max:3];
+    [self checkArgumentCountForMin:2 max:2];
     
     id arg0 = [self.args[0] simplify];
     self.args[0] = arg0;
     
     id arg1 = [self.args[1] simplify];
     self.args[1] = arg1;
-    
-    id arg2 = [self.args[2] simplify];
-    self.args[2] = arg2;
 
-    if ([arg0 isValue] && [arg1 isValue] && [arg2 isValue]) {
+    if ([arg0 isValue] && [arg1 isValue]) {
         result = [self evaluateAsSequenceInContext:nil];
     }
     
@@ -60,57 +57,44 @@
     XPSequenceValue *result = nil;
 
     XPSequenceValue *target = [self.args[0] evaluateAsSequenceInContext:ctx];
-    XPSequenceValue *inserts = [self.args[2] evaluateAsSequenceInContext:ctx];
 
     NSUInteger targetLen = [target count];
-    NSUInteger insertsLen = [inserts count];
     
     // If $target is the empty sequence, $inserts is returned. If $inserts is the empty sequence, $target is returned.
     if (0 == targetLen) {
         XPAssert([XPEmptySequence instance] == target);
-        result = inserts;
-    } else if (0 == insertsLen) {
-        XPAssert([XPEmptySequence instance] == inserts);
         result = target;
     } else {
-        // If $position is less than one (1), the first position, the effective value of $position is one (1).
-        // If $position is greater than the number of items in $target, then the effective value of $position is equal to the number of items in $target plus 1.
+        // If $position is less than 1 or greater than the number of items in $target, $target is returned.
+        // Otherwise, the value returned by the function consists of all items of $target whose index is less than $position,
+        // followed by all items of $target whose index is greater than $position. If $target is the empty sequence, the empty sequence is returned.
         double d = [self.args[1] evaluateAsNumberInContext:ctx];
 
-        NSUInteger insertIdx;
-        if (d < 1) {
-            insertIdx = 1;
-        } else if (d > targetLen) {
-            insertIdx = targetLen + 1;
+        NSUInteger removeIdx;
+        if (d < 1 || d > targetLen) {
+            result = target;
         } else {
-            insertIdx = d;
-        }
-        
-        NSUInteger totalLen = targetLen + insertsLen;
-        XPAssert(totalLen > 0);
-        
-        NSMutableArray *content = [NSMutableArray arrayWithCapacity:totalLen];
-
-        NSUInteger j = 1;
-        id <XPSequenceEnumeration>targetEnm = [target enumerateInContext:ctx sorted:NO];
-        while ([targetEnm hasMoreItems]) {
-            if (insertIdx == j) {
-                id <XPSequenceEnumeration>insertsEnm = [inserts enumerateInContext:ctx sorted:NO];
-                while ([insertsEnm hasMoreItems]) {
-                    [content addObject:[insertsEnm nextItem]];
+            removeIdx = d;
+            
+            NSMutableArray *content = [NSMutableArray arrayWithCapacity:d];
+            
+            NSUInteger j = 1;
+            id <XPSequenceEnumeration>targetEnm = [target enumerateInContext:ctx sorted:NO];
+            while ([targetEnm hasMoreItems]) {
+                id <XPItem>item = [targetEnm nextItem];
+                if (removeIdx != j) {
+                    [content addObject:item];
                 }
+                ++j;
             }
-            [content addObject:[targetEnm nextItem]];
-            ++j;
-        }
-        if (insertIdx == j) {
-            id <XPSequenceEnumeration>insertsEnm = [inserts enumerate];
-            while ([insertsEnm hasMoreItems]) {
-                [content addObject:[insertsEnm nextItem]];
+            
+            if ([content count]) {
+                result = [[[XPSequenceExtent alloc] initWithContent:content] autorelease];
+            } else {
+                result = [XPEmptySequence instance];
             }
         }
         
-        result = [[[XPSequenceExtent alloc] initWithContent:content] autorelease];
     }
 
     XPAssert([result isKindOfClass:[XPSequenceValue class]]);
@@ -135,7 +119,7 @@
 
 
 - (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
-    FNInsertBefore *f = [[[FNInsertBefore alloc] init] autorelease];
+    FNRemove *f = [[[FNRemove alloc] init] autorelease];
     for (XPExpression *arg in self.args) {
         [f addArgument:[arg reduceDependencies:dep inContext:ctx]];
     }

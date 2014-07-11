@@ -20,6 +20,13 @@
 		D32A3B4019703B7800DA9E39 /* FNInsertBefore.h in Headers */ = {isa = PBXBuildFile; fileRef = D32A3B3E19703B7800DA9E39 /* FNInsertBefore.h */; };
 		D32A3B4119703B7800DA9E39 /* FNInsertBefore.m in Sources */ = {isa = PBXBuildFile; fileRef = D32A3B3F19703B7800DA9E39 /* FNInsertBefore.m */; };
 		D32A3B4319703B9500DA9E39 /* FNInsertBeforeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D32A3B4219703B9500DA9E39 /* FNInsertBeforeTest.m */; };
+		D32A3B461970516600DA9E39 /* FNReverse.h in Headers */ = {isa = PBXBuildFile; fileRef = D32A3B441970516600DA9E39 /* FNReverse.h */; };
+		D32A3B471970516600DA9E39 /* FNReverse.m in Sources */ = {isa = PBXBuildFile; fileRef = D32A3B451970516600DA9E39 /* FNReverse.m */; };
+		D32A3B4A1970532C00DA9E39 /* FNRemove.h in Headers */ = {isa = PBXBuildFile; fileRef = D32A3B481970532C00DA9E39 /* FNRemove.h */; };
+		D32A3B4B1970532C00DA9E39 /* FNRemove.m in Sources */ = {isa = PBXBuildFile; fileRef = D32A3B491970532C00DA9E39 /* FNRemove.m */; };
+		D32A3B4E1970535700DA9E39 /* FNSubsequence.h in Headers */ = {isa = PBXBuildFile; fileRef = D32A3B4C1970535700DA9E39 /* FNSubsequence.h */; };
+		D32A3B4F1970535700DA9E39 /* FNSubsequence.m in Sources */ = {isa = PBXBuildFile; fileRef = D32A3B4D1970535700DA9E39 /* FNSubsequence.m */; };
+		D32A3B51197054B800DA9E39 /* FNRemoveTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D32A3B50197054B800DA9E39 /* FNRemoveTest.m */; };
 		D33097381921BE99004317EA /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33097361921BE99004317EA /* PEGKit.framework */; };
 		D330973B1921BED5004317EA /* TDTemplateEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D330973A1921BED5004317EA /* TDTemplateEngine.framework */; };
 		D334BAB4192193AA00A32DD6 /* XPLastPositionFinder.h in Headers */ = {isa = PBXBuildFile; fileRef = D334BAB3192193AA00A32DD6 /* XPLastPositionFinder.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -456,6 +463,13 @@
 		D32A3B3E19703B7800DA9E39 /* FNInsertBefore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNInsertBefore.h; path = src/FNInsertBefore.h; sourceTree = "<group>"; };
 		D32A3B3F19703B7800DA9E39 /* FNInsertBefore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNInsertBefore.m; path = src/FNInsertBefore.m; sourceTree = "<group>"; };
 		D32A3B4219703B9500DA9E39 /* FNInsertBeforeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNInsertBeforeTest.m; path = test/FNInsertBeforeTest.m; sourceTree = "<group>"; };
+		D32A3B441970516600DA9E39 /* FNReverse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNReverse.h; path = src/FNReverse.h; sourceTree = "<group>"; };
+		D32A3B451970516600DA9E39 /* FNReverse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNReverse.m; path = src/FNReverse.m; sourceTree = "<group>"; };
+		D32A3B481970532C00DA9E39 /* FNRemove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNRemove.h; path = src/FNRemove.h; sourceTree = "<group>"; };
+		D32A3B491970532C00DA9E39 /* FNRemove.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNRemove.m; path = src/FNRemove.m; sourceTree = "<group>"; };
+		D32A3B4C1970535700DA9E39 /* FNSubsequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNSubsequence.h; path = src/FNSubsequence.h; sourceTree = "<group>"; };
+		D32A3B4D1970535700DA9E39 /* FNSubsequence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNSubsequence.m; path = src/FNSubsequence.m; sourceTree = "<group>"; };
+		D32A3B50197054B800DA9E39 /* FNRemoveTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNRemoveTest.m; path = test/FNRemoveTest.m; sourceTree = "<group>"; };
 		D33097361921BE99004317EA /* PEGKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PEGKit.framework; path = "../../../Library/Developer/Xcode/DerivedData/Panthro-dmvdaloqmsblyzezdvatkwnhfouk/Build/Products/Debug/PEGKit.framework"; sourceTree = "<group>"; };
 		D330973A1921BED5004317EA /* TDTemplateEngine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TDTemplateEngine.framework; path = "../../../Library/Developer/Xcode/DerivedData/Panthro-dmvdaloqmsblyzezdvatkwnhfouk/Build/Products/Debug/TDTemplateEngine.framework"; sourceTree = "<group>"; };
 		D334BAB3192193AA00A32DD6 /* XPLastPositionFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPLastPositionFinder.h; path = include/Panthro/XPLastPositionFinder.h; sourceTree = "<group>"; };
@@ -1304,8 +1318,12 @@
 				D37A31191015A6DA00E936B7 /* FNNumber.m */,
 				D3F0CB94191EC23D0049EC02 /* FNPosition.h */,
 				D37A2F3910157F9100E936B7 /* FNPosition.m */,
+				D32A3B481970532C00DA9E39 /* FNRemove.h */,
+				D32A3B491970532C00DA9E39 /* FNRemove.m */,
 				D339311019203EBA00259939 /* FNReplace.h */,
 				D339311119203EBA00259939 /* FNReplace.m */,
+				D32A3B441970516600DA9E39 /* FNReverse.h */,
+				D32A3B451970516600DA9E39 /* FNReverse.m */,
 				D3F0CB95191EC23D0049EC02 /* FNRound.h */,
 				D37A2FD610158A0600E936B7 /* FNRound.m */,
 				D3F0CB96191EC23D0049EC02 /* FNStartsWith.h */,
@@ -1314,6 +1332,8 @@
 				D37A2FFF10158DB300E936B7 /* FNString.m */,
 				D37A300310158DC200E936B7 /* FNStringLength.m */,
 				D3F0CB98191EC23D0049EC02 /* FNStringLength.h */,
+				D32A3B4C1970535700DA9E39 /* FNSubsequence.h */,
+				D32A3B4D1970535700DA9E39 /* FNSubsequence.m */,
 				D3F0CB99191EC23D0049EC02 /* FNSubstring.h */,
 				D37A300710158DD700E936B7 /* FNSubstring.m */,
 				D3F0CB9A191EC23D0049EC02 /* FNSubstringAfter.h */,
@@ -1377,6 +1397,7 @@
 				D339F67E1929692C00C79A51 /* FNNormalizeUnicodeTest.m */,
 				D37A299C1013F87900E936B7 /* FNNotTest.m */,
 				D37A311F1015A74D00E936B7 /* FNNumberTest.m */,
+				D32A3B50197054B800DA9E39 /* FNRemoveTest.m */,
 				D37A2FDD10158BE200E936B7 /* FNRoundTest.m */,
 				D37A3077101595FD00E936B7 /* FNStartsWithTest.m */,
 				D37A30C510159A5400E936B7 /* FNStringTest.m */,
@@ -1655,8 +1676,10 @@
 				D339311619204E9E00259939 /* FNAbs.h in Headers */,
 				D372995F19660D22004B1B7A /* XPSingletonExpression.h in Headers */,
 				D37299351965F31D004B1B7A /* XPExceptEnumeration.h in Headers */,
+				D32A3B4A1970532C00DA9E39 /* FNRemove.h in Headers */,
 				D372999D196763FC004B1B7A /* XPAbstractNodeWrapper.h in Headers */,
 				D32A3B3D197037B400DA9E39 /* XPEmptySequence.h in Headers */,
+				D32A3B4E1970535700DA9E39 /* FNSubsequence.h in Headers */,
 				D3411B59191A87960082A196 /* XPContextNodeExpression.h in Headers */,
 				D32A3B34197031EE00DA9E39 /* FNIndexOf.h in Headers */,
 				D37299AE1968509D004B1B7A /* XPSequenceExtentEnumeration.h in Headers */,
@@ -1697,6 +1720,7 @@
 				D37299DA196AF091004B1B7A /* XPLetClause.h in Headers */,
 				D3729A07196C431C004B1B7A /* FNData.h in Headers */,
 				D339F1ED19279E4600C79A51 /* XPLibxmlNodeImpl.h in Headers */,
+				D32A3B461970516600DA9E39 /* FNReverse.h in Headers */,
 				D3F45868196CA45400F05EA0 /* XPNodeSetValue.h in Headers */,
 				D37299CA1969EA0E004B1B7A /* XPNodeComparisonExpression.h in Headers */,
 				D32A3B4019703B7800DA9E39 /* FNInsertBefore.h in Headers */,
@@ -1894,6 +1918,7 @@
 				D339F64B1927B66500C79A51 /* xmlsave.c in Sources */,
 				D339311F1920527200259939 /* FNUpperCase.m in Sources */,
 				D3393103192038EE00259939 /* FNMatches.m in Sources */,
+				D32A3B4B1970532C00DA9E39 /* FNRemove.m in Sources */,
 				D3539407192FA6A900D6EEA6 /* XPException.m in Sources */,
 				D339F65C1927B74B00C79A51 /* trionan.c in Sources */,
 				D339F6121927B66500C79A51 /* buf.c in Sources */,
@@ -1908,6 +1933,7 @@
 				D36C679E1010689A000361A0 /* XPBinaryExpression.m in Sources */,
 				D339F1EC19279E4600C79A51 /* XPLibxmlDocumentImpl.m in Sources */,
 				D36C68131010E0FE000361A0 /* XPArithmeticExpression.m in Sources */,
+				D32A3B471970516600DA9E39 /* FNReverse.m in Sources */,
 				D3729A0F196C544B004B1B7A /* FNDistinctValues.m in Sources */,
 				D339F6521927B66500C79A51 /* xpointer.c in Sources */,
 				D37A27E51012FFA600E936B7 /* XPBooleanExpression.m in Sources */,
@@ -1969,6 +1995,7 @@
 				D37299C119699616004B1B7A /* XPQuantifiedExpression.m in Sources */,
 				D37299421965FC3A004B1B7A /* XPIntersectEnumeration.m in Sources */,
 				D339F6401927B66500C79A51 /* uri.c in Sources */,
+				D32A3B4F1970535700DA9E39 /* FNSubsequence.m in Sources */,
 				D339F61A1927B66500C79A51 /* globals.c in Sources */,
 				D3729A08196C431C004B1B7A /* FNData.m in Sources */,
 				D3729A04196C3AD0004B1B7A /* XPOrderSpec.m in Sources */,
@@ -2039,6 +2066,7 @@
 				D3411BD4191A8E140082A196 /* PGTokenKindDescriptor.m in Sources */,
 				D3411BD5191A8E140082A196 /* PGBaseNode.m in Sources */,
 				D3411BD6191A8E140082A196 /* PGRootNode.m in Sources */,
+				D32A3B51197054B800DA9E39 /* FNRemoveTest.m in Sources */,
 				D339F1E619279DAC00C79A51 /* XPLocationPathLibxmlTest.m in Sources */,
 				D3411BD7191A8E140082A196 /* PGActionNode.m in Sources */,
 				D3411BD8191A8E140082A196 /* PGAlternationNode.m in Sources */,

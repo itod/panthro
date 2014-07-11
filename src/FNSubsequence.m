@@ -1,12 +1,12 @@
 //
-//  FNInsertBefore.m
+//  FNSubsequence.m
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 7/20/09.
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "FNInsertBefore.h"
+#import "FNSubsequence.h"
 #import "XPValue.h"
 #import "XPAtomicSequence.h"
 #import "XPEmptySequence.h"
@@ -21,10 +21,10 @@
 - (NSUInteger)checkArgumentCountForMin:(NSUInteger)min max:(NSUInteger)max;
 @end
 
-@implementation FNInsertBefore
+@implementation FNSubsequence
 
 + (NSString *)name {
-    return @"insert-before";
+    return @"subsequence";
 }
 
 
@@ -135,7 +135,7 @@
 
 
 - (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
-    FNInsertBefore *f = [[[FNInsertBefore alloc] init] autorelease];
+    FNSubsequence *f = [[[FNSubsequence alloc] init] autorelease];
     for (XPExpression *arg in self.args) {
         [f addArgument:[arg reduceDependencies:dep inContext:ctx]];
     }

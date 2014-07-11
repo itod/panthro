@@ -53,12 +53,13 @@
 #import "FNNumber.h"
 #import "FNPosition.h"
 #import "FNRound.h"
-//#import "FNRemove.h"
+#import "FNRemove.h"
 #import "FNReplace.h"
-//#import "FNReverse.h"
+#import "FNReverse.h"
 #import "FNStartsWith.h"
 #import "FNString.h"
 #import "FNStringLength.h"
+#import "FNSubsequence.h"
 #import "FNSubstring.h"
 #import "FNSubstringAfter.h"
 #import "FNSubstringBefore.h"
@@ -125,12 +126,13 @@
         [self declareSystemFunction:[FNNumber class] forName:[FNNumber name]];
         [self declareSystemFunction:[FNPosition class] forName:[FNPosition name]];
         [self declareSystemFunction:[FNRound class] forName:[FNRound name]];
-//        [self declareSystemFunction:[FNRemove class] forName:[FNRemove name]];
+        [self declareSystemFunction:[FNRemove class] forName:[FNRemove name]];
         [self declareSystemFunction:[FNReplace class] forName:[FNReplace name]];
-//        [self declareSystemFunction:[FNReverse class] forName:[FNReverse name]];
+        [self declareSystemFunction:[FNReverse class] forName:[FNReverse name]];
         [self declareSystemFunction:[FNStartsWith class] forName:[FNStartsWith name]];
         [self declareSystemFunction:[FNString class] forName:[FNString name]];
         [self declareSystemFunction:[FNStringLength class] forName:[FNStringLength name]];
+        [self declareSystemFunction:[FNSubsequence class] forName:[FNSubsequence name]];
         [self declareSystemFunction:[FNSubstring class] forName:[FNSubstring name]];
         [self declareSystemFunction:[FNSubstringAfter class] forName:[FNSubstringAfter name]];
         [self declareSystemFunction:[FNSubstringBefore class] forName:[FNSubstringBefore name]];
