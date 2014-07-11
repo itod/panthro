@@ -61,22 +61,22 @@
             result = [XPEmptyNodeSet instance];
         }
         
-#if PAUSE_ENABLED
-        if (ctx.staticContext.debug && [expr isKindOfClass:[XPPathExpression class]]) {
-            XPStep *step = [(XPPathExpression *)expr step];
-            XPAssert(step.pauseState);
-            if (step.pauseState) {
-                step.pauseState.expression = expr;
-                step.pauseState.range = step.subRange;
-                [self pause:step.pauseState context:ctx];
-                
-                for (XPPauseState *state in step.filterPauseStates) {
-                    state.range = state.expression.range;
-                    [self pause:state context:ctx];
-                }
-            }
-        }
-#endif
+//#if PAUSE_ENABLED
+//        if (ctx.staticContext.debug && [expr isKindOfClass:[XPPathExpression class]]) {
+//            XPStep *step = [(XPPathExpression *)expr step];
+//            XPAssert(step.pauseState);
+//            if (step.pauseState) {
+//                step.pauseState.expression = expr;
+//                step.pauseState.range = step.subRange;
+//                [self pause:step.pauseState context:ctx];
+//                
+//                for (XPPauseState *state in step.filterPauseStates) {
+//                    state.range = state.expression.range;
+//                    [self pause:state context:ctx];
+//                }
+//            }
+//        }
+//#endif
 
 //        XPNodeSetIntent *nsi = [[[XPNodeSetIntent alloc] initWithNodeSetExpression:(XPNodeSetExpression *)expr comparer:nil] autorelease];
 //        result = nsi;
@@ -94,12 +94,11 @@
 }
 
 
-#if PAUSE_ENABLED
-- (void)pause:(XPPauseState *)state context:(XPContext *)ctx {
-    XPAssert(state);
-    [ctx.staticContext pauseFrom:state done:NO];
-}
-#endif
-
+//#if PAUSE_ENABLED
+//- (void)pause:(XPPauseState *)state context:(XPContext *)ctx {
+//    XPAssert(state);
+//    [ctx.staticContext pauseFrom:state done:NO];
+//}
+//#endif
 
 @end

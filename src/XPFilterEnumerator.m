@@ -71,6 +71,8 @@
 
 #if PAUSE_ENABLED
         self.pauseState = [[[XPPauseState alloc] init] autorelease];
+        _pauseState.expression = filter;
+        _pauseState.range = filter.range;
 #endif
 
         if ([_filter isKindOfClass:[XPNumericValue class]]) {
@@ -149,6 +151,13 @@
     //XPAssert(_current);
     id <XPItem>node = _current;
     self.current = [self nextMatchingItem];
+    
+#if PAUSE_ENABLED
+    if (![self hasMoreItems]) {
+        [self pause];
+    }
+#endif
+    
     return node;
 }
 
@@ -191,6 +200,14 @@
 
     return result;
 }
+
+
+#if PAUSE_ENABLED
+- (void)pause {
+    XPAssert(_pauseState);
+    [_filterContext.staticContext pauseFrom:_pauseState done:NO];
+}
+#endif
 
 
 /**
