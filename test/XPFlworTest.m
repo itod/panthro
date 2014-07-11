@@ -97,7 +97,7 @@
 }
 
 
-- (void)testOpenChapterCommaChapterClose {
+- (void)testOpenForCInChapterReturnC {
     [self eval:@"for $c in chapter return $c"];
     
     id <XPSequenceEnumeration>enm = [_res enumerate];
@@ -109,6 +109,27 @@
         TDEqualObjects(@"chapter", node.name);
         TDEquals(XPNodeTypeElement, node.nodeType);
     }
+    
+    TDFalse([enm hasMoreItems]);
+}
+
+
+- (void)testOpenForCInChapterLetIdEqCSlashIdWhereIdNeC2ReturnC {
+    [self eval:@"for $c in chapter let $id := $c/@id where $id != 'c2' return $id"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = nil;
+    
+    node = [enm nextNodeInfo];
+    TDEqualObjects(@"id", node.name);
+    TDEqualObjects(_ids[0], node.stringValue);
+    TDEquals(XPNodeTypeAttribute, node.nodeType);
+    
+    node = [enm nextNodeInfo];
+    TDEqualObjects(@"id", node.name);
+    TDEqualObjects(_ids[2], node.stringValue);
+    TDEquals(XPNodeTypeAttribute, node.nodeType);
     
     TDFalse([enm hasMoreItems]);
 }
