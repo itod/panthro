@@ -69,7 +69,6 @@
 - (void)testEmptySequence {
     self.expr = [XPExpression expressionFromString:@"subsequence((), 1)" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateInContext:nil];
-    TDEqualObjects([XPEmptySequence instance], _res);
     TDEquals(0, [_res count]);
 }
 

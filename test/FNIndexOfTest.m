@@ -46,7 +46,6 @@
 - (void)testEmptySequence {
     self.expr = [XPExpression expressionFromString:@"index-of((), '1')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateInContext:nil];
-    TDEqualObjects([XPEmptySequence instance], _res);
     TDEquals(0, [_res count]);
 }
 
@@ -54,7 +53,6 @@
 - (void)testEmptySequence1 {
     self.expr = [XPExpression expressionFromString:@"index-of(('2', '3', '4'), '1')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateInContext:nil];
-    TDEqualObjects([XPEmptySequence instance], _res);
     TDEquals(0, [_res count]);
 }
 
