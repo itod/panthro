@@ -59,17 +59,20 @@
     if (isEmpty) {
         result = [XPEmptySequence instance];
     } else {
-        double min = INFINITY;
+        double avg = 0.0;
+        NSUInteger c = 0;
         do {
             double d = [XPAtomize([enm nextItem]) asNumber];
             if (isnan(d)) {
-                min = d;
+                avg = d;
                 break;
             } else {
-                min = MIN(min, d);
+                avg += d;
+                ++c;
             }
         } while ([enm hasMoreItems]);
-        XPNumericValue *num = [XPNumericValue numericValueWithNumber:min];
+        avg = avg / c;
+        XPNumericValue *num = [XPNumericValue numericValueWithNumber:avg];
         result = [[[XPSequenceExtent alloc] initWithContent:@[num]] autorelease];
     }
     
