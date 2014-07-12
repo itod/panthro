@@ -295,6 +295,7 @@
 		D397539B1971CB7B003A0126 /* FNAvg.m in Sources */ = {isa = PBXBuildFile; fileRef = D39753991971CB7B003A0126 /* FNAvg.m */; };
 		D397539E1971CBD2003A0126 /* FNMaxTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D397539C1971CBB2003A0126 /* FNMaxTest.m */; };
 		D39753A01971CC95003A0126 /* FNAvgTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D397539F1971CC95003A0126 /* FNAvgTest.m */; };
+		D39753A21971D0EB003A0126 /* FNSumTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D39753A11971D0EB003A0126 /* FNSumTest.m */; };
 		D3A6C2E41907391200F3EFF3 /* XPAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A6C2E31907391200F3EFF3 /* XPAxis.m */; };
 		D3A6C2EA19073B4700F3EFF3 /* XPStepTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A6C2E919073B4700F3EFF3 /* XPStepTest.m */; };
 		D3A6C2EC19073D4900F3EFF3 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A6C2EB19073D4900F3EFF3 /* XCTest.framework */; };
@@ -757,6 +758,7 @@
 		D39753991971CB7B003A0126 /* FNAvg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNAvg.m; path = src/FNAvg.m; sourceTree = "<group>"; };
 		D397539C1971CBB2003A0126 /* FNMaxTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNMaxTest.m; path = test/FNMaxTest.m; sourceTree = "<group>"; };
 		D397539F1971CC95003A0126 /* FNAvgTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNAvgTest.m; path = test/FNAvgTest.m; sourceTree = "<group>"; };
+		D39753A11971D0EB003A0126 /* FNSumTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNSumTest.m; path = test/FNSumTest.m; sourceTree = "<group>"; };
 		D3A6C2E31907391200F3EFF3 /* XPAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPAxis.m; path = src/XPAxis.m; sourceTree = "<group>"; };
 		D3A6C2E919073B4700F3EFF3 /* XPStepTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPStepTest.m; path = test/XPStepTest.m; sourceTree = "<group>"; };
 		D3A6C2EB19073D4900F3EFF3 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -1449,6 +1451,7 @@
 				D37A31BE1016A7B000E936B7 /* FNSubstringTest.m */,
 				D37A320B1016C37400E936B7 /* FNSubstringAfterTest.m */,
 				D37A320E1016C38000E936B7 /* FNSubstringBeforeTest.m */,
+				D39753A11971D0EB003A0126 /* FNSumTest.m */,
 				D339F6761929687D00C79A51 /* FNTitleCaseTest.m */,
 				D339F684192969FE00C79A51 /* FNTranslateTest.m */,
 				D339F67F1929692C00C79A51 /* FNTrimSpaceTest.m */,
@@ -2130,6 +2133,7 @@
 				D3411BD7191A8E140082A196 /* PGActionNode.m in Sources */,
 				D3411BD8191A8E140082A196 /* PGAlternationNode.m in Sources */,
 				D3411BD9191A8E140082A196 /* PGCollectionNode.m in Sources */,
+				D39753A21971D0EB003A0126 /* FNSumTest.m in Sources */,
 				D3411BDA191A8E140082A196 /* PGCompositeNode.m in Sources */,
 				D3411BDB191A8E140082A196 /* PGConstantNode.m in Sources */,
 				D3411BDC191A8E140082A196 /* PGDefinitionNode.m in Sources */,

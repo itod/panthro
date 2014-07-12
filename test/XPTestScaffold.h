@@ -18,6 +18,7 @@
 #define TDNil(e) XCTAssertNil((e), @"")
 #define TDNotNil(e) XCTAssertNotNil((e), @"")
 #define TDEquals(e1, e2) XCTAssertEqual((e1), (e2), @"")
+#define TDEqualsWithAccuracy(e1, e2, acc) XCTAssertEqualWithAccuracy((e1), (e2), (acc), @"")
 #define TDEqualObjects(e1, e2) XCTAssertEqualObjects((e1), (e2), @"")
 
 extern NSString *XPPathOfFile(NSString *relFilePath);

@@ -20,10 +20,6 @@
 - (NSUInteger)checkArgumentCountForMin:(NSUInteger)min max:(NSUInteger)max;
 @end
 
-@interface FNSum ()
-- (double)total:(id <XPSequenceEnumeration>)e;
-@end
-
 @implementation FNSum
 
 + (NSString *)name {
@@ -39,12 +35,19 @@
 - (XPExpression *)simplify {
     XPExpression *result = self;
     
-    [self checkArgumentCountForMin:1 max:1];
+    [self checkArgumentCountForMin:1 max:2];
     
     id arg0 = [self.args[0] simplify];
     self.args[0] = arg0;
+
+    BOOL isArg1Value = YES;
     
-    if ([arg0 isValue]) { // can't happen?
+    if ([self numberOfArguments] > 1) {
+        id arg1 = [self.args[1] simplify];
+        self.args[1] = arg1;
+    }
+    
+    if ([arg0 isValue] && isArg1Value) {
         result = [self evaluateInContext:nil];
     }
     
@@ -54,8 +57,21 @@
 
 
 - (double)evaluateAsNumberInContext:(XPContext *)ctx {
-    id <XPSequenceEnumeration>enm = [self.args[0] enumerateInContext:ctx sorted:NO];
-    return [self total:enm];
+    double result = 0.0;
+    
+    XPSequenceValue *seq = [self.args[0] evaluateAsSequenceInContext:ctx];
+    if (0 == [seq count]) {
+        if ([self numberOfArguments] > 1) {
+            result = [self.args[1] evaluateAsNumberInContext:ctx];
+        }
+    } else {
+        id <XPSequenceEnumeration>enm = [seq enumerateInContext:ctx sorted:NO];
+        while ([enm hasMoreItems]) {
+            result += XPNumberFromString([[enm nextItem] stringValue]);
+        }
+    }
+    
+    return result;
 }
 
 
@@ -78,15 +94,6 @@
     f.staticContext = self.staticContext;
     f.range = self.range;
     return [f simplify];
-}
-
-
-- (double)total:(id <XPSequenceEnumeration>)enm {
-    double sum = 0.0;
-    while ([enm hasMoreItems]) {
-        sum += XPNumberFromString([[enm nextItem] stringValue]);
-    }
-    return sum;
 }
 
 @end
