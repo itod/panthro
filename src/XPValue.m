@@ -62,6 +62,9 @@ double XPNumberFromString(NSString *s) {
     double n;
     if ([s length]) {
         n = [s doubleValue];
+        if (INFINITY == n || -INFINITY == n) {
+            n = NAN;
+        }
     } else {
         n = NAN;
     }
@@ -76,7 +79,7 @@ double XPNumberFromString(NSString *s) {
     NSScanner *scanner = [NSScanner scannerWithString:s];
     double n = 0;
     if ([scanner scanDouble:&n]) {
-        if (HUGE_VAL == n || -HUGE_VAL == n) {
+        if (INFINITY == n || -INFINITY == n) {
             n = NAN;
         }
     } else {

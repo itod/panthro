@@ -30,7 +30,7 @@
 
 #if PAUSE_ENABLED
 // Debugging
-@property (retain) XPSync *debugSync;
-@property (assign) BOOL debug;
+@property (nonatomic, retain) XPSync *debugSync;
+@property (nonatomic, assign) BOOL debug;
 #endif
 @end

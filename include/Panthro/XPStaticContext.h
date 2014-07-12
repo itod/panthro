@@ -43,6 +43,6 @@
 #if PAUSE_ENABLED
 // Debugging
 - (void)pauseFrom:(XPPauseState *)state done:(BOOL)isDone;
-@property (assign) BOOL debug;
+@property (nonatomic, assign) BOOL debug;
 #endif
 @end

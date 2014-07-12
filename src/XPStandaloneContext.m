@@ -25,6 +25,7 @@
 
 #import "XPFunction.h"
 #import "FNAbs.h"
+#import "FNAvg.h"
 #import "FNBoolean.h"
 #import "FNCeiling.h"
 #import "FNConcat.h"
@@ -44,6 +45,8 @@
 #import "FNLast.h"
 #import "FNLocalName.h"
 #import "FNLowerCase.h"
+#import "FNMax.h"
+#import "FNMin.h"
 #import "FNMatches.h"
 #import "FNName.h"
 #import "FNNamespaceURI.h"
@@ -98,6 +101,7 @@
         [self declareNamespaceURI:@"" forPrefix:@""];
         
         [self declareSystemFunction:[FNAbs class] forName:[FNAbs name]];
+        [self declareSystemFunction:[FNAvg class] forName:[FNAvg name]];
         [self declareSystemFunction:[FNBoolean class] forName:[FNBoolean name]];
         [self declareSystemFunction:[FNCeiling class] forName:[FNCeiling name]];
         [self declareSystemFunction:[FNConcat class] forName:[FNConcat name]];
@@ -118,6 +122,8 @@
         [self declareSystemFunction:[FNLocalName class] forName:[FNLocalName name]];
         [self declareSystemFunction:[FNLowerCase class] forName:[FNLowerCase name]];
         [self declareSystemFunction:[FNMatches class] forName:[FNMatches name]];
+        [self declareSystemFunction:[FNMax class] forName:[FNMax name]];
+        [self declareSystemFunction:[FNMin class] forName:[FNMin name]];
         [self declareSystemFunction:[FNName class] forName:[FNName name]];
         [self declareSystemFunction:[FNNamespaceURI class] forName:[FNNamespaceURI name]];
         [self declareSystemFunction:[FNNormalizeSpace class] forName:[FNNormalizeSpace name]];
