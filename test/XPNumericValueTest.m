@@ -31,7 +31,7 @@
 }
 
 
-- (void)testRelationalExpr {    
+- (void)testRelationalExpr {
     self.expr =[XPExpression expressionFromString:@"1 != 2" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
@@ -67,7 +67,7 @@
     self.expr =[XPExpression expressionFromString:@"1 = '1'" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
-
+    
     self.expr =[XPExpression expressionFromString:@"'1' = 1" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
@@ -78,7 +78,58 @@
     
     self.expr =[XPExpression expressionFromString:@"1 = ---1" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsBooleanInContext:nil];
-    TDFalse(_res);    
+    TDFalse(_res);
+}
+
+
+- (void)testValueRelationalExpr {
+    self.expr =[XPExpression expressionFromString:@"1 ne 2" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr =[XPExpression expressionFromString:@"2 eq 2" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr =[XPExpression expressionFromString:@"42.0 eq 42" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr =[XPExpression expressionFromString:@"3.140 eq 3.14" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr =[XPExpression expressionFromString:@"1 lt 2" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr =[XPExpression expressionFromString:@"1 le 2" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr =[XPExpression expressionFromString:@"2 gt 1" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr =[XPExpression expressionFromString:@"2 ge 1" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr =[XPExpression expressionFromString:@"1 eq '1'" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr =[XPExpression expressionFromString:@"'1' eq 1" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr =[XPExpression expressionFromString:@"1 eq --1" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr =[XPExpression expressionFromString:@"1 eq ---1" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDFalse(_res);
 }
 
 

@@ -98,10 +98,10 @@ exprSingle = orExpr | forExpr | quantifiedExpr | ifExpr;
             toEqualityExpr = (to equalityExpr);
 
             equalityExpr = relationalExpr eqRelationalExpr*;
-                eqRelationalExpr = ('=' | '!=' | 'is') relationalExpr;
+                eqRelationalExpr = ('=' | '!=' | 'is' | valEq | valNe) relationalExpr;
 
                 relationalExpr = additiveExpr compareAdditiveExpr*;
-                    compareAdditiveExpr = ('<' | '>' | '<=' | '>=' | '<<' | '>>') additiveExpr;
+                    compareAdditiveExpr = ('<' | '>' | '<=' | '>=' | valLt | valGt | valLe | valGe | '<<' | '>>') additiveExpr;
                     
                     additiveExpr = multiplicativeExpr plusOrMinusMultiExpr*;
                         plusOrMinusMultiExpr  = (('+' | '-') multiplicativeExpr);
@@ -198,6 +198,13 @@ comment = 'comment';
 text = 'text';
 processingInstruction = 'processing-instruction';
 node = 'node';
+
+valEq = 'eq';
+valNe = 'ne';
+valLt = 'lt';
+valGt = 'gt';
+valLe = 'le';
+valGe = 'ge';
 
 keyword
     = ancestor

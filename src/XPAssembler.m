@@ -427,22 +427,22 @@
     
     Class cls = nil;
 
-    if ([@"=" isEqualToString:opStr]) {
+    if ([@"=" isEqualToString:opStr] || [@"eq" isEqualToString:opStr]) {
         op = XPEG_TOKEN_KIND_EQUALS;
         cls = [XPRelationalExpression class];
-    } else if ([@"!=" isEqualToString:opStr]) {
+    } else if ([@"!=" isEqualToString:opStr] || [@"ne" isEqualToString:opStr]) {
         op = XPEG_TOKEN_KIND_NOT_EQUAL;
         cls = [XPRelationalExpression class];
-    } else if ([@"<" isEqualToString:opStr]) {
+    } else if ([@"<" isEqualToString:opStr] || [@"lt" isEqualToString:opStr]) {
         op = XPEG_TOKEN_KIND_LT_SYM;
         cls = [XPRelationalExpression class];
-    } else if ([@">" isEqualToString:opStr]) {
+    } else if ([@">" isEqualToString:opStr] || [@"gt" isEqualToString:opStr]) {
         op = XPEG_TOKEN_KIND_GT_SYM;
         cls = [XPRelationalExpression class];
-    } else if ([@"<=" isEqualToString:opStr]) {
+    } else if ([@"<=" isEqualToString:opStr] || [@"le" isEqualToString:opStr]) {
         op = XPEG_TOKEN_KIND_LE_SYM;
         cls = [XPRelationalExpression class];
-    } else if ([@">=" isEqualToString:opStr]) {
+    } else if ([@">=" isEqualToString:opStr] || [@"ge" isEqualToString:opStr]) {
         op = XPEG_TOKEN_KIND_GE_SYM;
         cls = [XPRelationalExpression class];
     } else if ([@"is" isEqualToString:opStr]) {

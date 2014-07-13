@@ -142,6 +142,22 @@
     self.expr = [XPExpression expressionFromString:@"false() = false()" inContext:[XPStandaloneContext standaloneContext] error:nil];
     [_expr evaluateAsBooleanInContext:nil];
     TDTrue(_res);
+
+    self.expr = [XPExpression expressionFromString:@"true() ne false()" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"false() ne true()" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"true() eq true()" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
+    
+    self.expr = [XPExpression expressionFromString:@"false() eq false()" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(_res);
 }
 
 @end
