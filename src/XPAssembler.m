@@ -12,6 +12,8 @@
 #import <PEGKit/PEGKit.h>
 #import <PEGKit/PKParser+Subclass.h>
 
+#import "XPUserFunction.h"
+
 #import "XPSequenceExpression.h"
 #import "XPRangeExpression.h"
 #import "XPFlworExpression.h"
@@ -151,7 +153,7 @@
 - (void)parser:(PKParser *)p didMatchVarDecl:(PKAssembly *)a {
     XPExpression *expr = [a pop];
     XPAssertExpr(expr);
-
+    
     PKToken *varNameTok = [a pop];
     XPAssertToken(varNameTok);
     NSString *varName = varNameTok.stringValue;
@@ -166,6 +168,31 @@
     
     XPAssert(_env);
     [_env setItem:val forVariable:varName];
+}
+
+
+- (void)parser:(PKParser *)p didMatchFunctionDecl:(PKAssembly *)a {
+    
+    XPUserFunction *fn = [[[XPUserFunction alloc] init] autorelease];
+    
+    XPExpression *bodyExpr = [a pop];
+    XPAssertExpr(bodyExpr);
+    
+    NSArray *paramToks = [a objectsAbove:_openParen];
+    for (PKToken *paramTok in paramToks) {
+        XPAssertToken(paramTok);
+        NSString *paramName = paramTok.stringValue;
+        [fn addParameter:paramName];
+    }
+    
+    [a pop]; // discard '('
+    
+    PKToken *fnNameTok = [a pop];
+    XPAssertToken(fnNameTok);
+    NSString *fnName = fnNameTok.stringValue;
+    
+    XPAssert(_env);
+    [_env setItem:fn forVariable:fnName];
 }
 
 

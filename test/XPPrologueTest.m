@@ -104,6 +104,13 @@
 }
 
 
+- (void)testDelcareFunction {
+    [self eval:@"declare function foo() { 'breetai' }; foo()"];
+    
+    TDEqualObjects(@"breetai", [_res asString]);
+}
+
+
 //- (void)testOpenForCInChapterReturnC {
 //    [self eval:@"declare variable $foo := 'bar'; $foo"];
 //    

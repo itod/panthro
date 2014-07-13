@@ -65,8 +65,9 @@ prologue = ((varDecl | functionDecl) ';')*;
 
 varDecl = declare variable '$' qName ':='! exprSingle;
 
-functionDecl = declare function qName '(' paramList? ')'!;
+functionDecl = declare function qName '(' paramList? ')'! enclosedExpr;
     paramList = (exprSingle (','! exprSingle)* );
+    enclosedExpr = '{'! expr '}'!;
 
 expr = exprSingle exprSingleTail*;
     exprSingleTail = (','! exprSingle);

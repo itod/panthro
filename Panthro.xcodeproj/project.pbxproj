@@ -35,6 +35,8 @@
 		D32A3B4F1970535700DA9E39 /* FNSubsequence.m in Sources */ = {isa = PBXBuildFile; fileRef = D32A3B4D1970535700DA9E39 /* FNSubsequence.m */; };
 		D32A3B51197054B800DA9E39 /* FNRemoveTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D32A3B50197054B800DA9E39 /* FNRemoveTest.m */; };
 		D32BA2E91972E0820002D403 /* XPPrologueTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BA2E81972E0820002D403 /* XPPrologueTest.m */; };
+		D32BA2EC1972E5F20002D403 /* XPUserFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = D32BA2EA1972E5F20002D403 /* XPUserFunction.h */; };
+		D32BA2ED1972E5F20002D403 /* XPUserFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BA2EB1972E5F20002D403 /* XPUserFunction.m */; };
 		D33097381921BE99004317EA /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33097361921BE99004317EA /* PEGKit.framework */; };
 		D330973B1921BED5004317EA /* TDTemplateEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D330973A1921BED5004317EA /* TDTemplateEngine.framework */; };
 		D334BAB4192193AA00A32DD6 /* XPLastPositionFinder.h in Headers */ = {isa = PBXBuildFile; fileRef = D334BAB3192193AA00A32DD6 /* XPLastPositionFinder.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -496,6 +498,8 @@
 		D32A3B4D1970535700DA9E39 /* FNSubsequence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNSubsequence.m; path = src/FNSubsequence.m; sourceTree = "<group>"; };
 		D32A3B50197054B800DA9E39 /* FNRemoveTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNRemoveTest.m; path = test/FNRemoveTest.m; sourceTree = "<group>"; };
 		D32BA2E81972E0820002D403 /* XPPrologueTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPPrologueTest.m; path = test/XPPrologueTest.m; sourceTree = "<group>"; };
+		D32BA2EA1972E5F20002D403 /* XPUserFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPUserFunction.h; path = src/XPUserFunction.h; sourceTree = "<group>"; };
+		D32BA2EB1972E5F20002D403 /* XPUserFunction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPUserFunction.m; path = src/XPUserFunction.m; sourceTree = "<group>"; };
 		D33097361921BE99004317EA /* PEGKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PEGKit.framework; path = "../../../Library/Developer/Xcode/DerivedData/Panthro-dmvdaloqmsblyzezdvatkwnhfouk/Build/Products/Debug/PEGKit.framework"; sourceTree = "<group>"; };
 		D330973A1921BED5004317EA /* TDTemplateEngine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TDTemplateEngine.framework; path = "../../../Library/Developer/Xcode/DerivedData/Panthro-dmvdaloqmsblyzezdvatkwnhfouk/Build/Products/Debug/TDTemplateEngine.framework"; sourceTree = "<group>"; };
 		D334BAB3192193AA00A32DD6 /* XPLastPositionFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPLastPositionFinder.h; path = include/Panthro/XPLastPositionFinder.h; sourceTree = "<group>"; };
@@ -1296,6 +1300,8 @@
 		D37A29661013F36300E936B7 /* Functions */ = {
 			isa = PBXGroup;
 			children = (
+				D32BA2EA1972E5F20002D403 /* XPUserFunction.h */,
+				D32BA2EB1972E5F20002D403 /* XPUserFunction.m */,
 				D33930F3191EC98700259939 /* XPFunction.h */,
 				D37A29681013F39400E936B7 /* XPFunction.m */,
 				D339311419204E9E00259939 /* FNAbs.h */,
@@ -1706,6 +1712,7 @@
 				D3BE141C191BCB5C00005C81 /* XPLocalOrderComparer.h in Headers */,
 				D3F0CBAF191EC23D0049EC02 /* FNSum.h in Headers */,
 				D3F0CBA3191EC23D0049EC02 /* FNFloor.h in Headers */,
+				D32BA2EC1972E5F20002D403 /* XPUserFunction.h in Headers */,
 				D3F0CC01191EC8100049EC02 /* XPSequenceEnumeration.h in Headers */,
 				D334BAB4192193AA00A32DD6 /* XPLastPositionFinder.h in Headers */,
 				D3C0F59A19214DC900566524 /* FNNormalizeSpace.h in Headers */,
@@ -2046,6 +2053,7 @@
 				D339F6211927B66500C79A51 /* parser.c in Sources */,
 				D37A2FD810158A0600E936B7 /* FNRound.m in Sources */,
 				D37299D7196AE26C004B1B7A /* XPForClause.m in Sources */,
+				D32BA2ED1972E5F20002D403 /* XPUserFunction.m in Sources */,
 				D3C0F593192128E000566524 /* FNNamespaceURI.m in Sources */,
 				D37A2FFD10158DA900E936B7 /* FNStartsWith.m in Sources */,
 				D37299F4196B8457004B1B7A /* XPOrderClause.m in Sources */,
