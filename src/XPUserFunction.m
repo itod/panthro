@@ -17,15 +17,17 @@
 
 @implementation XPUserFunction
 
-- (instancetype)init {
+- (instancetype)initWithName:(NSString *)name {
     self = [super init];
     if (self) {
+        self.name = name;
     }
     return self;
 }
 
 
 - (void)dealloc {
+    self.name = nil;
     self.bodyExpression = nil;
     self.params = nil;
     self.variables = nil;

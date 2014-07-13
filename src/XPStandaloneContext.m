@@ -239,6 +239,16 @@
 }
 
 
+- (BOOL)defineUserFunction:(XPUserFunction *)fn error:(NSError **)outErr {
+    return NO;
+}
+
+
+- (XPUserFunction *)makeUserFunction:(NSString *)name {
+    return nil;
+}
+
+
 - (XPFunction *)makeSystemFunction:(NSString *)name error:(NSError **)outErr {
     XPAssert(_functions);
     

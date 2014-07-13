@@ -13,8 +13,11 @@
 
 @interface XPUserFunction : XPValue <XPScope>
 
+- (instancetype)initWithName:(NSString *)name;
+
 - (void)addParameter:(NSString *)paramName;
 - (NSUInteger)numberOfParameters;
 
+@property (nonatomic, retain) NSString *name;
 @property (nonatomic, retain) XPExpression *bodyExpression;
 @end

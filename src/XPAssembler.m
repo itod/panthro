@@ -173,17 +173,10 @@
 
 - (void)parser:(PKParser *)p didMatchFunctionDecl:(PKAssembly *)a {
     
-    XPUserFunction *fn = [[[XPUserFunction alloc] init] autorelease];
-    
     XPExpression *bodyExpr = [a pop];
     XPAssertExpr(bodyExpr);
     
     NSArray *paramToks = [a objectsAbove:_openParen];
-    for (PKToken *paramTok in paramToks) {
-        XPAssertToken(paramTok);
-        NSString *paramName = paramTok.stringValue;
-        [fn addParameter:paramName];
-    }
     
     [a pop]; // discard '('
     
@@ -191,8 +184,25 @@
     XPAssertToken(fnNameTok);
     NSString *fnName = fnNameTok.stringValue;
     
+    XPUserFunction *fn = [[[XPUserFunction alloc] initWithName:fnName] autorelease];
+
+    for (PKToken *paramTok in [paramToks reverseObjectEnumerator]) {
+        XPAssertToken(paramTok);
+        NSString *paramName = paramTok.stringValue;
+        [fn addParameter:paramName];
+    }
+    
+    NSError *err = nil;
     XPAssert(_env);
-    [_env setItem:fn forVariable:fnName];
+    if (![_env defineUserFunction:fn error:&err]) {
+        if (err) {
+            PKRecognitionException *rex = [[[PKRecognitionException alloc] init] autorelease];
+            rex.range = NSMakeRange(fnNameTok.offset, [fnName length]);
+            rex.currentName = @"Unknown XPath function";
+            rex.currentReason = [err localizedFailureReason];
+            [rex raise];
+        }
+    }
 }
 
 
@@ -568,7 +578,10 @@
     [a pop]; // '('
     
     PKToken *nameTok = [a pop];
-    NSString *name = [nameTok stringValue];
+    XPAssertToken(nameTok);
+    NSString *name = nameTok.stringValue;
+    
+    //XPUserFunction *fn = [_env makeUserFunction:name];
 
     XPAssert(_env);
     NSError *err = nil;
