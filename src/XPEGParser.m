@@ -780,7 +780,7 @@
 
 - (void)__prologue {
     
-    while ([self speculate:^{ if ([self speculate:^{ [self varDecl_]; }]) {[self varDecl_]; } else if ([self speculate:^{ [self functionDecl_]; }]) {[self functionDecl_]; } else {[self raise:@"No viable alternative found in rule 'prologue'."];}[self match:XPEG_TOKEN_KIND_SEMI_COLON discard:NO]; }]) {
+    while ([self speculate:^{ if ([self speculate:^{ [self varDecl_]; }]) {[self varDecl_]; } else if ([self speculate:^{ [self functionDecl_]; }]) {[self functionDecl_]; } else {[self raise:@"No viable alternative found in rule 'prologue'."];}[self match:XPEG_TOKEN_KIND_SEMI_COLON discard:YES]; }]) {
         if ([self speculate:^{ [self varDecl_]; }]) {
             [self varDecl_]; 
         } else if ([self speculate:^{ [self functionDecl_]; }]) {
@@ -788,7 +788,7 @@
         } else {
             [self raise:@"No viable alternative found in rule 'prologue'."];
         }
-        [self match:XPEG_TOKEN_KIND_SEMI_COLON discard:NO]; 
+        [self match:XPEG_TOKEN_KIND_SEMI_COLON discard:YES]; 
     }
 
     [self fireDelegateSelector:@selector(parser:didMatchPrologue:)];

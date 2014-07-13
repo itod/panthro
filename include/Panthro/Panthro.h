@@ -33,6 +33,7 @@
 #import <Panthro/XPSortable.h>
 #import <Panthro/XPLastPositionFinder.h>
 
+#import <Panthro/XPCallable.h>
 #import <Panthro/XPFunction.h>
 
 #import <Panthro/XPException.h>

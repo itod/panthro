@@ -23,6 +23,7 @@
 #import "XPNSXMLNodeImpl.h"
 #import "XPLibxmlNodeImpl.h"
 
+#import "XPUserFunction.h"
 #import "XPFunction.h"
 #import "FNAbs.h"
 #import "FNAvg.h"
@@ -74,6 +75,7 @@
 
 @interface XPStandaloneContext ()
 @property (nonatomic, retain) NSMutableDictionary *variables;
+@property (nonatomic, retain) NSMutableDictionary *userFunctions;
 @property (nonatomic, retain) NSMutableDictionary *functions;
 @property (nonatomic, retain) NSMutableDictionary *namespaces;
 @end
@@ -89,6 +91,7 @@
     self = [super init];
     if (self) {
         self.variables = [NSMutableDictionary dictionary];
+        self.userFunctions = [NSMutableDictionary dictionary];
         self.functions = [NSMutableDictionary dictionary];
         self.namespaces = [NSMutableDictionary dictionary];
 
@@ -240,12 +243,21 @@
 
 
 - (BOOL)defineUserFunction:(XPUserFunction *)fn error:(NSError **)outErr {
-    return NO;
+    XPAssert(fn);
+    XPAssert([fn.name length]);
+    XPAssert(_userFunctions);
+    
+    _userFunctions[fn.name] = fn;
+
+    return YES;
 }
 
 
 - (XPUserFunction *)makeUserFunction:(NSString *)name {
-    return nil;
+    XPAssert(_userFunctions);
+    
+    // ???
+    return [[_userFunctions[name] copy] autorelease];
 }
 
 

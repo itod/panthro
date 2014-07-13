@@ -6,11 +6,9 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "XPExpression.h"
+#import <Panthro/XPExpression.h>
+#import <Panthro/XPCallable.h>
 
-@interface XPFunction : XPExpression
+@interface XPFunction : XPExpression <XPCallable>
 + (NSString *)name;
-
-- (void)addArgument:(XPExpression *)expr;
-- (NSUInteger)numberOfArguments;
 @end

@@ -61,7 +61,7 @@
 
 xpath = prologue expr;
 
-prologue = ((varDecl | functionDecl) ';')*;
+prologue = ((varDecl | functionDecl) ';'!)*;
 
 varDecl = declare variable '$' qName ':='! exprSingle;
 

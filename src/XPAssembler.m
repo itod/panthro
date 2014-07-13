@@ -13,6 +13,7 @@
 #import <PEGKit/PKParser+Subclass.h>
 
 #import "XPUserFunction.h"
+#import "XPCallable.h"
 
 #import "XPSequenceExpression.h"
 #import "XPRangeExpression.h"
@@ -185,7 +186,8 @@
     NSString *fnName = fnNameTok.stringValue;
     
     XPUserFunction *fn = [[[XPUserFunction alloc] initWithName:fnName] autorelease];
-
+    fn.bodyExpression = bodyExpr;
+    
     for (PKToken *paramTok in [paramToks reverseObjectEnumerator]) {
         XPAssertToken(paramTok);
         NSString *paramName = paramTok.stringValue;
@@ -581,23 +583,24 @@
     XPAssertToken(nameTok);
     NSString *name = nameTok.stringValue;
     
-    //XPUserFunction *fn = [_env makeUserFunction:name];
-
     XPAssert(_env);
-    NSError *err = nil;
-    XPFunction *fn = [_env makeSystemFunction:name error:&err];
+    XPExpression *fn = [_env makeUserFunction:name];
     if (!fn) {
-        if (err) {
-            PKRecognitionException *rex = [[[PKRecognitionException alloc] init] autorelease];
-            rex.range = NSMakeRange(nameTok.offset, [name length]);
-            rex.currentName = @"Unknown XPath function";
-            rex.currentReason = [err localizedFailureReason];
-            [rex raise];
+        NSError *err = nil;
+        fn = [_env makeSystemFunction:name error:&err];
+        if (!fn) {
+            if (err) {
+                PKRecognitionException *rex = [[[PKRecognitionException alloc] init] autorelease];
+                rex.range = NSMakeRange(nameTok.offset, [name length]);
+                rex.currentName = @"Unknown XPath function";
+                rex.currentReason = [err localizedFailureReason];
+                [rex raise];
+            }
         }
     }
-    
+
     for (id arg in [args reverseObjectEnumerator]) {
-        [fn addArgument:arg];
+        [(id <XPCallable>)fn addArgument:arg];
     }
     
     NSUInteger offset = nameTok.offset;

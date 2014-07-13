@@ -11,7 +11,8 @@
 
 @interface XPUserFunction ()
 @property (nonatomic, retain) NSMutableArray *params;
-@property (nonatomic, retain) NSMutableDictionary *variables;
+@property (nonatomic, retain) NSMutableArray *args;
+@property (nonatomic, retain) NSMutableDictionary *vars;
 @property (nonatomic, retain) XPContext *currentContext;
 @end
 
@@ -30,8 +31,29 @@
     self.name = nil;
     self.bodyExpression = nil;
     self.params = nil;
-    self.variables = nil;
+    self.args = nil;
+    self.vars = nil;
+    self.currentContext = nil;
     [super dealloc];
+}
+
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%@ %p %@>", [self class], self, self.name];
+}
+
+
+#pragma mark -
+#pragma mark NSCopying
+
+- (id)copyWithZone:(NSZone *)zone {
+    XPUserFunction *fn = [[XPUserFunction allocWithZone:zone] initWithName:_name];
+    fn.bodyExpression = _bodyExpression;
+    fn.params = _params;
+    // ignore args
+    // ignore vars
+    // ignore curr ctx
+    return fn;
 }
 
 
@@ -58,8 +80,25 @@
 
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
+    XPAssert(_bodyExpression);
     self.currentContext = ctx;
     return [_bodyExpression evaluateInContext:ctx];
+}
+
+
+- (void)addArgument:(XPExpression *)expr {
+    NSParameterAssert(expr);
+    if (!expr) return; // remove?
+    
+    if (!_args) {
+        self.args = [NSMutableArray arrayWithCapacity:6];
+    }
+    [_args addObject:expr];
+}
+
+
+- (NSUInteger)numberOfArguments {
+    return [_args count];
 }
 
 
@@ -69,16 +108,16 @@
 - (void)setItem:(id <XPItem>)item forVariable:(NSString *)name {
     NSParameterAssert([name length]);
     
-    if (!_variables) {
-        self.variables = [NSMutableDictionary dictionary];
+    if (!_vars) {
+        self.vars = [NSMutableDictionary dictionary];
     }
     
-    XPAssert(_variables);
+    XPAssert(_vars);
     
     if (!item) {
-        [_variables removeObjectForKey:name];
+        [_vars removeObjectForKey:name];
     } else {
-        [_variables setObject:item forKey:name];
+        [_vars setObject:item forKey:name];
     }
 }
 
@@ -86,7 +125,7 @@
 - (id <XPItem>)itemForVariable:(NSString *)name {
     NSParameterAssert(name);
     
-    id <XPItem>item = [_variables objectForKey:name];
+    id <XPItem>item = [_vars objectForKey:name];
     if (!item) {
         item = [self.enclosingScope itemForVariable:name];
     }
