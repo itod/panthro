@@ -59,7 +59,15 @@
         [t.commentState setFallbackState:t.symbolState from:':' to:':'];
 }
 
-xpath = expr;
+xpath = prologue expr;
+
+prologue = ((varDecl | functionDecl) ';')*;
+
+varDecl = declare variable '$' qName ':='! exprSingle;
+
+functionDecl = declare function qName '(' paramList? ')'!;
+    paramList = (exprSingle (','! exprSingle)* );
+
 expr = exprSingle exprSingleTail*;
     exprSingleTail = (','! exprSingle);
 exprSingle = orExpr | forExpr | quantifiedExpr | ifExpr;
@@ -140,7 +148,8 @@ pathExpr = filterPath | locationPath;
             number = Number;
             parenthesizedExpr = '(' expr? ')'!;
             functionCall = actualFunctionCall | booleanLiteralFunctionCall;
-                actualFunctionCall = functionName '(' (argument (','! argument)* )? ')';
+                actualFunctionCall = functionName '(' argList? ')';
+                argList = (argument (','! argument)* );
                 booleanLiteralFunctionCall = booleanLiteral '('! ')';
                     functionName = { NE(LS(1), @"true") && NE(LS(1), @"false") && NE(LS(1), @"comment") && NE(LS(1), @"text") && NE(LS(1), @"processing-instruction") && NE(LS(1), @"node") }? qName;
                     booleanLiteral = true | false;
@@ -205,6 +214,10 @@ valLt = 'lt';
 valGt = 'gt';
 valLe = 'le';
 valGe = 'ge';
+
+declare = 'declare'!;
+variable = 'variable'!;
+function = 'function'!;
 
 keyword
     = ancestor

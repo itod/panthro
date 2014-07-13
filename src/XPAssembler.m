@@ -148,6 +148,27 @@
 }
 
 
+- (void)parser:(PKParser *)p didMatchVarDecl:(PKAssembly *)a {
+    XPExpression *expr = [a pop];
+    XPAssertExpr(expr);
+
+    PKToken *varNameTok = [a pop];
+    XPAssertToken(varNameTok);
+    NSString *varName = varNameTok.stringValue;
+    
+    PKToken *dollarTok = [a pop];
+    XPAssertToken(dollarTok);
+    XPAssert([dollarTok.stringValue isEqualToString:@"$"]);
+    
+    XPValue *val = [expr evaluateInContext:nil];
+    NSUInteger offset = dollarTok.offset;
+    val.range = NSMakeRange(offset, (varNameTok.offset + [varName length]) - offset);
+    
+    XPAssert(_env);
+    [_env setItem:val forVariable:varName];
+}
+
+
 - (void)parser:(PKParser *)p didMatchExprSingleTail:(PKAssembly *)a {
     XPExpression *p2 = [a pop];
     XPAssertExpr(p2);
