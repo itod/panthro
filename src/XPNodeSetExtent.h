@@ -6,8 +6,8 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "XPNodeSetValue.h"
-#import "XPSortable.h"
+#import <Panthro/XPNodeSetValue.h>
+#import <Panthro/XPSortable.h>
 
 @protocol XPSequenceEnumeration;
 @protocol XPNodeOrderComparer;

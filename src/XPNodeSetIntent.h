@@ -6,7 +6,7 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "XPNodeSetValue.h"
+#import <Panthro/XPNodeSetValue.h>
 
 @protocol XPNodeOrderComparer;
 @class XPNodeSetExpression;

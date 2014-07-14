@@ -6,7 +6,7 @@
 //
 //
 
-#import "XPNodeSetValue.h"
+#import <Panthro/XPNodeSetValue.h>
 #import "XPException.h"
 
 @implementation XPNodeSetValue
