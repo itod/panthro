@@ -448,9 +448,4 @@
     return nil;
 }
 
-
-- (id <XPScope>)currentScope {
-    return self;
-}
-
 @end

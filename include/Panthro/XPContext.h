@@ -33,4 +33,5 @@
 
 - (void)push:(id <XPScope>)scope;
 - (id <XPScope>)pop;
+@property (nonatomic, retain, readonly) id <XPScope>currentScope;
 @end

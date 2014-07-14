@@ -125,12 +125,22 @@
 }
 
 
-- (void)testDelcareFunctionParamReturnSameNameOpo {
+- (void)testDelcareFunctionParamReturnSameNameOverride {
     [self eval:@"declare variable $foo := 'Lynn Kyle'; declare function foo($foo) { $foo }; (foo('Karl Reber'), $foo)"];
     
     id <XPSequenceEnumeration>enm = [_res enumerate];
     TDEqualObjects(@"Karl Reber", [[enm nextItem] stringValue]);
     TDEqualObjects(@"Lynn Kyle", [[enm nextItem] stringValue]);
+}
+
+
+- (void)testDelcareFunctionParamReturnSameNameFetchGlobal {
+    [self eval:@"declare variable $three := 3; declare function print($arg1, $arg2) { ($arg2, $arg1, $three) }; print(4, 5)"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    TDEqualObjects(@"5", [[enm nextItem] stringValue]);
+    TDEqualObjects(@"4", [[enm nextItem] stringValue]);
+    TDEqualObjects(@"3", [[enm nextItem] stringValue]);
 }
 
 

@@ -159,9 +159,4 @@
     return _currentContext;
 }
 
-
-- (id <XPScope>)currentScope {
-    return self;
-}
-
 @end
