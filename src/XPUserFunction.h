@@ -8,16 +8,16 @@
 
 #import <Panthro/XPValue.h>
 #import <Panthro/XPScope.h>
-#import <Panthro/XPCallable.h>
 
 @class XPExpression;
 
-@interface XPUserFunction : XPValue <NSCopying, XPScope, XPCallable>
+@interface XPUserFunction : XPValue <NSCopying, XPScope>
 
 - (instancetype)initWithName:(NSString *)name;
 
 - (void)addParameter:(NSString *)paramName;
 - (NSUInteger)numberOfParameters;
+- (NSString *)parameterAtIndex:(NSUInteger)i;
 
 @property (nonatomic, retain) NSString *name;
 @property (nonatomic, retain) XPExpression *bodyExpression;

@@ -256,7 +256,7 @@
 }
 
 
-- (XPUserFunction *)makeUserFunction:(NSString *)name {
+- (XPUserFunction *)userFunctionNamed:(NSString *)name {
     XPAssert(_userFunctions);
     
     // ???

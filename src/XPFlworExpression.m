@@ -142,6 +142,7 @@
         [result addObjectsFromArray:t.resultItems];
     }
     
+    XPAssert(result);
     XPSequenceValue *seq = [[[XPSequenceExtent alloc] initWithContent:result] autorelease];
     self.tuples = nil;
     return seq;

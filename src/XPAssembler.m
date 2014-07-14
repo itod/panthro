@@ -14,6 +14,7 @@
 
 #import "XPUserFunction.h"
 #import "XPCallable.h"
+#import "XPFunctionCall.h"
 
 #import "XPSequenceExpression.h"
 #import "XPRangeExpression.h"
@@ -584,18 +585,18 @@
     NSString *name = nameTok.stringValue;
     
     XPAssert(_env);
-    XPExpression *fn = [_env makeUserFunction:name];
+    NSError *err = nil;
+    XPExpression <XPCallable>*fn = [_env makeSystemFunction:name error:&err];
     if (!fn) {
-        NSError *err = nil;
-        fn = [_env makeSystemFunction:name error:&err];
-        if (!fn) {
-            if (err) {
-                PKRecognitionException *rex = [[[PKRecognitionException alloc] init] autorelease];
-                rex.range = NSMakeRange(nameTok.offset, [name length]);
-                rex.currentName = @"Unknown XPath function";
-                rex.currentReason = [err localizedFailureReason];
-                [rex raise];
-            }
+        fn = [[[XPFunctionCall alloc] initWithName:name] autorelease];
+    }
+    if (!fn) {
+        if (err) {
+            PKRecognitionException *rex = [[[PKRecognitionException alloc] init] autorelease];
+            rex.range = NSMakeRange(nameTok.offset, [name length]);
+            rex.currentName = @"Unknown XPath function";
+            rex.currentReason = [err localizedFailureReason];
+            [rex raise];
         }
     }
 

@@ -175,6 +175,8 @@
 		D3479561193FDEA100181E56 /* FNLang.m in Sources */ = {isa = PBXBuildFile; fileRef = D347955F193FDEA100181E56 /* FNLang.m */; };
 		D34BADF5100ABA7C00996341 /* XPBooleanValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BADF3100ABA7C00996341 /* XPBooleanValue.m */; };
 		D34BADF9100ABA9300996341 /* XPValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BADF7100ABA9300996341 /* XPValue.m */; };
+		D34D0CE219747BB10011757B /* XPFunctionCall.h in Headers */ = {isa = PBXBuildFile; fileRef = D34D0CE019747BB10011757B /* XPFunctionCall.h */; };
+		D34D0CE319747BB10011757B /* XPFunctionCall.m in Sources */ = {isa = PBXBuildFile; fileRef = D34D0CE119747BB10011757B /* XPFunctionCall.m */; };
 		D3539407192FA6A900D6EEA6 /* XPException.m in Sources */ = {isa = PBXBuildFile; fileRef = D3539405192FA6A900D6EEA6 /* XPException.m */; };
 		D360361D1961F3610047F6A4 /* XPParentNodeExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D360361B1961F3610047F6A4 /* XPParentNodeExpression.h */; };
 		D360361E1961F3610047F6A4 /* XPParentNodeExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D360361C1961F3610047F6A4 /* XPParentNodeExpression.m */; };
@@ -649,6 +651,8 @@
 		D347955F193FDEA100181E56 /* FNLang.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNLang.m; path = src/FNLang.m; sourceTree = "<group>"; };
 		D34BADF3100ABA7C00996341 /* XPBooleanValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBooleanValue.m; path = src/XPBooleanValue.m; sourceTree = "<group>"; };
 		D34BADF7100ABA9300996341 /* XPValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPValue.m; path = src/XPValue.m; sourceTree = "<group>"; };
+		D34D0CE019747BB10011757B /* XPFunctionCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPFunctionCall.h; path = src/XPFunctionCall.h; sourceTree = "<group>"; };
+		D34D0CE119747BB10011757B /* XPFunctionCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPFunctionCall.m; path = src/XPFunctionCall.m; sourceTree = "<group>"; };
 		D3539405192FA6A900D6EEA6 /* XPException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPException.m; path = src/XPException.m; sourceTree = "<group>"; };
 		D36036141961D0280047F6A4 /* XPPathEnumeration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPPathEnumeration.h; path = src/XPPathEnumeration.h; sourceTree = "<group>"; };
 		D36036151961D0280047F6A4 /* XPPathEnumeration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPPathEnumeration.m; path = src/XPPathEnumeration.m; sourceTree = "<group>"; };
@@ -1296,6 +1300,8 @@
 				D3BE1427191C3B8400005C81 /* XPPositionRange.m */,
 				D33930F5191F132D00259939 /* XPVariableReference.h */,
 				D33930F6191F132D00259939 /* XPVariableReference.m */,
+				D34D0CE019747BB10011757B /* XPFunctionCall.h */,
+				D34D0CE119747BB10011757B /* XPFunctionCall.m */,
 				D3C178171884468500F90600 /* Value */,
 				D3C1781F1884469600F90600 /* Binary Expr */,
 				D37299A519684D59004B1B7A /* Sequence Expr */,
@@ -1699,6 +1705,7 @@
 				D3F0CC0B191EC8250049EC02 /* XPSequenceValue.h in Headers */,
 				D3C0F59E19214FE700566524 /* FNTrimSpace.h in Headers */,
 				D339F66C1928EA1100C79A51 /* FNId.h in Headers */,
+				D34D0CE219747BB10011757B /* XPFunctionCall.h in Headers */,
 				D3F0CBA6191EC23D0049EC02 /* FNNumber.h in Headers */,
 				D37299F7196C34CE004B1B7A /* XPAtomicSequence.h in Headers */,
 				D3F0CB9F191EC23D0049EC02 /* FNConcat.h in Headers */,
@@ -1988,6 +1995,7 @@
 				D3363956100D813500AC4B51 /* XPObjectValue.m in Sources */,
 				D339F6531927B66500C79A51 /* xzlib.c in Sources */,
 				D33931271920534E00259939 /* FNTitleCase.m in Sources */,
+				D34D0CE319747BB10011757B /* XPFunctionCall.m in Sources */,
 				D339F6441927B66500C79A51 /* xmlcatalog.c in Sources */,
 				D339F6141927B66500C79A51 /* catalog.c in Sources */,
 				D339F6271927B66500C79A51 /* SAX.c in Sources */,

@@ -11,11 +11,8 @@
 #import "XPException.h"
 #import "XPSingletonNodeSet.h"
 #import "XPNodeInfo.h"
-//#import "XPBindery.h"
-//#import "XPBinding.h"
 
 @interface XPVariableReference ()
-//@property (nonatomic, retain, readwrite) id <XPBinding>binding;
 @end
 
 @implementation XPVariableReference
@@ -25,12 +22,10 @@
  * @param name the variable name (as a Name object)
  */
 
-//- (instancetype)initWithName:(NSString *)name staticContext:(id <XPStaticContext>)env {
 - (instancetype)initWithName:(NSString *)name {
     self = [super init];
     if (self) {
         self.name = name;
-//        self.binding = [staticContext bindVariable:name];
     }
     return self;
 }
@@ -38,7 +33,6 @@
 
 - (void)dealloc {
     self.name = nil;
-//    self.binding = nil;
     [super dealloc];
 }
 

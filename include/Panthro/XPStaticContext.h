@@ -34,7 +34,7 @@
 - (void)declareNamespaceURI:(NSString *)uri forPrefix:(NSString *)prefix;
 
 - (BOOL)defineUserFunction:(XPUserFunction *)fn error:(NSError **)outErr;
-- (XPUserFunction *)makeUserFunction:(NSString *)name;
+- (XPUserFunction *)userFunctionNamed:(NSString *)name;
 
 - (XPFunction *)makeSystemFunction:(NSString *)name error:(NSError **)outErr;
 - (void)declareSystemFunction:(Class)cls forName:(NSString *)name;

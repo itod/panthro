@@ -11,7 +11,6 @@
 
 @interface XPUserFunction ()
 @property (nonatomic, retain) NSMutableArray *params;
-@property (nonatomic, retain) NSMutableArray *args;
 @property (nonatomic, retain) NSMutableDictionary *vars;
 @property (nonatomic, retain) XPContext *currentContext;
 @end
@@ -31,7 +30,6 @@
     self.name = nil;
     self.bodyExpression = nil;
     self.params = nil;
-    self.args = nil;
     self.vars = nil;
     self.currentContext = nil;
     [super dealloc];
@@ -71,6 +69,14 @@
 }
 
 
+- (NSString *)parameterAtIndex:(NSUInteger)i {
+    XPAssert(NSNotFound != i);
+    XPAssert(i < [self numberOfParameters]);
+    
+    return _params[i];
+}
+
+
 #pragma mark -
 #pragma mark XPValue
 
@@ -84,41 +90,16 @@
     XPAssert(_bodyExpression);
 
     self.currentContext = ctx;
-
-    NSUInteger numArgs = [self numberOfArguments];
-    NSUInteger numParams = [self numberOfParameters];
-    
-    for (NSUInteger i = 0; i < numParams; ++i) {
-        if (i >= numArgs) break;
-
-        NSString *paramName = _params[i];
-        XPValue *val = [_args[i] evaluateInContext:ctx];
-        [self setItem:val forVariable:paramName];
-    }
     
     [ctx push:self];
     
     XPValue *result = [_bodyExpression evaluateInContext:ctx];
+    
+    NSLog(@"%s result: %@", __PRETTY_FUNCTION__, result);
 
     [ctx pop];
     
     return result;
-}
-
-
-- (void)addArgument:(XPExpression *)expr {
-    NSParameterAssert(expr);
-    
-    if (!_args) {
-        self.args = [NSMutableArray arrayWithCapacity:6];
-    }
-    
-    [_args addObject:expr];
-}
-
-
-- (NSUInteger)numberOfArguments {
-    return [_args count];
 }
 
 

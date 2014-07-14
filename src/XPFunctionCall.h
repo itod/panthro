@@ -1,5 +1,5 @@
 //
-//  XPVariableReference.h
+//  XPFunctionReference.h
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 5/10/14.
@@ -7,8 +7,9 @@
 //
 
 #import <Panthro/Panthro.h>
+#import <Panthro/XPCallable.h>
 
-@interface XPVariableReference : XPExpression
+@interface XPFunctionCall : XPExpression <XPCallable>
 
 - (instancetype)initWithName:(NSString *)name;
 
