@@ -138,7 +138,7 @@
 //    }
     
     XPValue *val = nil;
-    id <XPItem>item = [ctx itemForVariable:self.name];
+    id <XPItem>item = [ctx.currentScope itemForVariable:self.name];
     
     if ([item isKindOfClass:[XPValue class]]) {
         val = (id)item;

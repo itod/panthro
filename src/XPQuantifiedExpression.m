@@ -78,6 +78,8 @@
     NSArray *seqTail = [sequences subarrayWithRange:NSMakeRange(1, [sequences count]-1)];
     
     id <XPSequenceEnumeration>seqEnm = [seqExpr enumerateInContext:ctx sorted:NO];
+    
+    ctx = [[ctx copy] autorelease];
 
     while ([seqEnm hasMoreItems]) {
         id <XPItem>inItem = [seqEnm nextItem];
@@ -101,8 +103,6 @@
                 }
             }
         }
-
-        [ctx setItem:nil forVariable:varName];
 
         if (stop) break;
     }

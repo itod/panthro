@@ -835,10 +835,12 @@
 
 - (void)__paramList {
     
-    [self exprSingle_]; 
-    while ([self speculate:^{ [self match:XPEG_TOKEN_KIND_COMMA discard:YES]; [self exprSingle_]; }]) {
+    [self match:XPEG_TOKEN_KIND_DOLLAR discard:YES]; 
+    [self qName_]; 
+    while ([self speculate:^{ [self match:XPEG_TOKEN_KIND_COMMA discard:YES]; [self match:XPEG_TOKEN_KIND_DOLLAR discard:YES]; [self qName_]; }]) {
         [self match:XPEG_TOKEN_KIND_COMMA discard:YES]; 
-        [self exprSingle_]; 
+        [self match:XPEG_TOKEN_KIND_DOLLAR discard:YES]; 
+        [self qName_]; 
     }
 
     [self fireDelegateSelector:@selector(parser:didMatchParamList:)];

@@ -13,6 +13,7 @@
 @interface XPContext ()
 @property (nonatomic, assign) id <XPStaticContext>staticContext;
 @property (nonatomic, retain) NSMutableDictionary *variables;
+@property (nonatomic, retain) NSMutableArray *stack;
 @end
 
 @implementation XPContext {
@@ -46,6 +47,7 @@
     self.currentNode = nil;
     self.lastPositionFinder = nil;
     self.variables = nil;
+    self.stack = nil;
     [super dealloc];
 }
 
@@ -114,7 +116,7 @@
 
 - (void)setItem:(id <XPItem>)item forVariable:(NSString *)name {
     NSParameterAssert([name length]);
-
+    
     if (!_variables) {
         self.variables = [NSMutableDictionary dictionary];
     }
@@ -144,6 +146,33 @@
 - (id <XPScope>)enclosingScope {
     XPAssert(_staticContext);
     return _staticContext;
+}
+
+
+- (id <XPScope>)currentScope {
+    id <XPScope>scope = self;
+    if ([_stack count]) {
+        scope = [[[_stack lastObject] retain] autorelease];
+    }
+    return scope;
+}
+
+
+- (void)push:(id <XPScope>)scope {
+    XPAssert(scope);
+    
+    if (!_stack) {
+        self.stack = [NSMutableArray array];
+    }
+    
+    [_stack addObject:scope];
+}
+
+
+- (id <XPScope>)pop {
+    id <XPScope>scope = [[[_stack lastObject] retain] autorelease];
+    [_stack removeLastObject];
+    return scope;
 }
 
 @end

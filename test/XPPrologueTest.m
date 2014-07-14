@@ -104,10 +104,17 @@
 }
 
 
-- (void)testDelcareFunction {
+- (void)testDelcareFunctionLiteralReturn {
     [self eval:@"declare function foo() { 'breetai' }; foo()"];
     
     TDEqualObjects(@"breetai", [_res asString]);
+}
+
+
+- (void)testDelcareFunctionParamReturn {
+    [self eval:@"declare function foo($arg) { $arg }; foo('exedore')"];
+    
+    TDEqualObjects(@"exedore", [_res asString]);
 }
 
 

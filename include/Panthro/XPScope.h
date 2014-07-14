@@ -13,5 +13,6 @@
 - (void)setItem:(id <XPItem>)item forVariable:(NSString *)name;
 - (id <XPItem>)itemForVariable:(NSString *)name;
 
+@property (nonatomic, retain, readonly) id <XPScope>currentScope;
 @property (nonatomic, retain, readonly) id <XPScope>enclosingScope;
 @end

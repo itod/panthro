@@ -30,4 +30,7 @@
 
 - (NSUInteger)contextPosition;
 - (NSUInteger)contextSize;
+
+- (void)push:(id <XPScope>)scope;
+- (id <XPScope>)pop;
 @end

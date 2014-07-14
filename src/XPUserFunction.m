@@ -59,7 +59,7 @@
 
 - (void)addParameter:(NSString *)paramName {
     if (!_params) {
-        self.params = [NSMutableArray array];
+        self.params = [NSMutableArray arrayWithCapacity:6];
     }
     
     [_params addObject:paramName];
@@ -81,8 +81,27 @@
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
     XPAssert(_bodyExpression);
+
     self.currentContext = ctx;
-    return [_bodyExpression evaluateInContext:ctx];
+
+    NSUInteger numArgs = [self numberOfArguments];
+    NSUInteger numParams = [self numberOfParameters];
+    
+    for (NSUInteger i = 0; i < numParams; ++i) {
+        if (i >= numArgs) break;
+
+        NSString *paramName = _params[i];
+        id <XPItem>arg = _args[i];
+        [self setItem:arg forVariable:paramName];
+    }
+    
+    [ctx push:self];
+    
+    XPValue *result = [_bodyExpression evaluateInContext:ctx];
+
+    [ctx pop];
+    
+    return result;
 }
 
 
@@ -93,6 +112,7 @@
     if (!_args) {
         self.args = [NSMutableArray arrayWithCapacity:6];
     }
+    
     [_args addObject:expr];
 }
 
@@ -138,4 +158,10 @@
     XPAssert(_currentContext);
     return _currentContext;
 }
+
+
+- (id <XPScope>)currentScope {
+    return self;
+}
+
 @end
