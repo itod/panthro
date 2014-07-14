@@ -90,53 +90,6 @@
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
     XPAssert(ctx);
     
-//    id <XPBindery>b = [c bindery];
-//    XPValue *v = [b value:_binding];
-//    
-//    if (!v) {
-//        
-//        if (![_binding isGlobal]) {
-//            [XPException raiseIn:self format:@"Variable %@ is undefined", [_binding variableName]];
-//        }
-//        
-//        // it must be a forwards reference; try to evaluate it now.
-//        // but first set a flag to stop looping. This flag is set in the Bindery because
-//        // the VariableReference itself can be used by multiple threads simultaneously
-//        
-//        @try {
-//            
-//            b.setExecuting(binding, true);
-//            
-//            if (binding instanceof XSLGeneralVariable) {
-//                if (c.getController().isTracing()) { // e.g.
-//                    TraceListener listener = c.getController().getTraceListener();
-//                    
-//                    listener.enter((XSLGeneralVariable)binding, c);
-//                    ((XSLGeneralVariable)binding).process(c);
-//                    listener.leave((XSLGeneralVariable)binding, c);
-//                    
-//                } else {
-//                    ((XSLGeneralVariable)binding).process(c);
-//                }
-//            }
-//            
-//            b.setExecuting(binding, false);
-//            
-//            v = b.getValue(binding);
-//            
-//        } catch (TransformerException err) {
-//            if (err instanceof XPathException) {
-//                throw (XPathException)err;
-//            } else {
-//                throw new XPathException(err);
-//            }
-//        }
-//        
-//        if (!v) {
-//            [XPException raiseIn:self format:@"Variable %@ is undefined", [_binding variableName]];
-//        }
-//    }
-    
     XPValue *val = nil;
     id <XPItem>item = [ctx.currentScope itemForVariable:self.name];
     
@@ -161,7 +114,6 @@
  */
 
 - (XPDataType)dataType {
-//    return [_binding dataType];
     return XPDataTypeAny;
 }
 
@@ -172,12 +124,6 @@
  */
 
 - (XPExpression *)simplify {
-//    XPValue *v = [_binding constantValue];
-//    if (!v) {
-//        return self;
-//    } else {
-//        return v;
-//    }
     return self;
 }
 
