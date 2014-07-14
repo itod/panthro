@@ -144,21 +144,16 @@
 }
 
 
-//- (void)testOpenForCInChapterReturnC {
-//    [self eval:@"declare variable $foo := 'bar'; $foo"];
-//    
-//    id <XPSequenceEnumeration>enm = [_res enumerate];
-//    
-//    id <XPNodeInfo>node = nil;
-//    
-//    for (NSUInteger i = 0; i < 3; ++i) {
-//        node = [enm nextNodeInfo];
-//        TDEqualObjects(@"chapter", node.name);
-//        TDEquals(XPNodeTypeElement, node.nodeType);
-//    }
-//    
-//    TDFalse([enm hasMoreItems]);
-//}
-//
-//
+- (void)testOpenForCInChapterReturnC {
+    [self eval:@"declare function myfunc($arg) { string($arg) }; for $attr in chapter/@id return myfunc($attr)"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    for (NSUInteger i = 0; i < 3; ++i) {
+        TDEqualObjects(_ids[i], [[enm nextItem] stringValue]);
+    }
+    
+    TDFalse([enm hasMoreItems]);
+}
+
 @end
