@@ -258,9 +258,7 @@
 
 - (XPUserFunction *)userFunctionNamed:(NSString *)name {
     XPAssert(_userFunctions);
-    
-    // ???
-    return [[_userFunctions[name] copy] autorelease];
+    return _userFunctions[name];
 }
 
 
