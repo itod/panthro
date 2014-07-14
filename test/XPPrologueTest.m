@@ -118,6 +118,22 @@
 }
 
 
+- (void)testDelcareFunctionParamReturnSameName {
+    [self eval:@"declare function foo($foo) { $foo }; foo('Karl Reber')"];
+    
+    TDEqualObjects(@"Karl Reber", [_res asString]);
+}
+
+
+- (void)testDelcareFunctionParamReturnSameNameOpo {
+    [self eval:@"declare variable $foo := 'Lynn Kyle'; declare function foo($foo) { $foo }; (foo('Karl Reber'), $foo)"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    TDEqualObjects(@"Karl Reber", [[enm nextItem] stringValue]);
+    TDEqualObjects(@"Lynn Kyle", [[enm nextItem] stringValue]);
+}
+
+
 //- (void)testOpenForCInChapterReturnC {
 //    [self eval:@"declare variable $foo := 'bar'; $foo"];
 //    

@@ -80,6 +80,7 @@
 
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
+    NSParameterAssert(ctx);
     XPAssert(_bodyExpression);
 
     self.currentContext = ctx;
@@ -107,7 +108,6 @@
 
 - (void)addArgument:(XPExpression *)expr {
     NSParameterAssert(expr);
-    if (!expr) return; // remove?
     
     if (!_args) {
         self.args = [NSMutableArray arrayWithCapacity:6];
