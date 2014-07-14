@@ -95,8 +95,6 @@
     
     XPValue *result = [_bodyExpression evaluateInContext:ctx];
     
-    NSLog(@"%s result: %@", __PRETTY_FUNCTION__, result);
-
     [ctx pop];
     
     return result;

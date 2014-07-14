@@ -97,9 +97,7 @@
     }
     
     XPValue *result = [fn evaluateInContext:ctx];
-    
-    NSLog(@"%s result: %@", __PRETTY_FUNCTION__, result);
-    
+        
     return result;
 }
 
