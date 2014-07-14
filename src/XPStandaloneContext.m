@@ -156,6 +156,7 @@
 
 
 - (void)dealloc {
+    self.delegate = nil;
     self.variables = nil;
     self.functions = nil;
     self.namespaces = nil;
@@ -419,6 +420,13 @@
     }
 }
 #endif
+
+
+- (void)trace:(NSString *)str {
+    if (_delegate && [_delegate respondsToSelector:@selector(standaloneContext:didTrace:)]) {
+        [_delegate standaloneContext:self didTrace:str];
+    }
+}
 
 
 #pragma mark -

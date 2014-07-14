@@ -90,9 +90,10 @@
         result = [f simplify];
     } else if (dep & XPDependenciesContextNode) {
         result = [self evaluateInContext:nil];
+        result.staticContext = self.staticContext;
+        result.range = self.range;
     }
     
-    result.range = self.range;
     return result;
 }
 

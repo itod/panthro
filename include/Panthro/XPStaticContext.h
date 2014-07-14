@@ -44,6 +44,8 @@
 
 - (NSString *)version;
 
+- (void)trace:(NSString *)str;
+
 #if PAUSE_ENABLED
 // Debugging
 - (void)pauseFrom:(XPPauseState *)state done:(BOOL)isDone;

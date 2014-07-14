@@ -11,8 +11,14 @@
 @class XPExpression;
 @class XPFunction;
 @class XPSync;
+@class XPStandaloneContext;
 
 @protocol XPNodeInfo;
+
+@protocol XPStandaloneContextDelegate <NSObject>
+@optional
+- (void)standaloneContext:(XPStandaloneContext *)env didTrace:(NSString *)str;
+@end
 
 /**
  * A StandaloneContext provides a context for parsing an expression or pattern appearing
@@ -27,6 +33,8 @@
 - (id)evaluate:(XPExpression *)expr withContextNode:(id <XPNodeInfo>)ctxNode error:(NSError **)outErr;
 
 - (id)execute:(NSString *)xpathStr withContextNode:(id <XPNodeInfo>)ctxNode error:(NSError **)outErr;
+
+@property (nonatomic, assign) id <XPStandaloneContextDelegate>delegate;
 
 #if PAUSE_ENABLED
 // Debugging

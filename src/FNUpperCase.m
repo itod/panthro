@@ -33,15 +33,17 @@
 - (XPExpression *)simplify {
     XPExpression *result = self;
     
-    [self checkArgumentCountForMin:1 max:1];
-
-    id arg0 = [self.args[0] simplify];
-    self.args[0] = arg0;
-
-    if ([arg0 isValue]) {
-        result = [self evaluateInContext:nil];
+    NSUInteger numArgs = [self checkArgumentCountForMin:0 max:1];
+    
+    if (1 == numArgs) {
+        id arg0 = [self.args[0] simplify];
+        self.args[0] = arg0;
+        
+        if ([arg0 isValue]) {
+            result = [self evaluateInContext:nil];
+        }
     }
-
+    
     result.range = self.range;
     return result;
 }
@@ -62,16 +64,29 @@
 
 
 - (XPDependencies)dependencies {
-    return [(XPExpression *)self.args[0] dependencies];
+    if (1 == [self numberOfArguments]) {
+        return [(XPExpression *)self.args[0] dependencies];
+    } else {
+        return XPDependenciesContextNode;
+    }
 }
 
 
 - (XPExpression *)reduceDependencies:(XPDependencies)dep inContext:(XPContext *)ctx {
-    FNUpperCase *f = [[[FNUpperCase alloc] init] autorelease];
-    [f addArgument:[self.args[0] reduceDependencies:dep inContext:ctx]];
-    f.staticContext = self.staticContext;
-    f.range = self.range;
-    return [f simplify];
+    XPExpression *result = self;
+    
+    if (1 == [self numberOfArguments]) {
+        FNUpperCase *f = [[[FNUpperCase alloc] init] autorelease];
+        [f addArgument:[self.args[0] reduceDependencies:dep inContext:ctx]];
+        f.staticContext = self.staticContext;
+        f.range = self.range;
+        result = [f simplify];
+    } else if (dep & XPDependenciesContextNode) {
+        result = [self evaluateInContext:nil];
+        result.staticContext = self.staticContext;
+        result.range = self.range;
+    }
+    
+    return result;
 }
-
 @end

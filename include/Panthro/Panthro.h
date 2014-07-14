@@ -17,7 +17,7 @@
 #import <Panthro/XPNumericValue.h>
 #import <Panthro/XPStringValue.h>
 #import <Panthro/XPSequenceValue.h>
-#import <Panthro/XPEmptySequence.h>
+#import <Panthro/XPNodeSetValue.h>
 #import <Panthro/XPEmptyNodeSet.h>
 #import <Panthro/XPObjectValue.h>
 
@@ -42,3 +42,5 @@
 
 #import <Panthro/XPStandaloneContext.h>
 #import <Panthro/XPSync.h>
+
+#import <Panthro/XPAbstractNodeWrapper.h>
