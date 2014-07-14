@@ -68,6 +68,7 @@
 #import "FNSubstringAfter.h"
 #import "FNSubstringBefore.h"
 #import "FNSum.h"
+#import "FNTrace.h"
 #import "FNTranslate.h"
 #import "FNTrimSpace.h"
 #import "FNTitleCase.h"
@@ -146,6 +147,7 @@
         [self declareSystemFunction:[FNSubstringAfter class] forName:[FNSubstringAfter name]];
         [self declareSystemFunction:[FNSubstringBefore class] forName:[FNSubstringBefore name]];
         [self declareSystemFunction:[FNSum class] forName:[FNSum name]];
+        [self declareSystemFunction:[FNTrace class] forName:[FNTrace name]];
         [self declareSystemFunction:[FNTranslate class] forName:[FNTranslate name]];
         [self declareSystemFunction:[FNTrimSpace class] forName:[FNTrimSpace name]];
         [self declareSystemFunction:[FNUpperCase class] forName:[FNUpperCase name]];
