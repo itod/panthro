@@ -26,7 +26,6 @@
 @property (nonatomic, retain) NSArray *groupClauses;
 @property (nonatomic, retain) NSArray *orderClauses;
 @property (nonatomic, retain) XPExpression *bodyExpression;
-@property (nonatomic, retain) NSMutableArray *tuples;
 @end
 
 @implementation XPFlworExpression
@@ -50,7 +49,6 @@
     self.groupClauses = nil;
     self.orderClauses = nil;
     self.bodyExpression = nil;
-    self.tuples = nil;
     [super dealloc];
 }
 
@@ -87,26 +85,25 @@
     XPAssert([_forClauses count]);
     XPAssert(_bodyExpression);
     
-    self.tuples = [NSMutableArray array];
-
-    [self loopInContext:ctx forClauses:_forClauses];
+    NSMutableArray *tuples = [NSMutableArray array];
+    [self loopInContext:ctx forClauses:_forClauses tuples:tuples];
     
     // group by
 //    NSUInteger groupClauseCount = [_groupClauses count];
 //    if (groupClauseCount > 0) {
 //        NSMutableArray *newGroupedTuples = [NSMutableArray array];
 //        
-//        for (XPTuple *t in _tuples) {
+//        for (XPTuple *t in tuples) {
 //            
 //        }
 //        
-//        self.tuples = newGroupedTuples;
+//        tuples = newGroupedTuples;
 //    }
     
     // order by
     NSUInteger orderClauseCount = [_orderClauses count];
     if (orderClauseCount > 0) {
-        [_tuples sortUsingComparator:^NSComparisonResult(XPTuple *t1, XPTuple *t2) {
+        [tuples sortUsingComparator:^NSComparisonResult(XPTuple *t1, XPTuple *t2) {
             NSComparisonResult res = NSOrderedSame;
             NSUInteger orderSpecIdx = 0;
 
@@ -138,18 +135,17 @@
     }
     
     NSMutableArray *result = [NSMutableArray array];
-    for (XPTuple *t in _tuples) {
+    for (XPTuple *t in tuples) {
         [result addObjectsFromArray:t.resultItems];
     }
     
     XPAssert(result);
     XPSequenceValue *seq = [[[XPSequenceExtent alloc] initWithContent:result] autorelease];
-    self.tuples = nil;
     return seq;
 }
 
 
-- (void)loopInContext:(XPContext *)ctx forClauses:(NSArray *)forClauses {
+- (void)loopInContext:(XPContext *)ctx forClauses:(NSArray *)forClauses tuples:(NSMutableArray *)inTuples {
     XPAssert([forClauses count]);
     XPAssert(_bodyExpression);
     
@@ -172,7 +168,7 @@
         }
         
         if ([forClausesTail count]) {
-            [self loopInContext:[[ctx copy] autorelease] forClauses:forClausesTail];
+            [self loopInContext:[[ctx copy] autorelease] forClauses:forClausesTail tuples:inTuples];
         } else {
             
             // where test
@@ -210,7 +206,8 @@
                 }
 
                 XPTuple *t = [XPTuple tupeWithResultItems:tupleResItems groupSpecs:tupleGroupSpecs orderSpecs:tupleOrderSpecs];
-                [_tuples addObject:t];
+                XPAssert(inTuples);
+                [inTuples addObject:t];
             }
         }
     }

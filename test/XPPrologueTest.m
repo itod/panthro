@@ -157,22 +157,22 @@
 }
 
 
-//- (void)testTestRecursion {
-//    [self eval:
-//        @"declare function mysum($v) {\n"
-//        @"    let $head := $v[1],\n"
-//        @"        $tail := subsequence($v, 2),\n"
-//        @"         $len := count($v)\n"
-//        @"            return \n"
-//        @"                if ($len = 1) then \n"
-//        @"                    $head \n"
-//        @"                else \n"
-//        @"                    $head + mysum($tail)\n"
-//        @"};\n"
-//        @"mysum((1,2,3))\n"
-//    ];
-//    
-//    TDEqualObjects(@"6", [_res asString]);
-//}
+- (void)testRecursion {
+    [self eval:
+        @"declare function mysum($v) {\n"
+        @"    let $head := $v[1],\n"
+        @"        $tail := subsequence($v, 2),\n"
+        @"         $len := count($v)\n"
+        @"            return \n"
+        @"                if ($len = 1) then \n"
+        @"                    $head \n"
+        @"                else \n"
+        @"                    $head + mysum($tail)\n"
+        @"};\n"
+        @"mysum((1,2,3))\n"
+    ];
+    
+    TDEqualObjects(@"6", [_res asString]);
+}
 
 @end
