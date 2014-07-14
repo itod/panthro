@@ -94,8 +94,6 @@
         NSString *paramName = _params[i];
         XPValue *val = [_args[i] evaluateInContext:ctx];
         [self setItem:val forVariable:paramName];
-        id <XPItem>arg = _args[i];
-        [self setItem:arg forVariable:paramName];
     }
     
     [ctx push:self];
