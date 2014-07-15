@@ -73,7 +73,8 @@
 @property (nonatomic, retain) NSMutableDictionary *number_memo;
 @property (nonatomic, retain) NSMutableDictionary *parenthesizedExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *functionCall_memo;
-@property (nonatomic, retain) NSMutableDictionary *actualFunctionCall_memo;
+@property (nonatomic, retain) NSMutableDictionary *variableFunctionCall_memo;
+@property (nonatomic, retain) NSMutableDictionary *staticFunctionCall_memo;
 @property (nonatomic, retain) NSMutableDictionary *argList_memo;
 @property (nonatomic, retain) NSMutableDictionary *booleanLiteralFunctionCall_memo;
 @property (nonatomic, retain) NSMutableDictionary *functionName_memo;
@@ -382,7 +383,8 @@
         self.number_memo = [NSMutableDictionary dictionary];
         self.parenthesizedExpr_memo = [NSMutableDictionary dictionary];
         self.functionCall_memo = [NSMutableDictionary dictionary];
-        self.actualFunctionCall_memo = [NSMutableDictionary dictionary];
+        self.variableFunctionCall_memo = [NSMutableDictionary dictionary];
+        self.staticFunctionCall_memo = [NSMutableDictionary dictionary];
         self.argList_memo = [NSMutableDictionary dictionary];
         self.booleanLiteralFunctionCall_memo = [NSMutableDictionary dictionary];
         self.functionName_memo = [NSMutableDictionary dictionary];
@@ -520,7 +522,8 @@
     self.number_memo = nil;
     self.parenthesizedExpr_memo = nil;
     self.functionCall_memo = nil;
-    self.actualFunctionCall_memo = nil;
+    self.variableFunctionCall_memo = nil;
+    self.staticFunctionCall_memo = nil;
     self.argList_memo = nil;
     self.booleanLiteralFunctionCall_memo = nil;
     self.functionName_memo = nil;
@@ -657,7 +660,8 @@
     [_number_memo removeAllObjects];
     [_parenthesizedExpr_memo removeAllObjects];
     [_functionCall_memo removeAllObjects];
-    [_actualFunctionCall_memo removeAllObjects];
+    [_variableFunctionCall_memo removeAllObjects];
+    [_staticFunctionCall_memo removeAllObjects];
     [_argList_memo removeAllObjects];
     [_booleanLiteralFunctionCall_memo removeAllObjects];
     [_functionName_memo removeAllObjects];
@@ -1753,15 +1757,15 @@
 
 - (void)__primaryExpr {
     
-    if ([self predicts:XPEG_TOKEN_KIND_DOLLAR, 0]) {
-        [self variableReference_]; 
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
-        [self literal_]; 
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
-        [self number_]; 
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIV, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_MOD, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TRUE, 0]) {
+    if ([self speculate:^{ [self functionCall_]; }]) {
         [self functionCall_]; 
-    } else if ([self predicts:XPEG_TOKEN_KIND_OPEN_PAREN, 0]) {
+    } else if ([self speculate:^{ [self variableReference_]; }]) {
+        [self variableReference_]; 
+    } else if ([self speculate:^{ [self literal_]; }]) {
+        [self literal_]; 
+    } else if ([self speculate:^{ [self number_]; }]) {
+        [self number_]; 
+    } else if ([self speculate:^{ [self parenthesizedExpr_]; }]) {
         [self parenthesizedExpr_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'primaryExpr'."];
@@ -1825,8 +1829,10 @@
 
 - (void)__functionCall {
     
-    if ([self speculate:^{ [self actualFunctionCall_]; }]) {
-        [self actualFunctionCall_]; 
+    if ([self speculate:^{ [self variableFunctionCall_]; }]) {
+        [self variableFunctionCall_]; 
+    } else if ([self speculate:^{ [self staticFunctionCall_]; }]) {
+        [self staticFunctionCall_]; 
     } else if ([self speculate:^{ [self booleanLiteralFunctionCall_]; }]) {
         [self booleanLiteralFunctionCall_]; 
     } else {
@@ -1840,7 +1846,23 @@
     [self parseRule:@selector(__functionCall) withMemo:_functionCall_memo];
 }
 
-- (void)__actualFunctionCall {
+- (void)__variableFunctionCall {
+    
+    [self variableReference_]; 
+    [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:NO]; 
+    if ([self speculate:^{ [self argList_]; }]) {
+        [self argList_]; 
+    }
+    [self match:XPEG_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchVariableFunctionCall:)];
+}
+
+- (void)variableFunctionCall_ {
+    [self parseRule:@selector(__variableFunctionCall) withMemo:_variableFunctionCall_memo];
+}
+
+- (void)__staticFunctionCall {
     
     [self functionName_]; 
     [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:NO]; 
@@ -1849,11 +1871,11 @@
     }
     [self match:XPEG_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
 
-    [self fireDelegateSelector:@selector(parser:didMatchActualFunctionCall:)];
+    [self fireDelegateSelector:@selector(parser:didMatchStaticFunctionCall:)];
 }
 
-- (void)actualFunctionCall_ {
-    [self parseRule:@selector(__actualFunctionCall) withMemo:_actualFunctionCall_memo];
+- (void)staticFunctionCall_ {
+    [self parseRule:@selector(__staticFunctionCall) withMemo:_staticFunctionCall_memo];
 }
 
 - (void)__argList {

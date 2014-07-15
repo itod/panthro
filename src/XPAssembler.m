@@ -61,6 +61,7 @@
 @property (nonatomic, retain) PKToken *where;
 @property (nonatomic, retain) PKToken *group;
 @property (nonatomic, retain) PKToken *eq;
+@property (nonatomic, retain) PKToken *dollar;
 @property (nonatomic, retain) PKToken *order;
 @property (nonatomic, retain) PKToken *then;
 @property (nonatomic, retain) PKToken *slash;
@@ -91,6 +92,7 @@
         self.where = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"where" doubleValue:0.0];
         self.group = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"group" doubleValue:0.0];
         self.eq = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@":=" doubleValue:0.0];
+        self.dollar = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"$" doubleValue:0.0];
         self.order = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"order" doubleValue:0.0];
         self.then = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"then" doubleValue:0.0];
         self.slash = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"/" doubleValue:0.0];
@@ -134,6 +136,7 @@
     self.where = nil;
     self.group = nil;
     self.eq = nil;
+    self.dollar = nil;
     self.order = nil;
     self.then = nil;
     self.slash = nil;
@@ -162,7 +165,7 @@
     
     PKToken *dollarTok = [a pop];
     XPAssertToken(dollarTok);
-    XPAssert([dollarTok.stringValue isEqualToString:@"$"]);
+    XPAssert([dollarTok isEqual:_dollar]);
     
     XPValue *val = [expr evaluateInContext:nil];
     NSUInteger offset = dollarTok.offset;
@@ -607,10 +610,10 @@
 }
 
 
-- (void)parser:(PKParser *)p didMatchActualFunctionCall:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchStaticFunctionCall:(PKAssembly *)a {
     PKToken *closeParenTok = [a pop];
     XPAssert([closeParenTok.stringValue isEqualToString:@")"]);
-
+    
     NSArray *args = [a objectsAbove:_openParen];
     [a pop]; // '('
     
@@ -633,12 +636,36 @@
             [rex raise];
         }
     }
-
+    
     for (id arg in [args reverseObjectEnumerator]) {
         [(id <XPCallable>)fn addArgument:arg];
     }
     
     NSUInteger offset = nameTok.offset;
+    fn.range = NSMakeRange(offset, (closeParenTok.offset+1) - offset);
+    fn.staticContext = _env;
+    [a push:fn];
+}
+
+
+- (void)parser:(PKParser *)p didMatchVariableFunctionCall:(PKAssembly *)a {
+    PKToken *closeParenTok = [a pop];
+    XPAssert([closeParenTok.stringValue isEqualToString:@")"]);
+    
+    NSArray *args = [a objectsAbove:_openParen];
+    [a pop]; // '('
+    
+    XPVariableReference *varRef = [a pop];
+    XPAssertExpr(varRef);
+    XPAssert([varRef isKindOfClass:[XPVariableReference class]]);
+    
+    XPExpression <XPCallable>*fn = [[[XPFunctionCall alloc] initWithVariableReference:varRef] autorelease];
+    
+    for (id arg in [args reverseObjectEnumerator]) {
+        [(id <XPCallable>)fn addArgument:arg];
+    }
+    
+    NSUInteger offset = varRef.range.location;
     fn.range = NSMakeRange(offset, (closeParenTok.offset+1) - offset);
     fn.staticContext = _env;
     [a push:fn];

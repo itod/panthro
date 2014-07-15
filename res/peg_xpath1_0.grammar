@@ -145,13 +145,14 @@ pathExpr = filterPath | locationPath;
             firstRelativeStep = step;
 
     filterExpr = primaryExpr predicate*;
-        primaryExpr = variableReference | literal | number | functionCall | parenthesizedExpr;
+        primaryExpr = functionCall | variableReference | literal | number | parenthesizedExpr;
             variableReference = '$' qName; // note whitespace is not allowed here. also qName is optional
             literal = QuotedString;
             number = Number;
             parenthesizedExpr = '(' expr? ')'!;
-            functionCall = actualFunctionCall | booleanLiteralFunctionCall;
-                actualFunctionCall = functionName '(' argList? ')';
+            functionCall = variableFunctionCall | staticFunctionCall | booleanLiteralFunctionCall;
+                variableFunctionCall = variableReference '(' argList? ')';
+                staticFunctionCall = functionName '(' argList? ')';
                 argList = (argument (','! argument)* );
                 booleanLiteralFunctionCall = booleanLiteral '('! ')';
                     functionName = { NE(LS(1), @"true") && NE(LS(1), @"false") && NE(LS(1), @"comment") && NE(LS(1), @"text") && NE(LS(1), @"processing-instruction") && NE(LS(1), @"node") }? qName;

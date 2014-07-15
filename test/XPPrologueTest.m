@@ -186,7 +186,7 @@
 
 
 - (void)testHigherOrderFunc {
-    [self eval:@"let $filter := function($arg) { concat($arg, ' san') } let $apply := function ($f, $arg) { $f($arg) } for $name in ('Todd', 'Macy') return ($apply($filter, $name))"];
+    [self eval:@"let $filter := function($arg) { concat($arg, ' san') } let $apply := function ($f, $arg) { ($f($arg)) } for $name in ('Todd', 'Macy') return ($apply($filter, $name))"];
     
     id <XPSequenceEnumeration>enm = [_res enumerate];
     TDEqualObjects(@"Todd san", [[enm nextItem] stringValue]);

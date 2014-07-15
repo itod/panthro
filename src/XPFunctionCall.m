@@ -26,15 +26,26 @@
 }
 
 
+- (instancetype)initWithVariableReference:(XPVariableReference *)ref {
+    self = [super init];
+    if (self) {
+        self.variableReference = ref;
+    }
+    return self;
+}
+
+
 - (void)dealloc {
     self.name = nil;
+    self.variableReference = nil;
     self.args = nil;
     [super dealloc];
 }
 
 
 - (NSString *)description {
-    NSMutableString *s = [NSMutableString stringWithFormat:@"%@(", self.name];
+    NSString *name = _name ? _name : [_variableReference description];
+    NSMutableString *s = [NSMutableString stringWithFormat:@"%@(", name];
     
     NSUInteger i = 0;
     NSUInteger c = [self numberOfArguments];
@@ -81,9 +92,17 @@
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
     NSParameterAssert(ctx);
-    XPAssert([_name length]);
+    XPAssert([_name length] || _variableReference);
     
-    XPUserFunction *fn = [ctx.currentScope userFunctionNamed:_name];
+    XPUserFunction *fn = nil;
+    
+    if (_name) {
+        fn = [ctx.currentScope userFunctionNamed:_name];
+    } else {
+        XPAssert(_variableReference);
+        fn = (id)[_variableReference evaluateInContext:ctx];
+    }
+    
     if (!fn || ![fn isKindOfClass:[XPUserFunction class]]) {
         [XPException raiseIn:self format:@"Call to unknown function: %@()", _name];
     }
