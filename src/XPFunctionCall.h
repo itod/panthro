@@ -6,16 +6,14 @@
 //
 //
 
-#import <Panthro/Panthro.h>
+#import <Panthro/XPExpression.h>
 #import <Panthro/XPCallable.h>
-
-@class XPVariableReference;
 
 @interface XPFunctionCall : XPExpression <XPCallable>
 
 - (instancetype)initWithName:(NSString *)name;
-- (instancetype)initWithVariableReference:(XPExpression *)ref;
+- (instancetype)initWithExpression:(XPExpression *)expr;
 
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, retain) XPExpression *variableReference;
+@property (nonatomic, retain) XPExpression *expression;
 @end

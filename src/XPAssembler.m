@@ -663,7 +663,7 @@
     XPExpression *expr = [a pop];
     XPAssertExpr(expr);
     
-    XPExpression <XPCallable>*fn = [[[XPFunctionCall alloc] initWithVariableReference:expr] autorelease];
+    XPExpression <XPCallable>*fn = [[[XPFunctionCall alloc] initWithExpression:expr] autorelease];
     
     for (id arg in [args reverseObjectEnumerator]) {
         [(id <XPCallable>)fn addArgument:arg];

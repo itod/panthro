@@ -26,10 +26,10 @@
 }
 
 
-- (instancetype)initWithVariableReference:(XPExpression *)ref {
+- (instancetype)initWithExpression:(XPExpression *)expr {
     self = [super init];
     if (self) {
-        self.variableReference = ref;
+        self.expression = expr;
     }
     return self;
 }
@@ -37,14 +37,14 @@
 
 - (void)dealloc {
     self.name = nil;
-    self.variableReference = nil;
+    self.expression = nil;
     self.args = nil;
     [super dealloc];
 }
 
 
 - (NSString *)description {
-    NSString *name = _name ? _name : [_variableReference description];
+    NSString *name = _name ? _name : [_expression description];
     NSMutableString *s = [NSMutableString stringWithFormat:@"%@(", name];
     
     NSUInteger i = 0;
@@ -92,15 +92,15 @@
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
     NSParameterAssert(ctx);
-    XPAssert([_name length] || _variableReference);
+    XPAssert([_name length] || _expression);
     
     XPUserFunction *fn = nil;
     
     if (_name) {
         fn = [ctx.staticContext userFunctionNamed:_name];
     } else {
-        XPAssert(_variableReference);
-        fn = (id)[_variableReference evaluateInContext:ctx];
+        XPAssert(_expression);
+        fn = (id)[_expression evaluateInContext:ctx];
     }
     
     if (!fn || ![fn isKindOfClass:[XPUserFunction class]]) {
