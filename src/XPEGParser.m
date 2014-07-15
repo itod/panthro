@@ -13,6 +13,7 @@
 @property (nonatomic, retain) NSMutableDictionary *expr_memo;
 @property (nonatomic, retain) NSMutableDictionary *exprSingleTail_memo;
 @property (nonatomic, retain) NSMutableDictionary *exprSingle_memo;
+@property (nonatomic, retain) NSMutableDictionary *functionExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *forExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *forClause_memo;
 @property (nonatomic, retain) NSMutableDictionary *singleForClause_memo;
@@ -134,7 +135,6 @@
 @property (nonatomic, retain) NSMutableDictionary *valGe_memo;
 @property (nonatomic, retain) NSMutableDictionary *declare_memo;
 @property (nonatomic, retain) NSMutableDictionary *variable_memo;
-@property (nonatomic, retain) NSMutableDictionary *function_memo;
 @property (nonatomic, retain) NSMutableDictionary *keyword_memo;
 @end
 
@@ -322,6 +322,7 @@
         self.expr_memo = [NSMutableDictionary dictionary];
         self.exprSingleTail_memo = [NSMutableDictionary dictionary];
         self.exprSingle_memo = [NSMutableDictionary dictionary];
+        self.functionExpr_memo = [NSMutableDictionary dictionary];
         self.forExpr_memo = [NSMutableDictionary dictionary];
         self.forClause_memo = [NSMutableDictionary dictionary];
         self.singleForClause_memo = [NSMutableDictionary dictionary];
@@ -443,7 +444,6 @@
         self.valGe_memo = [NSMutableDictionary dictionary];
         self.declare_memo = [NSMutableDictionary dictionary];
         self.variable_memo = [NSMutableDictionary dictionary];
-        self.function_memo = [NSMutableDictionary dictionary];
         self.keyword_memo = [NSMutableDictionary dictionary];
     }
     return self;
@@ -460,6 +460,7 @@
     self.expr_memo = nil;
     self.exprSingleTail_memo = nil;
     self.exprSingle_memo = nil;
+    self.functionExpr_memo = nil;
     self.forExpr_memo = nil;
     self.forClause_memo = nil;
     self.singleForClause_memo = nil;
@@ -581,7 +582,6 @@
     self.valGe_memo = nil;
     self.declare_memo = nil;
     self.variable_memo = nil;
-    self.function_memo = nil;
     self.keyword_memo = nil;
 
     [super dealloc];
@@ -597,6 +597,7 @@
     [_expr_memo removeAllObjects];
     [_exprSingleTail_memo removeAllObjects];
     [_exprSingle_memo removeAllObjects];
+    [_functionExpr_memo removeAllObjects];
     [_forExpr_memo removeAllObjects];
     [_forClause_memo removeAllObjects];
     [_singleForClause_memo removeAllObjects];
@@ -718,7 +719,6 @@
     [_valGe_memo removeAllObjects];
     [_declare_memo removeAllObjects];
     [_variable_memo removeAllObjects];
-    [_function_memo removeAllObjects];
     [_keyword_memo removeAllObjects];
 }
 
@@ -817,7 +817,7 @@
 - (void)__functionDecl {
     
     [self declare_]; 
-    [self function_]; 
+    [self match:XPEG_TOKEN_KIND_FUNCTION discard:YES]; 
     [self qName_]; 
     [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:NO]; 
     if ([self speculate:^{ [self paramList_]; }]) {
@@ -854,7 +854,7 @@
     
     [self match:XPEG_TOKEN_KIND_OPEN_CURLY discard:YES]; 
     [self expr_]; 
-    [self match:XPEG_TOKEN_KIND_CLOSE_CURLY discard:YES]; 
+    [self match:XPEG_TOKEN_KIND_CLOSE_CURLY discard:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchEnclosedExpr:)];
 }
@@ -899,6 +899,8 @@
         [self quantifiedExpr_]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_IF, 0]) {
         [self ifExpr_]; 
+    } else if ([self predicts:XPEG_TOKEN_KIND_FUNCTION, 0]) {
+        [self functionExpr_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'exprSingle'."];
     }
@@ -908,6 +910,23 @@
 
 - (void)exprSingle_ {
     [self parseRule:@selector(__exprSingle) withMemo:_exprSingle_memo];
+}
+
+- (void)__functionExpr {
+    
+    [self match:XPEG_TOKEN_KIND_FUNCTION discard:NO]; 
+    [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:NO]; 
+    if ([self speculate:^{ [self paramList_]; }]) {
+        [self paramList_]; 
+    }
+    [self match:XPEG_TOKEN_KIND_CLOSE_PAREN discard:YES]; 
+    [self enclosedExpr_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchFunctionExpr:)];
+}
+
+- (void)functionExpr_ {
+    [self parseRule:@selector(__functionExpr) withMemo:_functionExpr_memo];
 }
 
 - (void)__forExpr {
@@ -2621,17 +2640,6 @@
 
 - (void)variable_ {
     [self parseRule:@selector(__variable) withMemo:_variable_memo];
-}
-
-- (void)__function {
-    
-    [self match:XPEG_TOKEN_KIND_FUNCTION discard:YES]; 
-
-    [self fireDelegateSelector:@selector(parser:didMatchFunction:)];
-}
-
-- (void)function_ {
-    [self parseRule:@selector(__function) withMemo:_function_memo];
 }
 
 - (void)__keyword {

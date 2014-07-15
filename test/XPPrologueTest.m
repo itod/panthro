@@ -141,6 +141,8 @@
     TDEqualObjects(@"5", [[enm nextItem] stringValue]);
     TDEqualObjects(@"4", [[enm nextItem] stringValue]);
     TDEqualObjects(@"3", [[enm nextItem] stringValue]);
+    
+    TDFalse([enm hasMoreItems]);
 }
 
 
@@ -173,6 +175,24 @@
     ];
     
     TDEqualObjects(@"6", [_res asString]);
+}
+
+
+- (void)testFunctionLiteral {
+    [self eval:@"let $myfunc := function ($arg) { concat($arg, 'bar') } return myfunc('foo')"];
+    
+    TDEqualObjects(@"foobar", [_res asString]);
+}
+
+
+- (void)testHigherOrderFunc {
+    [self eval:@"let $filter := function($arg) { concat($arg, ' san') } let $apply := function ($f, $arg) { $f($arg) } for $name in ('Todd', 'Macy') return ($apply($filter, $name))"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    TDEqualObjects(@"Todd san", [[enm nextItem] stringValue]);
+    TDEqualObjects(@"Macy san", [[enm nextItem] stringValue]);
+
+    TDFalse([enm hasMoreItems]);
 }
 
 @end

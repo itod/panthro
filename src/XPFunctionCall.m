@@ -9,7 +9,7 @@
 #import "XPFunctionCall.h"
 #import "XPContext.h"
 #import "XPUserFunction.h"
-#import "XPNodeInfo.h"
+#import "XPException.h"
 
 @interface XPFunctionCall ()
 @property (nonatomic, retain) NSMutableArray *args;
@@ -34,14 +34,13 @@
 
 
 - (NSString *)description {
-    NSMutableString *s = [NSMutableString stringWithFormat:@"$%@(", self.name];
+    NSMutableString *s = [NSMutableString stringWithFormat:@"%@(", self.name];
     
     NSUInteger i = 0;
     NSUInteger c = [self numberOfArguments];
     for (NSString *arg in _args) {
-        NSString *fmt = i == c - 1 ? @"%@" : @"%@, ";
+        NSString *fmt = i++ == c - 1 ? @"%@" : @"%@, ";
         [s appendFormat:fmt, arg];
-        ++i;
     }
     [s appendString:@")"];
     return s;
@@ -82,8 +81,12 @@
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
     NSParameterAssert(ctx);
+    XPAssert([_name length]);
     
-    XPUserFunction *fn = [ctx.staticContext userFunctionNamed:self.name];
+    XPUserFunction *fn = [ctx.currentScope userFunctionNamed:_name];
+    if (!fn || ![fn isKindOfClass:[XPUserFunction class]]) {
+        [XPException raiseIn:self format:@"Call to unknown function: %@()", _name];
+    }
     
     NSUInteger numArgs = [self numberOfArguments];
     NSUInteger numParams = [fn numberOfParameters];
@@ -96,8 +99,9 @@
         [fn setItem:val forVariable:paramName];
     }
     
-    XPValue *result = [fn evaluateInContext:ctx];
+    XPValue *result = [fn callInContext:ctx];
     
+    XPAssert(result);
     return result;
 }
 

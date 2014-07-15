@@ -15,6 +15,8 @@
 
 - (instancetype)initWithName:(NSString *)name;
 
+- (XPValue *)callInContext:(XPContext *)ctx;
+
 - (void)addParameter:(NSString *)paramName;
 - (NSUInteger)numberOfParameters;
 - (NSString *)parameterAtIndex:(NSUInteger)i;

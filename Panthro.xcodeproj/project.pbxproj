@@ -1300,6 +1300,8 @@
 				D3BE1427191C3B8400005C81 /* XPPositionRange.m */,
 				D33930F5191F132D00259939 /* XPVariableReference.h */,
 				D33930F6191F132D00259939 /* XPVariableReference.m */,
+				D32BA2EA1972E5F20002D403 /* XPUserFunction.h */,
+				D32BA2EB1972E5F20002D403 /* XPUserFunction.m */,
 				D34D0CE019747BB10011757B /* XPFunctionCall.h */,
 				D34D0CE119747BB10011757B /* XPFunctionCall.m */,
 				D3C178171884468500F90600 /* Value */,
@@ -1313,8 +1315,6 @@
 		D37A29661013F36300E936B7 /* Functions */ = {
 			isa = PBXGroup;
 			children = (
-				D32BA2EA1972E5F20002D403 /* XPUserFunction.h */,
-				D32BA2EB1972E5F20002D403 /* XPUserFunction.m */,
 				D33930F3191EC98700259939 /* XPFunction.h */,
 				D37A29681013F39400E936B7 /* XPFunction.m */,
 				D339311419204E9E00259939 /* FNAbs.h */,

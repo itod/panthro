@@ -86,6 +86,11 @@
 
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
+    return self;
+}
+
+
+- (XPValue *)callInContext:(XPContext *)ctx {
     NSParameterAssert(ctx);
     XPAssert(_bodyExpression);
 
@@ -130,6 +135,18 @@
     }
     
     return item;
+}
+
+
+- (XPUserFunction *)userFunctionNamed:(NSString *)name {
+    id <XPItem>item = [self itemForVariable:name];
+    
+    if (!item || ![item isKindOfClass:[XPUserFunction class]]) {
+        item = [self.enclosingScope userFunctionNamed:name];
+    }
+    
+    XPUserFunction *fn = (id)item;
+    return fn;
 }
 
 

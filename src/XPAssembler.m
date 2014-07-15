@@ -174,7 +174,9 @@
 
 
 - (void)parser:(PKParser *)p didMatchFunctionDecl:(PKAssembly *)a {
-    
+
+    [a pop]; // discard '}'
+
     XPExpression *bodyExpr = [a pop];
     XPAssertExpr(bodyExpr);
     
@@ -206,6 +208,38 @@
             [rex raise];
         }
     }
+}
+
+
+- (void)parser:(PKParser *)p didMatchFunctionExpr:(PKAssembly *)a {
+    
+    PKToken *closeCurly = [a pop];
+    XPAssertToken(closeCurly);
+    XPAssert([closeCurly.stringValue isEqualToString:@"}"]);
+    
+    XPExpression *bodyExpr = [a pop];
+    XPAssertExpr(bodyExpr);
+    
+    NSArray *paramToks = [a objectsAbove:_openParen];
+    
+    [a pop]; // discard '('
+    
+    XPUserFunction *fn = [[[XPUserFunction alloc] initWithName:nil] autorelease];
+    fn.bodyExpression = bodyExpr;
+    
+    for (PKToken *paramTok in [paramToks reverseObjectEnumerator]) {
+        XPAssertToken(paramTok);
+        NSString *paramName = paramTok.stringValue;
+        [fn addParameter:paramName];
+    }
+    
+    PKToken *funcTok = [a pop];
+    XPAssertToken(funcTok);
+
+    NSUInteger offset = funcTok.offset;
+    
+    fn.range = NSMakeRange(offset, (closeCurly.offset + [closeCurly.stringValue length]) - offset);
+    [a push:fn];
 }
 
 

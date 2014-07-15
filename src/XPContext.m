@@ -8,6 +8,7 @@
 
 #import "XPContext.h"
 #import "XPStaticContext.h"
+#import "XPUserFunction.h"
 #import "XPNodeInfo.h"
 
 @interface XPContext ()
@@ -140,6 +141,18 @@
     }
     
     return item;
+}
+
+
+- (XPUserFunction *)userFunctionNamed:(NSString *)name {
+    id <XPItem>item = [self itemForVariable:name];
+    
+    if (!item || ![item isKindOfClass:[XPUserFunction class]]) {
+        item = [self.enclosingScope userFunctionNamed:name];
+    }
+
+    XPUserFunction *fn = (id)item;
+    return fn;
 }
 
 

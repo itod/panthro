@@ -256,12 +256,6 @@
 }
 
 
-- (XPUserFunction *)userFunctionNamed:(NSString *)name {
-    XPAssert(_userFunctions);
-    return _userFunctions[name];
-}
-
-
 - (XPFunction *)makeSystemFunction:(NSString *)name error:(NSError **)outErr {
     XPAssert(_functions);
     
@@ -449,6 +443,12 @@
     XPAssert(_variables);
     
     return [_variables objectForKey:name];
+}
+
+
+- (XPUserFunction *)userFunctionNamed:(NSString *)name {
+    XPAssert(_userFunctions);
+    return _userFunctions[name];
 }
 
 
