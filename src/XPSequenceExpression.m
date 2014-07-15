@@ -25,7 +25,7 @@
 - (XPSequenceValue *)evaluateAsSequenceInContext:(XPContext *)ctx {
     NSMutableArray *v = [NSMutableArray array];
     
-    if ([self.p1 dataType] == XPDataTypeSequence) {
+    if ([self.p1 dataType] == XPDataTypeSequence || [self.p1 dataType] == XPDataTypeAny) {
         id <XPSequenceEnumeration>enm = [(XPSequenceValue *)self.p1 enumerateInContext:ctx sorted:NO];
         while ([enm hasMoreItems]) {
             [v addObject:[enm nextItem]];
@@ -34,7 +34,7 @@
         [v addObject:[self.p1 evaluateInContext:ctx]];
     }
 
-    if ([self.p2 dataType] == XPDataTypeSequence) {
+    if ([self.p2 dataType] == XPDataTypeSequence || [self.p2 dataType] == XPDataTypeAny) {
         id <XPSequenceEnumeration>enm = [(XPSequenceValue *)self.p2 enumerateInContext:ctx sorted:NO];
         while ([enm hasMoreItems]) {
             [v addObject:[enm nextItem]];

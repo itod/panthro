@@ -221,4 +221,15 @@
 }
 
 
+- (void)testAnonHigherOrderFuncSeq {
+    [self eval:@"let $apply := function ($f, $seq) { for $item in $seq return $f($item) } return 1, $apply(function ($arg) { concat($arg, ' san')}, ('Todd', 'Macy'))"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    TDEqualObjects(@"1", [[enm nextItem] stringValue]);
+    TDEqualObjects(@"Todd san", [[enm nextItem] stringValue]);
+    TDEqualObjects(@"Macy san", [[enm nextItem] stringValue]);
+    
+    TDFalse([enm hasMoreItems]);
+}
+
 @end
