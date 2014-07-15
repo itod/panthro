@@ -179,7 +179,7 @@
 
 
 - (void)testFunctionLiteral {
-    [self eval:@"let $myfunc := function ($arg) { concat($arg, 'bar') } return myfunc('foo')"];
+    [self eval:@"let $myfunc := function ($arg) { concat($arg, 'bar') } return $myfunc('foo')"];
     
     TDEqualObjects(@"foobar", [_res asString]);
 }

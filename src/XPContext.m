@@ -144,18 +144,6 @@
 }
 
 
-- (XPUserFunction *)userFunctionNamed:(NSString *)name {
-    id <XPItem>item = [self itemForVariable:name];
-    
-    if (!item || ![item isKindOfClass:[XPUserFunction class]]) {
-        item = [self.enclosingScope userFunctionNamed:name];
-    }
-
-    XPUserFunction *fn = (id)item;
-    return fn;
-}
-
-
 - (id <XPScope>)enclosingScope {
     XPAssert(_staticContext);
     return _staticContext;

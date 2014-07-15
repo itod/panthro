@@ -97,7 +97,7 @@
     XPUserFunction *fn = nil;
     
     if (_name) {
-        fn = [ctx.currentScope userFunctionNamed:_name];
+        fn = [ctx.staticContext userFunctionNamed:_name];
     } else {
         XPAssert(_variableReference);
         fn = (id)[_variableReference evaluateInContext:ctx];
