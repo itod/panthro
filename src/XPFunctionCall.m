@@ -8,6 +8,7 @@
 
 #import "XPFunctionCall.h"
 #import "XPContext.h"
+#import "XPStaticContext.h"
 #import "XPUserFunction.h"
 #import "XPException.h"
 
