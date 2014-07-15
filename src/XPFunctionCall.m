@@ -26,7 +26,7 @@
 }
 
 
-- (instancetype)initWithVariableReference:(XPVariableReference *)ref {
+- (instancetype)initWithVariableReference:(XPExpression *)ref {
     self = [super init];
     if (self) {
         self.variableReference = ref;

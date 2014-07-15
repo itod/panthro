@@ -14,8 +14,8 @@
 @interface XPFunctionCall : XPExpression <XPCallable>
 
 - (instancetype)initWithName:(NSString *)name;
-- (instancetype)initWithVariableReference:(XPVariableReference *)ref;
+- (instancetype)initWithVariableReference:(XPExpression *)ref;
 
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, retain) XPVariableReference *variableReference;
+@property (nonatomic, retain) XPExpression *variableReference;
 @end

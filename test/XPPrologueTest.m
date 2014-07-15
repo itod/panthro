@@ -195,4 +195,30 @@
     TDFalse([enm hasMoreItems]);
 }
 
+
+- (void)testAnonFunc {
+    [self eval:@"(function (){ 'rick hunter' })()"];
+    
+    TDEqualObjects(@"rick hunter", [_res asString]);
+}
+
+
+- (void)testAnonArgs {
+    [self eval:@"(function ($a, $b){ concat($a, ' ', $b) })('Rick', 'Hunter')"];
+    
+    TDEqualObjects(@"Rick Hunter", [_res asString]);
+}
+
+
+- (void)testAnonHigherOrderFunc {
+    [self eval:@"let $apply := function ($f, $arg) { ($f($arg)) } for $name in ('Todd', 'Macy') return ($apply(function($arg) { concat($arg, ' san') }, $name))"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    TDEqualObjects(@"Todd san", [[enm nextItem] stringValue]);
+    TDEqualObjects(@"Macy san", [[enm nextItem] stringValue]);
+    
+    TDFalse([enm hasMoreItems]);
+}
+
+
 @end

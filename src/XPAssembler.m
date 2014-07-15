@@ -649,23 +649,27 @@
 
 
 - (void)parser:(PKParser *)p didMatchVariableFunctionCall:(PKAssembly *)a {
+    [self parser:p didMatchAnonFunctionCall:a];
+}
+
+
+- (void)parser:(PKParser *)p didMatchAnonFunctionCall:(PKAssembly *)a {
     PKToken *closeParenTok = [a pop];
     XPAssert([closeParenTok.stringValue isEqualToString:@")"]);
     
     NSArray *args = [a objectsAbove:_openParen];
     [a pop]; // '('
     
-    XPVariableReference *varRef = [a pop];
-    XPAssertExpr(varRef);
-    XPAssert([varRef isKindOfClass:[XPVariableReference class]]);
+    XPExpression *expr = [a pop];
+    XPAssertExpr(expr);
     
-    XPExpression <XPCallable>*fn = [[[XPFunctionCall alloc] initWithVariableReference:varRef] autorelease];
+    XPExpression <XPCallable>*fn = [[[XPFunctionCall alloc] initWithVariableReference:expr] autorelease];
     
     for (id arg in [args reverseObjectEnumerator]) {
         [(id <XPCallable>)fn addArgument:arg];
     }
     
-    NSUInteger offset = varRef.range.location;
+    NSUInteger offset = expr.range.location;
     fn.range = NSMakeRange(offset, (closeParenTok.offset+1) - offset);
     fn.staticContext = _env;
     [a push:fn];

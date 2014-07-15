@@ -75,6 +75,7 @@
 @property (nonatomic, retain) NSMutableDictionary *functionCall_memo;
 @property (nonatomic, retain) NSMutableDictionary *variableFunctionCall_memo;
 @property (nonatomic, retain) NSMutableDictionary *staticFunctionCall_memo;
+@property (nonatomic, retain) NSMutableDictionary *anonFunctionCall_memo;
 @property (nonatomic, retain) NSMutableDictionary *argList_memo;
 @property (nonatomic, retain) NSMutableDictionary *booleanLiteralFunctionCall_memo;
 @property (nonatomic, retain) NSMutableDictionary *functionName_memo;
@@ -385,6 +386,7 @@
         self.functionCall_memo = [NSMutableDictionary dictionary];
         self.variableFunctionCall_memo = [NSMutableDictionary dictionary];
         self.staticFunctionCall_memo = [NSMutableDictionary dictionary];
+        self.anonFunctionCall_memo = [NSMutableDictionary dictionary];
         self.argList_memo = [NSMutableDictionary dictionary];
         self.booleanLiteralFunctionCall_memo = [NSMutableDictionary dictionary];
         self.functionName_memo = [NSMutableDictionary dictionary];
@@ -524,6 +526,7 @@
     self.functionCall_memo = nil;
     self.variableFunctionCall_memo = nil;
     self.staticFunctionCall_memo = nil;
+    self.anonFunctionCall_memo = nil;
     self.argList_memo = nil;
     self.booleanLiteralFunctionCall_memo = nil;
     self.functionName_memo = nil;
@@ -662,6 +665,7 @@
     [_functionCall_memo removeAllObjects];
     [_variableFunctionCall_memo removeAllObjects];
     [_staticFunctionCall_memo removeAllObjects];
+    [_anonFunctionCall_memo removeAllObjects];
     [_argList_memo removeAllObjects];
     [_booleanLiteralFunctionCall_memo removeAllObjects];
     [_functionName_memo removeAllObjects];
@@ -1833,6 +1837,8 @@
         [self variableFunctionCall_]; 
     } else if ([self speculate:^{ [self staticFunctionCall_]; }]) {
         [self staticFunctionCall_]; 
+    } else if ([self speculate:^{ [self anonFunctionCall_]; }]) {
+        [self anonFunctionCall_]; 
     } else if ([self speculate:^{ [self booleanLiteralFunctionCall_]; }]) {
         [self booleanLiteralFunctionCall_]; 
     } else {
@@ -1876,6 +1882,22 @@
 
 - (void)staticFunctionCall_ {
     [self parseRule:@selector(__staticFunctionCall) withMemo:_staticFunctionCall_memo];
+}
+
+- (void)__anonFunctionCall {
+    
+    [self parenthesizedExpr_]; 
+    [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:NO]; 
+    if ([self speculate:^{ [self argList_]; }]) {
+        [self argList_]; 
+    }
+    [self match:XPEG_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchAnonFunctionCall:)];
+}
+
+- (void)anonFunctionCall_ {
+    [self parseRule:@selector(__anonFunctionCall) withMemo:_anonFunctionCall_memo];
 }
 
 - (void)__argList {
