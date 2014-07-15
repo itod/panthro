@@ -8,8 +8,6 @@
 
 #import <Panthro/XPItem.h>
 
-@class XPUserFunction;
-
 @protocol XPScope <NSObject>
 
 - (void)setItem:(id <XPItem>)item forVariable:(NSString *)name;
