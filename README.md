@@ -11,7 +11,7 @@ Panthro supports all of XPath 1.0 and many of the most interesting features of 2
 * `some` and `every` quantified expressions
 * Range expressions (`for $i in 1 to 10`)
 * The `intersect`, `except`, and `union` operators
-* NameTest wildcard ***prefixes*** such as `*:div` **are** supported.
+* NameTest wildcard ***prefixes*** such as `*:div` are supported
 * Many of the XPath 2.0 functions are supported including **regex** support in `matches()` and `replace()`
 * Scientific notation (exponents) are allowed in number literals
 
