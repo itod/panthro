@@ -1,14 +1,38 @@
-###Panthro - XPath 1.0 written in Cocoa, for use in Cocoa
+###Panthro - XPath/XQuery 3.0-ish written in Cocoa, for use in Cocoa
 
-Panthro is an implementation of XPath 1.0 in Objective-C with decent unit test coverage, and intended for use on Apple's iOS and OS X platforms.
+Panthro is an implementation of XPath in Objective-C with decent unit test coverage, and intended for use on Apple's iOS and OS X platforms with bindings for **libxml** included.
 
-Panthro is a mostly a port of the XPath portions of the excellent [Saxon](http://saxonica.com) 6.5 Java library by Michael Kay.
+Panthro supports all of XPath 1.0 and many of the most interesting features of 2.0 and even some of XPath 3.0 and XQuery. Here are some of the features supported by Panthro beyond just XPath 1.0:
 
-The XPath 1.0 parser is based on [PEGKit](http://www.github.com/itod/pegkit). The PEGKit dependency is managed via [git externals](http://nopugs.com/ext-tutorial).
+####From XPath 2.0:
+* Support for **sequences**
+* `for` looping expressions
+* `if` conditional expressions
+* `some` and `every` quantified expressions
+* Range expressions (`for $i in 1 to 10`)
+* The `intersect`, `except`, and `union` operators
+* NameTest wildcard ***prefixes*** such as `*:div` **are** supported.
+* Many of the XPath 2.0 functions are supported including **regex** support in `matches()` and `replace()`
+* Scientific notation (exponents) are allowed in number literals
 
-What's done?
+####From XQuery 1.0:
+* Support for **FLWOR** (For, Let, Where, Order by, Return) expressions
+* Function declarations
+* Variable declarations
 
-* Everything! Panthro should implement the entire XPath 1.0 spec. If you find any missing features, please let me know via an Issue on this GitHub project.
+####From XPath 3.0:
+* First-class inline functions (`let $func := function() { … }`)
+* Anonymous functions
+
+I think most people familiar with XPath and XQuery will agree these are the most usefull and interesting features missing from XPath 1.0, and Panthro has them all. Most of what is "missing" from XPath 2.0 in Panthro is related to the overly-complex and unpopular XML-Schema-inspired static type system. Currently, implementing this portion of XPath 2.0 is not planned, and is probably a non-goal in the long term.
+
+Panthro's current type system is a blend of XPath 1.0 + Sequences from XPath 2.0. The types are basically `item` (think base class), `string`, `number`, `boolean`, `node`, and `sequence`. As in XPath 2.0, every `item` is also a `sequence` of length 1.
+
+Panthro is a mostly a port of the XPath 1.0 portions of the excellent [Saxon](http://saxonica.com) 6.5 Java library by Michael Kay with my own additions to add sequences and the interesting bits from XPath 2.0 and 3.0, and XQuery 1.0.
+
+The XPath parser is based on [PEGKit](http://www.github.com/itod/pegkit). The PEGKit dependency is managed via [git externals](http://nopugs.com/ext-tutorial).
+
+If you find any missing features you would like, please let me know via an Issue on this GitHub project.
 
 Some example expressions that currently work (i.e. they are parsed, execute, and return a correct result):
 
@@ -50,15 +74,32 @@ Some example expressions that currently work (i.e. they are parsed, execute, and
 
     id('c2 c1')[2]/title
 
+-------------
+
+    let $map := function ($f, $seq) {
+        for $item in $seq
+            return $f($item)
+    }
+    return $map(function($arg) {$arg * $arg}, (1,2,3,4))
+
+-------------
+
+    declare function mysum($v) {
+        let $head := $v[1],
+            $tail := subsequence($v, 2)
+                return 
+                    if (count($v) = 1) then 
+                        $head 
+                    else 
+                        $head + mysum($tail)
+    };
+    mysum((1,2,3))
+
 ###Non-standard Additions
 
-Panthro departs from the XPath 1.0 spec in the following known ways:
+Panthro departs from the XPath spec in the following known ways:
 
-1. The `intersect`, `except`, and `union` operators from XPath 2.0 are included to go along with the XPath 1.0 `|` operator. All of these "set" operators are fully functional when operating on node-sets (other types of sequences are not available in XPath 1.0 or Panthro).
-1. Some functions from XPath 2.0 are incuded: `abs()`, `compare()`, `ends-with()`, `lower-case()`, `matches()`, `normalize-unicode()`, `replace()`, and `upper-case()`. The biggies here are `matches()` and `replace()`, which bring much-needed regex support to XPath 1.0.
 1. Other functions of my own design are incuded in the default function namespace: `title-case()`, and `trim-space()`.
-1. Scientific notation (exponents) are allowed in number literals.
-1. NameTest wildcard ***prefixes*** such as `*:div` **are** supported. While XPath 2.0 includes this feature, XPath 1.0 only allows wildcard prefix ***local-names*** like `html:*`. Again, Panthro extends XPath 1.0 by allowing ***both*** forms.
 
 ###XML Tree Model Bindings
 
@@ -92,10 +133,10 @@ The Panthro API allows you to first compile your XPath string into an intermedia
     XPExpression *expr = [env compile:@"book/chapter[@id='ch1']/title" error:&err];
     
     // …then evaluate (possibly multiple times) later
-    NSString ch1Title = [env evaluate:expr withContextNode:ctxNode error:&err];
+    NSString *ch1Title = [env evaluate:expr withContextNode:ctxNode error:&err];
 
 Alternatively, the Panthro API allows you to complile and evaluate an XPath string all in one go. The API keyword for this combined action is `execute`:
 
     // compile and evaluate together (AKA `execute`)
     NSError *err = nil;
-    NSString ch1Title = [env execute:@"book/chapter[@id='ch1']/title" withContextNode:ctxNode error:&err];
+    NSString *ch1Title = [env execute:@"book/chapter[@id='ch1']/title" withContextNode:ctxNode error:&err];
