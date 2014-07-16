@@ -41,6 +41,8 @@ Panthro currently powers two of my applications:
 1. [Pathology](http://celestialteapot.com/pathology/) - XPath Debugger and Visualizer for OS X
 1. [Pathological](http://celestialteapot.com/pathological/) - Search the OS X Finder with extreme precision using XPath
 
+####Examples
+
 Some example expressions that currently work (i.e. they are parsed, execute, and return a correct result):
 
     boolean(false() != true())
