@@ -34,6 +34,13 @@ The XPath parser is based on [PEGKit](http://www.github.com/itod/pegkit). The PE
 
 If you find any missing features you would like, please let me know via an Issue on this GitHub project.
 
+####Applications
+
+Panthro currently powers two of my applications:
+
+1. [Pathology](http://celestialteapot.com/pathology/) - XPath Debugger and Visualizer for OS X
+1. [Pathological](http://celestialteapot.com/pathological/) - Search the OS X Finder with extreme precision using XPath
+
 Some example expressions that currently work (i.e. they are parsed, execute, and return a correct result):
 
     boolean(false() != true())
