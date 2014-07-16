@@ -6,7 +6,7 @@
 //
 //
 
-#import "XPAbstractNodeWrapper.h"
+#import <Panthro/XPAbstractNodeWrapper.h>
 #import <libxml/parser.h>
 
 @interface XPLibxmlNodeImpl : XPAbstractNodeWrapper
