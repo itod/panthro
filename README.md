@@ -2,10 +2,13 @@
 
 Panthro is an implementation of XPath in Objective-C with decent unit test coverage, and intended for use on Apple's iOS and OS X platforms with bindings for **libxml** and NSXML included.
 
-Panthro supports all of XPath 1.0 and many of the most interesting features of 2.0 and even some of XPath 3.0 and XQuery. Here are some of the features supported by Panthro beyond just XPath 1.0:
+Panthro supports all of XPath 1.0 and many of the most interesting features of 2.0 and even some of XPath 3.0 and XQuery. Here are some of the features supported by Panthro
+
+####XPath 1.0:
+* Evertything (I think)
 
 ####From XPath 2.0:
-* Support for **sequences**
+* Support for **sequences** (`('a', 'b', 'c')` or `()`)
 * `for` looping expressions
 * `if` conditional expressions
 * `some` and `every` quantified expressions
@@ -22,13 +25,13 @@ Panthro supports all of XPath 1.0 and many of the most interesting features of 2
 
 ####From XPath 3.0:
 * First-class inline functions (`let $func := function() { … }`)
-* Anonymous functions
+* Anonymous functions (`$map((1,2,3), function($n) { $n*$n })`)
 
-I think most people familiar with XPath and XQuery will agree these are the most usefull and interesting features missing from XPath 1.0, and Panthro has them all. Most of what is "missing" from XPath 2.0 in Panthro is related to the overly-complex and unpopular XML-Schema-inspired static type system. Currently, implementing this portion of XPath 2.0 is not planned, and is probably a non-goal in the long term.
+I think most people familiar with XPath and XQuery will agree these are the most usefull and interesting features beyond XPath 1.0, and Panthro has them all. Most of what is "missing" from XPath 2.0 in Panthro is related to the overly-complex and unpopular XML-Schema-inspired static type system. Currently, implementing this portion of XPath 2.0 is not planned, and is probably a non-goal in the long term.
 
-Panthro's current type system is a blend of XPath 1.0 + Sequences from XPath 2.0. The types are basically `item` (think base class), `string`, `number`, `boolean`, `node`, and `sequence`. As in XPath 2.0, every `item` is also a `sequence` of length 1.
+Panthro's current type system is a blend of XPath 1.0 + Sequences from XPath 2.0. The types are basically `item` (think base class), `string`, `number`, `boolean`, `node`, and `sequence`. As in XPath 2.0, every `item` is also a `sequence` of length 1. Any XPath or XQuery features related to explicit static types (e.g. `as xs:integer`) and casts (e.g. `cast as xs:string` or `treat as xs:double` or `instance of xs:dateTime`) are **not** currently supported, and will cause a syntax error.
 
-Panthro is a mostly a port of the XPath 1.0 portions of the excellent [Saxon](http://saxonica.com) 6.5 Java library by Michael Kay with my own additions to add sequences and the interesting bits from XPath 2.0 and 3.0, and XQuery 1.0.
+Panthro is mostly a port of the XPath 1.0 portions of the excellent [Saxon](http://saxonica.com) 6.5 Java library by Michael Kay with my own additions to add sequences and the interesting bits from XPath 2.0 and 3.0, and XQuery 1.0.
 
 The XPath parser is based on [PEGKit](http://www.github.com/itod/pegkit). The PEGKit dependency is managed via [git externals](http://nopugs.com/ext-tutorial).
 
@@ -105,8 +108,6 @@ Some example expressions that currently work (i.e. they are parsed, execute, and
     mysum((1,2,3))
 
 ###Non-standard Additions
-
-Panthro departs from the XPath spec in the following known ways:
 
 1. Other functions of my own design are incuded in the default function namespace: `title-case()`, and `trim-space()`.
 
