@@ -704,7 +704,7 @@
 }
 
 
-- (void)parser:(PKParser *)p didMatchFilterExpr:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchSimpleFilterExpr:(PKAssembly *)a {
     NSArray *filters = [self filtersFrom:a];
     NSUInteger lastBracketMaxOffset = [[a pop] unsignedIntegerValue];
     

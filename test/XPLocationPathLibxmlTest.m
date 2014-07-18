@@ -832,6 +832,31 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
+//- (void)testSlashSlashOpenChapterPipeParaClose {
+//    [self eval:@"//(chapter|para)"];
+//    
+//    id <XPSequenceEnumeration>enm = [_res enumerate];
+//    
+//    NSUInteger chIdx = 0;
+//    NSUInteger paraIdx = 0;
+//    for (NSUInteger i = 0; i < 6; ++i) {
+//        if (i % 2 == 0) {
+//            id <XPNodeInfo>node = [enm nextNodeInfo];
+//            TDEqualObjects(@"chapter", node.name);
+//            TDEquals(XPNodeTypeElement, node.nodeType);
+//            TDEqualObjects(_ids[chIdx++], [node attributeValueForURI:nil localName:@"id"]);
+//        } else {
+//            id <XPNodeInfo>node = [enm nextNodeInfo];
+//            TDEqualObjects(@"para", node.name);
+//            TDEquals(XPNodeTypeElement, node.nodeType);
+//            TDEqualObjects(_paras[paraIdx++], node.stringValue);
+//        }
+//    }
+//    
+//    TDFalse([enm hasMoreItems]);
+//}
+
+
 - (void)testSlashSlashChapterUnionSlashSlashPara {
     [self eval:@"//chapter union //para"];
     

@@ -8,6 +8,7 @@
 
 #import "XPPathEnumeration.h"
 #import "XPExpression.h"
+#import "XPAxisStep.h"
 #import "XPNodeInfo.h"
 #import "XPContext.h"
 #import "XPSingletonNodeSet.h"
@@ -94,6 +95,11 @@
 }
 
 
+- (BOOL)isAxisStep {
+    return [_step isKindOfClass:[XPAxisStep class]];
+}
+
+
 /**
 * Determine if we can guarantee that the nodes are in document order. This is true if the
 * start nodes are sorted peer nodes and the step is within the subtree rooted at each node.
@@ -101,12 +107,15 @@
 */
 
 - (BOOL)isSorted {
-    XPAxis axis = _step.axis;
-    BOOL res = XPAxisIsForwards[axis] && (
-         ([_start isKindOfClass:[XPSingletonExpression class]]) ||
-         (_base.isSorted && _base.isPeer && XPAxisIsSubtreeAxis[axis]) ||
-         (_base.isSorted && (axis == XPAxisAttribute || axis == XPAxisNamespace))
-    );
+    BOOL res = NO;
+    if ([self isAxisStep]) {
+        XPAxis axis = [(XPAxisStep *)_step axis];
+        res = XPAxisIsForwards[axis] && (
+             ([_start isKindOfClass:[XPSingletonExpression class]]) ||
+             (_base.isSorted && _base.isPeer && XPAxisIsSubtreeAxis[axis]) ||
+             (_base.isSorted && (axis == XPAxisAttribute || axis == XPAxisNamespace))
+        );
+    }
     return res;
 }
 
@@ -117,7 +126,10 @@
 */
 
 - (BOOL)isReverseSorted {
-    BOOL res = ([_start isKindOfClass:[XPSingletonExpression class]] || [_start isKindOfClass:[XPSingletonNodeSet class]]) && XPAxisIsReverse[_step.axis];
+    BOOL res = NO;
+    if ([self isAxisStep]) {
+        res = ([_start isKindOfClass:[XPSingletonExpression class]] || [_start isKindOfClass:[XPSingletonNodeSet class]]) && XPAxisIsReverse[[(XPAxisStep *)_step axis]];
+    }
     return res;
 }
 
@@ -128,7 +140,11 @@
 */
 
 - (BOOL)isPeer {
-    return (_base.isPeer && XPAxisIsPeerAxis[_step.axis]);
+    if ([self isAxisStep]) {
+        return (_base.isPeer && XPAxisIsPeerAxis[[(XPAxisStep *)_step axis]]);
+    } else {
+        return NO;
+    }
 }
 
 @end

@@ -53,7 +53,7 @@
 @property (nonatomic, retain) NSMutableDictionary *intersectExceptExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *intersectExceptTail_memo;
 @property (nonatomic, retain) NSMutableDictionary *pathExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *filterPath_memo;
+@property (nonatomic, retain) NSMutableDictionary *filterExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *complexFilterPath_memo;
 @property (nonatomic, retain) NSMutableDictionary *complexFilterPathStartExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *locationPath_memo;
@@ -66,7 +66,7 @@
 @property (nonatomic, retain) NSMutableDictionary *rootSlash_memo;
 @property (nonatomic, retain) NSMutableDictionary *rootDoubleSlash_memo;
 @property (nonatomic, retain) NSMutableDictionary *firstRelativeStep_memo;
-@property (nonatomic, retain) NSMutableDictionary *filterExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *simpleFilterExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *primaryExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *variableReference_memo;
 @property (nonatomic, retain) NSMutableDictionary *literal_memo;
@@ -87,7 +87,8 @@
 @property (nonatomic, retain) NSMutableDictionary *argument_memo;
 @property (nonatomic, retain) NSMutableDictionary *predicate_memo;
 @property (nonatomic, retain) NSMutableDictionary *predicateExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *step_memo;
+@property (nonatomic, retain) NSMutableDictionary *stepExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *axisStep_memo;
 @property (nonatomic, retain) NSMutableDictionary *explicitAxisStep_memo;
 @property (nonatomic, retain) NSMutableDictionary *implicitAxisStep_memo;
 @property (nonatomic, retain) NSMutableDictionary *axis_memo;
@@ -364,7 +365,7 @@
         self.intersectExceptExpr_memo = [NSMutableDictionary dictionary];
         self.intersectExceptTail_memo = [NSMutableDictionary dictionary];
         self.pathExpr_memo = [NSMutableDictionary dictionary];
-        self.filterPath_memo = [NSMutableDictionary dictionary];
+        self.filterExpr_memo = [NSMutableDictionary dictionary];
         self.complexFilterPath_memo = [NSMutableDictionary dictionary];
         self.complexFilterPathStartExpr_memo = [NSMutableDictionary dictionary];
         self.locationPath_memo = [NSMutableDictionary dictionary];
@@ -377,7 +378,7 @@
         self.rootSlash_memo = [NSMutableDictionary dictionary];
         self.rootDoubleSlash_memo = [NSMutableDictionary dictionary];
         self.firstRelativeStep_memo = [NSMutableDictionary dictionary];
-        self.filterExpr_memo = [NSMutableDictionary dictionary];
+        self.simpleFilterExpr_memo = [NSMutableDictionary dictionary];
         self.primaryExpr_memo = [NSMutableDictionary dictionary];
         self.variableReference_memo = [NSMutableDictionary dictionary];
         self.literal_memo = [NSMutableDictionary dictionary];
@@ -398,7 +399,8 @@
         self.argument_memo = [NSMutableDictionary dictionary];
         self.predicate_memo = [NSMutableDictionary dictionary];
         self.predicateExpr_memo = [NSMutableDictionary dictionary];
-        self.step_memo = [NSMutableDictionary dictionary];
+        self.stepExpr_memo = [NSMutableDictionary dictionary];
+        self.axisStep_memo = [NSMutableDictionary dictionary];
         self.explicitAxisStep_memo = [NSMutableDictionary dictionary];
         self.implicitAxisStep_memo = [NSMutableDictionary dictionary];
         self.axis_memo = [NSMutableDictionary dictionary];
@@ -504,7 +506,7 @@
     self.intersectExceptExpr_memo = nil;
     self.intersectExceptTail_memo = nil;
     self.pathExpr_memo = nil;
-    self.filterPath_memo = nil;
+    self.filterExpr_memo = nil;
     self.complexFilterPath_memo = nil;
     self.complexFilterPathStartExpr_memo = nil;
     self.locationPath_memo = nil;
@@ -517,7 +519,7 @@
     self.rootSlash_memo = nil;
     self.rootDoubleSlash_memo = nil;
     self.firstRelativeStep_memo = nil;
-    self.filterExpr_memo = nil;
+    self.simpleFilterExpr_memo = nil;
     self.primaryExpr_memo = nil;
     self.variableReference_memo = nil;
     self.literal_memo = nil;
@@ -538,7 +540,8 @@
     self.argument_memo = nil;
     self.predicate_memo = nil;
     self.predicateExpr_memo = nil;
-    self.step_memo = nil;
+    self.stepExpr_memo = nil;
+    self.axisStep_memo = nil;
     self.explicitAxisStep_memo = nil;
     self.implicitAxisStep_memo = nil;
     self.axis_memo = nil;
@@ -643,7 +646,7 @@
     [_intersectExceptExpr_memo removeAllObjects];
     [_intersectExceptTail_memo removeAllObjects];
     [_pathExpr_memo removeAllObjects];
-    [_filterPath_memo removeAllObjects];
+    [_filterExpr_memo removeAllObjects];
     [_complexFilterPath_memo removeAllObjects];
     [_complexFilterPathStartExpr_memo removeAllObjects];
     [_locationPath_memo removeAllObjects];
@@ -656,7 +659,7 @@
     [_rootSlash_memo removeAllObjects];
     [_rootDoubleSlash_memo removeAllObjects];
     [_firstRelativeStep_memo removeAllObjects];
-    [_filterExpr_memo removeAllObjects];
+    [_simpleFilterExpr_memo removeAllObjects];
     [_primaryExpr_memo removeAllObjects];
     [_variableReference_memo removeAllObjects];
     [_literal_memo removeAllObjects];
@@ -677,7 +680,8 @@
     [_argument_memo removeAllObjects];
     [_predicate_memo removeAllObjects];
     [_predicateExpr_memo removeAllObjects];
-    [_step_memo removeAllObjects];
+    [_stepExpr_memo removeAllObjects];
+    [_axisStep_memo removeAllObjects];
     [_explicitAxisStep_memo removeAllObjects];
     [_implicitAxisStep_memo removeAllObjects];
     [_axis_memo removeAllObjects];
@@ -1552,8 +1556,8 @@
 
 - (void)__pathExpr {
     
-    if ([self speculate:^{ [self filterPath_]; }]) {
-        [self filterPath_]; 
+    if ([self speculate:^{ [self filterExpr_]; }]) {
+        [self filterExpr_]; 
     } else if ([self speculate:^{ [self locationPath_]; }]) {
         [self locationPath_]; 
     } else {
@@ -1567,21 +1571,21 @@
     [self parseRule:@selector(__pathExpr) withMemo:_pathExpr_memo];
 }
 
-- (void)__filterPath {
+- (void)__filterExpr {
     
     if ([self speculate:^{ [self complexFilterPath_]; }]) {
         [self complexFilterPath_]; 
-    } else if ([self speculate:^{ [self filterExpr_]; }]) {
-        [self filterExpr_]; 
+    } else if ([self speculate:^{ [self simpleFilterExpr_]; }]) {
+        [self simpleFilterExpr_]; 
     } else {
-        [self raise:@"No viable alternative found in rule 'filterPath'."];
+        [self raise:@"No viable alternative found in rule 'filterExpr'."];
     }
 
-    [self fireDelegateSelector:@selector(parser:didMatchFilterPath:)];
+    [self fireDelegateSelector:@selector(parser:didMatchFilterExpr:)];
 }
 
-- (void)filterPath_ {
-    [self parseRule:@selector(__filterPath) withMemo:_filterPath_memo];
+- (void)filterExpr_ {
+    [self parseRule:@selector(__filterExpr) withMemo:_filterExpr_memo];
 }
 
 - (void)__complexFilterPath {
@@ -1599,7 +1603,7 @@
 
 - (void)__complexFilterPathStartExpr {
     
-    [self filterExpr_]; 
+    [self simpleFilterExpr_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchComplexFilterPathStartExpr:)];
 }
@@ -1610,7 +1614,7 @@
 
 - (void)__locationPath {
     
-    if ([self predicts:TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_ABBREVIATEDAXIS, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIV, XPEG_TOKEN_KIND_DOT, XPEG_TOKEN_KIND_DOT_DOT, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_MOD, XPEG_TOKEN_KIND_MULTIPLYOPERATOR, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TRUE, 0]) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_ABBREVIATEDAXIS, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIV, XPEG_TOKEN_KIND_DOLLAR, XPEG_TOKEN_KIND_DOT, XPEG_TOKEN_KIND_DOT_DOT, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_MOD, XPEG_TOKEN_KIND_MULTIPLYOPERATOR, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OPEN_PAREN, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TRUE, 0]) {
         [self relativeLocationPath_]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_DOUBLE_SLASH, XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {
         [self absoluteLocationPath_]; 
@@ -1639,7 +1643,7 @@
 
 - (void)__pathBody {
     
-    [self step_]; 
+    [self stepExpr_]; 
     [self pathTail_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchPathBody:)];
@@ -1671,7 +1675,7 @@
     } else {
         [self raise:@"No viable alternative found in rule 'slashStep'."];
     }
-    [self step_]; 
+    [self stepExpr_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchSlashStep:)];
 }
@@ -1736,7 +1740,7 @@
 
 - (void)__firstRelativeStep {
     
-    [self step_]; 
+    [self stepExpr_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchFirstRelativeStep:)];
 }
@@ -1745,18 +1749,18 @@
     [self parseRule:@selector(__firstRelativeStep) withMemo:_firstRelativeStep_memo];
 }
 
-- (void)__filterExpr {
+- (void)__simpleFilterExpr {
     
     [self primaryExpr_]; 
     while ([self speculate:^{ [self predicate_]; }]) {
         [self predicate_]; 
     }
 
-    [self fireDelegateSelector:@selector(parser:didMatchFilterExpr:)];
+    [self fireDelegateSelector:@selector(parser:didMatchSimpleFilterExpr:)];
 }
 
-- (void)filterExpr_ {
-    [self parseRule:@selector(__filterExpr) withMemo:_filterExpr_memo];
+- (void)simpleFilterExpr_ {
+    [self parseRule:@selector(__simpleFilterExpr) withMemo:_simpleFilterExpr_memo];
 }
 
 - (void)__primaryExpr {
@@ -2046,7 +2050,24 @@
     [self parseRule:@selector(__predicateExpr) withMemo:_predicateExpr_memo];
 }
 
-- (void)__step {
+- (void)__stepExpr {
+    
+    if ([self speculate:^{ [self axisStep_]; }]) {
+        [self axisStep_]; 
+    } else if ([self speculate:^{ [self simpleFilterExpr_]; }]) {
+        [self simpleFilterExpr_]; 
+    } else {
+        [self raise:@"No viable alternative found in rule 'stepExpr'."];
+    }
+
+    [self fireDelegateSelector:@selector(parser:didMatchStepExpr:)];
+}
+
+- (void)stepExpr_ {
+    [self parseRule:@selector(__stepExpr) withMemo:_stepExpr_memo];
+}
+
+- (void)__axisStep {
     
     if ([self speculate:^{ [self explicitAxisStep_]; }]) {
         [self explicitAxisStep_]; 
@@ -2055,14 +2076,14 @@
     } else if ([self speculate:^{ [self implicitAxisStep_]; }]) {
         [self implicitAxisStep_]; 
     } else {
-        [self raise:@"No viable alternative found in rule 'step'."];
+        [self raise:@"No viable alternative found in rule 'axisStep'."];
     }
 
-    [self fireDelegateSelector:@selector(parser:didMatchStep:)];
+    [self fireDelegateSelector:@selector(parser:didMatchAxisStep:)];
 }
 
-- (void)step_ {
-    [self parseRule:@selector(__step) withMemo:_step_memo];
+- (void)axisStep_ {
+    [self parseRule:@selector(__axisStep) withMemo:_axisStep_memo];
 }
 
 - (void)__explicitAxisStep {

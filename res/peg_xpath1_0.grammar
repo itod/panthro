@@ -129,22 +129,22 @@ exprSingle = orExpr | forExpr | quantifiedExpr | ifExpr | functionExpr;
                                     intersectExceptTail = ('intersect' | 'except') pathExpr;
 
 
-pathExpr = filterPath | locationPath;
-    filterPath = complexFilterPath | filterExpr;
+pathExpr = filterExpr | locationPath;
+    filterExpr = complexFilterPath | simpleFilterExpr;
     complexFilterPath = complexFilterPathStartExpr slashStep pathTail;
-    complexFilterPathStartExpr = filterExpr;
+    complexFilterPathStartExpr = simpleFilterExpr;
     locationPath = relativeLocationPath | absoluteLocationPath;
         relativeLocationPath = firstRelativeStep pathTail;
-        pathBody = step pathTail;
+        pathBody = stepExpr pathTail;
         pathTail = slashStep*;
-        slashStep = (('/' | '//') step);
+        slashStep = (('/' | '//') stepExpr);
         absoluteLocationPath = rootSlash pathBody? | abbreviatedAbsoluteLocationPath;
             abbreviatedAbsoluteLocationPath = rootDoubleSlash pathBody;
             rootSlash = '/';
             rootDoubleSlash = '//';
-            firstRelativeStep = step;
+            firstRelativeStep = stepExpr;
 
-    filterExpr = primaryExpr predicate*;
+    simpleFilterExpr = primaryExpr predicate*;
         primaryExpr = functionCall | variableReference | literal | number | parenthesizedExpr;
             variableReference = '$' qName; // note whitespace is not allowed here. also qName is optional
             literal = QuotedString;
@@ -168,20 +168,21 @@ pathExpr = filterPath | locationPath;
             predicateExpr = expr;
                 
 
-    step = explicitAxisStep | abbreviatedStep | implicitAxisStep;
-        explicitAxisStep = axis stepBody;
-        implicitAxisStep = stepBody;
-        
-        axis = axisName '::'! | abbreviatedAxis;
-            axisName = ancestor | ancestorOrSelf | attr | child | descendant | descendantOrSelf | following | followingSibling | namespace | parent | preceding | precedingSibling | self;
-            abbreviatedAxis = '@';
-        stepBody = nodeTest predicate*;
-        nodeTest = typeTest | specificPITest | nameTest;
-            nameTest = '*' ':' ncName | '*' | ncName ':' '*' | qName; // note whitespace should not be allowed in second alt here
-            typeTest = nodeType '('! ')';
-            nodeType = comment | text | processingInstruction | node;
-            specificPITest = processingInstruction '('! literal ')';
-        abbreviatedStep = '.' | '..';
+    stepExpr = axisStep | simpleFilterExpr;
+        axisStep = explicitAxisStep | abbreviatedStep | implicitAxisStep;
+            explicitAxisStep = axis stepBody;
+            implicitAxisStep = stepBody;
+            
+            axis = axisName '::'! | abbreviatedAxis;
+                axisName = ancestor | ancestorOrSelf | attr | child | descendant | descendantOrSelf | following | followingSibling | namespace | parent | preceding | precedingSibling | self;
+                abbreviatedAxis = '@';
+            stepBody = nodeTest predicate*;
+            nodeTest = typeTest | specificPITest | nameTest;
+                nameTest = '*' ':' ncName | '*' | ncName ':' '*' | qName; // note whitespace should not be allowed in second alt here
+                typeTest = nodeType '('! ')';
+                nodeType = comment | text | processingInstruction | node;
+                specificPITest = processingInstruction '('! literal ')';
+            abbreviatedStep = '.' | '..';
             
 ancestor = 'ancestor';
 ancestorOrSelf = 'ancestor-or-self';

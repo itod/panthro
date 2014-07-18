@@ -64,6 +64,11 @@
 }
 
 
+- (BOOL)isAxisStep {
+    return [_step isKindOfClass:[XPAxisStep class]];
+}
+
+
 /**
  * Simplify an expression
  * @return the simplified expression
@@ -81,14 +86,16 @@
         return [XPEmptyNodeSet instance];
     }
     
-    XPAxis axis = _step.axis;
-    
-    // the expression /.. is sometimes used to represent the empty node-set
-    if ([_start isKindOfClass:[XPRootExpression class]] && axis == XPAxisParent) {
-        XPExpression *expr = [XPEmptyNodeSet instance];
-        expr.staticContext = self.staticContext;
-        expr.range = self.range;
-        return expr;
+    if ([self isAxisStep]) {
+        XPAxis axis = [(XPAxisStep *)_step axis];
+        
+        // the expression /.. is sometimes used to represent the empty node-set
+        if ([_start isKindOfClass:[XPRootExpression class]] && axis == XPAxisParent) {
+            XPExpression *expr = [XPEmptyNodeSet instance];
+            expr.staticContext = self.staticContext;
+            expr.range = self.range;
+            return expr;
+        }
     }
     
 //    if ([_start isKindOfClass:[XPContextNodeExpression class]] &&
