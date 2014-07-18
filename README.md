@@ -4,10 +4,10 @@ Panthro is an implementation of XPath in Objective-C with decent unit test cover
 
 Panthro supports all of XPath 1.0 and many of the most interesting features of 2.0 and even some of XPath 3.0 and XQuery. Here are some of the features supported by Panthro:
 
-####XPath 1.0:
+#####XPath 1.0:
 * Evertything (I think)
 
-####From XPath 2.0:
+#####From XPath 2.0:
 * Support for **sequences** (`('a', 'b', 'c')` or `()`)
 * Steps in Path expressions may be arbitrary sub expressions (`book/(chapter|appendix)/text()`)
 * `for` looping expressions
@@ -19,12 +19,12 @@ Panthro supports all of XPath 1.0 and many of the most interesting features of 2
 * Many of the XPath 2.0 functions are supported including **regex** support in `matches()` and `replace()`
 * Scientific notation (exponents) are allowed in number literals
 
-####From XQuery 1.0:
+#####From XQuery 1.0:
 * Support for **FLWOR** (For, Let, Where, Order by, Return) expressions
 * Function declarations
 * Variable declarations
 
-####From XPath 3.0:
+#####From XPath 3.0:
 * First-class inline functions (`let $func := function() { … }`)
 * Anonymous functions (`$map((1,2,3), function($n) { $n*$n })`)
 
