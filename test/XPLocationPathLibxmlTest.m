@@ -1116,6 +1116,22 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
+- (void)testChapterSlashOpenParaPipeTitleClosePred1SlashTextOpenClose {
+    [self eval:@"chapter/(para|title)[1]/text()"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    for (NSUInteger i = 0; i < 3; ++i) {
+        id <XPNodeInfo>node = [enm nextNodeInfo];
+        TDEqualObjects(@"", node.name);
+        TDEquals(XPNodeTypeText, node.nodeType);
+        TDEqualObjects(_titles[i], node.stringValue);
+    }
+    
+    TDFalse([enm hasMoreItems]);
+}
+
+
 - (void)testChapterSlashOpenParaPipeTitleClosePred2 {
     [self eval:@"chapter/(para|title)[2]"];
     
@@ -1125,6 +1141,22 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
         id <XPNodeInfo>node = [enm nextNodeInfo];
         TDEqualObjects(@"para", node.name);
         TDEquals(XPNodeTypeElement, node.nodeType);
+        TDEqualObjects(_paras[i], node.stringValue);
+    }
+    
+    TDFalse([enm hasMoreItems]);
+}
+
+
+- (void)testChapterSlashOpenParaPipeTitleClosePred2SlashTextOpenClose {
+    [self eval:@"chapter/(para|title)[2]/text()"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    for (NSUInteger i = 0; i < 3; ++i) {
+        id <XPNodeInfo>node = [enm nextNodeInfo];
+        TDEqualObjects(@"", node.name);
+        TDEquals(XPNodeTypeText, node.nodeType);
         TDEqualObjects(_paras[i], node.stringValue);
     }
     
