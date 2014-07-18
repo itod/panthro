@@ -2052,10 +2052,10 @@
 
 - (void)__stepExpr {
     
-    if ([self speculate:^{ [self axisStep_]; }]) {
-        [self axisStep_]; 
-    } else if ([self speculate:^{ [self simpleFilterExpr_]; }]) {
+    if ([self speculate:^{ [self simpleFilterExpr_]; }]) {
         [self simpleFilterExpr_]; 
+    } else if ([self speculate:^{ [self axisStep_]; }]) {
+        [self axisStep_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'stepExpr'."];
     }

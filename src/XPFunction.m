@@ -24,7 +24,7 @@
 
 - (id)copyWithZone:(NSZone *)zone {
     XPFunction *expr = [super copyWithZone:zone];
-    expr.args = [[_args copy] autorelease];
+    expr.args = [[_args mutableCopy] autorelease];
     return expr;
 }
 

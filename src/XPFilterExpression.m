@@ -47,8 +47,8 @@
 
 - (id)copyWithZone:(NSZone *)zone {
     XPFilterExpression *expr = [super copyWithZone:zone];
-    expr.start = _start;
-    expr.filter = _filter;
+    expr.start = [[_start copy] autorelease];
+    expr.filter = [[_filter copy] autorelease];
     expr.dependencies = _dependencies;
     return expr;
 }

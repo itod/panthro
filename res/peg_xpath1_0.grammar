@@ -168,7 +168,7 @@ pathExpr = filterExpr | locationPath;
             predicateExpr = expr;
                 
 
-    stepExpr = axisStep | simpleFilterExpr;
+    stepExpr = simpleFilterExpr | axisStep;
         axisStep = explicitAxisStep | abbreviatedStep | implicitAxisStep;
             explicitAxisStep = axis stepBody;
             implicitAxisStep = stepBody;
