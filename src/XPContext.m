@@ -8,7 +8,6 @@
 
 #import "XPContext.h"
 #import "XPStaticContext.h"
-#import "XPUserFunction.h"
 #import "XPNodeInfo.h"
 
 @interface XPContext ()

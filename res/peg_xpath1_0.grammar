@@ -183,7 +183,7 @@ pathExpr = filterExpr | locationPath;
                 nodeType = comment | text | processingInstruction | node;
                 specificPITest = processingInstruction '('! literal ')';
             abbreviatedStep = '.' | '..';
-            
+
 ancestor = 'ancestor';
 ancestorOrSelf = 'ancestor-or-self';
 attr = 'attribute';

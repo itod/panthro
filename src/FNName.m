@@ -10,7 +10,7 @@
 #import "XPNodeInfo.h"
 #import "XPContext.h"
 #import "XPStringValue.h"
-#import "XPNodeSetValue.h"
+#import <Panthro/XPNodeSetValue.h>
 
 @interface XPExpression ()
 @property (nonatomic, retain) NSMutableArray *args;

@@ -26,8 +26,8 @@
     self = [super init];
     if (self) {
         self.every = isEvery;
-        self.varNames = [[varNames copy] autorelease];
-        self.sequences = [[sequences copy] autorelease];
+        self.varNames = varNames;
+        self.sequences = sequences;
         self.bodyExpression = bodyExpr;
     }
     return self;
