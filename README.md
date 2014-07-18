@@ -109,11 +109,11 @@ Some example expressions that currently work (i.e. they are parsed, execute, and
     };
     mysum((1,2,3))
 
-###Non-standard Additions
+####Non-standard Additions
 
 1. Other functions of my own design are incuded in the default function namespace: `title-case()`, and `trim-space()`.
 
-###XML Tree Model Bindings
+####XML Tree Model Bindings
 
 XPath works on a tree-like representation of an XML document. So Panthro needs a tree-based XML API available (in C, C++, or ObjC) on Apple platforms. The most commonly-used XML tree APIs on these platforms are:
 
@@ -124,7 +124,7 @@ XPath works on a tree-like representation of an XML document. So Panthro needs a
 
 Panthro is designed to work with any XML tree API, but requires a small adapter layer for each (an implementation of the `XPNodeInfo` and `XPDocumentInfo` protocols). Panthro currently includes an adapter layer for libxml (for iOS and OS X) and NSXML (for OS X only).
 
-###Objective-C API
+####Objective-C API
 
 To use Panthro with NSXML on OS X:
 
