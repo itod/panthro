@@ -81,13 +81,13 @@
     if (seq != [XPEmptySequence instance]) {
         NSMutableArray *content = [NSMutableArray array];
         
-        XPValue *target = [[self.args[1] evaluateInContext:ctx] head];
+        id <XPItem>target = [[self.args[1] evaluateInContext:ctx] head];
         
         NSUInteger n = 1;
         id <XPSequenceEnumeration>enm = [seq enumerateInContext:ctx sorted:NO];
         while ([enm hasMoreItems]) {
             id <XPItem>item = [enm nextItem];
-            if ([target isEqualToValue:item]) {
+            if ([target isEqual:item]) {
                 [content addObject:[XPNumericValue numericValueWithNumber:n]];
             }
             n++;

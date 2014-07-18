@@ -34,6 +34,15 @@
 }
 
 
+- (id)copyWithZone:(NSZone *)zone {
+    XPBinaryExpression *expr = [super copyWithZone:zone];
+    expr.p1 = [[_p1 copy] autorelease];
+    expr.p2 = [[_p2 copy] autorelease];
+    expr.operator = _operator;
+    return expr;
+}
+
+
 - (void)setOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs {
     self.p1 = lhs;
     self.p2 = rhs;

@@ -26,8 +26,8 @@
     self = [super init];
     if (self) {
         self.every = isEvery;
-        self.varNames = varNames;
-        self.sequences = sequences;
+        self.varNames = [[varNames copy] autorelease];
+        self.sequences = [[sequences copy] autorelease];
         self.bodyExpression = bodyExpr;
     }
     return self;
@@ -39,6 +39,16 @@
     self.sequences = nil;
     self.bodyExpression = nil;
     [super dealloc];
+}
+
+
+- (id)copyWithZone:(NSZone *)zone {
+    XPQuantifiedExpression *expr = [super copyWithZone:zone];
+    expr.every = _every;
+    expr.varNames = [[_varNames copy] autorelease];
+    expr.sequences = [[_sequences copy] autorelease];
+    expr.bodyExpression = [[_bodyExpression copy] autorelease];
+    return expr;
 }
 
 

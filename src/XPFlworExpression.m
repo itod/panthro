@@ -53,6 +53,17 @@
 }
 
 
+- (id)copyWithZone:(NSZone *)zone {
+    XPFlworExpression *expr = [super copyWithZone:zone];
+    expr.forClauses = [[_forClauses copy] autorelease];
+    expr.whereExpression = [[_whereExpression copy] autorelease];
+    expr.groupClauses = [[_groupClauses copy] autorelease];
+    expr.orderClauses = [[_orderClauses copy] autorelease];
+    expr.bodyExpression = [[_bodyExpression copy] autorelease];
+    return expr;
+}
+
+
 - (XPDependencies)dependencies {
     NSUInteger dep = 0;
     for (XPForClause *forClause in _forClauses) {
@@ -192,14 +203,14 @@
                     
                     for (XPGroupClause *groupClause in _groupClauses) {
                         // calling -head here for force a single atomic value. but supposed to throw and exception if it's a sequence with more than 1 item
-                        XPValue *specVal = [XPAtomize([groupClause.expression evaluateInContext:ctx]) head];
+                        XPValue *specVal = (id)[XPAtomize([groupClause.expression evaluateInContext:ctx]) head];
                         XPGroupSpec *spec = [XPGroupSpec groupSpecWithValue:specVal];
                         [tupleGroupSpecs addObject:spec];
                     }
                     
                     for (XPOrderClause *orderClause in _orderClauses) {
                         // calling -head here for force a single atomic value. but supposed to throw and exception if it's a sequence with more than 1 item
-                        XPValue *specVal = [XPAtomize([orderClause.expression evaluateInContext:ctx]) head];
+                        XPValue *specVal = (id)[XPAtomize([orderClause.expression evaluateInContext:ctx]) head];
                         XPOrderSpec *spec = [XPOrderSpec orderSpecWithValue:specVal modifier:orderClause.modifier];
                         [tupleOrderSpecs addObject:spec];
                     }

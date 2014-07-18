@@ -58,7 +58,7 @@
  */
 
 - (id)copyWithZone:(NSZone *)zone {
-    XPContext *c = [[XPContext alloc] initWithStaticContext:_staticContext];
+    XPContext *c = [[XPContext allocWithZone:zone] initWithStaticContext:_staticContext];
     c.contextNode = _contextNode;
     c.position = _position;
     c.last = _last;

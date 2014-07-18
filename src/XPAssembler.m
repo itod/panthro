@@ -745,7 +745,7 @@
             nodeTest.range = NSMakeRange(offset+2, 0);
             step = [self stepWithStartOffset:offset maxOffset:NSNotFound axis:XPAxisDescendantOrSelf nodeTest:nodeTest filters:nil];
         } else {
-            XPAssert([part isKindOfClass:[XPAxisStep class]]);
+            XPAssertExpr(part);
             step = (id)part;
         }
         NSUInteger offset = pathExpr.range.location;

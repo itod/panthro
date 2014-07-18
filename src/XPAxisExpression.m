@@ -36,6 +36,15 @@
 }
 
 
+- (id)copyWithZone:(NSZone *)zone {
+    XPAxisExpression *expr = [super copyWithZone:zone];
+    expr.axis = _axis;
+    expr.test = _test;
+    expr.contextNode = _contextNode;
+    return expr;
+}
+
+
 - (XPExpression *)simplify {
     return self;
 }

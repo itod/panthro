@@ -13,11 +13,6 @@
 
 @implementation XPRelationalExpression
 
-+ (XPRelationalExpression *)relationalExpression {
-    return [[[self alloc] init] autorelease];
-}
-
-
 + (XPRelationalExpression *)relationalExpressionWithOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs {
     return [[[self alloc] initWithOperand:lhs operator:op operand:rhs] autorelease];
 }

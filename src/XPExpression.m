@@ -16,6 +16,7 @@
 #import "XPEGParser.h"
 #import "XPAssembler.h"
 #import "XPException.h"
+#import "XPFilterExpression.h"
 #import <PEGKit/PKAssembly.h>
 
 NSString * const XPathErrorDomain = @"XPathErrorDomain";
@@ -74,6 +75,14 @@ const NSUInteger XPathErrorCodeRuntime = 2;
 - (void)dealloc {
     self.staticContext = nil;
     [super dealloc];
+}
+
+
+- (id)copyWithZone:(NSZone *)zone {
+    XPExpression *expr = [[[self class] allocWithZone:zone] init];
+    expr.range = _range;
+    expr.staticContext = _staticContext;
+    return expr;
 }
 
 
@@ -166,6 +175,21 @@ const NSUInteger XPathErrorCodeRuntime = 2;
 - (XPDataType)dataType {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return NSNotFound;
+}
+
+
+- (XPExpression *)addFilter:(XPExpression *)f {
+    return [[[XPFilterExpression alloc] initWithStart:self filter:f] autorelease];
+}
+
+
+- (NSArray *)filters {
+    return nil;
+}
+
+
+- (NSUInteger)numberOfFilters {
+    return 0;
 }
 
 @end

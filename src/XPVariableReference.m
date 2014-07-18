@@ -37,6 +37,13 @@
 }
 
 
+- (id)copyWithZone:(NSZone *)zone {
+    XPVariableReference *expr = [super copyWithZone:zone];
+    expr.name = _name;
+    return expr;
+}
+
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"$%@", self.name];
 }

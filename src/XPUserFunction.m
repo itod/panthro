@@ -45,13 +45,14 @@
 #pragma mark NSCopying
 
 - (id)copyWithZone:(NSZone *)zone {
-    XPUserFunction *fn = [[XPUserFunction allocWithZone:zone] initWithName:_name];
-    fn.bodyExpression = _bodyExpression;
-    fn.params = _params;
+    XPUserFunction *expr = [super copyWithZone:zone];
+    expr.name = _name;
+    expr.bodyExpression = [[_bodyExpression copy] autorelease];
+    expr.params = [[_params copy] autorelease];
     // ignore args
     // ignore vars
     // ignore curr ctx
-    return fn;
+    return expr;
 }
 
 

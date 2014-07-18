@@ -41,7 +41,7 @@
  * node-set
  */
 
-- (instancetype)initWithStart:(XPExpression *)start step:(XPAxisStep *)step {
+- (instancetype)initWithStart:(XPExpression *)start step:(XPExpression *)step {
     self = [super init];
     if (self) {
         self.dependencies = XPDependenciesInvalid;
@@ -56,6 +56,15 @@
     self.start = nil;
     self.step = nil;
     [super dealloc];
+}
+
+
+- (id)copyWithZone:(NSZone *)zone {
+    XPPathExpression *expr = [super copyWithZone:zone];
+    expr.dependencies = _dependencies;
+    expr.start = [[_start copy] autorelease];
+    expr.step = [[_step copy] autorelease];
+    return expr;
 }
 
 
@@ -165,7 +174,7 @@
     XPExpression *result = self;
     if ((self.dependencies & dep) != 0) {
         XPExpression *newstart = [_start reduceDependencies:dep inContext:ctx];
-        XPAxisStep *newstep = [[_step copy] autorelease];
+        XPExpression *newstep = [[_step copy] autorelease];
 
         NSUInteger removedep = dep & XPDependenciesXSLTContext;
         if (_start.isContextDocumentNodeSet && ((dep & XPDependenciesContextDocument) != 0)) {

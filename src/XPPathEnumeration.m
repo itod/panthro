@@ -14,11 +14,10 @@
 #import "XPSingletonNodeSet.h"
 #import "XPSingletonExpression.h"
 #import "XPException.h"
-#import "XPAxisStep.h"
 
 @interface XPPathEnumeration ()
 @property (nonatomic, retain) XPExpression *start;
-@property (nonatomic, retain) XPAxisStep *step;
+@property (nonatomic, retain) XPExpression *step;
 @property (nonatomic, retain) id <XPSequenceEnumeration>base;
 @property (nonatomic, retain) id <XPSequenceEnumeration>tail;
 @property (nonatomic, retain) id <XPNodeInfo>next;
@@ -27,7 +26,7 @@
 
 @implementation XPPathEnumeration
 
-- (instancetype)initWithStart:(XPExpression *)start step:(XPAxisStep *)step context:(XPContext *)ctx {
+- (instancetype)initWithStart:(XPExpression *)start step:(XPExpression *)step context:(XPContext *)ctx {
     self = [super init];
     if (self) {
         if ([start isKindOfClass:[XPSingletonNodeSet class]]) {
@@ -82,7 +81,13 @@
         while ([_base hasMoreItems]) {
             id <XPNodeInfo>node = [_base nextNodeInfo];
             
-            self.tail = [_step enumerate:node inContext:_context parent:_start];
+            if ([self isAxisStep]) {
+                self.tail = [(XPAxisStep *)_step enumerate:node inContext:_context parent:_start];
+            } else {
+                XPContext *ctx = [[_context copy] autorelease];
+                ctx.contextNode = node;
+                self.tail = [_step enumerateInContext:ctx sorted:NO];
+            }
 
             if ([_tail hasMoreItems]) {
                 result = [_tail nextNodeInfo];

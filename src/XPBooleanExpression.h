@@ -9,8 +9,5 @@
 #import "XPBinaryExpression.h"
 
 @interface XPBooleanExpression : XPBinaryExpression
-
-+ (instancetype)booleanExpression;
-
 + (instancetype)booleanExpressionWithOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs;
 @end

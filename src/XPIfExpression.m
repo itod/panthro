@@ -42,6 +42,15 @@
 }
 
 
+- (id)copyWithZone:(NSZone *)zone {
+    XPIfExpression *expr = [super copyWithZone:zone];
+    expr.testExpression = [[_testExpression copy] autorelease];
+    expr.thenExpression = [[_thenExpression copy] autorelease];
+    expr.elseExpression = [[_elseExpression copy] autorelease];
+    return expr;
+}
+
+
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
     XPAssert(_testExpression);
     XPAssert(_thenExpression);

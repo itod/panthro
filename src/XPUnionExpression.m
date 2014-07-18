@@ -44,6 +44,14 @@
 }
 
 
+- (id)copyWithZone:(NSZone *)zone {
+    XPUnionExpression *expr = [super copyWithZone:zone];
+    expr.p1 = [[_p1 copy] autorelease];
+    expr.p2 = [[_p2 copy] autorelease];
+    return expr;
+}
+
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"%@ %@ %@>", _p1, [self operator], _p2];
 }

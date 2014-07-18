@@ -22,6 +22,14 @@
 }
 
 
+- (id)copyWithZone:(NSZone *)zone {
+    XPPositionRange *expr = [super copyWithZone:zone];
+    expr.minPosition = _minPosition;
+    expr.maxPosition = _maxPosition;
+    return expr;
+}
+
+
 /**
  * Simplify an expression
  * @return the simplified expression

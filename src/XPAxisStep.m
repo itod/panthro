@@ -66,18 +66,17 @@
 
 
 - (id)copyWithZone:(NSZone *)zone {
-    XPAxisStep *step = [[XPAxisStep allocWithZone:zone] init];
-    step.axis = _axis;
-    step.nodeTest = _nodeTest;
-    step.range = _range;
-    step.baseRange = _baseRange;
+    XPAxisStep *expr = [super copyWithZone:zone];
+    expr.axis = _axis;
+    expr.nodeTest = _nodeTest;
+    expr.baseRange = _baseRange;
     
 #if PAUSE_ENABLED
-    step.pauseState = _pauseState;
+    expr.pauseState = _pauseState;
 #endif
     
     // don't copy filters.
-    return step;
+    return expr;
 }
 
 
@@ -90,7 +89,7 @@
 }
 
 
-- (XPAxisStep *)addFilter:(XPExpression *)expr {
+- (XPExpression *)addFilter:(XPExpression *)expr {
     XPAssert(expr);
     if (!_allFilters) {
         self.allFilters = [NSMutableArray arrayWithCapacity:2];

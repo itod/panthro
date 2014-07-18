@@ -45,7 +45,7 @@ typedef NS_ENUM(NSUInteger, XPDependencies) {
     XPDependenciesXSLTContext = 64 | 1 | 4
 };
 
-@interface XPExpression : NSObject
+@interface XPExpression : NSObject <NSCopying>
 
 + (XPExpression *)expressionFromString:(NSString *)exprStr inContext:(id <XPStaticContext>)env error:(NSError **)outErr;
 + (XPExpression *)expressionFromString:(NSString *)exprStr inContext:(id <XPStaticContext>)env simplify:(BOOL)simplify error:(NSError **)outErr;
@@ -71,4 +71,8 @@ typedef NS_ENUM(NSUInteger, XPDependencies) {
 
 @property (nonatomic, assign) NSRange range;
 @property (nonatomic, retain) id <XPStaticContext>staticContext;
+
+- (XPExpression *)addFilter:(XPExpression *)f;
+@property (nonatomic, retain, readonly) NSArray *filters;
+@property (nonatomic, assign, readonly) NSUInteger numberOfFilters;
 @end

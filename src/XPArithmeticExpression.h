@@ -9,8 +9,5 @@
 #import "XPBinaryExpression.h"
 
 @interface XPArithmeticExpression : XPBinaryExpression
-
-+ (instancetype)arithmeticExpression;
-
 + (instancetype)arithmeticExpressionWithOperand:(XPExpression *)lhs operator:(NSInteger)op operand:(XPExpression *)rhs;
 @end

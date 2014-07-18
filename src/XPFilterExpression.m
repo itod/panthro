@@ -45,8 +45,27 @@
 }
 
 
+- (id)copyWithZone:(NSZone *)zone {
+    XPFilterExpression *expr = [super copyWithZone:zone];
+    expr.start = _start;
+    expr.filter = _filter;
+    expr.dependencies = _dependencies;
+    return expr;
+}
+
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"(%@)[%@]", _start, _filter];
+}
+
+
+- (NSArray *)filters {
+    return @[_filter]; // ??
+}
+
+
+- (NSUInteger)numberOfFilters {
+    return _filter ? 1 : 0;
 }
 
 

@@ -44,6 +44,15 @@
 }
 
 
+- (id)copyWithZone:(NSZone *)zone {
+    XPFunctionCall *expr = [super copyWithZone:zone];
+    expr.name = _name;
+    expr.args = [[_args copy] autorelease];
+    expr.expression = [[_expression copy] autorelease];
+    return expr;
+}
+
+
 - (NSString *)description {
     NSString *name = _name ? _name : [_expression description];
     NSMutableString *s = [NSMutableString stringWithFormat:@"%@(", name];

@@ -6,6 +6,7 @@
 //
 //
 
+#import "XPExpression.h"
 #import "XPAxis.h"
 
 @class XPExpression;
@@ -15,19 +16,14 @@
 @protocol XPSequenceEnumeration;
 @protocol XPNodeInfo;
 
-@interface XPAxisStep : NSObject <NSCopying>
+@interface XPAxisStep : XPExpression
 
 - (instancetype)initWithAxis:(XPAxis)axis nodeTest:(XPNodeTest *)nodeTest;
 
-- (XPAxisStep *)addFilter:(XPExpression *)expr;
-- (XPAxisStep *)simplify;
 - (id <XPSequenceEnumeration>)enumerate:(id <XPNodeInfo>)node inContext:(XPContext *)ctx parent:(XPExpression *)expr;
 
-@property (nonatomic, retain, readonly) NSArray *filters;
-@property (nonatomic, assign, readonly) NSUInteger numberOfFilters;
 @property (nonatomic, assign) XPAxis axis;
 @property (nonatomic, retain) XPNodeTest *nodeTest;
 
-@property (nonatomic, assign) NSRange range;
 @property (nonatomic, assign) NSRange baseRange;
 @end

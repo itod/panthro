@@ -22,6 +22,13 @@
 }
 
 
+- (id)copyWithZone:(NSZone *)zone {
+    XPFunction *expr = [super copyWithZone:zone];
+    expr.args = [[_args copy] autorelease];
+    return expr;
+}
+
+
 - (NSString *)description {
     id str = [NSMutableString stringWithFormat:@"%@(", [[self class] name]];
     NSUInteger i = 0;
