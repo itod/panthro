@@ -9,7 +9,7 @@ Panthro supports all of XPath 1.0 and many of the most interesting features of 2
 
 #####From XPath 2.0:
 * Support for **sequences** (`('a', 'b', 'c')` or `()`)
-* Steps in Path expressions may be arbitrary sub expressions (`book/(chapter|appendix)/text()`)
+* Steps in Path expressions may be arbitrary sub expressions (`book/(chapter|appendix)/*`)
 * `for` looping expressions
 * `if` conditional expressions
 * `some` and `every` quantified expressions
@@ -87,6 +87,10 @@ Some example expressions that currently work (i.e. they are parsed, execute, and
     //chapter[1]/@*[namespace-uri(.)='bar']/..
 
     id('c2 c1')[2]/title
+
+    book/(chapter|appendix)/*
+
+    book/(chapter[position()=last()]|appendix[1])/text()
 
 -------------
 
