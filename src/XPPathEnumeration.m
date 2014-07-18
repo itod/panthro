@@ -13,11 +13,11 @@
 #import "XPSingletonNodeSet.h"
 #import "XPSingletonExpression.h"
 #import "XPException.h"
-#import "XPStep.h"
+#import "XPAxisStep.h"
 
 @interface XPPathEnumeration ()
 @property (nonatomic, retain) XPExpression *start;
-@property (nonatomic, retain) XPStep *step;
+@property (nonatomic, retain) XPAxisStep *step;
 @property (nonatomic, retain) id <XPSequenceEnumeration>base;
 @property (nonatomic, retain) id <XPSequenceEnumeration>tail;
 @property (nonatomic, retain) id <XPNodeInfo>next;
@@ -26,7 +26,7 @@
 
 @implementation XPPathEnumeration
 
-- (instancetype)initWithStart:(XPExpression *)start step:(XPStep *)step context:(XPContext *)ctx {
+- (instancetype)initWithStart:(XPExpression *)start step:(XPAxisStep *)step context:(XPContext *)ctx {
     self = [super init];
     if (self) {
         if ([start isKindOfClass:[XPSingletonNodeSet class]]) {

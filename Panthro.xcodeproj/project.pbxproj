@@ -308,8 +308,8 @@
 		D3A6C2E41907391200F3EFF3 /* XPAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A6C2E31907391200F3EFF3 /* XPAxis.m */; };
 		D3A6C2EA19073B4700F3EFF3 /* XPStepTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A6C2E919073B4700F3EFF3 /* XPStepTest.m */; };
 		D3A6C2EC19073D4900F3EFF3 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A6C2EB19073D4900F3EFF3 /* XCTest.framework */; };
-		D3A6C2EF1907413800F3EFF3 /* XPStep.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A6C2ED1907413800F3EFF3 /* XPStep.h */; };
-		D3A6C2F01907413800F3EFF3 /* XPStep.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A6C2EE1907413800F3EFF3 /* XPStep.m */; };
+		D3A6C2EF1907413800F3EFF3 /* XPAxisStep.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A6C2ED1907413800F3EFF3 /* XPAxisStep.h */; };
+		D3A6C2F01907413800F3EFF3 /* XPAxisStep.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A6C2EE1907413800F3EFF3 /* XPAxisStep.m */; };
 		D3A6C2F31907457500F3EFF3 /* XPNodeTypeTest.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A6C2F11907457500F3EFF3 /* XPNodeTypeTest.h */; };
 		D3A6C2F41907457500F3EFF3 /* XPNodeTypeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A6C2F21907457500F3EFF3 /* XPNodeTypeTest.m */; };
 		D3A6FCB419465B7300FCF2C1 /* XPEmptyNodeSet.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A6FCB319465B7300FCF2C1 /* XPEmptyNodeSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -779,8 +779,8 @@
 		D3A6C2E31907391200F3EFF3 /* XPAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPAxis.m; path = src/XPAxis.m; sourceTree = "<group>"; };
 		D3A6C2E919073B4700F3EFF3 /* XPStepTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPStepTest.m; path = test/XPStepTest.m; sourceTree = "<group>"; };
 		D3A6C2EB19073D4900F3EFF3 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		D3A6C2ED1907413800F3EFF3 /* XPStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPStep.h; path = src/XPStep.h; sourceTree = "<group>"; };
-		D3A6C2EE1907413800F3EFF3 /* XPStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPStep.m; path = src/XPStep.m; sourceTree = "<group>"; };
+		D3A6C2ED1907413800F3EFF3 /* XPAxisStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPAxisStep.h; path = src/XPAxisStep.h; sourceTree = "<group>"; };
+		D3A6C2EE1907413800F3EFF3 /* XPAxisStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPAxisStep.m; path = src/XPAxisStep.m; sourceTree = "<group>"; };
 		D3A6C2F11907457500F3EFF3 /* XPNodeTypeTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPNodeTypeTest.h; path = src/XPNodeTypeTest.h; sourceTree = "<group>"; };
 		D3A6C2F21907457500F3EFF3 /* XPNodeTypeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNodeTypeTest.m; path = src/XPNodeTypeTest.m; sourceTree = "<group>"; };
 		D3A6C2F7190756FC00F3EFF3 /* XPAxisEnumeration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = XPAxisEnumeration.h; path = src/XPAxisEnumeration.h; sourceTree = "<group>"; };
@@ -1511,8 +1511,8 @@
 				D3C178221884472800F90600 /* XPAxisExpression.m */,
 				D3F0CC10191EC8590049EC02 /* XPAxis.h */,
 				D3A6C2E31907391200F3EFF3 /* XPAxis.m */,
-				D3A6C2ED1907413800F3EFF3 /* XPStep.h */,
-				D3A6C2EE1907413800F3EFF3 /* XPStep.m */,
+				D3A6C2ED1907413800F3EFF3 /* XPAxisStep.h */,
+				D3A6C2EE1907413800F3EFF3 /* XPAxisStep.m */,
 				D3D20AED196F32B500741F3B /* XPPauseState.h */,
 				D3D20AEE196F32B500741F3B /* XPPauseState.m */,
 				D3F0CBDD191EC4F10049EC02 /* XPSingletonExpression.h */,
@@ -1700,7 +1700,7 @@
 				D372998F19674143004B1B7A /* XPItem.h in Headers */,
 				D3F0CC03191EC8180049EC02 /* XPExpression.h in Headers */,
 				D3F0CBAB191EC23D0049EC02 /* FNStringLength.h in Headers */,
-				D3A6C2EF1907413800F3EFF3 /* XPStep.h in Headers */,
+				D3A6C2EF1907413800F3EFF3 /* XPAxisStep.h in Headers */,
 				D3F4586D196DE28300F05EA0 /* XPAbstractNodeEnumeration.h in Headers */,
 				D3F0CC0B191EC8250049EC02 /* XPSequenceValue.h in Headers */,
 				D3C0F59E19214FE700566524 /* FNTrimSpace.h in Headers */,
@@ -2120,7 +2120,7 @@
 				D32A3B4119703B7800DA9E39 /* FNInsertBefore.m in Sources */,
 				D3479561193FDEA100181E56 /* FNLang.m in Sources */,
 				D37A30701015952F00E936B7 /* FNEndsWith.m in Sources */,
-				D3A6C2F01907413800F3EFF3 /* XPStep.m in Sources */,
+				D3A6C2F01907413800F3EFF3 /* XPAxisStep.m in Sources */,
 				D339F61F1927B66500C79A51 /* nanoftp.c in Sources */,
 				D339F63C1927B66500C79A51 /* tree.c in Sources */,
 				D32A3B35197031EE00DA9E39 /* FNIndexOf.m in Sources */,

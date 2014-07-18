@@ -9,11 +9,11 @@
 #import "XPAbstractNodeEnumeration.h"
 
 @class XPExpression;
-@class XPStep;
+@class XPAxisStep;
 @class XPContext;
 
 @interface XPPathEnumeration : XPAbstractNodeEnumeration
 
-- (instancetype)initWithStart:(XPExpression *)start step:(XPStep *)step context:(XPContext *)ctx;
+- (instancetype)initWithStart:(XPExpression *)start step:(XPAxisStep *)step context:(XPContext *)ctx;
 
 @end

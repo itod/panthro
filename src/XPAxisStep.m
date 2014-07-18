@@ -1,12 +1,12 @@
 //
-//  XPStep.m
+//  XPAxisStep.m
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 4/22/14.
 //
 //
 
-#import "XPStep.h"
+#import "XPAxisStep.h"
 #import "XPNodeTest.h"
 #import "XPExpression.h"
 #import "XPValue.h"
@@ -29,14 +29,14 @@
 #import "XPPauseState.h"
 #endif
 
-@interface XPStep ()
+@interface XPAxisStep ()
 @property (nonatomic, retain) NSMutableArray *allFilters;
 #if PAUSE_ENABLED
 @property (nonatomic, retain) XPPauseState *pauseState;
 #endif
 @end
 
-@implementation XPStep
+@implementation XPAxisStep
 
 - (instancetype)initWithAxis:(XPAxis)axis nodeTest:(XPNodeTest *)nodeTest {
     self = [super init];
@@ -66,7 +66,7 @@
 
 
 - (id)copyWithZone:(NSZone *)zone {
-    XPStep *step = [[XPStep allocWithZone:zone] init];
+    XPAxisStep *step = [[XPAxisStep allocWithZone:zone] init];
     step.axis = _axis;
     step.nodeTest = _nodeTest;
     step.range = _range;
@@ -90,7 +90,7 @@
 }
 
 
-- (XPStep *)addFilter:(XPExpression *)expr {
+- (XPAxisStep *)addFilter:(XPExpression *)expr {
     XPAssert(expr);
     if (!_allFilters) {
         self.allFilters = [NSMutableArray arrayWithCapacity:2];
@@ -106,7 +106,7 @@
  * indicating that the step will always give an empty result.
  */
 
-- (XPStep *)simplify {
+- (XPAxisStep *)simplify {
     
     NSUInteger c = [_allFilters count];
     NSUInteger i = c - 1;

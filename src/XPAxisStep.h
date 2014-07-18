@@ -1,5 +1,5 @@
 //
-//  XPStep.h
+//  XPAxisStep.h
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 4/22/14.
@@ -16,12 +16,12 @@
 @protocol XPSequenceEnumeration;
 @protocol XPNodeInfo;
 
-@interface XPStep : NSObject <NSCopying>
+@interface XPAxisStep : NSObject <NSCopying>
 
 - (instancetype)initWithAxis:(XPAxis)axis nodeTest:(XPNodeTest *)nodeTest;
 
-- (XPStep *)addFilter:(XPExpression *)expr;
-- (XPStep *)simplify;
+- (XPAxisStep *)addFilter:(XPExpression *)expr;
+- (XPAxisStep *)simplify;
 - (id <XPSequenceEnumeration>)enumerate:(id <XPNodeInfo>)node inContext:(XPContext *)ctx parent:(XPExpression *)expr;
 
 @property (nonatomic, retain, readonly) NSArray *filters;

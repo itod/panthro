@@ -1,5 +1,5 @@
 //
-//  XPStepTest.m
+//  XPAxisStepTest.m
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 4/22/14.
@@ -14,14 +14,14 @@
 #import "XPNodeInfo.h"
 #import "XPStandaloneContext.h"
 
-@interface XPStepTest : XCTestCase
+@interface XPAxisStepTest : XCTestCase
 @property (nonatomic, retain) XPExpression *expr;
 @property (nonatomic, retain) id <XPStaticContext>env;
 @property (nonatomic, retain) XPContext *ctx;
 @property (nonatomic, retain) XPSequenceValue *res;
 @end
 
-@implementation XPStepTest
+@implementation XPAxisStepTest
 
 - (void)setUp {
     [super setUp];

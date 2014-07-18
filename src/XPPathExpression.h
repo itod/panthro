@@ -8,13 +8,13 @@
 
 #import "XPNodeSetExpression.h"
 
-@class XPStep;
+@class XPAxisStep;
 
 @interface XPPathExpression : XPNodeSetExpression
 
-- (instancetype)initWithStart:(XPExpression *)start step:(XPStep *)step;
+- (instancetype)initWithStart:(XPExpression *)start step:(XPAxisStep *)step;
 
 @property (nonatomic, retain) XPExpression *start;
-@property (nonatomic, retain) XPStep *step;
+@property (nonatomic, retain) XPAxisStep *step;
 @property (nonatomic, assign) XPDependencies dependencies;
 @end

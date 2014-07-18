@@ -11,7 +11,7 @@
 #import "XPSync.h"
 #import "XPContext.h"
 #import "XPException.h"
-#import "XPStep.h"
+#import "XPAxisStep.h"
 #import "XPAxis.h"
 #import "XPLocalOrderComparer.h"
 
@@ -41,7 +41,7 @@
  * node-set
  */
 
-- (instancetype)initWithStart:(XPExpression *)start step:(XPStep *)step {
+- (instancetype)initWithStart:(XPExpression *)start step:(XPAxisStep *)step {
     self = [super init];
     if (self) {
         self.dependencies = XPDependenciesInvalid;
@@ -158,7 +158,7 @@
     XPExpression *result = self;
     if ((self.dependencies & dep) != 0) {
         XPExpression *newstart = [_start reduceDependencies:dep inContext:ctx];
-        XPStep *newstep = [[_step copy] autorelease];
+        XPAxisStep *newstep = [[_step copy] autorelease];
 
         NSUInteger removedep = dep & XPDependenciesXSLTContext;
         if (_start.isContextDocumentNodeSet && ((dep & XPDependenciesContextDocument) != 0)) {

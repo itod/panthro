@@ -32,7 +32,7 @@
 #import "XPNodeComparisonExpression.h"
 #import "XPArithmeticExpression.h"
 
-#import "XPStep.h"
+#import "XPAxisStep.h"
 #import "XPAxis.h"
 #import "XPNodeTypeTest.h"
 #import "XPNameTest.h"
@@ -736,7 +736,7 @@
     XPAssertExpr(pathExpr);
     
     for (id part in [pathParts reverseObjectEnumerator]) {
-        XPStep *step = nil;
+        XPAxisStep *step = nil;
         if ([_slash isEqual:part]) {
             continue;
         } else if ([_doubleSlash isEqual:part]) {
@@ -745,7 +745,7 @@
             nodeTest.range = NSMakeRange(offset+2, 0);
             step = [self stepWithStartOffset:offset maxOffset:NSNotFound axis:XPAxisDescendantOrSelf nodeTest:nodeTest filters:nil];
         } else {
-            XPAssert([part isKindOfClass:[XPStep class]]);
+            XPAssert([part isKindOfClass:[XPAxisStep class]]);
             step = (id)part;
         }
         NSUInteger offset = pathExpr.range.location;
@@ -817,8 +817,8 @@
 - (void)parser:(PKParser *)p didMatchFirstRelativeStep:(PKAssembly *)a {
     id obj = [a pop];
     
-    XPStep *step = (id)obj;
-    XPAssert([step isKindOfClass:[XPStep class]]);
+    XPAxisStep *step = (id)obj;
+    XPAssert([step isKindOfClass:[XPAxisStep class]]);
     
     XPExpression *startNodeExpr = nil;
     BOOL skipStep = NO;
@@ -875,7 +875,7 @@
     XPNodeTest *nodeTest = [[[XPNodeTypeTest alloc] initWithNodeType:XPNodeTypeNode] autorelease];
     NSUInteger offset = slashTok.offset;
     nodeTest.range = NSMakeRange(offset+2, 0);
-    XPStep *step = [self stepWithStartOffset:offset maxOffset:NSNotFound axis:XPAxisDescendantOrSelf nodeTest:nodeTest filters:nil];
+    XPAxisStep *step = [self stepWithStartOffset:offset maxOffset:NSNotFound axis:XPAxisDescendantOrSelf nodeTest:nodeTest filters:nil];
     [a push:step];
     [a push:_slash];
 }
@@ -909,8 +909,8 @@
 }
 
 
-- (XPStep *)stepWithStartOffset:(NSUInteger)startOffset maxOffset:(NSUInteger)maxOffset axis:(XPAxis)axis nodeTest:(XPNodeTest *)nodeTest filters:(NSArray *)filters {
-    XPStep *step = [[[XPStep alloc] initWithAxis:axis nodeTest:nodeTest] autorelease];
+- (XPAxisStep *)stepWithStartOffset:(NSUInteger)startOffset maxOffset:(NSUInteger)maxOffset axis:(XPAxis)axis nodeTest:(XPNodeTest *)nodeTest filters:(NSArray *)filters {
+    XPAxisStep *step = [[[XPAxisStep alloc] initWithAxis:axis nodeTest:nodeTest] autorelease];
     for (XPExpression *f in filters) {
         [step addFilter:f];
     }
@@ -954,7 +954,7 @@
         nodeTest.nodeType = XPAxisPrincipalNodeType[axis];
     }
     
-    XPStep *step = [self stepWithStartOffset:axisTok.offset maxOffset:maxOffset axis:axis nodeTest:nodeTest filters:filters];
+    XPAxisStep *step = [self stepWithStartOffset:axisTok.offset maxOffset:maxOffset axis:axis nodeTest:nodeTest filters:filters];
     [a push:step];
 }
 
@@ -973,7 +973,7 @@
         nodeTest.nodeType = XPAxisPrincipalNodeType[axis];
     }
 
-    XPStep *step = [self stepWithStartOffset:nodeTest.range.location maxOffset:maxOffset axis:axis nodeTest:nodeTest filters:filters];
+    XPAxisStep *step = [self stepWithStartOffset:nodeTest.range.location maxOffset:maxOffset axis:axis nodeTest:nodeTest filters:filters];
     [a push:step];
 }
 
@@ -994,7 +994,7 @@
     
     XPNodeTest *nodeTest = [[[XPNodeTypeTest alloc] initWithNodeType:XPNodeTypeNode] autorelease];
     nodeTest.range = NSMakeRange(dotTok.offset, len);
-    XPStep *step = [self stepWithStartOffset:dotTok.offset maxOffset:NSNotFound axis:axis nodeTest:nodeTest filters:nil];
+    XPAxisStep *step = [self stepWithStartOffset:dotTok.offset maxOffset:NSNotFound axis:axis nodeTest:nodeTest filters:nil];
     [a push:step];
 }
 
