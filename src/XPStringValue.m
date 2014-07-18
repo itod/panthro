@@ -33,6 +33,13 @@
 }
 
 
+- (id)copyWithZone:(NSZone *)zone {
+    XPStringValue *expr = [super copyWithZone:zone];
+    expr.value = _value;
+    return expr;
+}
+
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"'%@'", [self asString]];
 }

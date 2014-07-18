@@ -44,6 +44,14 @@
 }
 
 
+- (id)copyWithZone:(NSZone *)zone {
+    XPSingletonNodeSet *expr = [super copyWithZone:zone];
+    expr.node = _node;
+    expr.generalUseAllowed = _generalUseAllowed;
+    return expr;
+}
+
+
 #pragma mark -
 #pragma mark XPSequence
 

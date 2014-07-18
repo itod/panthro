@@ -35,6 +35,13 @@
 }
 
 
+- (id)copyWithZone:(NSZone *)zone {
+    XPNumericValue *expr = [super copyWithZone:zone];
+    expr->_value = _value;
+    return expr;
+}
+
+
 - (NSString *)description {
     return [self asString];
 }

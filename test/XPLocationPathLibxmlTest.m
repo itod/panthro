@@ -1100,6 +1100,38 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
+- (void)testChapterSlashOpenParaPipeTitleClosePred1 {
+    [self eval:@"chapter/(para|title)[1]"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    for (NSUInteger i = 0; i < 3; ++i) {
+        id <XPNodeInfo>node = [enm nextNodeInfo];
+        TDEqualObjects(@"title", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+        TDEqualObjects(_titles[i], node.stringValue);
+    }
+    
+    TDFalse([enm hasMoreItems]);
+}
+
+
+- (void)testChapterSlashOpenParaPipeTitleClosePred2 {
+    [self eval:@"chapter/(para|title)[2]"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    for (NSUInteger i = 0; i < 3; ++i) {
+        id <XPNodeInfo>node = [enm nextNodeInfo];
+        TDEqualObjects(@"para", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+        TDEqualObjects(_paras[i], node.stringValue);
+    }
+    
+    TDFalse([enm hasMoreItems]);
+}
+
+
 - (void)testSlashBookSlashIdOpenCh1CloseSlashTitle {
     [self eval:@"/book/id('c1')/title"];
     

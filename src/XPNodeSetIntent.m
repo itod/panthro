@@ -48,6 +48,16 @@
 }
 
 
+- (id)copyWithZone:(NSZone *)zone {
+    XPNodeSetIntent *expr = [super copyWithZone:zone];
+    expr.nodeSetExpression = [[_nodeSetExpression copy] autorelease];
+    expr.comparer = _comparer;
+    expr.sorted = _sorted;
+    expr.extent = [[_extent copy] autorelease];
+    return expr;
+}
+
+
 #pragma mark -
 #pragma mark XPSequence
 

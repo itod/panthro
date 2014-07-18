@@ -25,6 +25,13 @@
 }
 
 
+- (id)copyWithZone:(NSZone *)zone {
+    XPBooleanValue *expr = [super copyWithZone:zone];
+    expr->_value = _value;
+    return expr;
+}
+
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"%@()", [self asString]];
 }

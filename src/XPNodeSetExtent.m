@@ -63,6 +63,17 @@
 }
 
 
+- (id)copyWithZone:(NSZone *)zone {
+    XPNodeSetExtent *expr = [super copyWithZone:zone];
+    expr.value = [[_value copy] autorelease];
+    expr.count = _count;
+    expr.comparer = _comparer;
+    expr.sorted = _sorted;
+    expr.reverseSorted = _reverseSorted;
+    return expr;
+}
+
+
 #pragma mark -
 #pragma mark XPSequence
 
