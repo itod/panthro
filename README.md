@@ -2,6 +2,8 @@
 
 Panthro is an implementation of XPath in Objective-C with decent unit test coverage, and intended for use on Apple's iOS and OS X platforms with bindings for **libxml** and NSXML included.
 
+Panthro is mostly a port of the XPath 1.0 portions of the excellent [Saxon](http://saxonica.com) 6.5 Java library by Michael Kay with my own additions.
+
 Panthro supports all of XPath 1.0 and many of the most interesting features of 2.0 and even some of XPath 3.0 and XQuery. Here are some of the features supported by Panthro:
 
 #####From XPath 1.0:
@@ -9,7 +11,7 @@ Panthro supports all of XPath 1.0 and many of the most interesting features of 2
 
 #####From XPath 2.0:
 * Support for **sequences** (`('a', 'b', 'c')` or `()`)
-* Steps in Path expressions may be arbitrary sub expressions (`book/(chapter|appendix)/*`)
+* Steps in Path expressions may be arbitrary sub-expressions (`book/(chapter|appendix)/*`)
 * `for` looping expressions
 * `if` conditional expressions
 * `some` and `every` quantified expressions
@@ -31,9 +33,9 @@ Panthro supports all of XPath 1.0 and many of the most interesting features of 2
 I think most people familiar with XPath and XQuery will agree these are the most usefull and interesting features beyond XPath 1.0, and Panthro has them all. Most of what is "missing" from XPath 2.0 in Panthro is related to the overly-complex and unpopular XML Schema-inspired static type system. Currently, implementing that portion of XPath 2.0 is not planned, and is probably a non-goal in the long term.
 
 ####Data Model
-Panthro's current data model (or type system) is a blend of XPath 1.0 + Sequences from XPath 2.0. The types are basically `item` (think base class), `string`, `number`, `boolean`, `node`, and `sequence`. As in XPath 2.0, every `item` is also a `sequence` of length 1. Any XPath or XQuery features related to explicit static types (e.g. `as xs:integer`) and casts (e.g. `cast as xs:string`, `treat as xs:double`, `instance of xs:dateTime`) are **not** currently supported, and will cause a syntax error.
+Panthro's current data model lies somewhere in between XPath 1.0 and 2.0. Panthro's type system has the simple, dynamic flavor and small number of types from XPath 1.0 plus the pervasive addition of Sequences from XPath 2.0.
 
-Panthro is mostly a port of the XPath 1.0 portions of the excellent [Saxon](http://saxonica.com) 6.5 Java library by Michael Kay with my own additions to add sequences and the interesting bits from XPath 2.0 and 3.0, and XQuery 1.0.
+The types are basically `item` (think base class), `string`, `number`, `boolean`, `node`, and `sequence`. As in XPath 2.0, every `item` is also a `sequence` of length 1. Any XPath or XQuery features related to explicit static types (e.g. `as xs:integer`) and casts (e.g. `cast as xs:string`, `treat as xs:double`, `instance of xs:dateTime`) are **not** currently supported, and will cause a syntax error.
 
 The XPath parser is based on [PEGKit](http://www.github.com/itod/pegkit). The PEGKit dependency is managed via [git externals](http://nopugs.com/ext-tutorial).
 
