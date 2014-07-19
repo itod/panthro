@@ -180,7 +180,7 @@ pathExpr = filterExpr | locationPath;
             nodeTest = typeTest | specificPITest | nameTest;
                 nameTest = '*' ':' ncName | '*' | ncName ':' '*' | qName; // note whitespace should not be allowed in second alt here
                 typeTest = nodeType '('! ')';
-                nodeType = comment | text | processingInstruction | node;
+                nodeType = comment | text | processingInstruction | node; // | item | element | attribute | documentNode;
                 specificPITest = processingInstruction '('! literal ')';
             abbreviatedStep = '.' | '..';
 
@@ -213,6 +213,10 @@ comment = 'comment';
 text = 'text';
 processingInstruction = 'processing-instruction';
 node = 'node';
+//item = 'item';
+//element = 'element';
+//attribute = 'attribute';
+//documentNode = 'document-node';
 
 valEq = 'eq';
 valNe = 'ne';
@@ -248,4 +252,8 @@ keyword
     | text
     | processingInstruction
     | node
+//    | item
+//    | element
+//    | attribute
+//    | documentNode
     ;

@@ -1199,6 +1199,25 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
+- (void)testChapterSlashOpenStarPred2ExceptOpenSlashSlashParaPred3CloseSlashTextOpenClose {
+    [self eval:@"chapter/(*[2] except (//para)[3])/text()"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextNodeInfo];
+    TDEqualObjects(@"", node.name);
+    TDEquals(XPNodeTypeText, node.nodeType);
+    TDEqualObjects(_paras[0], node.stringValue);
+    
+    node = [enm nextNodeInfo];
+    TDEqualObjects(@"", node.name);
+    TDEquals(XPNodeTypeText, node.nodeType);
+    TDEqualObjects(_paras[1], node.stringValue);
+    
+    TDFalse([enm hasMoreItems]);
+}
+
+
 - (void)testChapterSlashOpenParaPred2PipeTitlePred3Close {
     [self eval:@"chapter/(para[2]|title[3])"];
     
