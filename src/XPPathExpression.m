@@ -175,6 +175,7 @@
     if ((self.dependencies & dep) != 0) {
         XPExpression *newstart = [_start reduceDependencies:dep inContext:ctx];
         XPExpression *newstep = [[_step copy] autorelease];
+        [newstep removeAllFilters];
 
         NSUInteger removedep = dep & XPDependenciesXSLTContext;
         if (_start.isContextDocumentNodeSet && ((dep & XPDependenciesContextDocument) != 0)) {

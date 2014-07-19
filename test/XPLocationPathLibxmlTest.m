@@ -1132,6 +1132,39 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
 }
 
 
+- (void)testChapterSlashOpenParaPred1PipeTitlePred1Close {
+    [self eval:@"chapter/(para[1]|title[1])"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    NSUInteger titleIdx = 0;
+    NSUInteger paraIdx = 0;
+    for (NSUInteger i = 0; i < 6; ++i) {
+        id <XPNodeInfo>node = [enm nextNodeInfo];
+        if (i % 2 == 0) {
+            TDEqualObjects(@"title", node.name);
+            TDEquals(XPNodeTypeElement, node.nodeType);
+            TDEqualObjects(_titles[titleIdx++], node.stringValue);
+        } else {
+            TDEqualObjects(@"para", node.name);
+            TDEquals(XPNodeTypeElement, node.nodeType);
+            TDEqualObjects(_paras[paraIdx++], node.stringValue);
+        }
+    }
+    
+    TDFalse([enm hasMoreItems]);
+}
+
+
+- (void)testChapterSlashOpenParaPred2PipeTitlePred3Close {
+    [self eval:@"chapter/(para[2]|title[3])"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+
+    TDFalse([enm hasMoreItems]);
+}
+
+
 - (void)testChapterSlashOpenParaPipeTitleClosePred2 {
     [self eval:@"chapter/(para|title)[2]"];
     

@@ -70,12 +70,12 @@
     expr.axis = _axis;
     expr.nodeTest = _nodeTest;
     expr.baseRange = _baseRange;
+    expr.allFilters = [[_allFilters mutableCopy] autorelease];
     
 #if PAUSE_ENABLED
     expr.pauseState = _pauseState;
 #endif
     
-    // don't copy filters.
     return expr;
 }
 
@@ -86,6 +86,11 @@
         [str appendFormat:@"[%@]", f];
     }
     return [[str copy] autorelease];
+}
+
+
+- (void)removeAllFilters {
+    self.allFilters = nil;
 }
 
 

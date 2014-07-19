@@ -178,6 +178,11 @@ const NSUInteger XPathErrorCodeRuntime = 2;
 }
 
 
+- (void)removeAllFilters {
+    
+}
+
+
 - (XPExpression *)addFilter:(XPExpression *)f {
     return [[[XPFilterExpression alloc] initWithStart:self filter:f] autorelease];
 }

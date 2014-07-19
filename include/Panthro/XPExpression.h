@@ -73,6 +73,7 @@ typedef NS_ENUM(NSUInteger, XPDependencies) {
 @property (nonatomic, retain) id <XPStaticContext>staticContext;
 
 - (XPExpression *)addFilter:(XPExpression *)f;
+- (void)removeAllFilters;
 @property (nonatomic, retain, readonly) NSArray *filters;
 @property (nonatomic, assign, readonly) NSUInteger numberOfFilters;
 @end
