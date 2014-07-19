@@ -115,7 +115,7 @@ exprSingle = orExpr | forExpr | quantifiedExpr | ifExpr | functionExpr;
                     compareAdditiveExpr = ('<' | '>' | '<=' | '>=' | valLt | valGt | valLe | valGe | '<<' | '>>') additiveExpr;
                     
                     additiveExpr = multiplicativeExpr plusOrMinusMultiExpr*;
-                        plusOrMinusMultiExpr  = (('+' | '-') multiplicativeExpr) | { [LT(1) isNumber] && [LS(1) hasPrefix:@"-"] }? multiplicativeExpr;
+                        plusOrMinusMultiExpr  = (('+' | '-') multiplicativeExpr) | { [LS(1) hasPrefix:@"-"] }? number;
 
                         multiplicativeExpr = unaryExpr multDivOrModUnaryExpr*;
                             multDivOrModUnaryExpr = ((multiplyOperator | div | mod) unaryExpr);

@@ -1398,7 +1398,7 @@
 
 - (void)__plusOrMinusMultiExpr {
     
-    if ([self speculate:^{ if ([self predicts:XPEG_TOKEN_KIND_PLUS, 0]) {[self match:XPEG_TOKEN_KIND_PLUS discard:NO]; } else if ([self predicts:XPEG_TOKEN_KIND_MINUS, 0]) {[self match:XPEG_TOKEN_KIND_MINUS discard:NO]; } else {[self raise:@"No viable alternative found in rule 'plusOrMinusMultiExpr'."];}[self multiplicativeExpr_]; }]) {
+    if ([self predicts:XPEG_TOKEN_KIND_MINUS, XPEG_TOKEN_KIND_PLUS, 0]) {
         if ([self predicts:XPEG_TOKEN_KIND_PLUS, 0]) {
             [self match:XPEG_TOKEN_KIND_PLUS discard:NO]; 
         } else if ([self predicts:XPEG_TOKEN_KIND_MINUS, 0]) {
@@ -1407,9 +1407,9 @@
             [self raise:@"No viable alternative found in rule 'plusOrMinusMultiExpr'."];
         }
         [self multiplicativeExpr_]; 
-    } else if ([self speculate:^{ [self testAndThrow:(id)^{ return [LT(1) isNumber] && [LS(1) hasPrefix:@"-"]; }]; [self multiplicativeExpr_]; }]) {
-        [self testAndThrow:(id)^{ return [LT(1) isNumber] && [LS(1) hasPrefix:@"-"]; }]; 
-        [self multiplicativeExpr_]; 
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
+        [self testAndThrow:(id)^{ return [LS(1) hasPrefix:@"-"]; }]; 
+        [self number_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'plusOrMinusMultiExpr'."];
     }
