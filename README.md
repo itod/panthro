@@ -4,7 +4,7 @@ Panthro is an implementation of XPath in Objective-C with decent unit test cover
 
 Panthro is mostly a port of the XPath 1.0 portions of the excellent [Saxon](http://saxonica.com) 6.5 Java library by Michael Kay with my own additions.
 
-Panthro supports all of XPath 1.0 and many of the most interesting features of 2.0 and even some of XPath 3.0 and XQuery. Here are some of the features supported by Panthro:
+Panthro supports all of XPath 1.0 and many of the most interesting features of 2.0 and even some of XPath 3.0 and XQuery 3.0. Here are some of the features supported by Panthro:
 
 #####From XPath 1.0:
 * Evertything (I think)
