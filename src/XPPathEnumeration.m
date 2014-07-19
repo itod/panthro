@@ -71,7 +71,7 @@
 
 - (id <XPNodeInfo>)nextNode {
     id <XPNodeInfo>result = nil;
-
+    
     // if we are currently processing a step, we continue with it. Otherwise,
     // we get the next base element, and apply the step to that.
 
@@ -79,8 +79,13 @@
         result = [_tail nextNodeInfo];
     } else {
         while ([_base hasMoreItems]) {
-            id <XPNodeInfo>node = [_base nextNodeInfo];
-            
+            id <XPNodeInfo>node = nil;
+            @try {
+                node = [_base nextNodeInfo];
+            } @catch (XPException *ex) {
+                [XPException raiseIn:_start format:[ex reason]];
+            }
+
             if ([self isAxisStep]) {
                 self.tail = [(XPAxisStep *)_step enumerate:node inContext:_context parent:_start];
             } else {
@@ -90,12 +95,16 @@
             }
 
             if ([_tail hasMoreItems]) {
-                result = [_tail nextNodeInfo];
+                @try {
+                    result = [_tail nextNodeInfo];
+                } @catch (XPException *ex) {
+                    [XPException raiseIn:_step format:[ex reason]];
+                }
                 break;
             }
         }
     }
-
+    
     return result;
 }
 
