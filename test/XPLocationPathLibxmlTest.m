@@ -2725,4 +2725,18 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDFalse([enm hasMoreItems]);
 }
 
+
+- (void)testOpenSlashSlashTitleClosePredLastOpenCloseMinus2 {
+    [self eval:@"(//title)[last()-2]"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextNodeInfo];
+    TDEqualObjects(@"title", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDEqualObjects(_titles[0], node.stringValue);
+    
+    TDFalse([enm hasMoreItems]);
+}
+
 @end
