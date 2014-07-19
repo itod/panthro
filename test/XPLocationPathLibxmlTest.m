@@ -2669,4 +2669,60 @@ NOTE: The location path //para[1] does not mean the same as the location path /d
     TDFalse([enm hasMoreItems]);
 }
 
+
+- (void)testOpenSlashSlashTitleClosePredLastOpenCloseSpaceMinusSpace1 {
+    [self eval:@"(//title)[last() - 1]"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextNodeInfo];
+    TDEqualObjects(@"title", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDEqualObjects(_titles[1], node.stringValue);
+    
+    TDFalse([enm hasMoreItems]);
+}
+
+
+- (void)testOpenSlashSlashTitleClosePredLastOpenCloseSpaceMinus1 {
+    [self eval:@"(//title)[last() -1]"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextNodeInfo];
+    TDEqualObjects(@"title", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDEqualObjects(_titles[1], node.stringValue);
+    
+    TDFalse([enm hasMoreItems]);
+}
+
+
+- (void)testOpenSlashSlashTitleClosePredLastOpenCloseMinusSpace1 {
+    [self eval:@"(//title)[last()- 1]"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextNodeInfo];
+    TDEqualObjects(@"title", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDEqualObjects(_titles[1], node.stringValue);
+    
+    TDFalse([enm hasMoreItems]);
+}
+
+
+- (void)testOpenSlashSlashTitleClosePredLastOpenCloseMinus1 {
+    [self eval:@"(//title)[last()-1]"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = [enm nextNodeInfo];
+    TDEqualObjects(@"title", node.name);
+    TDEquals(XPNodeTypeElement, node.nodeType);
+    TDEqualObjects(_titles[1], node.stringValue);
+    
+    TDFalse([enm hasMoreItems]);
+}
+
 @end
