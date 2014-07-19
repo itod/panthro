@@ -155,4 +155,25 @@
     TDEquals(0.0, _res);
 }
 
+
+- (void)testArithmeticExpr2 {
+    self.expr =[XPExpression expressionFromString:@"1- 2" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(-1.0, _res);
+}
+
+
+- (void)testArithmeticExpr3 {
+    self.expr =[XPExpression expressionFromString:@"1 -2" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(-1.0, _res);
+}
+
+
+- (void)testArithmeticExpr4 {
+    self.expr =[XPExpression expressionFromString:@"1-2" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(-1.0, _res);
+}
+
 @end

@@ -569,19 +569,27 @@
 
 - (void)parser:(PKParser *)p didMatchAnyArithmeticExpr:(PKAssembly *)a {
     XPValue *p2 = [a pop];
-    PKToken *opTok = [a pop];
+    id opTok = [a pop];
     XPValue *p1 = [a pop];
     
     NSInteger op = XPEG_TOKEN_KIND_PLUS;
     
-    if ([@"-" isEqualToString:opTok.stringValue]) {
+    if ([@"-" isEqualToString:[opTok stringValue]]) {
         op = XPEG_TOKEN_KIND_MINUS;
-    } else if ([@"div" isEqualToString:opTok.stringValue]) {
+    } else if ([@"+" isEqualToString:[opTok stringValue]]) {
+        op = XPEG_TOKEN_KIND_PLUS;
+    } else if ([@"div" isEqualToString:[opTok stringValue]]) {
         op = XPEG_TOKEN_KIND_DIV;
-    } else if ([@"*" isEqualToString:opTok.stringValue]) {
+    } else if ([@"*" isEqualToString:[opTok stringValue]]) {
         op = XPEG_TOKEN_KIND_MULTIPLYOPERATOR;
-    } else if ([@"mod" isEqualToString:opTok.stringValue]) {
+    } else if ([@"mod" isEqualToString:[opTok stringValue]]) {
         op = XPEG_TOKEN_KIND_MOD;
+    } else if ([p2 isKindOfClass:[XPNumericValue class]] && [[p2 stringValue] hasPrefix:@"-"]) {
+        [a push:p1];
+        op = XPEG_TOKEN_KIND_PLUS;
+        p1 = opTok;
+    } else {
+        XPAssert(0);
     }
     
     XPExpression *mathExpr = [XPArithmeticExpression arithmeticExpressionWithOperand:p1 operator:op operand:p2];
