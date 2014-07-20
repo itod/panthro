@@ -1599,7 +1599,7 @@
         if ([self predicts:XPEG_TOKEN_KIND_MINUS, 0]) {
             [self match:XPEG_TOKEN_KIND_MINUS discard:NO]; 
         } else if ([self predicts:XPEG_TOKEN_KIND_PLUS, 0]) {
-            [self match:XPEG_TOKEN_KIND_PLUS discard:NO]; 
+            [self match:XPEG_TOKEN_KIND_PLUS discard:YES]; 
         } else {
             [self raise:@"No viable alternative found in rule 'prefixedUnionExpr'."];
         }

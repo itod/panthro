@@ -57,7 +57,6 @@
 @interface XPAssembler ()
 @property (nonatomic, retain) id <XPStaticContext>env;
 @property (nonatomic, retain) NSDictionary *nodeTypeTab;
-@property (nonatomic, retain) PKToken *plus;
 @property (nonatomic, retain) PKToken *minus;
 @property (nonatomic, retain) PKToken *openParen;
 @property (nonatomic, retain) PKToken *comma;
@@ -90,7 +89,6 @@
     XPAssert(env);
     if (self = [super init]) {
         self.env = env;
-        self.plus = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"+" doubleValue:0.0];
         self.minus = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"-" doubleValue:0.0];
         self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
         self.comma = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"," doubleValue:0.0];
@@ -136,7 +134,6 @@
 - (void)dealloc {
     self.env = nil;
     self.nodeTypeTab = nil;
-    self.plus = nil;
     self.minus = nil;
     self.openParen = nil;
     self.comma = nil;
@@ -1101,30 +1098,32 @@
 
 - (void)parser:(PKParser *)p didMatchPrefixedUnionExpr:(PKAssembly *)a {
     XPValue *val = [a pop];
-    PKToken *tok = [a pop];
+    id tok = [a pop];
 
     BOOL isNegative = NO;
     NSUInteger offset = NSNotFound;
-    do {
+    while ([tok isEqual:_minus]) {
         XPAssertToken(tok);
-        XPAssert([tok.stringValue isEqualToString:@"-"] || [tok.stringValue isEqualToString:@"+"]);
-        offset = tok.offset;
-        if ([tok isEqual:_minus]) {
-            isNegative = !isNegative;
-        }
+        XPAssert([[tok stringValue] isEqualToString:@"-"]);
+        offset = [tok offset];
+        isNegative = !isNegative;
         tok = [a pop];
-    } while ([tok isEqual:_plus] || [tok isEqual:_minus]);
+    }
     
     [a push:tok]; // put that last one back, fool
     
-    double d = [val asNumber];
-    if (isNegative) d = -d;
-    
-    XPExpression *numExpr = [XPNumericValue numericValueWithNumber:d];
-    XPAssert(NSNotFound != offset);
-    numExpr.range = NSMakeRange(offset, NSMaxRange(val.range) - offset);
-    numExpr.staticContext = _env;
-    [a push:numExpr];
+    if (NSNotFound == offset) {
+        [a push:val];
+    } else {
+        double d = [val asNumber];
+        if (isNegative) d = -d;
+        
+        XPExpression *numExpr = [XPNumericValue numericValueWithNumber:d];
+        XPAssert(NSNotFound != offset);
+        numExpr.range = NSMakeRange(offset, NSMaxRange(val.range) - offset);
+        numExpr.staticContext = _env;
+        [a push:numExpr];
+    }
 }
 
 

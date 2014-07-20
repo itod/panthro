@@ -134,7 +134,7 @@ exprSingle = orExpr | forExpr | quantifiedExpr | ifExpr | functionExpr;
                                         modulo = 'mod'!;
 
                                     unaryExpr = prefixedUnionExpr | unionExpr;
-                                        prefixedUnionExpr = ('-' | '+')+ unionExpr;
+                                        prefixedUnionExpr = ('-' | '+'!)+ unionExpr;
                                         unionExpr = intersectExceptExpr unionTail*;
                                             unionTail = ('|' | 'union') intersectExceptExpr;
                                         intersectExceptExpr = pathExpr intersectExceptTail*;
