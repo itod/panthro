@@ -47,18 +47,18 @@
 @property (nonatomic, retain) NSMutableDictionary *plusMultiExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *minusMultiExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *multiplicativeExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *multUnaryExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *divUnaryExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *modUnaryExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *timesUnionExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *divUnionExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *modUnionExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *times_memo;
 @property (nonatomic, retain) NSMutableDictionary *divide_memo;
 @property (nonatomic, retain) NSMutableDictionary *modulo_memo;
-@property (nonatomic, retain) NSMutableDictionary *unaryExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *prefixedUnionExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *unionExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *unionTail_memo;
 @property (nonatomic, retain) NSMutableDictionary *intersectExceptExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *intersectExceptTail_memo;
+@property (nonatomic, retain) NSMutableDictionary *unaryExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *prefixedUnaryExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *pathExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *filterExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *complexFilterPath_memo;
@@ -368,18 +368,18 @@
         self.plusMultiExpr_memo = [NSMutableDictionary dictionary];
         self.minusMultiExpr_memo = [NSMutableDictionary dictionary];
         self.multiplicativeExpr_memo = [NSMutableDictionary dictionary];
-        self.multUnaryExpr_memo = [NSMutableDictionary dictionary];
-        self.divUnaryExpr_memo = [NSMutableDictionary dictionary];
-        self.modUnaryExpr_memo = [NSMutableDictionary dictionary];
+        self.timesUnionExpr_memo = [NSMutableDictionary dictionary];
+        self.divUnionExpr_memo = [NSMutableDictionary dictionary];
+        self.modUnionExpr_memo = [NSMutableDictionary dictionary];
         self.times_memo = [NSMutableDictionary dictionary];
         self.divide_memo = [NSMutableDictionary dictionary];
         self.modulo_memo = [NSMutableDictionary dictionary];
-        self.unaryExpr_memo = [NSMutableDictionary dictionary];
-        self.prefixedUnionExpr_memo = [NSMutableDictionary dictionary];
         self.unionExpr_memo = [NSMutableDictionary dictionary];
         self.unionTail_memo = [NSMutableDictionary dictionary];
         self.intersectExceptExpr_memo = [NSMutableDictionary dictionary];
         self.intersectExceptTail_memo = [NSMutableDictionary dictionary];
+        self.unaryExpr_memo = [NSMutableDictionary dictionary];
+        self.prefixedUnaryExpr_memo = [NSMutableDictionary dictionary];
         self.pathExpr_memo = [NSMutableDictionary dictionary];
         self.filterExpr_memo = [NSMutableDictionary dictionary];
         self.complexFilterPath_memo = [NSMutableDictionary dictionary];
@@ -516,18 +516,18 @@
     self.plusMultiExpr_memo = nil;
     self.minusMultiExpr_memo = nil;
     self.multiplicativeExpr_memo = nil;
-    self.multUnaryExpr_memo = nil;
-    self.divUnaryExpr_memo = nil;
-    self.modUnaryExpr_memo = nil;
+    self.timesUnionExpr_memo = nil;
+    self.divUnionExpr_memo = nil;
+    self.modUnionExpr_memo = nil;
     self.times_memo = nil;
     self.divide_memo = nil;
     self.modulo_memo = nil;
-    self.unaryExpr_memo = nil;
-    self.prefixedUnionExpr_memo = nil;
     self.unionExpr_memo = nil;
     self.unionTail_memo = nil;
     self.intersectExceptExpr_memo = nil;
     self.intersectExceptTail_memo = nil;
+    self.unaryExpr_memo = nil;
+    self.prefixedUnaryExpr_memo = nil;
     self.pathExpr_memo = nil;
     self.filterExpr_memo = nil;
     self.complexFilterPath_memo = nil;
@@ -663,18 +663,18 @@
     [_plusMultiExpr_memo removeAllObjects];
     [_minusMultiExpr_memo removeAllObjects];
     [_multiplicativeExpr_memo removeAllObjects];
-    [_multUnaryExpr_memo removeAllObjects];
-    [_divUnaryExpr_memo removeAllObjects];
-    [_modUnaryExpr_memo removeAllObjects];
+    [_timesUnionExpr_memo removeAllObjects];
+    [_divUnionExpr_memo removeAllObjects];
+    [_modUnionExpr_memo removeAllObjects];
     [_times_memo removeAllObjects];
     [_divide_memo removeAllObjects];
     [_modulo_memo removeAllObjects];
-    [_unaryExpr_memo removeAllObjects];
-    [_prefixedUnionExpr_memo removeAllObjects];
     [_unionExpr_memo removeAllObjects];
     [_unionTail_memo removeAllObjects];
     [_intersectExceptExpr_memo removeAllObjects];
     [_intersectExceptTail_memo removeAllObjects];
+    [_unaryExpr_memo removeAllObjects];
+    [_prefixedUnaryExpr_memo removeAllObjects];
     [_pathExpr_memo removeAllObjects];
     [_filterExpr_memo removeAllObjects];
     [_complexFilterPath_memo removeAllObjects];
@@ -1487,14 +1487,14 @@
 
 - (void)__multiplicativeExpr {
     
-    [self unaryExpr_]; 
-    while ([self speculate:^{ if ([self predicts:XPEG_TOKEN_KIND_TIMES, 0]) {[self multUnaryExpr_]; } else if ([self predicts:XPEG_TOKEN_KIND_DIVIDE, 0]) {[self divUnaryExpr_]; } else if ([self predicts:XPEG_TOKEN_KIND_MODULO, 0]) {[self modUnaryExpr_]; } else {[self raise:@"No viable alternative found in rule 'multiplicativeExpr'."];}}]) {
+    [self unionExpr_]; 
+    while ([self speculate:^{ if ([self predicts:XPEG_TOKEN_KIND_TIMES, 0]) {[self timesUnionExpr_]; } else if ([self predicts:XPEG_TOKEN_KIND_DIVIDE, 0]) {[self divUnionExpr_]; } else if ([self predicts:XPEG_TOKEN_KIND_MODULO, 0]) {[self modUnionExpr_]; } else {[self raise:@"No viable alternative found in rule 'multiplicativeExpr'."];}}]) {
         if ([self predicts:XPEG_TOKEN_KIND_TIMES, 0]) {
-            [self multUnaryExpr_]; 
+            [self timesUnionExpr_]; 
         } else if ([self predicts:XPEG_TOKEN_KIND_DIVIDE, 0]) {
-            [self divUnaryExpr_]; 
+            [self divUnionExpr_]; 
         } else if ([self predicts:XPEG_TOKEN_KIND_MODULO, 0]) {
-            [self modUnaryExpr_]; 
+            [self modUnionExpr_]; 
         } else {
             [self raise:@"No viable alternative found in rule 'multiplicativeExpr'."];
         }
@@ -1507,40 +1507,40 @@
     [self parseRule:@selector(__multiplicativeExpr) withMemo:_multiplicativeExpr_memo];
 }
 
-- (void)__multUnaryExpr {
+- (void)__timesUnionExpr {
     
     [self times_]; 
-    [self unaryExpr_]; 
+    [self unionExpr_]; 
 
-    [self fireDelegateSelector:@selector(parser:didMatchMultUnaryExpr:)];
+    [self fireDelegateSelector:@selector(parser:didMatchTimesUnionExpr:)];
 }
 
-- (void)multUnaryExpr_ {
-    [self parseRule:@selector(__multUnaryExpr) withMemo:_multUnaryExpr_memo];
+- (void)timesUnionExpr_ {
+    [self parseRule:@selector(__timesUnionExpr) withMemo:_timesUnionExpr_memo];
 }
 
-- (void)__divUnaryExpr {
+- (void)__divUnionExpr {
     
     [self divide_]; 
-    [self unaryExpr_]; 
+    [self unionExpr_]; 
 
-    [self fireDelegateSelector:@selector(parser:didMatchDivUnaryExpr:)];
+    [self fireDelegateSelector:@selector(parser:didMatchDivUnionExpr:)];
 }
 
-- (void)divUnaryExpr_ {
-    [self parseRule:@selector(__divUnaryExpr) withMemo:_divUnaryExpr_memo];
+- (void)divUnionExpr_ {
+    [self parseRule:@selector(__divUnionExpr) withMemo:_divUnionExpr_memo];
 }
 
-- (void)__modUnaryExpr {
+- (void)__modUnionExpr {
     
     [self modulo_]; 
-    [self unaryExpr_]; 
+    [self unionExpr_]; 
 
-    [self fireDelegateSelector:@selector(parser:didMatchModUnaryExpr:)];
+    [self fireDelegateSelector:@selector(parser:didMatchModUnionExpr:)];
 }
 
-- (void)modUnaryExpr_ {
-    [self parseRule:@selector(__modUnaryExpr) withMemo:_modUnaryExpr_memo];
+- (void)modUnionExpr_ {
+    [self parseRule:@selector(__modUnionExpr) withMemo:_modUnionExpr_memo];
 }
 
 - (void)__times {
@@ -1574,43 +1574,6 @@
 
 - (void)modulo_ {
     [self parseRule:@selector(__modulo) withMemo:_modulo_memo];
-}
-
-- (void)__unaryExpr {
-    
-    if ([self predicts:XPEG_TOKEN_KIND_MINUS, XPEG_TOKEN_KIND_PLUS, 0]) {
-        [self prefixedUnionExpr_]; 
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_ABBREVIATEDAXIS, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIVIDE, XPEG_TOKEN_KIND_DOLLAR, XPEG_TOKEN_KIND_DOT, XPEG_TOKEN_KIND_DOT_DOT, XPEG_TOKEN_KIND_DOUBLE_SLASH, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_FORWARD_SLASH, XPEG_TOKEN_KIND_MODULO, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OPEN_PAREN, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TIMES, XPEG_TOKEN_KIND_TRUE, 0]) {
-        [self unionExpr_]; 
-    } else {
-        [self raise:@"No viable alternative found in rule 'unaryExpr'."];
-    }
-
-    [self fireDelegateSelector:@selector(parser:didMatchUnaryExpr:)];
-}
-
-- (void)unaryExpr_ {
-    [self parseRule:@selector(__unaryExpr) withMemo:_unaryExpr_memo];
-}
-
-- (void)__prefixedUnionExpr {
-    
-    do {
-        if ([self predicts:XPEG_TOKEN_KIND_MINUS, 0]) {
-            [self match:XPEG_TOKEN_KIND_MINUS discard:NO]; 
-        } else if ([self predicts:XPEG_TOKEN_KIND_PLUS, 0]) {
-            [self match:XPEG_TOKEN_KIND_PLUS discard:YES]; 
-        } else {
-            [self raise:@"No viable alternative found in rule 'prefixedUnionExpr'."];
-        }
-    } while ([self predicts:XPEG_TOKEN_KIND_MINUS, XPEG_TOKEN_KIND_PLUS, 0]);
-    [self unionExpr_]; 
-
-    [self fireDelegateSelector:@selector(parser:didMatchPrefixedUnionExpr:)];
-}
-
-- (void)prefixedUnionExpr_ {
-    [self parseRule:@selector(__prefixedUnionExpr) withMemo:_prefixedUnionExpr_memo];
 }
 
 - (void)__unionExpr {
@@ -1647,7 +1610,7 @@
 
 - (void)__intersectExceptExpr {
     
-    [self pathExpr_]; 
+    [self unaryExpr_]; 
     while ([self speculate:^{ [self intersectExceptTail_]; }]) {
         [self intersectExceptTail_]; 
     }
@@ -1668,13 +1631,50 @@
     } else {
         [self raise:@"No viable alternative found in rule 'intersectExceptTail'."];
     }
-    [self pathExpr_]; 
+    [self unaryExpr_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchIntersectExceptTail:)];
 }
 
 - (void)intersectExceptTail_ {
     [self parseRule:@selector(__intersectExceptTail) withMemo:_intersectExceptTail_memo];
+}
+
+- (void)__unaryExpr {
+    
+    if ([self predicts:XPEG_TOKEN_KIND_MINUS, XPEG_TOKEN_KIND_PLUS, 0]) {
+        [self prefixedUnaryExpr_]; 
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_ABBREVIATEDAXIS, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIVIDE, XPEG_TOKEN_KIND_DOLLAR, XPEG_TOKEN_KIND_DOT, XPEG_TOKEN_KIND_DOT_DOT, XPEG_TOKEN_KIND_DOUBLE_SLASH, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_FORWARD_SLASH, XPEG_TOKEN_KIND_MODULO, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OPEN_PAREN, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TIMES, XPEG_TOKEN_KIND_TRUE, 0]) {
+        [self pathExpr_]; 
+    } else {
+        [self raise:@"No viable alternative found in rule 'unaryExpr'."];
+    }
+
+    [self fireDelegateSelector:@selector(parser:didMatchUnaryExpr:)];
+}
+
+- (void)unaryExpr_ {
+    [self parseRule:@selector(__unaryExpr) withMemo:_unaryExpr_memo];
+}
+
+- (void)__prefixedUnaryExpr {
+    
+    do {
+        if ([self predicts:XPEG_TOKEN_KIND_MINUS, 0]) {
+            [self match:XPEG_TOKEN_KIND_MINUS discard:NO]; 
+        } else if ([self predicts:XPEG_TOKEN_KIND_PLUS, 0]) {
+            [self match:XPEG_TOKEN_KIND_PLUS discard:YES]; 
+        } else {
+            [self raise:@"No viable alternative found in rule 'prefixedUnaryExpr'."];
+        }
+    } while ([self predicts:XPEG_TOKEN_KIND_MINUS, XPEG_TOKEN_KIND_PLUS, 0]);
+    [self pathExpr_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchPrefixedUnaryExpr:)];
+}
+
+- (void)prefixedUnaryExpr_ {
+    [self parseRule:@selector(__prefixedUnaryExpr) withMemo:_prefixedUnaryExpr_memo];
 }
 
 - (void)__pathExpr {

@@ -587,9 +587,9 @@
 
 - (void)parser:(PKParser *)p didMatchPlusMultiExpr:(PKAssembly *)a { [self parser:p didMatchAnyArithmeticExpr:a operator:XPEG_TOKEN_KIND_PLUS]; }
 - (void)parser:(PKParser *)p didMatchMinusMultiExpr:(PKAssembly *)a { [self parser:p didMatchAnyArithmeticExpr:a operator:XPEG_TOKEN_KIND_MINUS]; }
-- (void)parser:(PKParser *)p didMatchMultUnaryExpr:(PKAssembly *)a { [self parser:p didMatchAnyArithmeticExpr:a operator:XPEG_TOKEN_KIND_TIMES]; }
-- (void)parser:(PKParser *)p didMatchDivUnaryExpr:(PKAssembly *)a { [self parser:p didMatchAnyArithmeticExpr:a operator:XPEG_TOKEN_KIND_DIVIDE]; }
-- (void)parser:(PKParser *)p didMatchModUnaryExpr:(PKAssembly *)a { [self parser:p didMatchAnyArithmeticExpr:a operator:XPEG_TOKEN_KIND_MODULO]; }
+- (void)parser:(PKParser *)p didMatchTimesUnionExpr:(PKAssembly *)a { [self parser:p didMatchAnyArithmeticExpr:a operator:XPEG_TOKEN_KIND_TIMES]; }
+- (void)parser:(PKParser *)p didMatchDivUnionExpr:(PKAssembly *)a { [self parser:p didMatchAnyArithmeticExpr:a operator:XPEG_TOKEN_KIND_DIVIDE]; }
+- (void)parser:(PKParser *)p didMatchModUnionExpr:(PKAssembly *)a { [self parser:p didMatchAnyArithmeticExpr:a operator:XPEG_TOKEN_KIND_MODULO]; }
 
 - (void)parser:(PKParser *)p didMatchAnyArithmeticExpr:(PKAssembly *)a operator:(NSUInteger)op {
     XPValue *p2 = [a pop];
@@ -1096,7 +1096,7 @@
 }
 
 
-- (void)parser:(PKParser *)p didMatchPrefixedUnionExpr:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchPrefixedUnaryExpr:(PKAssembly *)a {
     XPValue *val = [a pop];
     id tok = [a pop];
 

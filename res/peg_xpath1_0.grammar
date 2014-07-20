@@ -125,20 +125,22 @@ exprSingle = orExpr | forExpr | quantifiedExpr | ifExpr | functionExpr;
                                 plusMultiExpr = '+'! multiplicativeExpr;
                                 minusMultiExpr = '-'! multiplicativeExpr;
 
-                                multiplicativeExpr = unaryExpr (multUnaryExpr | divUnaryExpr | modUnaryExpr)*;
-                                    multUnaryExpr = times unaryExpr;
-                                    divUnaryExpr = divide unaryExpr;
-                                    modUnaryExpr = modulo unaryExpr;
+                                multiplicativeExpr = unionExpr (timesUnionExpr | divUnionExpr | modUnionExpr)*;
+                                    timesUnionExpr = times unionExpr;
+                                    divUnionExpr = divide unionExpr;
+                                    modUnionExpr = modulo unionExpr;
                                         times = '*'!;
                                         divide = 'div'!; // yes, these must be distinct from keywords below
                                         modulo = 'mod'!;
 
-                                    unaryExpr = prefixedUnionExpr | unionExpr;
-                                        prefixedUnionExpr = ('-' | '+'!)+ unionExpr;
-                                        unionExpr = intersectExceptExpr unionTail*;
-                                            unionTail = ('|' | 'union') intersectExceptExpr;
-                                        intersectExceptExpr = pathExpr intersectExceptTail*;
-                                            intersectExceptTail = ('intersect' | 'except') pathExpr;
+                                    unionExpr = intersectExceptExpr unionTail*;
+                                        unionTail = ('|' | 'union') intersectExceptExpr;
+
+                                        intersectExceptExpr = unaryExpr intersectExceptTail*;
+                                            intersectExceptTail = ('intersect' | 'except') unaryExpr;
+
+                                            unaryExpr = prefixedUnaryExpr | pathExpr;
+                                                prefixedUnaryExpr = ('-' | '+'!)+ pathExpr;
 
 
 pathExpr = filterExpr | locationPath;
