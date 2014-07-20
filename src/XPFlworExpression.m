@@ -119,6 +119,9 @@
             NSUInteger orderSpecIdx = 0;
 
             do {
+                XPAssert(orderSpecIdx < [t1.orderSpecs count]);
+                XPAssert(orderSpecIdx < [t2.orderSpecs count]);
+                
                 XPOrderSpec *spec1 = t1.orderSpecs[orderSpecIdx];
                 XPOrderSpec *spec2 = t2.orderSpecs[orderSpecIdx];
                 XPAssert(spec1.modifier == spec2.modifier);
@@ -216,9 +219,11 @@
                     }
                 }
 
-                XPTuple *t = [XPTuple tupeWithResultItems:tupleResItems groupSpecs:tupleGroupSpecs orderSpecs:tupleOrderSpecs];
-                XPAssert(inTuples);
-                [inTuples addObject:t];
+                if ([tupleResItems count]) {
+                    XPTuple *t = [XPTuple tupeWithResultItems:tupleResItems groupSpecs:tupleGroupSpecs orderSpecs:tupleOrderSpecs];
+                    XPAssert(inTuples);
+                    [inTuples addObject:t];
+                }
             }
         }
     }
