@@ -34,7 +34,9 @@
 @property (nonatomic, retain) NSMutableDictionary *orExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *orAndExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *andExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *andRangeExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *andStringConcatExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *stringConcatExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *concatRangeExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *rangeExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *toEqualityExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *equalityExpr_memo;
@@ -152,7 +154,7 @@
         self.tokenKindTab[@"!="] = @(XPEG_TOKEN_KIND_NOT_EQUAL);
         self.tokenKindTab[@"("] = @(XPEG_TOKEN_KIND_OPEN_PAREN);
         self.tokenKindTab[@"}"] = @(XPEG_TOKEN_KIND_CLOSE_CURLY);
-        self.tokenKindTab[@"ancestor-or-self"] = @(XPEG_TOKEN_KIND_ANCESTORORSELF);
+        self.tokenKindTab[@"following"] = @(XPEG_TOKEN_KIND_FOLLOWING);
         self.tokenKindTab[@")"] = @(XPEG_TOKEN_KIND_CLOSE_PAREN);
         self.tokenKindTab[@"by"] = @(XPEG_TOKEN_KIND_BY);
         self.tokenKindTab[@"descendant-or-self"] = @(XPEG_TOKEN_KIND_DESCENDANTORSELF);
@@ -178,6 +180,7 @@
         self.tokenKindTab[@"false"] = @(XPEG_TOKEN_KIND_FALSE);
         self.tokenKindTab[@"["] = @(XPEG_TOKEN_KIND_OPEN_BRACKET);
         self.tokenKindTab[@"eq"] = @(XPEG_TOKEN_KIND_VALEQ);
+        self.tokenKindTab[@"||"] = @(XPEG_TOKEN_KIND_DOUBLE_PIPE);
         self.tokenKindTab[@"lt"] = @(XPEG_TOKEN_KIND_VALLT);
         self.tokenKindTab[@"function"] = @(XPEG_TOKEN_KIND_FUNCTION);
         self.tokenKindTab[@"]"] = @(XPEG_TOKEN_KIND_CLOSE_BRACKET);
@@ -230,13 +233,13 @@
         self.tokenKindTab[@":="] = @(XPEG_TOKEN_KIND_ASSIGN);
         self.tokenKindTab[@"{"] = @(XPEG_TOKEN_KIND_OPEN_CURLY);
         self.tokenKindTab[@"intersect"] = @(XPEG_TOKEN_KIND_INTERSECT);
-        self.tokenKindTab[@"following"] = @(XPEG_TOKEN_KIND_FOLLOWING);
+        self.tokenKindTab[@"ancestor-or-self"] = @(XPEG_TOKEN_KIND_ANCESTORORSELF);
 
         self.tokenKindNameTab[XPEG_TOKEN_KIND_PIPE] = @"|";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_NOT_EQUAL] = @"!=";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_OPEN_PAREN] = @"(";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_CLOSE_CURLY] = @"}";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_ANCESTORORSELF] = @"ancestor-or-self";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_FOLLOWING] = @"following";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_CLOSE_PAREN] = @")";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_BY] = @"by";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_DESCENDANTORSELF] = @"descendant-or-self";
@@ -262,6 +265,7 @@
         self.tokenKindNameTab[XPEG_TOKEN_KIND_FALSE] = @"false";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_OPEN_BRACKET] = @"[";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_VALEQ] = @"eq";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_DOUBLE_PIPE] = @"||";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_VALLT] = @"lt";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_FUNCTION] = @"function";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_CLOSE_BRACKET] = @"]";
@@ -314,7 +318,7 @@
         self.tokenKindNameTab[XPEG_TOKEN_KIND_ASSIGN] = @":=";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_OPEN_CURLY] = @"{";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_INTERSECT] = @"intersect";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_FOLLOWING] = @"following";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_ANCESTORORSELF] = @"ancestor-or-self";
 
         self.xpath_memo = [NSMutableDictionary dictionary];
         self.prologue_memo = [NSMutableDictionary dictionary];
@@ -346,7 +350,9 @@
         self.orExpr_memo = [NSMutableDictionary dictionary];
         self.orAndExpr_memo = [NSMutableDictionary dictionary];
         self.andExpr_memo = [NSMutableDictionary dictionary];
-        self.andRangeExpr_memo = [NSMutableDictionary dictionary];
+        self.andStringConcatExpr_memo = [NSMutableDictionary dictionary];
+        self.stringConcatExpr_memo = [NSMutableDictionary dictionary];
+        self.concatRangeExpr_memo = [NSMutableDictionary dictionary];
         self.rangeExpr_memo = [NSMutableDictionary dictionary];
         self.toEqualityExpr_memo = [NSMutableDictionary dictionary];
         self.equalityExpr_memo = [NSMutableDictionary dictionary];
@@ -487,7 +493,9 @@
     self.orExpr_memo = nil;
     self.orAndExpr_memo = nil;
     self.andExpr_memo = nil;
-    self.andRangeExpr_memo = nil;
+    self.andStringConcatExpr_memo = nil;
+    self.stringConcatExpr_memo = nil;
+    self.concatRangeExpr_memo = nil;
     self.rangeExpr_memo = nil;
     self.toEqualityExpr_memo = nil;
     self.equalityExpr_memo = nil;
@@ -627,7 +635,9 @@
     [_orExpr_memo removeAllObjects];
     [_orAndExpr_memo removeAllObjects];
     [_andExpr_memo removeAllObjects];
-    [_andRangeExpr_memo removeAllObjects];
+    [_andStringConcatExpr_memo removeAllObjects];
+    [_stringConcatExpr_memo removeAllObjects];
+    [_concatRangeExpr_memo removeAllObjects];
     [_rangeExpr_memo removeAllObjects];
     [_toEqualityExpr_memo removeAllObjects];
     [_equalityExpr_memo removeAllObjects];
@@ -741,6 +751,7 @@
 
         PKTokenizer *t = self.tokenizer;
         [t.symbolState add:@"//"];
+        [t.symbolState add:@"||"];
         [t.symbolState add:@".."];
         [t.symbolState add:@":="];
         [t.symbolState add:@"!="];
@@ -1246,9 +1257,9 @@
 
 - (void)__andExpr {
     
-    [self rangeExpr_]; 
-    while ([self speculate:^{ [self andRangeExpr_]; }]) {
-        [self andRangeExpr_]; 
+    [self stringConcatExpr_]; 
+    while ([self speculate:^{ [self andStringConcatExpr_]; }]) {
+        [self andStringConcatExpr_]; 
     }
 
     [self fireDelegateSelector:@selector(parser:didMatchAndExpr:)];
@@ -1258,16 +1269,42 @@
     [self parseRule:@selector(__andExpr) withMemo:_andExpr_memo];
 }
 
-- (void)__andRangeExpr {
+- (void)__andStringConcatExpr {
     
     [self and_]; 
-    [self rangeExpr_]; 
+    [self stringConcatExpr_]; 
 
-    [self fireDelegateSelector:@selector(parser:didMatchAndRangeExpr:)];
+    [self fireDelegateSelector:@selector(parser:didMatchAndStringConcatExpr:)];
 }
 
-- (void)andRangeExpr_ {
-    [self parseRule:@selector(__andRangeExpr) withMemo:_andRangeExpr_memo];
+- (void)andStringConcatExpr_ {
+    [self parseRule:@selector(__andStringConcatExpr) withMemo:_andStringConcatExpr_memo];
+}
+
+- (void)__stringConcatExpr {
+    
+    [self rangeExpr_]; 
+    while ([self speculate:^{ [self concatRangeExpr_]; }]) {
+        [self concatRangeExpr_]; 
+    }
+
+    [self fireDelegateSelector:@selector(parser:didMatchStringConcatExpr:)];
+}
+
+- (void)stringConcatExpr_ {
+    [self parseRule:@selector(__stringConcatExpr) withMemo:_stringConcatExpr_memo];
+}
+
+- (void)__concatRangeExpr {
+    
+    [self match:XPEG_TOKEN_KIND_DOUBLE_PIPE discard:YES]; 
+    [self rangeExpr_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchConcatRangeExpr:)];
+}
+
+- (void)concatRangeExpr_ {
+    [self parseRule:@selector(__concatRangeExpr) withMemo:_concatRangeExpr_memo];
 }
 
 - (void)__rangeExpr {

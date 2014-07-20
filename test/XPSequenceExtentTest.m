@@ -744,4 +744,11 @@
     TDTrue(yn);
 }
 
+
+- (void)testFooPipePipeBar {
+    [self eval:@"'foo' || 'bar'"];
+    
+    TDEqualObjects(@"foobar", [_res stringValue]);
+}
+
 @end

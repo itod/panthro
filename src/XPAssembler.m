@@ -31,6 +31,7 @@
 #import "XPRelationalExpression.h"
 #import "XPNodeComparisonExpression.h"
 #import "XPArithmeticExpression.h"
+#import "XPStringConcatExpression.h"
 
 #import "XPAxisStep.h"
 #import "XPAxis.h"
@@ -476,7 +477,7 @@
 
 
 - (void)parser:(PKParser *)p didMatchOrAndExpr:(PKAssembly *)a { [self parser:p didMatchAnyBooleanExpr:a]; }
-- (void)parser:(PKParser *)p didMatchAndRangeExpr:(PKAssembly *)a { [self parser:p didMatchAnyBooleanExpr:a]; }
+- (void)parser:(PKParser *)p didMatchAndStringConcatExpr:(PKAssembly *)a { [self parser:p didMatchAnyBooleanExpr:a]; }
 
 - (void)parser:(PKParser *)p didMatchAnyBooleanExpr:(PKAssembly *)a {
     XPValue *p2 = [a pop];
@@ -493,6 +494,20 @@
     boolExpr.range = NSMakeRange(p1.range.location, NSMaxRange(p2.range) - p1.range.location);
     boolExpr.staticContext = _env;
     [a push:boolExpr];
+}
+
+
+- (void)parser:(PKParser *)p didMatchConcatRangeExpr:(PKAssembly *)a {
+    XPExpression *p2 = [a pop];
+    XPExpression *p1 = [a pop];
+    
+    XPAssertExpr(p1);
+    XPAssertExpr(p2);
+    
+    XPExpression *concatExpr = [XPStringConcatExpression stringConcatExpressionWithOperand:p1 operator:0 operand:p2];
+    concatExpr.range = NSMakeRange(p1.range.location, NSMaxRange(p2.range) - p1.range.location);
+    concatExpr.staticContext = _env;
+    [a push:concatExpr];
 }
 
 

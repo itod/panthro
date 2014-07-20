@@ -28,6 +28,7 @@
 
         PKTokenizer *t = self.tokenizer;
         [t.symbolState add:@"//"];
+        [t.symbolState add:@"||"];
         [t.symbolState add:@".."];
         [t.symbolState add:@":="];
         [t.symbolState add:@"!="];
@@ -102,31 +103,35 @@ exprSingle = orExpr | forExpr | quantifiedExpr | ifExpr | functionExpr;
 
     orExpr = andExpr orAndExpr*;
         orAndExpr = (or andExpr);
-        andExpr = rangeExpr andRangeExpr*;
-            andRangeExpr = (and rangeExpr);
 
-        rangeExpr = equalityExpr toEqualityExpr?;
-            toEqualityExpr = (to equalityExpr);
+        andExpr = stringConcatExpr andStringConcatExpr*;
+            andStringConcatExpr = (and stringConcatExpr);
+            
+            stringConcatExpr = rangeExpr concatRangeExpr*;
+                concatRangeExpr = ('||'! rangeExpr);
 
-            equalityExpr = relationalExpr eqRelationalExpr*;
-                eqRelationalExpr = ('=' | '!=' | 'is' | valEq | valNe) relationalExpr;
+                rangeExpr = equalityExpr toEqualityExpr?;
+                    toEqualityExpr = (to equalityExpr);
 
-                relationalExpr = additiveExpr compareAdditiveExpr*;
-                    compareAdditiveExpr = ('<' | '>' | '<=' | '>=' | valLt | valGt | valLe | valGe | '<<' | '>>') additiveExpr;
-                    
-                    additiveExpr = multiplicativeExpr plusOrMinusMultiExpr*;
-                        plusOrMinusMultiExpr  = (('+' | '-') multiplicativeExpr) | { [LS(1) hasPrefix:@"-"] }? number;
+                    equalityExpr = relationalExpr eqRelationalExpr*;
+                        eqRelationalExpr = ('=' | '!=' | 'is' | valEq | valNe) relationalExpr;
 
-                        multiplicativeExpr = unaryExpr multDivOrModUnaryExpr*;
-                            multDivOrModUnaryExpr = ((multiplyOperator | div | mod) unaryExpr);
+                        relationalExpr = additiveExpr compareAdditiveExpr*;
+                            compareAdditiveExpr = ('<' | '>' | '<=' | '>=' | valLt | valGt | valLe | valGe | '<<' | '>>') additiveExpr;
                             
-                            multiplyOperator = '*';
-                            unaryExpr = minusUnionExpr | unionExpr;
-                                minusUnionExpr = '-'+ unionExpr;
-                                unionExpr = intersectExceptExpr unionTail*;
-                                    unionTail = ('|' | 'union') intersectExceptExpr;
-                                intersectExceptExpr = pathExpr intersectExceptTail*;
-                                    intersectExceptTail = ('intersect' | 'except') pathExpr;
+                            additiveExpr = multiplicativeExpr plusOrMinusMultiExpr*;
+                                plusOrMinusMultiExpr  = (('+' | '-') multiplicativeExpr) | { [LS(1) hasPrefix:@"-"] }? number;
+
+                                multiplicativeExpr = unaryExpr multDivOrModUnaryExpr*;
+                                    multDivOrModUnaryExpr = ((multiplyOperator | div | mod) unaryExpr);
+                                    
+                                    multiplyOperator = '*';
+                                    unaryExpr = minusUnionExpr | unionExpr;
+                                        minusUnionExpr = '-'+ unionExpr;
+                                        unionExpr = intersectExceptExpr unionTail*;
+                                            unionTail = ('|' | 'union') intersectExceptExpr;
+                                        intersectExceptExpr = pathExpr intersectExceptTail*;
+                                            intersectExceptTail = ('intersect' | 'except') pathExpr;
 
 
 pathExpr = filterExpr | locationPath;
