@@ -36,14 +36,12 @@
             return n1 + n2;
         case XPEG_TOKEN_KIND_MINUS:
             return n1 - n2;
-        case XPEG_TOKEN_KIND_MULTIPLYOPERATOR:
+        case XPEG_TOKEN_KIND_TIMES:
             return n1 * n2;
-        case XPEG_TOKEN_KIND_DIV:
+        case XPEG_TOKEN_KIND_DIVIDE:
             return n1 / n2;
-        case XPEG_TOKEN_KIND_MOD:
+        case XPEG_TOKEN_KIND_MODULO:
             return lrint(n1) % lrint(n2);
-//        case XPEG_TOKEN_KIND_MINUS:
-//            return -n2;
         default:
             [XPException raiseIn:self format:@"invalid operator in arithmetic expr"];
             return NAN;

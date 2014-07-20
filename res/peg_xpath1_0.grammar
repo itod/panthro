@@ -121,13 +121,18 @@ exprSingle = orExpr | forExpr | quantifiedExpr | ifExpr | functionExpr;
                         relationalExpr = additiveExpr compareAdditiveExpr*;
                             compareAdditiveExpr = ('<' | '>' | '<=' | '>=' | valLt | valGt | valLe | valGe | '<<' | '>>') additiveExpr;
                             
-                            additiveExpr = multiplicativeExpr plusOrMinusMultiExpr*;
-                                plusOrMinusMultiExpr  = (('+' | '-') multiplicativeExpr);
+                            additiveExpr = multiplicativeExpr (plusMultiExpr | minusMultiExpr)*;
+                                plusMultiExpr = '+'! multiplicativeExpr;
+                                minusMultiExpr = '-'! multiplicativeExpr;
 
-                                multiplicativeExpr = unaryExpr multDivOrModUnaryExpr*;
-                                    multDivOrModUnaryExpr = ((multiplyOperator | div | mod) unaryExpr);
-                                    
-                                    multiplyOperator = '*';
+                                multiplicativeExpr = unaryExpr (multUnaryExpr | divUnaryExpr | modUnaryExpr)*;
+                                    multUnaryExpr = times unaryExpr;
+                                    divUnaryExpr = divide unaryExpr;
+                                    modUnaryExpr = modulo unaryExpr;
+                                        times = '*'!;
+                                        divide = 'div'!; // yes, these must be distinct from keywords below
+                                        modulo = 'mod'!;
+
                                     unaryExpr = prefixedUnionExpr | unionExpr;
                                         prefixedUnionExpr = ('-' | '+')+ unionExpr;
                                         unionExpr = intersectExceptExpr unionTail*;

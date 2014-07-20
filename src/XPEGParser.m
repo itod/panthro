@@ -44,10 +44,15 @@
 @property (nonatomic, retain) NSMutableDictionary *relationalExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *compareAdditiveExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *additiveExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *plusOrMinusMultiExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *plusMultiExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *minusMultiExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *multiplicativeExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *multDivOrModUnaryExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *multiplyOperator_memo;
+@property (nonatomic, retain) NSMutableDictionary *multUnaryExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *divUnaryExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *modUnaryExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *times_memo;
+@property (nonatomic, retain) NSMutableDictionary *divide_memo;
+@property (nonatomic, retain) NSMutableDictionary *modulo_memo;
 @property (nonatomic, retain) NSMutableDictionary *unaryExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *prefixedUnionExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *unionExpr_memo;
@@ -158,7 +163,7 @@
         self.tokenKindTab[@")"] = @(XPEG_TOKEN_KIND_CLOSE_PAREN);
         self.tokenKindTab[@"by"] = @(XPEG_TOKEN_KIND_BY);
         self.tokenKindTab[@"descendant-or-self"] = @(XPEG_TOKEN_KIND_DESCENDANTORSELF);
-        self.tokenKindTab[@"*"] = @(XPEG_TOKEN_KIND_MULTIPLYOPERATOR);
+        self.tokenKindTab[@"*"] = @(XPEG_TOKEN_KIND_TIMES);
         self.tokenKindTab[@"parent"] = @(XPEG_TOKEN_KIND_PARENT);
         self.tokenKindTab[@"return"] = @(XPEG_TOKEN_KIND_RETURN);
         self.tokenKindTab[@"+"] = @(XPEG_TOKEN_KIND_PLUS);
@@ -176,7 +181,7 @@
         self.tokenKindTab[@"/"] = @(XPEG_TOKEN_KIND_FORWARD_SLASH);
         self.tokenKindTab[@"preceding-sibling"] = @(XPEG_TOKEN_KIND_PRECEDINGSIBLING);
         self.tokenKindTab[@"<="] = @(XPEG_TOKEN_KIND_LE_SYM);
-        self.tokenKindTab[@"div"] = @(XPEG_TOKEN_KIND_DIV);
+        self.tokenKindTab[@"div"] = @(XPEG_TOKEN_KIND_DIVIDE);
         self.tokenKindTab[@"false"] = @(XPEG_TOKEN_KIND_FALSE);
         self.tokenKindTab[@"["] = @(XPEG_TOKEN_KIND_OPEN_BRACKET);
         self.tokenKindTab[@"eq"] = @(XPEG_TOKEN_KIND_VALEQ);
@@ -228,7 +233,7 @@
         self.tokenKindTab[@"$"] = @(XPEG_TOKEN_KIND_DOLLAR);
         self.tokenKindTab[@"declare"] = @(XPEG_TOKEN_KIND_DECLARE);
         self.tokenKindTab[@"following-sibling"] = @(XPEG_TOKEN_KIND_FOLLOWINGSIBLING);
-        self.tokenKindTab[@"mod"] = @(XPEG_TOKEN_KIND_MOD);
+        self.tokenKindTab[@"mod"] = @(XPEG_TOKEN_KIND_MODULO);
         self.tokenKindTab[@".."] = @(XPEG_TOKEN_KIND_DOT_DOT);
         self.tokenKindTab[@":="] = @(XPEG_TOKEN_KIND_ASSIGN);
         self.tokenKindTab[@"{"] = @(XPEG_TOKEN_KIND_OPEN_CURLY);
@@ -243,7 +248,7 @@
         self.tokenKindNameTab[XPEG_TOKEN_KIND_CLOSE_PAREN] = @")";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_BY] = @"by";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_DESCENDANTORSELF] = @"descendant-or-self";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_MULTIPLYOPERATOR] = @"*";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_TIMES] = @"*";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_PARENT] = @"parent";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_RETURN] = @"return";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_PLUS] = @"+";
@@ -261,7 +266,7 @@
         self.tokenKindNameTab[XPEG_TOKEN_KIND_FORWARD_SLASH] = @"/";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_PRECEDINGSIBLING] = @"preceding-sibling";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_LE_SYM] = @"<=";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_DIV] = @"div";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_DIVIDE] = @"div";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_FALSE] = @"false";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_OPEN_BRACKET] = @"[";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_VALEQ] = @"eq";
@@ -313,7 +318,7 @@
         self.tokenKindNameTab[XPEG_TOKEN_KIND_DOLLAR] = @"$";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_DECLARE] = @"declare";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_FOLLOWINGSIBLING] = @"following-sibling";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_MOD] = @"mod";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_MODULO] = @"mod";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_DOT_DOT] = @"..";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_ASSIGN] = @":=";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_OPEN_CURLY] = @"{";
@@ -360,10 +365,15 @@
         self.relationalExpr_memo = [NSMutableDictionary dictionary];
         self.compareAdditiveExpr_memo = [NSMutableDictionary dictionary];
         self.additiveExpr_memo = [NSMutableDictionary dictionary];
-        self.plusOrMinusMultiExpr_memo = [NSMutableDictionary dictionary];
+        self.plusMultiExpr_memo = [NSMutableDictionary dictionary];
+        self.minusMultiExpr_memo = [NSMutableDictionary dictionary];
         self.multiplicativeExpr_memo = [NSMutableDictionary dictionary];
-        self.multDivOrModUnaryExpr_memo = [NSMutableDictionary dictionary];
-        self.multiplyOperator_memo = [NSMutableDictionary dictionary];
+        self.multUnaryExpr_memo = [NSMutableDictionary dictionary];
+        self.divUnaryExpr_memo = [NSMutableDictionary dictionary];
+        self.modUnaryExpr_memo = [NSMutableDictionary dictionary];
+        self.times_memo = [NSMutableDictionary dictionary];
+        self.divide_memo = [NSMutableDictionary dictionary];
+        self.modulo_memo = [NSMutableDictionary dictionary];
         self.unaryExpr_memo = [NSMutableDictionary dictionary];
         self.prefixedUnionExpr_memo = [NSMutableDictionary dictionary];
         self.unionExpr_memo = [NSMutableDictionary dictionary];
@@ -503,10 +513,15 @@
     self.relationalExpr_memo = nil;
     self.compareAdditiveExpr_memo = nil;
     self.additiveExpr_memo = nil;
-    self.plusOrMinusMultiExpr_memo = nil;
+    self.plusMultiExpr_memo = nil;
+    self.minusMultiExpr_memo = nil;
     self.multiplicativeExpr_memo = nil;
-    self.multDivOrModUnaryExpr_memo = nil;
-    self.multiplyOperator_memo = nil;
+    self.multUnaryExpr_memo = nil;
+    self.divUnaryExpr_memo = nil;
+    self.modUnaryExpr_memo = nil;
+    self.times_memo = nil;
+    self.divide_memo = nil;
+    self.modulo_memo = nil;
     self.unaryExpr_memo = nil;
     self.prefixedUnionExpr_memo = nil;
     self.unionExpr_memo = nil;
@@ -645,10 +660,15 @@
     [_relationalExpr_memo removeAllObjects];
     [_compareAdditiveExpr_memo removeAllObjects];
     [_additiveExpr_memo removeAllObjects];
-    [_plusOrMinusMultiExpr_memo removeAllObjects];
+    [_plusMultiExpr_memo removeAllObjects];
+    [_minusMultiExpr_memo removeAllObjects];
     [_multiplicativeExpr_memo removeAllObjects];
-    [_multDivOrModUnaryExpr_memo removeAllObjects];
-    [_multiplyOperator_memo removeAllObjects];
+    [_multUnaryExpr_memo removeAllObjects];
+    [_divUnaryExpr_memo removeAllObjects];
+    [_modUnaryExpr_memo removeAllObjects];
+    [_times_memo removeAllObjects];
+    [_divide_memo removeAllObjects];
+    [_modulo_memo removeAllObjects];
     [_unaryExpr_memo removeAllObjects];
     [_prefixedUnionExpr_memo removeAllObjects];
     [_unionExpr_memo removeAllObjects];
@@ -916,7 +936,7 @@
 
 - (void)__exprSingle {
     
-    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_ABBREVIATEDAXIS, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIV, XPEG_TOKEN_KIND_DOLLAR, XPEG_TOKEN_KIND_DOT, XPEG_TOKEN_KIND_DOT_DOT, XPEG_TOKEN_KIND_DOUBLE_SLASH, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_FORWARD_SLASH, XPEG_TOKEN_KIND_MINUS, XPEG_TOKEN_KIND_MOD, XPEG_TOKEN_KIND_MULTIPLYOPERATOR, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OPEN_PAREN, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PLUS, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TRUE, 0]) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_ABBREVIATEDAXIS, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIVIDE, XPEG_TOKEN_KIND_DOLLAR, XPEG_TOKEN_KIND_DOT, XPEG_TOKEN_KIND_DOT_DOT, XPEG_TOKEN_KIND_DOUBLE_SLASH, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_FORWARD_SLASH, XPEG_TOKEN_KIND_MINUS, XPEG_TOKEN_KIND_MODULO, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OPEN_PAREN, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PLUS, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TIMES, XPEG_TOKEN_KIND_TRUE, 0]) {
         [self orExpr_]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_FOR, XPEG_TOKEN_KIND_LET, 0]) {
         [self forExpr_]; 
@@ -1424,8 +1444,14 @@
 - (void)__additiveExpr {
     
     [self multiplicativeExpr_]; 
-    while ([self speculate:^{ [self plusOrMinusMultiExpr_]; }]) {
-        [self plusOrMinusMultiExpr_]; 
+    while ([self speculate:^{ if ([self predicts:XPEG_TOKEN_KIND_PLUS, 0]) {[self plusMultiExpr_]; } else if ([self predicts:XPEG_TOKEN_KIND_MINUS, 0]) {[self minusMultiExpr_]; } else {[self raise:@"No viable alternative found in rule 'additiveExpr'."];}}]) {
+        if ([self predicts:XPEG_TOKEN_KIND_PLUS, 0]) {
+            [self plusMultiExpr_]; 
+        } else if ([self predicts:XPEG_TOKEN_KIND_MINUS, 0]) {
+            [self minusMultiExpr_]; 
+        } else {
+            [self raise:@"No viable alternative found in rule 'additiveExpr'."];
+        }
     }
 
     [self fireDelegateSelector:@selector(parser:didMatchAdditiveExpr:)];
@@ -1435,29 +1461,43 @@
     [self parseRule:@selector(__additiveExpr) withMemo:_additiveExpr_memo];
 }
 
-- (void)__plusOrMinusMultiExpr {
+- (void)__plusMultiExpr {
     
-    if ([self predicts:XPEG_TOKEN_KIND_PLUS, 0]) {
-        [self match:XPEG_TOKEN_KIND_PLUS discard:NO]; 
-    } else if ([self predicts:XPEG_TOKEN_KIND_MINUS, 0]) {
-        [self match:XPEG_TOKEN_KIND_MINUS discard:NO]; 
-    } else {
-        [self raise:@"No viable alternative found in rule 'plusOrMinusMultiExpr'."];
-    }
+    [self match:XPEG_TOKEN_KIND_PLUS discard:YES]; 
     [self multiplicativeExpr_]; 
 
-    [self fireDelegateSelector:@selector(parser:didMatchPlusOrMinusMultiExpr:)];
+    [self fireDelegateSelector:@selector(parser:didMatchPlusMultiExpr:)];
 }
 
-- (void)plusOrMinusMultiExpr_ {
-    [self parseRule:@selector(__plusOrMinusMultiExpr) withMemo:_plusOrMinusMultiExpr_memo];
+- (void)plusMultiExpr_ {
+    [self parseRule:@selector(__plusMultiExpr) withMemo:_plusMultiExpr_memo];
+}
+
+- (void)__minusMultiExpr {
+    
+    [self match:XPEG_TOKEN_KIND_MINUS discard:YES]; 
+    [self multiplicativeExpr_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchMinusMultiExpr:)];
+}
+
+- (void)minusMultiExpr_ {
+    [self parseRule:@selector(__minusMultiExpr) withMemo:_minusMultiExpr_memo];
 }
 
 - (void)__multiplicativeExpr {
     
     [self unaryExpr_]; 
-    while ([self speculate:^{ [self multDivOrModUnaryExpr_]; }]) {
-        [self multDivOrModUnaryExpr_]; 
+    while ([self speculate:^{ if ([self predicts:XPEG_TOKEN_KIND_TIMES, 0]) {[self multUnaryExpr_]; } else if ([self predicts:XPEG_TOKEN_KIND_DIVIDE, 0]) {[self divUnaryExpr_]; } else if ([self predicts:XPEG_TOKEN_KIND_MODULO, 0]) {[self modUnaryExpr_]; } else {[self raise:@"No viable alternative found in rule 'multiplicativeExpr'."];}}]) {
+        if ([self predicts:XPEG_TOKEN_KIND_TIMES, 0]) {
+            [self multUnaryExpr_]; 
+        } else if ([self predicts:XPEG_TOKEN_KIND_DIVIDE, 0]) {
+            [self divUnaryExpr_]; 
+        } else if ([self predicts:XPEG_TOKEN_KIND_MODULO, 0]) {
+            [self modUnaryExpr_]; 
+        } else {
+            [self raise:@"No viable alternative found in rule 'multiplicativeExpr'."];
+        }
     }
 
     [self fireDelegateSelector:@selector(parser:didMatchMultiplicativeExpr:)];
@@ -1467,42 +1507,80 @@
     [self parseRule:@selector(__multiplicativeExpr) withMemo:_multiplicativeExpr_memo];
 }
 
-- (void)__multDivOrModUnaryExpr {
+- (void)__multUnaryExpr {
     
-    if ([self predicts:XPEG_TOKEN_KIND_MULTIPLYOPERATOR, 0]) {
-        [self multiplyOperator_]; 
-    } else if ([self predicts:XPEG_TOKEN_KIND_DIV, 0]) {
-        [self div_]; 
-    } else if ([self predicts:XPEG_TOKEN_KIND_MOD, 0]) {
-        [self mod_]; 
-    } else {
-        [self raise:@"No viable alternative found in rule 'multDivOrModUnaryExpr'."];
-    }
+    [self times_]; 
     [self unaryExpr_]; 
 
-    [self fireDelegateSelector:@selector(parser:didMatchMultDivOrModUnaryExpr:)];
+    [self fireDelegateSelector:@selector(parser:didMatchMultUnaryExpr:)];
 }
 
-- (void)multDivOrModUnaryExpr_ {
-    [self parseRule:@selector(__multDivOrModUnaryExpr) withMemo:_multDivOrModUnaryExpr_memo];
+- (void)multUnaryExpr_ {
+    [self parseRule:@selector(__multUnaryExpr) withMemo:_multUnaryExpr_memo];
 }
 
-- (void)__multiplyOperator {
+- (void)__divUnaryExpr {
     
-    [self match:XPEG_TOKEN_KIND_MULTIPLYOPERATOR discard:NO]; 
+    [self divide_]; 
+    [self unaryExpr_]; 
 
-    [self fireDelegateSelector:@selector(parser:didMatchMultiplyOperator:)];
+    [self fireDelegateSelector:@selector(parser:didMatchDivUnaryExpr:)];
 }
 
-- (void)multiplyOperator_ {
-    [self parseRule:@selector(__multiplyOperator) withMemo:_multiplyOperator_memo];
+- (void)divUnaryExpr_ {
+    [self parseRule:@selector(__divUnaryExpr) withMemo:_divUnaryExpr_memo];
+}
+
+- (void)__modUnaryExpr {
+    
+    [self modulo_]; 
+    [self unaryExpr_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchModUnaryExpr:)];
+}
+
+- (void)modUnaryExpr_ {
+    [self parseRule:@selector(__modUnaryExpr) withMemo:_modUnaryExpr_memo];
+}
+
+- (void)__times {
+    
+    [self match:XPEG_TOKEN_KIND_TIMES discard:YES]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchTimes:)];
+}
+
+- (void)times_ {
+    [self parseRule:@selector(__times) withMemo:_times_memo];
+}
+
+- (void)__divide {
+    
+    [self match:XPEG_TOKEN_KIND_DIVIDE discard:YES]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchDivide:)];
+}
+
+- (void)divide_ {
+    [self parseRule:@selector(__divide) withMemo:_divide_memo];
+}
+
+- (void)__modulo {
+    
+    [self match:XPEG_TOKEN_KIND_MODULO discard:YES]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchModulo:)];
+}
+
+- (void)modulo_ {
+    [self parseRule:@selector(__modulo) withMemo:_modulo_memo];
 }
 
 - (void)__unaryExpr {
     
     if ([self predicts:XPEG_TOKEN_KIND_MINUS, XPEG_TOKEN_KIND_PLUS, 0]) {
         [self prefixedUnionExpr_]; 
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_ABBREVIATEDAXIS, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIV, XPEG_TOKEN_KIND_DOLLAR, XPEG_TOKEN_KIND_DOT, XPEG_TOKEN_KIND_DOT_DOT, XPEG_TOKEN_KIND_DOUBLE_SLASH, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_FORWARD_SLASH, XPEG_TOKEN_KIND_MOD, XPEG_TOKEN_KIND_MULTIPLYOPERATOR, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OPEN_PAREN, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TRUE, 0]) {
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_ABBREVIATEDAXIS, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIVIDE, XPEG_TOKEN_KIND_DOLLAR, XPEG_TOKEN_KIND_DOT, XPEG_TOKEN_KIND_DOT_DOT, XPEG_TOKEN_KIND_DOUBLE_SLASH, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_FORWARD_SLASH, XPEG_TOKEN_KIND_MODULO, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OPEN_PAREN, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TIMES, XPEG_TOKEN_KIND_TRUE, 0]) {
         [self unionExpr_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'unaryExpr'."];
@@ -1659,7 +1737,7 @@
 
 - (void)__locationPath {
     
-    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_ABBREVIATEDAXIS, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIV, XPEG_TOKEN_KIND_DOLLAR, XPEG_TOKEN_KIND_DOT, XPEG_TOKEN_KIND_DOT_DOT, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_MOD, XPEG_TOKEN_KIND_MULTIPLYOPERATOR, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OPEN_PAREN, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TRUE, 0]) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_ABBREVIATEDAXIS, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIVIDE, XPEG_TOKEN_KIND_DOLLAR, XPEG_TOKEN_KIND_DOT, XPEG_TOKEN_KIND_DOT_DOT, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_MODULO, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OPEN_PAREN, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TIMES, XPEG_TOKEN_KIND_TRUE, 0]) {
         [self relativeLocationPath_]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_DOUBLE_SLASH, XPEG_TOKEN_KIND_FORWARD_SLASH, 0]) {
         [self absoluteLocationPath_]; 
@@ -2047,7 +2125,7 @@
     
     if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self matchWord:NO]; 
-    } else if ([self predicts:XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIV, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_MOD, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TRUE, 0]) {
+    } else if ([self predicts:XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIVIDE, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_MODULO, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TRUE, 0]) {
         [self keyword_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'ncName'."];
@@ -2257,16 +2335,16 @@
 
 - (void)__nameTest {
     
-    if ([self speculate:^{ [self match:XPEG_TOKEN_KIND_MULTIPLYOPERATOR discard:NO]; [self match:XPEG_TOKEN_KIND_COLON discard:NO]; [self ncName_]; }]) {
-        [self match:XPEG_TOKEN_KIND_MULTIPLYOPERATOR discard:NO]; 
+    if ([self speculate:^{ [self match:XPEG_TOKEN_KIND_TIMES discard:NO]; [self match:XPEG_TOKEN_KIND_COLON discard:NO]; [self ncName_]; }]) {
+        [self match:XPEG_TOKEN_KIND_TIMES discard:NO]; 
         [self match:XPEG_TOKEN_KIND_COLON discard:NO]; 
         [self ncName_]; 
-    } else if ([self speculate:^{ [self match:XPEG_TOKEN_KIND_MULTIPLYOPERATOR discard:NO]; }]) {
-        [self match:XPEG_TOKEN_KIND_MULTIPLYOPERATOR discard:NO]; 
-    } else if ([self speculate:^{ [self ncName_]; [self match:XPEG_TOKEN_KIND_COLON discard:NO]; [self match:XPEG_TOKEN_KIND_MULTIPLYOPERATOR discard:NO]; }]) {
+    } else if ([self speculate:^{ [self match:XPEG_TOKEN_KIND_TIMES discard:NO]; }]) {
+        [self match:XPEG_TOKEN_KIND_TIMES discard:NO]; 
+    } else if ([self speculate:^{ [self ncName_]; [self match:XPEG_TOKEN_KIND_COLON discard:NO]; [self match:XPEG_TOKEN_KIND_TIMES discard:NO]; }]) {
         [self ncName_]; 
         [self match:XPEG_TOKEN_KIND_COLON discard:NO]; 
-        [self match:XPEG_TOKEN_KIND_MULTIPLYOPERATOR discard:NO]; 
+        [self match:XPEG_TOKEN_KIND_TIMES discard:NO]; 
     } else if ([self speculate:^{ [self qName_]; }]) {
         [self qName_]; 
     } else {
@@ -2490,7 +2568,7 @@
 
 - (void)__div {
     
-    [self match:XPEG_TOKEN_KIND_DIV discard:NO]; 
+    [self match:XPEG_TOKEN_KIND_DIVIDE discard:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchDiv:)];
 }
@@ -2501,7 +2579,7 @@
 
 - (void)__mod {
     
-    [self match:XPEG_TOKEN_KIND_MOD discard:NO]; 
+    [self match:XPEG_TOKEN_KIND_MODULO discard:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchMod:)];
 }
@@ -2780,9 +2858,9 @@
         [self precedingSibling_]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_SELF, 0]) {
         [self self_]; 
-    } else if ([self predicts:XPEG_TOKEN_KIND_DIV, 0]) {
+    } else if ([self predicts:XPEG_TOKEN_KIND_DIVIDE, 0]) {
         [self div_]; 
-    } else if ([self predicts:XPEG_TOKEN_KIND_MOD, 0]) {
+    } else if ([self predicts:XPEG_TOKEN_KIND_MODULO, 0]) {
         [self mod_]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_OR, 0]) {
         [self or_]; 

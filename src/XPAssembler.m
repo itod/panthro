@@ -588,35 +588,19 @@
 }
 
 
-- (void)parser:(PKParser *)p didMatchPlusOrMinusMultiExpr:(PKAssembly *)a { [self parser:p didMatchAnyArithmeticExpr:a]; }
-- (void)parser:(PKParser *)p didMatchMultDivOrModUnaryExpr:(PKAssembly *)a { [self parser:p didMatchAnyArithmeticExpr:a]; }
+- (void)parser:(PKParser *)p didMatchPlusMultiExpr:(PKAssembly *)a { [self parser:p didMatchAnyArithmeticExpr:a operator:XPEG_TOKEN_KIND_PLUS]; }
+- (void)parser:(PKParser *)p didMatchMinusMultiExpr:(PKAssembly *)a { [self parser:p didMatchAnyArithmeticExpr:a operator:XPEG_TOKEN_KIND_MINUS]; }
+- (void)parser:(PKParser *)p didMatchMultUnaryExpr:(PKAssembly *)a { [self parser:p didMatchAnyArithmeticExpr:a operator:XPEG_TOKEN_KIND_TIMES]; }
+- (void)parser:(PKParser *)p didMatchDivUnaryExpr:(PKAssembly *)a { [self parser:p didMatchAnyArithmeticExpr:a operator:XPEG_TOKEN_KIND_DIVIDE]; }
+- (void)parser:(PKParser *)p didMatchModUnaryExpr:(PKAssembly *)a { [self parser:p didMatchAnyArithmeticExpr:a operator:XPEG_TOKEN_KIND_MODULO]; }
 
-- (void)parser:(PKParser *)p didMatchAnyArithmeticExpr:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchAnyArithmeticExpr:(PKAssembly *)a operator:(NSUInteger)op {
     XPValue *p2 = [a pop];
-    PKToken *opTok = [a pop];
     XPValue *p1 = [a pop];
     
     XPAssertExpr(p1);
-    XPAssertToken(opTok);
     XPAssertExpr(p2);
 
-    NSInteger op = XPEG_TOKEN_KIND_PLUS;
-    
-    NSString *opStr = [opTok stringValue];
-    if ([@"-" isEqualToString:opStr]) {
-        op = XPEG_TOKEN_KIND_MINUS;
-    } else if ([@"+" isEqualToString:opStr]) {
-        op = XPEG_TOKEN_KIND_PLUS;
-    } else if ([@"div" isEqualToString:opStr]) {
-        op = XPEG_TOKEN_KIND_DIV;
-    } else if ([@"*" isEqualToString:opStr]) {
-        op = XPEG_TOKEN_KIND_MULTIPLYOPERATOR;
-    } else if ([@"mod" isEqualToString:opStr]) {
-        op = XPEG_TOKEN_KIND_MOD;
-    } else {
-        XPAssert(0);
-    }
-    
     XPExpression *mathExpr = [XPArithmeticExpression arithmeticExpressionWithOperand:p1 operator:op operand:p2];
     mathExpr.range = NSMakeRange(p1.range.location, NSMaxRange(p2.range) - p1.range.location);
     mathExpr.staticContext = _env;

@@ -204,4 +204,116 @@
     TDEquals(-1.0, _res);
 }
 
+
+- (void)testArithmeticExpr9 {
+    self.expr =[XPExpression expressionFromString:@"1--2" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(3.0, _res);
+}
+
+
+- (void)testArithmeticExpr10 {
+    self.expr =[XPExpression expressionFromString:@"1 --2" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(3.0, _res);
+}
+
+
+- (void)testArithmeticExpr11 {
+    self.expr =[XPExpression expressionFromString:@"1 -- 2" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(3.0, _res);
+}
+
+
+- (void)testArithmeticExpr12 {
+    self.expr =[XPExpression expressionFromString:@"1 - - 2" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(3.0, _res);
+}
+
+
+- (void)testArithmeticExpr13 {
+    self.expr =[XPExpression expressionFromString:@"1---2" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(-1.0, _res);
+}
+
+
+- (void)testArithmeticExpr14 {
+    self.expr =[XPExpression expressionFromString:@"1 ---2" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(-1.0, _res);
+}
+
+
+- (void)testArithmeticExpr15 {
+    self.expr =[XPExpression expressionFromString:@"1 --- 2" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(-1.0, _res);
+}
+
+
+- (void)testArithmeticExpr16 {
+    self.expr =[XPExpression expressionFromString:@"1 - - - 2" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(-1.0, _res);
+}
+
+
+- (void)testArithmeticExpr17 {
+    self.expr =[XPExpression expressionFromString:@"1++2" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(3.0, _res);
+}
+
+
+- (void)testArithmeticExpr18 {
+    self.expr =[XPExpression expressionFromString:@"1 ++2" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(3.0, _res);
+}
+
+
+- (void)testArithmeticExpr19 {
+    self.expr =[XPExpression expressionFromString:@"1 ++ 2" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(3.0, _res);
+}
+
+
+- (void)testArithmeticExpr20 {
+    self.expr =[XPExpression expressionFromString:@"1 + + 2" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(3.0, _res);
+}
+
+
+- (void)testArithmeticExpr21 {
+    self.expr =[XPExpression expressionFromString:@"1+++2" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(3.0, _res);
+}
+
+
+- (void)testArithmeticExpr22 {
+    self.expr =[XPExpression expressionFromString:@"1 +++2" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(3.0, _res);
+}
+
+
+- (void)testArithmeticExpr23 {
+    self.expr =[XPExpression expressionFromString:@"1 +++ 2" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(3.0, _res);
+}
+
+
+- (void)testArithmeticExpr24 {
+    self.expr =[XPExpression expressionFromString:@"1 + + + 2" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(3.0, _res);
+}
+
 @end
