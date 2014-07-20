@@ -51,6 +51,9 @@
 
 #import "XPVariableReference.h"
 
+#define KEYWORD_ASCENDING @"ascending"
+#define KEYWORD_DESCENDING @"descending"
+
 @interface XPAssembler ()
 @property (nonatomic, retain) id <XPStaticContext>env;
 @property (nonatomic, retain) NSDictionary *nodeTypeTab;
@@ -280,8 +283,8 @@
             NSComparisonResult mod = NSOrderedAscending;
             peek = [a pop];
             if ([peek isKindOfClass:[PKToken class]]) {
-                XPAssert([[peek stringValue] isEqualToString:@"ascending"] || [[peek stringValue] isEqualToString:@"descending"]);
-                if ([[peek stringValue] isEqualToString:@"descending"]) {
+                XPAssert([[peek stringValue] isEqualToString:KEYWORD_ASCENDING] || [[peek stringValue] isEqualToString:KEYWORD_DESCENDING]);
+                if ([[peek stringValue] isEqualToString:KEYWORD_DESCENDING]) {
                     mod = NSOrderedDescending;
                 }
                 peek = [a pop];

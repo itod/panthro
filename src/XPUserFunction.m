@@ -49,7 +49,6 @@
     expr.name = _name;
     expr.bodyExpression = [[_bodyExpression copy] autorelease];
     expr.params = [[_params mutableCopy] autorelease];
-    // ignore args
     // ignore vars
     // ignore curr ctx
     return expr;
