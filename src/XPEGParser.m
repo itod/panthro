@@ -49,7 +49,7 @@
 @property (nonatomic, retain) NSMutableDictionary *multDivOrModUnaryExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *multiplyOperator_memo;
 @property (nonatomic, retain) NSMutableDictionary *unaryExpr_memo;
-@property (nonatomic, retain) NSMutableDictionary *minusUnionExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *prefixedUnionExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *unionExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *unionTail_memo;
 @property (nonatomic, retain) NSMutableDictionary *intersectExceptExpr_memo;
@@ -365,7 +365,7 @@
         self.multDivOrModUnaryExpr_memo = [NSMutableDictionary dictionary];
         self.multiplyOperator_memo = [NSMutableDictionary dictionary];
         self.unaryExpr_memo = [NSMutableDictionary dictionary];
-        self.minusUnionExpr_memo = [NSMutableDictionary dictionary];
+        self.prefixedUnionExpr_memo = [NSMutableDictionary dictionary];
         self.unionExpr_memo = [NSMutableDictionary dictionary];
         self.unionTail_memo = [NSMutableDictionary dictionary];
         self.intersectExceptExpr_memo = [NSMutableDictionary dictionary];
@@ -508,7 +508,7 @@
     self.multDivOrModUnaryExpr_memo = nil;
     self.multiplyOperator_memo = nil;
     self.unaryExpr_memo = nil;
-    self.minusUnionExpr_memo = nil;
+    self.prefixedUnionExpr_memo = nil;
     self.unionExpr_memo = nil;
     self.unionTail_memo = nil;
     self.intersectExceptExpr_memo = nil;
@@ -650,7 +650,7 @@
     [_multDivOrModUnaryExpr_memo removeAllObjects];
     [_multiplyOperator_memo removeAllObjects];
     [_unaryExpr_memo removeAllObjects];
-    [_minusUnionExpr_memo removeAllObjects];
+    [_prefixedUnionExpr_memo removeAllObjects];
     [_unionExpr_memo removeAllObjects];
     [_unionTail_memo removeAllObjects];
     [_intersectExceptExpr_memo removeAllObjects];
@@ -770,6 +770,8 @@
         [t.wordState setWordChars:NO from:'\'' to:'\''];
 
         [t setTokenizerState:t.numberState from:'.' to:'.'];
+
+        [t setTokenizerState:t.symbolState from:'-' to:'-'];
 
         [t setTokenizerState:t.numberState from:'#' to:'#'];
         t.numberState.allowsScientificNotation = YES;
@@ -914,7 +916,7 @@
 
 - (void)__exprSingle {
     
-    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_ABBREVIATEDAXIS, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIV, XPEG_TOKEN_KIND_DOLLAR, XPEG_TOKEN_KIND_DOT, XPEG_TOKEN_KIND_DOT_DOT, XPEG_TOKEN_KIND_DOUBLE_SLASH, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_FORWARD_SLASH, XPEG_TOKEN_KIND_MINUS, XPEG_TOKEN_KIND_MOD, XPEG_TOKEN_KIND_MULTIPLYOPERATOR, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OPEN_PAREN, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TRUE, 0]) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_ABBREVIATEDAXIS, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIV, XPEG_TOKEN_KIND_DOLLAR, XPEG_TOKEN_KIND_DOT, XPEG_TOKEN_KIND_DOT_DOT, XPEG_TOKEN_KIND_DOUBLE_SLASH, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_FORWARD_SLASH, XPEG_TOKEN_KIND_MINUS, XPEG_TOKEN_KIND_MOD, XPEG_TOKEN_KIND_MULTIPLYOPERATOR, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OPEN_PAREN, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PLUS, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TRUE, 0]) {
         [self orExpr_]; 
     } else if ([self predicts:XPEG_TOKEN_KIND_FOR, XPEG_TOKEN_KIND_LET, 0]) {
         [self forExpr_]; 
@@ -1435,21 +1437,14 @@
 
 - (void)__plusOrMinusMultiExpr {
     
-    if ([self predicts:XPEG_TOKEN_KIND_MINUS, XPEG_TOKEN_KIND_PLUS, 0]) {
-        if ([self predicts:XPEG_TOKEN_KIND_PLUS, 0]) {
-            [self match:XPEG_TOKEN_KIND_PLUS discard:NO]; 
-        } else if ([self predicts:XPEG_TOKEN_KIND_MINUS, 0]) {
-            [self match:XPEG_TOKEN_KIND_MINUS discard:NO]; 
-        } else {
-            [self raise:@"No viable alternative found in rule 'plusOrMinusMultiExpr'."];
-        }
-        [self multiplicativeExpr_]; 
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
-        [self testAndThrow:(id)^{ return [LS(1) hasPrefix:@"-"]; }]; 
-        [self number_]; 
+    if ([self predicts:XPEG_TOKEN_KIND_PLUS, 0]) {
+        [self match:XPEG_TOKEN_KIND_PLUS discard:NO]; 
+    } else if ([self predicts:XPEG_TOKEN_KIND_MINUS, 0]) {
+        [self match:XPEG_TOKEN_KIND_MINUS discard:NO]; 
     } else {
         [self raise:@"No viable alternative found in rule 'plusOrMinusMultiExpr'."];
     }
+    [self multiplicativeExpr_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchPlusOrMinusMultiExpr:)];
 }
@@ -1505,8 +1500,8 @@
 
 - (void)__unaryExpr {
     
-    if ([self predicts:XPEG_TOKEN_KIND_MINUS, 0]) {
-        [self minusUnionExpr_]; 
+    if ([self predicts:XPEG_TOKEN_KIND_MINUS, XPEG_TOKEN_KIND_PLUS, 0]) {
+        [self prefixedUnionExpr_]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_ABBREVIATEDAXIS, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIV, XPEG_TOKEN_KIND_DOLLAR, XPEG_TOKEN_KIND_DOT, XPEG_TOKEN_KIND_DOT_DOT, XPEG_TOKEN_KIND_DOUBLE_SLASH, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_FORWARD_SLASH, XPEG_TOKEN_KIND_MOD, XPEG_TOKEN_KIND_MULTIPLYOPERATOR, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OPEN_PAREN, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TRUE, 0]) {
         [self unionExpr_]; 
     } else {
@@ -1520,18 +1515,24 @@
     [self parseRule:@selector(__unaryExpr) withMemo:_unaryExpr_memo];
 }
 
-- (void)__minusUnionExpr {
+- (void)__prefixedUnionExpr {
     
     do {
-        [self match:XPEG_TOKEN_KIND_MINUS discard:NO]; 
-    } while ([self predicts:XPEG_TOKEN_KIND_MINUS, 0]);
+        if ([self predicts:XPEG_TOKEN_KIND_MINUS, 0]) {
+            [self match:XPEG_TOKEN_KIND_MINUS discard:NO]; 
+        } else if ([self predicts:XPEG_TOKEN_KIND_PLUS, 0]) {
+            [self match:XPEG_TOKEN_KIND_PLUS discard:NO]; 
+        } else {
+            [self raise:@"No viable alternative found in rule 'prefixedUnionExpr'."];
+        }
+    } while ([self predicts:XPEG_TOKEN_KIND_MINUS, XPEG_TOKEN_KIND_PLUS, 0]);
     [self unionExpr_]; 
 
-    [self fireDelegateSelector:@selector(parser:didMatchMinusUnionExpr:)];
+    [self fireDelegateSelector:@selector(parser:didMatchPrefixedUnionExpr:)];
 }
 
-- (void)minusUnionExpr_ {
-    [self parseRule:@selector(__minusUnionExpr) withMemo:_minusUnionExpr_memo];
+- (void)prefixedUnionExpr_ {
+    [self parseRule:@selector(__prefixedUnionExpr) withMemo:_prefixedUnionExpr_memo];
 }
 
 - (void)__unionExpr {

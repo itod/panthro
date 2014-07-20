@@ -48,6 +48,8 @@
 
         [t setTokenizerState:t.numberState from:'.' to:'.'];
 
+        [t setTokenizerState:t.symbolState from:'-' to:'-'];
+
         [t setTokenizerState:t.numberState from:'#' to:'#'];
         t.numberState.allowsScientificNotation = YES;
 
@@ -120,14 +122,14 @@ exprSingle = orExpr | forExpr | quantifiedExpr | ifExpr | functionExpr;
                             compareAdditiveExpr = ('<' | '>' | '<=' | '>=' | valLt | valGt | valLe | valGe | '<<' | '>>') additiveExpr;
                             
                             additiveExpr = multiplicativeExpr plusOrMinusMultiExpr*;
-                                plusOrMinusMultiExpr  = (('+' | '-') multiplicativeExpr) | { [LS(1) hasPrefix:@"-"] }? number;
+                                plusOrMinusMultiExpr  = (('+' | '-') multiplicativeExpr);
 
                                 multiplicativeExpr = unaryExpr multDivOrModUnaryExpr*;
                                     multDivOrModUnaryExpr = ((multiplyOperator | div | mod) unaryExpr);
                                     
                                     multiplyOperator = '*';
-                                    unaryExpr = minusUnionExpr | unionExpr;
-                                        minusUnionExpr = '-'+ unionExpr;
+                                    unaryExpr = prefixedUnionExpr | unionExpr;
+                                        prefixedUnionExpr = ('-' | '+')+ unionExpr;
                                         unionExpr = intersectExceptExpr unionTail*;
                                             unionTail = ('|' | 'union') intersectExceptExpr;
                                         intersectExceptExpr = pathExpr intersectExceptTail*;

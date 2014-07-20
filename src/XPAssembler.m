@@ -57,6 +57,8 @@
 @interface XPAssembler ()
 @property (nonatomic, retain) id <XPStaticContext>env;
 @property (nonatomic, retain) NSDictionary *nodeTypeTab;
+@property (nonatomic, retain) PKToken *plus;
+@property (nonatomic, retain) PKToken *minus;
 @property (nonatomic, retain) PKToken *openParen;
 @property (nonatomic, retain) PKToken *comma;
 @property (nonatomic, retain) PKToken *at;
@@ -88,6 +90,8 @@
     XPAssert(env);
     if (self = [super init]) {
         self.env = env;
+        self.plus = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"+" doubleValue:0.0];
+        self.minus = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"-" doubleValue:0.0];
         self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
         self.comma = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"," doubleValue:0.0];
         self.at = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"at" doubleValue:0.0];
@@ -132,6 +136,8 @@
 - (void)dealloc {
     self.env = nil;
     self.nodeTypeTab = nil;
+    self.plus = nil;
+    self.minus = nil;
     self.openParen = nil;
     self.comma = nil;
     self.at = nil;
@@ -587,31 +593,26 @@
 
 - (void)parser:(PKParser *)p didMatchAnyArithmeticExpr:(PKAssembly *)a {
     XPValue *p2 = [a pop];
-    id opTok = [a pop];
-    XPValue *p1 = nil;
+    PKToken *opTok = [a pop];
+    XPValue *p1 = [a pop];
     
+    XPAssertExpr(p1);
+    XPAssertToken(opTok);
+    XPAssertExpr(p2);
+
     NSInteger op = XPEG_TOKEN_KIND_PLUS;
     
-    if ([opTok isKindOfClass:[PKToken class]]) {
-        p1 = [a pop];
-        NSString *opStr = [opTok stringValue];
-        if ([@"-" isEqualToString:opStr]) {
-            op = XPEG_TOKEN_KIND_MINUS;
-        } else if ([@"+" isEqualToString:opStr]) {
-            op = XPEG_TOKEN_KIND_PLUS;
-        } else if ([@"div" isEqualToString:opStr]) {
-            op = XPEG_TOKEN_KIND_DIV;
-        } else if ([@"*" isEqualToString:opStr]) {
-            op = XPEG_TOKEN_KIND_MULTIPLYOPERATOR;
-        } else if ([@"mod" isEqualToString:opStr]) {
-            op = XPEG_TOKEN_KIND_MOD;
-        } else {
-            XPAssert(0);
-        }
-    } else if ([p2 isKindOfClass:[XPNumericValue class]] && [p2.stringValue hasPrefix:@"-"]) {
-        XPAssertExpr(opTok);
+    NSString *opStr = [opTok stringValue];
+    if ([@"-" isEqualToString:opStr]) {
+        op = XPEG_TOKEN_KIND_MINUS;
+    } else if ([@"+" isEqualToString:opStr]) {
         op = XPEG_TOKEN_KIND_PLUS;
-        p1 = opTok;
+    } else if ([@"div" isEqualToString:opStr]) {
+        op = XPEG_TOKEN_KIND_DIV;
+    } else if ([@"*" isEqualToString:opStr]) {
+        op = XPEG_TOKEN_KIND_MULTIPLYOPERATOR;
+    } else if ([@"mod" isEqualToString:opStr]) {
+        op = XPEG_TOKEN_KIND_MOD;
     } else {
         XPAssert(0);
     }
@@ -1114,18 +1115,22 @@
 }
 
 
-- (void)parser:(PKParser *)p didMatchMinusUnionExpr:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchPrefixedUnionExpr:(PKAssembly *)a {
     XPValue *val = [a pop];
     PKToken *tok = [a pop];
-    XPAssert([tok.stringValue isEqualToString:@"-"]);
 
     BOOL isNegative = NO;
     NSUInteger offset = NSNotFound;
-    while ([tok.stringValue isEqualToString:@"-"]) {
+    do {
+        XPAssertToken(tok);
+        XPAssert([tok.stringValue isEqualToString:@"-"] || [tok.stringValue isEqualToString:@"+"]);
         offset = tok.offset;
-        isNegative = !isNegative;
+        if ([tok isEqual:_minus]) {
+            isNegative = !isNegative;
+        }
         tok = [a pop];
-    }
+    } while ([tok isEqual:_plus] || [tok isEqual:_minus]);
+    
     [a push:tok]; // put that last one back, fool
     
     double d = [val asNumber];

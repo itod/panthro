@@ -40,6 +40,30 @@
     self.res = [_expr evaluateAsNumberInContext:nil];
     TDEquals(-1.0, _res);
     
+    self.expr = [XPExpression expressionFromString:@"sum((--1))" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(1.0, _res);
+    
+    self.expr = [XPExpression expressionFromString:@"sum((---1))" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(-1.0, _res);
+    
+    self.expr = [XPExpression expressionFromString:@"sum((+1))" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(1.0, _res);
+    
+    self.expr = [XPExpression expressionFromString:@"sum((++1))" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(1.0, _res);
+    
+    self.expr = [XPExpression expressionFromString:@"sum((+++1))" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(1.0, _res);
+    
+    self.expr = [XPExpression expressionFromString:@"sum((-1))" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsNumberInContext:nil];
+    TDEquals(-1.0, _res);
+    
     self.expr = [XPExpression expressionFromString:@"sum((1))" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsNumberInContext:nil];
     TDEquals(1.0, _res);
