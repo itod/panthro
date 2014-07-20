@@ -185,6 +185,8 @@
 		D36235DD19269EE300C88990 /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33097361921BE99004317EA /* PEGKit.framework */; };
 		D36672DD197B411800BD1FC6 /* XPStringConcatExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D36672DB197B411800BD1FC6 /* XPStringConcatExpression.h */; };
 		D36672DE197B411800BD1FC6 /* XPStringConcatExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D36672DC197B411800BD1FC6 /* XPStringConcatExpression.m */; };
+		D3667362197C7E7900BD1FC6 /* XPSimpleMapExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3667360197C7E7900BD1FC6 /* XPSimpleMapExpression.h */; };
+		D3667363197C7E7900BD1FC6 /* XPSimpleMapExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3667361197C7E7900BD1FC6 /* XPSimpleMapExpression.m */; };
 		D36712E2192ACC1700B13A63 /* XPSynchronousChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = D36712E0192ACC1700B13A63 /* XPSynchronousChannel.m */; };
 		D36712E4192ACC2600B13A63 /* XPSemaphore.h in Headers */ = {isa = PBXBuildFile; fileRef = D36712E3192ACC2600B13A63 /* XPSemaphore.h */; };
 		D36BC032101BF52F00D1A6C7 /* XPNodeSetExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D36BC02E101BF52F00D1A6C7 /* XPNodeSetExpression.m */; };
@@ -662,6 +664,8 @@
 		D360361C1961F3610047F6A4 /* XPParentNodeExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPParentNodeExpression.m; path = src/XPParentNodeExpression.m; sourceTree = "<group>"; };
 		D36672DB197B411800BD1FC6 /* XPStringConcatExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPStringConcatExpression.h; path = src/XPStringConcatExpression.h; sourceTree = "<group>"; };
 		D36672DC197B411800BD1FC6 /* XPStringConcatExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPStringConcatExpression.m; path = src/XPStringConcatExpression.m; sourceTree = "<group>"; };
+		D3667360197C7E7900BD1FC6 /* XPSimpleMapExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPSimpleMapExpression.h; path = src/XPSimpleMapExpression.h; sourceTree = "<group>"; };
+		D3667361197C7E7900BD1FC6 /* XPSimpleMapExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPSimpleMapExpression.m; path = src/XPSimpleMapExpression.m; sourceTree = "<group>"; };
 		D36712E0192ACC1700B13A63 /* XPSynchronousChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPSynchronousChannel.m; path = src/XPSynchronousChannel.m; sourceTree = "<group>"; };
 		D36712E3192ACC2600B13A63 /* XPSemaphore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPSemaphore.h; path = src/XPSemaphore.h; sourceTree = "<group>"; };
 		D36BC02E101BF52F00D1A6C7 /* XPNodeSetExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNodeSetExpression.m; path = src/XPNodeSetExpression.m; sourceTree = "<group>"; };
@@ -1590,6 +1594,8 @@
 				D36C68111010E0FE000361A0 /* XPArithmeticExpression.m */,
 				D36672DB197B411800BD1FC6 /* XPStringConcatExpression.h */,
 				D36672DC197B411800BD1FC6 /* XPStringConcatExpression.m */,
+				D3667360197C7E7900BD1FC6 /* XPSimpleMapExpression.h */,
+				D3667361197C7E7900BD1FC6 /* XPSimpleMapExpression.m */,
 			);
 			name = "Binary Expr";
 			sourceTree = "<group>";
@@ -1808,6 +1814,7 @@
 				D3A6FCB719465BBA00FCF2C1 /* XPNodeTest.h in Headers */,
 				D37299E5196B5A5B004B1B7A /* FNEmpty.h in Headers */,
 				D3F0CBBE191EC3A50049EC02 /* XPNSXMLDocumentImpl.h in Headers */,
+				D3667362197C7E7900BD1FC6 /* XPSimpleMapExpression.h in Headers */,
 				D37299DA196AF091004B1B7A /* XPLetClause.h in Headers */,
 				D32BA2EF1972F10C0002D403 /* XPCallable.h in Headers */,
 				D3729A07196C431C004B1B7A /* FNData.h in Headers */,
@@ -2040,6 +2047,7 @@
 				D3BBAE8F191DCBF900766EB4 /* XPSingletonNodeSet.m in Sources */,
 				D37A29A41013F95100E936B7 /* FNNot.m in Sources */,
 				D37299C51969B441004B1B7A /* XPIfExpression.m in Sources */,
+				D3667363197C7E7900BD1FC6 /* XPSimpleMapExpression.m in Sources */,
 				D3BE1438191D46A500005C81 /* XPEmptyNodeSet.m in Sources */,
 				D37A2A1B1014015E00E936B7 /* FNBoolean.m in Sources */,
 				D3BE1425191C193900005C81 /* XPFilterEnumerator.m in Sources */,

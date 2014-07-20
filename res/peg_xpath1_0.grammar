@@ -139,8 +139,11 @@ exprSingle = orExpr | forExpr | quantifiedExpr | ifExpr | functionExpr;
                                         intersectExceptExpr = unaryExpr intersectExceptTail*;
                                             intersectExceptTail = ('intersect' | 'except') unaryExpr;
 
-                                            unaryExpr = prefixedUnaryExpr | pathExpr;
-                                                prefixedUnaryExpr = ('-' | '+'!)+ pathExpr;
+                                            unaryExpr = prefixedUnaryExpr | simpleMapExpr;
+                                                prefixedUnaryExpr = ('-' | '+'!)+ simpleMapExpr;
+                                                
+                                                    simpleMapExpr = pathExpr bangPathExpr*;
+                                                        bangPathExpr = ('!'! pathExpr);
 
 
 pathExpr = filterExpr | locationPath;

@@ -32,6 +32,7 @@
 #import "XPNodeComparisonExpression.h"
 #import "XPArithmeticExpression.h"
 #import "XPStringConcatExpression.h"
+#import "XPSimpleMapExpression.h"
 
 #import "XPAxisStep.h"
 #import "XPAxis.h"
@@ -514,6 +515,20 @@
     concatExpr.range = NSMakeRange(p1.range.location, NSMaxRange(p2.range) - p1.range.location);
     concatExpr.staticContext = _env;
     [a push:concatExpr];
+}
+
+
+- (void)parser:(PKParser *)p didMatchBangPathExpr:(PKAssembly *)a {
+    XPExpression *p2 = [a pop];
+    XPExpression *p1 = [a pop];
+    
+    XPAssertExpr(p1);
+    XPAssertExpr(p2);
+    
+    XPSimpleMapExpression *mapExpr = [XPSimpleMapExpression simpleMapExpressionWithOperand:p1 operator:0 operand:p2];
+    mapExpr.range = NSMakeRange(p1.range.location, NSMaxRange(p2.range) - p1.range.location);
+    mapExpr.staticContext = _env;
+    [a push:mapExpr];
 }
 
 

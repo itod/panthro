@@ -758,4 +758,25 @@
     TDTrue(isnan([_res asNumber]));
 }
 
+
+- (void)testSimpleMap123 {
+    [self eval:@"(1,2,3) ! string()"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+
+    XPValue *val = nil;
+    
+    val = (id)[enm nextItem];
+    TDEqualObjects(@"1", val.stringValue);
+    TDEquals(1.0, [val asNumber]);
+    
+    val = (id)[enm nextItem];
+    TDEqualObjects(@"2", val.stringValue);
+    TDEquals(2.0, [val asNumber]);
+
+    val = (id)[enm nextItem];
+    TDEqualObjects(@"3", val.stringValue);
+    TDEquals(3.0, [val asNumber]);
+}
+
 @end

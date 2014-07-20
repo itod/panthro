@@ -59,6 +59,8 @@
 @property (nonatomic, retain) NSMutableDictionary *intersectExceptTail_memo;
 @property (nonatomic, retain) NSMutableDictionary *unaryExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *prefixedUnaryExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *simpleMapExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *bangPathExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *pathExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *filterExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *complexFilterPath_memo;
@@ -225,6 +227,7 @@
         self.tokenKindTab[@"to"] = @(XPEG_TOKEN_KIND_TO);
         self.tokenKindTab[@"variable"] = @(XPEG_TOKEN_KIND_VARIABLE);
         self.tokenKindTab[@"::"] = @(XPEG_TOKEN_KIND_DOUBLE_COLON);
+        self.tokenKindTab[@"!"] = @(XPEG_TOKEN_KIND_BANG);
         self.tokenKindTab[@"ge"] = @(XPEG_TOKEN_KIND_VALGE);
         self.tokenKindTab[@"true"] = @(XPEG_TOKEN_KIND_TRUE);
         self.tokenKindTab[@"group"] = @(XPEG_TOKEN_KIND_GROUP);
@@ -310,6 +313,7 @@
         self.tokenKindNameTab[XPEG_TOKEN_KIND_TO] = @"to";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_VARIABLE] = @"variable";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_DOUBLE_COLON] = @"::";
+        self.tokenKindNameTab[XPEG_TOKEN_KIND_BANG] = @"!";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_VALGE] = @"ge";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_TRUE] = @"true";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_GROUP] = @"group";
@@ -380,6 +384,8 @@
         self.intersectExceptTail_memo = [NSMutableDictionary dictionary];
         self.unaryExpr_memo = [NSMutableDictionary dictionary];
         self.prefixedUnaryExpr_memo = [NSMutableDictionary dictionary];
+        self.simpleMapExpr_memo = [NSMutableDictionary dictionary];
+        self.bangPathExpr_memo = [NSMutableDictionary dictionary];
         self.pathExpr_memo = [NSMutableDictionary dictionary];
         self.filterExpr_memo = [NSMutableDictionary dictionary];
         self.complexFilterPath_memo = [NSMutableDictionary dictionary];
@@ -528,6 +534,8 @@
     self.intersectExceptTail_memo = nil;
     self.unaryExpr_memo = nil;
     self.prefixedUnaryExpr_memo = nil;
+    self.simpleMapExpr_memo = nil;
+    self.bangPathExpr_memo = nil;
     self.pathExpr_memo = nil;
     self.filterExpr_memo = nil;
     self.complexFilterPath_memo = nil;
@@ -675,6 +683,8 @@
     [_intersectExceptTail_memo removeAllObjects];
     [_unaryExpr_memo removeAllObjects];
     [_prefixedUnaryExpr_memo removeAllObjects];
+    [_simpleMapExpr_memo removeAllObjects];
+    [_bangPathExpr_memo removeAllObjects];
     [_pathExpr_memo removeAllObjects];
     [_filterExpr_memo removeAllObjects];
     [_complexFilterPath_memo removeAllObjects];
@@ -1645,7 +1655,7 @@
     if ([self predicts:XPEG_TOKEN_KIND_MINUS, XPEG_TOKEN_KIND_PLUS, 0]) {
         [self prefixedUnaryExpr_]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, XPEG_TOKEN_KIND_ABBREVIATEDAXIS, XPEG_TOKEN_KIND_ANCESTOR, XPEG_TOKEN_KIND_ANCESTORORSELF, XPEG_TOKEN_KIND_AND, XPEG_TOKEN_KIND_ATTR, XPEG_TOKEN_KIND_CHILD, XPEG_TOKEN_KIND_COMMENT, XPEG_TOKEN_KIND_DESCENDANT, XPEG_TOKEN_KIND_DESCENDANTORSELF, XPEG_TOKEN_KIND_DIVIDE, XPEG_TOKEN_KIND_DOLLAR, XPEG_TOKEN_KIND_DOT, XPEG_TOKEN_KIND_DOT_DOT, XPEG_TOKEN_KIND_DOUBLE_SLASH, XPEG_TOKEN_KIND_FALSE, XPEG_TOKEN_KIND_FOLLOWING, XPEG_TOKEN_KIND_FOLLOWINGSIBLING, XPEG_TOKEN_KIND_FORWARD_SLASH, XPEG_TOKEN_KIND_MODULO, XPEG_TOKEN_KIND_NAMESPACE, XPEG_TOKEN_KIND_NODE, XPEG_TOKEN_KIND_OPEN_PAREN, XPEG_TOKEN_KIND_OR, XPEG_TOKEN_KIND_PARENT, XPEG_TOKEN_KIND_PRECEDING, XPEG_TOKEN_KIND_PRECEDINGSIBLING, XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION, XPEG_TOKEN_KIND_SELF, XPEG_TOKEN_KIND_TEXT, XPEG_TOKEN_KIND_TIMES, XPEG_TOKEN_KIND_TRUE, 0]) {
-        [self pathExpr_]; 
+        [self simpleMapExpr_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'unaryExpr'."];
     }
@@ -1668,13 +1678,39 @@
             [self raise:@"No viable alternative found in rule 'prefixedUnaryExpr'."];
         }
     } while ([self predicts:XPEG_TOKEN_KIND_MINUS, XPEG_TOKEN_KIND_PLUS, 0]);
-    [self pathExpr_]; 
+    [self simpleMapExpr_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchPrefixedUnaryExpr:)];
 }
 
 - (void)prefixedUnaryExpr_ {
     [self parseRule:@selector(__prefixedUnaryExpr) withMemo:_prefixedUnaryExpr_memo];
+}
+
+- (void)__simpleMapExpr {
+    
+    [self pathExpr_]; 
+    while ([self speculate:^{ [self bangPathExpr_]; }]) {
+        [self bangPathExpr_]; 
+    }
+
+    [self fireDelegateSelector:@selector(parser:didMatchSimpleMapExpr:)];
+}
+
+- (void)simpleMapExpr_ {
+    [self parseRule:@selector(__simpleMapExpr) withMemo:_simpleMapExpr_memo];
+}
+
+- (void)__bangPathExpr {
+    
+    [self match:XPEG_TOKEN_KIND_BANG discard:YES]; 
+    [self pathExpr_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchBangPathExpr:)];
+}
+
+- (void)bangPathExpr_ {
+    [self parseRule:@selector(__bangPathExpr) withMemo:_bangPathExpr_memo];
 }
 
 - (void)__pathExpr {
