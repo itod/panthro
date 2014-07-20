@@ -159,6 +159,19 @@
 }
 
 
+- (void)testForCInChapterHasTitle {
+    [self eval:@"declare function hasTitle($arg) { $arg/title }; for $c in chapter[hasTitle(.)] return $c/title"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    for (NSUInteger i = 0; i < 3; ++i) {
+        TDEqualObjects(_titles[i], [[enm nextItem] stringValue]);
+    }
+    
+    TDFalse([enm hasMoreItems]);
+}
+
+
 - (void)testRecursion {
     [self eval:
         @"declare function mysum($v) {\n"

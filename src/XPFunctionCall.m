@@ -75,7 +75,11 @@
  */
 
 - (XPDependencies)dependencies {
-    return XPDependenciesVariables;
+    NSUInteger dep = 0;
+    for (XPExpression *arg in self.args) {
+        dep |= [arg dependencies];
+    }
+    return dep;
 }
 
 
