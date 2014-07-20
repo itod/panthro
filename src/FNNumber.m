@@ -70,7 +70,13 @@
 
 
 - (XPDependencies)dependencies {
-    return [(XPExpression *)self.args[0] dependencies];
+    XPDependencies dep = XPDependenciesContextNode;
+    
+    if (1 == [self numberOfArguments]) {
+        dep = [(XPExpression *)self.args[0] dependencies];
+    }
+    
+    return dep;
 }
 
 

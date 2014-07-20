@@ -65,11 +65,13 @@
 
 
 - (XPDependencies)dependencies {
+    XPDependencies dep = XPDependenciesContextNode;
+    
     if (1 == [self numberOfArguments]) {
-        return [(XPExpression *)self.args[0] dependencies];
-    } else {
-        return XPDependenciesContextNode;
+        dep = [(XPExpression *)self.args[0] dependencies];
     }
+
+    return dep;
 }
 
 

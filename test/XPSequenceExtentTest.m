@@ -751,4 +751,11 @@
     TDEqualObjects(@"foobar", [_res stringValue]);
 }
 
+
+- (void)testNumberOpenClose {
+    [self eval:@"number()"];
+    
+    TDTrue(isnan([_res asNumber]));
+}
+
 @end
