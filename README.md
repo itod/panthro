@@ -29,7 +29,7 @@ Panthro supports all of XPath 1.0 and many of the most interesting features of 2
 #####From XPath 3.0:
 * First-class inline functions (`let $func := function() { … }`)
 * Anonymous functions (`$map((1,2,3), function($n) { $n*$n })`)
-* String concatenation operator `'foo' || 'bar'`
+* String concatenation operator (`'foo' || 'bar'` produces `'foobar'`)
 * Simple mapping operator (`/book/section ! count(chapter)`)
 
 I think most people familiar with XPath and XQuery will agree these are the most usefull and interesting features beyond XPath 1.0, and Panthro has them all. Most of what is "missing" from XPath 2.0 in Panthro is related to the overly-complex and unpopular XML Schema-inspired static type system. Currently, implementing that portion of XPath 2.0 is not planned, and is probably a non-goal in the long term.
