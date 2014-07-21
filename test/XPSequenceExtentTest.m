@@ -759,7 +759,7 @@
 }
 
 
-- (void)testSimpleMap123 {
+- (void)testSimpleMap123String {
     [self eval:@"(1,2,3) ! string()"];
     
     id <XPSequenceEnumeration>enm = [_res enumerate];
@@ -777,6 +777,115 @@
     val = (id)[enm nextItem];
     TDEqualObjects(@"3", val.stringValue);
     TDEquals(3.0, [val asNumber]);
+    
+    TDFalse([enm hasMoreItems]);
+}
+
+
+- (void)testSimpleMap123DotCommaDot {
+    [self eval:@"(1,2,3) ! (., .)"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    XPValue *val = nil;
+    
+    val = (id)[enm nextItem];
+    TDEqualObjects(@"1", val.stringValue);
+    TDEquals(1.0, [val asNumber]);
+    
+    val = (id)[enm nextItem];
+    TDEqualObjects(@"1", val.stringValue);
+    TDEquals(1.0, [val asNumber]);
+    
+    val = (id)[enm nextItem];
+    TDEqualObjects(@"2", val.stringValue);
+    TDEquals(2.0, [val asNumber]);
+    
+    val = (id)[enm nextItem];
+    TDEqualObjects(@"2", val.stringValue);
+    TDEquals(2.0, [val asNumber]);
+    
+    val = (id)[enm nextItem];
+    TDEqualObjects(@"3", val.stringValue);
+    TDEquals(3.0, [val asNumber]);
+
+    val = (id)[enm nextItem];
+    TDEqualObjects(@"3", val.stringValue);
+    TDEquals(3.0, [val asNumber]);
+
+    TDFalse([enm hasMoreItems]);
+}
+
+
+- (void)testSimpleMap123DotCommaSquared {
+    [self eval:@"(1,2,3) ! (., .*.)"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    XPValue *val = nil;
+    
+    val = (id)[enm nextItem];
+    TDEqualObjects(@"1", val.stringValue);
+    TDEquals(1.0, [val asNumber]);
+    
+    val = (id)[enm nextItem];
+    TDEqualObjects(@"1", val.stringValue);
+    TDEquals(1.0, [val asNumber]);
+    
+    val = (id)[enm nextItem];
+    TDEqualObjects(@"2", val.stringValue);
+    TDEquals(2.0, [val asNumber]);
+    
+    val = (id)[enm nextItem];
+    TDEqualObjects(@"4", val.stringValue);
+    TDEquals(4.0, [val asNumber]);
+    
+    val = (id)[enm nextItem];
+    TDEqualObjects(@"3", val.stringValue);
+    TDEquals(3.0, [val asNumber]);
+    
+    val = (id)[enm nextItem];
+    TDEqualObjects(@"9", val.stringValue);
+    TDEquals(9.0, [val asNumber]);
+    
+    TDFalse([enm hasMoreItems]);
+}
+
+
+- (void)testChapterBangTitle {
+    [self eval:@"chapter ! title"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = nil;
+    
+    for (NSUInteger i = 0; i < 3; ++i) {
+        node = [enm nextNodeInfo];
+        TDEqualObjects(@"title", node.name);
+        TDEquals(XPNodeTypeElement, node.nodeType);
+        TDEqualObjects(_titles[i], node.stringValue);
+    }
+    
+    TDFalse([enm hasMoreItems]);
+}
+
+
+- (void)testChapterBangAtId {
+    [self eval:@"chapter ! @id"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = nil;
+    
+    for (NSUInteger i = 0; i < 3; ++i) {
+        node = [enm nextNodeInfo];
+        TDEqualObjects(@"id", node.name);
+        TDEquals(XPNodeTypeAttribute, node.nodeType);
+        TDEqualObjects(_ids[i], node.stringValue);
+    }
+    
+    TDFalse([enm hasMoreItems]);
 }
 
 @end
+

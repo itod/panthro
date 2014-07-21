@@ -55,12 +55,16 @@
         id <XPItem>item1 = [enm1 nextItem];
         ctx.contextNode = (id)item1;
         
-        XPSequenceValue *seq2 = [self.p2 evaluateAsSequenceInContext:ctx];
-        id <XPSequenceEnumeration>enm2 = [seq2 enumerateInContext:ctx sorted:NO];
-        
-        while ([enm2 hasMoreItems]) {
-            id <XPItem>item2 = [enm2 nextItem];
-            [content addObject:item2];
+        XPValue *seq2 = [self.p2 evaluateAsSequenceInContext:ctx];
+        if ([seq2 isAtomic]) {
+            [content addObject:seq2];
+        } else {
+            id <XPSequenceEnumeration>enm2 = [seq2 enumerateInContext:ctx sorted:NO];
+            
+            while ([enm2 hasMoreItems]) {
+                id <XPItem>item2 = [enm2 nextItem];
+                [content addObject:item2];
+            }
         }
     }
     
