@@ -21,8 +21,6 @@
 @property (nonatomic, retain) NSMutableDictionary *letClause_memo;
 @property (nonatomic, retain) NSMutableDictionary *singleLetClause_memo;
 @property (nonatomic, retain) NSMutableDictionary *whereClause_memo;
-@property (nonatomic, retain) NSMutableDictionary *groupClause_memo;
-@property (nonatomic, retain) NSMutableDictionary *singleGroupClause_memo;
 @property (nonatomic, retain) NSMutableDictionary *orderByClause_memo;
 @property (nonatomic, retain) NSMutableDictionary *orderSpecList_memo;
 @property (nonatomic, retain) NSMutableDictionary *orderSpec_memo;
@@ -230,7 +228,6 @@
         self.tokenKindTab[@"!"] = @(XPEG_TOKEN_KIND_BANG);
         self.tokenKindTab[@"ge"] = @(XPEG_TOKEN_KIND_VALGE);
         self.tokenKindTab[@"true"] = @(XPEG_TOKEN_KIND_TRUE);
-        self.tokenKindTab[@"group"] = @(XPEG_TOKEN_KIND_GROUP);
         self.tokenKindTab[@"processing-instruction"] = @(XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION);
         self.tokenKindTab[@"where"] = @(XPEG_TOKEN_KIND_WHERE);
         self.tokenKindTab[@"$"] = @(XPEG_TOKEN_KIND_DOLLAR);
@@ -316,7 +313,6 @@
         self.tokenKindNameTab[XPEG_TOKEN_KIND_BANG] = @"!";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_VALGE] = @"ge";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_TRUE] = @"true";
-        self.tokenKindNameTab[XPEG_TOKEN_KIND_GROUP] = @"group";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_PROCESSINGINSTRUCTION] = @"processing-instruction";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_WHERE] = @"where";
         self.tokenKindNameTab[XPEG_TOKEN_KIND_DOLLAR] = @"$";
@@ -346,8 +342,6 @@
         self.letClause_memo = [NSMutableDictionary dictionary];
         self.singleLetClause_memo = [NSMutableDictionary dictionary];
         self.whereClause_memo = [NSMutableDictionary dictionary];
-        self.groupClause_memo = [NSMutableDictionary dictionary];
-        self.singleGroupClause_memo = [NSMutableDictionary dictionary];
         self.orderByClause_memo = [NSMutableDictionary dictionary];
         self.orderSpecList_memo = [NSMutableDictionary dictionary];
         self.orderSpec_memo = [NSMutableDictionary dictionary];
@@ -496,8 +490,6 @@
     self.letClause_memo = nil;
     self.singleLetClause_memo = nil;
     self.whereClause_memo = nil;
-    self.groupClause_memo = nil;
-    self.singleGroupClause_memo = nil;
     self.orderByClause_memo = nil;
     self.orderSpecList_memo = nil;
     self.orderSpec_memo = nil;
@@ -645,8 +637,6 @@
     [_letClause_memo removeAllObjects];
     [_singleLetClause_memo removeAllObjects];
     [_whereClause_memo removeAllObjects];
-    [_groupClause_memo removeAllObjects];
-    [_singleGroupClause_memo removeAllObjects];
     [_orderByClause_memo removeAllObjects];
     [_orderSpecList_memo removeAllObjects];
     [_orderSpec_memo removeAllObjects];
@@ -1097,39 +1087,6 @@
 
 - (void)whereClause_ {
     [self parseRule:@selector(__whereClause) withMemo:_whereClause_memo];
-}
-
-- (void)__groupClause {
-    
-    [self match:XPEG_TOKEN_KIND_GROUP discard:YES]; 
-    [self match:XPEG_TOKEN_KIND_BY discard:YES]; 
-    [self singleGroupClause_]; 
-    while ([self speculate:^{ [self match:XPEG_TOKEN_KIND_COMMA discard:YES]; [self singleGroupClause_]; }]) {
-        [self match:XPEG_TOKEN_KIND_COMMA discard:YES]; 
-        [self singleGroupClause_]; 
-    }
-
-    [self fireDelegateSelector:@selector(parser:didMatchGroupClause:)];
-}
-
-- (void)groupClause_ {
-    [self parseRule:@selector(__groupClause) withMemo:_groupClause_memo];
-}
-
-- (void)__singleGroupClause {
-    
-    [self match:XPEG_TOKEN_KIND_DOLLAR discard:YES]; 
-    [self qName_]; 
-    if ([self speculate:^{ [self match:XPEG_TOKEN_KIND_ASSIGN discard:NO]; [self exprSingle_]; }]) {
-        [self match:XPEG_TOKEN_KIND_ASSIGN discard:NO]; 
-        [self exprSingle_]; 
-    }
-
-    [self fireDelegateSelector:@selector(parser:didMatchSingleGroupClause:)];
-}
-
-- (void)singleGroupClause_ {
-    [self parseRule:@selector(__singleGroupClause) withMemo:_singleGroupClause_memo];
 }
 
 - (void)__orderByClause {

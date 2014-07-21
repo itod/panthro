@@ -19,6 +19,9 @@
 #import <Panthro/XPSequenceValue.h>
 #import <Panthro/XPNodeSetValue.h>
 #import <Panthro/XPEmptyNodeSet.h>
+#import <Panthro/XPSequenceExtent.h>
+#import <Panthro/XPAtomicSequence.h>
+#import <Panthro/XPEmptySequence.h>
 #import <Panthro/XPObjectValue.h>
 
 #import <Panthro/XPPattern.h>

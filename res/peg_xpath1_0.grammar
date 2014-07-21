@@ -89,8 +89,8 @@ exprSingle = orExpr | forExpr | quantifiedExpr | ifExpr | functionExpr;
 
         whereClause = 'where'! exprSingle;
 
-        groupClause = 'group'! 'by'! singleGroupClause (','! singleGroupClause)*;
-            singleGroupClause = '$'! qName (':=' exprSingle)?; // ('collation' uriLiteral)?
+//        groupClause = 'group'! 'by'! singleGroupClause (','! singleGroupClause)*;
+//            singleGroupClause = '$'! qName (':=' exprSingle)?; // ('collation' uriLiteral)?
 
         orderByClause = 'order'! 'by'! orderSpecList;
             orderSpecList = orderSpec (','! orderSpec)*;
