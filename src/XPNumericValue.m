@@ -48,8 +48,11 @@
 
 
 - (NSString *)asString {
-    // TODO
-    return [[NSNumber numberWithDouble:_value] stringValue];
+    if (isnan(_value)) {
+        return @"NaN";
+    } else {
+        return [[NSNumber numberWithDouble:_value] stringValue];
+    }
 }
 
 

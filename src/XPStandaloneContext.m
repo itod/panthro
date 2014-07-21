@@ -39,6 +39,7 @@
 #import "FNEndsWith.h"
 #import "FNExists.h"
 #import "FNFloor.h"
+#import "FNHead.h"
 #import "FNId.h"
 #import "FNIndexOf.h"
 #import "FNInsertBefore.h"
@@ -68,6 +69,7 @@
 #import "FNSubstringAfter.h"
 #import "FNSubstringBefore.h"
 #import "FNSum.h"
+#import "FNTail.h"
 #import "FNTrace.h"
 #import "FNTranslate.h"
 #import "FNTrimSpace.h"
@@ -118,6 +120,7 @@
         [self declareSystemFunction:[FNEndsWith class] forName:[FNEndsWith name]];
         [self declareSystemFunction:[FNExists class] forName:[FNExists name]];
         [self declareSystemFunction:[FNFloor class] forName:[FNFloor name]];
+        [self declareSystemFunction:[FNHead class] forName:[FNHead name]];
         [self declareSystemFunction:[FNId class] forName:[FNId name]];
         [self declareSystemFunction:[FNIndexOf class] forName:[FNIndexOf name]];
         [self declareSystemFunction:[FNInsertBefore class] forName:[FNInsertBefore name]];
@@ -147,6 +150,7 @@
         [self declareSystemFunction:[FNSubstringAfter class] forName:[FNSubstringAfter name]];
         [self declareSystemFunction:[FNSubstringBefore class] forName:[FNSubstringBefore name]];
         [self declareSystemFunction:[FNSum class] forName:[FNSum name]];
+        [self declareSystemFunction:[FNTail class] forName:[FNTail name]];
         [self declareSystemFunction:[FNTrace class] forName:[FNTrace name]];
         [self declareSystemFunction:[FNTranslate class] forName:[FNTranslate name]];
         [self declareSystemFunction:[FNTrimSpace class] forName:[FNTrimSpace name]];

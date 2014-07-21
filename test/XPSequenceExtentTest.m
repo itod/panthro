@@ -887,4 +887,20 @@
     TDFalse([enm hasMoreItems]);
 }
 
+
+- (void)testHeadOpenChapterAtIdClose {
+    [self eval:@"head(chapter/@id)"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    id <XPNodeInfo>node = nil;
+    
+    node = [enm nextNodeInfo];
+    TDEqualObjects(@"id", node.name);
+    TDEquals(XPNodeTypeAttribute, node.nodeType);
+    TDEqualObjects(_ids[0], node.stringValue);
+    
+    TDFalse([enm hasMoreItems]);
+}
+
 @end
