@@ -53,59 +53,57 @@ Panthro currently powers two of my applications:
 ####Examples
 
 Some example expressions that currently work (i.e. they are parsed, execute, and return a correct result):
+```xpath
+boolean(false() != true())
 
-    boolean(false() != true())
+not(string-length('foo') = 1)
 
-    not(string-length('foo') = 1)
+substring('12345', 2, 3)
 
-    substring('12345', 2, 3)
+substring-before('1999/04/01', '/')
 
-    substring-before('1999/04/01', '/')
+/
 
-    /
+.
 
-    .
+.. 
 
-    .. 
+chapter
 
-    chapter
+chapter/title
 
-    chapter/title
+*[@id]
 
-    *[@id]
+//para
 
-    //para
+chapter[@id='c1' or @id='c3']
 
-    chapter[@id='c1' or @id='c3']
+.|/|(//para)[2]
 
-    .|/|(//para)[2]
+(//para)[1]|//chapter/@id[string(.)='c1']
 
-    (//para)[1]|//chapter/@id[string(.)='c1']
+ancestor-or-self::node()
 
-    ancestor-or-self::node()
+chapter/@id != chapter[2]/@id
 
-    chapter/@id != chapter[2]/@id
+chapter[3]/preceding-sibling::*[2]/title
 
-    chapter[3]/preceding-sibling::*[2]/title
+//chapter[1]/@*[namespace-uri(.)='bar']/..
 
-    //chapter[1]/@*[namespace-uri(.)='bar']/..
+id('c2 c1')[2]/title
 
-    id('c2 c1')[2]/title
+book/(chapter|appendix)/*
 
-    book/(chapter|appendix)/*
-
-    book/(chapter[position()=last()]|appendix[1])/text()
-
--------------
-
+book/(chapter[position()=last()]|appendix[1])/text()
+```
+```xquery
     let $map := function ($f, $seq) {
         for $item in $seq
             return $f($item)
     }
     return $map(function($arg) {$arg * $arg}, (1,2,3,4))
-
--------------
-
+```
+```xquery
     declare function mysum($v) {
         let $head := $v[1],
             $tail := subsequence($v, 2)
@@ -116,7 +114,7 @@ Some example expressions that currently work (i.e. they are parsed, execute, and
                         $head + mysum($tail)
     };
     mysum((1,2,3))
-
+```
 ####Non-standard Additions
 
 1. Other functions of my own design are incuded in the default function namespace: `head()`, `tail()`, `title-case()`, and `trim-space()`.
