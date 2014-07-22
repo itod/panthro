@@ -53,7 +53,7 @@ Panthro currently powers two of my applications:
 ####Examples
 
 Some example expressions that currently work (i.e. they are parsed, execute, and return a correct result):
-```python
+```xquery
 boolean(false() != true())
 
 not(string-length('foo') = 1)
@@ -96,14 +96,14 @@ book/(chapter|appendix)/*
 
 book/(chapter[position()=last()]|appendix[1])/text()
 ```
-```python
+```xquery
     let $map := function ($f, $seq) {
         for $item in $seq
             return $f($item)
     }
     return $map(function($arg) {$arg * $arg}, (1,2,3,4))
 ```
-```python
+```xquery
     declare function mysum($v) {
         let $head := $v[1],
             $tail := subsequence($v, 2)
@@ -134,27 +134,32 @@ Panthro is designed to work with any XML tree API, but requires a small adapter 
 
 To use Panthro with NSXML on OS X:
 
-    // Build XML doc with NSXML
-    NSString *str = …
-    NSXMLDocument *doc = [[[NSXMLDocument alloc] initWithXMLString:str options:0 error:nil] autorelease];
-    
-    // Wrap NSXML doc in Panthro adapter (id <XPNodeInfo>)
-    id <XPNodeInfo>ctxNode = [[[XPNSXMLDocumentImpl alloc] initWithNode:doc] autorelease];
-    
-    // Create a Panthro stand-alone XPath context
-    XPStandaloneContext *env = [XPStandaloneContext standaloneContext];
+```objc
+// Build XML doc with NSXML
+NSString *str = …
+NSXMLDocument *doc = [[[NSXMLDocument alloc] initWithXMLString:str options:0 error:nil] autorelease];
 
+// Wrap NSXML doc in Panthro adapter (id <XPNodeInfo>)
+id <XPNodeInfo>ctxNode = [[[XPNSXMLDocumentImpl alloc] initWithNode:doc] autorelease];
+
+// Create a Panthro stand-alone XPath context
+XPStandaloneContext *env = [XPStandaloneContext standaloneContext];
+```
 The Panthro API allows you to first compile your XPath string into an intermediate tree representation (Abstract Syntax Tree, or AST), which can then be evaluated multiple times. The type of the AST is `XPExpression`. The API keywords for this are `compile` and `evaluate`:
 
-    // compile first…
-    NSError *err = nil;
-    XPExpression *expr = [env compile:@"book/chapter[@id='ch1']/title" error:&err];
-    
-    // …then evaluate (possibly multiple times) later
-    NSString *ch1Title = [env evaluate:expr withContextNode:ctxNode error:&err];
+```objc
+// compile first…
+NSError *err = nil;
+XPExpression *expr = [env compile:@"book/chapter[@id='ch1']/title" error:&err];
+
+// …then evaluate (possibly multiple times) later
+NSString *ch1Title = [env evaluate:expr withContextNode:ctxNode error:&err];
+```
 
 Alternatively, the Panthro API allows you to complile and evaluate an XPath string all in one go. The API keyword for this combined action is `execute`:
 
-    // compile and evaluate together (AKA `execute`)
-    NSError *err = nil;
-    NSString *ch1Title = [env execute:@"book/chapter[@id='ch1']/title" withContextNode:ctxNode error:&err];
+```objc
+// compile and evaluate together (AKA `execute`)
+NSError *err = nil;
+NSString *ch1Title = [env execute:@"book/chapter[@id='ch1']/title" withContextNode:ctxNode error:&err];
+```
