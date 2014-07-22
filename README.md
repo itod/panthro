@@ -53,7 +53,7 @@ Panthro currently powers two of my applications:
 ####Examples
 
 Some example expressions that currently work (i.e. they are parsed, execute, and return a correct result):
-```xquery
+```python
 boolean(false() != true())
 
 not(string-length('foo') = 1)
