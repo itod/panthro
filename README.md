@@ -96,14 +96,14 @@ book/(chapter|appendix)/*
 
 book/(chapter[position()=last()]|appendix[1])/text()
 ```
-```xquery
+```python
     let $map := function ($f, $seq) {
         for $item in $seq
             return $f($item)
     }
     return $map(function($arg) {$arg * $arg}, (1,2,3,4))
 ```
-```xquery
+```python
     declare function mysum($v) {
         let $head := $v[1],
             $tail := subsequence($v, 2)
