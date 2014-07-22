@@ -27,4 +27,8 @@
 }
 
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"case %@ return %@", _testExpression, _bodyExpression];
+}
+
 @end

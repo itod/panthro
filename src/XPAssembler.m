@@ -502,21 +502,30 @@
     
     id peek = [a pop];
     XPAssertToken(peek);
-    XPAssert([_caseTok isEqual:peek]);
     
-//    do {
-//        XPExpression *bodyExpr = [a pop];
-//        XPAssertExpr(bodyExpr);
+    BOOL copyBody = NO;
+    NSMutableArray *caseClauses = [NSMutableArray array];
+    
+    do {
+        XPAssert([_caseTok isEqual:peek]);
 
         XPExpression *testExpr = [a pop];
         XPAssertExpr(testExpr);
     
+        bodyExpr = copyBody ? [[bodyExpr copy] autorelease] : bodyExpr;
         XPCaseClause *caseClause = [[[XPCaseClause alloc] initWithTest:testExpr body:bodyExpr] autorelease];
     
-        [a push:caseClause];
+        [caseClauses addObject:caseClause];
 
-//        peek = [a pop];
-//    } while ([_caseTok isEqual:peek]);
+        peek = [a pop];
+        copyBody = YES;
+    } while ([_caseTok isEqual:peek]);
+
+    [a push:peek];
+    
+    for (XPCaseClause *caseClause in [caseClauses reverseObjectEnumerator]) {
+        [a push:caseClause];
+    }
 }
 
 
@@ -528,7 +537,7 @@
     
     NSMutableArray *caseClauses = [NSMutableArray array];
     while ([peek isKindOfClass:[XPCaseClause class]]) {
-        [caseClauses insertObject:peek atIndex:0];
+        [caseClauses addObject:peek];
         peek = [a pop];
     }
     
