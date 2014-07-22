@@ -76,7 +76,7 @@ expr = exprSingle exprSingleTail*;
     exprSingleTail = (','! exprSingle);
 exprSingle = orExpr | forExpr | quantifiedExpr | ifExpr | switchExpr | functionExpr;
 
-    switchExpr = 'switch' '(' expr ')' switchCaseClause+ 'default' return exprSingle;
+    switchExpr = 'switch'! '('! expr ')'! switchCaseClause+ 'default'! return exprSingle;
         switchCaseClause = ('case'! switchCaseOperand)+ return exprSingle;
         switchCaseOperand = exprSingle;
 

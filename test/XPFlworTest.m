@@ -190,10 +190,31 @@
 }
 
 
-- (void)testSwitch123 {
-    [self eval:@"switch (1) case 1: 'one' case 2: 'two' case 3: 'three'"];
+- (void)testSwitch123_1 {
+    [self eval:@"switch (1) case 1 return 'one' case 2 return 'two' case 3 return 'three' default return 'unknown'"];
     
     TDEqualObjects(@"one", [_res stringValue]);
+}
+
+
+- (void)testSwitch123_2 {
+    [self eval:@"switch (2) case 1 return 'one' case 2 return 'two' case 3 return 'three' default return 'unknown'"];
+    
+    TDEqualObjects(@"two", [_res stringValue]);
+}
+
+
+- (void)testSwitch123_3 {
+    [self eval:@"switch (3) case 1 return 'one' case 2 return 'two' case 3 return 'three' default return 'unknown'"];
+    
+    TDEqualObjects(@"three", [_res stringValue]);
+}
+
+
+- (void)testSwitch123_4 {
+    [self eval:@"switch (4) case 1 return 'one' case 2 return 'two' case 3 return 'three' default return 'unknown'"];
+    
+    TDEqualObjects(@"unknown", [_res stringValue]);
 }
 
 @end

@@ -78,6 +78,9 @@
         }
     }
 
+    res.staticContext = self.staticContext;
+    res.range = self.range;
+
     return res;
 }
 

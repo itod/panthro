@@ -979,14 +979,14 @@
 
 - (void)__switchExpr {
     
-    [self match:XPEG_TOKEN_KIND_SWITCH discard:NO]; 
-    [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:NO]; 
+    [self match:XPEG_TOKEN_KIND_SWITCH discard:YES]; 
+    [self match:XPEG_TOKEN_KIND_OPEN_PAREN discard:YES]; 
     [self expr_]; 
-    [self match:XPEG_TOKEN_KIND_CLOSE_PAREN discard:NO]; 
+    [self match:XPEG_TOKEN_KIND_CLOSE_PAREN discard:YES]; 
     do {
         [self switchCaseClause_]; 
     } while ([self speculate:^{ [self switchCaseClause_]; }]);
-    [self match:XPEG_TOKEN_KIND_DEFAULT discard:NO]; 
+    [self match:XPEG_TOKEN_KIND_DEFAULT discard:YES]; 
     [self return_]; 
     [self exprSingle_]; 
 

@@ -520,16 +520,19 @@
 }
 
 
-- (void)parser:(PKParser *)p didMatchSwitchExpression:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchSwitchExpr:(PKAssembly *)a {
+    XPExpression *defaultExpr = [a pop];
+    XPAssertExpr(defaultExpr);
+
     id peek = [a pop];
     
     NSMutableArray *caseClauses = [NSMutableArray array];
     while ([peek isKindOfClass:[XPCaseClause class]]) {
         [caseClauses insertObject:peek atIndex:0];
+        peek = [a pop];
     }
     
-    XPExpression *defaultExpr = nil;
-    XPExpression *testExpr = [a pop];
+    XPExpression *testExpr = peek;
     XPAssertExpr(testExpr);
     
     XPSwitchExpression *switchExpr = [[[XPSwitchExpression alloc] initWithTest:testExpr defaultExpression:defaultExpr caseClauses:caseClauses] autorelease];
