@@ -2050,7 +2050,18 @@
 
 - (void)__functionName {
     
-    [self testAndThrow:(id)^{ return NE(LS(1), @"true") && NE(LS(1), @"false") && NE(LS(1), @"comment") && NE(LS(1), @"text") && NE(LS(1), @"processing-instruction") && NE(LS(1), @"node"); }]; 
+    [self testAndThrow:(id)^{ return NE(LS(1), @"true") && 
+                        NE(LS(1), @"false") && 
+
+                        NE(LS(1), @"comment") &&
+                        NE(LS(1), @"text") && 
+                        NE(LS(1), @"processing-instruction") && 
+                        NE(LS(1), @"node") &&
+                        NE(LS(1), @"item") &&
+
+                        NE(LS(1), @"function") &&
+                        NE(LS(1), @"if") &&
+                        NE(LS(1), @"switch"); }]; 
     [self qName_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchFunctionName:)];

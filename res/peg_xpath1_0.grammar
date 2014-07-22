@@ -173,7 +173,20 @@ pathExpr = filterExpr | locationPath;
                 anonFunctionCall = parenthesizedExpr '(' argList? ')';
                 argList = (argument (','! argument)* );
                 booleanLiteralFunctionCall = booleanLiteral '('! ')';
-                    functionName = { NE(LS(1), @"true") && NE(LS(1), @"false") && NE(LS(1), @"comment") && NE(LS(1), @"text") && NE(LS(1), @"processing-instruction") && NE(LS(1), @"node") }? qName;
+                    functionName = { 
+                        NE(LS(1), @"true") && 
+                        NE(LS(1), @"false") && 
+
+                        NE(LS(1), @"comment") &&
+                        NE(LS(1), @"text") && 
+                        NE(LS(1), @"processing-instruction") && 
+                        NE(LS(1), @"node") &&
+                        NE(LS(1), @"item") &&
+
+                        NE(LS(1), @"function") &&
+                        NE(LS(1), @"if") &&
+                        NE(LS(1), @"switch")
+                    }? qName;
                     booleanLiteral = true | false;
                 
                     qName = (prefix ':')? localPart;
