@@ -189,4 +189,11 @@
     TDFalse([enm hasMoreItems]);
 }
 
+
+- (void)testSwitch123 {
+    [self eval:@"switch (1) case 1: 'one' case 2: 'two' case 3: 'three'"];
+    
+    TDEqualObjects(@"one", [_res stringValue]);
+}
+
 @end

@@ -18,11 +18,16 @@
 
 #import "XPSequenceExpression.h"
 #import "XPRangeExpression.h"
+
 #import "XPFlworExpression.h"
 #import "XPForClause.h"
 #import "XPLetClause.h"
 #import "XPGroupClause.h"
 #import "XPOrderClause.h"
+
+#import "XPSwitchExpression.h"
+#import "XPCaseClause.h"
+
 #import "XPQuantifiedExpression.h"
 #import "XPIfExpression.h"
 #import "XPEmptySequence.h"
@@ -63,6 +68,7 @@
 @property (nonatomic, retain) PKToken *comma;
 @property (nonatomic, retain) PKToken *at;
 @property (nonatomic, retain) PKToken *forTok;
+@property (nonatomic, retain) PKToken *caseTok;
 @property (nonatomic, retain) PKToken *let;
 @property (nonatomic, retain) PKToken *where;
 @property (nonatomic, retain) PKToken *group;
@@ -95,6 +101,7 @@
         self.comma = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"," doubleValue:0.0];
         self.at = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"at" doubleValue:0.0];
         self.forTok = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"for" doubleValue:0.0];
+        self.caseTok = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"case" doubleValue:0.0];
         self.let = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"let" doubleValue:0.0];
         self.where = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"where" doubleValue:0.0];
         self.group = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"group" doubleValue:0.0];
@@ -140,6 +147,7 @@
     self.comma = nil;
     self.at = nil;
     self.forTok = nil;
+    self.caseTok = nil;
     self.let = nil;
     self.where = nil;
     self.group = nil;
@@ -480,6 +488,52 @@
     ifExpr.range = NSMakeRange(offset, NSMaxRange(lastExpr.range) - offset);
     ifExpr.staticContext = _env;
     [a push:ifExpr];
+}
+
+
+- (void)parser:(PKParser *)p didMatchSwitchCaseOperand:(PKAssembly *)a {
+    [a push:_caseTok];
+}
+
+
+- (void)parser:(PKParser *)p didMatchSwitchCaseClause:(PKAssembly *)a {
+    XPExpression *bodyExpr = [a pop];
+    XPAssertExpr(bodyExpr);
+    
+    id peek = [a pop];
+    XPAssertToken(peek);
+    XPAssert([_caseTok isEqual:peek]);
+    
+//    do {
+//        XPExpression *bodyExpr = [a pop];
+//        XPAssertExpr(bodyExpr);
+
+        XPExpression *testExpr = [a pop];
+        XPAssertExpr(testExpr);
+    
+        XPCaseClause *caseClause = [[[XPCaseClause alloc] initWithTest:testExpr body:bodyExpr] autorelease];
+    
+        [a push:caseClause];
+
+//        peek = [a pop];
+//    } while ([_caseTok isEqual:peek]);
+}
+
+
+- (void)parser:(PKParser *)p didMatchSwitchExpression:(PKAssembly *)a {
+    id peek = [a pop];
+    
+    NSMutableArray *caseClauses = [NSMutableArray array];
+    while ([peek isKindOfClass:[XPCaseClause class]]) {
+        [caseClauses insertObject:peek atIndex:0];
+    }
+    
+    XPExpression *defaultExpr = nil;
+    XPExpression *testExpr = [a pop];
+    XPAssertExpr(testExpr);
+    
+    XPSwitchExpression *switchExpr = [[[XPSwitchExpression alloc] initWithTest:testExpr defaultExpression:defaultExpr caseClauses:caseClauses] autorelease];
+    [a push:switchExpr];
 }
 
 

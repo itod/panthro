@@ -330,6 +330,10 @@
 		D3ADFC52193A358900223AB6 /* XPLibxmlNamespaceImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = D3ADFC50193A358900223AB6 /* XPLibxmlNamespaceImpl.h */; };
 		D3ADFC53193A358900223AB6 /* XPLibxmlNamespaceImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFC51193A358900223AB6 /* XPLibxmlNamespaceImpl.m */; };
 		D3ADFC55193B69A500223AB6 /* XPRegexTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFC54193B69A500223AB6 /* XPRegexTest.m */; };
+		D3B2C3CF197E14B7004862F6 /* XPCaseClause.h in Headers */ = {isa = PBXBuildFile; fileRef = D3B2C3CD197E14B7004862F6 /* XPCaseClause.h */; };
+		D3B2C3D0197E14B7004862F6 /* XPCaseClause.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B2C3CE197E14B7004862F6 /* XPCaseClause.m */; };
+		D3B2C3D3197E1508004862F6 /* XPSwitchExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3B2C3D1197E1508004862F6 /* XPSwitchExpression.h */; };
+		D3B2C3D4197E1508004862F6 /* XPSwitchExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B2C3D2197E1508004862F6 /* XPSwitchExpression.m */; };
 		D3BBAE8A191D881200766EB4 /* XPLookaheadEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = D3BBAE88191D881200766EB4 /* XPLookaheadEnumerator.h */; };
 		D3BBAE8B191D881200766EB4 /* XPLookaheadEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BBAE89191D881200766EB4 /* XPLookaheadEnumerator.m */; };
 		D3BBAE8F191DCBF900766EB4 /* XPSingletonNodeSet.m in Sources */ = {isa = PBXBuildFile; fileRef = D336393F100D7EB400AC4B51 /* XPSingletonNodeSet.m */; };
@@ -813,6 +817,10 @@
 		D3ADFC50193A358900223AB6 /* XPLibxmlNamespaceImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPLibxmlNamespaceImpl.h; path = libxml2/XPLibxmlNamespaceImpl.h; sourceTree = "<group>"; };
 		D3ADFC51193A358900223AB6 /* XPLibxmlNamespaceImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPLibxmlNamespaceImpl.m; path = libxml2/XPLibxmlNamespaceImpl.m; sourceTree = "<group>"; };
 		D3ADFC54193B69A500223AB6 /* XPRegexTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPRegexTest.m; path = test/XPRegexTest.m; sourceTree = "<group>"; };
+		D3B2C3CD197E14B7004862F6 /* XPCaseClause.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPCaseClause.h; path = src/XPCaseClause.h; sourceTree = "<group>"; };
+		D3B2C3CE197E14B7004862F6 /* XPCaseClause.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPCaseClause.m; path = src/XPCaseClause.m; sourceTree = "<group>"; };
+		D3B2C3D1197E1508004862F6 /* XPSwitchExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPSwitchExpression.h; path = src/XPSwitchExpression.h; sourceTree = "<group>"; };
+		D3B2C3D2197E1508004862F6 /* XPSwitchExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPSwitchExpression.m; path = src/XPSwitchExpression.m; sourceTree = "<group>"; };
 		D3BBAE88191D881200766EB4 /* XPLookaheadEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPLookaheadEnumerator.h; path = src/XPLookaheadEnumerator.h; sourceTree = "<group>"; };
 		D3BBAE89191D881200766EB4 /* XPLookaheadEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPLookaheadEnumerator.m; path = src/XPLookaheadEnumerator.m; sourceTree = "<group>"; };
 		D3BBAE90191DD0CF00766EB4 /* XPSingletonEnumeration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPSingletonEnumeration.h; path = src/XPSingletonEnumeration.h; sourceTree = "<group>"; };
@@ -1304,6 +1312,10 @@
 				D37299BF19699616004B1B7A /* XPQuantifiedExpression.m */,
 				D37299C21969B441004B1B7A /* XPIfExpression.h */,
 				D37299C31969B441004B1B7A /* XPIfExpression.m */,
+				D3B2C3D1197E1508004862F6 /* XPSwitchExpression.h */,
+				D3B2C3D2197E1508004862F6 /* XPSwitchExpression.m */,
+				D3B2C3CD197E14B7004862F6 /* XPCaseClause.h */,
+				D3B2C3CE197E14B7004862F6 /* XPCaseClause.m */,
 				D3F4586A196DE0D600F05EA0 /* FLWOR Expr */,
 			);
 			name = "Sequence Expr";
@@ -1788,6 +1800,7 @@
 				D37299351965F31D004B1B7A /* XPExceptEnumeration.h in Headers */,
 				D32A3B4A1970532C00DA9E39 /* FNRemove.h in Headers */,
 				D39753961971CB20003A0126 /* FNMax.h in Headers */,
+				D3B2C3CF197E14B7004862F6 /* XPCaseClause.h in Headers */,
 				D32BA2F1197437350002D403 /* XPAbstractNodeWrapper.h in Headers */,
 				D32A3B4E1970535700DA9E39 /* FNSubsequence.h in Headers */,
 				D3411B59191A87960082A196 /* XPContextNodeExpression.h in Headers */,
@@ -1796,6 +1809,7 @@
 				D36672DD197B411800BD1FC6 /* XPStringConcatExpression.h in Headers */,
 				D37299AE1968509D004B1B7A /* XPSequenceExtentEnumeration.h in Headers */,
 				D3F0CBB6191EC2F70049EC02 /* XPNamespaceTest.h in Headers */,
+				D3B2C3D3197E1508004862F6 /* XPSwitchExpression.h in Headers */,
 				D3F0CBA4191EC23D0049EC02 /* FNLast.h in Headers */,
 				D3393102192038EE00259939 /* FNMatches.h in Headers */,
 				D3C0F59619214BBD00566524 /* FNCompare.h in Headers */,
@@ -2015,6 +2029,7 @@
 				D33E9F941917040D00BB7DFE /* XPPathExpression.m in Sources */,
 				D34BADF9100ABA9300996341 /* XPValue.m in Sources */,
 				D339311719204E9E00259939 /* FNAbs.m in Sources */,
+				D3B2C3D0197E14B7004862F6 /* XPCaseClause.m in Sources */,
 				D3C0F58A1921255C00566524 /* FNLocalName.m in Sources */,
 				D339F6471927B66500C79A51 /* xmlmemory.c in Sources */,
 				D3363817100C6E0400AC4B51 /* XPSequenceValue.m in Sources */,
@@ -2083,6 +2098,7 @@
 				D324A1A4192AE4D90093C4B5 /* XPSync.m in Sources */,
 				D39753931971C5B4003A0126 /* FNMin.m in Sources */,
 				D37A2D02101433C600E936B7 /* FNConcat.m in Sources */,
+				D3B2C3D4197E1508004862F6 /* XPSwitchExpression.m in Sources */,
 				D339F6511927B66500C79A51 /* xpath.c in Sources */,
 				D37A2D641014393D00E936B7 /* FNCount.m in Sources */,
 				D339F6201927B66500C79A51 /* nanohttp.c in Sources */,
