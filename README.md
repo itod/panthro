@@ -10,14 +10,14 @@ Panthro supports all of XPath 1.0 and many of the most interesting features of 2
 * Evertything (I think)
 
 #####From XPath 2.0:
-* Support for **sequences** (`('a', 'b', 'c')` or `()`)
+* **Sequences** (`('a', 'b', 'c')` or `()`)
 * Steps in Path expressions may be arbitrary sub-expressions (`book/(chapter|appendix)/*`)
 * `for` looping expressions
 * `if` conditional expressions
 * `some` and `every` quantified expressions
 * Range expressions (`for $i in 1 to 10`)
 * The `intersect`, `except`, and `union` operators
-* NameTest wildcard ***prefixes*** such as `*:div` are supported
+* NameTest wildcard ***prefixes*** such as `*:div`
 * Many of the XPath 2.0 functions are supported including **regex** support in `matches()` and `replace()`
 * Scientific notation (exponents) are allowed in number literals
 
