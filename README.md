@@ -22,7 +22,7 @@ Panthro supports all of XPath 1.0 and many of the most interesting features of 2
 * Scientific notation (exponents) are allowed in number literals
 
 #####From XQuery 1.0:
-* Support for **FLWOR** (For, Let, Where, Order by, Return) expressions
+* **FLWOR** (For, Let, Where, Order by, Return) expressions
 * Function declarations
 * Variable declarations
 
