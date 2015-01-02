@@ -35,7 +35,7 @@ Panthro supports all of XPath 1.0 and many of the most interesting features of 2
 #####From XQuery 3.0:
 * Switch expressions (`switch (1) case 1 return 'one' case 2 return 'two' default return 'unknown'`)
 
-I think most people familiar with XPath and XQuery will agree these are the most usefull and interesting features beyond XPath 1.0, and Panthro has them all. Most of what is "missing" from XPath 2.0 in Panthro is related to the overly-complex and unpopular XML Schema-inspired static type system. Currently, implementing that portion of XPath 2.0 is not planned, and is probably a non-goal in the long term.
+I think most people familiar with XPath and XQuery will agree these are the most useful and interesting features beyond XPath 1.0, and Panthro has them all. Most of what is "missing" from XPath 2.0 in Panthro is related to the overly-complex and unpopular XML Schema-inspired static type system. Currently, implementing that portion of XPath 2.0 is not planned, and is probably a non-goal in the long term.
 
 ####Data Model
 Panthro's current data model lies somewhere in between XPath 1.0 and 2.0. Panthro's type system has the simple, dynamic flavor and small number of types from XPath 1.0 plus the pervasive addition of Sequences from XPath 2.0.
