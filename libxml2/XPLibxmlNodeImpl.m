@@ -73,9 +73,6 @@ static NSUInteger XPIndexInParent(id <XPNodeInfo>nodeInfo) {
 
 + (id <XPNodeInfo>)nodeInfoWithNode:(void *)inNode parserContext:(xmlParserCtxtPtr)parserCtx {
     xmlNodePtr node = (xmlNodePtr)inNode;
-    if (XML_DTD_NODE == node->type) {
-        NSLog(@"%@", self);
-    }
     Class cls = nil;
     
     switch (node->type) {
