@@ -63,6 +63,7 @@
 #import "FNReverse.h"
 #import "FNStartsWith.h"
 #import "FNString.h"
+#import "FNStringJoin.h"
 #import "FNStringLength.h"
 #import "FNSubsequence.h"
 #import "FNSubstring.h"
@@ -144,6 +145,7 @@
         [self declareSystemFunction:[FNReverse class] forName:[FNReverse name]];
         [self declareSystemFunction:[FNStartsWith class] forName:[FNStartsWith name]];
         [self declareSystemFunction:[FNString class] forName:[FNString name]];
+        [self declareSystemFunction:[FNStringJoin class] forName:[FNStringJoin name]];
         [self declareSystemFunction:[FNStringLength class] forName:[FNStringLength name]];
         [self declareSystemFunction:[FNSubsequence class] forName:[FNSubsequence name]];
         [self declareSystemFunction:[FNSubstring class] forName:[FNSubstring name]];

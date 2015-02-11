@@ -23,10 +23,10 @@
 
 - (void)testErrors {
     NSError *err = nil;
-    [XPExpression expressionFromString:@"string-join('foo')" inContext:[XPStandaloneContext standaloneContext] error:&err];
+    [XPExpression expressionFromString:@"string-join()" inContext:[XPStandaloneContext standaloneContext] error:&err];
     TDNotNil(err);
     
-    [XPExpression expressionFromString:@"string-join()" inContext:[XPStandaloneContext standaloneContext] error:&err];
+    [XPExpression expressionFromString:@"string-join('foo', 'bar', 'baz')" inContext:[XPStandaloneContext standaloneContext] error:&err];
     TDNotNil(err);
 }
 

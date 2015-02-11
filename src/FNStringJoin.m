@@ -9,6 +9,8 @@
 #import "FNStringJoin.h"
 #import "XPValue.h"
 #import "XPStringValue.h"
+#import "XPSequenceValue.h"
+#import "XPSequenceEnumeration.h"
 
 @interface XPFunction ()
 - (NSUInteger)checkArgumentCountForMin:(NSUInteger)min max:(NSUInteger)max;
@@ -30,7 +32,7 @@
 - (XPExpression *)simplify {
     XPExpression *result = self;
     
-    [self checkArgumentCountForMin:1 max:NSIntegerMax];
+    [self checkArgumentCountForMin:1 max:2];
 
     BOOL allKnown = YES;
     NSMutableArray *newArgs = [NSMutableArray arrayWithCapacity:[self.args count]];
@@ -56,8 +58,24 @@
 - (NSString *)evaluateAsStringInContext:(XPContext *)ctx {
     NSMutableString *ms = [NSMutableString string];
     
-    for (XPExpression *arg in self.args) {
-        [ms appendString:[arg evaluateAsStringInContext:ctx]];
+    NSString *sep = @"";
+    if ([self numberOfArguments] > 1) {
+        sep = [self.args[1] evaluateAsStringInContext:ctx];
+    }
+    
+    id <XPSequenceEnumeration>enm = [self.args[0] enumerateInContext:ctx sorted:YES];
+    
+    BOOL isEmpty = ![enm hasMoreItems];
+    
+    if (!isEmpty) {
+        while ([enm hasMoreItems]) {
+            [ms appendFormat:@"%@%@", [[enm nextItem] stringValue], sep];
+        }
+        
+        NSUInteger sepLen = [sep length];
+        if (sepLen) {
+            [ms replaceCharactersInRange:NSMakeRange([ms length]-sepLen, sepLen) withString:@""];
+        }
     }
     
     return [[ms copy] autorelease];
