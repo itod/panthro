@@ -73,6 +73,25 @@
     self.expr = [XPExpression expressionFromString:@"string-join(('foo', 'bar'), ':')" inContext:[XPStandaloneContext standaloneContext] error:nil];
     self.res = [_expr evaluateAsStringInContext:nil];
     TDEqualObjects(_res, @"foo:bar");
+    
+    self.expr = [XPExpression expressionFromString:@"string-join(('foo', 'bar', 'baz'), ',')" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsStringInContext:nil];
+    TDEqualObjects(_res, @"foo,bar,baz");
+}
+
+
+- (void)testEmptyList {
+    self.expr = [XPExpression expressionFromString:@"string-join((), ',')" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsStringInContext:nil];
+    TDEqualObjects(_res, @"");
+    
+    self.expr = [XPExpression expressionFromString:@"string-join('', ',')" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsStringInContext:nil];
+    TDEqualObjects(_res, @"");
+    
+    self.expr = [XPExpression expressionFromString:@"string-join((''), ',')" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsStringInContext:nil];
+    TDEqualObjects(_res, @"");
 }
 
 @end

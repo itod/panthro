@@ -474,7 +474,9 @@
 		D3F4586E196DE28300F05EA0 /* XPAbstractNodeEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4586C196DE28300F05EA0 /* XPAbstractNodeEnumeration.m */; };
 		D3F742661A8BAF92001B301F /* PGNegationNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F742651A8BAF92001B301F /* PGNegationNode.m */; };
 		D3F742681A8BAF9F001B301F /* PGRepetitionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F742671A8BAF9F001B301F /* PGRepetitionNode.m */; };
-		D3F7426E1A8BB16F001B301F /* FNStringJoinTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F7426D1A8BB16F001B301F /* FNStringJoinTest.m */; };
+		D3F742711A8BB26E001B301F /* FNStringJoin.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F7426F1A8BB26E001B301F /* FNStringJoin.h */; };
+		D3F742721A8BB26E001B301F /* FNStringJoin.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F742701A8BB26E001B301F /* FNStringJoin.m */; };
+		D3F742731A8BB327001B301F /* FNStringJoinTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F7426D1A8BB16F001B301F /* FNStringJoinTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -973,6 +975,8 @@
 		D3F742651A8BAF92001B301F /* PGNegationNode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PGNegationNode.m; path = lib/pegkit/ParserGenApp/nodes/PGNegationNode.m; sourceTree = "<group>"; };
 		D3F742671A8BAF9F001B301F /* PGRepetitionNode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PGRepetitionNode.m; path = lib/pegkit/ParserGenApp/nodes/PGRepetitionNode.m; sourceTree = "<group>"; };
 		D3F7426D1A8BB16F001B301F /* FNStringJoinTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNStringJoinTest.m; path = test/FNStringJoinTest.m; sourceTree = "<group>"; };
+		D3F7426F1A8BB26E001B301F /* FNStringJoin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNStringJoin.h; path = src/FNStringJoin.h; sourceTree = "<group>"; };
+		D3F742701A8BB26E001B301F /* FNStringJoin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNStringJoin.m; path = src/FNStringJoin.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1433,6 +1437,8 @@
 				D37A2FFB10158DA900E936B7 /* FNStartsWith.m */,
 				D3F0CB97191EC23D0049EC02 /* FNString.h */,
 				D37A2FFF10158DB300E936B7 /* FNString.m */,
+				D3F7426F1A8BB26E001B301F /* FNStringJoin.h */,
+				D3F742701A8BB26E001B301F /* FNStringJoin.m */,
 				D3F0CB98191EC23D0049EC02 /* FNStringLength.h */,
 				D37A300310158DC200E936B7 /* FNStringLength.m */,
 				D32A3B4C1970535700DA9E39 /* FNSubsequence.h */,
@@ -1846,6 +1852,7 @@
 				D3F0CBFF191EC8090049EC02 /* XPStaticContext.h in Headers */,
 				D3F0CBA7191EC23D0049EC02 /* FNPosition.h in Headers */,
 				D3902BDC192FAC84004D8A76 /* XPException.h in Headers */,
+				D3F742711A8BB26E001B301F /* FNStringJoin.h in Headers */,
 				D324A1A6192AE5550093C4B5 /* XPSync.h in Headers */,
 				D33E9F9F191706E100BB7DFE /* XPEmptyEnumeration.h in Headers */,
 				D39753921971C5B4003A0126 /* FNMin.h in Headers */,
@@ -2158,7 +2165,6 @@
 				D339F64D1927B66500C79A51 /* xmlschemastypes.c in Sources */,
 				D3C0F59B19214DC900566524 /* FNNormalizeSpace.m in Sources */,
 				D3F0CBC1191EC3A50049EC02 /* XPNSXMLNodeImpl.m in Sources */,
-				D3F7426E1A8BB16F001B301F /* FNStringJoinTest.m in Sources */,
 				D339F65F1927B90400C79A51 /* error.c in Sources */,
 				D339F6491927B66500C79A51 /* xmlreader.c in Sources */,
 				D3C1782B18844C7D00F90600 /* XPPattern.m in Sources */,
@@ -2174,6 +2180,7 @@
 				D37299AF1968509D004B1B7A /* XPSequenceExtentEnumeration.m in Sources */,
 				D37A300D10158DE500E936B7 /* FNSubstringAfter.m in Sources */,
 				D37A301110158DEF00E936B7 /* FNSubstringBefore.m in Sources */,
+				D3F742721A8BB26E001B301F /* FNStringJoin.m in Sources */,
 				D3C0F5A31921555800566524 /* FNNormalizeUnicode.m in Sources */,
 				D36036281962579E0047F6A4 /* XPPathEnumeration.m in Sources */,
 				D339F6731929623700C79A51 /* FNTranslate.m in Sources */,
@@ -2233,6 +2240,7 @@
 				D3411BDB191A8E140082A196 /* PGConstantNode.m in Sources */,
 				D3411BDC191A8E140082A196 /* PGDefinitionNode.m in Sources */,
 				D339F6811929692C00C79A51 /* FNTrimSpaceTest.m in Sources */,
+				D3F742731A8BB327001B301F /* FNStringJoinTest.m in Sources */,
 				D324A1AA192BFA5B0093C4B5 /* XPRangeTest.m in Sources */,
 				D3BE141F191C05D600005C81 /* XPLocationPathNSXMLTest.m in Sources */,
 				D3411BDD191A8E140082A196 /* PGDelimitedNode.m in Sources */,
