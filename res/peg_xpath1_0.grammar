@@ -44,7 +44,7 @@
         [t.wordState setWordChars:YES from:'-' to:'-'];
         [t.wordState setWordChars:YES from:'_' to:'_'];
         [t.wordState setWordChars:YES from:'.' to:'.'];
-        [t.wordState setWordChars:NO from:'\\'' to:'\\''];
+        [t.wordState setWordChars:NO from:'\'' to:'\''];
 
         [t setTokenizerState:t.numberState from:'.' to:'.'];
 

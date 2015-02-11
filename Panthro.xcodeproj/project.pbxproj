@@ -472,6 +472,8 @@
 		D3F45869196CA45400F05EA0 /* XPNodeSetValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F45867196CA45400F05EA0 /* XPNodeSetValue.m */; };
 		D3F4586D196DE28300F05EA0 /* XPAbstractNodeEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F4586B196DE28300F05EA0 /* XPAbstractNodeEnumeration.h */; };
 		D3F4586E196DE28300F05EA0 /* XPAbstractNodeEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4586C196DE28300F05EA0 /* XPAbstractNodeEnumeration.m */; };
+		D3F742661A8BAF92001B301F /* PGNegationNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F742651A8BAF92001B301F /* PGNegationNode.m */; };
+		D3F742681A8BAF9F001B301F /* PGRepetitionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F742671A8BAF9F001B301F /* PGRepetitionNode.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -967,6 +969,8 @@
 		D3F4586B196DE28300F05EA0 /* XPAbstractNodeEnumeration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPAbstractNodeEnumeration.h; path = src/XPAbstractNodeEnumeration.h; sourceTree = "<group>"; };
 		D3F4586C196DE28300F05EA0 /* XPAbstractNodeEnumeration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPAbstractNodeEnumeration.m; path = src/XPAbstractNodeEnumeration.m; sourceTree = "<group>"; };
 		D3F45877196E186600F05EA0 /* XPPauseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = XPPauseHandler.h; path = src/XPPauseHandler.h; sourceTree = "<group>"; };
+		D3F742651A8BAF92001B301F /* PGNegationNode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PGNegationNode.m; path = lib/pegkit/ParserGenApp/nodes/PGNegationNode.m; sourceTree = "<group>"; };
+		D3F742671A8BAF9F001B301F /* PGRepetitionNode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PGRepetitionNode.m; path = lib/pegkit/ParserGenApp/nodes/PGRepetitionNode.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1007,6 +1011,8 @@
 		0867D691FE84028FC02AAC07 /* Exedore */ = {
 			isa = PBXGroup;
 			children = (
+				D3F742671A8BAF9F001B301F /* PGRepetitionNode.m */,
+				D3F742651A8BAF92001B301F /* PGNegationNode.m */,
 				D339F5011927B4B400C79A51 /* libxml */,
 				D3411B53191A7B670082A196 /* Unused */,
 				D33639CB100DAA6B00AC4B51 /* Panthro Tests */,
@@ -1899,7 +1905,7 @@
 			name = PanthroTests;
 			productName = Tests;
 			productReference = D33639D1100DAA9400AC4B51 /* Tests.xctest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -2230,6 +2236,8 @@
 				D3729A0B196C4435004B1B7A /* FNDataTest.m in Sources */,
 				D3411BDF191A8E140082A196 /* PGMultipleNode.m in Sources */,
 				D3411BE0191A8E140082A196 /* PGOptionalNode.m in Sources */,
+				D3F742661A8BAF92001B301F /* PGNegationNode.m in Sources */,
+				D3F742681A8BAF9F001B301F /* PGRepetitionNode.m in Sources */,
 				D397539E1971CBD2003A0126 /* FNMaxTest.m in Sources */,
 				D3411BE1191A8E140082A196 /* PGPatternNode.m in Sources */,
 				D303722E197057EB0096D466 /* FNReverseTest.m in Sources */,
