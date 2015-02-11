@@ -474,6 +474,7 @@
 		D3F4586E196DE28300F05EA0 /* XPAbstractNodeEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4586C196DE28300F05EA0 /* XPAbstractNodeEnumeration.m */; };
 		D3F742661A8BAF92001B301F /* PGNegationNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F742651A8BAF92001B301F /* PGNegationNode.m */; };
 		D3F742681A8BAF9F001B301F /* PGRepetitionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F742671A8BAF9F001B301F /* PGRepetitionNode.m */; };
+		D3F7426E1A8BB16F001B301F /* FNStringJoinTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F7426D1A8BB16F001B301F /* FNStringJoinTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -971,6 +972,7 @@
 		D3F45877196E186600F05EA0 /* XPPauseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = XPPauseHandler.h; path = src/XPPauseHandler.h; sourceTree = "<group>"; };
 		D3F742651A8BAF92001B301F /* PGNegationNode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PGNegationNode.m; path = lib/pegkit/ParserGenApp/nodes/PGNegationNode.m; sourceTree = "<group>"; };
 		D3F742671A8BAF9F001B301F /* PGRepetitionNode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PGRepetitionNode.m; path = lib/pegkit/ParserGenApp/nodes/PGRepetitionNode.m; sourceTree = "<group>"; };
+		D3F7426D1A8BB16F001B301F /* FNStringJoinTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNStringJoinTest.m; path = test/FNStringJoinTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1513,6 +1515,7 @@
 				D37A2FDD10158BE200E936B7 /* FNRoundTest.m */,
 				D37A3077101595FD00E936B7 /* FNStartsWithTest.m */,
 				D37A30C510159A5400E936B7 /* FNStringTest.m */,
+				D3F7426D1A8BB16F001B301F /* FNStringJoinTest.m */,
 				D37A31841016A34C00E936B7 /* FNStringLengthTest.m */,
 				D303722F19705B3C0096D466 /* FNSubsequenceTest.m */,
 				D37A31BE1016A7B000E936B7 /* FNSubstringTest.m */,
@@ -2155,6 +2158,7 @@
 				D339F64D1927B66500C79A51 /* xmlschemastypes.c in Sources */,
 				D3C0F59B19214DC900566524 /* FNNormalizeSpace.m in Sources */,
 				D3F0CBC1191EC3A50049EC02 /* XPNSXMLNodeImpl.m in Sources */,
+				D3F7426E1A8BB16F001B301F /* FNStringJoinTest.m in Sources */,
 				D339F65F1927B90400C79A51 /* error.c in Sources */,
 				D339F6491927B66500C79A51 /* xmlreader.c in Sources */,
 				D3C1782B18844C7D00F90600 /* XPPattern.m in Sources */,
