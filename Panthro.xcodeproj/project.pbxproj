@@ -304,6 +304,8 @@
 		D383A31F187F748E006AE701 /* XPEGParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D383A31D187F748E006AE701 /* XPEGParser.h */; };
 		D383A320187F748E006AE701 /* XPEGParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D383A31E187F748E006AE701 /* XPEGParser.m */; };
 		D383A321187F7EA5006AE701 /* XPTestScaffold.m in Sources */ = {isa = PBXBuildFile; fileRef = D33639DA100DAB8C00AC4B51 /* XPTestScaffold.m */; };
+		D38775A61A8BD6F500D343B3 /* FNTokenize.h in Headers */ = {isa = PBXBuildFile; fileRef = D38775A41A8BD6F500D343B3 /* FNTokenize.h */; };
+		D38775A71A8BD6F500D343B3 /* FNTokenize.m in Sources */ = {isa = PBXBuildFile; fileRef = D38775A51A8BD6F500D343B3 /* FNTokenize.m */; };
 		D3902BDC192FAC84004D8A76 /* XPException.h in Headers */ = {isa = PBXBuildFile; fileRef = D3902BDB192FAC84004D8A76 /* XPException.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D397538F1971C3ED003A0126 /* FNMinTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D397538E1971C3ED003A0126 /* FNMinTest.m */; };
 		D39753921971C5B4003A0126 /* FNMin.h in Headers */ = {isa = PBXBuildFile; fileRef = D39753901971C5B4003A0126 /* FNMin.h */; };
@@ -794,6 +796,8 @@
 		D383A31B187F6ECB006AE701 /* XPAssembler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPAssembler.h; path = src/XPAssembler.h; sourceTree = "<group>"; };
 		D383A31D187F748E006AE701 /* XPEGParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPEGParser.h; path = src/XPEGParser.h; sourceTree = "<group>"; };
 		D383A31E187F748E006AE701 /* XPEGParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPEGParser.m; path = src/XPEGParser.m; sourceTree = "<group>"; };
+		D38775A41A8BD6F500D343B3 /* FNTokenize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNTokenize.h; path = src/FNTokenize.h; sourceTree = "<group>"; };
+		D38775A51A8BD6F500D343B3 /* FNTokenize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNTokenize.m; path = src/FNTokenize.m; sourceTree = "<group>"; };
 		D3902BDB192FAC84004D8A76 /* XPException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPException.h; path = include/Panthro/XPException.h; sourceTree = "<group>"; };
 		D397538E1971C3ED003A0126 /* FNMinTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNMinTest.m; path = test/FNMinTest.m; sourceTree = "<group>"; };
 		D39753901971C5B4003A0126 /* FNMin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNMin.h; path = src/FNMin.h; sourceTree = "<group>"; };
@@ -1453,6 +1457,8 @@
 				D37A301310158E0100E936B7 /* FNSum.m */,
 				D366738E197D5A7000BD1FC6 /* FNTail.h */,
 				D366738F197D5A7000BD1FC6 /* FNTail.m */,
+				D38775A41A8BD6F500D343B3 /* FNTokenize.h */,
+				D38775A51A8BD6F500D343B3 /* FNTokenize.m */,
 				D32BA2F6197439980002D403 /* FNTrace.h */,
 				D32BA2F7197439980002D403 /* FNTrace.m */,
 				D339F6701929623700C79A51 /* FNTranslate.h */,
@@ -1825,6 +1831,7 @@
 				D37299AE1968509D004B1B7A /* XPSequenceExtentEnumeration.h in Headers */,
 				D3F0CBB6191EC2F70049EC02 /* XPNamespaceTest.h in Headers */,
 				D3B2C3D3197E1508004862F6 /* XPSwitchExpression.h in Headers */,
+				D38775A61A8BD6F500D343B3 /* FNTokenize.h in Headers */,
 				D3F0CBA4191EC23D0049EC02 /* FNLast.h in Headers */,
 				D3393102192038EE00259939 /* FNMatches.h in Headers */,
 				D3C0F59619214BBD00566524 /* FNCompare.h in Headers */,
@@ -2159,6 +2166,7 @@
 				D3037234197072240096D466 /* XPGroupClause.m in Sources */,
 				D32A3B4F1970535700DA9E39 /* FNSubsequence.m in Sources */,
 				D339F61A1927B66500C79A51 /* globals.c in Sources */,
+				D38775A71A8BD6F500D343B3 /* FNTokenize.m in Sources */,
 				D3729A08196C431C004B1B7A /* FNData.m in Sources */,
 				D3729A04196C3AD0004B1B7A /* XPOrderSpec.m in Sources */,
 				D339F65D1927B74B00C79A51 /* triostr.c in Sources */,

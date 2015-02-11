@@ -115,4 +115,29 @@
 //replace("AAAA", "A+?", "b") returns "bbbb"
 //replace("darted", "^(.*?)d(.*)$", "$1c$2") returns "carted". The first d is replaced.
 
+
+- (void)testTokenize {
+    id <XPSequenceEnumeration>enm = nil;
+    self.expr = [XPExpression expressionFromString:@"tokenize('foo bar baz', ' ')" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    enm = [[_expr evaluateAsSequenceInContext:nil] enumerate];
+    TDEqualObjects(@"foo", [[enm nextItem] stringValue]);
+    TDEqualObjects(@"bar", [[enm nextItem] stringValue]);
+    TDEqualObjects(@"baz", [[enm nextItem] stringValue]);
+    TDFalse([enm hasMoreItems]);
+    
+    self.expr = [XPExpression expressionFromString:@"tokenize('foo bar baz', '\\s+')" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    enm = [[_expr evaluateAsSequenceInContext:nil] enumerate];
+    TDEqualObjects(@"foo", [[enm nextItem] stringValue]);
+    TDEqualObjects(@"bar", [[enm nextItem] stringValue]);
+    TDEqualObjects(@"baz", [[enm nextItem] stringValue]);
+    TDFalse([enm hasMoreItems]);
+    
+    self.expr = [XPExpression expressionFromString:@"tokenize('foo   bar \nbaz', '\\s+')" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    enm = [[_expr evaluateAsSequenceInContext:nil] enumerate];
+    TDEqualObjects(@"foo", [[enm nextItem] stringValue]);
+    TDEqualObjects(@"bar", [[enm nextItem] stringValue]);
+    TDEqualObjects(@"baz", [[enm nextItem] stringValue]);
+    TDFalse([enm hasMoreItems]);
+}
+
 @end
