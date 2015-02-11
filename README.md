@@ -38,7 +38,7 @@ Panthro supports all of XPath 1.0 and many of the most interesting features of 2
 I think most people familiar with XPath and XQuery will agree these are the most useful and interesting features beyond XPath 1.0, and Panthro has them all. Most of what is "missing" from XPath 2.0 in Panthro is related to the overly-complex and unpopular XML Schema-inspired static type system. Currently, implementing that portion of XPath 2.0 is not planned, and is probably a non-goal in the long term.
 
 ####Data Model
-Panthro's current data model lies in a fuzzy area somewhere between XPath 1.0 and 3.0. This is intentional. Panthro's type system has the simple, dynamic flavor and small number of types from XPath 1.0, plus the pervasive addition of Sequences from XPath 2.0, plus the first-class functions from XPath 3.0.
+Panthro's current data model lies in a fuzzy area somewhere between XPath 1.0 and 3.0. This is intentional. Panthro's type system has the simple, dynamic flavor and small number of types from XPath 1.0, plus the pervasive addition of Sequences from XPath 2.0, plus first-class functions from XPath 3.0.
 
 The types are basically `item` (think base class), `string`, `number`, `boolean`, `node`, and `sequence`. As in XPath 2.0, every `item` is also a `sequence` of length 1. Any XPath or XQuery features related to explicit static types (e.g. `as xs:integer`) and casts (e.g. `cast as xs:string`, `treat as xs:double`, `instance of xs:dateTime`) are **not** currently supported, and will cause a syntax error.
 
