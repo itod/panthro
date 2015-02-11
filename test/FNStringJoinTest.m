@@ -94,4 +94,24 @@
     TDEqualObjects(_res, @"");
 }
 
+
+- (void)testNumbers {
+    self.expr = [XPExpression expressionFromString:@"string-join(1, ':')" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsStringInContext:nil];
+    TDEqualObjects(_res, @"1");
+    
+    self.expr = [XPExpression expressionFromString:@"string-join((47), ':')" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsStringInContext:nil];
+    TDEqualObjects(_res, @"47");
+    
+    self.expr = [XPExpression expressionFromString:@"string-join((1, 2), ':')" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsStringInContext:nil];
+    TDEqualObjects(_res, @"1:2");
+    
+    self.expr = [XPExpression expressionFromString:@"string-join(('foo', 'bar', 'baz'), 5)" inContext:[XPStandaloneContext standaloneContext] error:nil];
+    self.res = [_expr evaluateAsStringInContext:nil];
+    TDEqualObjects(_res, @"foo5bar5baz");
+}
+
+
 @end
