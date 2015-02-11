@@ -187,6 +187,18 @@
 }
 
 
+- (void)testStringJoinImplicitChildAxisNameTestChapterSlashTitle {
+    [self eval:@"string-join(chapter/title, ',')"];
+    
+    id <XPSequenceEnumeration>enm = [_res enumerate];
+    
+    NSString *str = [[enm nextItem] stringValue];
+    TDEqualObjects(@"Chapter 1,Chapter 2,Chapter 3", str);
+
+    TDFalse([enm hasMoreItems]);
+}
+
+
 - (void)testImplicitChildAxisNameTestChapterPredicate1 {
     [self eval:@"chapter[1]"];
     
