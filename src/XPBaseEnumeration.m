@@ -9,6 +9,7 @@
 #import "XPBaseEnumeration.h"
 #import "XPItem.h"
 #import "XPException.h"
+#import "XPNodeInfo.h"
 
 @implementation XPBaseEnumeration
 

@@ -8,6 +8,7 @@
 
 #import <Panthro/XPNodeSetValue.h>
 #import "XPException.h"
+#import "XPNodeInfo.h"
 
 @implementation XPNodeSetValue
 
