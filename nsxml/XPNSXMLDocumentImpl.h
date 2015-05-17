@@ -6,7 +6,7 @@
 //
 //
 
-#import "XPDocumentInfo.h"
+#import <Panthro/XPDocumentInfo.h>
 #import "XPNSXMLNodeImpl.h"
 
 @interface XPNSXMLDocumentImpl : XPNSXMLNodeImpl <XPDocumentInfo>
