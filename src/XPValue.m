@@ -7,6 +7,7 @@
 //
 
 #import "XPValue.h"
+#import "XPNodeInfo.h"
 #import "XPBooleanValue.h"
 #import "XPNumericValue.h"
 #import "XPStringValue.h"
