@@ -196,6 +196,11 @@
 }
 
 
+- (NSRange)range {
+    return NSMakeRange(0, [[self.node XMLString] length]);
+}
+
+
 - (id <XPNodeInfo>)parent {
     XPAssert(self.node);
     

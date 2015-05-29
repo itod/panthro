@@ -258,7 +258,9 @@
     XPAssert([fn.name length]);
     XPAssert(_userFunctions);
     
-    _userFunctions[fn.name] = fn;
+    if (fn && fn.name) {
+        _userFunctions[fn.name] = fn;
+    }
 
     return YES;
 }
@@ -291,7 +293,9 @@
     XPAssert([name length]);
     XPAssert(_functions);
     
-    _functions[name] = cls;
+    if (name && cls) {
+        _functions[name] = cls;
+    }
 }
 
 
@@ -303,7 +307,10 @@
     NSParameterAssert(uri);
     NSParameterAssert(prefix);
     XPAssert(_namespaces);
-    _namespaces[prefix] = uri;
+    
+    if (prefix && uri) {
+        _namespaces[prefix] = uri;
+    }
 }
     
 
