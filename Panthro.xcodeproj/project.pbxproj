@@ -1930,7 +1930,7 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0710;
 			};
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "Panthro" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -2354,6 +2354,7 @@
 					"-framework",
 					Foundation,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.celestialteapot.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = Panthro;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -2384,6 +2385,7 @@
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.celestialteapot.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = Panthro;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -2394,6 +2396,7 @@
 		1DEB91B208733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -2441,6 +2444,7 @@
 				);
 				INFOPLIST_FILE = "Tests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				PRODUCT_BUNDLE_IDENTIFIER = com.celestialteapot.XPTests;
 				PRODUCT_NAME = Tests;
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -2472,6 +2476,7 @@
 				);
 				INFOPLIST_FILE = "Tests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				PRODUCT_BUNDLE_IDENTIFIER = com.celestialteapot.XPTests;
 				PRODUCT_NAME = Tests;
 				WRAPPER_EXTENSION = xctest;
 				ZERO_LINK = NO;
