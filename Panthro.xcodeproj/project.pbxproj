@@ -2356,7 +2356,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.celestialteapot.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = Panthro;
-				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -2387,7 +2386,6 @@
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.celestialteapot.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = Panthro;
-				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -2402,7 +2400,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -2413,7 +2410,6 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -2441,6 +2437,7 @@
 					"\"$(SRCROOT)/lib/tdtemplateengine/include\"",
 					"\"$(SRCROOT)/lib/pegkit/ParserGenApp\"/**",
 					"\"$(SRCROOT)/lib/pegkit/src\"/**",
+					"\"$(SRCROOT)/lib/libxml2-2.9.1/include\"",
 				);
 				INFOPLIST_FILE = "Tests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
@@ -2473,6 +2470,7 @@
 					"\"$(SRCROOT)/lib/tdtemplateengine/include\"",
 					"\"$(SRCROOT)/lib/pegkit/ParserGenApp\"/**",
 					"\"$(SRCROOT)/lib/pegkit/src\"/**",
+					"\"$(SRCROOT)/lib/libxml2-2.9.1/include\"",
 				);
 				INFOPLIST_FILE = "Tests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
