@@ -26,6 +26,8 @@ typedef NS_ENUM(NSUInteger, XPNodeType) {
     XPNodeTypeNone = 9,    // a test for this node type will never be satisfied
 };
 
+extern NSString *XPSTR(const void *zstr);
+
 extern const NSString *XPNodeTypeName[];
 
 extern BOOL XPNameIsNCName(NSString *name);

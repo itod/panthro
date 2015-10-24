@@ -15,15 +15,9 @@
 #import "XPNodeSetExtent.h"
 #import "XPEmptyNodeSet.h"
 
-#import <libxml/tree.h>
+#import <Panthro/XPUtils.h>
 
-static NSString *XPSTR(const xmlChar *zstr) {
-    NSString *res = @"";
-    if (zstr) {
-        res = [NSString stringWithUTF8String:(const char *)zstr];
-    }
-    return res;
-}
+#import <libxml/tree.h>
 
 static NSUInteger XPIndexInParent(id <XPNodeInfo>nodeInfo) {
     // must go thru XPNodeInfo parent pointer, not libxml parent pointer, cuz libxml namespace nodes are missing their parent pointers,

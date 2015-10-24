@@ -7,14 +7,7 @@
 //
 
 #import "XPLibxmlNamespaceImpl.h"
-
-static NSString *XPSTR(const xmlChar *zstr) {
-    NSString *res = @"";
-    if (zstr) {
-        res = [NSString stringWithUTF8String:(const char *)zstr];
-    }
-    return res;
-}
+#import <Panthro/XPUtils.h>
 
 @implementation XPLibxmlNamespaceImpl
 

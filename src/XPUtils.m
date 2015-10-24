@@ -9,6 +9,15 @@
 #import "XPUtils.h"
 #import "XPSortable.h"
 
+NSString *XPSTR(const void *zstr) {
+    NSString *res = @"";
+    if (zstr) {
+        res = [NSString stringWithUTF8String:(const char *)zstr];
+    }
+    return res;
+}
+
+
 const NSString *XPNodeTypeName[] = {
     @"node",
     @"element",
