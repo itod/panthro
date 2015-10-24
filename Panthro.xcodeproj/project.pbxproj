@@ -1912,7 +1912,6 @@
 				D33639CC100DAA9400AC4B51 /* Resources */,
 				D33639CD100DAA9400AC4B51 /* Sources */,
 				D33639CE100DAA9400AC4B51 /* Frameworks */,
-				D33639CF100DAA9400AC4B51 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2012,22 +2011,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		D33639CF100DAA9400AC4B51 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8DC2EF540486A6940098B216 /* Sources */ = {
