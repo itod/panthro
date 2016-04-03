@@ -2328,8 +2328,8 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GENERATE_PROFILING_CODE = YES;
 				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
 					"\"$(SRCROOT)/lib/pegkit/include\"",
-					"\"$(SRCROOT)/lib/libxml2-2.9.1/include\"",
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";
@@ -2362,8 +2362,8 @@
 				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
 					"\"$(SRCROOT)/lib/pegkit/include\"",
-					"\"$(SRCROOT)/lib/libxml2-2.9.1/include\"",
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";
@@ -2382,6 +2382,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/lib/libxml2-2.9.1/include\"";
 				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
@@ -2393,6 +2394,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/lib/libxml2-2.9.1/include\"";
 			};
 			name = Release;
 		};
@@ -2415,12 +2417,10 @@
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/usr/include/libxml2,
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"\"$(SRCROOT)/lib/tdtemplateengine/include\"",
 					"\"$(SRCROOT)/lib/pegkit/ParserGenApp\"/**",
 					"\"$(SRCROOT)/lib/pegkit/src\"/**",
-					"\"$(SRCROOT)/lib/libxml2-2.9.1/include\"",
 				);
 				INFOPLIST_FILE = "Tests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
@@ -2448,12 +2448,10 @@
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/usr/include/libxml2,
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"\"$(SRCROOT)/lib/tdtemplateengine/include\"",
 					"\"$(SRCROOT)/lib/pegkit/ParserGenApp\"/**",
 					"\"$(SRCROOT)/lib/pegkit/src\"/**",
-					"\"$(SRCROOT)/lib/libxml2-2.9.1/include\"",
 				);
 				INFOPLIST_FILE = "Tests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
