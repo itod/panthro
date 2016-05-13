@@ -44,6 +44,160 @@
 		D33097381921BE99004317EA /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33097361921BE99004317EA /* PEGKit.framework */; };
 		D330973B1921BED5004317EA /* TDTemplateEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D330973A1921BED5004317EA /* TDTemplateEngine.framework */; };
 		D334BAB4192193AA00A32DD6 /* XPLastPositionFinder.h in Headers */ = {isa = PBXBuildFile; fileRef = D334BAB3192193AA00A32DD6 /* XPLastPositionFinder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F43C1CE631F5009D9119 /* XPValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CC09191EC8250049EC02 /* XPValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F43E1CE63202009D9119 /* XPFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = D33930F3191EC98700259939 /* XPFunction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F43F1CE6320B009D9119 /* XPSequence.h in Headers */ = {isa = PBXBuildFile; fileRef = D372998C19674122004B1B7A /* XPSequence.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F4401CE63216009D9119 /* XPNumericValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CC06191EC8250049EC02 /* XPNumericValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F4411CE6321C009D9119 /* XPItem.h in Headers */ = {isa = PBXBuildFile; fileRef = D372998E19674143004B1B7A /* XPItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F4421CE63223009D9119 /* XPExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CC02191EC8180049EC02 /* XPExpression.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F4431CE6322C009D9119 /* XPSequenceValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CC05191EC8250049EC02 /* XPSequenceValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F4441CE63235009D9119 /* XPNodeSetValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D32BA2F2197439230002D403 /* XPNodeSetValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F4451CE6323D009D9119 /* XPContext.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBF0191EC7D00049EC02 /* XPContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F4461CE63243009D9119 /* XPBooleanValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CC04191EC8250049EC02 /* XPBooleanValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F4471CE6324C009D9119 /* Panthro.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBEE191EC7D00049EC02 /* Panthro.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F4481CE6325B009D9119 /* XPSequenceEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CC00191EC8100049EC02 /* XPSequenceEnumeration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F4491CE63262009D9119 /* XPLastPositionFinder.h in Headers */ = {isa = PBXBuildFile; fileRef = D334BAB3192193AA00A32DD6 /* XPLastPositionFinder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F44A1CE6326B009D9119 /* XPEmptyNodeSet.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A6FCB319465B7300FCF2C1 /* XPEmptyNodeSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F44B1CE63275009D9119 /* XPStandaloneContext.h in Headers */ = {isa = PBXBuildFile; fileRef = D33930F1191EC8D500259939 /* XPStandaloneContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F44D1CE63283009D9119 /* XPAtomicSequence.h in Headers */ = {isa = PBXBuildFile; fileRef = D3667364197C948400BD1FC6 /* XPAtomicSequence.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F44E1CE6328A009D9119 /* XPScope.h in Headers */ = {isa = PBXBuildFile; fileRef = D37299C61969E587004B1B7A /* XPScope.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F44F1CE63294009D9119 /* XPAbstractNodeWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = D32BA2F0197437350002D403 /* XPAbstractNodeWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F4501CE6329A009D9119 /* XPEmptySequence.h in Headers */ = {isa = PBXBuildFile; fileRef = D3667365197C948400BD1FC6 /* XPEmptySequence.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F4511CE632A3009D9119 /* XPStringValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CC08191EC8250049EC02 /* XPStringValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F4521CE632AE009D9119 /* XPSequenceExtent.h in Headers */ = {isa = PBXBuildFile; fileRef = D3667366197C948400BD1FC6 /* XPSequenceExtent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F4531CE632B5009D9119 /* XPUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBF2191EC7D00049EC02 /* XPUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F4541CE632BC009D9119 /* XPNodeInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBFB191EC7F60049EC02 /* XPNodeInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F4551CE632C2009D9119 /* XPDocumentInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBFA191EC7F60049EC02 /* XPDocumentInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F4561CE632C8009D9119 /* XPRootExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D33E9FA119170BB900BB7DFE /* XPRootExpression.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F4571CE632CF009D9119 /* XPObjectValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CC07191EC8250049EC02 /* XPObjectValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F4581CE632E3009D9119 /* XPStaticContext.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBFE191EC8090049EC02 /* XPStaticContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F4591CE632EA009D9119 /* XPException.h in Headers */ = {isa = PBXBuildFile; fileRef = D3902BDB192FAC84004D8A76 /* XPException.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F45A1CE632F1009D9119 /* XPSync.h in Headers */ = {isa = PBXBuildFile; fileRef = D324A1A5192AE5550093C4B5 /* XPSync.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F45B1CE632F8009D9119 /* XPAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CC10191EC8590049EC02 /* XPAxis.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F4A51CE633F2009D9119 /* XPLibxmlNodeImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = D339F1E919279E4600C79A51 /* XPLibxmlNodeImpl.h */; };
+		D334F4A61CE633F2009D9119 /* XPLibxmlDocumentImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = D339F1E719279E4600C79A51 /* XPLibxmlDocumentImpl.h */; };
+		D334F4A71CE633F2009D9119 /* XPLibxmlNamespaceImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = D3ADFC50193A358900223AB6 /* XPLibxmlNamespaceImpl.h */; };
+		D334F4A81CE633F2009D9119 /* XPNSXMLNodeImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBBC191EC3A50049EC02 /* XPNSXMLNodeImpl.h */; };
+		D334F4A91CE633F2009D9119 /* XPNSXMLDocumentImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBBA191EC3A50049EC02 /* XPNSXMLDocumentImpl.h */; };
+		D334F4AA1CE633F2009D9119 /* XPEGParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D383A31D187F748E006AE701 /* XPEGParser.h */; };
+		D334F4AB1CE633F2009D9119 /* XPAssembler.h in Headers */ = {isa = PBXBuildFile; fileRef = D383A31B187F6ECB006AE701 /* XPAssembler.h */; };
+		D334F4AC1CE633F3009D9119 /* XPSortable.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBF1191EC7D00049EC02 /* XPSortable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F4AD1CE633F3009D9119 /* XPCallable.h in Headers */ = {isa = PBXBuildFile; fileRef = D32BA2EE1972F10C0002D403 /* XPCallable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F4AE1CE633F3009D9119 /* XPSynchronousChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = D324A1A7192AF16D0093C4B5 /* XPSynchronousChannel.h */; };
+		D334F4AF1CE633F3009D9119 /* XPSemaphore.h in Headers */ = {isa = PBXBuildFile; fileRef = D36712E3192ACC2600B13A63 /* XPSemaphore.h */; };
+		D334F4B01CE633F3009D9119 /* XPAxisEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A6C2F7190756FC00F3EFF3 /* XPAxisEnumeration.h */; };
+		D334F4B11CE633F3009D9119 /* XPNodeOrderComparer.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBDA191EC4F10049EC02 /* XPNodeOrderComparer.h */; };
+		D334F4B21CE633F3009D9119 /* XPLocalOrderComparer.h in Headers */ = {isa = PBXBuildFile; fileRef = D30D9697191862E300627D41 /* XPLocalOrderComparer.h */; };
+		D334F4B31CE633F3009D9119 /* FNAbs.h in Headers */ = {isa = PBXBuildFile; fileRef = D339311419204E9E00259939 /* FNAbs.h */; };
+		D334F4B41CE633F3009D9119 /* FNAvg.h in Headers */ = {isa = PBXBuildFile; fileRef = D39753981971CB7B003A0126 /* FNAvg.h */; };
+		D334F4B51CE633F3009D9119 /* FNBoolean.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB8A191EC23D0049EC02 /* FNBoolean.h */; };
+		D334F4B61CE633F3009D9119 /* FNCeiling.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB8B191EC23D0049EC02 /* FNCeiling.h */; };
+		D334F4B71CE633F3009D9119 /* FNCompare.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C0F59419214BBD00566524 /* FNCompare.h */; };
+		D334F4B81CE633F3009D9119 /* FNConcat.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB8C191EC23D0049EC02 /* FNConcat.h */; };
+		D334F4B91CE633F3009D9119 /* FNContains.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB8D191EC23D0049EC02 /* FNContains.h */; };
+		D334F4BA1CE633F3009D9119 /* FNCount.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB8E191EC23D0049EC02 /* FNCount.h */; };
+		D334F4BB1CE633F3009D9119 /* FNData.h in Headers */ = {isa = PBXBuildFile; fileRef = D3729A05196C431C004B1B7A /* FNData.h */; };
+		D334F4BC1CE633F3009D9119 /* FNDistinctValues.h in Headers */ = {isa = PBXBuildFile; fileRef = D3729A0C196C544B004B1B7A /* FNDistinctValues.h */; };
+		D334F4BD1CE633F3009D9119 /* FNEmpty.h in Headers */ = {isa = PBXBuildFile; fileRef = D37299E3196B5A5B004B1B7A /* FNEmpty.h */; };
+		D334F4BE1CE633F3009D9119 /* FNEndsWith.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB8F191EC23D0049EC02 /* FNEndsWith.h */; };
+		D334F4BF1CE633F3009D9119 /* FNExists.h in Headers */ = {isa = PBXBuildFile; fileRef = D37299DC196B575D004B1B7A /* FNExists.h */; };
+		D334F4C01CE633F3009D9119 /* FNFloor.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB90191EC23D0049EC02 /* FNFloor.h */; };
+		D334F4C11CE633F3009D9119 /* FNHead.h in Headers */ = {isa = PBXBuildFile; fileRef = D366738A197D558000BD1FC6 /* FNHead.h */; };
+		D334F4C21CE633F3009D9119 /* FNId.h in Headers */ = {isa = PBXBuildFile; fileRef = D339F66A1928EA1100C79A51 /* FNId.h */; };
+		D334F4C31CE633F3009D9119 /* FNIndexOf.h in Headers */ = {isa = PBXBuildFile; fileRef = D32A3B32197031EE00DA9E39 /* FNIndexOf.h */; };
+		D334F4C41CE633F3009D9119 /* FNInsertBefore.h in Headers */ = {isa = PBXBuildFile; fileRef = D32A3B3E19703B7800DA9E39 /* FNInsertBefore.h */; };
+		D334F4C51CE633F3009D9119 /* FNLang.h in Headers */ = {isa = PBXBuildFile; fileRef = D347955E193FDEA100181E56 /* FNLang.h */; };
+		D334F4C61CE633F3009D9119 /* FNLast.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB91191EC23D0049EC02 /* FNLast.h */; };
+		D334F4C71CE633F3009D9119 /* FNLocalName.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C0F5871921255C00566524 /* FNLocalName.h */; };
+		D334F4C81CE633F3009D9119 /* FNLowerCase.h in Headers */ = {isa = PBXBuildFile; fileRef = D3393120192052C600259939 /* FNLowerCase.h */; };
+		D334F4C91CE633F3009D9119 /* FNMatches.h in Headers */ = {isa = PBXBuildFile; fileRef = D3393100192038EE00259939 /* FNMatches.h */; };
+		D334F4CA1CE633F3009D9119 /* FNMax.h in Headers */ = {isa = PBXBuildFile; fileRef = D39753941971CB20003A0126 /* FNMax.h */; };
+		D334F4CB1CE633F3009D9119 /* FNMin.h in Headers */ = {isa = PBXBuildFile; fileRef = D39753901971C5B4003A0126 /* FNMin.h */; };
+		D334F4CC1CE633F3009D9119 /* FNName.h in Headers */ = {isa = PBXBuildFile; fileRef = D339312A19211CC900259939 /* FNName.h */; };
+		D334F4CD1CE633F3009D9119 /* FNNamespaceURI.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C0F590192128E000566524 /* FNNamespaceURI.h */; };
+		D334F4CE1CE633F3009D9119 /* FNNormalizeSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C0F59819214DC900566524 /* FNNormalizeSpace.h */; };
+		D334F4CF1CE633F3009D9119 /* FNNormalizeUnicode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C0F5A01921555800566524 /* FNNormalizeUnicode.h */; };
+		D334F4D01CE633F3009D9119 /* FNNot.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB92191EC23D0049EC02 /* FNNot.h */; };
+		D334F4D11CE633F3009D9119 /* FNNumber.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB93191EC23D0049EC02 /* FNNumber.h */; };
+		D334F4D21CE633F3009D9119 /* FNPosition.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB94191EC23D0049EC02 /* FNPosition.h */; };
+		D334F4D31CE633F3009D9119 /* FNRemove.h in Headers */ = {isa = PBXBuildFile; fileRef = D32A3B481970532C00DA9E39 /* FNRemove.h */; };
+		D334F4D41CE633F3009D9119 /* FNReplace.h in Headers */ = {isa = PBXBuildFile; fileRef = D339311019203EBA00259939 /* FNReplace.h */; };
+		D334F4D51CE633F3009D9119 /* FNReverse.h in Headers */ = {isa = PBXBuildFile; fileRef = D32A3B441970516600DA9E39 /* FNReverse.h */; };
+		D334F4D61CE633F3009D9119 /* FNRound.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB95191EC23D0049EC02 /* FNRound.h */; };
+		D334F4D71CE633F3009D9119 /* FNStartsWith.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB96191EC23D0049EC02 /* FNStartsWith.h */; };
+		D334F4D81CE633F3009D9119 /* FNString.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB97191EC23D0049EC02 /* FNString.h */; };
+		D334F4D91CE633F3009D9119 /* FNStringJoin.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F7426F1A8BB26E001B301F /* FNStringJoin.h */; };
+		D334F4DA1CE633F3009D9119 /* FNStringLength.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB98191EC23D0049EC02 /* FNStringLength.h */; };
+		D334F4DB1CE633F3009D9119 /* FNSubsequence.h in Headers */ = {isa = PBXBuildFile; fileRef = D32A3B4C1970535700DA9E39 /* FNSubsequence.h */; };
+		D334F4DC1CE633F3009D9119 /* FNSubstring.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB99191EC23D0049EC02 /* FNSubstring.h */; };
+		D334F4DD1CE633F3009D9119 /* FNSubstringAfter.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB9A191EC23D0049EC02 /* FNSubstringAfter.h */; };
+		D334F4DE1CE633F3009D9119 /* FNSubstringBefore.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB9B191EC23D0049EC02 /* FNSubstringBefore.h */; };
+		D334F4DF1CE633F3009D9119 /* FNSum.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CB9C191EC23D0049EC02 /* FNSum.h */; };
+		D334F4E01CE633F3009D9119 /* FNTail.h in Headers */ = {isa = PBXBuildFile; fileRef = D366738E197D5A7000BD1FC6 /* FNTail.h */; };
+		D334F4E11CE633F3009D9119 /* FNTokenize.h in Headers */ = {isa = PBXBuildFile; fileRef = D38775A41A8BD6F500D343B3 /* FNTokenize.h */; };
+		D334F4E21CE633F3009D9119 /* FNTrace.h in Headers */ = {isa = PBXBuildFile; fileRef = D32BA2F6197439980002D403 /* FNTrace.h */; };
+		D334F4E31CE633F3009D9119 /* FNTranslate.h in Headers */ = {isa = PBXBuildFile; fileRef = D339F6701929623700C79A51 /* FNTranslate.h */; };
+		D334F4E41CE633F3009D9119 /* FNTrimSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C0F59C19214FE700566524 /* FNTrimSpace.h */; };
+		D334F4E51CE633F3009D9119 /* FNTitleCase.h in Headers */ = {isa = PBXBuildFile; fileRef = D33931241920534E00259939 /* FNTitleCase.h */; };
+		D334F4E61CE633F3009D9119 /* FNUpperCase.h in Headers */ = {isa = PBXBuildFile; fileRef = D339311C1920527200259939 /* FNUpperCase.h */; };
+		D334F4E71CE633F3009D9119 /* XPPattern.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A6FCB619465BBA00FCF2C1 /* XPPattern.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F4E81CE633F3009D9119 /* XPNodeTest.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A6FCB519465BBA00FCF2C1 /* XPNodeTest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D334F4E91CE633F3009D9119 /* XPNodeTypeTest.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A6C2F11907457500F3EFF3 /* XPNodeTypeTest.h */; };
+		D334F4EA1CE633F3009D9119 /* XPNameTest.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBB3191EC2F70049EC02 /* XPNameTest.h */; };
+		D334F4EB1CE633F3009D9119 /* XPNamespaceTest.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBB2191EC2F70049EC02 /* XPNamespaceTest.h */; };
+		D334F4EC1CE633F3009D9119 /* XPPositionRange.h in Headers */ = {isa = PBXBuildFile; fileRef = D3BE1426191C3B8400005C81 /* XPPositionRange.h */; };
+		D334F4ED1CE633F3009D9119 /* XPVariableReference.h in Headers */ = {isa = PBXBuildFile; fileRef = D33930F5191F132D00259939 /* XPVariableReference.h */; };
+		D334F4EE1CE633F3009D9119 /* XPUserFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = D32BA2EA1972E5F20002D403 /* XPUserFunction.h */; };
+		D334F4EF1CE633F3009D9119 /* XPFunctionCall.h in Headers */ = {isa = PBXBuildFile; fileRef = D34D0CE019747BB10011757B /* XPFunctionCall.h */; };
+		D334F4F01CE633F3009D9119 /* XPNodeSetExtent.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBEA191EC5880049EC02 /* XPNodeSetExtent.h */; };
+		D334F4F11CE633F3009D9119 /* XPNodeSetIntent.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBEC191EC5880049EC02 /* XPNodeSetIntent.h */; };
+		D334F4F21CE633F3009D9119 /* XPSingletonNodeSet.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBC3191EC3F60049EC02 /* XPSingletonNodeSet.h */; };
+		D334F4F31CE633F3009D9119 /* XPBinaryExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBD8191EC4F10049EC02 /* XPBinaryExpression.h */; };
+		D334F4F41CE633F3009D9119 /* XPBooleanExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBD9191EC4F10049EC02 /* XPBooleanExpression.h */; };
+		D334F4F51CE633F3009D9119 /* XPRelationalExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBDC191EC4F10049EC02 /* XPRelationalExpression.h */; };
+		D334F4F61CE633F3009D9119 /* XPNodeComparisonExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D37299C81969EA0E004B1B7A /* XPNodeComparisonExpression.h */; };
+		D334F4F71CE633F3009D9119 /* XPArithmeticExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBD6191EC4F10049EC02 /* XPArithmeticExpression.h */; };
+		D334F4F81CE633F3009D9119 /* XPStringConcatExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D36672DB197B411800BD1FC6 /* XPStringConcatExpression.h */; };
+		D334F4F91CE633F3009D9119 /* XPSimpleMapExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3667360197C7E7900BD1FC6 /* XPSimpleMapExpression.h */; };
+		D334F4FA1CE633F3009D9119 /* XPSequenceExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D372999F1968490F004B1B7A /* XPSequenceExpression.h */; };
+		D334F4FB1CE633F3009D9119 /* XPRangeExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D37299B21968747F004B1B7A /* XPRangeExpression.h */; };
+		D334F4FC1CE633F3009D9119 /* XPSequenceExtentEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D37299AC1968509D004B1B7A /* XPSequenceExtentEnumeration.h */; };
+		D334F4FD1CE633F3009D9119 /* XPQuantifiedExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D37299BE19699616004B1B7A /* XPQuantifiedExpression.h */; };
+		D334F4FE1CE633F3009D9119 /* XPIfExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D37299C21969B441004B1B7A /* XPIfExpression.h */; };
+		D334F4FF1CE633F3009D9119 /* XPSwitchExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3B2C3D1197E1508004862F6 /* XPSwitchExpression.h */; };
+		D334F5001CE633F3009D9119 /* XPCaseClause.h in Headers */ = {isa = PBXBuildFile; fileRef = D3B2C3CD197E14B7004862F6 /* XPCaseClause.h */; };
+		D334F5011CE633F3009D9119 /* XPFlworExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D37299BA1968E281004B1B7A /* XPFlworExpression.h */; };
+		D334F5021CE633F3009D9119 /* XPForClause.h in Headers */ = {isa = PBXBuildFile; fileRef = D37299D4196AE26C004B1B7A /* XPForClause.h */; };
+		D334F5031CE633F3009D9119 /* XPLetClause.h in Headers */ = {isa = PBXBuildFile; fileRef = D37299D8196AF091004B1B7A /* XPLetClause.h */; };
+		D334F5041CE633F3009D9119 /* XPGroupClause.h in Headers */ = {isa = PBXBuildFile; fileRef = D3037231197072240096D466 /* XPGroupClause.h */; };
+		D334F5051CE633F3009D9119 /* XPGroupSpec.h in Headers */ = {isa = PBXBuildFile; fileRef = D303723719707A930096D466 /* XPGroupSpec.h */; };
+		D334F5061CE633F3009D9119 /* XPOrderClause.h in Headers */ = {isa = PBXBuildFile; fileRef = D37299F1196B8457004B1B7A /* XPOrderClause.h */; };
+		D334F5071CE633F3009D9119 /* XPOrderSpec.h in Headers */ = {isa = PBXBuildFile; fileRef = D3729A01196C3AD0004B1B7A /* XPOrderSpec.h */; };
+		D334F5081CE633F3009D9119 /* XPTuple.h in Headers */ = {isa = PBXBuildFile; fileRef = D37299FD196C362F004B1B7A /* XPTuple.h */; };
+		D334F5091CE633F3009D9119 /* XPNodeSetExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBDB191EC4F10049EC02 /* XPNodeSetExpression.h */; };
+		D334F50A1CE633F3009D9119 /* XPFilterExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3BE140E191AC80400005C81 /* XPFilterExpression.h */; };
+		D334F50B1CE633F3009D9119 /* XPFilterEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = D3BE1422191C193900005C81 /* XPFilterEnumerator.h */; };
+		D334F50C1CE633F3009D9119 /* XPUnionExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3BE140A191AC7A200005C81 /* XPUnionExpression.h */; };
+		D334F50D1CE633F3009D9119 /* XPIntersectExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D372993B1965FC01004B1B7A /* XPIntersectExpression.h */; };
+		D334F50E1CE633F3009D9119 /* XPExceptExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D37299371965F9A6004B1B7A /* XPExceptExpression.h */; };
+		D334F50F1CE633F3009D9119 /* XPPathExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D33E9F911917040D00BB7DFE /* XPPathExpression.h */; };
+		D334F5101CE633F3009D9119 /* XPBaseEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D3BE142C191C40E500005C81 /* XPBaseEnumeration.h */; };
+		D334F5111CE633F3009D9119 /* XPAbstractNodeEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F4586B196DE28300F05EA0 /* XPAbstractNodeEnumeration.h */; };
+		D334F5121CE633F3009D9119 /* XPPathEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D36036141961D0280047F6A4 /* XPPathEnumeration.h */; };
+		D334F5131CE633F3009D9119 /* XPAxisExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBD7191EC4F10049EC02 /* XPAxisExpression.h */; };
+		D334F5141CE633F3009D9119 /* XPAxisStep.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A6C2ED1907413800F3EFF3 /* XPAxisStep.h */; };
+		D334F5151CE633F3009D9119 /* XPPauseHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F45877196E186600F05EA0 /* XPPauseHandler.h */; };
+		D334F5161CE633F3009D9119 /* XPPauseState.h in Headers */ = {isa = PBXBuildFile; fileRef = D3D20AED196F32B500741F3B /* XPPauseState.h */; };
+		D334F5171CE633F3009D9119 /* XPSingletonExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0CBDD191EC4F10049EC02 /* XPSingletonExpression.h */; };
+		D334F5181CE633F3009D9119 /* XPContextNodeExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3411B57191A87960082A196 /* XPContextNodeExpression.h */; };
+		D334F5191CE633F3009D9119 /* XPParentNodeExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D360361B1961F3610047F6A4 /* XPParentNodeExpression.h */; };
+		D334F51A1CE633F3009D9119 /* XPEmptyEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D33E9F9D191706E100BB7DFE /* XPEmptyEnumeration.h */; };
+		D334F51B1CE633F3009D9119 /* XPSingletonEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D3BBAE90191DD0CF00766EB4 /* XPSingletonEnumeration.h */; };
+		D334F51C1CE633F3009D9119 /* XPNodeSetValueEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D3BE1414191AFC7200005C81 /* XPNodeSetValueEnumeration.h */; };
+		D334F51D1CE633F3009D9119 /* XPUnionEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D3BBAE94191DD9B700766EB4 /* XPUnionEnumeration.h */; };
+		D334F51E1CE633F3009D9119 /* XPIntersectEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D372993F1965FC3A004B1B7A /* XPIntersectEnumeration.h */; };
+		D334F51F1CE633F3009D9119 /* XPExceptEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D37299331965F31D004B1B7A /* XPExceptEnumeration.h */; };
+		D334F5201CE633F3009D9119 /* XPLookaheadEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = D3BBAE88191D881200766EB4 /* XPLookaheadEnumerator.h */; };
 		D3363817100C6E0400AC4B51 /* XPSequenceValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D3363815100C6E0400AC4B51 /* XPSequenceValue.m */; };
 		D336381C100C6E2800AC4B51 /* XPNumericValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D336381A100C6E2800AC4B51 /* XPNumericValue.m */; };
 		D3363820100C6E4400AC4B51 /* XPStringValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D336381E100C6E4400AC4B51 /* XPStringValue.m */; };
@@ -492,7 +646,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* Panthro.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Panthro.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D303722D197057EB0096D466 /* FNReverseTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNReverseTest.m; path = test/FNReverseTest.m; sourceTree = "<group>"; };
 		D303722F19705B3C0096D466 /* FNSubsequenceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNSubsequenceTest.m; path = test/FNSubsequenceTest.m; sourceTree = "<group>"; };
@@ -533,6 +686,9 @@
 		D33097361921BE99004317EA /* PEGKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PEGKit.framework; path = "../../../Library/Developer/Xcode/DerivedData/Panthro-dmvdaloqmsblyzezdvatkwnhfouk/Build/Products/Debug/PEGKit.framework"; sourceTree = "<group>"; };
 		D330973A1921BED5004317EA /* TDTemplateEngine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TDTemplateEngine.framework; path = "../../../Library/Developer/Xcode/DerivedData/Panthro-dmvdaloqmsblyzezdvatkwnhfouk/Build/Products/Debug/TDTemplateEngine.framework"; sourceTree = "<group>"; };
 		D334BAB3192193AA00A32DD6 /* XPLastPositionFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPLastPositionFinder.h; path = include/Panthro/XPLastPositionFinder.h; sourceTree = "<group>"; };
+		D334F4321CE630B8009D9119 /* Panthro.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Panthro.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D334F43A1CE6310F009D9119 /* Panthro-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Panthro-Info.plist"; path = "res/Panthro-Info.plist"; sourceTree = "<group>"; };
+		D334F43B1CE6310F009D9119 /* PanthroiOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PanthroiOS-Info.plist"; path = "res/PanthroiOS-Info.plist"; sourceTree = "<group>"; };
 		D3363815100C6E0400AC4B51 /* XPSequenceValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPSequenceValue.m; path = src/XPSequenceValue.m; sourceTree = "<group>"; };
 		D336381A100C6E2800AC4B51 /* XPNumericValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNumericValue.m; path = src/XPNumericValue.m; sourceTree = "<group>"; };
 		D336381E100C6E4400AC4B51 /* XPStringValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPStringValue.m; path = src/XPStringValue.m; sourceTree = "<group>"; };
@@ -995,6 +1151,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D334F42E1CE630B8009D9119 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D33639CE100DAA9400AC4B51 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1014,6 +1177,7 @@
 			children = (
 				8DC2EF5B0486A6940098B216 /* Panthro.framework */,
 				D33639D1100DAA9400AC4B51 /* Tests.xctest */,
+				D334F4321CE630B8009D9119 /* Panthro.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1050,7 +1214,8 @@
 		089C1665FE841158C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				8DC2EF5A0486A6940098B216 /* Info.plist */,
+				D334F43A1CE6310F009D9119 /* Panthro-Info.plist */,
+				D334F43B1CE6310F009D9119 /* PanthroiOS-Info.plist */,
 				D33639D2100DAA9400AC4B51 /* Tests-Info.plist */,
 			);
 			name = Resources;
@@ -1883,6 +2048,167 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D334F42F1CE630B8009D9119 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D334F43C1CE631F5009D9119 /* XPValue.h in Headers */,
+				D334F4AC1CE633F3009D9119 /* XPSortable.h in Headers */,
+				D334F43E1CE63202009D9119 /* XPFunction.h in Headers */,
+				D334F43F1CE6320B009D9119 /* XPSequence.h in Headers */,
+				D334F4401CE63216009D9119 /* XPNumericValue.h in Headers */,
+				D334F4411CE6321C009D9119 /* XPItem.h in Headers */,
+				D334F4421CE63223009D9119 /* XPExpression.h in Headers */,
+				D334F4431CE6322C009D9119 /* XPSequenceValue.h in Headers */,
+				D334F4441CE63235009D9119 /* XPNodeSetValue.h in Headers */,
+				D334F4451CE6323D009D9119 /* XPContext.h in Headers */,
+				D334F4461CE63243009D9119 /* XPBooleanValue.h in Headers */,
+				D334F4471CE6324C009D9119 /* Panthro.h in Headers */,
+				D334F4481CE6325B009D9119 /* XPSequenceEnumeration.h in Headers */,
+				D334F4491CE63262009D9119 /* XPLastPositionFinder.h in Headers */,
+				D334F44A1CE6326B009D9119 /* XPEmptyNodeSet.h in Headers */,
+				D334F44B1CE63275009D9119 /* XPStandaloneContext.h in Headers */,
+				D334F4E71CE633F3009D9119 /* XPPattern.h in Headers */,
+				D334F44D1CE63283009D9119 /* XPAtomicSequence.h in Headers */,
+				D334F44E1CE6328A009D9119 /* XPScope.h in Headers */,
+				D334F44F1CE63294009D9119 /* XPAbstractNodeWrapper.h in Headers */,
+				D334F4501CE6329A009D9119 /* XPEmptySequence.h in Headers */,
+				D334F4511CE632A3009D9119 /* XPStringValue.h in Headers */,
+				D334F4521CE632AE009D9119 /* XPSequenceExtent.h in Headers */,
+				D334F4531CE632B5009D9119 /* XPUtils.h in Headers */,
+				D334F4541CE632BC009D9119 /* XPNodeInfo.h in Headers */,
+				D334F4551CE632C2009D9119 /* XPDocumentInfo.h in Headers */,
+				D334F4561CE632C8009D9119 /* XPRootExpression.h in Headers */,
+				D334F4571CE632CF009D9119 /* XPObjectValue.h in Headers */,
+				D334F4581CE632E3009D9119 /* XPStaticContext.h in Headers */,
+				D334F4591CE632EA009D9119 /* XPException.h in Headers */,
+				D334F45A1CE632F1009D9119 /* XPSync.h in Headers */,
+				D334F45B1CE632F8009D9119 /* XPAxis.h in Headers */,
+				D334F4E81CE633F3009D9119 /* XPNodeTest.h in Headers */,
+				D334F4AD1CE633F3009D9119 /* XPCallable.h in Headers */,
+				D334F4A51CE633F2009D9119 /* XPLibxmlNodeImpl.h in Headers */,
+				D334F4A61CE633F2009D9119 /* XPLibxmlDocumentImpl.h in Headers */,
+				D334F4A71CE633F2009D9119 /* XPLibxmlNamespaceImpl.h in Headers */,
+				D334F4A81CE633F2009D9119 /* XPNSXMLNodeImpl.h in Headers */,
+				D334F4A91CE633F2009D9119 /* XPNSXMLDocumentImpl.h in Headers */,
+				D334F4AA1CE633F2009D9119 /* XPEGParser.h in Headers */,
+				D334F4AB1CE633F2009D9119 /* XPAssembler.h in Headers */,
+				D334F4AE1CE633F3009D9119 /* XPSynchronousChannel.h in Headers */,
+				D334F4AF1CE633F3009D9119 /* XPSemaphore.h in Headers */,
+				D334F4B01CE633F3009D9119 /* XPAxisEnumeration.h in Headers */,
+				D334F4B11CE633F3009D9119 /* XPNodeOrderComparer.h in Headers */,
+				D334F4B21CE633F3009D9119 /* XPLocalOrderComparer.h in Headers */,
+				D334F4B31CE633F3009D9119 /* FNAbs.h in Headers */,
+				D334F4B41CE633F3009D9119 /* FNAvg.h in Headers */,
+				D334F4B51CE633F3009D9119 /* FNBoolean.h in Headers */,
+				D334F4B61CE633F3009D9119 /* FNCeiling.h in Headers */,
+				D334F4B71CE633F3009D9119 /* FNCompare.h in Headers */,
+				D334F4B81CE633F3009D9119 /* FNConcat.h in Headers */,
+				D334F4B91CE633F3009D9119 /* FNContains.h in Headers */,
+				D334F4BA1CE633F3009D9119 /* FNCount.h in Headers */,
+				D334F4BB1CE633F3009D9119 /* FNData.h in Headers */,
+				D334F4BC1CE633F3009D9119 /* FNDistinctValues.h in Headers */,
+				D334F4BD1CE633F3009D9119 /* FNEmpty.h in Headers */,
+				D334F4BE1CE633F3009D9119 /* FNEndsWith.h in Headers */,
+				D334F4BF1CE633F3009D9119 /* FNExists.h in Headers */,
+				D334F4C01CE633F3009D9119 /* FNFloor.h in Headers */,
+				D334F4C11CE633F3009D9119 /* FNHead.h in Headers */,
+				D334F4C21CE633F3009D9119 /* FNId.h in Headers */,
+				D334F4C31CE633F3009D9119 /* FNIndexOf.h in Headers */,
+				D334F4C41CE633F3009D9119 /* FNInsertBefore.h in Headers */,
+				D334F4C51CE633F3009D9119 /* FNLang.h in Headers */,
+				D334F4C61CE633F3009D9119 /* FNLast.h in Headers */,
+				D334F4C71CE633F3009D9119 /* FNLocalName.h in Headers */,
+				D334F4C81CE633F3009D9119 /* FNLowerCase.h in Headers */,
+				D334F4C91CE633F3009D9119 /* FNMatches.h in Headers */,
+				D334F4CA1CE633F3009D9119 /* FNMax.h in Headers */,
+				D334F4CB1CE633F3009D9119 /* FNMin.h in Headers */,
+				D334F4CC1CE633F3009D9119 /* FNName.h in Headers */,
+				D334F4CD1CE633F3009D9119 /* FNNamespaceURI.h in Headers */,
+				D334F4CE1CE633F3009D9119 /* FNNormalizeSpace.h in Headers */,
+				D334F4CF1CE633F3009D9119 /* FNNormalizeUnicode.h in Headers */,
+				D334F4D01CE633F3009D9119 /* FNNot.h in Headers */,
+				D334F4D11CE633F3009D9119 /* FNNumber.h in Headers */,
+				D334F4D21CE633F3009D9119 /* FNPosition.h in Headers */,
+				D334F4D31CE633F3009D9119 /* FNRemove.h in Headers */,
+				D334F4D41CE633F3009D9119 /* FNReplace.h in Headers */,
+				D334F4D51CE633F3009D9119 /* FNReverse.h in Headers */,
+				D334F4D61CE633F3009D9119 /* FNRound.h in Headers */,
+				D334F4D71CE633F3009D9119 /* FNStartsWith.h in Headers */,
+				D334F4D81CE633F3009D9119 /* FNString.h in Headers */,
+				D334F4D91CE633F3009D9119 /* FNStringJoin.h in Headers */,
+				D334F4DA1CE633F3009D9119 /* FNStringLength.h in Headers */,
+				D334F4DB1CE633F3009D9119 /* FNSubsequence.h in Headers */,
+				D334F4DC1CE633F3009D9119 /* FNSubstring.h in Headers */,
+				D334F4DD1CE633F3009D9119 /* FNSubstringAfter.h in Headers */,
+				D334F4DE1CE633F3009D9119 /* FNSubstringBefore.h in Headers */,
+				D334F4DF1CE633F3009D9119 /* FNSum.h in Headers */,
+				D334F4E01CE633F3009D9119 /* FNTail.h in Headers */,
+				D334F4E11CE633F3009D9119 /* FNTokenize.h in Headers */,
+				D334F4E21CE633F3009D9119 /* FNTrace.h in Headers */,
+				D334F4E31CE633F3009D9119 /* FNTranslate.h in Headers */,
+				D334F4E41CE633F3009D9119 /* FNTrimSpace.h in Headers */,
+				D334F4E51CE633F3009D9119 /* FNTitleCase.h in Headers */,
+				D334F4E61CE633F3009D9119 /* FNUpperCase.h in Headers */,
+				D334F4E91CE633F3009D9119 /* XPNodeTypeTest.h in Headers */,
+				D334F4EA1CE633F3009D9119 /* XPNameTest.h in Headers */,
+				D334F4EB1CE633F3009D9119 /* XPNamespaceTest.h in Headers */,
+				D334F4EC1CE633F3009D9119 /* XPPositionRange.h in Headers */,
+				D334F4ED1CE633F3009D9119 /* XPVariableReference.h in Headers */,
+				D334F4EE1CE633F3009D9119 /* XPUserFunction.h in Headers */,
+				D334F4EF1CE633F3009D9119 /* XPFunctionCall.h in Headers */,
+				D334F4F01CE633F3009D9119 /* XPNodeSetExtent.h in Headers */,
+				D334F4F11CE633F3009D9119 /* XPNodeSetIntent.h in Headers */,
+				D334F4F21CE633F3009D9119 /* XPSingletonNodeSet.h in Headers */,
+				D334F4F31CE633F3009D9119 /* XPBinaryExpression.h in Headers */,
+				D334F4F41CE633F3009D9119 /* XPBooleanExpression.h in Headers */,
+				D334F4F51CE633F3009D9119 /* XPRelationalExpression.h in Headers */,
+				D334F4F61CE633F3009D9119 /* XPNodeComparisonExpression.h in Headers */,
+				D334F4F71CE633F3009D9119 /* XPArithmeticExpression.h in Headers */,
+				D334F4F81CE633F3009D9119 /* XPStringConcatExpression.h in Headers */,
+				D334F4F91CE633F3009D9119 /* XPSimpleMapExpression.h in Headers */,
+				D334F4FA1CE633F3009D9119 /* XPSequenceExpression.h in Headers */,
+				D334F4FB1CE633F3009D9119 /* XPRangeExpression.h in Headers */,
+				D334F4FC1CE633F3009D9119 /* XPSequenceExtentEnumeration.h in Headers */,
+				D334F4FD1CE633F3009D9119 /* XPQuantifiedExpression.h in Headers */,
+				D334F4FE1CE633F3009D9119 /* XPIfExpression.h in Headers */,
+				D334F4FF1CE633F3009D9119 /* XPSwitchExpression.h in Headers */,
+				D334F5001CE633F3009D9119 /* XPCaseClause.h in Headers */,
+				D334F5011CE633F3009D9119 /* XPFlworExpression.h in Headers */,
+				D334F5021CE633F3009D9119 /* XPForClause.h in Headers */,
+				D334F5031CE633F3009D9119 /* XPLetClause.h in Headers */,
+				D334F5041CE633F3009D9119 /* XPGroupClause.h in Headers */,
+				D334F5051CE633F3009D9119 /* XPGroupSpec.h in Headers */,
+				D334F5061CE633F3009D9119 /* XPOrderClause.h in Headers */,
+				D334F5071CE633F3009D9119 /* XPOrderSpec.h in Headers */,
+				D334F5081CE633F3009D9119 /* XPTuple.h in Headers */,
+				D334F5091CE633F3009D9119 /* XPNodeSetExpression.h in Headers */,
+				D334F50A1CE633F3009D9119 /* XPFilterExpression.h in Headers */,
+				D334F50B1CE633F3009D9119 /* XPFilterEnumerator.h in Headers */,
+				D334F50C1CE633F3009D9119 /* XPUnionExpression.h in Headers */,
+				D334F50D1CE633F3009D9119 /* XPIntersectExpression.h in Headers */,
+				D334F50E1CE633F3009D9119 /* XPExceptExpression.h in Headers */,
+				D334F50F1CE633F3009D9119 /* XPPathExpression.h in Headers */,
+				D334F5101CE633F3009D9119 /* XPBaseEnumeration.h in Headers */,
+				D334F5111CE633F3009D9119 /* XPAbstractNodeEnumeration.h in Headers */,
+				D334F5121CE633F3009D9119 /* XPPathEnumeration.h in Headers */,
+				D334F5131CE633F3009D9119 /* XPAxisExpression.h in Headers */,
+				D334F5141CE633F3009D9119 /* XPAxisStep.h in Headers */,
+				D334F5151CE633F3009D9119 /* XPPauseHandler.h in Headers */,
+				D334F5161CE633F3009D9119 /* XPPauseState.h in Headers */,
+				D334F5171CE633F3009D9119 /* XPSingletonExpression.h in Headers */,
+				D334F5181CE633F3009D9119 /* XPContextNodeExpression.h in Headers */,
+				D334F5191CE633F3009D9119 /* XPParentNodeExpression.h in Headers */,
+				D334F51A1CE633F3009D9119 /* XPEmptyEnumeration.h in Headers */,
+				D334F51B1CE633F3009D9119 /* XPSingletonEnumeration.h in Headers */,
+				D334F51C1CE633F3009D9119 /* XPNodeSetValueEnumeration.h in Headers */,
+				D334F51D1CE633F3009D9119 /* XPUnionEnumeration.h in Headers */,
+				D334F51E1CE633F3009D9119 /* XPIntersectEnumeration.h in Headers */,
+				D334F51F1CE633F3009D9119 /* XPExceptEnumeration.h in Headers */,
+				D334F5201CE633F3009D9119 /* XPLookaheadEnumerator.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -1903,6 +2229,24 @@
 			productInstallPath = "$(HOME)/Library/Frameworks";
 			productName = Exedore;
 			productReference = 8DC2EF5B0486A6940098B216 /* Panthro.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		D334F4311CE630B8009D9119 /* PanthroiOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D334F4391CE630B8009D9119 /* Build configuration list for PBXNativeTarget "PanthroiOS" */;
+			buildPhases = (
+				D334F42D1CE630B8009D9119 /* Sources */,
+				D334F42E1CE630B8009D9119 /* Frameworks */,
+				D334F42F1CE630B8009D9119 /* Headers */,
+				D334F4301CE630B8009D9119 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PanthroiOS;
+			productName = PanthroiOS;
+			productReference = D334F4321CE630B8009D9119 /* Panthro.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		D33639D0100DAA9400AC4B51 /* PanthroTests */ = {
@@ -1930,6 +2274,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0710;
+				TargetAttributes = {
+					D334F4311CE630B8009D9119 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
 			};
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "Panthro" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1947,6 +2296,7 @@
 			projectRoot = "";
 			targets = (
 				8DC2EF4F0486A6940098B216 /* Panthro */,
+				D334F4311CE630B8009D9119 /* PanthroiOS */,
 				D33639D0100DAA9400AC4B51 /* PanthroTests */,
 			);
 		};
@@ -1954,6 +2304,13 @@
 
 /* Begin PBXResourcesBuildPhase section */
 		8DC2EF520486A6940098B216 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D334F4301CE630B8009D9119 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2207,6 +2564,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D334F42D1CE630B8009D9119 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D33639CD100DAA9400AC4B51 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2398,6 +2762,114 @@
 			};
 			name = Release;
 		};
+		D334F4371CE630B8009D9119 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Panthro_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = "res/PanthroiOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.celestialteapot.PanthroiOS;
+				PRODUCT_NAME = Panthro;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D334F4381CE630B8009D9119 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Panthro_Prefix.pch;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = "res/PanthroiOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.celestialteapot.PanthroiOS;
+				PRODUCT_NAME = Panthro;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		D33639D3100DAA9500AC4B51 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2482,6 +2954,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		D334F4391CE630B8009D9119 /* Build configuration list for PBXNativeTarget "PanthroiOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D334F4371CE630B8009D9119 /* Debug */,
+				D334F4381CE630B8009D9119 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		D33639D5100DAA9500AC4B51 /* Build configuration list for PBXNativeTarget "PanthroTests" */ = {
 			isa = XCConfigurationList;
