@@ -201,9 +201,7 @@
 		D334F5FF1CE63629009D9119 /* XPLibxmlNodeImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = D339F1EA19279E4600C79A51 /* XPLibxmlNodeImpl.m */; };
 		D334F6001CE63629009D9119 /* XPLibxmlDocumentImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = D339F1E819279E4600C79A51 /* XPLibxmlDocumentImpl.m */; };
 		D334F6011CE63629009D9119 /* XPLibxmlNamespaceImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFC51193A358900223AB6 /* XPLibxmlNamespaceImpl.m */; };
-		D334F6021CE63629009D9119 /* XPNSXMLNodeImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0CBBD191EC3A50049EC02 /* XPNSXMLNodeImpl.m */; };
-		D334F6031CE63629009D9119 /* XPNSXMLDocumentImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0CBBB191EC3A50049EC02 /* XPNSXMLDocumentImpl.m */; };
-		D334F6041CE63629009D9119 /* XPEGParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D383A31E187F748E006AE701 /* XPEGParser.m */; };
+		D334F6041CE63629009D9119 /* XPEGParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D383A31E187F748E006AE701 /* XPEGParser.m */; settings = {COMPILER_FLAGS = "-Wno-undeclared-selector"; }; };
 		D334F6051CE63629009D9119 /* XPAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D383A319187F6EB8006AE701 /* XPAssembler.m */; };
 		D334F6061CE63629009D9119 /* XPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E9F8A1916E60C00BB7DFE /* XPUtils.m */; };
 		D334F6071CE63629009D9119 /* XPSync.m in Sources */ = {isa = PBXBuildFile; fileRef = D324A1A2192AE4D90093C4B5 /* XPSync.m */; };
@@ -386,6 +384,10 @@
 		D334F6B81CE63641009D9119 /* xpath.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F60F1927B66500C79A51 /* xpath.c */; };
 		D334F6B91CE63641009D9119 /* xpointer.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6101927B66500C79A51 /* xpointer.c */; };
 		D334F6BA1CE63641009D9119 /* xzlib.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6111927B66500C79A51 /* xzlib.c */; };
+		D334F6BC1CE63852009D9119 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D334F6BB1CE63852009D9119 /* libiconv.tbd */; };
+		D334F6BE1CE6385C009D9119 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D334F6BD1CE6385C009D9119 /* libz.tbd */; };
+		D334F6C01CE6386A009D9119 /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D334F6BF1CE6386A009D9119 /* PEGKit.framework */; };
+		D334F6C21CE63878009D9119 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D334F6C11CE63878009D9119 /* Foundation.framework */; };
 		D3363817100C6E0400AC4B51 /* XPSequenceValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D3363815100C6E0400AC4B51 /* XPSequenceValue.m */; };
 		D336381C100C6E2800AC4B51 /* XPNumericValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D336381A100C6E2800AC4B51 /* XPNumericValue.m */; };
 		D3363820100C6E4400AC4B51 /* XPStringValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D336381E100C6E4400AC4B51 /* XPStringValue.m */; };
@@ -644,7 +646,7 @@
 		D383A31A187F6EB8006AE701 /* XPAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D383A319187F6EB8006AE701 /* XPAssembler.m */; };
 		D383A31C187F6ECB006AE701 /* XPAssembler.h in Headers */ = {isa = PBXBuildFile; fileRef = D383A31B187F6ECB006AE701 /* XPAssembler.h */; };
 		D383A31F187F748E006AE701 /* XPEGParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D383A31D187F748E006AE701 /* XPEGParser.h */; };
-		D383A320187F748E006AE701 /* XPEGParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D383A31E187F748E006AE701 /* XPEGParser.m */; };
+		D383A320187F748E006AE701 /* XPEGParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D383A31E187F748E006AE701 /* XPEGParser.m */; settings = {COMPILER_FLAGS = "-Wno-undeclared-selector"; }; };
 		D383A321187F7EA5006AE701 /* XPTestScaffold.m in Sources */ = {isa = PBXBuildFile; fileRef = D33639DA100DAB8C00AC4B51 /* XPTestScaffold.m */; };
 		D38775A61A8BD6F500D343B3 /* FNTokenize.h in Headers */ = {isa = PBXBuildFile; fileRef = D38775A41A8BD6F500D343B3 /* FNTokenize.h */; };
 		D38775A71A8BD6F500D343B3 /* FNTokenize.m in Sources */ = {isa = PBXBuildFile; fileRef = D38775A51A8BD6F500D343B3 /* FNTokenize.m */; };
@@ -877,6 +879,10 @@
 		D334F4321CE630B8009D9119 /* Panthro.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Panthro.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D334F43A1CE6310F009D9119 /* Panthro-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Panthro-Info.plist"; path = "res/Panthro-Info.plist"; sourceTree = "<group>"; };
 		D334F43B1CE6310F009D9119 /* PanthroiOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PanthroiOS-Info.plist"; path = "res/PanthroiOS-Info.plist"; sourceTree = "<group>"; };
+		D334F6BB1CE63852009D9119 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/usr/lib/libiconv.tbd; sourceTree = DEVELOPER_DIR; };
+		D334F6BD1CE6385C009D9119 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
+		D334F6BF1CE6386A009D9119 /* PEGKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PEGKit.framework; path = "lib/pegkit/build/Debug-iphoneos/PEGKit.framework"; sourceTree = "<group>"; };
+		D334F6C11CE63878009D9119 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		D3363815100C6E0400AC4B51 /* XPSequenceValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPSequenceValue.m; path = src/XPSequenceValue.m; sourceTree = "<group>"; };
 		D336381A100C6E2800AC4B51 /* XPNumericValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNumericValue.m; path = src/XPNumericValue.m; sourceTree = "<group>"; };
 		D336381E100C6E4400AC4B51 /* XPStringValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPStringValue.m; path = src/XPStringValue.m; sourceTree = "<group>"; };
@@ -1343,6 +1349,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D334F6BC1CE63852009D9119 /* libiconv.tbd in Frameworks */,
+				D334F6BE1CE6385C009D9119 /* libz.tbd in Frameworks */,
+				D334F6C01CE6386A009D9119 /* PEGKit.framework in Frameworks */,
+				D334F6C21CE63878009D9119 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1388,6 +1398,10 @@
 		0867D69AFE84028FC02AAC07 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D334F6C11CE63878009D9119 /* Foundation.framework */,
+				D334F6BF1CE6386A009D9119 /* PEGKit.framework */,
+				D334F6BD1CE6385C009D9119 /* libz.tbd */,
+				D334F6BB1CE63852009D9119 /* libiconv.tbd */,
 				D339F6681927B9A700C79A51 /* libiconv.dylib */,
 				D339F6541927B6CF00C79A51 /* libz.dylib */,
 				D3745D9A192261D500929DE8 /* OkudaKit.framework */,
@@ -2404,10 +2418,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "Panthro" */;
 			buildPhases = (
-				8DC2EF500486A6940098B216 /* Headers */,
-				8DC2EF520486A6940098B216 /* Resources */,
 				8DC2EF540486A6940098B216 /* Sources */,
 				8DC2EF560486A6940098B216 /* Frameworks */,
+				8DC2EF500486A6940098B216 /* Headers */,
+				8DC2EF520486A6940098B216 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -2807,8 +2821,6 @@
 				D334F5FF1CE63629009D9119 /* XPLibxmlNodeImpl.m in Sources */,
 				D334F6001CE63629009D9119 /* XPLibxmlDocumentImpl.m in Sources */,
 				D334F6011CE63629009D9119 /* XPLibxmlNamespaceImpl.m in Sources */,
-				D334F6021CE63629009D9119 /* XPNSXMLNodeImpl.m in Sources */,
-				D334F6031CE63629009D9119 /* XPNSXMLDocumentImpl.m in Sources */,
 				D334F6041CE63629009D9119 /* XPEGParser.m in Sources */,
 				D334F6051CE63629009D9119 /* XPAssembler.m in Sources */,
 				D334F6061CE63629009D9119 /* XPUtils.m in Sources */,
@@ -3064,8 +3076,9 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Panthro_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_PREPROCESSOR_DEFINITIONS = "NSXML_AVAILABLE=1";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GENERATE_PROFILING_CODE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3099,8 +3112,12 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Panthro_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"NDEBUG=1",
+					"NSXML_AVAILABLE=1",
+				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/lib/pegkit/include\"",
@@ -3160,15 +3177,13 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Panthro_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				"GCC_WARN_64_TO_32_BIT_CONVERSION[arch=*64]" = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -3211,10 +3226,12 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Panthro_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "NDEBUG=1";
 				"GCC_WARN_64_TO_32_BIT_CONVERSION[arch=*64]" = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;

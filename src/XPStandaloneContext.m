@@ -231,10 +231,12 @@
 }
 
 
+#if NSXML_AVAILABLE
 - (id)execute:(NSString *)xpathStr withNSXMLContextNode:(NSXMLNode *)nsxmlCtxNode error:(NSError **)outErr {
     id <XPNodeInfo>ctxNode = [XPNSXMLNodeImpl nodeInfoWithNode:nsxmlCtxNode];
     return [self execute:xpathStr withContextNode:ctxNode error:outErr];
 }
+#endif
 
 
 - (id)execute:(NSString *)xpathStr withLibxmlContextNode:(void *)libxmlCtxNode parserContext:(xmlParserCtxtPtr)parserCtx error:(NSError **)outErr;{

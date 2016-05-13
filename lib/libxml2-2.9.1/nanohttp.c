@@ -161,7 +161,7 @@ typedef struct xmlNanoHTTPCtxt {
 static int initialized = 0;
 static char *proxy = NULL;	 /* the proxy name if any */
 static int proxyPort;	/* the proxy port if any */
-static unsigned int timeout = 60;/* the select() timeout in seconds */
+static unsigned int nanohttp_timeout = 60;/* the select() nanohttp_timeout in seconds */
 
 static int xmlNanoHTTPFetchContent( void * ctx, char ** ptr, int * len );
 
@@ -479,7 +479,7 @@ xmlNanoHTTPSend(xmlNanoHTTPCtxtPtr ctxt, const char *xmt_ptr, int outlen)
                 /*
                  * No data sent
                  * Since non-blocking sockets are used, wait for
-                 * socket to be writable or default timeout prior
+                 * socket to be writable or default nanohttp_timeout prior
                  * to retrying.
                  */
 #ifndef HAVE_POLL_H
@@ -488,7 +488,7 @@ xmlNanoHTTPSend(xmlNanoHTTPCtxtPtr ctxt, const char *xmt_ptr, int outlen)
                     return -1;
 #endif
 
-                tv.tv_sec = timeout;
+                tv.tv_sec = nanohttp_timeout;
                 tv.tv_usec = 0;
                 FD_ZERO(&wfd);
 #ifdef _MSC_VER
@@ -503,7 +503,7 @@ xmlNanoHTTPSend(xmlNanoHTTPCtxtPtr ctxt, const char *xmt_ptr, int outlen)
 #else
                 p.fd = ctxt->fd;
                 p.events = POLLOUT;
-                (void) poll(&p, 1, timeout * 1000);
+                (void) poll(&p, 1, nanohttp_timeout * 1000);
 #endif /* !HAVE_POLL_H */
             }
         }
@@ -600,7 +600,7 @@ xmlNanoHTTPRecv(xmlNanoHTTPCtxtPtr ctxt)
 #ifdef HAVE_POLL_H
         p.fd = ctxt->fd;
         p.events = POLLIN;
-        if ((poll(&p, 1, timeout * 1000) < 1)
+        if ((poll(&p, 1, nanohttp_timeout * 1000) < 1)
 #if defined(EINTR)
             && (errno != EINTR)
 #endif
@@ -612,7 +612,7 @@ xmlNanoHTTPRecv(xmlNanoHTTPCtxtPtr ctxt)
             return 0;
 #endif
 
-        tv.tv_sec = timeout;
+        tv.tv_sec = nanohttp_timeout;
         tv.tv_usec = 0;
         FD_ZERO(&rfd);
 
@@ -940,7 +940,7 @@ xmlNanoHTTPConnectAttempt(struct sockaddr *addr)
         }
     }
 #ifndef HAVE_POLL_H
-    tv.tv_sec = timeout;
+    tv.tv_sec = nanohttp_timeout;
     tv.tv_usec = 0;
 
 #ifdef _MSC_VER
@@ -969,7 +969,7 @@ xmlNanoHTTPConnectAttempt(struct sockaddr *addr)
 #else /* !HAVE_POLL_H */
     p.fd = s;
     p.events = POLLOUT;
-    switch (poll(&p, 1, timeout * 1000))
+    switch (poll(&p, 1, nanohttp_timeout * 1000))
 #endif /* !HAVE_POLL_H */
 
     {
