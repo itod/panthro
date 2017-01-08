@@ -11,7 +11,6 @@
 @interface FNConcatTest : XCTestCase
 @property (nonatomic, retain) XPExpression *expr;
 @property (nonatomic, retain) XPFunction *fn;
-@property (nonatomic, retain) NSString *res;
 @end
 
 @implementation FNConcatTest
@@ -33,15 +32,15 @@
 
 - (void)testStrings {
     self.expr = [XPExpression expressionFromString:@"concat('foo', 'bar')" inContext:[XPStandaloneContext standaloneContext] error:nil];
-    self.res = [_expr evaluateAsStringInContext:nil];
-    TDEqualObjects(_res, @"foobar");
+    NSString *res = [_expr evaluateAsStringInContext:nil];
+    TDEqualObjects(res, @"foobar");
 }
 
 
 - (void)testEqualsExprConcat {
     self.expr = [XPExpression expressionFromString:@"concat('a', 'b') = 'ab'" inContext:[XPStandaloneContext standaloneContext] error:nil];
-    self.res = [_expr evaluateAsBooleanInContext:nil];
-    TDTrue(_res);
+    BOOL res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(res);
 }
 
 @end

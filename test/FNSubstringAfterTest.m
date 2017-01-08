@@ -61,17 +61,23 @@
 
 
 - (void)testEqualsExprSubstringAfter {
-    self.expr = [XPExpression expressionFromString:@"substring-after('ab', 'b') = ''" inContext:[XPStandaloneContext standaloneContext] error:nil];
-    self.res = [_expr evaluateAsBooleanInContext:nil];
-    TDTrue(_res);
-    
-    self.expr = [XPExpression expressionFromString:@"substring-after('ab', 'a') = 'b'" inContext:[XPStandaloneContext standaloneContext] error:nil];
-    self.res = [_expr evaluateAsBooleanInContext:nil];
-    TDTrue(_res);
-    
-    self.expr = [XPExpression expressionFromString:@"substring-after('ab', 'c') = ''" inContext:[XPStandaloneContext standaloneContext] error:nil];
-    self.res = [_expr evaluateAsBooleanInContext:nil];
-    TDTrue(_res);
+    {
+        self.expr = [XPExpression expressionFromString:@"substring-after('ab', 'b') = ''" inContext:[XPStandaloneContext standaloneContext] error:nil];
+        BOOL res = [_expr evaluateAsBooleanInContext:nil];
+        TDTrue(res);
+    }
+
+    {
+        self.expr = [XPExpression expressionFromString:@"substring-after('ab', 'a') = 'b'" inContext:[XPStandaloneContext standaloneContext] error:nil];
+        BOOL res = [_expr evaluateAsBooleanInContext:nil];
+        TDTrue(res);
+    }
+
+    {
+        self.expr = [XPExpression expressionFromString:@"substring-after('ab', 'c') = ''" inContext:[XPStandaloneContext standaloneContext] error:nil];
+        BOOL res = [_expr evaluateAsBooleanInContext:nil];
+        TDTrue(res);
+    }
 }
 
 @end
