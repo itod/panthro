@@ -1082,7 +1082,7 @@
         axis = XPAxisSelf;
         len = 1;
     } else {
-        XPAssert([dotTok.stringValue isEqualToString:@".."])
+        XPAssert([dotTok.stringValue isEqualToString:@".."]);
         axis = XPAxisParent;
         len = 2;
     }
