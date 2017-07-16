@@ -33,7 +33,8 @@
 /**
  * Test whether this node test is satisfied by a given node
  * @param nodeType The type of node to be matched
- * @param fingerprint identifies the expanded name of the node to be matched.
+ * @param nsURI The nsURI of node to be matched
+ * @param localName The localName of node to be matched
  * The value should be -1 for a node with no name.
  */
 

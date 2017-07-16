@@ -82,7 +82,7 @@
 
 /**
  * Return an enumeration over the nodes reached by the given axis from this node
- * @param axisNumber the axis to be followed (a constant in class {@link Axis})
+ * @param axis the axis to be followed (a constant in class {@link Axis})
  * @param nodeTest A pattern to be matched by the returned nodes
  * @return a NodeEnumeration that scans the nodes reached by the axis in turn.
  */

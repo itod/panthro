@@ -12,7 +12,7 @@
 
 /**
  * Get the element with a given ID, if any
- * @param id the required ID value
+ * @param identifier the required ID value
  * @return the element with the given ID, or null if there is no such ID present (or if the parser
  * has not notified attributes as being of type ID)
  */
