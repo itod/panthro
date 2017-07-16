@@ -4,9 +4,9 @@ scm = git
 [lib/pegkit]
 repository = git@github.com:itod/pegkit.git
 scm = git
-path = lib/pegkit
+path = lib/PEGKit
 
 [lib/tdtemplateengine]
 repository = git@github.com:itod/tdtemplateengine.git
 scm = git
-path = lib/tdtemplateengine
+path = lib/TDTemplateEngine

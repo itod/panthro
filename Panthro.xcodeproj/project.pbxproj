@@ -15,6 +15,195 @@
 		D303723919707A930096D466 /* XPGroupSpec.h in Headers */ = {isa = PBXBuildFile; fileRef = D303723719707A930096D466 /* XPGroupSpec.h */; };
 		D303723A19707A930096D466 /* XPGroupSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D303723819707A930096D466 /* XPGroupSpec.m */; };
 		D3172237190D8FE6005C633B /* XPEqualityExprTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3172236190D8FE6005C633B /* XPEqualityExprTest.m */; };
+		D31E3D5C1F1C0367004BD0C6 /* buf.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D01927B66500C79A51 /* buf.c */; };
+		D31E3D5D1F1C0367004BD0C6 /* c14n.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D11927B66500C79A51 /* c14n.c */; };
+		D31E3D5E1F1C0367004BD0C6 /* catalog.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D21927B66500C79A51 /* catalog.c */; };
+		D31E3D5F1F1C0367004BD0C6 /* chvalid.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D31927B66500C79A51 /* chvalid.c */; };
+		D31E3D601F1C0367004BD0C6 /* debugXML.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D41927B66500C79A51 /* debugXML.c */; };
+		D31E3D611F1C0367004BD0C6 /* dict.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D51927B66500C79A51 /* dict.c */; };
+		D31E3D621F1C0367004BD0C6 /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F65E1927B90400C79A51 /* error.c */; };
+		D31E3D631F1C0367004BD0C6 /* encoding.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D61927B66500C79A51 /* encoding.c */; };
+		D31E3D641F1C0367004BD0C6 /* entities.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D71927B66500C79A51 /* entities.c */; };
+		D31E3D651F1C0367004BD0C6 /* globals.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D81927B66500C79A51 /* globals.c */; };
+		D31E3D661F1C0367004BD0C6 /* hash.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6661927B98D00C79A51 /* hash.c */; };
+		D31E3D671F1C0367004BD0C6 /* HTMLparser.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D91927B66500C79A51 /* HTMLparser.c */; };
+		D31E3D681F1C0367004BD0C6 /* HTMLtree.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5DA1927B66500C79A51 /* HTMLtree.c */; };
+		D31E3D691F1C0367004BD0C6 /* legacy.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5DB1927B66500C79A51 /* legacy.c */; };
+		D31E3D6A1F1C0367004BD0C6 /* list.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5DC1927B66500C79A51 /* list.c */; };
+		D31E3D6B1F1C0367004BD0C6 /* nanoftp.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5DD1927B66500C79A51 /* nanoftp.c */; };
+		D31E3D6C1F1C0367004BD0C6 /* nanohttp.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5DE1927B66500C79A51 /* nanohttp.c */; };
+		D31E3D6D1F1C0367004BD0C6 /* parser.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5DF1927B66500C79A51 /* parser.c */; };
+		D31E3D6E1F1C0367004BD0C6 /* parserInternals.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5E01927B66500C79A51 /* parserInternals.c */; };
+		D31E3D6F1F1C0367004BD0C6 /* pattern.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5E11927B66500C79A51 /* pattern.c */; };
+		D31E3D701F1C0367004BD0C6 /* relaxng.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6621927B95900C79A51 /* relaxng.c */; };
+		D31E3D711F1C0367004BD0C6 /* SAX.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5E51927B66500C79A51 /* SAX.c */; };
+		D31E3D721F1C0367004BD0C6 /* SAX2.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6601927B93700C79A51 /* SAX2.c */; };
+		D31E3D731F1C0367004BD0C6 /* schematron.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6641927B96A00C79A51 /* schematron.c */; };
+		D31E3D741F1C0367004BD0C6 /* threads.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6561927B6FE00C79A51 /* threads.c */; };
+		D31E3D751F1C0367004BD0C6 /* tree.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5FA1927B66500C79A51 /* tree.c */; };
+		D31E3D761F1C0367004BD0C6 /* trio.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6581927B74B00C79A51 /* trio.c */; };
+		D31E3D771F1C0367004BD0C6 /* trionan.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6591927B74B00C79A51 /* trionan.c */; };
+		D31E3D781F1C0367004BD0C6 /* triostr.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F65A1927B74B00C79A51 /* triostr.c */; };
+		D31E3D791F1C0367004BD0C6 /* uri.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5FE1927B66500C79A51 /* uri.c */; };
+		D31E3D7A1F1C0367004BD0C6 /* valid.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5FF1927B66500C79A51 /* valid.c */; };
+		D31E3D7B1F1C0367004BD0C6 /* xinclude.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6001927B66500C79A51 /* xinclude.c */; };
+		D31E3D7C1F1C0367004BD0C6 /* xlink.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6011927B66500C79A51 /* xlink.c */; };
+		D31E3D7D1F1C0367004BD0C6 /* xmlcatalog.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6021927B66500C79A51 /* xmlcatalog.c */; };
+		D31E3D7E1F1C0367004BD0C6 /* xmlIO.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6031927B66500C79A51 /* xmlIO.c */; };
+		D31E3D7F1F1C0367004BD0C6 /* xmlmemory.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6051927B66500C79A51 /* xmlmemory.c */; };
+		D31E3D801F1C0367004BD0C6 /* xmlmodule.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6061927B66500C79A51 /* xmlmodule.c */; };
+		D31E3D811F1C0367004BD0C6 /* xmlreader.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6071927B66500C79A51 /* xmlreader.c */; };
+		D31E3D821F1C0367004BD0C6 /* xmlregexp.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6081927B66500C79A51 /* xmlregexp.c */; };
+		D31E3D831F1C0367004BD0C6 /* xmlsave.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6091927B66500C79A51 /* xmlsave.c */; };
+		D31E3D841F1C0367004BD0C6 /* xmlschemas.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F60A1927B66500C79A51 /* xmlschemas.c */; };
+		D31E3D851F1C0367004BD0C6 /* xmlschemastypes.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F60B1927B66500C79A51 /* xmlschemastypes.c */; };
+		D31E3D861F1C0367004BD0C6 /* xmlstring.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F60C1927B66500C79A51 /* xmlstring.c */; };
+		D31E3D871F1C0367004BD0C6 /* xmlunicode.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F60D1927B66500C79A51 /* xmlunicode.c */; };
+		D31E3D881F1C0367004BD0C6 /* xmlwriter.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F60E1927B66500C79A51 /* xmlwriter.c */; };
+		D31E3D891F1C0367004BD0C6 /* xpath.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F60F1927B66500C79A51 /* xpath.c */; };
+		D31E3D8A1F1C0367004BD0C6 /* xpointer.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6101927B66500C79A51 /* xpointer.c */; };
+		D31E3D8B1F1C0367004BD0C6 /* xzlib.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6111927B66500C79A51 /* xzlib.c */; };
+		D31E3D8C1F1C03DF004BD0C6 /* XPLibxmlNodeImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = D339F1EA19279E4600C79A51 /* XPLibxmlNodeImpl.m */; };
+		D31E3D8D1F1C03DF004BD0C6 /* XPLibxmlDocumentImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = D339F1E819279E4600C79A51 /* XPLibxmlDocumentImpl.m */; };
+		D31E3D8E1F1C03DF004BD0C6 /* XPLibxmlNamespaceImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFC51193A358900223AB6 /* XPLibxmlNamespaceImpl.m */; };
+		D31E3D8F1F1C03DF004BD0C6 /* XPNSXMLNodeImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0CBBD191EC3A50049EC02 /* XPNSXMLNodeImpl.m */; };
+		D31E3D901F1C03DF004BD0C6 /* XPNSXMLDocumentImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0CBBB191EC3A50049EC02 /* XPNSXMLDocumentImpl.m */; };
+		D31E3D911F1C03DF004BD0C6 /* XPEGParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D383A31E187F748E006AE701 /* XPEGParser.m */; };
+		D31E3D921F1C03DF004BD0C6 /* XPAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D383A319187F6EB8006AE701 /* XPAssembler.m */; };
+		D31E3D931F1C03DF004BD0C6 /* XPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E9F8A1916E60C00BB7DFE /* XPUtils.m */; };
+		D31E3D941F1C03DF004BD0C6 /* XPSync.m in Sources */ = {isa = PBXBuildFile; fileRef = D324A1A2192AE4D90093C4B5 /* XPSync.m */; };
+		D31E3D951F1C03DF004BD0C6 /* XPSynchronousChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = D36712E0192ACC1700B13A63 /* XPSynchronousChannel.m */; };
+		D31E3D961F1C03DF004BD0C6 /* XPSemaphore.m in Sources */ = {isa = PBXBuildFile; fileRef = D339F689192AA1D000C79A51 /* XPSemaphore.m */; };
+		D31E3D971F1C03DF004BD0C6 /* XPStandaloneContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E9F821916E0E000BB7DFE /* XPStandaloneContext.m */; };
+		D31E3D981F1C03DF004BD0C6 /* XPContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A2F741015812800E936B7 /* XPContext.m */; };
+		D31E3D991F1C03DF004BD0C6 /* XPAbstractNodeWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = D372999C196763FC004B1B7A /* XPAbstractNodeWrapper.m */; };
+		D31E3D9A1F1C03DF004BD0C6 /* XPLocalOrderComparer.m in Sources */ = {isa = PBXBuildFile; fileRef = D30D9698191862E300627D41 /* XPLocalOrderComparer.m */; };
+		D31E3D9B1F1C03DF004BD0C6 /* XPFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A29681013F39400E936B7 /* XPFunction.m */; };
+		D31E3D9C1F1C03DF004BD0C6 /* FNAbs.m in Sources */ = {isa = PBXBuildFile; fileRef = D339311519204E9E00259939 /* FNAbs.m */; };
+		D31E3D9D1F1C03DF004BD0C6 /* FNAvg.m in Sources */ = {isa = PBXBuildFile; fileRef = D39753991971CB7B003A0126 /* FNAvg.m */; };
+		D31E3D9E1F1C03DF004BD0C6 /* FNBoolean.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A2A191014015E00E936B7 /* FNBoolean.m */; };
+		D31E3D9F1F1C03DF004BD0C6 /* FNCeiling.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A2CAA10142D8E00E936B7 /* FNCeiling.m */; };
+		D31E3DA01F1C03DF004BD0C6 /* FNCompare.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C0F59519214BBD00566524 /* FNCompare.m */; };
+		D31E3DA11F1C03DF004BD0C6 /* FNConcat.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A2D00101433C600E936B7 /* FNConcat.m */; };
+		D31E3DA21F1C03DF004BD0C6 /* FNContains.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A2E7B10156BF000E936B7 /* FNContains.m */; };
+		D31E3DA31F1C03DF004BD0C6 /* FNCount.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A2D621014393D00E936B7 /* FNCount.m */; };
+		D31E3DA41F1C03DF004BD0C6 /* FNData.m in Sources */ = {isa = PBXBuildFile; fileRef = D3729A06196C431C004B1B7A /* FNData.m */; };
+		D31E3DA51F1C03DF004BD0C6 /* FNDistinctValues.m in Sources */ = {isa = PBXBuildFile; fileRef = D3729A0D196C544B004B1B7A /* FNDistinctValues.m */; };
+		D31E3DA61F1C03DF004BD0C6 /* FNEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299E4196B5A5B004B1B7A /* FNEmpty.m */; };
+		D31E3DA71F1C03DF004BD0C6 /* FNEndsWith.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A306E1015952F00E936B7 /* FNEndsWith.m */; };
+		D31E3DA81F1C03DF004BD0C6 /* FNExists.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299DD196B575D004B1B7A /* FNExists.m */; };
+		D31E3DA91F1C03DF004BD0C6 /* FNFloor.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A2F0B101574B200E936B7 /* FNFloor.m */; };
+		D31E3DAA1F1C03DF004BD0C6 /* FNHead.m in Sources */ = {isa = PBXBuildFile; fileRef = D366738B197D558000BD1FC6 /* FNHead.m */; };
+		D31E3DAB1F1C03DF004BD0C6 /* FNId.m in Sources */ = {isa = PBXBuildFile; fileRef = D339F66B1928EA1100C79A51 /* FNId.m */; };
+		D31E3DAC1F1C03DF004BD0C6 /* FNIndexOf.m in Sources */ = {isa = PBXBuildFile; fileRef = D32A3B33197031EE00DA9E39 /* FNIndexOf.m */; };
+		D31E3DAD1F1C03DF004BD0C6 /* FNInsertBefore.m in Sources */ = {isa = PBXBuildFile; fileRef = D32A3B3F19703B7800DA9E39 /* FNInsertBefore.m */; };
+		D31E3DAE1F1C03DF004BD0C6 /* FNLang.m in Sources */ = {isa = PBXBuildFile; fileRef = D347955F193FDEA100181E56 /* FNLang.m */; };
+		D31E3DAF1F1C03DF004BD0C6 /* FNLast.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A2F2910157F5400E936B7 /* FNLast.m */; };
+		D31E3DB01F1C03DF004BD0C6 /* FNLocalName.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C0F5881921255C00566524 /* FNLocalName.m */; };
+		D31E3DB11F1C03DF004BD0C6 /* FNLowerCase.m in Sources */ = {isa = PBXBuildFile; fileRef = D3393121192052C600259939 /* FNLowerCase.m */; };
+		D31E3DB21F1C03DF004BD0C6 /* FNMatches.m in Sources */ = {isa = PBXBuildFile; fileRef = D3393101192038EE00259939 /* FNMatches.m */; };
+		D31E3DB31F1C03DF004BD0C6 /* FNMax.m in Sources */ = {isa = PBXBuildFile; fileRef = D39753951971CB20003A0126 /* FNMax.m */; };
+		D31E3DB41F1C03DF004BD0C6 /* FNMin.m in Sources */ = {isa = PBXBuildFile; fileRef = D39753911971C5B4003A0126 /* FNMin.m */; };
+		D31E3DB51F1C03DF004BD0C6 /* FNName.m in Sources */ = {isa = PBXBuildFile; fileRef = D339312B19211CC900259939 /* FNName.m */; };
+		D31E3DB61F1C03DF004BD0C6 /* FNNamespaceURI.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C0F591192128E000566524 /* FNNamespaceURI.m */; };
+		D31E3DB71F1C03DF004BD0C6 /* FNNormalizeSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C0F59919214DC900566524 /* FNNormalizeSpace.m */; };
+		D31E3DB81F1C03DF004BD0C6 /* FNNormalizeUnicode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C0F5A11921555800566524 /* FNNormalizeUnicode.m */; };
+		D31E3DB91F1C03DF004BD0C6 /* FNNot.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A29A21013F95100E936B7 /* FNNot.m */; };
+		D31E3DBA1F1C03DF004BD0C6 /* FNNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A31191015A6DA00E936B7 /* FNNumber.m */; };
+		D31E3DBB1F1C03DF004BD0C6 /* FNPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A2F3910157F9100E936B7 /* FNPosition.m */; };
+		D31E3DBC1F1C03DF004BD0C6 /* FNRemove.m in Sources */ = {isa = PBXBuildFile; fileRef = D32A3B491970532C00DA9E39 /* FNRemove.m */; };
+		D31E3DBD1F1C03DF004BD0C6 /* FNReplace.m in Sources */ = {isa = PBXBuildFile; fileRef = D339311119203EBA00259939 /* FNReplace.m */; };
+		D31E3DBE1F1C03DF004BD0C6 /* FNReverse.m in Sources */ = {isa = PBXBuildFile; fileRef = D32A3B451970516600DA9E39 /* FNReverse.m */; };
+		D31E3DBF1F1C03DF004BD0C6 /* FNRound.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A2FD610158A0600E936B7 /* FNRound.m */; };
+		D31E3DC01F1C03DF004BD0C6 /* FNStartsWith.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A2FFB10158DA900E936B7 /* FNStartsWith.m */; };
+		D31E3DC11F1C03DF004BD0C6 /* FNString.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A2FFF10158DB300E936B7 /* FNString.m */; };
+		D31E3DC21F1C03DF004BD0C6 /* FNStringJoin.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F742701A8BB26E001B301F /* FNStringJoin.m */; };
+		D31E3DC31F1C03DF004BD0C6 /* FNStringLength.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A300310158DC200E936B7 /* FNStringLength.m */; };
+		D31E3DC41F1C03DF004BD0C6 /* FNSubsequence.m in Sources */ = {isa = PBXBuildFile; fileRef = D32A3B4D1970535700DA9E39 /* FNSubsequence.m */; };
+		D31E3DC51F1C03DF004BD0C6 /* FNSubstring.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A300710158DD700E936B7 /* FNSubstring.m */; };
+		D31E3DC61F1C03DF004BD0C6 /* FNSubstringAfter.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A300B10158DE500E936B7 /* FNSubstringAfter.m */; };
+		D31E3DC71F1C03DF004BD0C6 /* FNSubstringBefore.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A300F10158DEF00E936B7 /* FNSubstringBefore.m */; };
+		D31E3DC81F1C03DF004BD0C6 /* FNSum.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A301310158E0100E936B7 /* FNSum.m */; };
+		D31E3DC91F1C03DF004BD0C6 /* FNTail.m in Sources */ = {isa = PBXBuildFile; fileRef = D366738F197D5A7000BD1FC6 /* FNTail.m */; };
+		D31E3DCA1F1C03DF004BD0C6 /* FNTokenize.m in Sources */ = {isa = PBXBuildFile; fileRef = D38775A51A8BD6F500D343B3 /* FNTokenize.m */; };
+		D31E3DCB1F1C03DF004BD0C6 /* FNTrace.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BA2F7197439980002D403 /* FNTrace.m */; };
+		D31E3DCC1F1C03DF004BD0C6 /* FNTranslate.m in Sources */ = {isa = PBXBuildFile; fileRef = D339F6711929623700C79A51 /* FNTranslate.m */; };
+		D31E3DCD1F1C03DF004BD0C6 /* FNTrimSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C0F59D19214FE700566524 /* FNTrimSpace.m */; };
+		D31E3DCE1F1C03DF004BD0C6 /* FNTitleCase.m in Sources */ = {isa = PBXBuildFile; fileRef = D33931251920534E00259939 /* FNTitleCase.m */; };
+		D31E3DCF1F1C03DF004BD0C6 /* FNUpperCase.m in Sources */ = {isa = PBXBuildFile; fileRef = D339311D1920527200259939 /* FNUpperCase.m */; };
+		D31E3DD01F1C03DF004BD0C6 /* XPPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C1782918844C7D00F90600 /* XPPattern.m */; };
+		D31E3DD11F1C03DF004BD0C6 /* XPNodeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C1782D18844C9200F90600 /* XPNodeTest.m */; };
+		D31E3DD21F1C03DF004BD0C6 /* XPNodeTypeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A6C2F21907457500F3EFF3 /* XPNodeTypeTest.m */; };
+		D31E3DD31F1C03DF004BD0C6 /* XPNameTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C1783118844C9F00F90600 /* XPNameTest.m */; };
+		D31E3DD41F1C03DF004BD0C6 /* XPNamespaceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C1783518844CC500F90600 /* XPNamespaceTest.m */; };
+		D31E3DD51F1C03DF004BD0C6 /* XPExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AC84540F60C7EC00392CB4 /* XPExpression.m */; };
+		D31E3DD61F1C03DF004BD0C6 /* XPException.m in Sources */ = {isa = PBXBuildFile; fileRef = D3539405192FA6A900D6EEA6 /* XPException.m */; };
+		D31E3DD71F1C03DF004BD0C6 /* XPPositionRange.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BE1427191C3B8400005C81 /* XPPositionRange.m */; };
+		D31E3DD81F1C03DF004BD0C6 /* XPVariableReference.m in Sources */ = {isa = PBXBuildFile; fileRef = D33930F6191F132D00259939 /* XPVariableReference.m */; };
+		D31E3DD91F1C03DF004BD0C6 /* XPUserFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BA2EB1972E5F20002D403 /* XPUserFunction.m */; };
+		D31E3DDA1F1C03DF004BD0C6 /* XPFunctionCall.m in Sources */ = {isa = PBXBuildFile; fileRef = D34D0CE119747BB10011757B /* XPFunctionCall.m */; };
+		D31E3DDB1F1C03DF004BD0C6 /* XPValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BADF7100ABA9300996341 /* XPValue.m */; };
+		D31E3DDC1F1C03DF004BD0C6 /* XPBooleanValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BADF3100ABA7C00996341 /* XPBooleanValue.m */; };
+		D31E3DDD1F1C03DF004BD0C6 /* XPNumericValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D336381A100C6E2800AC4B51 /* XPNumericValue.m */; };
+		D31E3DDE1F1C03DF004BD0C6 /* XPStringValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D336381E100C6E4400AC4B51 /* XPStringValue.m */; };
+		D31E3DDF1F1C03DF004BD0C6 /* XPSequenceValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D3363815100C6E0400AC4B51 /* XPSequenceValue.m */; };
+		D31E3DE01F1C03DF004BD0C6 /* XPNodeSetValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F45867196CA45400F05EA0 /* XPNodeSetValue.m */; };
+		D31E3DE11F1C03DF004BD0C6 /* XPNodeSetExtent.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0CBEB191EC5880049EC02 /* XPNodeSetExtent.m */; };
+		D31E3DE21F1C03DF004BD0C6 /* XPNodeSetIntent.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0CBED191EC5880049EC02 /* XPNodeSetIntent.m */; };
+		D31E3DE31F1C03DF004BD0C6 /* XPEmptyNodeSet.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E9F9A1917054000BB7DFE /* XPEmptyNodeSet.m */; };
+		D31E3DE41F1C03DF004BD0C6 /* XPSingletonNodeSet.m in Sources */ = {isa = PBXBuildFile; fileRef = D336393F100D7EB400AC4B51 /* XPSingletonNodeSet.m */; };
+		D31E3DE51F1C03DF004BD0C6 /* XPObjectValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D3363954100D813500AC4B51 /* XPObjectValue.m */; };
+		D31E3DE61F1C03DF004BD0C6 /* XPBinaryExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D36C679C1010689A000361A0 /* XPBinaryExpression.m */; };
+		D31E3DE71F1C03DF004BD0C6 /* XPBooleanExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A27E31012FFA600E936B7 /* XPBooleanExpression.m */; };
+		D31E3DE81F1C03DF004BD0C6 /* XPRelationalExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D36C679810106874000361A0 /* XPRelationalExpression.m */; };
+		D31E3DE91F1C03DF004BD0C6 /* XPNodeComparisonExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299C91969EA0E004B1B7A /* XPNodeComparisonExpression.m */; };
+		D31E3DEA1F1C03DF004BD0C6 /* XPArithmeticExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D36C68111010E0FE000361A0 /* XPArithmeticExpression.m */; };
+		D31E3DEB1F1C03DF004BD0C6 /* XPStringConcatExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D36672DC197B411800BD1FC6 /* XPStringConcatExpression.m */; };
+		D31E3DEC1F1C03DF004BD0C6 /* XPSimpleMapExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3667361197C7E7900BD1FC6 /* XPSimpleMapExpression.m */; };
+		D31E3DED1F1C03DF004BD0C6 /* XPSequenceExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299A01968490F004B1B7A /* XPSequenceExpression.m */; };
+		D31E3DEE1F1C03DF004BD0C6 /* XPRangeExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299B31968747F004B1B7A /* XPRangeExpression.m */; };
+		D31E3DEF1F1C03DF004BD0C6 /* XPSequenceExtent.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299A919684E91004B1B7A /* XPSequenceExtent.m */; };
+		D31E3DF01F1C03DF004BD0C6 /* XPAtomicSequence.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299F6196C34CE004B1B7A /* XPAtomicSequence.m */; };
+		D31E3DF11F1C03DF004BD0C6 /* XPEmptySequence.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299B719687D0F004B1B7A /* XPEmptySequence.m */; };
+		D31E3DF21F1C03DF004BD0C6 /* XPSequenceExtentEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299AD1968509D004B1B7A /* XPSequenceExtentEnumeration.m */; };
+		D31E3DF31F1C03DF004BD0C6 /* XPQuantifiedExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299BF19699616004B1B7A /* XPQuantifiedExpression.m */; };
+		D31E3DF41F1C03DF004BD0C6 /* XPIfExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299C31969B441004B1B7A /* XPIfExpression.m */; };
+		D31E3DF51F1C03DF004BD0C6 /* XPSwitchExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B2C3D2197E1508004862F6 /* XPSwitchExpression.m */; };
+		D31E3DF61F1C03DF004BD0C6 /* XPCaseClause.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B2C3CE197E14B7004862F6 /* XPCaseClause.m */; };
+		D31E3DF71F1C03DF004BD0C6 /* XPFlworExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299BB1968E281004B1B7A /* XPFlworExpression.m */; };
+		D31E3DF81F1C03DF004BD0C6 /* XPForClause.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299D5196AE26C004B1B7A /* XPForClause.m */; };
+		D31E3DF91F1C03DF004BD0C6 /* XPLetClause.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299D9196AF091004B1B7A /* XPLetClause.m */; };
+		D31E3DFA1F1C03DF004BD0C6 /* XPGroupClause.m in Sources */ = {isa = PBXBuildFile; fileRef = D3037232197072240096D466 /* XPGroupClause.m */; };
+		D31E3DFB1F1C03DF004BD0C6 /* XPGroupSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D303723819707A930096D466 /* XPGroupSpec.m */; };
+		D31E3DFC1F1C03DF004BD0C6 /* XPOrderClause.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299F2196B8457004B1B7A /* XPOrderClause.m */; };
+		D31E3DFD1F1C03DF004BD0C6 /* XPOrderSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D3729A02196C3AD0004B1B7A /* XPOrderSpec.m */; };
+		D31E3DFE1F1C03DF004BD0C6 /* XPTuple.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299FE196C362F004B1B7A /* XPTuple.m */; };
+		D31E3DFF1F1C03DF004BD0C6 /* XPNodeSetExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D36BC02E101BF52F00D1A6C7 /* XPNodeSetExpression.m */; };
+		D31E3E001F1C03DF004BD0C6 /* XPFilterExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BE140F191AC80400005C81 /* XPFilterExpression.m */; };
+		D31E3E011F1C03DF004BD0C6 /* XPFilterEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BE1423191C193900005C81 /* XPFilterEnumerator.m */; };
+		D31E3E021F1C03DF004BD0C6 /* XPUnionExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BE140B191AC7A200005C81 /* XPUnionExpression.m */; };
+		D31E3E031F1C03DF004BD0C6 /* XPIntersectExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D372993C1965FC01004B1B7A /* XPIntersectExpression.m */; };
+		D31E3E041F1C03DF004BD0C6 /* XPExceptExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299381965F9A6004B1B7A /* XPExceptExpression.m */; };
+		D31E3E051F1C03DF004BD0C6 /* XPPathExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E9F921917040D00BB7DFE /* XPPathExpression.m */; };
+		D31E3E061F1C03DF004BD0C6 /* XPBaseEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BE142D191C40E500005C81 /* XPBaseEnumeration.m */; };
+		D31E3E071F1C03DF004BD0C6 /* XPAbstractNodeEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4586C196DE28300F05EA0 /* XPAbstractNodeEnumeration.m */; };
+		D31E3E081F1C03DF004BD0C6 /* XPPathEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D36036151961D0280047F6A4 /* XPPathEnumeration.m */; };
+		D31E3E091F1C03DF004BD0C6 /* XPAxisExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C178221884472800F90600 /* XPAxisExpression.m */; };
+		D31E3E0A1F1C03DF004BD0C6 /* XPAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A6C2E31907391200F3EFF3 /* XPAxis.m */; };
+		D31E3E0B1F1C03DF004BD0C6 /* XPAxisStep.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A6C2EE1907413800F3EFF3 /* XPAxisStep.m */; };
+		D31E3E0C1F1C03DF004BD0C6 /* XPPauseState.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D20AEE196F32B500741F3B /* XPPauseState.m */; };
+		D31E3E0D1F1C03DF004BD0C6 /* XPSingletonExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D36BC031101BF52F00D1A6C7 /* XPSingletonExpression.m */; };
+		D31E3E0E1F1C03DF004BD0C6 /* XPRootExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E9FA219170BB900BB7DFE /* XPRootExpression.m */; };
+		D31E3E0F1F1C03DF004BD0C6 /* XPContextNodeExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3411B58191A87960082A196 /* XPContextNodeExpression.m */; };
+		D31E3E101F1C03DF004BD0C6 /* XPParentNodeExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D360361C1961F3610047F6A4 /* XPParentNodeExpression.m */; };
+		D31E3E111F1C03DF004BD0C6 /* XPEmptyEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E9F9E191706E100BB7DFE /* XPEmptyEnumeration.m */; };
+		D31E3E121F1C03DF004BD0C6 /* XPSingletonEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BBAE91191DD0CF00766EB4 /* XPSingletonEnumeration.m */; };
+		D31E3E131F1C03DF004BD0C6 /* XPNodeSetValueEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BE1415191AFC7200005C81 /* XPNodeSetValueEnumeration.m */; };
+		D31E3E141F1C03DF004BD0C6 /* XPUnionEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BBAE95191DD9B700766EB4 /* XPUnionEnumeration.m */; };
+		D31E3E151F1C03DF004BD0C6 /* XPIntersectEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299401965FC3A004B1B7A /* XPIntersectEnumeration.m */; };
+		D31E3E161F1C03DF004BD0C6 /* XPExceptEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D37299341965F31D004B1B7A /* XPExceptEnumeration.m */; };
+		D31E3E171F1C03DF004BD0C6 /* XPLookaheadEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BBAE89191D881200766EB4 /* XPLookaheadEnumerator.m */; };
+		D31E3E1A1F1C0403004BD0C6 /* libPEGKitOSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D31E3E191F1C0403004BD0C6 /* libPEGKitOSX.a */; };
 		D324A1A4192AE4D90093C4B5 /* XPSync.m in Sources */ = {isa = PBXBuildFile; fileRef = D324A1A2192AE4D90093C4B5 /* XPSync.m */; };
 		D324A1A6192AE5550093C4B5 /* XPSync.h in Headers */ = {isa = PBXBuildFile; fileRef = D324A1A5192AE5550093C4B5 /* XPSync.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D324A1A8192AF16D0093C4B5 /* XPSynchronousChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = D324A1A7192AF16D0093C4B5 /* XPSynchronousChannel.h */; };
@@ -847,6 +1036,11 @@
 		D30D9697191862E300627D41 /* XPLocalOrderComparer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPLocalOrderComparer.h; path = src/XPLocalOrderComparer.h; sourceTree = "<group>"; };
 		D30D9698191862E300627D41 /* XPLocalOrderComparer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPLocalOrderComparer.m; path = src/XPLocalOrderComparer.m; sourceTree = "<group>"; };
 		D3172236190D8FE6005C633B /* XPEqualityExprTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPEqualityExprTest.m; path = test/XPEqualityExprTest.m; sourceTree = "<group>"; };
+		D31E3D531F1C0329004BD0C6 /* libPanthroOSX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPanthroOSX.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D31E3E191F1C0403004BD0C6 /* libPEGKitOSX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPEGKitOSX.a; path = ../PEGKit/build/Debug/libPEGKitOSX.a; sourceTree = "<group>"; };
+		D31E3E231F1C04DF004BD0C6 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
+		D31E3E251F1C04E6004BD0C6 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		D31E3E271F1C04FC004BD0C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D324A1A2192AE4D90093C4B5 /* XPSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPSync.m; path = src/XPSync.m; sourceTree = "<group>"; };
 		D324A1A5192AE5550093C4B5 /* XPSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPSync.h; path = include/Panthro/XPSync.h; sourceTree = "<group>"; };
 		D324A1A7192AF16D0093C4B5 /* XPSynchronousChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPSynchronousChannel.h; path = src/XPSynchronousChannel.h; sourceTree = "<group>"; };
@@ -1345,6 +1539,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D31E3D501F1C0329004BD0C6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D31E3E1A1F1C0403004BD0C6 /* libPEGKitOSX.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D334F42E1CE630B8009D9119 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1376,6 +1578,7 @@
 				8DC2EF5B0486A6940098B216 /* Panthro.framework */,
 				D33639D1100DAA9400AC4B51 /* Tests.xctest */,
 				D334F4321CE630B8009D9119 /* Panthro.framework */,
+				D31E3D531F1C0329004BD0C6 /* libPanthroOSX.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1391,6 +1594,7 @@
 				089C1665FE841158C02AAC07 /* Resources */,
 				0867D69AFE84028FC02AAC07 /* Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
+				D31E3E181F1C0402004BD0C6 /* Frameworks */,
 			);
 			name = Exedore;
 			sourceTree = "<group>";
@@ -1493,6 +1697,17 @@
 				D3F0CBBB191EC3A50049EC02 /* XPNSXMLDocumentImpl.m */,
 			);
 			name = "NSXML Bindings";
+			sourceTree = "<group>";
+		};
+		D31E3E181F1C0402004BD0C6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D31E3E271F1C04FC004BD0C6 /* Foundation.framework */,
+				D31E3E251F1C04E6004BD0C6 /* libz.tbd */,
+				D31E3E231F1C04DF004BD0C6 /* libiconv.tbd */,
+				D31E3E191F1C0403004BD0C6 /* libPEGKitOSX.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		D33639CB100DAA6B00AC4B51 /* Panthro Tests */ = {
@@ -2250,6 +2465,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D31E3D511F1C0329004BD0C6 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D334F42F1CE630B8009D9119 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -2433,6 +2655,23 @@
 			productReference = 8DC2EF5B0486A6940098B216 /* Panthro.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		D31E3D521F1C0329004BD0C6 /* libPanthroOSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D31E3D5B1F1C0329004BD0C6 /* Build configuration list for PBXNativeTarget "libPanthroOSX" */;
+			buildPhases = (
+				D31E3D4F1F1C0329004BD0C6 /* Sources */,
+				D31E3D501F1C0329004BD0C6 /* Frameworks */,
+				D31E3D511F1C0329004BD0C6 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = libPanthroOSX;
+			productName = libPanthroOSX;
+			productReference = D31E3D531F1C0329004BD0C6 /* libPanthroOSX.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		D334F4311CE630B8009D9119 /* PanthroiOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D334F4391CE630B8009D9119 /* Build configuration list for PBXNativeTarget "PanthroiOS" */;
@@ -2477,6 +2716,11 @@
 			attributes = {
 				LastUpgradeCheck = 0830;
 				TargetAttributes = {
+					D31E3D521F1C0329004BD0C6 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 9867TNT66D;
+						ProvisioningStyle = Automatic;
+					};
 					D334F4311CE630B8009D9119 = {
 						CreatedOnToolsVersion = 7.3.1;
 					};
@@ -2498,6 +2742,7 @@
 			projectRoot = "";
 			targets = (
 				8DC2EF4F0486A6940098B216 /* Panthro */,
+				D31E3D521F1C0329004BD0C6 /* libPanthroOSX */,
 				D334F4311CE630B8009D9119 /* PanthroiOS */,
 				D33639D0100DAA9400AC4B51 /* PanthroTests */,
 			);
@@ -2763,6 +3008,201 @@
 				D37299AB19684E91004B1B7A /* XPSequenceExtent.m in Sources */,
 				D3A6C2F41907457500F3EFF3 /* XPNodeTypeTest.m in Sources */,
 				D3C1782F18844C9200F90600 /* XPNodeTest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D31E3D4F1F1C0329004BD0C6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D31E3D5C1F1C0367004BD0C6 /* buf.c in Sources */,
+				D31E3D5D1F1C0367004BD0C6 /* c14n.c in Sources */,
+				D31E3D5E1F1C0367004BD0C6 /* catalog.c in Sources */,
+				D31E3D5F1F1C0367004BD0C6 /* chvalid.c in Sources */,
+				D31E3D601F1C0367004BD0C6 /* debugXML.c in Sources */,
+				D31E3D611F1C0367004BD0C6 /* dict.c in Sources */,
+				D31E3D621F1C0367004BD0C6 /* error.c in Sources */,
+				D31E3D631F1C0367004BD0C6 /* encoding.c in Sources */,
+				D31E3D641F1C0367004BD0C6 /* entities.c in Sources */,
+				D31E3D651F1C0367004BD0C6 /* globals.c in Sources */,
+				D31E3D661F1C0367004BD0C6 /* hash.c in Sources */,
+				D31E3D671F1C0367004BD0C6 /* HTMLparser.c in Sources */,
+				D31E3D681F1C0367004BD0C6 /* HTMLtree.c in Sources */,
+				D31E3D691F1C0367004BD0C6 /* legacy.c in Sources */,
+				D31E3D6A1F1C0367004BD0C6 /* list.c in Sources */,
+				D31E3D6B1F1C0367004BD0C6 /* nanoftp.c in Sources */,
+				D31E3D6C1F1C0367004BD0C6 /* nanohttp.c in Sources */,
+				D31E3D6D1F1C0367004BD0C6 /* parser.c in Sources */,
+				D31E3D6E1F1C0367004BD0C6 /* parserInternals.c in Sources */,
+				D31E3D6F1F1C0367004BD0C6 /* pattern.c in Sources */,
+				D31E3D701F1C0367004BD0C6 /* relaxng.c in Sources */,
+				D31E3D711F1C0367004BD0C6 /* SAX.c in Sources */,
+				D31E3D721F1C0367004BD0C6 /* SAX2.c in Sources */,
+				D31E3D731F1C0367004BD0C6 /* schematron.c in Sources */,
+				D31E3D741F1C0367004BD0C6 /* threads.c in Sources */,
+				D31E3D751F1C0367004BD0C6 /* tree.c in Sources */,
+				D31E3D761F1C0367004BD0C6 /* trio.c in Sources */,
+				D31E3D771F1C0367004BD0C6 /* trionan.c in Sources */,
+				D31E3D781F1C0367004BD0C6 /* triostr.c in Sources */,
+				D31E3D791F1C0367004BD0C6 /* uri.c in Sources */,
+				D31E3D7A1F1C0367004BD0C6 /* valid.c in Sources */,
+				D31E3D7B1F1C0367004BD0C6 /* xinclude.c in Sources */,
+				D31E3D7C1F1C0367004BD0C6 /* xlink.c in Sources */,
+				D31E3D7D1F1C0367004BD0C6 /* xmlcatalog.c in Sources */,
+				D31E3D7E1F1C0367004BD0C6 /* xmlIO.c in Sources */,
+				D31E3D7F1F1C0367004BD0C6 /* xmlmemory.c in Sources */,
+				D31E3D801F1C0367004BD0C6 /* xmlmodule.c in Sources */,
+				D31E3D811F1C0367004BD0C6 /* xmlreader.c in Sources */,
+				D31E3D821F1C0367004BD0C6 /* xmlregexp.c in Sources */,
+				D31E3D831F1C0367004BD0C6 /* xmlsave.c in Sources */,
+				D31E3D841F1C0367004BD0C6 /* xmlschemas.c in Sources */,
+				D31E3D851F1C0367004BD0C6 /* xmlschemastypes.c in Sources */,
+				D31E3D861F1C0367004BD0C6 /* xmlstring.c in Sources */,
+				D31E3D871F1C0367004BD0C6 /* xmlunicode.c in Sources */,
+				D31E3D881F1C0367004BD0C6 /* xmlwriter.c in Sources */,
+				D31E3D891F1C0367004BD0C6 /* xpath.c in Sources */,
+				D31E3D8A1F1C0367004BD0C6 /* xpointer.c in Sources */,
+				D31E3D8B1F1C0367004BD0C6 /* xzlib.c in Sources */,
+				D31E3D8C1F1C03DF004BD0C6 /* XPLibxmlNodeImpl.m in Sources */,
+				D31E3D8D1F1C03DF004BD0C6 /* XPLibxmlDocumentImpl.m in Sources */,
+				D31E3D8E1F1C03DF004BD0C6 /* XPLibxmlNamespaceImpl.m in Sources */,
+				D31E3D8F1F1C03DF004BD0C6 /* XPNSXMLNodeImpl.m in Sources */,
+				D31E3D901F1C03DF004BD0C6 /* XPNSXMLDocumentImpl.m in Sources */,
+				D31E3D911F1C03DF004BD0C6 /* XPEGParser.m in Sources */,
+				D31E3D921F1C03DF004BD0C6 /* XPAssembler.m in Sources */,
+				D31E3D931F1C03DF004BD0C6 /* XPUtils.m in Sources */,
+				D31E3D941F1C03DF004BD0C6 /* XPSync.m in Sources */,
+				D31E3D951F1C03DF004BD0C6 /* XPSynchronousChannel.m in Sources */,
+				D31E3D961F1C03DF004BD0C6 /* XPSemaphore.m in Sources */,
+				D31E3D971F1C03DF004BD0C6 /* XPStandaloneContext.m in Sources */,
+				D31E3D981F1C03DF004BD0C6 /* XPContext.m in Sources */,
+				D31E3D991F1C03DF004BD0C6 /* XPAbstractNodeWrapper.m in Sources */,
+				D31E3D9A1F1C03DF004BD0C6 /* XPLocalOrderComparer.m in Sources */,
+				D31E3D9B1F1C03DF004BD0C6 /* XPFunction.m in Sources */,
+				D31E3D9C1F1C03DF004BD0C6 /* FNAbs.m in Sources */,
+				D31E3D9D1F1C03DF004BD0C6 /* FNAvg.m in Sources */,
+				D31E3D9E1F1C03DF004BD0C6 /* FNBoolean.m in Sources */,
+				D31E3D9F1F1C03DF004BD0C6 /* FNCeiling.m in Sources */,
+				D31E3DA01F1C03DF004BD0C6 /* FNCompare.m in Sources */,
+				D31E3DA11F1C03DF004BD0C6 /* FNConcat.m in Sources */,
+				D31E3DA21F1C03DF004BD0C6 /* FNContains.m in Sources */,
+				D31E3DA31F1C03DF004BD0C6 /* FNCount.m in Sources */,
+				D31E3DA41F1C03DF004BD0C6 /* FNData.m in Sources */,
+				D31E3DA51F1C03DF004BD0C6 /* FNDistinctValues.m in Sources */,
+				D31E3DA61F1C03DF004BD0C6 /* FNEmpty.m in Sources */,
+				D31E3DA71F1C03DF004BD0C6 /* FNEndsWith.m in Sources */,
+				D31E3DA81F1C03DF004BD0C6 /* FNExists.m in Sources */,
+				D31E3DA91F1C03DF004BD0C6 /* FNFloor.m in Sources */,
+				D31E3DAA1F1C03DF004BD0C6 /* FNHead.m in Sources */,
+				D31E3DAB1F1C03DF004BD0C6 /* FNId.m in Sources */,
+				D31E3DAC1F1C03DF004BD0C6 /* FNIndexOf.m in Sources */,
+				D31E3DAD1F1C03DF004BD0C6 /* FNInsertBefore.m in Sources */,
+				D31E3DAE1F1C03DF004BD0C6 /* FNLang.m in Sources */,
+				D31E3DAF1F1C03DF004BD0C6 /* FNLast.m in Sources */,
+				D31E3DB01F1C03DF004BD0C6 /* FNLocalName.m in Sources */,
+				D31E3DB11F1C03DF004BD0C6 /* FNLowerCase.m in Sources */,
+				D31E3DB21F1C03DF004BD0C6 /* FNMatches.m in Sources */,
+				D31E3DB31F1C03DF004BD0C6 /* FNMax.m in Sources */,
+				D31E3DB41F1C03DF004BD0C6 /* FNMin.m in Sources */,
+				D31E3DB51F1C03DF004BD0C6 /* FNName.m in Sources */,
+				D31E3DB61F1C03DF004BD0C6 /* FNNamespaceURI.m in Sources */,
+				D31E3DB71F1C03DF004BD0C6 /* FNNormalizeSpace.m in Sources */,
+				D31E3DB81F1C03DF004BD0C6 /* FNNormalizeUnicode.m in Sources */,
+				D31E3DB91F1C03DF004BD0C6 /* FNNot.m in Sources */,
+				D31E3DBA1F1C03DF004BD0C6 /* FNNumber.m in Sources */,
+				D31E3DBB1F1C03DF004BD0C6 /* FNPosition.m in Sources */,
+				D31E3DBC1F1C03DF004BD0C6 /* FNRemove.m in Sources */,
+				D31E3DBD1F1C03DF004BD0C6 /* FNReplace.m in Sources */,
+				D31E3DBE1F1C03DF004BD0C6 /* FNReverse.m in Sources */,
+				D31E3DBF1F1C03DF004BD0C6 /* FNRound.m in Sources */,
+				D31E3DC01F1C03DF004BD0C6 /* FNStartsWith.m in Sources */,
+				D31E3DC11F1C03DF004BD0C6 /* FNString.m in Sources */,
+				D31E3DC21F1C03DF004BD0C6 /* FNStringJoin.m in Sources */,
+				D31E3DC31F1C03DF004BD0C6 /* FNStringLength.m in Sources */,
+				D31E3DC41F1C03DF004BD0C6 /* FNSubsequence.m in Sources */,
+				D31E3DC51F1C03DF004BD0C6 /* FNSubstring.m in Sources */,
+				D31E3DC61F1C03DF004BD0C6 /* FNSubstringAfter.m in Sources */,
+				D31E3DC71F1C03DF004BD0C6 /* FNSubstringBefore.m in Sources */,
+				D31E3DC81F1C03DF004BD0C6 /* FNSum.m in Sources */,
+				D31E3DC91F1C03DF004BD0C6 /* FNTail.m in Sources */,
+				D31E3DCA1F1C03DF004BD0C6 /* FNTokenize.m in Sources */,
+				D31E3DCB1F1C03DF004BD0C6 /* FNTrace.m in Sources */,
+				D31E3DCC1F1C03DF004BD0C6 /* FNTranslate.m in Sources */,
+				D31E3DCD1F1C03DF004BD0C6 /* FNTrimSpace.m in Sources */,
+				D31E3DCE1F1C03DF004BD0C6 /* FNTitleCase.m in Sources */,
+				D31E3DCF1F1C03DF004BD0C6 /* FNUpperCase.m in Sources */,
+				D31E3DD01F1C03DF004BD0C6 /* XPPattern.m in Sources */,
+				D31E3DD11F1C03DF004BD0C6 /* XPNodeTest.m in Sources */,
+				D31E3DD21F1C03DF004BD0C6 /* XPNodeTypeTest.m in Sources */,
+				D31E3DD31F1C03DF004BD0C6 /* XPNameTest.m in Sources */,
+				D31E3DD41F1C03DF004BD0C6 /* XPNamespaceTest.m in Sources */,
+				D31E3DD51F1C03DF004BD0C6 /* XPExpression.m in Sources */,
+				D31E3DD61F1C03DF004BD0C6 /* XPException.m in Sources */,
+				D31E3DD71F1C03DF004BD0C6 /* XPPositionRange.m in Sources */,
+				D31E3DD81F1C03DF004BD0C6 /* XPVariableReference.m in Sources */,
+				D31E3DD91F1C03DF004BD0C6 /* XPUserFunction.m in Sources */,
+				D31E3DDA1F1C03DF004BD0C6 /* XPFunctionCall.m in Sources */,
+				D31E3DDB1F1C03DF004BD0C6 /* XPValue.m in Sources */,
+				D31E3DDC1F1C03DF004BD0C6 /* XPBooleanValue.m in Sources */,
+				D31E3DDD1F1C03DF004BD0C6 /* XPNumericValue.m in Sources */,
+				D31E3DDE1F1C03DF004BD0C6 /* XPStringValue.m in Sources */,
+				D31E3DDF1F1C03DF004BD0C6 /* XPSequenceValue.m in Sources */,
+				D31E3DE01F1C03DF004BD0C6 /* XPNodeSetValue.m in Sources */,
+				D31E3DE11F1C03DF004BD0C6 /* XPNodeSetExtent.m in Sources */,
+				D31E3DE21F1C03DF004BD0C6 /* XPNodeSetIntent.m in Sources */,
+				D31E3DE31F1C03DF004BD0C6 /* XPEmptyNodeSet.m in Sources */,
+				D31E3DE41F1C03DF004BD0C6 /* XPSingletonNodeSet.m in Sources */,
+				D31E3DE51F1C03DF004BD0C6 /* XPObjectValue.m in Sources */,
+				D31E3DE61F1C03DF004BD0C6 /* XPBinaryExpression.m in Sources */,
+				D31E3DE71F1C03DF004BD0C6 /* XPBooleanExpression.m in Sources */,
+				D31E3DE81F1C03DF004BD0C6 /* XPRelationalExpression.m in Sources */,
+				D31E3DE91F1C03DF004BD0C6 /* XPNodeComparisonExpression.m in Sources */,
+				D31E3DEA1F1C03DF004BD0C6 /* XPArithmeticExpression.m in Sources */,
+				D31E3DEB1F1C03DF004BD0C6 /* XPStringConcatExpression.m in Sources */,
+				D31E3DEC1F1C03DF004BD0C6 /* XPSimpleMapExpression.m in Sources */,
+				D31E3DED1F1C03DF004BD0C6 /* XPSequenceExpression.m in Sources */,
+				D31E3DEE1F1C03DF004BD0C6 /* XPRangeExpression.m in Sources */,
+				D31E3DEF1F1C03DF004BD0C6 /* XPSequenceExtent.m in Sources */,
+				D31E3DF01F1C03DF004BD0C6 /* XPAtomicSequence.m in Sources */,
+				D31E3DF11F1C03DF004BD0C6 /* XPEmptySequence.m in Sources */,
+				D31E3DF21F1C03DF004BD0C6 /* XPSequenceExtentEnumeration.m in Sources */,
+				D31E3DF31F1C03DF004BD0C6 /* XPQuantifiedExpression.m in Sources */,
+				D31E3DF41F1C03DF004BD0C6 /* XPIfExpression.m in Sources */,
+				D31E3DF51F1C03DF004BD0C6 /* XPSwitchExpression.m in Sources */,
+				D31E3DF61F1C03DF004BD0C6 /* XPCaseClause.m in Sources */,
+				D31E3DF71F1C03DF004BD0C6 /* XPFlworExpression.m in Sources */,
+				D31E3DF81F1C03DF004BD0C6 /* XPForClause.m in Sources */,
+				D31E3DF91F1C03DF004BD0C6 /* XPLetClause.m in Sources */,
+				D31E3DFA1F1C03DF004BD0C6 /* XPGroupClause.m in Sources */,
+				D31E3DFB1F1C03DF004BD0C6 /* XPGroupSpec.m in Sources */,
+				D31E3DFC1F1C03DF004BD0C6 /* XPOrderClause.m in Sources */,
+				D31E3DFD1F1C03DF004BD0C6 /* XPOrderSpec.m in Sources */,
+				D31E3DFE1F1C03DF004BD0C6 /* XPTuple.m in Sources */,
+				D31E3DFF1F1C03DF004BD0C6 /* XPNodeSetExpression.m in Sources */,
+				D31E3E001F1C03DF004BD0C6 /* XPFilterExpression.m in Sources */,
+				D31E3E011F1C03DF004BD0C6 /* XPFilterEnumerator.m in Sources */,
+				D31E3E021F1C03DF004BD0C6 /* XPUnionExpression.m in Sources */,
+				D31E3E031F1C03DF004BD0C6 /* XPIntersectExpression.m in Sources */,
+				D31E3E041F1C03DF004BD0C6 /* XPExceptExpression.m in Sources */,
+				D31E3E051F1C03DF004BD0C6 /* XPPathExpression.m in Sources */,
+				D31E3E061F1C03DF004BD0C6 /* XPBaseEnumeration.m in Sources */,
+				D31E3E071F1C03DF004BD0C6 /* XPAbstractNodeEnumeration.m in Sources */,
+				D31E3E081F1C03DF004BD0C6 /* XPPathEnumeration.m in Sources */,
+				D31E3E091F1C03DF004BD0C6 /* XPAxisExpression.m in Sources */,
+				D31E3E0A1F1C03DF004BD0C6 /* XPAxis.m in Sources */,
+				D31E3E0B1F1C03DF004BD0C6 /* XPAxisStep.m in Sources */,
+				D31E3E0C1F1C03DF004BD0C6 /* XPPauseState.m in Sources */,
+				D31E3E0D1F1C03DF004BD0C6 /* XPSingletonExpression.m in Sources */,
+				D31E3E0E1F1C03DF004BD0C6 /* XPRootExpression.m in Sources */,
+				D31E3E0F1F1C03DF004BD0C6 /* XPContextNodeExpression.m in Sources */,
+				D31E3E101F1C03DF004BD0C6 /* XPParentNodeExpression.m in Sources */,
+				D31E3E111F1C03DF004BD0C6 /* XPEmptyEnumeration.m in Sources */,
+				D31E3E121F1C03DF004BD0C6 /* XPSingletonEnumeration.m in Sources */,
+				D31E3E131F1C03DF004BD0C6 /* XPNodeSetValueEnumeration.m in Sources */,
+				D31E3E141F1C03DF004BD0C6 /* XPUnionEnumeration.m in Sources */,
+				D31E3E151F1C03DF004BD0C6 /* XPIntersectEnumeration.m in Sources */,
+				D31E3E161F1C03DF004BD0C6 /* XPExceptEnumeration.m in Sources */,
+				D31E3E171F1C03DF004BD0C6 /* XPLookaheadEnumerator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3082,7 +3522,7 @@
 				GENERATE_PROFILING_CODE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/lib/pegkit/include\"",
+					"\"$(SRCROOT)/lib/PEGKit/include\"",
 				);
 				INFOPLIST_FILE = "res/Panthro-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";
@@ -3120,7 +3560,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/lib/pegkit/include\"",
+					"\"$(SRCROOT)/lib/PEGKit/include\"",
 				);
 				INFOPLIST_FILE = "res/Panthro-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";
@@ -3174,6 +3614,87 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/lib/libxml2-2.9.1/include\"";
+			};
+			name = Release;
+		};
+		D31E3D591F1C0329004BD0C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 9867TNT66D;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Panthro_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/lib/libxml2-2.9.1/include\"",
+					lib/PEGKit/include,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = PanthroOSX;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		D31E3D5A1F1C0329004BD0C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 9867TNT66D;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Panthro_Prefix.pch;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/lib/libxml2-2.9.1/include\"",
+					lib/PEGKit/include,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = PanthroOSX;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -3354,6 +3875,15 @@
 			buildConfigurations = (
 				1DEB91B208733DA50010E9CD /* Debug */,
 				1DEB91B308733DA50010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D31E3D5B1F1C0329004BD0C6 /* Build configuration list for PBXNativeTarget "libPanthroOSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D31E3D591F1C0329004BD0C6 /* Debug */,
+				D31E3D5A1F1C0329004BD0C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
