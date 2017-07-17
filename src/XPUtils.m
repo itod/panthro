@@ -89,7 +89,7 @@ BOOL XPNameIsQName(NSString *name) {
      * Extract the prefix from a QName. Note, the QName is assumed to be valid.
      */
     
-BOOL XPNameGetPrefix(NSString *qname) {
+NSString *XPNameGetPrefix(NSString *qname) {
     NSUInteger colon = [qname rangeOfString:@":"].location;
     if (NSNotFound == colon) {
         return @"";
@@ -101,7 +101,7 @@ BOOL XPNameGetPrefix(NSString *qname) {
      * Extract the local name from a QName. The QName is assumed to be valid.
      */
     
-BOOL XPNameGetLocalName(NSString *qname) {
+NSString *XPNameGetLocalName(NSString *qname) {
     NSUInteger colon = [qname rangeOfString:@":"].location;
     if (NSNotFound == colon) {
         return @"";
@@ -142,14 +142,14 @@ BOOL XPNameGetLocalName(NSString *qname) {
      */
     
 void XPQuickSort(id <XPSortable>a, NSInteger lo0, NSInteger hi0) {
-    int lo = lo0;
-    int hi = hi0;
+    NSInteger lo = lo0;
+    NSInteger hi = hi0;
     
     if ( hi0 > lo0) {
         /* Arbitrarily establishing partition element as the midpoint of
          * the array.
          */
-        int mid = ( lo0 + hi0 ) / 2;
+        NSInteger mid = ( lo0 + hi0 ) / 2;
         
         // loop through the array until indices cross
         while ( lo <= hi ) {

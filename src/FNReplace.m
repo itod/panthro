@@ -88,7 +88,7 @@
                 [XPException raiseIn:self format:@"could not create Regex from pattern '%@'", pattern];
             }
             
-            result = [regex stringByReplacingMatchesInString:input options:opts range:NSMakeRange(0, [input length]) withTemplate:replacement];
+            result = [regex stringByReplacingMatchesInString:input options:0 range:NSMakeRange(0, [input length]) withTemplate:replacement];
         }
     }
     

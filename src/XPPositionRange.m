@@ -42,7 +42,7 @@
     
 /**
  * Evaluate the expression in a given context
- * @param c the given context for evaluation
+ * @param ctx the given context for evaluation
  * @return a BooleanValue representing the result of the numeric comparison of the two operands
  */
     
@@ -56,12 +56,12 @@
 
 /**
  * Evaluate the expression in a given context
- * @param c the given context for evaluation
+ * @param ctx the given context for evaluation
  * @return a boolean representing the result of the numeric comparison of the two operands
  */
     
 - (BOOL)evaluateAsBooleanInContext:(XPContext *)ctx {
-    int p = [ctx contextPosition];
+    NSUInteger p = [ctx contextPosition];
     return p >= _minPosition && p <= _maxPosition;
 }
 

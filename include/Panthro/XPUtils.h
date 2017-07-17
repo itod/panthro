@@ -32,7 +32,7 @@ extern const NSString *XPNodeTypeName[];
 
 extern BOOL XPNameIsNCName(NSString *name);
 extern BOOL XPNameIsQName(NSString *name);
-extern BOOL XPNameGetPrefix(NSString *qname);
-extern BOOL XPNameGetLocalName(NSString *qname);
+extern NSString *XPNameGetPrefix(NSString *qname);
+extern NSString *XPNameGetLocalName(NSString *qname);
 
 extern void XPQuickSort(id <XPSortable>a, NSInteger lo0, NSInteger hi0);
