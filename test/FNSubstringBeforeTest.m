@@ -63,16 +63,16 @@
 
 - (void)testEqualsExprSubstringBefore {
     self.expr = [XPExpression expressionFromString:@"substring-before('ab', 'b') = 'a'" inContext:[XPStandaloneContext standaloneContext] error:nil];
-    self.res = [_expr evaluateAsBooleanInContext:nil];
-    TDTrue(_res);
+    BOOL res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(res);
     
     self.expr = [XPExpression expressionFromString:@"substring-before('ab', 'a') = ''" inContext:[XPStandaloneContext standaloneContext] error:nil];
-    self.res = [_expr evaluateAsBooleanInContext:nil];
-    TDTrue(_res);
+    res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(res);
     
     self.expr = [XPExpression expressionFromString:@"substring-before('ab', 'c') = ''" inContext:[XPStandaloneContext standaloneContext] error:nil];
-    self.res = [_expr evaluateAsBooleanInContext:nil];
-    TDTrue(_res);
+    res = [_expr evaluateAsBooleanInContext:nil];
+    TDTrue(res);
 }
 
 @end
