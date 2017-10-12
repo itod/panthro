@@ -1,4 +1,4 @@
-###Panthro - XPath/XQuery 3.0-ish written in Cocoa, for use in Cocoa
+### Panthro - XPath/XQuery 3.0-ish written in Cocoa, for use in Cocoa
 
 Panthro is an implementation of XPath in Objective-C with decent unit test coverage, and intended for use on Apple's iOS and OS X platforms with bindings for **libxml** and NSXML included.
 
@@ -6,10 +6,10 @@ Panthro is mostly a port of the XPath 1.0 portions of the excellent [Saxon](http
 
 Panthro supports all of XPath 1.0 and many of the most interesting features of 2.0 and even some of XPath 3.0 and XQuery. Here are some of the features supported by Panthro:
 
-#####From XPath 1.0:
+##### From XPath 1.0:
 * Evertything (I think)
 
-#####From XPath 2.0:
+##### From XPath 2.0:
 * **Sequences** (`('a', 'b', 'c')` or `()`)
 * Steps in Path expressions may be arbitrary sub-expressions (`book/(chapter|appendix)/*`)
 * `for` looping expressions
@@ -21,23 +21,23 @@ Panthro supports all of XPath 1.0 and many of the most interesting features of 2
 * Many of the XPath 2.0 functions are supported including **regex** support in `matches()`, `replace()`, and `tokenize()`
 * Scientific notation (exponents) are allowed in number literals
 
-#####From XQuery 1.0:
+##### From XQuery 1.0:
 * **FLWOR** (For, Let, Where, Order by, Return) expressions
 * Function declarations
 * Variable declarations
 
-#####From XPath 3.0:
+##### From XPath 3.0:
 * First-class inline functions (`let $func := function() { … }`)
 * Anonymous functions (`$map((1,2,3), function($n) { $n*$n })`)
 * String concatenation operator (`'foo' || 'bar'` produces `'foobar'`)
 * Simple mapping operator (`/book/section ! count(chapter)`)
 
-#####From XQuery 3.0:
+##### From XQuery 3.0:
 * Switch expressions (`switch (1) case 1 return 'one' case 2 return 'two' default return 'unknown'`)
 
 I think most people familiar with XPath and XQuery will agree these are the most useful and interesting features beyond XPath 1.0, and Panthro has them all. Most of what is "missing" from XPath 2.0 in Panthro is related to the overly-complex and unpopular XML Schema-inspired static type system. Currently, implementing that portion of XPath 2.0 is not planned, and is probably a non-goal in the long term.
 
-####Data Model
+#### Data Model
 Panthro's current data model lies in a fuzzy area somewhere between XPath 1.0 and 3.0. This is intentional. Panthro's type system has the simple, dynamic flavor and small number of types from XPath 1.0, plus the pervasive addition of Sequences from XPath 2.0, plus first-class functions from XPath 3.0.
 
 The types are basically `item` (think base class), `string`, `number`, `boolean`, `node`, and `sequence`. As in XPath 2.0, every `item` is also a `sequence` of length 1. Any XPath or XQuery features related to explicit static types (e.g. `as xs:integer`) and casts (e.g. `cast as xs:string`, `treat as xs:double`, `instance of xs:dateTime`) are **not** currently supported, and will cause a syntax error.
@@ -46,14 +46,14 @@ The XPath parser is based on [PEGKit](http://www.github.com/itod/pegkit). The PE
 
 If you find any missing features you would like, please let me know via an Issue on this GitHub project.
 
-####Applications
+#### Applications
 
 Panthro currently powers two of my applications:
 
 1. [Pathology](http://celestialteapot.com/pathology/) - XPath Debugger and Visualizer for OS X
 1. [Pathological](http://celestialteapot.com/pathological/) - Search the OS X Finder with extreme precision using XPath
 
-####Examples
+#### Examples
 
 Some example expressions that currently work (i.e. they are parsed, execute, and return a correct result):
 ```xquery
@@ -118,11 +118,11 @@ declare function mysum($v) {
 };
 mysum((1,2,3))
 ```
-####Non-standard Additions
+#### Non-standard Additions
 
 1. Other functions of my own design are incuded in the default function namespace: `head()`, `tail()`, `title-case()`, and `trim-space()`.
 
-####XML Tree Model Bindings
+#### XML Tree Model Bindings
 
 XPath works on a tree-like representation of an XML document. So Panthro needs a tree-based XML API available (in C, C++, or ObjC) on Apple platforms. The most commonly-used XML tree APIs on these platforms are:
 
@@ -133,7 +133,7 @@ XPath works on a tree-like representation of an XML document. So Panthro needs a
 
 Panthro is designed to work with any XML tree API, but requires a small adapter layer for each (an implementation of the `XPNodeInfo` and `XPDocumentInfo` protocols). Panthro currently includes an adapter layer for libxml (for iOS and OS X) and NSXML (for OS X only).
 
-####Objective-C API
+#### Objective-C API
 
 To use Panthro with NSXML on OS X:
 
