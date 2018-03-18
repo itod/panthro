@@ -71,6 +71,7 @@ static NSUInteger XPIndexInParent(id <XPNodeInfo>nodeInfo) {
     
     switch (node->type) {
         case XML_DOCUMENT_NODE:
+        case XML_HTML_DOCUMENT_NODE:
             cls = [XPLibxmlDocumentImpl class];
             break;
         case XML_NAMESPACE_DECL:
@@ -196,6 +197,7 @@ static NSUInteger XPIndexInParent(id <XPNodeInfo>nodeInfo) {
     xmlElementType kind = _node->type;
     switch (kind) {
         case XML_DOCUMENT_NODE:
+        case XML_HTML_DOCUMENT_NODE:
             type = XPNodeTypeRoot;
             break;
         case XML_ELEMENT_NODE:
@@ -222,7 +224,6 @@ static NSUInteger XPIndexInParent(id <XPNodeInfo>nodeInfo) {
         case XML_DOCUMENT_TYPE_NODE:
         case XML_DOCUMENT_FRAG_NODE:
         case XML_NOTATION_NODE:
-        case XML_HTML_DOCUMENT_NODE:
         case XML_DTD_NODE:
         case XML_ELEMENT_DECL:
         case XML_ATTRIBUTE_DECL:
@@ -494,7 +495,7 @@ static NSUInteger XPIndexInParent(id <XPNodeInfo>nodeInfo) {
     
     // be careful. libxml represents the text value of an attr or ns node as a text node child of the attr or ns node.
     // That does not match the XPath data model, where only root and element nodes can have children.
-    if (XML_DOCUMENT_NODE == parent->type || XML_ELEMENT_NODE == parent->type) {
+    if (XML_DOCUMENT_NODE == parent->type || XML_HTML_DOCUMENT_NODE == parent->type || XML_ELEMENT_NODE == parent->type) {
         result = [NSMutableArray array];
         
         for (xmlNodePtr child = parent->children; NULL != child; child = child->next) {
@@ -594,7 +595,7 @@ static NSUInteger XPIndexInParent(id <XPNodeInfo>nodeInfo) {
     
     // be careful. libxml represents the text value of an attr or ns node as a text node child of the attr or ns node.
     // That does not match the XPath data model, where only root and element nodes can have children.
-    if (XML_DOCUMENT_NODE == _node->type || XML_ELEMENT_NODE == _node->type) {
+    if (XML_DOCUMENT_NODE == _node->type || XML_HTML_DOCUMENT_NODE == _node->type || XML_ELEMENT_NODE == _node->type) {
         
         for (xmlNodePtr child = _node->children; NULL != child; child = child->next) {
             if (XML_DTD_NODE == child->type) continue;

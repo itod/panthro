@@ -43,7 +43,7 @@
 - (id <XPNodeInfo>)selectID:(NSString *)inId {
     XPAssert(self.node);
     XPAssert(self.parserCtx);
-    XPAssert(XML_DOCUMENT_NODE == self.node->type);
+    XPAssert(XML_DOCUMENT_NODE == self.node->type || XML_HTML_DOCUMENT_NODE == self.node->type);
     
     id <XPNodeInfo>node = nil;
     
