@@ -114,6 +114,11 @@ static NSUInteger XPIndexInParent(id <XPNodeInfo>nodeInfo) {
 }
 
 
+- (id)copyWithZone:(NSZone *)zone {
+    return [self retain];
+}
+
+
 - (BOOL)isSameNodeInfo:(id <XPNodeInfo>)other {
     XPAssert(!other || [other isKindOfClass:[XPLibxmlNodeImpl class]]);
     return other == self || [(id)other node] == (void *)_node;
@@ -216,9 +221,9 @@ static NSUInteger XPIndexInParent(id <XPNodeInfo>nodeInfo) {
             type = XPNodeTypeComment;
             break;
         case XML_TEXT_NODE:
+        case XML_CDATA_SECTION_NODE: // can happen in HTML docs (XML_PARSE_NOCDATA is def set. but not respected?)
             type = XPNodeTypeText;
             break;
-        case XML_CDATA_SECTION_NODE:
         case XML_ENTITY_REF_NODE:
         case XML_ENTITY_NODE:
         case XML_DOCUMENT_TYPE_NODE:
