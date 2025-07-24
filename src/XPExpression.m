@@ -88,7 +88,7 @@ const NSUInteger XPathErrorCodeRuntime = 2;
 
 - (XPValue *)evaluateInContext:(XPContext *)ctx {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
-    return NO;
+    return nil;
 }
 
 
