@@ -7,7 +7,7 @@
 //
 
 #import "FNBoolean.h"
-#import "XPValue.h"
+#import <Panthro/XPValue.h>
 #import "XPBooleanValue.h"
 
 @interface XPFunction ()

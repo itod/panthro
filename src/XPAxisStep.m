@@ -9,7 +9,7 @@
 #import "XPAxisStep.h"
 #import "XPNodeTest.h"
 #import "XPExpression.h"
-#import "XPValue.h"
+#import <Panthro/XPValue.h>
 #import "XPNodeInfo.h"
 #import "XPAxisEnumeration.h"
 #import "XPFilterEnumerator.h"

@@ -7,7 +7,7 @@
 //
 
 #import "XPBooleanExpression.h"
-#import "XPValue.h"
+#import <Panthro/XPValue.h>
 #import "XPBooleanValue.h"
 #import "XPPositionRange.h"
 #import "XPEGParser.h"

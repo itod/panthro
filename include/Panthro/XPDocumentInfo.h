@@ -6,7 +6,7 @@
 //
 //
 
-#import "XPNodeInfo.h"
+#import <Panthro/XPNodeInfo.h>
 
 @protocol XPDocumentInfo <XPNodeInfo>
 

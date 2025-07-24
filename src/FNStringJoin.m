@@ -7,7 +7,7 @@
 //
 
 #import "FNStringJoin.h"
-#import "XPValue.h"
+#import <Panthro/XPValue.h>
 #import "XPStringValue.h"
 #import "XPSequenceValue.h"
 #import "XPSequenceEnumeration.h"

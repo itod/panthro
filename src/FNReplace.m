@@ -7,7 +7,7 @@
 //
 
 #import "FNReplace.h"
-#import "XPValue.h"
+#import <Panthro/XPValue.h>
 #import "XPStringValue.h"
 #import "FNMatches.h"
 #import "XPException.h"

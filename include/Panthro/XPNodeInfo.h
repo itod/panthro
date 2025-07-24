@@ -6,9 +6,9 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "XPItem.h"
-#import "XPUtils.h"
-#import "XPAxis.h"
+#import <Panthro/XPItem.h>
+#import <Panthro/XPUtils.h>
+#import <Panthro/XPAxis.h>
 
 @protocol XPAxisEnumeration;
 @protocol XPDocumentInfo;

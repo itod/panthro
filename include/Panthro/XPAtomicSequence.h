@@ -6,7 +6,7 @@
 //
 //
 
-#import "XPSequenceExtent.h"
+#import <Panthro/XPSequenceExtent.h>
 
 @interface XPAtomicSequence : XPSequenceExtent
 

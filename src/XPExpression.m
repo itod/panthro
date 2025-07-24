@@ -9,7 +9,7 @@
 #import "XPExpression.h"
 #import "XPContext.h"
 #import "XPStaticContext.h"
-#import "XPValue.h"
+#import <Panthro/XPValue.h>
 #import "XPSequenceValue.h"
 #import "XPAtomicSequence.h"
 #import "XPSequenceEnumeration.h"

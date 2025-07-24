@@ -8,7 +8,7 @@
 
 #import "FNLast.h"
 #import "XPContext.h"
-#import "XPValue.h"
+#import <Panthro/XPValue.h>
 #import "XPNumericValue.h"
 
 @interface XPFunction ()

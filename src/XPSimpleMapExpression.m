@@ -7,7 +7,7 @@
 //
 
 #import "XPSimpleMapExpression.h"
-#import "XPValue.h"
+#import <Panthro/XPValue.h>
 #import "XPSequenceEnumeration.h"
 #import "XPSequenceExtent.h"
 #import "XPEmptySequence.h"

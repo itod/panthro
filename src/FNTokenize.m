@@ -8,7 +8,7 @@
 
 #import "FNTokenize.h"
 #import "FNMatches.h"
-#import "XPValue.h"
+#import <Panthro/XPValue.h>
 #import "XPStringValue.h"
 #import "XPException.h"
 #import "XPEmptySequence.h"

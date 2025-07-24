@@ -10,7 +10,7 @@
 #import "XPContext.h"
 #import "XPSequenceEnumeration.h"
 #import "XPCaseClause.h"
-#import "XPValue.h"
+#import <Panthro/XPValue.h>
 #import "XPException.h"
 
 @interface XPSwitchExpression ()

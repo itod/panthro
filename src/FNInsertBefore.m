@@ -7,7 +7,7 @@
 //
 
 #import "FNInsertBefore.h"
-#import "XPValue.h"
+#import <Panthro/XPValue.h>
 #import "XPAtomicSequence.h"
 #import "XPEmptySequence.h"
 #import "XPSequenceEnumeration.h"

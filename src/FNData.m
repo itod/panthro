@@ -7,7 +7,7 @@
 //
 
 #import "FNData.h"
-#import "XPValue.h"
+#import <Panthro/XPValue.h>
 
 @interface XPExpression ()
 @property (nonatomic, retain) NSMutableArray *args;

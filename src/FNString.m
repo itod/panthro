@@ -9,7 +9,7 @@
 #import "FNString.h"
 #import "XPNodeInfo.h"
 #import "XPContext.h"
-#import "XPValue.h"
+#import <Panthro/XPValue.h>
 #import "XPStringValue.h"
 
 @interface XPExpression ()

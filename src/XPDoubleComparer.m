@@ -7,7 +7,7 @@
 //
 
 #import "XPDoubleComparer.h"
-#import "XPValue.h"
+#import <Panthro/XPValue.h>
 
 @implementation XPDoubleComparer
 

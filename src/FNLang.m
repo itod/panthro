@@ -10,7 +10,7 @@
 #import "XPStaticContext.h"
 #import "XPContext.h"
 #import "XPNodeInfo.h"
-#import "XPValue.h"
+#import <Panthro/XPValue.h>
 #import "XPBooleanValue.h"
 
 @interface XPExpression ()

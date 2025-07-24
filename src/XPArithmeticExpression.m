@@ -7,7 +7,7 @@
 //
 
 #import "XPArithmeticExpression.h"
-#import "XPValue.h"
+#import <Panthro/XPValue.h>
 #import "XPNumericValue.h"
 #import "XPException.h"
 #import "XPEGParser.h"

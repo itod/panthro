@@ -6,9 +6,9 @@
 //
 //
 
-#import "XPPattern.h"
-#import "XPContext.h"
-#import "XPUtils.h"
+#import <Panthro/XPPattern.h>
+#import <Panthro/XPContext.h>
+#import <Panthro/XPUtils.h>
 
 @protocol XPNodeInfo;
 

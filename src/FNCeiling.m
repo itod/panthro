@@ -7,7 +7,7 @@
 //
 
 #import "FNCeiling.h"
-#import "XPValue.h"
+#import <Panthro/XPValue.h>
 #import "XPNumericValue.h"
 
 @interface XPFunction ()

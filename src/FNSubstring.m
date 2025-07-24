@@ -7,7 +7,7 @@
 //
 
 #import "FNSubstring.h"
-#import "XPValue.h"
+#import <Panthro/XPValue.h>
 #import "XPStringValue.h"
 
 @interface XPExpression ()

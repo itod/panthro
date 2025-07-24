@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "XPLastPositionFinder.h"
+#import <Panthro/XPLastPositionFinder.h>
 #import <Panthro/XPScope.h>
 
 @protocol XPStaticContext;

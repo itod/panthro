@@ -9,7 +9,7 @@
 #import "FNTail.h"
 #import "XPContext.h"
 #import "XPNodeInfo.h"
-#import "XPValue.h"
+#import <Panthro/XPValue.h>
 #import "XPEmptySequence.h"
 #import "XPSequenceEnumeration.h"
 #import "XPSingletonNodeSet.h"

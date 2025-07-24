@@ -7,7 +7,7 @@
 //
 
 #import "FNCompare.h"
-#import "XPValue.h"
+#import <Panthro/XPValue.h>
 #import "XPNumericValue.h"
 
 @interface XPExpression ()

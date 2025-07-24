@@ -7,7 +7,7 @@
 //
 
 #import "FNAvg.h"
-#import "XPValue.h"
+#import <Panthro/XPValue.h>
 #import "XPNumericValue.h"
 #import "XPSequenceEnumeration.h"
 #import "XPSequenceValue.h"

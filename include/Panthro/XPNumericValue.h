@@ -6,7 +6,7 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "XPValue.h"
+#import <Panthro/XPValue.h>
 
 @interface XPNumericValue : XPValue
 

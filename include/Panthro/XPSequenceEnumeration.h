@@ -6,7 +6,7 @@
 //  Copyright 2009 Todd Ditchendorf. All rights reserved.
 //
 
-#import "XPSequenceEnumeration.h"
+#import <Panthro/XPSequenceEnumeration.h>
 
 @protocol XPItem;
 @protocol XPNodeInfo;
