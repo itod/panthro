@@ -224,6 +224,7 @@
         
     } else {
         [NSException raise:@"InternalError" format:@"Unknown data type in a relational expression"];
+        return NO;
     }
 }
 
@@ -270,7 +271,7 @@
         
     } else {
         [NSException raise:@"InternalError" format:@"Unknown data type in a relational expression"];
-        
+        return NO;
     }
 }
 

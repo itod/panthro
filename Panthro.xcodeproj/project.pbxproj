@@ -607,55 +607,55 @@
 		D339F1EC19279E4600C79A51 /* XPLibxmlDocumentImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = D339F1E819279E4600C79A51 /* XPLibxmlDocumentImpl.m */; };
 		D339F1ED19279E4600C79A51 /* XPLibxmlNodeImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = D339F1E919279E4600C79A51 /* XPLibxmlNodeImpl.h */; };
 		D339F1EE19279E4600C79A51 /* XPLibxmlNodeImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = D339F1EA19279E4600C79A51 /* XPLibxmlNodeImpl.m */; };
-		D339F6121927B66500C79A51 /* buf.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D01927B66500C79A51 /* buf.c */; };
-		D339F6131927B66500C79A51 /* c14n.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D11927B66500C79A51 /* c14n.c */; };
-		D339F6141927B66500C79A51 /* catalog.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D21927B66500C79A51 /* catalog.c */; };
-		D339F6151927B66500C79A51 /* chvalid.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D31927B66500C79A51 /* chvalid.c */; };
-		D339F6161927B66500C79A51 /* debugXML.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D41927B66500C79A51 /* debugXML.c */; };
-		D339F6171927B66500C79A51 /* dict.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D51927B66500C79A51 /* dict.c */; };
-		D339F6181927B66500C79A51 /* encoding.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D61927B66500C79A51 /* encoding.c */; };
-		D339F6191927B66500C79A51 /* entities.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D71927B66500C79A51 /* entities.c */; };
-		D339F61A1927B66500C79A51 /* globals.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D81927B66500C79A51 /* globals.c */; };
-		D339F61B1927B66500C79A51 /* HTMLparser.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D91927B66500C79A51 /* HTMLparser.c */; };
-		D339F61C1927B66500C79A51 /* HTMLtree.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5DA1927B66500C79A51 /* HTMLtree.c */; };
-		D339F61D1927B66500C79A51 /* legacy.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5DB1927B66500C79A51 /* legacy.c */; };
-		D339F61E1927B66500C79A51 /* list.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5DC1927B66500C79A51 /* list.c */; };
-		D339F61F1927B66500C79A51 /* nanoftp.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5DD1927B66500C79A51 /* nanoftp.c */; };
-		D339F6201927B66500C79A51 /* nanohttp.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5DE1927B66500C79A51 /* nanohttp.c */; };
-		D339F6211927B66500C79A51 /* parser.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5DF1927B66500C79A51 /* parser.c */; };
-		D339F6221927B66500C79A51 /* parserInternals.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5E01927B66500C79A51 /* parserInternals.c */; };
-		D339F6231927B66500C79A51 /* pattern.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5E11927B66500C79A51 /* pattern.c */; };
-		D339F6271927B66500C79A51 /* SAX.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5E51927B66500C79A51 /* SAX.c */; };
-		D339F63C1927B66500C79A51 /* tree.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5FA1927B66500C79A51 /* tree.c */; };
-		D339F6401927B66500C79A51 /* uri.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5FE1927B66500C79A51 /* uri.c */; };
-		D339F6411927B66500C79A51 /* valid.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5FF1927B66500C79A51 /* valid.c */; };
-		D339F6421927B66500C79A51 /* xinclude.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6001927B66500C79A51 /* xinclude.c */; };
-		D339F6431927B66500C79A51 /* xlink.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6011927B66500C79A51 /* xlink.c */; };
-		D339F6441927B66500C79A51 /* xmlcatalog.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6021927B66500C79A51 /* xmlcatalog.c */; };
-		D339F6451927B66500C79A51 /* xmlIO.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6031927B66500C79A51 /* xmlIO.c */; };
-		D339F6471927B66500C79A51 /* xmlmemory.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6051927B66500C79A51 /* xmlmemory.c */; };
-		D339F6481927B66500C79A51 /* xmlmodule.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6061927B66500C79A51 /* xmlmodule.c */; };
-		D339F6491927B66500C79A51 /* xmlreader.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6071927B66500C79A51 /* xmlreader.c */; };
-		D339F64A1927B66500C79A51 /* xmlregexp.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6081927B66500C79A51 /* xmlregexp.c */; };
-		D339F64B1927B66500C79A51 /* xmlsave.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6091927B66500C79A51 /* xmlsave.c */; };
-		D339F64C1927B66500C79A51 /* xmlschemas.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F60A1927B66500C79A51 /* xmlschemas.c */; };
-		D339F64D1927B66500C79A51 /* xmlschemastypes.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F60B1927B66500C79A51 /* xmlschemastypes.c */; };
-		D339F64E1927B66500C79A51 /* xmlstring.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F60C1927B66500C79A51 /* xmlstring.c */; };
-		D339F64F1927B66500C79A51 /* xmlunicode.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F60D1927B66500C79A51 /* xmlunicode.c */; };
-		D339F6501927B66500C79A51 /* xmlwriter.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F60E1927B66500C79A51 /* xmlwriter.c */; };
-		D339F6511927B66500C79A51 /* xpath.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F60F1927B66500C79A51 /* xpath.c */; };
-		D339F6521927B66500C79A51 /* xpointer.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6101927B66500C79A51 /* xpointer.c */; };
-		D339F6531927B66500C79A51 /* xzlib.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6111927B66500C79A51 /* xzlib.c */; };
+		D339F6121927B66500C79A51 /* buf.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D01927B66500C79A51 /* buf.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6131927B66500C79A51 /* c14n.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D11927B66500C79A51 /* c14n.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6141927B66500C79A51 /* catalog.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D21927B66500C79A51 /* catalog.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6151927B66500C79A51 /* chvalid.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D31927B66500C79A51 /* chvalid.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6161927B66500C79A51 /* debugXML.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D41927B66500C79A51 /* debugXML.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6171927B66500C79A51 /* dict.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D51927B66500C79A51 /* dict.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6181927B66500C79A51 /* encoding.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D61927B66500C79A51 /* encoding.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6191927B66500C79A51 /* entities.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D71927B66500C79A51 /* entities.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F61A1927B66500C79A51 /* globals.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D81927B66500C79A51 /* globals.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F61B1927B66500C79A51 /* HTMLparser.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5D91927B66500C79A51 /* HTMLparser.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F61C1927B66500C79A51 /* HTMLtree.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5DA1927B66500C79A51 /* HTMLtree.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F61D1927B66500C79A51 /* legacy.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5DB1927B66500C79A51 /* legacy.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F61E1927B66500C79A51 /* list.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5DC1927B66500C79A51 /* list.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F61F1927B66500C79A51 /* nanoftp.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5DD1927B66500C79A51 /* nanoftp.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6201927B66500C79A51 /* nanohttp.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5DE1927B66500C79A51 /* nanohttp.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6211927B66500C79A51 /* parser.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5DF1927B66500C79A51 /* parser.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6221927B66500C79A51 /* parserInternals.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5E01927B66500C79A51 /* parserInternals.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6231927B66500C79A51 /* pattern.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5E11927B66500C79A51 /* pattern.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6271927B66500C79A51 /* SAX.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5E51927B66500C79A51 /* SAX.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F63C1927B66500C79A51 /* tree.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5FA1927B66500C79A51 /* tree.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6401927B66500C79A51 /* uri.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5FE1927B66500C79A51 /* uri.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6411927B66500C79A51 /* valid.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F5FF1927B66500C79A51 /* valid.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6421927B66500C79A51 /* xinclude.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6001927B66500C79A51 /* xinclude.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6431927B66500C79A51 /* xlink.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6011927B66500C79A51 /* xlink.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6441927B66500C79A51 /* xmlcatalog.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6021927B66500C79A51 /* xmlcatalog.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6451927B66500C79A51 /* xmlIO.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6031927B66500C79A51 /* xmlIO.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6471927B66500C79A51 /* xmlmemory.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6051927B66500C79A51 /* xmlmemory.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6481927B66500C79A51 /* xmlmodule.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6061927B66500C79A51 /* xmlmodule.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6491927B66500C79A51 /* xmlreader.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6071927B66500C79A51 /* xmlreader.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F64A1927B66500C79A51 /* xmlregexp.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6081927B66500C79A51 /* xmlregexp.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F64B1927B66500C79A51 /* xmlsave.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6091927B66500C79A51 /* xmlsave.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F64C1927B66500C79A51 /* xmlschemas.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F60A1927B66500C79A51 /* xmlschemas.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F64D1927B66500C79A51 /* xmlschemastypes.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F60B1927B66500C79A51 /* xmlschemastypes.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F64E1927B66500C79A51 /* xmlstring.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F60C1927B66500C79A51 /* xmlstring.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F64F1927B66500C79A51 /* xmlunicode.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F60D1927B66500C79A51 /* xmlunicode.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6501927B66500C79A51 /* xmlwriter.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F60E1927B66500C79A51 /* xmlwriter.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6511927B66500C79A51 /* xpath.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F60F1927B66500C79A51 /* xpath.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6521927B66500C79A51 /* xpointer.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6101927B66500C79A51 /* xpointer.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6531927B66500C79A51 /* xzlib.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6111927B66500C79A51 /* xzlib.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
 		D339F6551927B6CF00C79A51 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D339F6541927B6CF00C79A51 /* libz.dylib */; };
-		D339F6571927B6FE00C79A51 /* threads.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6561927B6FE00C79A51 /* threads.c */; };
-		D339F65B1927B74B00C79A51 /* trio.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6581927B74B00C79A51 /* trio.c */; };
-		D339F65C1927B74B00C79A51 /* trionan.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6591927B74B00C79A51 /* trionan.c */; };
-		D339F65D1927B74B00C79A51 /* triostr.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F65A1927B74B00C79A51 /* triostr.c */; };
-		D339F65F1927B90400C79A51 /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F65E1927B90400C79A51 /* error.c */; };
-		D339F6611927B93700C79A51 /* SAX2.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6601927B93700C79A51 /* SAX2.c */; };
-		D339F6631927B95900C79A51 /* relaxng.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6621927B95900C79A51 /* relaxng.c */; };
-		D339F6651927B96A00C79A51 /* schematron.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6641927B96A00C79A51 /* schematron.c */; };
-		D339F6671927B98D00C79A51 /* hash.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6661927B98D00C79A51 /* hash.c */; };
+		D339F6571927B6FE00C79A51 /* threads.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6561927B6FE00C79A51 /* threads.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F65B1927B74B00C79A51 /* trio.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6581927B74B00C79A51 /* trio.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F65C1927B74B00C79A51 /* trionan.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6591927B74B00C79A51 /* trionan.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F65D1927B74B00C79A51 /* triostr.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F65A1927B74B00C79A51 /* triostr.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F65F1927B90400C79A51 /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F65E1927B90400C79A51 /* error.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6611927B93700C79A51 /* SAX2.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6601927B93700C79A51 /* SAX2.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6631927B95900C79A51 /* relaxng.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6621927B95900C79A51 /* relaxng.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6651927B96A00C79A51 /* schematron.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6641927B96A00C79A51 /* schematron.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
+		D339F6671927B98D00C79A51 /* hash.c in Sources */ = {isa = PBXBuildFile; fileRef = D339F6661927B98D00C79A51 /* hash.c */; settings = {COMPILER_FLAGS = "-Wno-conversion -Wno-enum-compare -Wno-unused-function -Wno-unreachable-code -Wno-empty-body -Wno-address"; }; };
 		D339F6691927B9A700C79A51 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D339F6681927B9A700C79A51 /* libiconv.dylib */; };
 		D339F66C1928EA1100C79A51 /* FNId.h in Headers */ = {isa = PBXBuildFile; fileRef = D339F66A1928EA1100C79A51 /* FNId.h */; };
 		D339F66D1928EA1100C79A51 /* FNId.m in Sources */ = {isa = PBXBuildFile; fileRef = D339F66B1928EA1100C79A51 /* FNId.m */; };
@@ -3500,7 +3500,6 @@
 		1DEB91AE08733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -3538,7 +3537,6 @@
 		1DEB91AF08733DA50010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -3572,6 +3570,7 @@
 		1DEB91B208733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -3596,6 +3595,7 @@
 		1DEB91B308733DA50010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -3618,7 +3618,6 @@
 		D31E3D591F1C0329004BD0C6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -3660,7 +3659,6 @@
 		D31E3D5A1F1C0329004BD0C6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -3697,7 +3695,6 @@
 		D334F4371CE630B8009D9119 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -3745,7 +3742,6 @@
 		D334F4381CE630B8009D9119 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";

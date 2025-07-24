@@ -1,5 +1,5 @@
 //
-//  FNLowercase.h
+//  FNLowerCase.h
 //  Panthro
 //
 //  Created by Todd Ditchendorf on 7/20/09.
