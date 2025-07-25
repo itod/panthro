@@ -848,7 +848,8 @@
             XPNodeTest *nodeTest = [[[XPNodeTypeTest alloc] initWithNodeType:XPNodeTypeNode] autorelease];
             NSUInteger offset = [part offset];
             nodeTest.range = NSMakeRange(offset+2, 0);
-            step = [self stepWithStartOffset:offset maxOffset:NSNotFound axis:XPAxisDescendantOrSelf nodeTest:nodeTest filters:nil];
+            XPAxis axis = _env.reversed ? XPAxisAncestorOrSelf : XPAxisDescendantOrSelf;
+            step = [self stepWithStartOffset:offset maxOffset:NSNotFound axis:axis nodeTest:nodeTest filters:nil];
         } else {
             XPAssertExpr(part);
             step = (id)part;
