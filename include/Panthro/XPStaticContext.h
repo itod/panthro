@@ -26,6 +26,8 @@
 
 @protocol XPStaticContext <XPScope>
 
+- (BOOL)reversed;
+
 - (NSString *)systemId;
 - (NSUInteger)lineNumber;
 - (NSString *)baseURI;

@@ -171,6 +171,16 @@
 }
 
 
+- (XPAxis)defaultAxis {
+    return _env.reversed ? XPAxisParent : XPAxisChild;
+}
+
+
+- (XPAxis)defaultRecursiveAxis {
+    return _env.reversed ? XPAxisAncestorOrSelf : XPAxisDescendantOrSelf;
+}
+
+
 - (void)parser:(PKParser *)p didMatchVarDecl:(PKAssembly *)a {
     XPExpression *expr = [a pop];
     XPAssertExpr(expr);
@@ -1062,7 +1072,7 @@
     XPNodeTest *nodeTest = [a pop];
     XPAssert([nodeTest isKindOfClass:[XPNodeTest class]]);
 
-    XPAxis axis = XPAxisChild;
+    XPAxis axis = self.defaultAxis;
     
     if ([nodeTest isKindOfClass:[XPNameTest class]] && XPNodeTypePI != nodeTest.nodeType) {
         nodeTest.nodeType = XPAxisPrincipalNodeType[axis];
@@ -1083,7 +1093,7 @@
         len = 1;
     } else {
         XPAssert([dotTok.stringValue isEqualToString:@".."]);
-        axis = XPAxisParent;
+        axis = _env.reversed ? XPAxisChild : XPAxisParent;
         len = 2;
     }
     

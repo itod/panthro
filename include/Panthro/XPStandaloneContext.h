@@ -35,6 +35,7 @@
 - (id)execute:(NSString *)xpathStr withContextNode:(id <XPNodeInfo>)ctxNode error:(NSError **)outErr;
 
 @property (nonatomic, assign) id <XPStandaloneContextDelegate>delegate;
+@property (nonatomic, assign) BOOL reversed;
 
 #if PAUSE_ENABLED
 // Debugging

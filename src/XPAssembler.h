@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Panthro/XPAxis.h>
 
 @class PKParser;
 @class PKToken;
@@ -19,4 +20,6 @@
 
 - (instancetype)initWithContext:(id <XPStaticContext>)env;
 
+- (XPAxis)defaultAxis;
+- (XPAxis)defaultRecursiveAxis;
 @end
